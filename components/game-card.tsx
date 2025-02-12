@@ -1,7 +1,6 @@
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardHeader, CardDescription, CardFooter, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 interface GameCardProps {
@@ -13,17 +12,11 @@ interface GameCardProps {
   duration: string
 }
 
-export function GameCard({ title, description, image, slug, difficulty, duration }: GameCardProps) {
+export function GameCard({ title, description, slug, difficulty, duration }: GameCardProps) {
   return (
     <Link href={`/games/${slug}`}>
-      <Card className="overflow-hidden transition-all hover:shadow-lg">
+      <Card className="overflow-hidden transition-all hover:scale-[1.02] shadow-none">
         <div className="relative h-48">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover"
-          />
           <div className="absolute top-2 right-2 flex gap-2">
             <Badge variant={
               difficulty === 'Easy' ? 'default' :

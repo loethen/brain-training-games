@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { inter, outfit } from "./fonts";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
+import { Layout } from "@/components/layout"
 
 export const metadata: Metadata = {
   title: "Focus Games",
@@ -22,14 +21,9 @@ export default function RootLayout({
         inter.variable,
         outfit.variable
       )}>
-        <SidebarProvider>
-          <div className="flex min-h-screen">
-            <AppSidebar />
-            <main className="flex-1 overflow-y-auto bg-white">
-              {children}
-            </main>
-          </div>
-        </SidebarProvider>
+        <Layout>
+          {children}
+        </Layout>
       </body>
     </html>
   );

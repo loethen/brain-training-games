@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Zap } from "lucide-react"
-import { SiteFooter } from "@/components/site-footer"
 import { GameCard } from "@/components/game-card"
 
 export const metadata: Metadata = {
