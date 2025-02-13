@@ -16,7 +16,7 @@ export default function MemoryBlocksPage() {
     <div className="">
       {/* Header Section */}
       <header className="text-center mb-16">
-        <div className="flex gap-2 justify-center mb-4">
+        <div className="flex gap-2 justify-center mb-6">
           <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1 rounded-full">
             Brain Training
           </span>
@@ -27,7 +27,10 @@ export default function MemoryBlocksPage() {
             Working Memory
           </span>
         </div>
-        <h1 className="text-4xl font-bold">Memory Blocks</h1>
+        <h1 className="text-5xl mb-6">Memory Blocks</h1>
+        <p className="text-xl text-muted-foreground">
+          A brain training game to improve spatial memory and concentration
+        </p>
       </header>
 
       {/* Preview and Introduction Section */}
