@@ -61,7 +61,7 @@ export function MemoryBlocksGame() {
 
   async function showPattern(newPattern: number[]) {
     // 按顺序显示每个方块
-    for (let blockId of newPattern) {
+    for (const blockId of newPattern) {
       // 高亮当前方块
       setBlocks(blocks => blocks.map(block => ({
         ...block,
@@ -130,7 +130,7 @@ export function MemoryBlocksGame() {
               className={cn(
                 "aspect-square rounded-lg transition-all duration-300",
                 "disabled:cursor-not-allowed",
-                block.isHighlighted && "bg-black/10 scale-95",
+                block.isHighlighted && "bg-black scale-95",
                 block.isSelected && "bg-green-500 scale-95",
                 block.isError && "bg-red-500 scale-95",
                 !block.isHighlighted && !block.isSelected && !block.isError && "bg-secondary/50 hover:bg-secondary/70"
