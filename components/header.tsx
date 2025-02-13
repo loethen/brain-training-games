@@ -6,7 +6,7 @@ export function Header({ onToggleSidebar }: {
   onToggleSidebar: () => void 
 }) {
   return (
-    <header className="sticky z-50 top-0 bg-white">
+    <header className="sticky z-50 top-0 bg-white/80 backdrop-blur-sm">
       <div className="flex items-center h-16 px-4">
         <div className="flex items-center gap-2">
           <Link href="/">

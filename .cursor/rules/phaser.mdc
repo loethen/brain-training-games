@@ -1,0 +1,7 @@
+---
+description: phaser规则
+globs: 
+---
+
+涉及到phaser游戏框架的代码，需要基于phaser 最新版本开发，目前最新的版本是3.88.0
+
