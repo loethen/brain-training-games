@@ -22,9 +22,9 @@ export function MemoryBlocksGame() {
   const startGame = useCallback(() => {
     setGameState('showing')
     setLevel(1)
-    const newPattern = generatePattern(2) // Start with 2 blocks
+    const newPattern = generatePattern(2)
     setPattern(newPattern)
-    showPattern(newPattern)
+    void showPattern(newPattern)
   }, [])
 
   const handleBlockClick = useCallback((blockId: number) => {
@@ -59,28 +59,43 @@ export function MemoryBlocksGame() {
     }, 1500)
   }
 
+  async function showPattern(newPattern: number[]) {
+    // 按顺序显示每个方块
+    for (let blockId of newPattern) {
+      // 高亮当前方块
+      setBlocks(blocks => blocks.map(block => ({
+        ...block,
+        isHighlighted: block.id === blockId
+      })))
+      
+      // 等待一段时间
+      await new Promise(resolve => setTimeout(resolve, 800))
+      
+      // 取消高亮
+      setBlocks(blocks => blocks.map(block => ({
+        ...block,
+        isHighlighted: false
+      })))
+      
+      // 方块之间的间隔
+      await new Promise(resolve => setTimeout(resolve, 200))
+    }
+    
+    // 所有方块显示完毕，开始猜测阶段
+    resetBlocks()
+    setGameState('guessing')
+    setUserPattern([])
+  }
+
   function handleSuccess() {
     setGameState('complete')
     setTimeout(() => {
       setLevel(level => level + 1)
-      const newPattern = generatePattern(Math.min(level + 3, 9))
+      const newPattern = generatePattern(Math.min(level + 2, 9)) // 每次增加一个方块
       setPattern(newPattern)
       resetBlocks()
-      showPattern(newPattern)
+      void showPattern(newPattern) // 使用 void 操作符处理 Promise
     }, 1000)
-  }
-
-  function showPattern(newPattern: number[]) {
-    setBlocks(blocks => blocks.map(block => ({
-      ...block,
-      isHighlighted: newPattern.includes(block.id)
-    })))
-    
-    setTimeout(() => {
-      resetBlocks()
-      setGameState('guessing')
-      setUserPattern([])
-    }, 1500 + (level * 100))
   }
 
   function resetBlocks() {
@@ -99,8 +114,8 @@ export function MemoryBlocksGame() {
         <div className="flex justify-between items-center">
           <div className="text-lg font-medium">Level: {level}</div>
           <div className="text-sm text-muted-foreground">
-            {gameState === 'showing' ? 'Remember the pattern...' : 
-             gameState === 'guessing' ? 'Recreate the pattern' : ''}
+            {gameState === 'showing' ? 'Watch the sequence...' : 
+             gameState === 'guessing' ? 'Repeat the sequence' : ''}
           </div>
         </div>
       )}
@@ -115,7 +130,7 @@ export function MemoryBlocksGame() {
               className={cn(
                 "aspect-square rounded-lg transition-all duration-300",
                 "disabled:cursor-not-allowed",
-                block.isHighlighted && "bg-primary scale-95",
+                block.isHighlighted && "bg-black/10 scale-95",
                 block.isSelected && "bg-green-500 scale-95",
                 block.isError && "bg-red-500 scale-95",
                 !block.isHighlighted && !block.isSelected && !block.isError && "bg-secondary/50 hover:bg-secondary/70"

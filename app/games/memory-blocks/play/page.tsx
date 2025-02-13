@@ -26,10 +26,8 @@ export default function PlayPage() {
       </div>
 
       {/* Game Container */}
-      <div className="relative">
-        <div className="bg-secondary/10 rounded-xl p-8">
-          <MemoryBlocksGame />
-        </div>
+      <div className="relative rounded-xl p-8">
+        <MemoryBlocksGame />
       </div>
     </div>
   )
