@@ -90,7 +90,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         `}
       >
         <aside className="min-h-[calc(100vh-4rem)]" />
-        <main className="pl-8 pr-8 bg-white">{children}</main>
+        <main className="pl-4 pr-4 md:pl-8 md:pr-8 bg-white">{children}</main>
       </div>
     </div>
   );

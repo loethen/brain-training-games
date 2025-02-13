@@ -4,10 +4,8 @@ export default function GamesLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="container">
-      <div className="py-12">
-        {children}
-      </div>
+    <div className="py-12">
+      {children}
     </div>
   )
 } 
