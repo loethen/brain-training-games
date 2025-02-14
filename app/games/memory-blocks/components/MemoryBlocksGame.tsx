@@ -3,7 +3,8 @@
 import { useState, useCallback, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { PlayCircle, Trophy, Loader2 } from 'lucide-react'
+import { PlayCircle, Trophy, Loader2, Facebook, Linkedin, Link as LinkIcon } from 'lucide-react'
+import { XLogo } from '@/components/ui/XLogo'
 
 interface Block {
   id: number
@@ -24,6 +25,7 @@ export function MemoryBlocksGame() {
   const [gameTime, setGameTime] = useState(0)
   const [showResults, setShowResults] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [showShareModal, setShowShareModal] = useState(false)
 
   // 加载最高分
   useEffect(() => {
@@ -161,6 +163,10 @@ export function MemoryBlocksGame() {
     })))
   }
 
+  const handleShareClick = () => {
+    setShowShareModal(true)
+  }
+
   return (
     <div className="space-y-8">
       {/* Game Status */}
@@ -256,13 +262,7 @@ export function MemoryBlocksGame() {
                 </Button>
                 <Button 
                   variant="outline"
-                  onClick={() => {
-                    navigator.share({
-                      title: 'Memory Blocks Game',
-                      text: `I scored ${score} points in Memory Blocks! Can you beat my score?`,
-                      url: window.location.href
-                    })
-                  }}
+                  onClick={handleShareClick}
                 >
                   Share Score
                 </Button>
@@ -271,6 +271,59 @@ export function MemoryBlocksGame() {
           </div>
         )}
       </div>
+
+      {/* Share Modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+          <div className="bg-background p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h3 className="text-lg font-bold mb-4">Share your score</h3>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                {
+                  name: 'X',
+                  icon: <XLogo className="w-4 h-4" />,
+                  onClick: () => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I scored ${score} points in Memory Blocks! Can you beat my score? 🧠💪\n\nPlay now: ${window.location.href}`)}`, '_blank')
+                },
+                {
+                  name: 'Facebook',
+                  icon: <Facebook className="w-4 h-4" />,
+                  onClick: () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank')
+                },
+                {
+                  name: 'LinkedIn',
+                  icon: <Linkedin className="w-4 h-4" />,
+                  onClick: () => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent('Memory Blocks Game')}`, '_blank')
+                },
+                {
+                  name: 'Copy Link',
+                  icon: <LinkIcon className="w-4 h-4" />,
+                  onClick: () => {
+                    navigator.clipboard.writeText(`I scored ${score} points in Memory Blocks! Can you beat my score? 🧠💪\n\nPlay now: ${window.location.href}`)
+                    alert('Copied to clipboard!')
+                  }
+                }
+              ].map((option) => (
+                <Button
+                  key={option.name}
+                  variant="outline"
+                  className="gap-2"
+                  onClick={option.onClick}
+                >
+                  {option.icon}
+                  {option.name}
+                </Button>
+              ))}
+            </div>
+            <Button
+              variant="ghost"
+              className="w-full mt-4"
+              onClick={() => setShowShareModal(false)}
+            >
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

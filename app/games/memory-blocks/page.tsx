@@ -37,18 +37,7 @@ export default function MemoryBlocksPage() {
 
       {/* 头部信息 */}
       <header className="text-center mb-12">
-        <div className="flex gap-2 justify-center mb-6">
-          <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1 rounded-full">
-            Brain Training
-          </span>
-          <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1 rounded-full">
-            Cognitive Skills
-          </span>
-          <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1 rounded-full">
-            Working Memory
-          </span>
-        </div>
-        <h1 className="text-5xl mb-6">Memory Blocks</h1>
+        <h1 className="text-5xl mb-4">Memory Blocks</h1>
         <p className="text-xl text-muted-foreground">
           A brain training game to improve spatial memory and concentration
         </p>
@@ -122,6 +111,24 @@ export default function MemoryBlocksPage() {
             <summary className="font-semibold cursor-pointer">How often should I practice?</summary>
             <p className="mt-2">For optimal results, we recommend playing 2-3 sessions daily, each lasting about 10-15 minutes. Regular practice helps build and maintain cognitive improvements.</p>
           </details>
+        </div>
+      </section>
+
+      {/* 在页面底部添加标签部分 */}
+      <section className="mt-16 border-t pt-8">
+        <div className="text-center">
+          <h3 className="text-sm text-muted-foreground mb-4">Game Categories</h3>
+          <div className="flex flex-wrap gap-2 justify-center">
+            <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
+              Memory Improvement Games
+            </span>
+            <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
+              Cognitive Enhancement Exercises
+            </span>
+            <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
+              Short-Term Memory Training
+            </span>
+          </div>
         </div>
       </section>
     </div>
