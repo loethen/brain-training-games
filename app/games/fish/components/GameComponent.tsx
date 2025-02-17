@@ -20,7 +20,6 @@ export default function GameComponent() {
                 autoCenter: Phaser.Scale.CENTER_BOTH,
                 width: 1024,
                 height: 768,
-                parent: gameContainerRef.current,
             },
             physics: {
                 default: "arcade",

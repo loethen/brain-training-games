@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function FishPage() {
   return (
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto">
           {/* 面包屑导航 */}
           <nav className="text-sm mb-4" aria-label="Breadcrumb">
               <ol className="flex gap-2 text-muted-foreground">

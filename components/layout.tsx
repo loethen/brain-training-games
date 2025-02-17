@@ -6,12 +6,15 @@ import { useState, useEffect } from "react"
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setIsSidebarOpen(false);
+      setIsMobile(true);
     } else {
       setIsSidebarOpen(true);
+      setIsMobile(false);
     }
   };
 
@@ -102,7 +105,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div
         className="flex"
       >
-        <aside className={`transition-all duration-300 ease-in-out ${isSidebarOpen ? "w-[180px]" : "w-0"}`} />
+        <aside className={`transition-all duration-300 ease-in-out ${(isSidebarOpen && !isMobile) ? "w-[180px]" : "w-0"}`} />
         <main className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-white ${isSidebarOpen ? "w-[calc(100%-180px)]" : "w-full"}`}>{children}</main>
       </div>
     </div>
