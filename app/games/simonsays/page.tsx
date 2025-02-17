@@ -4,16 +4,16 @@ import Link from 'next/link'
 import { MemoryBlocksGame } from './components/MemoryBlocksGame'
 
 export const metadata: Metadata = {
-  title: 'Memory Blocks Game - Free Online Brain Training | YourSite',
-  description: 'Boost your working memory with Memory Blocks! Scientifically-designed spatial memory game improves cognitive skills, focus and mental agility. Track progress and challenge friends!',
+  title: 'Simon Memory Game - Free Online Brain Training | YourSite',
+  description: 'Play the classic Simon memory game online! A digital version of the popular electronic memory game that improves cognitive skills and concentration.',
   keywords: [
-    'memory game online free',
+    'simon game online',
+    'simon says game',
+    'memory sequence game',
+    'pattern memory game',
     'brain training games',
     'cognitive skills improvement',
-    'spatial memory challenge',
     'working memory exercise',
-    'mental focus training',
-    'neuroplasticity games',
     'memory retention practice'
   ].join(', '),
   openGraph: {
@@ -31,15 +31,15 @@ export default function MemoryBlocksPage() {
           <li>/</li>
           <li><Link href="/games" className="hover:text-foreground">Games</Link></li>
           <li>/</li>
-          <li className="text-foreground">Memory Blocks</li>
+          <li className="text-foreground">Simon Says</li>
         </ol>
       </nav>
 
       {/* 头部信息 */}
       <header className="text-center mb-12">
-        <h1 className="text-5xl mb-4">Memory Blocks</h1>
+        <h1 className="text-5xl mb-4">Simon Says Game</h1>
         <p className="text-xl text-muted-foreground">
-          A brain training game to improve spatial memory and concentration
+          A digital version of the classic Simon Says game to improve memory and concentration
         </p>
       </header>
 
@@ -76,40 +76,40 @@ export default function MemoryBlocksPage() {
 
       {/* 游戏特性介绍 */}
       <section className="prose prose-lg mx-auto mb-16">
-        <h2 className="text-3xl font-bold mb-6">Why Play Memory Blocks?</h2>
+        <h2 className="text-3xl font-bold mb-6">Why Play Simon Says?</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-semibold mb-2">🧠 Memory Enhancement</h3>
-            <p>Improve your short-term memory retention through pattern recognition challenges.</p>
+            <p>Train your sequential memory by remembering and repeating increasingly complex patterns.</p>
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-2">🎯 Focus Training</h3>
-            <p>Develop laser-sharp concentration by tracking multiple moving elements.</p>
+            <p>Sharpen your concentration by following and reproducing color and sound sequences.</p>
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-2">📈 Progress Tracking</h3>
-            <p>Monitor your cognitive improvement with detailed performance analytics.</p>
+            <p>Track your high scores and see how your memory capacity improves over time.</p>
           </div>
         </div>
       </section>
 
       {/* 游戏组件 */}
       <section className="bg-muted/50 rounded-xl p-6 mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-center">Play Memory Blocks</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Play Simon Says</h2>
         <MemoryBlocksGame />
       </section>
 
       {/* FAQ部分 */}
       <section className="max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl font-bold mb-6">Memory Blocks FAQ</h2>
+        <h2 className="text-3xl font-bold mb-6">Simon Says FAQ</h2>
         <div className="space-y-4">
           <details className="bg-muted/50 rounded-lg p-4">
-            <summary className="font-semibold cursor-pointer">How does this game improve memory?</summary>
-            <p className="mt-2">Memory Blocks uses spatial pattern recognition exercises that challenge your working memory, helping you improve pattern recognition and spatial awareness skills.</p>
+            <summary className="font-semibold cursor-pointer">How does Simon Says improve memory?</summary>
+            <p className="mt-2">Simon challenges your sequential memory by requiring you to remember and reproduce increasingly complex patterns of colors and sounds, helping strengthen your working memory and pattern recognition abilities.</p>
           </details>
           <details className="bg-muted/50 rounded-lg p-4">
             <summary className="font-semibold cursor-pointer">How often should I practice?</summary>
-            <p className="mt-2">For optimal results, we recommend playing 2-3 sessions daily, each lasting about 10-15 minutes. Regular practice helps build and maintain cognitive improvements.</p>
+            <p className="mt-2">For best results, try playing Simon for 15-20 minutes daily. The game naturally increases in difficulty as you improve, making it an excellent tool for continuous cognitive development.</p>
           </details>
         </div>
       </section>
@@ -120,13 +120,13 @@ export default function MemoryBlocksPage() {
           <h3 className="text-sm text-muted-foreground mb-4">Game Categories</h3>
           <div className="flex flex-wrap gap-2 justify-center">
             <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
-              Memory Improvement Games
+              Simon Says Game
             </span>
             <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
-              Cognitive Enhancement Exercises
+              Color Sequence Game
             </span>
             <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
-              Short-Term Memory Training
+              Pattern Memory Training
             </span>
           </div>
         </div>

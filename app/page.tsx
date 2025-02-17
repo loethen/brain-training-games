@@ -40,18 +40,18 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <GameCard
-            title="Memory Blocks"
-            description="Test your spatial memory"
-            image="/games/memory-blocks.jpg"
-            slug="memory-blocks"
+            title="Simon Says"
+            description="Test your memory and concentration"
+            image="/games/simonsays.jpg"
+            slug="simonsays"
             difficulty="Easy"
             duration="5 min"
           />
           <GameCard
-            title="Pattern Match"
+            title="fish"
             description="Train your attention to detail"
-            image="/games/pattern-match.jpg"
-            slug="pattern-match"
+            image="/games/sunfish.jpg"
+            slug="fish"
             difficulty="Medium"
             duration="10 min"
           />
