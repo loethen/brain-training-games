@@ -18,6 +18,7 @@ export class SunfishScene extends Scene {
     private glowColor: number = GAME_CONFIG.glow.color;
     private glowDuration: number = GAME_CONFIG.timing.glowDuration;
     private gameDuration: number = GAME_CONFIG.timing.gameDuration;
+    private timers: Phaser.Time.TimerEvent[] = [];
 
     constructor() {
         super({ key: 'SunfishScene' });
@@ -126,7 +127,7 @@ export class SunfishScene extends Scene {
             });
         });
 
-        this.time.delayedCall(GAME_CONFIG.timing.moveDelay, () => {
+        const timer = this.time.delayedCall(GAME_CONFIG.timing.moveDelay, () => {
             this.sunfishGroup.children.iterate((child) => {
                 const fish = child as Physics.Arcade.Sprite;
                 fish.setVelocity(
@@ -136,13 +137,24 @@ export class SunfishScene extends Scene {
                 return null;
             });
         });
+        this.timers.push(timer);
     }
 
     randomVelocity(excludeMin: number, excludeMax: number): number {
+        const maxAttempts = 100; // 防止无限循环
+        let attempts = 0;
         let velocity = Phaser.Math.Between(GAME_CONFIG.speeds.min, GAME_CONFIG.speeds.max);
-        while (velocity >= excludeMin && velocity <= excludeMax) {
+        
+        while (velocity >= excludeMin && velocity <= excludeMax && attempts < maxAttempts) {
             velocity = Phaser.Math.Between(GAME_CONFIG.speeds.min, GAME_CONFIG.speeds.max);
+            attempts++;
         }
+        
+        // 如果没找到合适的值，返回一个保底值
+        if (attempts >= maxAttempts) {
+            return excludeMin > 0 ? GAME_CONFIG.speeds.max : GAME_CONFIG.speeds.min;
+        }
+        
         return velocity;
     }
 
@@ -150,7 +162,12 @@ export class SunfishScene extends Scene {
         const selectedFishes: Physics.Arcade.Sprite[] = [];
         const allFishes = fishGroup.getChildren();
 
-        while (selectedFishes.length < count) {
+        // 添加安全检查
+        const availableCount = Math.min(count, allFishes.length);
+        let attempts = 0;
+        const maxAttempts = allFishes.length * 2;
+
+        while (selectedFishes.length < availableCount && attempts < maxAttempts) {
             const randomIndex = Phaser.Math.Between(0, allFishes.length - 1);
             const selectedFish = allFishes[randomIndex] as Physics.Arcade.Sprite;
 
@@ -158,9 +175,16 @@ export class SunfishScene extends Scene {
                 selectedFishes.push(selectedFish);
                 console.log("Randomly selected sunfish index:", randomIndex+1);
 
-                const glow = this.add.graphics({ lineStyle: { width: GAME_CONFIG.glow.lineWidth, color: this.glowColor, alpha: 1 } });
+                const glow = this.add.graphics({ 
+                    lineStyle: { 
+                        width: GAME_CONFIG.glow.lineWidth, 
+                        color: this.glowColor, 
+                        alpha: 1 
+                    } 
+                });
                 this.applyGlowEffect(selectedFish, glow);
             }
+            attempts++;
         }
     }
 
@@ -215,5 +239,10 @@ export class SunfishScene extends Scene {
         glow.clear();
         glow.lineStyle(GAME_CONFIG.glow.lineWidth, this.glowColor, glow.alpha);
         glow.strokeCircle(x, y, GAME_CONFIG.glow.radius.default);
+    }
+
+    shutdown() {
+        this.timers.forEach(timer => timer.destroy());
+        this.timers = [];
     }
 } 

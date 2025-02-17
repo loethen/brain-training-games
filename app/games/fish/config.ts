@@ -31,8 +31,8 @@ export const GAME_CONFIG = {
         }
     },
     assets: {
-        seaBg: "/games/assets/sea/sea_bg9.png",
-        seaBtn: "/games/assets/sea/sea_btn2.png",
+        seaBg: "/games/assets/sea/sea_bg.png",
+        seaBtn: "/games/assets/sea/sea_btn.png",
         bubble: "/games/assets/sea/bubble.png",
         sunfish: {
             path: "/games/assets/sea/sunfish_sprite_3.png",

@@ -7,24 +7,26 @@ import { SunfishScene } from '../scenes/SunfishScene';
 
 export default function GameComponent() {
     const gameRef = useRef<Phaser.Game | null>(null);
+    const gameContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (gameRef.current) return;
 
         const config: Phaser.Types.Core.GameConfig = {
             type: Phaser.AUTO,
+            parent: gameContainerRef.current,
             scale: {
-                mode: Phaser.Scale.RESIZE,
+                mode: Phaser.Scale.EXPAND,
                 autoCenter: Phaser.Scale.CENTER_BOTH,
-                parent: 'game-container',
-                width: '100%',
-                height: '100%'
+                width: 1024,
+                height: 768,
+                parent: gameContainerRef.current,
             },
-            scene: [StartScene, SunfishScene],
             physics: {
                 default: "arcade",
                 arcade: {},
             },
+            scene: [StartScene, SunfishScene],
         };
 
         gameRef.current = new Phaser.Game(config);
@@ -35,5 +37,5 @@ export default function GameComponent() {
         };
     }, []);
 
-    return <div id="game-container" className="w-full h-full" />;
+    return <div ref={gameContainerRef} />;
 } 

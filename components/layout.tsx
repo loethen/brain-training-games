@@ -2,10 +2,29 @@
 
 import Link from "next/link"
 import { Header } from "./header"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setIsSidebarOpen(false);
+    } else {
+      setIsSidebarOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -81,16 +100,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Main content */}
       <div
-        className={`
-          grid transition-all duration-400 ease-in-out
-          ${isSidebarOpen
-            ? "md:grid-cols-[180px_1fr] grid-cols-[0_1fr]"
-            : "grid-cols-[0_1fr]"
-          }
-        `}
+        className="flex"
       >
-        <aside className="min-h-[calc(100vh-4rem)]" />
-        <main className="pl-4 pr-4 md:pl-8 md:pr-8 bg-white">{children}</main>
+        <aside className={`${isSidebarOpen ? "w-[180px]" : "w-0"}`} />
+        <main className={`flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-white ${isSidebarOpen ? "w-[calc(100%-180px)]" : "w-full"}`}>{children}</main>
       </div>
     </div>
   );

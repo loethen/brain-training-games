@@ -44,10 +44,8 @@ export default function FishPage() {
 
       {/* 游戏区域 */}
       <section className="mb-16">
-        <div className="max-w-4xl mx-auto bg-muted/50 rounded-xl p-6">
-          <div className="aspect-[4/3] w-full">
+        <div className="max-w-4xl mx-auto bg-muted/50 rounded-xl aspect-[4/3]">
             <Game />
-          </div>
         </div>
       </section>
 

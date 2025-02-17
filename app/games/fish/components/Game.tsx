@@ -14,8 +14,6 @@ const GameComponent = dynamic(() => import('./GameComponent'), {
 
 export default function Game() {
     return (
-        <div className="w-full h-full">
-            <GameComponent />
-        </div>
+        <GameComponent />
     );
 } 
