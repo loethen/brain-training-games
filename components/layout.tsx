@@ -2,32 +2,49 @@
 
 import Link from "next/link"
 import { Header } from "./header"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const handleResize = () => {
-    if (window.innerWidth < 768) {
-      setIsSidebarOpen(false);
-      setIsMobile(true);
-    } else {
-      setIsSidebarOpen(true);
-      setIsMobile(false);
-    }
-  };
-
   useEffect(() => {
-    handleResize();
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+  
+    const handleMediaChange = (e: MediaQueryListEvent) => {
+      const isDesktop = e.matches;
+      setIsSidebarOpen(isDesktop);
+      setIsMobile(!isDesktop); // 直接取反即可
     };
+
+    // 初始化状态
+    const initialIsDesktop = mediaQuery.matches;
+    setIsSidebarOpen(initialIsDesktop);
+    setIsMobile(!initialIsDesktop);
+
+    mediaQuery.addEventListener('change', handleMediaChange);
+    return () => mediaQuery.removeEventListener('change', handleMediaChange);
   }, []);
+
+  // 在导航链接中添加移动端点击关闭侧边栏的逻辑
+  const navLinkClick = useCallback(() => {
+    if (isMobile) {
+      setIsSidebarOpen(false);
+    }
+  }, [isMobile]);
+
+  // 将NavItem移动到Layout组件内部
+  const NavItem = ({ href, children }: { href: string; children: React.ReactNode }) => (
+    <Link
+      href={href}
+      onClick={navLinkClick}
+      className="block hover:bg-gray-100 p-2 rounded text-black font-semibold relative hover:pl-3 transition-all 
+               after:content-['→'] after:absolute after:right-2 after:top-1/2 after:-translate-y-1/2 
+               after:opacity-0 hover:after:opacity-100 after:transition-opacity"
+    >
+      {children}
+    </Link>
+  );
 
   return (
     <div className="min-h-screen">
@@ -49,55 +66,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         `}
       >
         <nav className="w-full space-y-1 pl-4 text-sm">
-          <Link
-            href="/"
-            className="block hover:bg-gray-100 p-2 rounded text-black font-semibold relative hover:pl-3 transition-all 
-            after:content-['→'] after:absolute after:right-2 after:top-1/2 after:-translate-y-1/2 after:opacity-0 hover:after:opacity-100 after:transition-opacity"
-          >
-            Games
-          </Link>
-          <Link
-            href="/chess"
-            className="block hover:bg-gray-100 p-2 rounded text-black font-semibold relative hover:pl-3 transition-all 
-            after:content-['→'] after:absolute after:right-2 after:top-1/2 after:-translate-y-1/2 after:opacity-0 hover:after:opacity-100 after:transition-opacity"
-          >
-            Chess
-          </Link>
-          <Link
-            href="/sudoku"
-            className="block hover:bg-gray-100 p-2 rounded text-black font-semibold relative hover:pl-3 transition-all 
-            after:content-['→'] after:absolute after:right-2 after:top-1/2 after:-translate-y-1/2 after:opacity-0 hover:after:opacity-100 after:transition-opacity"
-          >
-            Sudoku
-          </Link>
-          <Link
-            href="/crossword"
-            className="block hover:bg-gray-100 p-2 rounded text-black font-semibold relative hover:pl-3 transition-all 
-            after:content-['→'] after:absolute after:right-2 after:top-1/2 after:-translate-y-1/2 after:opacity-0 hover:after:opacity-100 after:transition-opacity"
-          >
-            Crossword
-          </Link>
-          <Link
-            href="/memory"
-            className="block hover:bg-gray-100 p-2 rounded text-black font-semibold relative hover:pl-3 transition-all 
-            after:content-['→'] after:absolute after:right-2 after:top-1/2 after:-translate-y-1/2 after:opacity-0 hover:after:opacity-100 after:transition-opacity"
-          >
-            Memory
-          </Link>
-          <Link
-            href="/puzzle"
-            className="block hover:bg-gray-100 p-2 rounded text-black font-semibold relative hover:pl-3 transition-all 
-            after:content-['→'] after:absolute after:right-2 after:top-1/2 after:-translate-y-1/2 after:opacity-0 hover:after:opacity-100 after:transition-opacity"
-          >
-            Puzzle
-          </Link>
-          <Link
-            href="/about"
-            className="block hover:bg-gray-100 p-2 rounded text-black font-semibold relative hover:pl-3 transition-all 
-            after:content-['→'] after:absolute after:right-2 after:top-1/2 after:-translate-y-1/2 after:opacity-0 hover:after:opacity-100 after:transition-opacity"
-          >
-            About
-          </Link>
+          <NavItem href="/">Games</NavItem>
+          <NavItem href="/chess">Chess</NavItem>
+          <NavItem href="/sudoku">Sudoku</NavItem>
+          <NavItem href="/crossword">Crossword</NavItem>
+          <NavItem href="/memory">Memory</NavItem>
+          <NavItem href="/puzzle">Puzzle</NavItem>
+          <NavItem href="/about">About</NavItem>
         </nav>
       </div>
 
@@ -105,8 +80,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div
         className="flex"
       >
-        <aside className={`transition-all duration-300 ease-in-out ${(isSidebarOpen && !isMobile) ? "w-[180px]" : "w-0"}`} />
-        <main className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-white ${isSidebarOpen ? "w-[calc(100%-180px)]" : "w-full"}`}>{children}</main>
+        <aside className={`transition-all duration-300 ease-in-out ${
+          isSidebarOpen ? (isMobile ? "w-0" : "w-[180px]") : "w-0"
+        }`} />
+        <main className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-white ${
+          isSidebarOpen && !isMobile ? "md:w-[calc(100%-180px)]" : "w-full"
+        }`}>{children}</main>
       </div>
     </div>
   );
