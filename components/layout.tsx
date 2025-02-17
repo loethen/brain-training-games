@@ -102,8 +102,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div
         className="flex"
       >
-        <aside className={`${isSidebarOpen ? "w-[180px]" : "w-0"}`} />
-        <main className={`flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-white ${isSidebarOpen ? "w-[calc(100%-180px)]" : "w-full"}`}>{children}</main>
+        <aside className={`transition-all duration-300 ease-in-out ${isSidebarOpen ? "w-[180px]" : "w-0"}`} />
+        <main className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-white ${isSidebarOpen ? "w-[calc(100%-180px)]" : "w-full"}`}>{children}</main>
       </div>
     </div>
   );
