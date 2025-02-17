@@ -1,7 +1,8 @@
 import { Metadata } from 'next'
 import { GamePreview } from './components/GamePreview'
-import Link from 'next/link'
 import { MemoryBlocksGame } from './components/MemoryBlocksGame'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
   title: 'Simon Memory Game - Free Online Brain Training | YourSite',
@@ -24,24 +25,11 @@ export const metadata: Metadata = {
 export default function MemoryBlocksPage() {
   return (
     <div className="max-w-7xl mx-auto">
-      {/* 面包屑导航 */}
-      <nav className="text-sm mb-4" aria-label="Breadcrumb">
-        <ol className="flex gap-2 text-muted-foreground">
-          <li><Link href="/" className="hover:text-foreground">Home</Link></li>
-          <li>/</li>
-          <li><Link href="/games" className="hover:text-foreground">Games</Link></li>
-          <li>/</li>
-          <li className="text-foreground">Simon Says</li>
-        </ol>
-      </nav>
-
-      {/* 头部信息 */}
-      <header className="text-center mb-12">
-        <h1 className="text-5xl mb-4">Simon Says Game</h1>
-        <p className="text-xl text-muted-foreground">
-          A digital version of the classic Simon Says game to improve memory and concentration
-        </p>
-      </header>
+      <Breadcrumbs currentPage="Simon Says" />
+      <GameHeader 
+        title="Simon Says Game" 
+        subtitle="A digital version of the classic Simon Says game to improve memory and concentration" 
+      />
 
       {/* 游戏预览和规则说明 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">

@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
 import Game from './components/Game'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
   title: 'Focus Fish - Fun Concentration Training Game | YourSite',
@@ -23,33 +24,11 @@ export const metadata: Metadata = {
 export default function FishPage() {
   return (
       <div className="max-w-7xl mx-auto">
-          {/* 面包屑导航 */}
-          <nav className="text-sm mb-4" aria-label="Breadcrumb">
-              <ol className="flex gap-2 text-muted-foreground">
-                  <li>
-                      <Link href="/" className="hover:text-foreground">
-                          Home
-                      </Link>
-                  </li>
-                  <li>/</li>
-                  <li>
-                      <Link href="/games" className="hover:text-foreground">
-                          Games
-                      </Link>
-                  </li>
-                  <li>/</li>
-                  <li className="text-foreground">Focus Fish</li>
-              </ol>
-          </nav>
-
-          {/* 头部信息 */}
-          <header className="text-center mb-12">
-              <h1 className="text-5xl mb-4">Focus Fish Game</h1>
-              <p className="text-xl text-muted-foreground">
-                  Track moving fish and identify the glowing ones to enhance
-                  your concentration
-              </p>
-          </header>
+          <Breadcrumbs currentPage="Fish Game" />
+          <GameHeader 
+            title="Underwater Adventure" 
+            subtitle="Explore the ocean depths and discover marine life" 
+          />
 
           {/* 游戏区域 */}
           <section className="mb-16">
