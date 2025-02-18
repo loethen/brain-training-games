@@ -41,11 +41,13 @@ export default function FishPage() {
           <section className="max-w-3xl mx-auto mb-16 space-y-6">
               <div className="p-6 rounded-lg bg-muted/50">
                   <h3 className="text-xl font-semibold mb-3">🎯 How to Play</h3>
-                  <p className="text-lg text-muted-foreground">
-                      Focus on the swimming fish and identify which ones glow.
-                      The game challenges your attention span and visual
-                      tracking abilities!
-                  </p>
+                  <div className="space-y-3 text-lg text-muted-foreground">
+                      <p>🐠 Watch the glowing fish carefully</p>
+                      <p>👀 Keep tracking them when the glow fades</p>
+                      <p>🎯 Click on the correct fish to score</p>
+                      <p>⭐ Complete levels to increase difficulty</p>
+                      <p className="mt-4 italic">Click the button to start!</p>
+                  </div>
               </div>
           </section>
 

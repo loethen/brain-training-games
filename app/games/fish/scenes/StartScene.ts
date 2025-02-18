@@ -38,23 +38,11 @@ export class StartScene extends Scene {
         }
 
         btn.setInteractive();
-
         btn.on('pointerup', () => {
             transition(() => {
                 this.startGame();
             })
         });
-
-        const keyboard = this.input.keyboard;
-        if (keyboard) {
-            keyboard.on('keydown', (event: KeyboardEvent) => {
-                if (event.code === 'Space' || event.code === "Enter"){
-                    transition(() => {
-                        this.startGame();
-                    })
-                }
-            });
-        }
     }
 
     startGame() {
