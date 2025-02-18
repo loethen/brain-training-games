@@ -495,7 +495,6 @@ export class SunfishScene extends Scene {
             GAME_CONFIG.messages.nextLevel.replace('{level}', (this.state.level + 1).toString()),
             {
                 fontSize: '32px',
-                fontWeight: 'bold',
                 backgroundColor: '#4CAF50',
                 padding: { x: 40, y: 20 },
                 color: '#ffffff',
