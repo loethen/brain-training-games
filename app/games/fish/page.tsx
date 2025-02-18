@@ -47,6 +47,16 @@ export default function FishPage() {
                       <p>🎯 Click on the correct fish to score</p>
                       <p>⭐ Complete levels to increase difficulty</p>
                       <p className="mt-4 italic">Click the button to start!</p>
+                      
+                      <div className="mt-6 pt-4 border-t border-muted-foreground/20">
+                          <p className="font-semibold mb-2">📈 Scoring Rules:</p>
+                          <ul className="list-disc pl-5 space-y-2">
+                              <li>Each level completed: Level × 100 points</li>
+                              <li>Wrong selection: Game Over</li>
+                              <li>Higher levels have more fish to track</li>
+                              <li>Try to achieve the highest score!</li>
+                          </ul>
+                      </div>
                   </div>
               </div>
           </section>
