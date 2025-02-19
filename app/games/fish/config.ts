@@ -47,6 +47,9 @@ export const GAME_CONFIG = {
         ui: {
             nextLevelBtn: "/games/assets/ui/next_level_btn.png",
             tryAgainBtn: "/games/assets/ui/try_again_btn.png"
+        },
+        audio: {
+            bgm: "/games/assets/audios/bubble.wav"
         }
     },
     difficulty: {

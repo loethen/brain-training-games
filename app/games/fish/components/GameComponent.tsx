@@ -16,6 +16,8 @@ export default function GameComponent() {
         const config: Phaser.Types.Core.GameConfig = {
             type: Phaser.AUTO,
             parent: gameContainerRef.current,
+            backgroundColor: 'transparent',
+            transparent: true,
             scale: {
                 mode: Phaser.Scale.FIT,
                 autoCenter: Phaser.Scale.CENTER_BOTH,

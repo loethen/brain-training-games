@@ -29,6 +29,8 @@ export class SunfishScene extends Scene {
     private timers: Phaser.Time.TimerEvent[] = [];
     private state!: GameState;
     private messageText!: Phaser.GameObjects.Text;
+    private bgMusic!: Phaser.Sound.BaseSound;
+    private isMuted: boolean = false;
 
     constructor() {
         super({ key: 'SunfishScene' });
@@ -65,6 +67,7 @@ export class SunfishScene extends Scene {
         });
         this.load.image('next_level_btn', GAME_CONFIG.assets.ui.nextLevelBtn);
         this.load.image('try_again_btn', GAME_CONFIG.assets.ui.tryAgainBtn);
+        this.load.audio('bgm', GAME_CONFIG.assets.audio.bgm);
     }
 
     create() {
@@ -124,6 +127,72 @@ export class SunfishScene extends Scene {
         // 添加轻微发光效果使文字更清晰
         this.messageText.setStroke('#000000', 2);
         this.messageText.setShadow(1, 1, '#000000', 2, true, true);
+
+        // 添加音乐控制按钮
+        const soundButton = this.add.container(width - 50, 50);
+        
+        // 创建圆形背景
+        const circle = this.add.graphics();
+        circle.fillStyle(0x000000, 0.6);
+        circle.lineStyle(2, 0x333333);
+        circle.fillCircle(0, 0, 20);
+        circle.strokeCircle(0, 0, 20);
+        
+        // 创建音频图标
+        const icon = this.add.graphics();
+        
+        // 从 localStorage 读取音频状态
+        this.isMuted = localStorage.getItem('fishGameMuted') === 'true';
+        this.drawSoundIcon(icon, this.isMuted);
+        
+        soundButton.add([circle, icon]);
+        soundButton.setInteractive(
+            new Phaser.Geom.Circle(0, 0, 20),
+            Phaser.Geom.Circle.Contains
+        );
+
+        // 添加悬停效果
+        soundButton.on('pointerover', () => {
+            circle.clear();
+            circle.fillStyle(0x000000, 0.8);
+            circle.lineStyle(2, 0x333333);
+            circle.fillCircle(0, 0, 20);
+            circle.strokeCircle(0, 0, 20);
+        });
+
+        soundButton.on('pointerout', () => {
+            circle.clear();
+            circle.fillStyle(0x000000, 0.6);
+            circle.lineStyle(2, 0x333333);
+            circle.fillCircle(0, 0, 20);
+            circle.strokeCircle(0, 0, 20);
+        });
+
+        // 播放背景音乐
+        this.bgMusic = this.sound.add('bgm', {
+            volume: 0.5,
+            loop: true
+        });
+        
+        // 根据保存的状态设置初始音频状态
+        if (!this.isMuted) {
+            this.bgMusic.play();
+        }
+
+        // 点击切换音乐状态
+        soundButton.on('pointerdown', () => {
+            this.isMuted = !this.isMuted;
+            // 保存音频状态到 localStorage
+            localStorage.setItem('fishGameMuted', this.isMuted.toString());
+            
+            if (this.isMuted) {
+                this.bgMusic.pause();
+            } else {
+                this.bgMusic.resume();
+            }
+            icon.clear();
+            this.drawSoundIcon(icon, this.isMuted);
+        });
 
         this.createSunfishes();
         this.startWatchingPhase();
@@ -301,6 +370,11 @@ export class SunfishScene extends Scene {
     shutdown() {
         this.timers.forEach(timer => timer.destroy());
         this.timers = [];
+        // 清理音频资源
+        if (this.bgMusic) {
+            this.bgMusic.stop();
+            this.bgMusic.destroy();
+        }
     }
 
     startWatchingPhase() {
@@ -704,5 +778,41 @@ export class SunfishScene extends Scene {
             textHeight + padding.y * 2,
             cornerRadius
         );
+    }
+
+    // 绘制声音图标的方法
+    private drawSoundIcon(graphics: Phaser.GameObjects.Graphics, muted: boolean) {
+        graphics.lineStyle(2, 0xFFFFFF);
+        
+        // 绘制扬声器图标
+        graphics.beginPath();
+        graphics.moveTo(-5, -3);
+        graphics.lineTo(-10, -3);
+        graphics.lineTo(-10, 3);
+        graphics.lineTo(-5, 3);
+        graphics.lineTo(0, 8);
+        graphics.lineTo(0, -8);
+        graphics.lineTo(-5, -3);
+        graphics.closePath();
+        graphics.strokePath();
+        
+        if (!muted) {
+            // 绘制音波
+            graphics.beginPath();
+            graphics.arc(3, 0, 5, -Math.PI/3, Math.PI/3);
+            graphics.strokePath();
+            
+            graphics.beginPath();
+            graphics.arc(3, 0, 8, -Math.PI/3, Math.PI/3);
+            graphics.strokePath();
+        } else {
+            // 绘制禁音叉号
+            graphics.beginPath();
+            graphics.moveTo(5, -8);
+            graphics.lineTo(12, -1);
+            graphics.moveTo(5, -1);
+            graphics.lineTo(12, -8);
+            graphics.strokePath();
+        }
     }
 } 
