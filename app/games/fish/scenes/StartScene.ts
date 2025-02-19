@@ -2,6 +2,9 @@ import { Scene } from 'phaser';
 import { GAME_CONFIG } from '../config';
 
 export class StartScene extends Scene {
+    private canFullscreen: boolean = false;
+    private isMobile: boolean = false;
+
     constructor() {
         super({ key: 'StartScene' });
     }
@@ -9,17 +12,20 @@ export class StartScene extends Scene {
     preload() {
         this.load.image("sea", GAME_CONFIG.assets.seaBg);
         this.load.image("sea_btn", GAME_CONFIG.assets.seaBtn);
+        
+        this.canFullscreen = this.scale.fullscreen.available;
+        this.isMobile = this.sys.game.device.os.iPhone || 
+                        this.sys.game.device.os.android || 
+                        this.sys.game.device.os.iPad;
     }
 
     create() {
         const width = this.scale.width;
         const height = this.scale.height;
         
-        // 背景自适应
         this.add.image(width/2, height/2, "sea")
             .setDisplaySize(width, height);
 
-        // 按钮大小自适应
         const btnScale = Math.min(width, height) * 0.001;
         const btn = this.add.image(width/2, height/2, "sea_btn")
             .setScale(btnScale);
@@ -34,14 +40,18 @@ export class StartScene extends Scene {
                 onComplete: () => {
                     if (cb) cb();
                 }
-            })
+            });
         }
 
         btn.setInteractive();
         btn.on('pointerup', () => {
+            if (this.canFullscreen && this.isMobile) {
+                this.scale.startFullscreen();
+            }
+            
             transition(() => {
                 this.startGame();
-            })
+            });
         });
     }
 
