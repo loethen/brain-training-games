@@ -21,7 +21,6 @@ export default function GameComponent() {
                 autoCenter: Phaser.Scale.CENTER_BOTH,
                 width: 1024,
                 height: 768,
-                orientation: Phaser.Scale.LANDSCAPE,
                 expandParent: false,
                 fullscreenTarget: gameContainerRef.current
             },
