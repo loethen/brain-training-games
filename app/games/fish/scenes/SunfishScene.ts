@@ -63,6 +63,8 @@ export class SunfishScene extends Scene {
             frameWidth: GAME_CONFIG.assets.sunfish.frameWidth,
             frameHeight: GAME_CONFIG.assets.sunfish.frameHeight,
         });
+        this.load.image('next_level_btn', GAME_CONFIG.assets.ui.nextLevelBtn);
+        this.load.image('try_again_btn', GAME_CONFIG.assets.ui.tryAgainBtn);
     }
 
     create() {
@@ -79,18 +81,49 @@ export class SunfishScene extends Scene {
             repeat: -1,
         });
 
-        // 添加提示文本
+        // 添加提示文本背景
+        const padding = { x: 20, y: 10 };
+        const messageY = 50;
+        
+        const messageBg = this.add.graphics();
+        messageBg.fillStyle(0x000000, 0.8);  // 半透明黑色背景
+        messageBg.lineStyle(2, 0x333333);    // 添加细边框提升质感
+        
+        // 创建文本
         this.messageText = this.add.text(
             this.scale.width / 2,
-            50,
+            messageY,
             GAME_CONFIG.messages.start,
             {
                 fontSize: '24px',
-                color: '#ffffff',
-                backgroundColor: '#000000',
-                padding: { x: 10, y: 5 },
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                color: '#FFFFFF',
+                padding: padding,
+                resolution: 2,           // 提高文字渲染分辨率
+                align: 'center',
             }
         ).setOrigin(0.5, 0.5);
+        
+        // 根据文本宽度绘制圆角背景
+        const textWidth = this.messageText.width;
+        const textHeight = this.messageText.height;
+        const cornerRadius = 16;
+        
+        messageBg.fillRoundedRect(
+            this.scale.width/2 - textWidth/2 - padding.x,
+            messageY - textHeight/2 - padding.y,
+            textWidth + padding.x * 2,
+            textHeight + padding.y * 2,
+            cornerRadius
+        );
+        
+        // 确保背景在文本下方
+        messageBg.setDepth(this.messageText.depth - 1);
+
+        // 添加轻微发光效果使文字更清晰
+        this.messageText.setStroke('#000000', 2);
+        this.messageText.setShadow(1, 1, '#000000', 2, true, true);
 
         this.createSunfishes();
         this.startWatchingPhase();
@@ -482,34 +515,150 @@ export class SunfishScene extends Scene {
         });
     }
 
+    createGameButton(x: number, y: number, text: string) {
+        const buttonWidth = 240;
+        const buttonHeight = 70;
+        
+        const graphics = this.add.graphics();
+        const mainColor = 0xFFA666;     // 主体橙色
+        const shadowColor = 0xC4783D;   // 底部深橙色阴影
+        const highlightColor = 0xFFD0A3; // 顶部高光色
+        
+        // 创建绘制按钮的函数，方便后续重绘
+        const drawButton = () => {
+            graphics.clear();  // 清除之前的绘制
+            
+            // 绘制底部阴影
+            graphics.fillStyle(shadowColor);
+            graphics.fillRoundedRect(
+                -buttonWidth/2, 
+                -buttonHeight/2 + 4, 
+                buttonWidth, 
+                buttonHeight, 
+                25
+            );
+            
+            // 绘制按钮主体
+            graphics.fillStyle(mainColor);
+            graphics.fillRoundedRect(
+                -buttonWidth/2, 
+                -buttonHeight/2, 
+                buttonWidth, 
+                buttonHeight - 4, 
+                25
+            );
+            
+            // 添加顶部高光渐变
+            graphics.fillStyle(highlightColor, 0.5);
+            graphics.fillRoundedRect(
+                -buttonWidth/2, 
+                -buttonHeight/2, 
+                buttonWidth, 
+                buttonHeight/3, 
+                { tl: 25, tr: 25, bl: 0, br: 0 }
+            );
+        };
+        
+        // 初始绘制
+        drawButton();
+        
+        // 添加文本
+        const buttonText = this.add.text(0, -2, text, {
+            fontSize: '32px',
+            fontFamily: 'Arial',
+            fontStyle: 'bold',
+            color: '#FFFFFF',
+            stroke: '#C4783D',
+            strokeThickness: 6,
+        }).setOrigin(0.5);
+        
+        // 创建容器并设置位置
+        const container = this.add.container(x, y, [graphics, buttonText]);
+        
+        // 添加交互区域
+        const hitArea = new Phaser.Geom.Rectangle(
+            -buttonWidth/2, 
+            -buttonHeight/2, 
+            buttonWidth, 
+            buttonHeight
+        );
+        container.setInteractive(hitArea, Phaser.Geom.Rectangle.Contains);
+        
+        // 添加交互效果
+        let isPointerDown = false;
+        
+        container.on('pointerover', () => {
+            if (!isPointerDown) {
+                // 悬停效果：按钮轻微上浮并放大
+                this.tweens.add({
+                    targets: container,
+                    y: y - 2,
+                    scaleX: 1.02,
+                    scaleY: 1.02,
+                    duration: 100,
+                    ease: 'Cubic.easeOut'
+                });
+            }
+        });
+        
+        container.on('pointerout', () => {
+            if (!isPointerDown) {
+                // 恢复原始状态
+                this.tweens.add({
+                    targets: container,
+                    y: y,
+                    scaleX: 1,
+                    scaleY: 1,
+                    duration: 100,
+                    ease: 'Cubic.easeOut'
+                });
+            }
+        });
+        
+        container.on('pointerdown', () => {
+            isPointerDown = true;
+            
+            // 按下效果：按钮轻微压扁并下沉
+            this.tweens.add({
+                targets: container,
+                y: y + 2,
+                scaleX: 1.03,
+                scaleY: 0.97,
+                duration: 50,
+                ease: 'Cubic.easeOut'
+            });
+        });
+        
+        container.on('pointerup', () => {
+            isPointerDown = false;
+            
+            // 弹起效果：恢复原状
+            this.tweens.add({
+                targets: container,
+                y: y,
+                scaleX: 1,
+                scaleY: 1,
+                duration: 100,
+                ease: 'Back.easeOut'
+            });
+        });
+        
+        return container;
+    }
+
     handleSuccess() {
         this.state.score += this.state.level * 100;
         this.messageText.setText(
             GAME_CONFIG.messages.success.replace('{level}', this.state.level.toString())
         );
         
-        // 显示下一关按钮
-        this.add.text(
+        const nextBtn = this.createGameButton(
             this.scale.width / 2,
             this.scale.height / 2,
-            GAME_CONFIG.messages.nextLevel.replace('{level}', (this.state.level + 1).toString()),
-            {
-                fontSize: '32px',
-                backgroundColor: '#4CAF50',
-                padding: { x: 40, y: 20 },
-                color: '#ffffff',
-                shadow: { color: '#000000', blur: 5, fill: true },
-            }
-        )
-        .setInteractive({ cursor: 'pointer' })
-        .setOrigin(0.5)
-        .on('pointerover', function(this: Phaser.GameObjects.Text) {
-            this.setScale(1.1);
-        })
-        .on('pointerout', function(this: Phaser.GameObjects.Text) {
-            this.setScale(1);
-        })
-        .on('pointerdown', () => {
+            'NEXT LEVEL'
+        );
+        
+        nextBtn.on('pointerup', () => {
             this.scene.restart({
                 level: this.state.level + 1,
                 score: this.state.score
@@ -520,29 +669,40 @@ export class SunfishScene extends Scene {
     handleGameOver() {
         this.messageText.setText(GAME_CONFIG.messages.fail + this.state.score);
         
-        // 添加重新开始按钮
-        this.add.text(
+        const tryAgainBtn = this.createGameButton(
             this.scale.width / 2,
             this.scale.height / 2,
-            'Try Again',
-            {
-                fontSize: '32px',
-                backgroundColor: '#f44336',
-                padding: { x: 40, y: 20 },
-                color: '#ffffff',
-                shadow: { color: '#000000', blur: 5, fill: true },
-            }
-        )
-        .setInteractive({ cursor: 'pointer' })
-        .setOrigin(0.5)
-        .on('pointerover', function(this: Phaser.GameObjects.Text) {
-            this.setScale(1.1);
-        })
-        .on('pointerout', function(this: Phaser.GameObjects.Text) {
-            this.setScale(1);
-        })
-        .on('pointerdown', () => {
+            'TRY AGAIN'
+        );
+        
+        tryAgainBtn.on('pointerup', () => {
             this.scene.restart({ level: 1, score: 0 });
         });
+    }
+
+    // 更新消息文本的方法
+    setText(message: string) {
+        // 更新文本内容
+        this.messageText.setText(message);
+        
+        // 重新计算背景大小
+        const padding = { x: 20, y: 10 };
+        const textWidth = this.messageText.width;
+        const textHeight = this.messageText.height;
+        const cornerRadius = 16;
+        const messageY = 50;
+        
+        // 清除并重绘背景
+        const messageBg = this.children.getByDepth(this.messageText.depth - 1) as Phaser.GameObjects.Graphics;
+        messageBg.clear();
+        messageBg.fillStyle(0x000000, 0.8);
+        messageBg.lineStyle(2, 0x333333);
+        messageBg.fillRoundedRect(
+            this.scale.width/2 - textWidth/2 - padding.x,
+            messageY - textHeight/2 - padding.y,
+            textWidth + padding.x * 2,
+            textHeight + padding.y * 2,
+            cornerRadius
+        );
     }
 } 

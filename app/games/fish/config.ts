@@ -43,6 +43,10 @@ export const GAME_CONFIG = {
             frameHeight: 81,
             frameRate: 6,
             frames: { start: 0, end: 2 }
+        },
+        ui: {
+            nextLevelBtn: "/games/assets/ui/next_level_btn.png",
+            tryAgainBtn: "/games/assets/ui/try_again_btn.png"
         }
     },
     difficulty: {
