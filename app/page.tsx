@@ -56,10 +56,10 @@ export default function Home() {
             duration="10 min"
           />
           <GameCard
-            title="Speed Focus"
+            title="frog"
             description="Enhance your reaction time"
             image="/games/speed-focus.jpg"
-            slug="speed-focus"
+            slug="frog"
             difficulty="Hard"
             duration="15 min"
           />
