@@ -71,7 +71,7 @@ export default function SchultePage() {
       </div>
 
       {/* Game component */}
-      <section className="bg-muted rounded-xl p-6 mb-16">
+      <section className="bg-muted rounded-xl px-8 py-16 mb-16">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Play Schulte Table
         </h2>
