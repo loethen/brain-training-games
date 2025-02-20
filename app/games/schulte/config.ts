@@ -8,8 +8,7 @@ export const GAME_CONFIG = {
   },
   scoring: {
     base: 1000,
-    timeMultiplier: 15,
-    perfectBonus: 500
+    timeMultiplier: 15
   },
   messages: {
     start: "Find numbers in sequence, starting from 1",
