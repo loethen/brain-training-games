@@ -41,12 +41,11 @@ export function SchulteGame() {
     let intervalId: NodeJS.Timeout
     
     if (gameState === 'playing') {
+      setCurrentTime(0) // 只在开始游戏时重置计时器
       intervalId = setInterval(() => {
         const elapsed = (Date.now() - startTime) / 1000
         setCurrentTime(elapsed)
       }, 100)
-    } else {
-      setCurrentTime(0)
     }
 
     return () => {
