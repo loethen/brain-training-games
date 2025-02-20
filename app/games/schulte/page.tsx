@@ -1,0 +1,161 @@
+import { Metadata } from 'next'
+import { GamePreview } from './components/GamePreview'
+import { SchulteGame } from './components/SchulteGame'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { GameHeader } from '@/components/GameHeader'
+
+export const metadata: Metadata = {
+  title: 'Schulte Grid - Attention Training Game | YourSite',
+  description: 'Train your attention and peripheral vision with the Schulte Grid game. Find numbers in sequence as fast as you can!',
+  keywords: [
+    'schulte grid',
+    'attention training',
+    'peripheral vision',
+    'cognitive training',
+    'brain games',
+    'focus training',
+    'visual search',
+    'speed reading'
+  ].join(', '),
+  openGraph: {
+    images: [{ url: '/og/schulte-grid.jpg', width: 1200, height: 630 }]
+  }
+}
+
+export default function SchultePage() {
+  return (
+    <div className="max-w-7xl mx-auto">
+      <Breadcrumbs currentPage="Schulte Grid" />
+      <GameHeader
+        title="Schulte Grid"
+        subtitle="Enhance your attention and peripheral vision"
+      />
+
+      {/* Game preview and rules */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <GamePreview />
+
+        <div className="space-y-6">
+          <div className="p-6 rounded-lg">
+            <h3 className="text-xl font-semibold mb-3">
+              🎯 How to Play
+            </h3>
+            <p className="text-lg text-muted-foreground">
+              Find and click numbers in ascending order (1-25) as quickly as possible. 
+              Try to use your peripheral vision instead of scanning each number!
+            </p>
+          </div>
+
+          <div className="p-6 rounded-lg">
+            <h3 className="text-xl font-semibold mb-3">
+              💯 Scoring System
+            </h3>
+            <ul className="space-y-2 text-muted-foreground">
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Base Score: Time-based scoring</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Speed Bonus: Complete under target time</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Streak Bonus: Complete multiple grids</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Game component */}
+      <section className="bg-muted/50 rounded-xl p-6 mb-16">
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          Play Schulte Grid
+        </h2>
+        <SchulteGame />
+      </section>
+
+      {/* Benefits section */}
+      <section className="prose prose-lg mx-auto mb-16">
+        <h2 className="text-3xl font-bold mb-6">Benefits of Schulte Grid</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              👁️ Visual Processing
+            </h3>
+            <p>
+              Improve your ability to quickly process visual information
+              and expand your field of vision.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              🎯 Focus Training
+            </h3>
+            <p>
+              Enhance concentration and attention span through
+              systematic visual search exercises.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              📚 Reading Speed
+            </h3>
+            <p>
+              Develop faster reading skills by training your eyes to
+              capture more information at once.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ section */}
+      <section className="max-w-3xl mx-auto mb-16">
+        <h2 className="text-3xl font-bold mb-6">Schulte Grid FAQ</h2>
+        <div className="space-y-4">
+          <details className="bg-muted/50 rounded-lg p-4">
+            <summary className="font-semibold cursor-pointer">
+              How does Schulte Grid improve attention?
+            </summary>
+            <p className="mt-2">
+              The Schulte Grid trains your brain to process visual information more
+              efficiently by forcing you to maintain focus while using peripheral
+              vision to locate numbers quickly.
+            </p>
+          </details>
+          <details className="bg-muted/50 rounded-lg p-4">
+            <summary className="font-semibold cursor-pointer">
+              What is the best way to practice?
+            </summary>
+            <p className="mt-2">
+              Try to keep your eyes fixed on the center of the grid and use your
+              peripheral vision to spot numbers. Practice daily for 10-15 minutes
+              for best results.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      {/* Tags section */}
+      <section className="mt-16 border-t pt-8">
+        <div className="text-center">
+          <h3 className="text-sm text-muted-foreground mb-4">
+            Game Categories
+          </h3>
+          <div className="flex flex-wrap gap-2 justify-center">
+            <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
+              Attention Training
+            </span>
+            <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
+              Visual Processing
+            </span>
+            <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
+              Speed Reading
+            </span>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+} 

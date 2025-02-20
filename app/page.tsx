@@ -63,6 +63,14 @@ export default function Home() {
             difficulty="Hard"
             duration="15 min"
           />
+          <GameCard
+            title="schulte"
+            description="Enhance your reaction time"
+            image="/games/speed-focus.jpg"
+            slug="schulte"
+            difficulty="Hard"
+            duration="15 min"
+          />
         </div>
       </section>
 
