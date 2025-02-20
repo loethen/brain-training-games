@@ -5,12 +5,12 @@ import { cn } from '@/lib/utils'
 
 interface Cell {
   number: number
-  isHighlighted: boolean
+  isError: boolean
+  isCorrect: boolean
 }
 
 export function GamePreview() {
   const [grid, setGrid] = useState<Cell[]>([])
-  const [currentNumber, setCurrentNumber] = useState(1)
   const [status, setStatus] = useState<string>('')
 
   useEffect(() => {
@@ -19,7 +19,8 @@ export function GamePreview() {
     const shuffled = numbers.sort(() => Math.random() - 0.5)
     const initialGrid = shuffled.map(number => ({
       number,
-      isHighlighted: false
+      isError: false,
+      isCorrect: false
     }))
     setGrid(initialGrid)
 
@@ -29,19 +30,20 @@ export function GamePreview() {
     const animate = async () => {
       while (isAnimating) {
         // 重置状态
-        setCurrentNumber(1)
-        setGrid(grid => grid.map(cell => ({ ...cell, isHighlighted: false })))
         setStatus('Find numbers in sequence...')
         await wait(1500)
 
         // 演示正确顺序
         for (let i = 1; i <= 9; i++) {
-          setCurrentNumber(i)
           setGrid(grid => grid.map(cell => ({
             ...cell,
-            isHighlighted: cell.number === i
+            isCorrect: cell.number === i
           })))
           await wait(600)
+          setGrid(grid => grid.map(cell => ({
+            ...cell,
+            isCorrect: false
+          })))
         }
 
         setStatus('Like this! 👆')
@@ -51,7 +53,8 @@ export function GamePreview() {
         const newNumbers = numbers.sort(() => Math.random() - 0.5)
         setGrid(newNumbers.map(number => ({
           number,
-          isHighlighted: false
+          isError: false,
+          isCorrect: false
         })))
         await wait(2000)
       }
@@ -86,8 +89,10 @@ export function GamePreview() {
               <div
                 key={i}
                 className={cn(
-                  "aspect-square rounded-lg flex items-center justify-center text-xl font-bold transition-all duration-300",
-                  cell.isHighlighted ? "bg-primary text-primary-foreground scale-95" : "bg-white/5"
+                  "aspect-square rounded-lg flex items-center justify-center text-2xl font-bold transition-all duration-300 cursor-pointer select-none",
+                  "bg-white hover:shadow-lg",
+                  cell.isError && "bg-red-500/30",
+                  cell.isCorrect && "bg-green-500/30"
                 )}
               >
                 {cell.number}

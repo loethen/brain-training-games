@@ -27,9 +27,9 @@ export const metadata: Metadata = {
 export default function SchultePage() {
   return (
     <div className="max-w-7xl mx-auto">
-      <Breadcrumbs currentPage="Schulte Grid" />
+      <Breadcrumbs currentPage="Schulte Table" />
       <GameHeader
-        title="Schulte Grid"
+        title="Schulte Table"
         subtitle="Enhance your attention and peripheral vision"
       />
 
@@ -55,15 +55,15 @@ export default function SchultePage() {
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex gap-2">
                 <span>•</span>
-                <span>Base Score: Time-based scoring</span>
+                <span>Base Score: 1000 points</span>
               </li>
               <li className="flex gap-2">
                 <span>•</span>
-                <span>Speed Bonus: Complete under target time</span>
+                <span>Time Bonus: Complete faster for more points</span>
               </li>
               <li className="flex gap-2">
                 <span>•</span>
-                <span>Streak Bonus: Complete multiple grids</span>
+                <span>Perfect Bonus: +500 points for no mistakes</span>
               </li>
             </ul>
           </div>
@@ -71,16 +71,16 @@ export default function SchultePage() {
       </div>
 
       {/* Game component */}
-      <section className="bg-muted/50 rounded-xl p-6 mb-16">
+      <section className="bg-muted rounded-xl p-6 mb-16">
         <h2 className="text-2xl font-bold mb-6 text-center">
-          Play Schulte Grid
+          Play Schulte Table
         </h2>
         <SchulteGame />
       </section>
 
       {/* Benefits section */}
       <section className="prose prose-lg mx-auto mb-16">
-        <h2 className="text-3xl font-bold mb-6">Benefits of Schulte Grid</h2>
+        <h2 className="text-3xl font-bold mb-6">Benefits of Schulte Table</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-semibold mb-2">
@@ -114,14 +114,14 @@ export default function SchultePage() {
 
       {/* FAQ section */}
       <section className="max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl font-bold mb-6">Schulte Grid FAQ</h2>
+        <h2 className="text-3xl font-bold mb-6">Schulte Table FAQ</h2>
         <div className="space-y-4">
           <details className="bg-muted/50 rounded-lg p-4">
             <summary className="font-semibold cursor-pointer">
-              How does Schulte Grid improve attention?
+              How does Schulte Table improve attention?
             </summary>
             <p className="mt-2">
-              The Schulte Grid trains your brain to process visual information more
+              The Schulte Table trains your brain to process visual information more
               efficiently by forcing you to maintain focus while using peripheral
               vision to locate numbers quickly.
             </p>
@@ -131,7 +131,7 @@ export default function SchultePage() {
               What is the best way to practice?
             </summary>
             <p className="mt-2">
-              Try to keep your eyes fixed on the center of the grid and use your
+              Try to keep your eyes fixed on the center of the table and use your
               peripheral vision to spot numbers. Practice daily for 10-15 minutes
               for best results.
             </p>

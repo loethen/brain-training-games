@@ -9,27 +9,23 @@ import { GAME_CONFIG } from '../config'
 
 interface Cell {
   number: number
-  isSelected: boolean
-  isHighlighted: boolean
   isError: boolean
+  isCorrect: boolean
 }
 
 export function SchulteGame() {
   const [gameState, setGameState] = useState<'idle' | 'playing' | 'complete'>('idle')
-  const [level, setLevel] = useState(1)
   const [grid, setGrid] = useState<Cell[]>([])
   const [currentNumber, setCurrentNumber] = useState(1)
   const [score, setScore] = useState(0)
   const [bestScore, setBestScore] = useState(0)
   const [startTime, setStartTime] = useState(0)
   const [gameTime, setGameTime] = useState(0)
-  const [streak, setStreak] = useState(0)
   const [showResults, setShowResults] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
   const [isPerfect, setIsPerfect] = useState(true)
   const [mistakes, setMistakes] = useState(0)
-  const [currentLevelName, setCurrentLevelName] = useState('')
 
   // 加载最高分
   useEffect(() => {
@@ -39,39 +35,36 @@ export function SchulteGame() {
     }
   }, [])
 
-  // 更新最高分
-  const updateBestScore = (newScore: number) => {
+  const updateBestScore = useCallback((newScore: number) => {
     if (newScore > bestScore) {
       setBestScore(newScore)
       localStorage.setItem('schulteGridBestScore', newScore.toString())
     }
-  }
+  }, [bestScore])
 
   const startGame = useCallback(() => {
     setIsLoading(true)
     setGameState('idle')
-    setLevel(1)
     setScore(0)
-    setStreak(0)
     setShowResults(false)
+    setIsPerfect(true)
+    setMistakes(0)
     
-    // 延迟一秒后开始游戏
     setTimeout(() => {
       setIsLoading(false)
       setStartTime(Date.now())
       setGameState('playing')
-      initializeGrid(GAME_CONFIG.difficulty.levels[0].size)
+      initializeGrid()
     }, 1000)
   }, [])
 
-  const initializeGrid = (size: number) => {
-    const numbers = Array.from({ length: size * size }, (_, i) => i + 1)
+  const initializeGrid = () => {
+    const numbers = Array.from({ length: 25 }, (_, i) => i + 1)
     const shuffled = numbers.sort(() => Math.random() - 0.5)
     setGrid(shuffled.map(number => ({
       number,
-      isSelected: false,
-      isHighlighted: false,
-      isError: false
+      isError: false,
+      isCorrect: false
     })))
     setCurrentNumber(1)
   }
@@ -80,14 +73,23 @@ export function SchulteGame() {
     if (gameState !== 'playing') return
 
     if (cell.number === currentNumber) {
-      // 正确选择的处理逻辑
-      const isLastNumber = currentNumber === grid.length
-      
+      // 设置正确状态
       setGrid(grid => grid.map(c => 
         c.number === cell.number 
-          ? { ...c, isSelected: true, isHighlighted: true }
-          : { ...c, isHighlighted: false }
+          ? { ...c, isError: false, isCorrect: true }
+          : c
       ))
+      
+      // 快速清除正确状态
+      setTimeout(() => {
+        setGrid(grid => grid.map(c => 
+          c.number === cell.number 
+            ? { ...c, isCorrect: false }
+            : c
+        ))
+      }, 200)
+      
+      const isLastNumber = currentNumber === grid.length
       
       if (isLastNumber) {
         const endTime = Date.now()
@@ -96,7 +98,6 @@ export function SchulteGame() {
         
         let levelScore = calculateScore(timeElapsed)
         
-        // 完美通关奖励
         if (isPerfect) {
           levelScore += GAME_CONFIG.scoring.perfectBonus
         }
@@ -107,80 +108,59 @@ export function SchulteGame() {
         setCurrentNumber(prev => prev + 1)
       }
     } else {
-      // 错误选择的处理逻辑
       setIsPerfect(false)
       setMistakes(prev => prev + 1)
       
+      // 立即设置错误状态，但不需要保留
       setGrid(grid => grid.map(c => 
         c.number === cell.number 
-          ? { ...c, isError: true }
+          ? { ...c, isError: true, isCorrect: false }
           : c
       ))
       
-      // 错误提示动画
+      // 快速清除错误状态
       setTimeout(() => {
         setGrid(grid => grid.map(c => 
           c.number === cell.number 
-            ? { ...c, isError: false }
+            ? { ...c, isError: false, isCorrect: false }
             : c
         ))
-      }, 500)
+      }, 200)
     }
-  }, [gameState, currentNumber, grid.length, startTime, isPerfect])
+  }, [gameState, currentNumber, grid.length, startTime, isPerfect, calculateScore, handleSuccess])
 
-  function calculateScore(timeElapsed: number) {
-    const { base, timeMultiplier, streakBonus } = GAME_CONFIG.scoring
-    const currentLevel = GAME_CONFIG.difficulty.levels[level - 1]
+  const calculateScore = useCallback((timeElapsed: number) => {
+    const { base, timeMultiplier, perfectBonus } = GAME_CONFIG.scoring
     
-    // 基础分数
     let score = base
     
-    // 时间奖励
-    if (timeElapsed * 1000 < currentLevel.targetTime) {
-      const secondsUnderTarget = (currentLevel.targetTime / 1000) - timeElapsed
+    if (timeElapsed * 1000 < GAME_CONFIG.timing.targetTime) {
+      const secondsUnderTarget = (GAME_CONFIG.timing.targetTime / 1000) - timeElapsed
       score += Math.floor(secondsUnderTarget * timeMultiplier)
     }
     
-    // 连击奖励
-    score += streak * streakBonus
+    if (isPerfect) {
+      score += perfectBonus
+    }
     
     return score
-  }
+  }, [isPerfect])
 
-  function handleError() {
-    setGameState('complete')
+  const handleSuccess = useCallback(() => {
     const endTime = Date.now()
-    setGameTime((endTime - startTime) / 1000)
-    updateBestScore(score)
-    setShowResults(true)
-    setStreak(0)
-  }
-
-  function handleSuccess() {
+    const timeElapsed = (endTime - startTime) / 1000
+    setGameTime(timeElapsed)
+    
+    const finalScore = calculateScore(timeElapsed)
+    setScore(finalScore)
+    updateBestScore(finalScore)
+    
     setGameState('complete')
     setShowResults(true)
-    
-    // 检查是否还有下一关
-    if (level < GAME_CONFIG.difficulty.levels.length) {
-      setTimeout(() => {
-        setLevel(prev => prev + 1)
-        setStartTime(Date.now())
-        setGameState('playing')
-        initializeGrid(GAME_CONFIG.difficulty.levels[level].size)
-        setShowResults(false)
-      }, 2000)
-    }
-  }
+  }, [calculateScore, startTime, updateBestScore])
 
   const handleShareClick = () => {
     setShowShareModal(true)
-  }
-
-  const startNewLevel = () => {
-    setIsPerfect(true)
-    setMistakes(0)
-    setCurrentLevelName(GAME_CONFIG.difficulty.levels[level - 1].name)
-    // ... 其他初始化逻辑
   }
 
   return (
@@ -189,7 +169,6 @@ export function SchulteGame() {
       {gameState !== 'idle' && (
         <div className="flex justify-between items-center">
           <div className="flex gap-4 items-center">
-            <div className="text-lg font-medium">Level: {level}</div>
             <div className="flex items-center gap-1">
               <Trophy className="w-4 h-4" />
               <span>{score}</span>
@@ -206,12 +185,10 @@ export function SchulteGame() {
       {/* Game Grid */}
       <div className="relative">
         <div 
-          className="grid mx-auto"
+          className="grid mx-auto max-w-lg"
           style={{
             gridTemplateColumns: `repeat(${Math.sqrt(grid.length)}, 1fr)`,
-            gap: GAME_CONFIG.grid.gap,
-            maxWidth: GAME_CONFIG.grid.cellSize * Math.sqrt(grid.length) + 
-                     GAME_CONFIG.grid.gap * (Math.sqrt(grid.length) - 1)
+            gap: GAME_CONFIG.grid.gap
           }}
         >
           {grid.map((cell, i) => (
@@ -219,17 +196,12 @@ export function SchulteGame() {
               key={i}
               onClick={() => handleCellClick(cell)}
               className={cn(
-                "aspect-square rounded-lg transition-all duration-300",
-                "flex items-center justify-center text-2xl font-bold",
-                GAME_CONFIG.grid.colors.cell.bg,
-                GAME_CONFIG.grid.colors.cell.hover,
-                cell.isSelected && GAME_CONFIG.grid.colors.cell.correct,
-                cell.isError && GAME_CONFIG.grid.colors.cell.wrong,
-                cell.isHighlighted && GAME_CONFIG.grid.colors.cell.active
+                "aspect-square rounded-lg transition-all duration-300 cursor-pointer select-none",
+                "flex items-center justify-center text-xl md:text-2xl font-bold",
+                "bg-white",
+                cell.isError && "bg-red-500/30",
+                cell.isCorrect && "bg-green-500/30"
               )}
-              style={{
-                width: GAME_CONFIG.grid.cellSize
-              }}
             >
               {cell.number}
             </div>
@@ -266,19 +238,16 @@ export function SchulteGame() {
           <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm">
             <div className="bg-background p-6 rounded-xl shadow-lg space-y-4">
               <h3 className="text-2xl font-bold text-center mb-4">
-                {isPerfect && "🌟 Perfect Clear!"}
-                {!isPerfect && level < GAME_CONFIG.difficulty.levels.length 
-                  ? 'Level Complete!'
-                  : 'Game Complete!'}
+                {isPerfect ? "🌟 Perfect Clear!" : "Game Complete!"}
               </h3>
               <div className="space-y-2">
                 <p className="flex justify-between gap-4">
-                  <span>Level:</span>
-                  <span className="font-bold">{currentLevelName}</span>
-                </p>
-                <p className="flex justify-between gap-4">
                   <span>Score:</span>
                   <span className="font-bold">{score}</span>
+                </p>
+                <p className="flex justify-between gap-4">
+                  <span>Best Score:</span>
+                  <span className="font-bold">{bestScore}</span>
                 </p>
                 <p className="flex justify-between gap-4">
                   <span>Time:</span>
@@ -287,10 +256,6 @@ export function SchulteGame() {
                 <p className="flex justify-between gap-4">
                   <span>Mistakes:</span>
                   <span className="font-bold">{mistakes}</span>
-                </p>
-                <p className="flex justify-between gap-4">
-                  <span>Streak:</span>
-                  <span className="font-bold">{streak}x</span>
                 </p>
               </div>
               <div className="flex gap-2 justify-center mt-6">
