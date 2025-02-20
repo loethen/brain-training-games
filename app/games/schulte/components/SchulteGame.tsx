@@ -27,6 +27,9 @@ export function SchulteGame() {
   const [showResults, setShowResults] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
+  const [isPerfect, setIsPerfect] = useState(true)
+  const [mistakes, setMistakes] = useState(0)
+  const [currentLevelName, setCurrentLevelName] = useState('')
 
   // 加载最高分
   useEffect(() => {
@@ -77,36 +80,53 @@ export function SchulteGame() {
     if (gameState !== 'playing') return
 
     if (cell.number === currentNumber) {
-      // 正确选择
+      // 正确选择的处理逻辑
+      const isLastNumber = currentNumber === grid.length
+      
       setGrid(grid => grid.map(c => 
         c.number === cell.number 
           ? { ...c, isSelected: true, isHighlighted: true }
-          : c
+          : { ...c, isHighlighted: false }
       ))
       
-      if (currentNumber === grid.length) {
-        // 完成当前级别
+      if (isLastNumber) {
         const endTime = Date.now()
         const timeElapsed = (endTime - startTime) / 1000
         setGameTime(timeElapsed)
         
-        const levelScore = calculateScore(timeElapsed)
+        let levelScore = calculateScore(timeElapsed)
+        
+        // 完美通关奖励
+        if (isPerfect) {
+          levelScore += GAME_CONFIG.scoring.perfectBonus
+        }
+        
         setScore(prev => prev + levelScore)
-        setStreak(prev => Math.min(prev + 1, GAME_CONFIG.scoring.maxStreak))
         handleSuccess()
       } else {
         setCurrentNumber(prev => prev + 1)
       }
     } else {
-      // 错误选择
+      // 错误选择的处理逻辑
+      setIsPerfect(false)
+      setMistakes(prev => prev + 1)
+      
       setGrid(grid => grid.map(c => 
         c.number === cell.number 
           ? { ...c, isError: true }
           : c
       ))
-      handleError()
+      
+      // 错误提示动画
+      setTimeout(() => {
+        setGrid(grid => grid.map(c => 
+          c.number === cell.number 
+            ? { ...c, isError: false }
+            : c
+        ))
+      }, 500)
     }
-  }, [gameState, currentNumber, grid.length, startTime])
+  }, [gameState, currentNumber, grid.length, startTime, isPerfect])
 
   function calculateScore(timeElapsed: number) {
     const { base, timeMultiplier, streakBonus } = GAME_CONFIG.scoring
@@ -154,6 +174,13 @@ export function SchulteGame() {
 
   const handleShareClick = () => {
     setShowShareModal(true)
+  }
+
+  const startNewLevel = () => {
+    setIsPerfect(true)
+    setMistakes(0)
+    setCurrentLevelName(GAME_CONFIG.difficulty.levels[level - 1].name)
+    // ... 其他初始化逻辑
   }
 
   return (
@@ -239,22 +266,27 @@ export function SchulteGame() {
           <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm">
             <div className="bg-background p-6 rounded-xl shadow-lg space-y-4">
               <h3 className="text-2xl font-bold text-center mb-4">
-                {level < GAME_CONFIG.difficulty.levels.length 
+                {isPerfect && "🌟 Perfect Clear!"}
+                {!isPerfect && level < GAME_CONFIG.difficulty.levels.length 
                   ? 'Level Complete!'
                   : 'Game Complete!'}
               </h3>
               <div className="space-y-2">
                 <p className="flex justify-between gap-4">
+                  <span>Level:</span>
+                  <span className="font-bold">{currentLevelName}</span>
+                </p>
+                <p className="flex justify-between gap-4">
                   <span>Score:</span>
                   <span className="font-bold">{score}</span>
                 </p>
                 <p className="flex justify-between gap-4">
-                  <span>Best Score:</span>
-                  <span className="font-bold">{bestScore}</span>
-                </p>
-                <p className="flex justify-between gap-4">
                   <span>Time:</span>
                   <span className="font-bold">{gameTime.toFixed(1)}s</span>
+                </p>
+                <p className="flex justify-between gap-4">
+                  <span>Mistakes:</span>
+                  <span className="font-bold">{mistakes}</span>
                 </p>
                 <p className="flex justify-between gap-4">
                   <span>Streak:</span>

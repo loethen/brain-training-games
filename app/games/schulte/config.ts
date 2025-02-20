@@ -26,23 +26,25 @@ export const GAME_CONFIG = {
   },
   scoring: {
     base: 1000,
-    timeMultiplier: 10, // Points per second under target time
-    streakBonus: 100, // Additional points for consecutive completions
-    maxStreak: 5
+    timeMultiplier: 15, // 增加时间奖励
+    streakBonus: 150, // 增加连击奖励
+    maxStreak: 5,
+    perfectBonus: 500 // 新增完美通关奖励
   },
   difficulty: {
     levels: [
-      { size: 3, numbers: 9, targetTime: 15000 },
-      { size: 4, numbers: 16, targetTime: 25000 },
-      { size: 5, numbers: 25, targetTime: 35000 },
-      { size: 6, numbers: 36, targetTime: 45000 }
+      { size: 3, numbers: 9, targetTime: 12000, name: 'Beginner' },
+      { size: 4, numbers: 16, targetTime: 20000, name: 'Intermediate' },
+      { size: 5, numbers: 25, targetTime: 30000, name: 'Advanced' },
+      { size: 6, numbers: 36, targetTime: 40000, name: 'Expert' }
     ]
   },
   messages: {
-    start: "Find numbers in order starting from 1",
-    success: "Well done! Time: {time}s",
-    newBest: "New best time!",
-    fail: "Game Over! Try again!",
-    levelComplete: "Level {level} completed!"
+    start: "Find numbers in sequence, starting from 1",
+    success: "Excellent! Time: {time}s",
+    newBest: "🎉 New Personal Best!",
+    fail: "Keep practicing! You'll get better!",
+    levelComplete: "Level {level} - {name} completed!",
+    perfect: "Perfect! No mistakes! ��"
   }
 } as const; 

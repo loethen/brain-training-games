@@ -31,22 +31,21 @@ export function GamePreview() {
         // 重置状态
         setCurrentNumber(1)
         setGrid(grid => grid.map(cell => ({ ...cell, isHighlighted: false })))
-        setStatus('Find numbers in order...')
-        await wait(1000)
+        setStatus('Find numbers in sequence...')
+        await wait(1500)
 
         // 演示正确顺序
-        for (let i = 1; i <= 3; i++) {
+        for (let i = 1; i <= 9; i++) {
           setCurrentNumber(i)
           setGrid(grid => grid.map(cell => ({
             ...cell,
             isHighlighted: cell.number === i
           })))
-          await wait(800)
+          await wait(600)
         }
 
-        // 显示成功
-        setStatus('Well done!')
-        await wait(1000)
+        setStatus('Like this! 👆')
+        await wait(1500)
 
         // 重新洗牌
         const newNumbers = numbers.sort(() => Math.random() - 0.5)
@@ -54,7 +53,7 @@ export function GamePreview() {
           number,
           isHighlighted: false
         })))
-        await wait(1000)
+        await wait(2000)
       }
     }
 

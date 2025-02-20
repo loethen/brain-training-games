@@ -5,20 +5,22 @@ import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
-  title: 'Schulte Grid - Attention Training Game | YourSite',
-  description: 'Train your attention and peripheral vision with the Schulte Grid game. Find numbers in sequence as fast as you can!',
+  title: 'Schulte Table - Attention Training Game | YourSite',
+  description: 'Train your attention and peripheral vision with the Schulte Table. A scientifically proven method to improve reading speed and visual perception.',
   keywords: [
+    'schulte table',
     'schulte grid',
     'attention training',
-    'peripheral vision',
+    'speed reading',
+    'peripheral vision training',
     'cognitive training',
-    'brain games',
-    'focus training',
-    'visual search',
-    'speed reading'
+    'visual perception',
+    'brain training game'
   ].join(', '),
   openGraph: {
-    images: [{ url: '/og/schulte-grid.jpg', width: 1200, height: 630 }]
+    title: 'Schulte Table - Train Your Brain',
+    description: 'Improve your reading speed and attention with the classic Schulte Table exercise',
+    images: [{ url: '/og/schulte-table.jpg', width: 1200, height: 630 }]
   }
 }
 
