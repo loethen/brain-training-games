@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Header } from "./header"
 import { useState, useEffect, useCallback } from "react"
+import { Footer } from "./Footer"
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -87,6 +88,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           isSidebarOpen && !isMobile ? "md:w-[calc(100%-180px)]" : "w-full"
         }`}>{children}</main>
       </div>
+      <Footer />
     </div>
   );
 } 

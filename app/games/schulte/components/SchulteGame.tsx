@@ -71,7 +71,7 @@ export function SchulteGame() {
       setIsLoading(false)
       setStartTime(Date.now())
       setGameState('playing')
-      // 不需要重新初始化网格，直接开始游戏
+      initializeGrid() // 添加这行来重新初始化网格
     }, 1000)
   }, [])
 
@@ -282,6 +282,21 @@ export function SchulteGame() {
           </div>
         )}
       </div>
+
+      {/* Restart Button - 只在游戏进行中显示 */}
+      {gameState === 'playing' && (
+        <div className="flex justify-center">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={startGame}
+            className="gap-2"
+          >
+            <PlayCircle className="w-4 h-4" />
+            Restart
+          </Button>
+        </div>
+      )}
 
       {/* Share Modal */}
       {showShareModal && (

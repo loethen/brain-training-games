@@ -1,31 +1,31 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardDescription, CardFooter, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import React from "react"
+import Image from "next/image"
 
 interface GameCardProps {
   title: string
   description: string
-  image: string
   slug: string
-  difficulty: string
-  duration: string
+  preview: string | React.ReactNode
 }
 
-export function GameCard({ title, description, slug, difficulty, duration }: GameCardProps) {
+export function GameCard({ title, description, slug, preview }: GameCardProps) {
   return (
     <Link href={`/games/${slug}`}>
       <Card className="overflow-hidden transition-all hover:scale-[1.02] shadow-none">
-        <div className="relative h-48">
-          <div className="absolute top-2 right-2 flex gap-2">
-            <Badge variant={
-              difficulty === 'Easy' ? 'default' :
-              difficulty === 'Medium' ? 'secondary' : 'destructive'
-            }>
-              {difficulty}
-            </Badge>
-            <Badge variant="outline">{duration}</Badge>
-          </div>
+        <div className="relative">
+          {typeof preview === 'string' ? (
+            <Image
+              src={preview}
+              alt={title}
+              fill
+              className="object-cover"
+            />
+          ) : (
+            preview
+          )}
         </div>
         <CardHeader>
           <CardTitle>{title}</CardTitle>
