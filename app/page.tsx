@@ -16,72 +16,14 @@ export default function Home() {
   return (
       <div className="md:py-12">
           {/* Hero Section */}
-          <section className="max-w-7xl mx-auto mb-24 bg-[#252629] p-6 md:p-12 rounded-3xl flex justify-between items-center">
-              <div className="w-full md:w-1/2">
-                  <h1 className="font-outfit text-2xl sm:text-5xl font-bold mb-6 text-white">
+          <section className="max-w-7xl mx-auto mb-24 p-6 md:p-12 rounded-3xl flex justify-between items-center bg-gradient-to-r from-[#4ADE80] to-[#06B6D4]">
+              <div className="w-full md:w-2/3">
+                  <h1 className="font-outfit text-2xl sm:text-4xl font-bold mb-6 text-white">
                       Free Focus and Concentration Games
                   </h1>
-                  <p className="sm:text-xl text-white/80">
+                  <p className="sm:text-xl text-white">
                       Fun Brain Games to Boost Your Mind Power
                   </p>
-              </div>
-              <div className="w-1/5">
-                  {/* 战术瞄准镜效果 */}
-                  <svg
-                      width="100%"
-                      height="100%"
-                      viewBox="0 0 200 200"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-32 md:w-64 h-32 md:h-64"
-                  >
-                      {/* 新增黑色圆形背景 */}
-                      <circle 
-                          cx="100" 
-                          cy="100" 
-                          r="85" 
-                          fill="#000000"  // 纯黑色
-                      />
-
-                      {/* 外环准星 */}
-                      <circle 
-                          cx="100" 
-                          cy="100" 
-                          r="80" 
-                          fill="none" 
-                          stroke="#fff"  // lime-300 颜色
-                          strokeWidth="2" 
-                          strokeOpacity="0.7"
-                          strokeDasharray="4 6"  // 虚线样式
-                      >
-                          <animateTransform
-                              attributeName="transform"
-                              type="rotate"
-                              from="0 100 100"
-                              to="360 100 100"
-                              dur="60s"
-                              repeatCount="indefinite"
-                          />
-                      </circle>
-
-                      {/* 十字准线 */}
-                      <line x1="100" y1="20" x2="100" y2="180" stroke="#fff" strokeWidth="1" strokeOpacity="0.6"/>
-                      <line x1="20" y1="100" x2="180" y2="100" stroke="#fff" strokeWidth="1" strokeOpacity="0.6"/>
-
-                      {/* 刻度线 */}
-                      <g stroke="#fff" strokeWidth="1" strokeOpacity="0.5">
-                          <line x1="100" y1="30" x2="100" y2="50"/>
-                          <line x1="100" y1="150" x2="100" y2="170"/>
-                          <line x1="30" y1="100" x2="50" y2="100"/>
-                          <line x1="150" y1="100" x2="170" y2="100"/>
-                      </g>
-
-                      {/* 中心红点 */}
-                      <circle cx="100" cy="100" r="3" fill="#ef4444">
-                          <animate attributeName="r" values="3;5;3" dur="1.2s" repeatCount="indefinite" />
-                          <animate attributeName="opacity" values="1;0.6;1" dur="1.2s" repeatCount="indefinite" />
-                      </circle>
-
-                  </svg>
               </div>
           </section>
 
@@ -93,21 +35,21 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-1 gap-20">
                   <GameCard
-                      title="Simon's Challenge"
+                      title="Simon Says"
                       description="Strengthen focus & pattern recognition"
                       slug="simonsays"
                       preview={<SimonGamePreview />}
                   />
                   <GameCard
-                      title="Speed Focus"
-                      description="Train visual perception & processing speed"
+                      title="Schulte Table"
+                      description="Enhance your attention and peripheral vision"
                       slug="schulte"
                       preview={<SchulteGamePreview />}
                   />
                   <GameCard
-                      title="Spot the Difference"
-                      description="Enhance attention to detail"
-                      slug="fish"
+                      title="Glowing Fish Trace"
+                      description="Don't Let Them Glow Away!"
+                      slug="fishtrace"
                       preview={<ImagePreview src="/games/sunfish.jpg" />}
                   />
                   <GameCard

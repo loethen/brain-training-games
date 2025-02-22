@@ -30,7 +30,7 @@ export function GameCard({ title, description, slug, preview }: GameCardProps) {
                       </div>
                       <Button
                           variant="outline"
-                          className="mt-6 self-start md:self-end hover:bg-primary/5"
+                          className="mt-12 self-start md:self-end hover:bg-primary/5"
                       >
                           Play Now →
                       </Button>

@@ -767,7 +767,9 @@ export class SunfishScene extends Scene {
         const messageY = 50;
         
         // 清除并重绘背景
-        const messageBg = this.children.getByDepth(this.messageText.depth - 1) as Phaser.GameObjects.Graphics;
+        const messageBg = this.children.getChildren().find(child => 
+            (child as Phaser.GameObjects.Graphics).depth === this.messageText.depth - 1
+        ) as Phaser.GameObjects.Graphics;
         messageBg.clear();
         messageBg.fillStyle(0x000000, 0.8);
         messageBg.lineStyle(2, 0x333333);

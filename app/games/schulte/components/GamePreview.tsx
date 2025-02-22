@@ -73,7 +73,7 @@ export function GamePreview() {
   }, [])
 
   return (
-    <div className="w-full max-w-[500px] mx-auto min-w-[360px]">
+    <div className="w-full max-w-[400px] mx-auto min-w-[360px]">
       <div className="aspect-square relative rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 p-8">
         {status && (
           <div className="absolute top-4 left-0 right-0 text-center">
