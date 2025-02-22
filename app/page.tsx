@@ -16,23 +16,23 @@ export default function Home() {
   return (
       <div className="md:py-12">
           {/* Hero Section */}
-          <section className="max-w-7xl mx-auto mb-24 bg-[#252629] p-20 rounded-3xl flex justify-between items-center">
-              <div className="w-1/2">
-                  <h1 className="font-outfit text-4xl sm:text-5xl font-bold mb-6 text-white">
+          <section className="max-w-7xl mx-auto mb-24 bg-[#252629] p-6 md:p-12 rounded-3xl flex justify-between items-center">
+              <div className="w-full md:w-1/2">
+                  <h1 className="font-outfit text-2xl sm:text-5xl font-bold mb-6 text-white">
                       Free Focus and Concentration Games
                   </h1>
-                  <p className="text-xl text-white/80">
+                  <p className="sm:text-xl text-white/80">
                       Fun Brain Games to Boost Your Mind Power
                   </p>
               </div>
-              <div>
+              <div className="w-1/5">
                   {/* 战术瞄准镜效果 */}
                   <svg
                       width="100%"
                       height="100%"
                       viewBox="0 0 200 200"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-64 h-64"
+                      className="w-32 md:w-64 h-32 md:h-64"
                   >
                       {/* 新增黑色圆形背景 */}
                       <circle 
@@ -64,11 +64,11 @@ export default function Home() {
                       </circle>
 
                       {/* 十字准线 */}
-                      <line x1="100" y1="20" x2="100" y2="180" stroke="#fff" stroke-width="1" stroke-opacity="0.6"/>
-                      <line x1="20" y1="100" x2="180" y2="100" stroke="#fff" stroke-width="1" stroke-opacity="0.6"/>
+                      <line x1="100" y1="20" x2="100" y2="180" stroke="#fff" strokeWidth="1" strokeOpacity="0.6"/>
+                      <line x1="20" y1="100" x2="180" y2="100" stroke="#fff" strokeWidth="1" strokeOpacity="0.6"/>
 
                       {/* 刻度线 */}
-                      <g stroke="#fff" stroke-width="1" stroke-opacity="0.5">
+                      <g stroke="#fff" strokeWidth="1" strokeOpacity="0.5">
                           <line x1="100" y1="30" x2="100" y2="50"/>
                           <line x1="100" y1="150" x2="100" y2="170"/>
                           <line x1="30" y1="100" x2="50" y2="100"/>

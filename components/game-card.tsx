@@ -13,7 +13,7 @@ interface GameCardProps {
 export function GameCard({ title, description, slug, preview }: GameCardProps) {
   return (
       <Link href={`/games/${slug}`}>
-          <Card className="overflow-hidden transition-all shadow-none p-6">
+          <Card className="overflow-hidden transition-all shadow-none p-6 hover:shadow-lg">
               <div className="flex flex-col lg:flex-row-reverse h-full items-center">
                   {/* 预览区域 */}
                   <div className="w-full lg:w-[360px]">{preview}</div>
