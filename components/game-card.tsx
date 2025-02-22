@@ -1,40 +1,42 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardDescription, CardFooter, CardTitle } from "@/components/ui/card"
+import { Card, CardDescription, CardTitle } from "@/components/ui/card"
 import React from "react"
-import Image from "next/image"
 
 interface GameCardProps {
   title: string
   description: string
   slug: string
-  preview: string | React.ReactNode
+  preview: React.ReactNode  // 只接受React组件
 }
 
 export function GameCard({ title, description, slug, preview }: GameCardProps) {
   return (
-    <Link href={`/games/${slug}`}>
-      <Card className="overflow-hidden transition-all hover:scale-[1.02] shadow-none">
-        <div className="relative">
-          {typeof preview === 'string' ? (
-            <Image
-              src={preview}
-              alt={title}
-              fill
-              className="object-cover"
-            />
-          ) : (
-            preview
-          )}
-        </div>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardFooter>
-          <Button variant="ghost" className="w-full">Play Now →</Button>
-        </CardFooter>
-      </Card>
-    </Link>
-  )
+      <Link href={`/games/${slug}`}>
+          <Card className="overflow-hidden transition-all shadow-none p-6">
+              <div className="flex flex-col lg:flex-row-reverse h-full items-center">
+                  {/* 预览区域 */}
+                  <div className="w-full lg:w-[360px]">{preview}</div>
+
+                  {/* 内容区域 */}
+                  <div className=" flex-1 p-4">
+                      <div>
+                          <CardTitle className="text-xl mb-2">
+                              {title}
+                          </CardTitle>
+                          <CardDescription className="line-clamp-3">
+                              {description}
+                          </CardDescription>
+                      </div>
+                      <Button
+                          variant="outline"
+                          className="mt-6 self-start md:self-end hover:bg-primary/5"
+                      >
+                          Play Now →
+                      </Button>
+                  </div>
+              </div>
+          </Card>
+      </Link>
+  );
 } 

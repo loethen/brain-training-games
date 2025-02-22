@@ -86,9 +86,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         }`} />
         <main className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-white ${
           isSidebarOpen && !isMobile ? "md:w-[calc(100%-180px)]" : "w-full"
-        }`}>{children}</main>
+        }`}>
+          {children}
+          <Footer />
+        </main>
       </div>
-      <Footer />
     </div>
   );
 } 

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { GamePreview } from './components/GamePreview'
-import { MemoryBlocksGame } from './components/MemoryBlocksGame'
+import { SimonsaysGame } from './components/SimonsaysGame'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { GameHeader } from '@/components/GameHeader'
 
@@ -89,7 +89,7 @@ export default function MemoryBlocksPage() {
               <meta itemProp="applicationCategory" content="EducationalGame" />
               <meta itemProp="operatingSystem" content="Any" />
             </div>
-            <MemoryBlocksGame />
+            <SimonsaysGame />
           </section>
 
           {/* 修改后的评分系统（添加表格） */}

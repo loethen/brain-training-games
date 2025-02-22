@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Zap } from "lucide-react"
 import { GameCard } from "@/components/game-card"
 import { GamePreview as SimonGamePreview } from "./games/simonsays/components/GamePreview"
 import { GamePreview as SchulteGamePreview } from "./games/schulte/components/GamePreview"
+import { ImagePreview } from "@/components/image-preview"
 
 export const metadata: Metadata = {
   title: 'Focus Games | Free Brain Training Games',
@@ -18,46 +18,39 @@ export default function Home() {
           {/* Hero Section */}
           <section className="text-center mb-24 pt-10">
               <div className="relative">
-                  <div className="absolute inset-0 flex items-center justify-center -z-10">
-                      <div className="w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl animate-pulse" />
-                  </div>
                   <h1 className="font-outfit text-5xl sm:text-6xl font-bold mb-6 text-gradient">
-                      Train Your Focus
+                      Free Focus and Concentration Games
                   </h1>
                   <p className="text-xl text-muted-foreground max-w-xl mx-auto mb-8">
-                      Free brain training games to sharpen your mind
+                      Fun Brain Games to Boost Your Mind Power
                   </p>
-                  <Button size="lg" className="gap-2">
-                      <Zap className="w-4 h-4" />
-                      Start Playing
-                  </Button>
               </div>
           </section>
 
           {/* Games Section */}
-          <section className="mb-24">
+          <section className="mb-24 max-w-7xl mx-auto">
               <div className="flex justify-between items-center mb-8">
                   <h2 className="text-3xl font-bold">Popular Games</h2>
                   <Button variant="ghost">View All →</Button>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 gap-20">
                   <GameCard
-                      title="Simon Says"
-                      description="Test your memory and concentration"
+                      title="Simon's Challenge"
+                      description="Strengthen focus & pattern recognition"
                       slug="simonsays"
                       preview={<SimonGamePreview />}
                   />
                   <GameCard
-                      title="schulte table"
-                      description="Enhance your reaction time"
+                      title="Speed Focus"
+                      description="Train visual perception & processing speed"
                       slug="schulte"
                       preview={<SchulteGamePreview />}
                   />
                   <GameCard
-                      title="fish"
-                      description="Train your attention to detail"
+                      title="Spot the Difference"
+                      description="Enhance attention to detail"
                       slug="fish"
-                      preview="/games/sunfish.jpg"
+                      preview={<ImagePreview src="/games/sunfish.jpg" />}
                   />
                   <GameCard
                       title="frog"

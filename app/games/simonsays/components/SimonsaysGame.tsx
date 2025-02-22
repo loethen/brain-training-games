@@ -13,7 +13,7 @@ interface Block {
   isError: boolean
 }
 
-export function MemoryBlocksGame() {
+export function SimonsaysGame() {
   const [gameState, setGameState] = useState<'idle' | 'showing' | 'guessing' | 'complete' | 'failed'>('idle')
   const [level, setLevel] = useState(1)
   const [blocks, setBlocks] = useState<Block[]>(createInitialBlocks())
