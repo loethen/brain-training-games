@@ -6,8 +6,11 @@ export function ImagePreview({ src }: { src: string }) {
       <Image
         src={src}
         alt="Game preview"
-        fill
-        className="object-cover"
+        width={400}
+        height={400}
+        quality={100}
+        className="object-cover rounded-xl"
+        priority={true}
       />
     </div>
   )

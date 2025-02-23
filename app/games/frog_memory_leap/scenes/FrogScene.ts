@@ -398,7 +398,7 @@ export class FrogScene extends Scene {
         const ripple = this.add.graphics();
         
         this.tweens.add({
-            targets: ripple,
+            targets: { radius: GAME_CONFIG.lilyPad.ripple.radius.from, alpha: 1 },
             alpha: { from: 1, to: 0 },
             radius: { 
                 from: GAME_CONFIG.lilyPad.ripple.radius.from, 
@@ -406,15 +406,15 @@ export class FrogScene extends Scene {
             },
             ease: 'Sine.easeOut',
             duration: 500,
-            onUpdate: (tween) => {
-                const currentRadius = tween.data.find(d => d.key === 'radius')?.current ?? 
-                    GAME_CONFIG.lilyPad.ripple.radius.from;
+            onUpdate: (tween, target) => {
+                const currentRadius = target.radius;
+                const currentAlpha = target.alpha;
                 
                 ripple.clear();
                 ripple.lineStyle(
                     GAME_CONFIG.lilyPad.ripple.lineWidth, 
                     0x00ff00,  // 绿色
-                    tween.data.find(d => d.key === 'alpha')?.current ?? 1
+                    currentAlpha
                 );
                 ripple.strokeCircle(lilyPad.x, lilyPad.y, currentRadius);
             },
@@ -429,12 +429,11 @@ export class FrogScene extends Scene {
         this.setText(GAME_CONFIG.messages.fail);
         this.streakMultiplier = 1;
 
-        // 添加错误选择的视觉反馈
         const wrongPad = this.lilyPads[this.jumpSequence[this.currentJumpIndex]];
         const ripple = this.add.graphics();
 
         this.tweens.add({
-            targets: ripple,
+            targets: { radius: GAME_CONFIG.lilyPad.ripple.radius.from, alpha: 1 },
             alpha: { from: 1, to: 0 },
             radius: { 
                 from: GAME_CONFIG.lilyPad.ripple.radius.from, 
@@ -442,15 +441,15 @@ export class FrogScene extends Scene {
             },
             ease: 'Sine.easeOut',
             duration: 500,
-            onUpdate: (tween) => {
-                const currentRadius = tween.data.find(d => d.key === 'radius')?.current ?? 
-                    GAME_CONFIG.lilyPad.ripple.radius.from;
+            onUpdate: (tween, target) => {
+                const currentRadius = target.radius;
+                const currentAlpha = target.alpha;
                 
                 ripple.clear();
                 ripple.lineStyle(
                     GAME_CONFIG.lilyPad.ripple.lineWidth, 
                     0xff0000,  // 红色
-                    tween.data.find(d => d.key === 'alpha')?.current ?? 1
+                    currentAlpha
                 );
                 ripple.strokeCircle(wrongPad.x, wrongPad.y, currentRadius);
             },

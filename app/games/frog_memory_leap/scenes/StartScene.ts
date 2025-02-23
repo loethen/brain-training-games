@@ -51,15 +51,6 @@ export class StartScene extends Scene {
                 this.startGame();
             });
         });
-
-        // 添加键盘事件监听
-        this.input.keyboard.on('keydown', (event: KeyboardEvent) => {
-            if (event.code === 'Space' || event.code === 'Enter') {
-                transition(() => {
-                    this.startGame();
-                });
-            }
-        });
     }
 
     startGame() {

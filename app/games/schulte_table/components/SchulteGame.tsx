@@ -169,7 +169,7 @@ export function SchulteGame() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 max-w-lg mx-auto">
       {/* Game Status */}
       {gameState !== 'idle' && (
         <div className="flex justify-between items-center">

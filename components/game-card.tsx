@@ -13,18 +13,18 @@ interface GameCardProps {
 export function GameCard({ title, description, slug, preview }: GameCardProps) {
   return (
       <Link href={`/games/${slug}`}>
-          <Card className="overflow-hidden transition-all shadow-none p-6 hover:shadow-lg">
+          <Card className="overflow-hidden transition-all shadow-none p-4 2xl:p-6 hover:shadow-lg">
               <div className="flex flex-col lg:flex-row-reverse h-full items-center">
                   {/* 预览区域 */}
-                  <div className="w-full lg:w-[360px]">{preview}</div>
+                  <div className="w-full lg:w-[340px]">{preview}</div>
 
                   {/* 内容区域 */}
                   <div className=" flex-1 p-4">
                       <div>
-                          <CardTitle className="text-xl mb-2">
+                          <CardTitle className="text-2xl mb-2">
                               {title}
                           </CardTitle>
-                          <CardDescription className="line-clamp-3">
+                          <CardDescription className="line-clamp-3 text-md">
                               {description}
                           </CardDescription>
                       </div>

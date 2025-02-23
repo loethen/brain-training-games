@@ -25,9 +25,9 @@ export default function FrogPage() {
   return (
       <div className="max-w-7xl mx-auto">
           <Breadcrumbs currentPage="Memory Frog" />
-          <GameHeader 
-            title="Memory Frog" 
-            subtitle="Watch the frog's path and test your memory!" 
+          <GameHeader
+              title="Frog Memory Leap"
+              subtitle="Enhance Sequential Memory & Spatial Recall Through Progressive Challenges"
           />
 
           <section className="mb-16">
@@ -58,8 +58,8 @@ export default function FrogPage() {
                           🧠 Memory Training
                       </h3>
                       <p>
-                          Enhance your sequential memory by remembering
-                          the order of frog jumps.
+                          Enhance your sequential memory by remembering the
+                          order of frog jumps.
                       </p>
                   </div>
                   <div>
@@ -67,8 +67,8 @@ export default function FrogPage() {
                           👀 Visual Tracking
                       </h3>
                       <p>
-                          Improve your ability to track moving objects
-                          and remember spatial positions.
+                          Improve your ability to track moving objects and
+                          remember spatial positions.
                       </p>
                   </div>
                   <div>
@@ -76,12 +76,12 @@ export default function FrogPage() {
                           🎮 Fun Learning
                       </h3>
                       <p>
-                          Enjoy a relaxing game while training your
-                          cognitive abilities.
+                          Enjoy a relaxing game while training your cognitive
+                          abilities.
                       </p>
                   </div>
               </div>
           </section>
       </div>
-  )
+  );
 } 

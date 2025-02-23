@@ -73,8 +73,8 @@ export function GamePreview() {
   }, [])
 
   return (
-    <div className="w-full max-w-[400px] mx-auto min-w-[360px]">
-      <div className="aspect-square relative rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 p-8">
+    <div className="w-full max-w-[400px] mx-auto">
+      <div className="aspect-square relative rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 p-4">
         {status && (
           <div className="absolute top-4 left-0 right-0 text-center">
             <span className="bg-background/80 text-sm px-3 py-1 rounded-full">
