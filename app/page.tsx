@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { GameCard } from "@/components/game-card"
 import { GamePreview as SimonGamePreview } from "./games/simonsays/components/GamePreview"
 import { GamePreview as SchulteGamePreview } from "./games/schulte_table/components/GamePreview"
 import { ImagePreview } from "@/components/image-preview"
+import { Marquee } from "@/components/magicui/marquee";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: 'Focus Games | Free Brain Training Games',
@@ -69,114 +70,157 @@ export default function Home() {
               </div>
           </section>
 
-          {/* Features Section */}
-          <section className="mb-24 max-w-7xl mx-auto">
-              <h2 className="text-3xl font-bold text-center mb-12">
-                  Focus for a Fuller Life
+          {/* Benefits Section */}
+          <section className="mb-24 max-w-3xl mx-auto px-6">
+              <h2 className="text-3xl font-bold text-center mb-8">
+                  Focus: Your Secret Superpower
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 px-6">
-                  <div className="group relative p-8 bg-gradient-to-b from-background to-muted/5 rounded-2xl border hover:border-primary transition-all">
-                      <div className="absolute top-6 right-6 bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
-                               stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
-                               className="lucide lucide-rocket text-primary">
-                              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-                              <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-                              <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
-                              <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
-                          </svg>
-                      </div>
-                      <h3 className="text-xl font-semibold mb-4">Your Daily Superpower</h3>
-                      <div className="text-muted-foreground leading-relaxed">
-                          Imagine being able to:
-                          <ul className="list-disc pl-5 mt-2 space-y-2">
-                              <li>Catch every subtle flavor in your morning coffee</li>
-                              <li>Learn guitar chords 2x faster</li>
-                              <li>Never miss your kid's soccer game goal</li>
-                              <li>Remember family birthdays effortlessly</li>
-                              <li>Spot wildlife details on nature walks</li>
-                          </ul>
+              
+              <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
+                  <p>
+                      Imagine: Your child stays on task without constant reminders, 
+                      you nail meeting priorities effortlessly, and finally get 
+                      lost in that book you&apos;ve been meaning to read. That&apos;s the 
+                      power of trained focus.
+                  </p>
+                  
+                  <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
+                      <div className="shrink-0 text-2xl">👨👧</div>
+                      <div>
+                          <h3 className="font-medium mb-2 text-foreground">Family Life</h3>
+                          <p>
+                              Help kids complete homework faster with fewer distractions. 
+                              Be fully present during family time without mental clutter.
+                          </p>
                       </div>
                   </div>
 
-                  <div className="group relative p-8 bg-gradient-to-b from-background to-muted/5 rounded-2xl border hover:border-primary transition-all">
-                      <div className="absolute top-6 right-6 bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
-                               stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
-                               className="lucide lucide-sparkles text-primary">
-                              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
-                              <path d="M5 3v4"/>
-                              <path d="M19 17v4"/>
-                              <path d="M3 5h4"/>
-                              <path d="M17 19h4"/>
-                          </svg>
-                      </div>
-                      <h3 className="text-xl font-semibold mb-4">Why It Matters</h3>
-                      <div className="text-muted-foreground leading-relaxed">
-                          Our users tell us:
-                          <ul className="list-disc pl-5 mt-2 space-y-2">
-                              <li>"Finally finished my novel draft after years"</li>
-                              <li>"Can follow complex baking recipes now"</li>
-                              <li>"Remember every turn on mountain hikes"</li>
-                              <li>"Actually catch plot twists in movies"</li>
-                              <li>"Spot my keys in messy rooms instantly"</li>
-                          </ul>
+                  <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
+                      <div className="shrink-0 text-2xl">💼</div>
+                      <div>
+                          <h3 className="font-medium mb-2 text-foreground">Work Performance</h3>
+                          <p>
+                              Say goodbye to zoning out in meetings. Achieve flow state faster 
+                              and handle complex tasks with crystal-clear thinking.
+                          </p>
                       </div>
                   </div>
 
-                  <div className="group relative p-8 bg-gradient-to-b from-background to-muted/5 rounded-2xl border hover:border-primary transition-all">
-                      <div className="absolute top-6 right-6 bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
-                               stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
-                               className="lucide lucide-heart-pulse text-primary">
-                              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                              <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>
-                          </svg>
-                      </div>
-                      <h3 className="text-xl font-semibold mb-4">Life Upgrade</h3>
-                      <div className="text-muted-foreground leading-relaxed">
-                          With just 10 mins/day:
-                          <ul className="list-disc pl-5 mt-2 space-y-2">
-                              <li>83% feel more present with family</li>
-                              <li>77% enjoy hobbies more deeply</li>
-                              <li>68% report better sleep quality</li>
-                              <li>62% improved sports performance</li>
-                              <li>55% reduced "where did I put..." moments</li>
-                          </ul>
+                  <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
+                      <div className="shrink-0 text-2xl">🎯</div>
+                      <div>
+                          <h3 className="font-medium mb-2 text-foreground">Personal Growth</h3>
+                          <p>
+                              Whether learning new skills or pursuing hobbies, strong focus 
+                              helps you make progress twice as fast.
+                          </p>
                       </div>
                   </div>
+
+                  <p className="text-center mt-8">
+                      Just 10 minutes daily - it&apos;s like weightlifting for your brain.<br/>
+                      <span className="text-primary font-medium">Sharper focus, better life.</span>
+                  </p>
               </div>
           </section>
 
-          {/* Info Section */}
-          <section className="max-w-3xl mx-auto text-center">
-              <h2 className="text-2xl font-bold mb-6">
-                  About Concentration Games
+          {/* Testimonials Section */}
+          <section className="mb-24 max-w-7xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-12">
+                  Real People, Real Results
               </h2>
-              <p className="text-muted-foreground mb-8">
-                  Our brain training games are designed to improve focus,
-                  memory, and cognitive abilities. Just 10-15 minutes of daily
-                  practice can help enhance your mental performance.
-              </p>
-              <div className="grid grid-cols-3 gap-8 text-sm">
-                  <div className="space-y-2">
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                          <span className="text-primary font-bold">1</span>
-                      </div>
-                      <p>Choose a game</p>
-                  </div>
-                  <div className="space-y-2">
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                          <span className="text-primary font-bold">2</span>
-                      </div>
-                      <p>Practice daily</p>
-                  </div>
-                  <div className="space-y-2">
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                          <span className="text-primary font-bold">3</span>
-                      </div>
-                      <p>Track progress</p>
-                  </div>
+              
+              <div className="relative flex w-full flex-col items-center justify-center overflow-hidden px-6">
+                  <Marquee pauseOnHover className="[--duration:20s] mb-8">
+                      {[
+                          {
+                              name: "Sarah",
+                              username: "@sarah_writes",
+                              body: "Finally finished my novel draft after 3 years of procrastination!",
+                              gradient: "from-blue-400 to-cyan-500"
+                          },
+                          {
+                              name: "Mike",
+                              username: "@chef_mike",
+                              body: "Can now follow complex baking recipes without getting distracted",
+                              gradient: "from-purple-400 to-pink-500"
+                          },
+                          {
+                              name: "Emma", 
+                              username: "@nature_em",
+                              body: "Remember every turn on our mountain hikes - no more getting lost!",
+                              gradient: "from-green-400 to-emerald-500"
+                          },
+                      ].map((review) => (
+                          <div key={review.username} className="mx-4 w-72">
+                              <div className={cn(
+                                  "relative h-full cursor-pointer overflow-hidden rounded-xl border p-6",
+                                  "bg-background/80 hover:bg-border/10",
+                                  "border"
+                              )}>
+                                  <div className="flex flex-col gap-4">
+                                      <div className="flex items-center gap-2">
+                                          <div className={`h-16 w-16 rounded-full bg-gradient-to-r ${review.gradient}`} />
+                                          <div className="">
+                                              <h3 className="text-lg font-semibold">{review.name}</h3>
+                                              <p className="text-sm text-muted-foreground">{review.username}</p>
+                                          </div>
+                                      </div>
+                                      <blockquote className="mt-2 text-sm">
+                                          {review.body}
+                                      </blockquote>
+                                  </div>
+                              </div>
+                          </div>
+                      ))}
+                  </Marquee>
+
+                  <Marquee reverse pauseOnHover className="[--duration:20s]">
+                      {[
+                          {
+                              name: "Tom",
+                              username: "@movie_tom",
+                              body: "Actually catch plot twists in movies now - no more confusion!",
+                              gradient: "from-orange-400 to-red-500"
+                          },
+                          {
+                              name: "Lisa",
+                              username: "@organized_lisa",
+                              body: "Spot my keys instantly in messy rooms - lifesaver!",
+                              gradient: "from-yellow-400 to-amber-500"
+                          },
+                          {
+                              name: "David",
+                              username: "@dad_athlete", 
+                              body: "Never miss my kid's soccer goals anymore",
+                              gradient: "from-indigo-400 to-violet-500"
+                          },
+                      ].map((review) => (
+                          <div key={review.username} className="mx-4 w-72">
+                              <div className={cn(
+                                  "relative h-full cursor-pointer overflow-hidden rounded-xl border p-6",
+                                  "bg-background/80 hover:bg-border/10",
+                                  "border"
+                              )}>
+                                  <div className="flex flex-col gap-4">
+                                      <div className="flex items-center gap-2">
+                                          <div className={`h-16 w-16 rounded-full bg-gradient-to-r ${review.gradient}`} />
+                                          <div className="">
+                                              <h3 className="text-lg font-semibold">{review.name}</h3>
+                                              <h4 className="text-sm text-muted-foreground">{review.username}</h4>
+                                          </div>
+                                      </div>
+                                      <blockquote className="mt-2 text-sm">
+                                          {review.body}
+                                    </blockquote>
+                                  </div>
+                              </div>
+                          </div>
+                      ))}
+                  </Marquee>
+
+                  <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
               </div>
           </section>
       </div>
