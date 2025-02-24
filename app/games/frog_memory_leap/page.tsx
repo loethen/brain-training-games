@@ -3,22 +3,23 @@ import Game from './components/Game'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
-  title: 'Memory Frog - Fun Memory Training Game | YourSite',
-  description: 'Train your memory with our Memory Frog game! Watch the frog jump and remember its path. A fun way to enhance memory and attention.',
-  keywords: [
-    'memory training game',
-    'memory game',
-    'attention training',
-    'memory frog game',
-    'brain training',
-    'memory span',
-    'memory improvement',
-    'cognitive training'
-  ].join(', '),
-  openGraph: {
-    images: [{ url: '/og/memory-frog.jpg', width: 1200, height: 630 }]
-  }
-}
+    title: "Memory Frog - Fun Memory Training Game | YourSite",
+    description:
+        "Train your memory with our Memory Frog game! Watch the frog jump and remember its path. A fun way to enhance memory and attention.",
+    keywords: [
+        "memory training game",
+        "memory game",
+        "attention training",
+        "memory frog game",
+        "brain training",
+        "memory span",
+        "memory improvement",
+        "cognitive training",
+    ].join(", "),
+    openGraph: {
+        images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+    },
+};
 
 export default function FrogPage() {
   return (

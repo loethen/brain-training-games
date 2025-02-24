@@ -3,22 +3,23 @@ import Game from './components/Game'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
-  title: 'Glowing Fish Trace - Visual Tracking & Focus Training Game | freefocusgames',
-  description: 'Enhance visual tracking skills with Glowing Fish Trace! Train focus by following moving fish patterns. Improve concentration and attention span through this engaging cognitive exercise.',
-  keywords: [
-    'visual tracking game',
-    'focus training game', 
-    'attention span exercise',
-    'glowing fish game',
-    'cognitive training game',
-    'eye movement exercise',
-    'visual attention game',
-    'concentration improvement'
-  ].join(', '),
-  openGraph: {
-    images: [{ url: '/og/focus-fish.jpg', width: 1200, height: 630 }]
-  }
-}
+    title: "Glowing Fish Trace - Visual Tracking & Focus Training Game | freefocusgames",
+    description:
+        "Enhance visual tracking skills with Glowing Fish Trace! Train focus by following moving fish patterns. Improve concentration and attention span through this engaging cognitive exercise.",
+    keywords: [
+        "visual tracking game",
+        "focus training game",
+        "attention span exercise",
+        "glowing fish game",
+        "cognitive training game",
+        "eye movement exercise",
+        "visual attention game",
+        "concentration improvement",
+    ].join(", "),
+    openGraph: {
+        images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+    },
+};
 
 export default function FishPage() {
   return (

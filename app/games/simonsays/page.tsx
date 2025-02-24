@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Simon Says Game | FreeFocusGames',
     description: 'Classic pattern recall training game',
-    images: [{ url: '/og/basic-logo.jpg' }],
+    images: [{ url: '/og/oglogo.png', width: 1200, height: 630 }],
     siteName: 'FreeFocusGames',
   }
 }
