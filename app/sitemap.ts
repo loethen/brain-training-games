@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-
+// 获取环境变量
 const BASE_URL = process.env.SITE_URL || 'http://localhost:3000'
 
 export default function sitemap(): MetadataRoute.Sitemap {
