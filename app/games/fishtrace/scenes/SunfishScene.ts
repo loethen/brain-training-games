@@ -29,7 +29,7 @@ export class SunfishScene extends Scene {
     private timers: Phaser.Time.TimerEvent[] = [];
     private state!: GameState;
     private messageText!: Phaser.GameObjects.Text;
-    private bgMusic!: Phaser.Sound.BaseSound;
+    private bgMusic: Phaser.Sound.BaseSound | null = null;
     private isMuted: boolean = false;
 
     constructor() {
@@ -56,6 +56,9 @@ export class SunfishScene extends Scene {
         const timeMultiplier = Math.pow(increment.timeMultiplier, this.state.level - 1);
         this.glowDuration = GAME_CONFIG.timing.glowDuration * timeMultiplier;
         this.gameDuration = GAME_CONFIG.timing.gameDuration * timeMultiplier;
+
+        // 从存储中重新读取静音状态
+        this.isMuted = localStorage.getItem('fishGameMuted') === 'true';
     }
 
     preload() {
@@ -141,8 +144,7 @@ export class SunfishScene extends Scene {
         // 创建音频图标
         const icon = this.add.graphics();
         
-        // 从 localStorage 读取音频状态
-        this.isMuted = localStorage.getItem('fishGameMuted') === 'true';
+        // 从 localStorage 读取音频状态（添加默认值处理）
         this.drawSoundIcon(icon, this.isMuted);
         
         soundButton.add([circle, icon]);
@@ -168,27 +170,30 @@ export class SunfishScene extends Scene {
             circle.strokeCircle(0, 0, 20);
         });
 
-        // 播放背景音乐
+        // 在创建新音频实例前清理旧实例
+        if (this.bgMusic) {
+            this.bgMusic.destroy();
+        }
+        
         this.bgMusic = this.sound.add('bgm', {
             volume: 0.5,
             loop: true
         });
-        
-        // 根据保存的状态设置初始音频状态
+
+        // 修改播放逻辑增加状态同步
         if (!this.isMuted) {
-            this.bgMusic.play();
+            this.tryPlayMusic();
         }
 
         // 点击切换音乐状态
         soundButton.on('pointerdown', () => {
             this.isMuted = !this.isMuted;
-            // 保存音频状态到 localStorage
             localStorage.setItem('fishGameMuted', this.isMuted.toString());
             
             if (this.isMuted) {
-                this.bgMusic.pause();
+                this.bgMusic?.pause();
             } else {
-                this.bgMusic.resume();
+                this.tryPlayMusic(); // 使用统一播放方法
             }
             icon.clear();
             this.drawSoundIcon(icon, this.isMuted);
@@ -374,6 +379,7 @@ export class SunfishScene extends Scene {
         if (this.bgMusic) {
             this.bgMusic.stop();
             this.bgMusic.destroy();
+            this.bgMusic = null;
         }
     }
 
@@ -815,6 +821,23 @@ export class SunfishScene extends Scene {
             graphics.moveTo(5, -1);
             graphics.lineTo(12, -8);
             graphics.strokePath();
+        }
+    }
+
+    // 新增专用方法处理音乐播放
+    private tryPlayMusic() {
+        try {
+            if (this.sound.locked) {
+                this.input.once('pointerdown', () => {
+                    if (!this.isMuted && !this.bgMusic?.isPlaying) {
+                        this.bgMusic?.play();
+                    }
+                });
+            } else if (!this.bgMusic?.isPlaying) {
+                this.bgMusic?.play();
+            }
+        } catch (e) {
+            console.error('Audio play failed:', e);
         }
     }
 } 

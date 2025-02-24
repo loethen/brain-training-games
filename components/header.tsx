@@ -15,7 +15,13 @@ export function Header({ onToggleSidebar }: {
       <div className="flex items-center h-16 px-4">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center">
-            <Image src="/logo.png" alt="freeFocusGames" width={32} height={32} />
+            <Image 
+              src="/logo.png" 
+              alt="freeFocusGames" 
+              width={32} 
+              height={32}
+              priority={true}
+            />
             <h1 className="font-semibold text-foreground">
                 FreeFocusGames
             </h1>
@@ -25,6 +31,7 @@ export function Header({ onToggleSidebar }: {
               size="icon"
               className="text-muted-foreground hidden md:inline-flex"
               onClick={onToggleSidebar}
+              aria-label="Toggle sidebar"
           >
               <PanelLeft className="h-5 w-5" />
           </Button>
@@ -47,6 +54,7 @@ export function Header({ onToggleSidebar }: {
             size="icon"
             className="text-muted-foreground md:hidden mr-2"
             onClick={onToggleSidebar}
+            aria-label="Toggle sidebar"
         >
             <PanelLeft className="h-5 w-5" />
         </Button>
