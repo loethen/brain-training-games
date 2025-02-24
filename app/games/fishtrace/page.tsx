@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     openGraph: {
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
+    metadataBase: new URL(
+        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"
+    ),
 };
 
 export default function FishPage() {

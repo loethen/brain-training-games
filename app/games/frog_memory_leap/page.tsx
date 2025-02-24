@@ -3,6 +3,9 @@ import Game from './components/Game'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
+    metadataBase: new URL(
+        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"
+    ),
     title: "Memory Frog - Fun Memory Training Game | YourSite",
     description:
         "Train your memory with our Memory Frog game! Watch the frog jump and remember its path. A fun way to enhance memory and attention.",

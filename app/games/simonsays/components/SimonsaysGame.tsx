@@ -199,10 +199,10 @@ export function SimonsaysGame() {
               className={cn(
                 "aspect-square rounded-lg transition-all duration-300",
                 "disabled:cursor-not-allowed",
-                block.isHighlighted && "bg-black scale-95",
-                block.isSelected && "bg-green-500 scale-95",
-                block.isError && "bg-red-500 scale-95",
-                !block.isHighlighted && !block.isSelected && !block.isError && "bg-black/5 hover:bg-black/10"
+                block.isHighlighted && "bg-primary scale-95",
+                block.isSelected && "bg-success scale-95",
+                block.isError && "bg-destructive scale-95",
+                !block.isHighlighted && !block.isSelected && !block.isError && "bg-foreground/5 hover:bg-foreground/10"
               )}
             />
           ))}
@@ -210,7 +210,7 @@ export function SimonsaysGame() {
 
         {/* Start Button Overlay */}
         {gameState === 'idle' && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-background/50 backdrop-blur-sm">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-background/5 backdrop-blur-sm">
             {bestScore > 0 && (
               <div className="text-center mb-2">
                 <div className="text-sm text-muted-foreground">Personal Best</div>
@@ -235,7 +235,7 @@ export function SimonsaysGame() {
 
         {/* Results Overlay */}
         {showResults && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm">
+          <div className="absolute inset-0 flex items-center justify-center bg-background/5 backdrop-blur-sm">
             <div className="bg-background p-6 rounded-xl shadow-lg space-y-4">
               <h3 className="text-2xl font-bold text-center mb-4">Game Over!</h3>
               <div className="space-y-2">

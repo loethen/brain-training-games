@@ -4,6 +4,7 @@ import { SchulteGame } from './components/SchulteGame'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"),
     title: "Schulte Table: Boost Attention & Speed Reading | freefocusgames",
     description:
         "Boost your attention and reading speed with the Schulte Table – a free, scientifically proven game to train peripheral vision and focus.",
@@ -40,30 +41,6 @@ export default function SchultePage() {
                           instead of scanning each number!
                       </p>
                   </div>
-
-                  <div className="p-6 rounded-lg">
-                      <h3 className="text-xl font-semibold mb-3">
-                          💯 Scoring System
-                      </h3>
-                      <ul className="space-y-2 text-muted-foreground">
-                          <li className="flex gap-2">
-                              <span>•</span>
-                              <span>Base Score: 1000 points</span>
-                          </li>
-                          <li className="flex gap-2">
-                              <span>•</span>
-                              <span>
-                                  Time Bonus: Complete faster for more points
-                              </span>
-                          </li>
-                          <li className="flex gap-2">
-                              <span>•</span>
-                              <span>
-                                  Perfect Bonus: +500 points for no mistakes
-                              </span>
-                          </li>
-                      </ul>
-                  </div>
               </div>
           </div>
 
@@ -73,6 +50,30 @@ export default function SchultePage() {
                   Play Schulte Table
               </h2>
               <SchulteGame />
+          </section>
+
+          {/* Scoring criteria */}
+          <section className="max-w-3xl mx-auto mb-16">
+              <h2 className="text-3xl font-bold mb-6">Performance Standards</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                      <h3 className="text-xl font-semibold mb-4">👦 Children (6-12 years)</h3>
+                      <ul className="space-y-3">
+                          <li>⭐ Excellent: Under 25 seconds</li>
+                          <li>👍 Good: 25-35 seconds</li>
+                          <li>💪 Needs practice: Over 35 seconds</li>
+                      </ul>
+                  </div>
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                      <h3 className="text-xl font-semibold mb-4">👩 Adults (13+ years)</h3>
+                      <ul className="space-y-3">
+                          <li>⭐ Excellent: Under 15 seconds</li>
+                          <li>👍 Good: 15-25 seconds</li>
+                          <li>💪 Needs practice: Over 25 seconds</li>
+                      </ul>
+                  </div>
+              </div>
+              <p className="text-muted-foreground mt-4 text-sm">* Standards based on common cognitive psychology benchmarks</p>
           </section>
 
           {/* Benefits section */}
