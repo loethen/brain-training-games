@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';
+import { Scene, Utils } from 'phaser';
 import { GAME_CONFIG } from '../config';
 
 export class StartScene extends Scene {
@@ -57,7 +57,7 @@ export class StartScene extends Scene {
         const config = {
             numLilyPads: GAME_CONFIG.lilyPad.count,
             numJumps: GAME_CONFIG.difficulty.initial.numJumps,
-            jumpSequence: Phaser.Utils.Array.Shuffle([...Array(GAME_CONFIG.lilyPad.count).keys()])
+            jumpSequence: Utils.Array.Shuffle([...Array(GAME_CONFIG.lilyPad.count).keys()])
         };
 
         this.scene.transition({

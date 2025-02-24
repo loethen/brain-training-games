@@ -1,26 +1,26 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Phaser from 'phaser';
+import { Game, Scale, AUTO, Types } from 'phaser';
 import { StartScene } from '../scenes/StartScene';
 import { SunfishScene } from '../scenes/SunfishScene';
 
 export default function GameComponent() {
-    const gameRef = useRef<Phaser.Game | null>(null);
+    const gameRef = useRef<Game | null>(null);
     const gameContainerRef = useRef<HTMLDivElement>(null);
     const [isFullscreen, setIsFullscreen] = useState(false);
 
     useEffect(() => {
         if (gameRef.current) return;
 
-        const config: Phaser.Types.Core.GameConfig = {
-            type: Phaser.AUTO,
+        const config: Types.Core.GameConfig = {
+            type: AUTO,
             parent: gameContainerRef.current,
             backgroundColor: 'transparent',
             transparent: true,
             scale: {
-                mode: Phaser.Scale.FIT,
-                autoCenter: Phaser.Scale.CENTER_BOTH,
+                mode: Scale.FIT,
+                autoCenter: Scale.CENTER_BOTH,
                 width: 1024,
                 height: 768,
                 expandParent: false,
@@ -33,7 +33,7 @@ export default function GameComponent() {
             scene: [StartScene, SunfishScene],
         };
 
-        gameRef.current = new Phaser.Game(config);
+        gameRef.current = new Game(config);
 
         // 监听全屏变化
         const handleFullscreenChange = () => {

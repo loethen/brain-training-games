@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';
+import { Scene, Math as PhaserMath, Utils } from 'phaser';
 import { GAME_CONFIG } from '../config';
 
 interface LilyPad extends Phaser.GameObjects.Sprite {
@@ -58,7 +58,7 @@ export class FrogScene extends Scene {
         if (config.jumpSequence && config.jumpSequence.length === this.numLilyPads) {
             this.jumpSequence = config.jumpSequence;
         } else {
-            this.jumpSequence = Phaser.Utils.Array.Shuffle([...Array(this.numLilyPads).keys()]);
+            this.jumpSequence = Utils.Array.Shuffle([...Array(this.numLilyPads).keys()]);
         }
             
         // 重置其他状态
@@ -105,11 +105,11 @@ export class FrogScene extends Scene {
         for (let i = 0; i < this.numLilyPads; i++) {
             let placed = false;
             while (!placed) {
-                const x = Phaser.Math.Between(GAME_CONFIG.bounds.x.min, GAME_CONFIG.bounds.x.max);
-                const y = Phaser.Math.Between(GAME_CONFIG.bounds.y.min, GAME_CONFIG.bounds.y.max);
+                const x = PhaserMath.Between(GAME_CONFIG.bounds.x.min, GAME_CONFIG.bounds.x.max);
+                const y = PhaserMath.Between(GAME_CONFIG.bounds.y.min, GAME_CONFIG.bounds.y.max);
 
                 const tooClose = this.lilyPads.some((pad) => {
-                    return Phaser.Math.Distance.Between(pad.x, pad.y, x, y) < GAME_CONFIG.lilyPad.spacing;
+                    return PhaserMath.Distance.Between(pad.x, pad.y, x, y) < GAME_CONFIG.lilyPad.spacing;
                 });
 
                 if (!tooClose) {
@@ -283,14 +283,14 @@ export class FrogScene extends Scene {
             currentPad.rippleTween?.pause();
 
             const nextPad = this.lilyPads[this.jumpSequence[this.currentJumpIndex + 1]];
-            const angle = Phaser.Math.Angle.Between(
+            const angle = PhaserMath.Angle.Between(
                 this.frog.x,
                 this.frog.y,
                 nextPad.x,
                 nextPad.y
             );
 
-            this.frog.angle = Phaser.Math.RadToDeg(angle) - 135;
+            this.frog.angle = PhaserMath.RadToDeg(angle) - 135;
 
             this.tweens.add({
                 targets: this.frog,
@@ -357,14 +357,14 @@ export class FrogScene extends Scene {
             this.playerSequence.push(padIndex);
             
             // 让青蛙跳到选中的荷叶
-            const angle = Phaser.Math.Angle.Between(
+            const angle = PhaserMath.Angle.Between(
                 this.frog.x,
                 this.frog.y,
                 targetPad.x,
                 targetPad.y
             );
 
-            this.frog.angle = Phaser.Math.RadToDeg(angle) - 135;
+            this.frog.angle = PhaserMath.RadToDeg(angle) - 135;
 
             this.tweens.add({
                 targets: this.frog,
@@ -902,7 +902,7 @@ export class FrogScene extends Scene {
             frequency: -1,  // 一次性爆开
             blendMode: 'ADD',
             rotate: {
-                onEmit: () => Phaser.Math.Between(0, 360),
+                onEmit: () => PhaserMath.Between(0, 360),
                 onUpdate: (particle) => {
                     return particle.rotation + 2;
                 }
