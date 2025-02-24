@@ -13,11 +13,7 @@ export const metadata: Metadata = {
         title: "Schulte Table: Boost Attention & Speed Reading | freefocusgames",
         description:
             "Boost your attention and reading speed with the Schulte Table – a free, scientifically proven game to train peripheral vision and focus.",
-        images: [{ 
-            url: "/og/schulte-table.jpg", 
-            width: 1200,  // 固定宽度
-            height: 630   // 固定高度
-        }],
+        images: [{ url: "/og/schulte-table.jpg", width: 1200, height: 630 }],
     },
 };
 
@@ -164,4 +160,6 @@ export default function SchultePage() {
           </section>
       </div>
   );
-} 
+}
+
+export const runtime = "edge";

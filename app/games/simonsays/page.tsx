@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     'neuroplasticity games'
   ].join(', '),
   openGraph: {
-    title: 'Simon Says Memory Game | FreeFocusGames',
+    title: 'Simon Says Game | FreeFocusGames',
     description: 'Classic pattern recall training game',
     images: [{ url: '/og/basic-logo.jpg' }],
     siteName: 'FreeFocusGames',
