@@ -129,7 +129,7 @@ export function GamePreview() {
                       'bg-green-500 scale-95': activeType === 'correct',
                       'bg-red-500 scale-95': activeType === 'error',
                     },
-                    activeBlock !== i && "bg-secondary/50"
+                    activeBlock !== i && "bg-background"
                   )}
                 />
               ))}

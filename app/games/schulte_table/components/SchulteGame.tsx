@@ -17,8 +17,7 @@ export function SchulteGame() {
   const [gameState, setGameState] = useState<'idle' | 'playing' | 'complete'>('idle')
   const [grid, setGrid] = useState<Cell[]>([])
   const [currentNumber, setCurrentNumber] = useState(1)
-  const [score, setScore] = useState(0)
-  const [bestScore, setBestScore] = useState(0)
+  const [bestTime, setBestTime] = useState(0)
   const [startTime, setStartTime] = useState(0)
   const [gameTime, setGameTime] = useState(0)
   const [showResults, setShowResults] = useState(false)
@@ -29,9 +28,9 @@ export function SchulteGame() {
 
   // 加载最高分和初始化网格
   useEffect(() => {
-    const savedBestScore = localStorage.getItem('schulteGridBestScore')
-    if (savedBestScore) {
-      setBestScore(parseInt(savedBestScore))
+    const savedBestTime = localStorage.getItem('schulteGridBestTime')
+    if (savedBestTime) {
+      setBestTime(parseInt(savedBestTime))
     }
     initializeGrid() // 页面加载时就初始化网格
   }, [])
@@ -53,17 +52,16 @@ export function SchulteGame() {
     }
   }, [gameState, startTime])
 
-  const updateBestScore = useCallback((newScore: number) => {
-    if (newScore > bestScore) {
-      setBestScore(newScore)
-      localStorage.setItem('schulteGridBestScore', newScore.toString())
+  const updateBestTime = useCallback((newTime: number) => {
+    if (newTime < bestTime || bestTime === 0) {
+      setBestTime(newTime)
+      localStorage.setItem('schulteGridBestTime', newTime.toString())
     }
-  }, [bestScore])
+  }, [bestTime])
 
   const startGame = useCallback(() => {
     setIsLoading(true)
     setGameState('idle')
-    setScore(0)
     setShowResults(false)
     setMistakes(0)
     
@@ -71,7 +69,7 @@ export function SchulteGame() {
       setIsLoading(false)
       setStartTime(Date.now())
       setGameState('playing')
-      initializeGrid() // 添加这行来重新初始化网格
+      initializeGrid()
     }, 1000)
   }, [])
 
@@ -86,31 +84,16 @@ export function SchulteGame() {
     setCurrentNumber(1)
   }
 
-  const calculateScore = useCallback((timeElapsed: number) => {
-    const { base, timeMultiplier } = GAME_CONFIG.scoring
-    
-    let score = base
-    
-    if (timeElapsed * 1000 < GAME_CONFIG.timing.targetTime) {
-      const secondsUnderTarget = (GAME_CONFIG.timing.targetTime / 1000) - timeElapsed
-      score += Math.floor(secondsUnderTarget * timeMultiplier)
-    }
-    
-    return score
-  }, [])
-
   const handleSuccess = useCallback(() => {
     const endTime = Date.now()
     const timeElapsed = (endTime - startTime) / 1000
     setGameTime(timeElapsed)
     
-    const finalScore = calculateScore(timeElapsed)
-    setScore(finalScore)
-    updateBestScore(finalScore)
+    updateBestTime(timeElapsed)
     
     setGameState('complete')
     setShowResults(true)
-  }, [calculateScore, startTime, updateBestScore])
+  }, [startTime, updateBestTime])
 
   const handleCellClick = useCallback((cell: Cell) => {
     if (gameState !== 'playing') return
@@ -174,11 +157,11 @@ export function SchulteGame() {
       {gameState !== 'idle' && (
         <div className="flex justify-between items-center">
           <div className="flex gap-4 items-center">
-            <div className="flex items-center gap-1">
-              <Trophy className="w-4 h-4" />
-              <span>{score}</span>
-            </div>
             <div className="flex items-center gap-1 text-muted-foreground">
+              <Trophy className="w-4 h-4" />
+              <span>Best: {bestTime.toFixed(1)}s</span>
+            </div>
+            <div className="flex items-center gap-1">
               <Clock className="w-4 h-4" />
               <span>{currentTime.toFixed(1)}s</span>
             </div>
@@ -207,9 +190,9 @@ export function SchulteGame() {
               className={cn(
                 "aspect-square rounded-lg transition-all duration-300 cursor-pointer select-none",
                 "flex items-center justify-center text-xl md:text-2xl font-bold",
-                "bg-white",
-                cell.isError && "bg-red-500/30",
-                cell.isCorrect && "bg-green-500/30"
+                "bg-background",
+                cell.isError && "bg-destructive/30",
+                cell.isCorrect && "bg-success/30"
               )}
             >
               {cell.number}
@@ -220,12 +203,6 @@ export function SchulteGame() {
         {/* Start Button Overlay */}
         {gameState === 'idle' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-muted/90 backdrop-blur-sm">
-            {bestScore > 0 && (
-              <div className="text-center mb-2">
-                <div className="text-sm text-muted-foreground">Personal Best</div>
-                <div className="text-2xl font-bold">{bestScore}</div>
-              </div>
-            )}
             <Button 
               size="lg" 
               onClick={startGame}
@@ -251,16 +228,12 @@ export function SchulteGame() {
               </h3>
               <div className="space-y-2">
                 <p className="flex justify-between gap-4">
-                  <span>Score:</span>
-                  <span className="font-bold">{score}</span>
-                </p>
-                <p className="flex justify-between gap-4">
-                  <span>Best Score:</span>
-                  <span className="font-bold">{bestScore}</span>
-                </p>
-                <p className="flex justify-between gap-4">
                   <span>Time:</span>
                   <span className="font-bold">{gameTime.toFixed(1)}s</span>
+                </p>
+                <p className="flex justify-between gap-4">
+                  <span>Best Time:</span>
+                  <span className="font-bold">{bestTime.toFixed(1)}s</span>
                 </p>
                 <p className="flex justify-between gap-4">
                   <span>Mistakes:</span>
@@ -308,7 +281,7 @@ export function SchulteGame() {
                 {
                   name: 'X',
                   icon: <XLogo className="w-4 h-4" />,
-                  onClick: () => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I scored ${score} points in Schulte Grid! Can you beat my score? 🧠\n\nPlay now: ${window.location.href}`)}`, '_blank')
+                  onClick: () => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I completed Schulte Grid in ${gameTime.toFixed(1)} seconds! 🧠\n\nCan you beat my time? ${window.location.href}`)}`, '_blank')
                 },
                 {
                   name: 'Facebook',
@@ -324,7 +297,7 @@ export function SchulteGame() {
                   name: 'Copy Link',
                   icon: <LinkIcon className="w-4 h-4" />,
                   onClick: () => {
-                    navigator.clipboard.writeText(`I scored ${score} points in Schulte Grid! Can you beat my score? 🧠\n\nPlay now: ${window.location.href}`)
+                    navigator.clipboard.writeText(`I completed Schulte Grid in ${gameTime.toFixed(1)} seconds! 🧠\n\nCan you beat my time? ${window.location.href}`)
                     alert('Copied to clipboard!')
                   }
                 }

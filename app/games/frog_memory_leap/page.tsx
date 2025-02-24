@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import Game from './components/Game'
-import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
@@ -24,7 +23,6 @@ export const metadata: Metadata = {
 export default function FrogPage() {
   return (
       <div className="max-w-7xl mx-auto">
-          <Breadcrumbs currentPage="Memory Frog" />
           <GameHeader
               title="Frog Memory Leap"
               subtitle="Enhance Sequential Memory & Spatial Recall Through Progressive Challenges"

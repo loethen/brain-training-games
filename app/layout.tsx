@@ -3,6 +3,7 @@ import { inter, outfit } from "./fonts";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Layout } from "@/components/layout"
+import { ThemeProvider } from "next-themes"
 
 export const metadata: Metadata = {
   title: "Focus Games",
@@ -48,9 +49,11 @@ export default function RootLayout({
         inter.variable,
         outfit.variable
       )}>
-        <Layout>
-          {children}
-        </Layout>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Layout>
+            {children}
+          </Layout>
+        </ThemeProvider>
       </body>
     </html>
   );

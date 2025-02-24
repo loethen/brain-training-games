@@ -39,7 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <Link
       href={href}
       onClick={navLinkClick}
-      className="block hover:bg-gray-100 p-2 rounded text-black font-semibold relative hover:pl-3 transition-all 
+      className="block hover:bg-accent p-2 rounded text-foreground font-semibold relative hover:pl-3 transition-all duration-200
                after:content-['→'] after:absolute after:right-2 after:top-1/2 after:-translate-y-1/2 
                after:opacity-0 hover:after:opacity-100 after:transition-opacity"
     >
@@ -59,7 +59,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           flex pt-40
           transform transition-all duration-300 ease-in-out
           shadow-lg md:shadow-none
-          bg-white/50 backdrop-blur-lg z-30 md:bg-transparent md:z-auto md:backdrop-blur-none
+          bg-background/50 backdrop-blur-lg z-30 md:bg-transparent
           ${isSidebarOpen 
             ? "translate-x-0 opacity-100"
             : "-translate-x-full opacity-0 pointer-events-none"
@@ -67,13 +67,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         `}
       >
         <nav className="w-full space-y-1 pl-4 text-sm">
-          <NavItem href="/">Games</NavItem>
-          <NavItem href="/chess">Chess</NavItem>
-          <NavItem href="/sudoku">Sudoku</NavItem>
-          <NavItem href="/crossword">Crossword</NavItem>
-          <NavItem href="/memory">Memory</NavItem>
-          <NavItem href="/puzzle">Puzzle</NavItem>
-          <NavItem href="/about">About</NavItem>
+          <NavItem href="/">Home</NavItem>
+          <NavItem href="/games/simonsays">Simon Says</NavItem>
+          <NavItem href="/games/schulte_table">Schulte Table</NavItem>
+          <NavItem href="/games/fishtrace">Fish Trace</NavItem>
+          <NavItem href="/games/frog_memory_leap">Frog Leap</NavItem>
         </nav>
       </div>
 
@@ -84,7 +82,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <aside className={`transition-all duration-300 ease-in-out ${
           isSidebarOpen ? (isMobile ? "w-0" : "w-[180px]") : "w-0"
         }`} />
-        <main className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-white ${
+        <main className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-background ${
           isSidebarOpen && !isMobile ? "md:w-[calc(100%-180px)]" : "w-full"
         }`}>
           {children}

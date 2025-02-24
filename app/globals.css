@@ -8,10 +8,11 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%; /* 白色背景 */
-    --foreground: 0 0% 0%; /* 纯黑色文字 */
+    --background: 0 0% 100%; /* 白色 */
+    --foreground: 0 0% 0%;    /* 黑色 */
+    --border: 0 0% 90%;      /* 浅灰色边框 */
     
-    --primary: 0 0% 0%; /* 纯黑色主色 */
+    --primary: 217 91% 60%; /* 亮蓝色 */
     --primary-foreground: 0 0% 100%;
     
     --secondary: 0 0% 98%;
@@ -20,10 +21,9 @@ body {
     --muted: 0 0% 98%;
     --muted-foreground: 0 0% 45%;
     
-    --accent: 0 0% 98%;
+    --accent: 0 0% 98%;      /* 浅灰悬停背景 */
     --accent-foreground: 0 0% 0%;
     
-    --border: 0 0% 90%;
     --input: 0 0% 90%;
     --ring: 0 0% 0%;
     
@@ -37,27 +37,28 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --destructive: 0 84.2% 60.2%; /* 红色 */
+    --success: 142.1 76.2% 36.3%; /* 绿色 */
   }
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 10%;  /* 深灰 */
+    --foreground: 0 0% 100%; /* 白色 */
+    --border: 0 0% 20%;      /* 深灰边框 */
     
-    /* 暗色模式下的橙色稍微柔和一些 */
-    --primary: 20 90% 65%;
-    --primary-foreground: 240 10% 3.9%;
+    --primary: 217 91% 60%; /* 保持相同蓝色 */
+    --primary-foreground: 0 0% 100%;
     
-    /* 其他颜色使用深色调 */
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 20%;      /* 深灰悬停背景 */
+    --accent-foreground: 0 0% 100%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
 
@@ -69,6 +70,9 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --destructive: 0 72% 51%; /* 暗红 */
+    --success: 142.1 70% 45%; /* 暗绿 */
   }
 }
 
@@ -84,6 +88,6 @@ body {
 /* Custom utilities */
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-foreground via-foreground/80 to-foreground/60 bg-clip-text text-transparent;
   }
 }

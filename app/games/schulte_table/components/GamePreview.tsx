@@ -90,9 +90,9 @@ export function GamePreview() {
                 key={i}
                 className={cn(
                   "aspect-square rounded-lg flex items-center justify-center text-2xl font-bold transition-all duration-300 cursor-pointer select-none",
-                  "bg-white hover:shadow-lg",
-                  cell.isError && "bg-red-500/30",
-                  cell.isCorrect && "bg-green-500/30"
+                  "bg-background hover:bg-accent hover:shadow-lg",
+                  cell.isError && "bg-destructive/30",
+                  cell.isCorrect && "bg-success/30"
                 )}
               >
                 {cell.number}

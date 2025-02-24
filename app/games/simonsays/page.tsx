@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { GamePreview } from './components/GamePreview'
 import { SimonsaysGame } from './components/SimonsaysGame'
-import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
@@ -30,7 +29,6 @@ export const metadata: Metadata = {
 export default function MemoryBlocksPage() {
   return (
       <div className="max-w-7xl mx-auto lg:px-8">
-          <Breadcrumbs currentPage="Simon Says" />
           <GameHeader
               title="Simon Says Game"
               subtitle="A digital version of the classic Simon Says game to improve memory and concentration"
