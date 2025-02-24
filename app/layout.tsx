@@ -4,17 +4,21 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Layout } from "@/components/layout"
 import { ThemeProvider } from "next-themes"
-
+import { headers } from "next/headers"
 export const metadata: Metadata = {
   title: "Focus Games",
   description: "Improve your concentration with our free focus training games",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const headersList = await headers();
+  const userAgent = headersList.get("user-agent") || "";
+  const initialIsMobile = /Mobile|Android|webOS|iPhone|iPad|iPod/i.test(userAgent);
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -50,7 +54,7 @@ export default function RootLayout({
         outfit.variable
       )}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Layout>
+          <Layout initialIsMobile={initialIsMobile}>
             {children}
           </Layout>
         </ThemeProvider>
