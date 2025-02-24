@@ -17,11 +17,11 @@ export const metadata: Metadata = {
         "concentration improvement",
     ].join(", "),
     openGraph: {
+        title: "Glowing Fish Trace - Visual Tracking & Focus Training Game | freefocusgames",
+        description:
+            "Enhance visual tracking skills with Glowing Fish Trace! Train focus by following moving fish patterns. Improve concentration and attention span through this engaging cognitive exercise.",
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
-    },
-    metadataBase: new URL(
-        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"
-    ),
+    }
 };
 
 export default function FishPage() {

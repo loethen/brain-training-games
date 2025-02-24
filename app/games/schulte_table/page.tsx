@@ -4,7 +4,6 @@ import { SchulteGame } from './components/SchulteGame'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"),
     title: "Schulte Table: Boost Attention & Speed Reading | freefocusgames",
     description:
         "Boost your attention and reading speed with the Schulte Table – a free, scientifically proven game to train peripheral vision and focus.",

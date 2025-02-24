@@ -8,6 +8,9 @@ import { headers } from "next/headers"
 export const metadata: Metadata = {
   title: "Focus Games",
   description: "Improve your concentration with our free focus training games",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"
+  ),
 };
 
 export default async function RootLayout({

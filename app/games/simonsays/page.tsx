@@ -4,9 +4,6 @@ import { SimonsaysGame } from './components/SimonsaysGame'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
-    metadataBase: new URL(
-        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"
-    ),
     title: "Simon Says Memory Game: Pattern Recall Training | FreeFocusGames",
     description:
         "Enhance your short-term memory with our adaptive Simon-style game. Track your progress through increasing difficulty levels.",
