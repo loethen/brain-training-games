@@ -6,7 +6,7 @@ import { GamePreview as SchulteGamePreview } from "./games/schulte-table/compone
 import { ImagePreview } from "@/components/image-preview"
 import { Marquee } from "@/components/magicui/marquee";
 import { cn } from "@/lib/utils";
-<meta name="keywords" content=""></meta>
+import Link from 'next/link';
 export const metadata: Metadata = {
     title: "Free Focus & Memory Games | FreeFocusGames",
     description:
@@ -31,9 +31,12 @@ export default function Home() {
                           Concentration
                       </span>
                   </h1>
-                  <p className="sm:text-xl ">
+                  <p className="sm:text-xl mb-6">
                       Play Free Brain Games Online Anytime
                   </p>
+                  <Link href="/games/larger-number">
+                    <Button className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white">Start Challenge</Button>
+                  </Link>
               </div>
           </section>
 
@@ -44,6 +47,12 @@ export default function Home() {
                   <Button variant="ghost">View All →</Button>
               </div>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
+                  <GameCard
+                      title="Larger Number"
+                      description="Strengthen focus & pattern recognition"
+                      slug="larger-number"
+                      preview={<ImagePreview src="/games/larger-number.png" />}
+                  />
                   <GameCard
                       title="Pattern Recall Challenge"
                       description="Strengthen focus & pattern recognition"

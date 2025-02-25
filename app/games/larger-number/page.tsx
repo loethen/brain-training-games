@@ -33,7 +33,7 @@ export default function LargerNumberPage() {
 
           {/* Game area */}
           <section className="mb-16">
-              <div className="max-w-3xl mx-auto rounded-xl aspect-[4/3] bg-gradient-to-br from-primary/10 to-secondary/10">
+              <div className="rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10">
                   <Game />
               </div>
           </section>

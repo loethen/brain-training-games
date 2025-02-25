@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export function ImagePreview({ src }: { src: string }) {
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full flex items-center justify-center">
       <Image
         src={src}
         alt="Game preview"

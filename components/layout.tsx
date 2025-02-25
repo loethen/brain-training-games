@@ -82,8 +82,9 @@ export function Layout({
             >
                 <nav className="w-full space-y-1 pl-4 text-sm">
                     <NavItem href="/">Home</NavItem>
+                    <div className="text-sm text-foreground/50 px-2 pt-4">Games</div>
                     <NavItem href="/games/larger-number">Larger Number</NavItem>
-                    <NavItem href="/games/pattern-recall-challenge">Pattern Recall Challenge</NavItem>
+                    <NavItem href="/games/pattern-recall-challenge">Pattern Recall</NavItem>
                     <NavItem href="/games/schulte-table">Schulte Table</NavItem>
                     <NavItem href="/games/fisht-race">Fish Trace</NavItem>
                     <NavItem href="/games/frog-memory-leap">Frog Memory Leap</NavItem>
