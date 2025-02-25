@@ -91,3 +91,12 @@ body {
     @apply bg-gradient-to-r from-foreground via-foreground/80 to-foreground/60 bg-clip-text text-transparent;
   }
 }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

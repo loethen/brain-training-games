@@ -82,10 +82,11 @@ export function Layout({
             >
                 <nav className="w-full space-y-1 pl-4 text-sm">
                     <NavItem href="/">Home</NavItem>
-                    <NavItem href="/games/simonsays">Simon Says</NavItem>
-                    <NavItem href="/games/schulte_table">Schulte Table</NavItem>
-                    <NavItem href="/games/fishtrace">Fish Trace</NavItem>
-                    <NavItem href="/games/frog_memory_leap">Frog Leap</NavItem>
+                    <NavItem href="/games/larger-number">Larger Number</NavItem>
+                    <NavItem href="/games/pattern-recall-challenge">Pattern Recall Challenge</NavItem>
+                    <NavItem href="/games/schulte-table">Schulte Table</NavItem>
+                    <NavItem href="/games/fisht-race">Fish Trace</NavItem>
+                    <NavItem href="/games/frog-memory-leap">Frog Memory Leap</NavItem>
                 </nav>
             </div>
 

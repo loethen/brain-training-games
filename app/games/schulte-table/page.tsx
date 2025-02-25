@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { GamePreview } from './components/GamePreview'
 import { SchulteGame } from './components/SchulteGame'
 import { GameHeader } from '@/components/GameHeader'
 
@@ -32,24 +31,6 @@ export default function SchultePage() {
               subtitle="Enhance your attention and peripheral vision"
           />
 
-          {/* Game preview and rules */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-              <GamePreview />
-
-              <div className="space-y-6">
-                  <div className="p-6 rounded-lg">
-                      <h3 className="text-xl font-semibold mb-3">
-                          🎯 How to Play
-                      </h3>
-                      <p className="text-lg text-muted-foreground">
-                          Find and click numbers in ascending order (1-25) as
-                          quickly as possible. Try to use your peripheral vision
-                          instead of scanning each number!
-                      </p>
-                  </div>
-              </div>
-          </div>
-
           {/* Game component */}
           <section className="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl px-8 py-16 mb-16">
               <h2 className="text-2xl font-bold mb-6 text-center">
@@ -58,12 +39,23 @@ export default function SchultePage() {
               <SchulteGame />
           </section>
 
+          <div className="space-y-8 bg-muted/20 p-8 rounded-2xl mb-16">
+              <h3 className="text-xl font-semibold mb-3">🎯 How to Play</h3>
+              <p className="text-lg text-muted-foreground">
+                  Find and click numbers in ascending order (1-25) as quickly as
+                  possible. Try to use your peripheral vision instead of
+                  scanning each number!
+              </p>
+          </div>
+
           {/* Scoring criteria */}
-          <section className="max-w-3xl mx-auto mb-16">
+          <section className="mb-16">
               <h2 className="text-3xl font-bold mb-6">Performance Standards</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="bg-muted/50 p-4 rounded-lg">
-                      <h3 className="text-xl font-semibold mb-4">👦 Children (6-12 years)</h3>
+                      <h3 className="text-xl font-semibold mb-4">
+                          👦 Children (6-12 years)
+                      </h3>
                       <ul className="space-y-3">
                           <li>⭐ Excellent: Under 25 seconds</li>
                           <li>👍 Good: 25-35 seconds</li>
@@ -71,7 +63,9 @@ export default function SchultePage() {
                       </ul>
                   </div>
                   <div className="bg-muted/50 p-4 rounded-lg">
-                      <h3 className="text-xl font-semibold mb-4">👩 Adults (13+ years)</h3>
+                      <h3 className="text-xl font-semibold mb-4">
+                          👩 Adults (13+ years)
+                      </h3>
                       <ul className="space-y-3">
                           <li>⭐ Excellent: Under 15 seconds</li>
                           <li>👍 Good: 15-25 seconds</li>
@@ -79,7 +73,9 @@ export default function SchultePage() {
                       </ul>
                   </div>
               </div>
-              <p className="text-muted-foreground mt-4 text-sm">* Standards based on common cognitive psychology benchmarks</p>
+              <p className="text-muted-foreground mt-4 text-sm">
+                  * Standards based on common cognitive psychology benchmarks
+              </p>
           </section>
 
           {/* Benefits section */}
@@ -148,9 +144,10 @@ export default function SchultePage() {
                           How does this help with reading speed?
                       </summary>
                       <p className="mt-2">
-                          By training your peripheral vision, you can perceive more text at once 
-                          while reading. This reduces the number of eye movements needed, allowing 
-                          you to process information faster and read more efficiently.
+                          By training your peripheral vision, you can perceive
+                          more text at once while reading. This reduces the
+                          number of eye movements needed, allowing you to
+                          process information faster and read more efficiently.
                       </p>
                   </details>
                   <details className="bg-muted/50 rounded-lg p-4">
@@ -158,9 +155,11 @@ export default function SchultePage() {
                           Is this exercise backed by research?
                       </summary>
                       <p className="mt-2">
-                          Yes, the Schulte Table has been used in cognitive psychology for decades. 
-                          Research shows it effectively improves visual attention, processing speed, 
-                          and can help with conditions like ADHD by strengthening attention networks.
+                          Yes, the Schulte Table has been used in cognitive
+                          psychology for decades. Research shows it effectively
+                          improves visual attention, processing speed, and can
+                          help with conditions like ADHD by strengthening
+                          attention networks.
                       </p>
                   </details>
               </div>
