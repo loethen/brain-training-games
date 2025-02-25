@@ -86,7 +86,7 @@ export function Layout({
                     <NavItem href="/games/larger-number">Larger Number</NavItem>
                     <NavItem href="/games/pattern-recall-challenge">Pattern Recall</NavItem>
                     <NavItem href="/games/schulte-table">Schulte Table</NavItem>
-                    <NavItem href="/games/fisht-race">Fish Trace</NavItem>
+                    <NavItem href="/games/fish-trace">Fish Trace</NavItem>
                     <NavItem href="/games/frog-memory-leap">Frog Memory Leap</NavItem>
                 </nav>
             </div>
