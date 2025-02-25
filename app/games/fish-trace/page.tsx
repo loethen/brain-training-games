@@ -3,23 +3,22 @@ import Game from './components/Game'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
-    title: "Glowing Fish Trace - Visual Tracking & Focus Training Game | freefocusgames",
+    title: "Glowing Fish Trace - Visual Tracking & Attention Training Game",
     description:
-        "Enhance visual tracking skills with Glowing Fish Trace! Train focus by following moving fish patterns. Improve concentration and attention span through this engaging cognitive exercise.",
+        "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment. Train your attention, working memory, and focus through progressive challenges.",
     keywords: [
-        "visual tracking game",
-        "focus training game",
-        "attention span exercise",
-        "glowing fish game",
-        "cognitive training game",
-        "eye movement exercise",
-        "visual attention game",
-        "concentration improvement",
+        "visual tracking exercise",
+        "attention training game",
+        "fish tracking game",
+        "working memory practice",
+        "visual focus training",
+        "multiple object tracking",
+        "cognitive enhancement game",
+        "visual attention exercise",
     ].join(", "),
     openGraph: {
-        title: "Glowing Fish Trace - Visual Tracking & Focus Training Game | freefocusgames",
-        description:
-            "Enhance visual tracking skills with Glowing Fish Trace! Train focus by following moving fish patterns. Improve concentration and attention span through this engaging cognitive exercise.",
+        title: "Glowing Fish Trace - Train Your Visual Tracking Skills",
+        description: "Follow the glowing fish and remember which ones were highlighted. Enhance your visual attention and working memory through engaging underwater challenges.",
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     }
 };
@@ -32,14 +31,14 @@ export default function FishPage() {
           subtitle="Master visual tracking by following glowing fish patterns" 
         />
 
-        {/* 游戏区域 */}
+        {/* Game area */}
         <section className="mb-16">
             <div className="max-w-3xl mx-auto bg-muted/50 rounded-xl aspect-[4/3]">
                 <Game />
             </div>
         </section>
 
-        {/* 修改后的游戏规则说明 */}
+        {/* Game rules explanation */}
         <section className="max-w-3xl mx-auto mb-16 space-y-6">
             <div className="p-6 rounded-lg bg-muted/50">
                 <h3 className="text-xl font-semibold mb-3">🎯 Game Objective</h3>
@@ -62,7 +61,7 @@ export default function FishPage() {
             </div>
         </section>
 
-        {/* 更新后的特性介绍 */}
+        {/* Features introduction */}
         <section className="max-w-4xl mx-auto mb-16">
             <h2 className="text-3xl font-bold mb-6">
                 Why Play Glowing Fish Trace?
@@ -98,7 +97,7 @@ export default function FishPage() {
             </div>
         </section>
 
-        {/* 更新FAQ部分 */}
+        {/* FAQ section */}
         <section className="max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl font-bold mb-6">Game Benefits FAQ</h2>
             <div className="space-y-4">
@@ -124,7 +123,7 @@ export default function FishPage() {
             </div>
         </section>
 
-        {/* 更新标签部分 */}
+        {/* Tags section */}
         <section className="mt-16 border-t pt-8">
             <div className="text-center">
                 <h3 className="text-sm text-muted-foreground mb-4">

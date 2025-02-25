@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Button } from "@/components/ui/button";
 import { GameCard } from "@/components/game-card"
-import { GamePreview as SimonGamePreview } from "./games/simonsays/components/GamePreview"
-import { GamePreview as SchulteGamePreview } from "./games/schulte_table/components/GamePreview"
+import { GamePreview as SimonGamePreview } from "./games/pattern-recall-challenge/components/GamePreview"
+import { GamePreview as SchulteGamePreview } from "./games/schulte-table/components/GamePreview"
 import { ImagePreview } from "@/components/image-preview"
 import { Marquee } from "@/components/magicui/marquee";
 import { cn } from "@/lib/utils";
@@ -45,27 +45,27 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
                   <GameCard
-                      title="Simon Says"
+                      title="Pattern Recall Challenge"
                       description="Strengthen focus & pattern recognition"
-                      slug="simonsays"
+                      slug="pattern-recall-challenge"
                       preview={<SimonGamePreview />}
                   />
                   <GameCard
                       title="Schulte Table"
                       description="Enhance your attention and peripheral vision"
-                      slug="schulte_table"
+                      slug="schulte-table"
                       preview={<SchulteGamePreview />}
                   />
                   <GameCard
                       title="Glowing Fish Trace"
                       description="Master visual tracking by following glowing fish patterns"
-                      slug="fishtrace"
+                      slug="fish-trace"
                       preview={<ImagePreview src="/games/fish-trace.png" />}
                   />
                   <GameCard
                       title="Frog Memory Leap"
                       description="Enhance Sequential Memory & Spatial Recall Through Progressive Challenges"
-                      slug="frog_memory_leap"
+                      slug="frog-memory-leap"
                       preview={<ImagePreview src="/games/frog-path.png" />}
                   />
               </div>

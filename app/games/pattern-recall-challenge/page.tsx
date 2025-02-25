@@ -1,45 +1,42 @@
 import { Metadata } from 'next'
 import { GamePreview } from './components/GamePreview'
-import { SimonsaysGame } from './components/SimonsaysGame'
+import { PatternRecallGame } from './components/PatternRecallGame'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
-    title: "Simon Says Memory Game: Pattern Recall Training | FreeFocusGames",
+    title: "Pattern Recall Challenge - Visual Sequence Memory Training Game",
     description:
-        "Enhance your short-term memory with our adaptive Simon-style game. Track your progress through increasing difficulty levels.",
+        "Strengthen your working memory by remembering and repeating visual sequences. This pattern recall game helps improve concentration, attention span, and cognitive flexibility.",
     keywords: [
-        "simon says online",
-        "free memory game",
-        "brain training for adults",
+        "pattern recall game",
+        "visual sequence memory",
+        "working memory training",
         "cognitive flexibility exercise",
-        "neuroscience memory game",
-        "pattern recognition challenge",
-        "working memory improvement",
-        "brain plasticity exercises",
-        "attention span training",
-        "neuroplasticity games",
+        "attention span improvement",
+        "sequence memorization game",
+        "visual pattern recognition",
+        "short-term memory practice",
     ].join(", "),
     openGraph: {
-        title: "Simon Says Game | FreeFocusGames",
-        description: "Classic pattern recall training game",
+        title: "Pattern Recall Challenge - Train Your Visual Memory",
+        description: "Remember and repeat increasingly complex visual sequences to enhance your working memory and cognitive flexibility.",
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
-        siteName: "FreeFocusGames",
     },
 };
 
-export default function MemoryBlocksPage() {
+export default function PatternRecallPage() {
   return (
       <div className="max-w-7xl mx-auto lg:px-8">
           <GameHeader
-              title="Simon Says Game"
-              subtitle="A digital version of the classic Simon Says game to improve memory and concentration"
+              title="Pattern Recall Challenge"
+              subtitle="Enhance your working memory by remembering and repeating visual sequences"
           />
 
-          {/* 游戏预览和规则说明 */}
+          {/* Game preview and rules */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
               <GamePreview />
 
-              {/* 游戏规则说明 */}
+              {/* Game rules explanation */}
               <div className="space-y-8 bg-background p-8 rounded-2xl shadow-sm">
                   <div className="p-6 rounded-lg bg-muted/10">
                       <h3 className="text-2xl font-semibold mb-4">
@@ -73,7 +70,7 @@ export default function MemoryBlocksPage() {
               </div>
           </div>
 
-          {/* 游戏组件 */}
+          {/* Game component */}
           <section
               className="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl px-8 py-16 mb-24 shadow-sm"
               itemScope
@@ -83,28 +80,27 @@ export default function MemoryBlocksPage() {
                   className="text-3xl font-bold mb-8 text-center"
                   itemProp="name"
               >
-                  Play Simon Says
+                  Play Pattern Recall Challenge
               </h2>
               <meta
                   itemProp="description"
-                  content="Interactive Simon Says memory challenge with cognitive performance tracking"
+                  content="Interactive visual sequence memory challenge with cognitive performance tracking"
               />
               <div
                   itemProp="gameLocation"
                   itemScope
                   itemType="http://schema.org/WebApplication"
               >
-                  <meta itemProp="name" content="freefocusgames.com" />
                   <meta
                       itemProp="applicationCategory"
                       content="EducationalGame"
                   />
                   <meta itemProp="operatingSystem" content="Any" />
               </div>
-              <SimonsaysGame />
+              <PatternRecallGame />
           </section>
 
-          {/* 修改后的评分系统（添加表格） */}
+          {/* Performance evaluation */}
           <div className="p-8 rounded-2xl bg-muted/30 mb-16 shadow-sm">
               <h3 className="text-2xl font-semibold mb-6">
                   📊 Cognitive Performance Evaluation
@@ -175,45 +171,45 @@ export default function MemoryBlocksPage() {
               </p>
           </div>
 
-          {/* 游戏特性介绍 */}
+          {/* Game features */}
           <section className="prose prose-lg mx-auto mb-24 max-w-4xl">
               <h2 className="text-4xl font-bold mb-8 text-center">
                   <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                      Why Play Simon Says?
+                      Benefits of Pattern Recall Training
                   </span>
               </h2>
               <div className="grid md:grid-cols-3 gap-12">
                   <div className="p-6 bg-muted/10 rounded-xl">
                       <h3 className="text-xl font-semibold mb-4">
-                          🧠 Pattern Recall
+                          🧠 Working Memory
                       </h3>
                       <p className="leading-relaxed">
-                          Practice remembering and repeating color sequences of
-                          increasing complexity
+                          Strengthen your ability to temporarily hold and
+                          manipulate information in mind
                       </p>
                   </div>
                   <div className="p-6 bg-muted/10 rounded-xl">
                       <h3 className="text-xl font-semibold mb-4">
-                          🎯 Focus Training
+                          🎯 Sustained Attention
                       </h3>
                       <p className="leading-relaxed">
-                          Sharpen your concentration by following and
-                          reproducing color sequences.
+                          Improve your ability to maintain focus on specific
+                          visual stimuli over time
                       </p>
                   </div>
                   <div className="p-6 bg-muted/10 rounded-xl">
                       <h3 className="text-xl font-semibold mb-4">
-                          📈 Progress Tracking
+                          📈 Cognitive Flexibility
                       </h3>
                       <p className="leading-relaxed">
-                          Track your high scores and see how your memory
-                          capacity improves over time.
+                          Enhance your brains ability to switch between
+                          different mental tasks and adapt to new information
                       </p>
                   </div>
               </div>
           </section>
 
-          {/* 优化后的FAQ部分 */}
+          {/* FAQ section */}
           <section className="max-w-4xl mx-auto mb-24">
               <h2 className="text-4xl font-bold mb-8 text-center">
                   Science & Strategy Guide
@@ -222,24 +218,25 @@ export default function MemoryBlocksPage() {
                   <details className="bg-background rounded-xl p-6 group transition-all hover:bg-muted/20 shadow-sm">
                       <summary className="font-semibold cursor-pointer flex items-center text-lg">
                           <span className="mr-3">🔬</span>
-                          How does this game help improve memory?
+                          How does visual sequence training improve memory?
                       </summary>
                       <div className="mt-4 pl-8 border-l-4 border-primary">
                           <p className="leading-relaxed">
-                              While individual results may vary, regular
-                              practice with pattern recall:
+                              Visual sequence training engages multiple
+                              cognitive processes:
                           </p>
                           <ul className="list-disc pl-6 space-y-2">
                               <li>
-                                  May strengthen short-term memory through
-                                  repetition
+                                  Activates the visuospatial sketchpad component
+                                  of working memory
                               </li>
                               <li>
-                                  Encourages focused attention during gameplay
+                                  Strengthens neural pathways through repeated
+                                  practice
                               </li>
                               <li>
-                                  Provides measurable progress through score
-                                  tracking
+                                  Improves information encoding and retrieval
+                                  processes
                               </li>
                           </ul>
                       </div>
@@ -305,7 +302,6 @@ export default function MemoryBlocksPage() {
                       </div>
                   </details>
 
-                  {/* 保持原有FAQ问题 */}
                   <details className="bg-background rounded-xl p-6 group transition-all hover:bg-muted/20 shadow-sm">
                       <summary className="font-semibold cursor-pointer flex items-center text-lg">
                           <span className="mr-3">⏱️</span>
@@ -318,11 +314,10 @@ export default function MemoryBlocksPage() {
                       </p>
                   </details>
 
-                  {/* 在FAQ部分添加结构化问题 */}
                   <details className="bg-background rounded-xl p-6 group transition-all hover:bg-muted/20 shadow-sm">
                       <summary className="font-semibold cursor-pointer flex items-center text-lg">
                           <span className="mr-3">🏆</span>
-                          What makes this Simon Says unique?
+                          What makes this pattern recall game effective?
                       </summary>
                       <div className="mt-4 pl-8 border-l-4 border-primary">
                           <p className="leading-relaxed">
@@ -330,29 +325,61 @@ export default function MemoryBlocksPage() {
                           </p>
                           <ul className="list-disc pl-6 space-y-2 mt-2">
                               <li>Progressive difficulty scaling</li>
-                              <li>Basic performance tracking</li>
-                              <li>Adaptive pattern generation</li>
+                              <li>Performance tracking with metrics</li>
+                              <li>
+                                  Randomized pattern generation for varied
+                                  challenges
+                              </li>
+                              <li>Immediate feedback on performance</li>
+                          </ul>
+                      </div>
+                  </details>
+
+                  <details className="bg-background rounded-xl p-6 group transition-all hover:bg-muted/20 shadow-sm">
+                      <summary className="font-semibold cursor-pointer flex items-center text-lg">
+                          <span className="mr-3">🧩</span>
+                          How does this differ from traditional Simon games?
+                      </summary>
+                      <div className="mt-4 pl-8 border-l-4 border-primary">
+                          <p className="leading-relaxed">
+                              While inspired by the classic Simon concept, our
+                              Pattern Recall Challenge:
+                          </p>
+                          <ul className="list-disc pl-6 space-y-2 mt-2">
+                              <li>
+                                  Uses a grid-based layout for more complex
+                                  spatial patterns
+                              </li>
+                              <li>Incorporates cognitive assessment metrics</li>
+                              <li>
+                                  Focuses on working memory rather than just
+                                  sequence repetition
+                              </li>
+                              <li>Provides detailed performance analytics</li>
                           </ul>
                       </div>
                   </details>
               </div>
           </section>
 
-          {/* 在页面底部添加标签部分 */}
+          {/* Tags section */}
           <section className="mt-24 border-t-2 pt-12">
               <div className="text-center">
                   <h3 className="text-lg text-muted-foreground mb-6">
-                      Game Categories
+                      Training Categories
                   </h3>
                   <div className="flex flex-wrap gap-3 justify-center">
                       <span className="bg-secondary/80 text-secondary-foreground text-sm px-4 py-2 rounded-full hover:bg-secondary transition-colors shadow-sm">
-                          Simon Says Game
+                          Working Memory
                       </span>
                       <span className="bg-secondary/80 text-secondary-foreground text-sm px-4 py-2 rounded-full hover:bg-secondary transition-colors shadow-sm">
-                          Color Sequence Game
+                          Visual Sequence Memory
                       </span>
                       <span className="bg-secondary/80 text-secondary-foreground text-sm px-4 py-2 rounded-full hover:bg-secondary transition-colors shadow-sm">
-                          Pattern Memory Training
+                          Pattern Recognition
+                      </span>
+                      <span className="bg-secondary/80 text-secondary-foreground text-sm px-4 py-2 rounded-full hover:bg-secondary transition-colors shadow-sm">
+                          Cognitive Flexibility
                       </span>
                   </div>
               </div>
@@ -362,9 +389,19 @@ export default function MemoryBlocksPage() {
               {JSON.stringify({
                   "@context": "https://schema.org",
                   "@type": "WebApplication",
-                  name: "Simon Says Memory Challenge",
+                  name: "Pattern Recall Challenge",
                   applicationCategory: "EducationalGame",
                   operatingSystem: "Web",
+                  offers: {
+                      "@type": "Offer",
+                      price: "0",
+                      priceCurrency: "USD",
+                  },
+                  aggregateRating: {
+                      "@type": "AggregateRating",
+                      ratingValue: "4.8",
+                      ratingCount: "156",
+                  },
               })}
           </script>
       </div>

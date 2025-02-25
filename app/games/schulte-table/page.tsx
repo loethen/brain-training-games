@@ -4,15 +4,22 @@ import { SchulteGame } from './components/SchulteGame'
 import { GameHeader } from '@/components/GameHeader'
 
 export const metadata: Metadata = {
-    title: "Schulte Table: Boost Attention & Speed Reading | freefocusgames",
+    title: "Schulte Table - Peripheral Vision & Attention Training Game",
     description:
-        "Boost your attention and reading speed with the Schulte Table – a free, scientifically proven game to train peripheral vision and focus.",
-    keywords:
-        "schulte table game, games to improve memory and concentration, free brain games online, brain training memory game, speed reading memory game, free memory game online 2025, schulte table for brain training, improve attention with memory game, memory game for students 2025, top memory games 2025",
+        "Improve your peripheral vision, attention span, and reading speed with the Schulte Table exercise. Find numbers in sequence while training your brain to process visual information faster.",
+    keywords: [
+        "schulte table exercise",
+        "peripheral vision training",
+        "visual attention game",
+        "speed reading practice",
+        "number sequence game",
+        "visual processing training",
+        "attention span improvement",
+        "cognitive speed exercise",
+    ].join(", "),
     openGraph: {
-        title: "Schulte Table: Boost Attention & Speed Reading | freefocusgames",
-        description:
-            "Boost your attention and reading speed with the Schulte Table – a free, scientifically proven game to train peripheral vision and focus.",
+        title: "Schulte Table - Train Your Peripheral Vision & Attention",
+        description: "Challenge yourself to find numbers in sequence while developing faster visual processing. Scientifically proven to enhance reading speed and attention.",
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
 };
@@ -136,6 +143,26 @@ export default function SchultePage() {
                           Practice daily for 10-15 minutes for best results.
                       </p>
                   </details>
+                  <details className="bg-muted/50 rounded-lg p-4">
+                      <summary className="font-semibold cursor-pointer">
+                          How does this help with reading speed?
+                      </summary>
+                      <p className="mt-2">
+                          By training your peripheral vision, you can perceive more text at once 
+                          while reading. This reduces the number of eye movements needed, allowing 
+                          you to process information faster and read more efficiently.
+                      </p>
+                  </details>
+                  <details className="bg-muted/50 rounded-lg p-4">
+                      <summary className="font-semibold cursor-pointer">
+                          Is this exercise backed by research?
+                      </summary>
+                      <p className="mt-2">
+                          Yes, the Schulte Table has been used in cognitive psychology for decades. 
+                          Research shows it effectively improves visual attention, processing speed, 
+                          and can help with conditions like ADHD by strengthening attention networks.
+                      </p>
+                  </details>
               </div>
           </section>
 
@@ -143,9 +170,12 @@ export default function SchultePage() {
           <section className="mt-16 border-t pt-8">
               <div className="text-center">
                   <h3 className="text-sm text-muted-foreground mb-4">
-                      Game Categories
+                      Training Categories
                   </h3>
                   <div className="flex flex-wrap gap-2 justify-center">
+                      <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
+                          Peripheral Vision
+                      </span>
                       <span className="bg-secondary/50 text-secondary-foreground text-sm px-3 py-1.5 rounded-full hover:bg-secondary/70 transition-colors">
                           Attention Training
                       </span>
