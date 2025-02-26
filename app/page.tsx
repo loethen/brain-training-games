@@ -35,7 +35,9 @@ export default function Home() {
                       Play Free Brain Games Online Anytime
                   </p>
                   <Link href="/games/larger-number">
-                    <Button className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white">Start Challenge</Button>
+                      <Button className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white">
+                          Start Challenge
+                      </Button>
                   </Link>
               </div>
           </section>
@@ -49,13 +51,13 @@ export default function Home() {
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
                   <GameCard
                       title="Larger Number"
-                      description="Strengthen focus & pattern recognition"
+                      description="Improves focus, speed, and precision in a dynamic number task."
                       slug="larger-number"
                       preview={<ImagePreview src="/games/larger-number.png" />}
                   />
                   <GameCard
                       title="Pattern Recall Challenge"
-                      description="Strengthen focus & pattern recognition"
+                      description="Strengthen your working memory by remembering and repeating visual sequences."
                       slug="pattern-recall-challenge"
                       preview={<SimonGamePreview />}
                   />
