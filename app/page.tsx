@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description:
         "Play free focus games at FreeFocusGames.com to improve memory and concentration!",
     keywords:
-        "free focus games, memory games, free memory games, games to improve memory, focus and concentration games, freefocusgames, brain games for focus, free matching games",
+        "free focus games, memory games, free memory games, games to improve memory, focus and concentration games, freefocusgames, brain games for focus, free matching games, focus games for kids, memory games for children, concentration games for adults, brain training games, attention improvement games, cognitive games online, memory exercises, focus exercises online, educational games for kids, brain games for elderly, attention games for ADHD, memory games for seniors, focus training online",
 };
 
 export default function Home() {

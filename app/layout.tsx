@@ -8,23 +8,38 @@ import { headers } from "next/headers"
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
-  title: "Focus Training Games | Brain Exercises Online",
-  description: "Improve concentration and cognitive skills with science-based brain games including Schulte Grid, Memory Matrix, Color Tracking, and Attention Challenges",
+  title: "Free Focus & Memory Games | Brain Training | FreeFocusGames",
+  description: "Improve memory, concentration and cognitive skills with free science-based brain games for all ages. Perfect for kids, adults, and seniors looking to boost focus and attention.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"
   ),
   keywords: [
-    'focus training',
+    'free focus games',
     'memory games',
-    'card matching game', 
-    'attention exercises',
-    'cognitive training',
+    'brain training games',
     'concentration games',
-    'brain training',
-    'working memory'
+    'attention improvement games',
+    'cognitive games online',
+    'focus games for kids',
+    'memory games for children',
+    'concentration games for adults',
+    'brain games for elderly',
+    'attention games for ADHD',
+    'memory games for seniors',
+    'focus training online',
+    'memory exercises',
+    'focus exercises online',
+    'educational games for kids',
+    'cognitive training',
+    'free matching games',
+    'working memory games'
   ],
   openGraph: {
     images: '/og/oglogo.png',
+    title: 'Free Focus & Memory Games | Brain Training for All Ages',
+    description: 'Enhance focus, memory and concentration with free science-based cognitive games. Featuring Schulte Table, Pattern Recall Challenge, and more brain-boosting activities.',
+    siteName: 'FreeFocusGames',
+    type: 'website',
   },
 };
 
@@ -55,19 +70,19 @@ export default async function RootLayout({
 
               {/* Open Graph / Facebook */}
               <meta property="og:type" content="website" />
-              <meta property="og:title" content="Focus & Memory Training Games" />
+              <meta property="og:title" content="Free Focus & Memory Games | Brain Training for All Ages" />
               <meta
                   property="og:description"
-                  content="Boost your brain power with our collection of attention-building games: Memory Challenges, Card Matching Exercises, and Focus Improvement Activities"
+                  content="Enhance focus, memory and concentration with free science-based cognitive games. Perfect for kids, adults, and seniors looking to improve mental performance."
               />
-              <meta property="og:site_name" content="Free Focus Games" />
+              <meta property="og:site_name" content="FreeFocusGames" />
 
               {/* Twitter */}
               <meta name="twitter:card" content="summary_large_image" />
-              <meta name="twitter:title" content="Brain Training Games - Memory & Focus Exercises" />
+              <meta name="twitter:title" content="Free Focus & Memory Games | Brain Training for All Ages" />
               <meta
                   name="twitter:description"
-                  content="Improve concentration with our cognitive training games: Memory Matrix, Card Match Challenge, and Attention Building Activities"
+                  content="Improve memory and concentration with our free cognitive training games for all ages including Schulte Table, Pattern Recall Challenge, and more."
               />
 
               {/* iOS meta tags */}
@@ -85,14 +100,14 @@ export default async function RootLayout({
               <link rel="canonical" href="https://freefocusgames.com" />
               <meta name="robots" content="index, follow" />
               <meta name="revisit-after" content="7 days" />
-              <meta name="author" content="Focus Games Team" />
+              <meta name="author" content="FreeFocusGames Team" />
               
               {/* 社交媒体优化 */}
-              <meta property="og:site_name" content="Free Focus Games" />
-              <meta property="og:title" content="Cognitive Training Games | Improve Focus & Attention" />
+              <meta property="og:site_name" content="FreeFocusGames" />
+              <meta property="og:title" content="Free Brain Games to Improve Focus, Memory & Concentration" />
               <meta 
                 property="og:description" 
-                content="Free online brain training platform featuring professionally designed concentration games like Schulte Grid, Memory Matrix, and Color Tracking exercises" 
+                content="Free online brain training platform with games designed for all ages. Improve cognitive skills with Schulte Table, Pattern Recall Challenge, and more focus-enhancing activities." 
               />
               <meta property="og:image" content="https://freefocusgames.com/og/oglogo.png" />
               <meta property="og:url" content="https://freefocusgames.com" />
@@ -100,7 +115,7 @@ export default async function RootLayout({
               {/* Twitter卡片优化 */}
               <meta name="twitter:card" content="summary_large_image" />
               <meta name="twitter:creator" content="@freefocusgames" />
-              <meta name="twitter:image:alt" content="Free Focus Games - Cognitive Training Platform with brain exercise games" />
+              <meta name="twitter:image:alt" content="FreeFocusGames - Free brain games to improve memory and concentration" />
               
               {/* 移动端优化 */}
               <meta name="apple-mobile-web-app-title" content="Focus Games" />
@@ -112,12 +127,13 @@ export default async function RootLayout({
                 {JSON.stringify({
                   "@context": "https://schema.org",
                   "@type": "WebSite",
-                  "name": "Free Focus Games",
-                  "url": "https://freefocusgames.com",
-                  "description": "Professional online platform for cognitive training and focus improvement",
+                  "name": "FreeFocusGames",
+                  "url": "https://www.freefocusgames.com",
+                  "description": "Free online platform with science-based games to improve focus, memory and concentration for kids, adults, and seniors",
+                  "keywords": "free focus games, memory games, brain training, concentration games, focus games for kids, memory games for seniors",
                   "potentialAction": {
                     "@type": "SearchAction",
-                    "target": "https://freefocusgames.com/search?q={search_term_string}",
+                    "target": "https://www.freefocusgames.com/search?q={search_term_string}",
                     "query-input": "required name=search_term_string"
                   }
                 })}
