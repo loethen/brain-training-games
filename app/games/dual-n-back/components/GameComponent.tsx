@@ -16,7 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
-import { ConfettiButton } from "@/components/magicui/confetti";
+import confetti from "canvas-confetti";
 
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
@@ -241,7 +241,7 @@ export default function GameComponent() {
                 !r.isAudioMatch && r.response.audioMatch === true
             ).length;
 
-            setAccuracy({
+            const newAccuracy = {
                 position: {
                     total: positionMatches,
                     correct: positionCorrect,
@@ -254,7 +254,25 @@ export default function GameComponent() {
                     missed: audioMissed,
                     falseAlarms: audioFalseAlarms
                 }
-            });
+            };
+            
+            setAccuracy(newAccuracy);
+            
+            // Check for perfect score and trigger confetti
+            const isPerfectScore = 
+                (positionMatches === 0 || positionCorrect === positionMatches) && 
+                (audioMatches === 0 || audioCorrect === audioMatches) &&
+                positionFalseAlarms === 0 && 
+                audioFalseAlarms === 0;
+                
+            if (isPerfectScore && currentTrial > 5) {
+                // Trigger confetti celebration
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
         }
     }, [results, currentTrial, trialHistory, currentResponse, evaluateResponse]);
 
@@ -418,10 +436,6 @@ export default function GameComponent() {
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
-                    <div className="relative">
-                        <ConfettiButton>Confetti 🎉</ConfettiButton>
-                    </div>
-
                     {gameState === "playing" && (
                         <Button
                             onClick={togglePause}

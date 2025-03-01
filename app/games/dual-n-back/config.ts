@@ -1,6 +1,6 @@
 export const GAME_CONFIG = {
   trials: {
-    perRound: 5, // Number of trials per round
+    perRound: 20, // Number of trials per round
     interval: 3000, // Time between trials in ms
     startDelay: 500, // Delay before first trial
   },
