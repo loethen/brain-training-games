@@ -106,22 +106,30 @@ export default function GameComponent() {
             if (prev[`${type}Match`] !== null) {
                 return prev;
             }
-            return {
+            
+            // Create the updated response
+            const updatedResponse = {
                 ...prev,
                 [`${type}Match`]: true
             };
+            
+            return updatedResponse;
         });
     }, []);
 
     const evaluateResponse = useCallback((response: Response) => {
+        if (trialHistory.length === 0) return; // Safety check
+        
         const currentStimuli = trialHistory[trialHistory.length - 1];
         const nBackIndex = trialHistory.length - 1 - settings.selectedNBack;
-        const nBackStimuli = nBackIndex >= 0 && trialHistory.length > nBackIndex 
-            ? trialHistory[nBackIndex]
-            : undefined;
         
-        const isPositionMatch = currentStimuli.position === nBackStimuli?.position;
-        const isAudioMatch = currentStimuli.letter === nBackStimuli?.letter;
+        // Only evaluate if we have enough history
+        if (nBackIndex < 0) return;
+        
+        const nBackStimuli = trialHistory[nBackIndex];
+        
+        const isPositionMatch = currentStimuli.position === nBackStimuli.position;
+        const isAudioMatch = currentStimuli.letter === nBackStimuli.letter;
         
         const newResult = {
             stimuli: currentStimuli,
@@ -207,6 +215,11 @@ export default function GameComponent() {
         setIntervalDelay(null);
         setGameState("complete");
         
+        // Evaluate the last trial if it exists
+        if (currentTrial > 0 && trialHistory.length > 0) {
+            evaluateResponse(currentResponse);
+        }
+        
         if (results.length > 0) {
             // 位置统计
             const positionMatches = results.filter(r => r.isPositionMatch).length;
@@ -243,7 +256,7 @@ export default function GameComponent() {
                 }
             });
         }
-    }, [results]);
+    }, [results, currentTrial, trialHistory, currentResponse, evaluateResponse]);
 
     // 生成随机试验刺激
     const generateTrial = useCallback((): TrialStimuli => {
@@ -261,6 +274,11 @@ export default function GameComponent() {
         if (currentTrial >= GAME_CONFIG.trials.perRound) {
             endGame();
             return;
+        }
+
+        // Evaluate the previous trial's response if it exists
+        if (currentTrial > 0 && trialHistory.length > 0) {
+            evaluateResponse(currentResponse);
         }
 
         // 生成新刺激，有20%概率创建匹配项
@@ -288,14 +306,14 @@ export default function GameComponent() {
         setCurrentResponse({ positionMatch: null, audioMatch: null });
         
         // 更新试验历史（保留最近N次记录）
-        setTrialHistory(prev => [...prev.slice(-settings.selectedNBack), finalStimuli]);
+        setTrialHistory(prev => [...prev, finalStimuli]);
 
         // 更新试验计数
         setCurrentTrial(prev => prev + 1);
         
         // 设置下一个试验的间隔
         setIntervalDelay(GAME_CONFIG.trials.interval);
-    }, [currentTrial, generateTrial, settings.selectedNBack, trialHistory, endGame]);
+    }, [currentTrial, generateTrial, settings.selectedNBack, trialHistory, endGame, evaluateResponse, currentResponse]);
 
     // 分享游戏分数
     const shareScore = useCallback(() => {
@@ -347,6 +365,9 @@ export default function GameComponent() {
     useEffect(() => {
         if (gameState === "playing" && currentTrial > 0) {
             const timer = setTimeout(() => {
+                // Call evaluateResponse with the current response before the next trial
+                evaluateResponse(currentResponse);
+                
                 const currentStimuli = trialHistory[trialHistory.length - 1];
                 const nBackIndex = trialHistory.length - 1 - settings.selectedNBack;
                 const nBackStimuli = nBackIndex >= 0 && trialHistory.length > nBackIndex 
@@ -356,7 +377,9 @@ export default function GameComponent() {
                 const isPositionMatch = nBackStimuli 
                     ? currentStimuli.position === nBackStimuli.position
                     : false;
-                const isAudioMatch = currentStimuli.letter === nBackStimuli?.letter;
+                const isAudioMatch = nBackStimuli
+                    ? currentStimuli.letter === nBackStimuli.letter
+                    : false;
 
                 const autoResponse = { ...currentResponse };
                 
@@ -372,8 +395,6 @@ export default function GameComponent() {
                         autoResponse.audioMatch = false; // 应响应但未响应
                     }
                 }
-                
-                evaluateResponse(autoResponse);
             }, GAME_CONFIG.trials.interval - 200);
             
             return () => clearTimeout(timer);
@@ -615,33 +636,70 @@ export default function GameComponent() {
                         <h2 className="text-xl font-bold mb-4">
                             Training Results
                         </h2>
-                        <div className="bg-muted/30 p-4 rounded-lg mb-6">
-                            <div className="mt-4 text-sm space-y-3">
-                                <div className="flex justify-between">
-                                    <span>Position Matches:</span>
-                                    <div className="text-right">
-                                        <div>
-                                            {accuracy.position.correct}/
-                                            {accuracy.position.total}
+                        <div className="bg-muted/30 p-6 rounded-lg mb-6 max-w-md mx-auto">
+                            <div className="grid grid-cols-2 gap-6">
+                                {/* Position Results */}
+                                <div className="space-y-3 border-r pr-4">
+                                    <h3 className="font-semibold text-primary">Position</h3>
+                                    <div className="flex flex-col items-center">
+                                        <div className="text-3xl font-bold">
+                                            {accuracy.position.correct}/{accuracy.position.total}
                                         </div>
-                                        <div className="text-muted-foreground text-xs">
-                                            (Missed: {accuracy.position.missed},
-                                            False:{" "}
-                                            {accuracy.position.falseAlarms})
+                                        <div className="text-sm text-muted-foreground">
+                                            {accuracy.position.total > 0 
+                                                ? Math.round((accuracy.position.correct / accuracy.position.total) * 100) 
+                                                : 0}% Accuracy
+                                        </div>
+                                    </div>
+                                    <div className="text-xs text-muted-foreground space-y-1">
+                                        <div className="flex justify-between">
+                                            <span>Missed:</span>
+                                            <span>{accuracy.position.missed}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>False Alarms:</span>
+                                            <span>{accuracy.position.falseAlarms}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span>Audio Matches:</span>
-                                    <div className="text-right">
-                                        <div>
-                                            {accuracy.audio.correct}/
-                                            {accuracy.audio.total}
+
+                                {/* Audio Results */}
+                                <div className="space-y-3 pl-2">
+                                    <h3 className="font-semibold text-primary">Audio</h3>
+                                    <div className="flex flex-col items-center">
+                                        <div className="text-3xl font-bold">
+                                            {accuracy.audio.correct}/{accuracy.audio.total}
                                         </div>
-                                        <div className="text-muted-foreground text-xs">
-                                            (Missed: {accuracy.audio.missed},
-                                            False: {accuracy.audio.falseAlarms})
+                                        <div className="text-sm text-muted-foreground">
+                                            {accuracy.audio.total > 0 
+                                                ? Math.round((accuracy.audio.correct / accuracy.audio.total) * 100) 
+                                                : 0}% Accuracy
                                         </div>
+                                    </div>
+                                    <div className="text-xs text-muted-foreground space-y-1">
+                                        <div className="flex justify-between">
+                                            <span>Missed:</span>
+                                            <span>{accuracy.audio.missed}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>False Alarms:</span>
+                                            <span>{accuracy.audio.falseAlarms}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-6 pt-4 border-t border-border/40">
+                                <div className="text-sm">
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium">Overall Performance:</span>
+                                        <span className="font-bold">
+                                            {Math.round(((accuracy.position.correct + accuracy.audio.correct) / 
+                                                (accuracy.position.total + accuracy.audio.total || 1)) * 100)}%
+                                        </span>
+                                    </div>
+                                    <div className="mt-2 text-xs text-muted-foreground">
+                                        <p>Level: {settings.selectedNBack}-Back • Trials: {currentTrial}</p>
                                     </div>
                                 </div>
                             </div>
