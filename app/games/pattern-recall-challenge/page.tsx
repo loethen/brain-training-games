@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function PatternRecallPage() {
     return (
-        <div className="max-w-7xl mx-auto lg:px-8">
+        <div className="max-w-7xl mx-auto">
             <GameHeader
                 title="Pattern Recall Challenge"
                 subtitle="Enhance your working memory by remembering and repeating visual sequences"

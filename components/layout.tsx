@@ -88,6 +88,7 @@ export function Layout({
                     <NavItem href="/games/schulte-table">Schulte Table</NavItem>
                     <NavItem href="/games/fish-trace">Fish Trace</NavItem>
                     <NavItem href="/games/frog-memory-leap">Frog Memory Leap</NavItem>
+                    <NavItem href="/games/dual-n-back">Dual N-Back</NavItem>
                 </nav>
             </div>
 

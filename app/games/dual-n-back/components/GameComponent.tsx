@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { GAME_CONFIG } from "../config";
 import { cn } from "@/lib/utils";
 import { PlayCircle, Share2, Volume2, Square, Settings, PauseCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Howl } from "howler";
 import { useInterval } from "@/hooks/useInterval";
 import { useTimeout } from "@/hooks/useTimeout";
@@ -13,12 +12,11 @@ import {
     DropdownMenuContent,
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Progress } from "@/components/ui/progress"; // Assuming a progress component exists
 import { toast } from "sonner";
+import { ConfettiButton } from "@/components/magicui/confetti";
 
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
@@ -47,7 +45,7 @@ type GameSettings = {
 function useGameSettings() {
     // 默认游戏设置
     const [settings, setSettings] = useState<GameSettings>({
-        selectedNBack: 2,      // 默认N-back等级
+        selectedNBack: GAME_CONFIG.difficulty.initialLevel,      // 默认N-back等级
         voiceType: "male",      // 默认语音类型
         selectedTypes: ["position", "audio"] // 默认启用双模式
     });
@@ -80,26 +78,50 @@ export default function GameComponent() {
         positionMatch: null,
         audioMatch: null,
     }); // 当前用户的响应状态
+    const [isPositionHighlight, setIsPositionHighlight] = useState(false);
+    const [isAudioHighlight, setIsAudioHighlight] = useState(false);
 
-    // 原useGameLogic中的方法
     const startGame = useCallback(() => {
         setIsLoading(true);
-        setStartDelay(GAME_CONFIG.trials.startDelay); // 使用配置中的启动延迟时间
+        setGameState("idle");
+        setCurrentTrial(0);
+        setTrialHistory([]);
+        setResults([]);
+        setStartDelay(GAME_CONFIG.trials.startDelay);
     }, []);
 
+    // 修改handleResponse方法
     const handleResponse = useCallback((type: "position" | "audio") => {
-        setCurrentResponse(prev => ({
-            ...prev,
-            [`${type}Match`]: true
-        }));
+        // 设置高亮状态
+        if (type === "position") {
+            setIsPositionHighlight(true);
+            setTimeout(() => setIsPositionHighlight(false), 300);
+        } else {
+            setIsAudioHighlight(true);
+            setTimeout(() => setIsAudioHighlight(false), 300);
+        }
+
+        setCurrentResponse(prev => {
+            // 如果已经响应过该类型，则不再更新
+            if (prev[`${type}Match`] !== null) {
+                return prev;
+            }
+            return {
+                ...prev,
+                [`${type}Match`]: true
+            };
+        });
     }, []);
 
     const evaluateResponse = useCallback((response: Response) => {
         const currentStimuli = trialHistory[trialHistory.length - 1];
-        const nBackStimuli = trialHistory[trialHistory.length - 1 - settings.selectedNBack];
+        const nBackIndex = trialHistory.length - 1 - settings.selectedNBack;
+        const nBackStimuli = nBackIndex >= 0 && trialHistory.length > nBackIndex 
+            ? trialHistory[nBackIndex]
+            : undefined;
         
-        const isPositionMatch = currentStimuli.position === nBackStimuli.position;
-        const isAudioMatch = currentStimuli.letter === nBackStimuli.letter;
+        const isPositionMatch = currentStimuli.position === nBackStimuli?.position;
+        const isAudioMatch = currentStimuli.letter === nBackStimuli?.letter;
         
         const newResult = {
             stimuli: currentStimuli,
@@ -123,8 +145,13 @@ export default function GameComponent() {
     // 组件本地状态
     const [isLoading, setIsLoading] = useState(false);          // 加载状态
     const [activePosition, setActivePosition] = useState<number | null>(null); // 当前激活的位置
-    const [showFeedback, setShowFeedback] = useState(false);    // 是否显示反馈
-    const [accuracy, setAccuracy] = useState({ position: 0, audio: 0 }); // 准确率统计
+    const [accuracy, setAccuracy] = useState<{ 
+        position: { total: number; correct: number; missed: number; falseAlarms: number };
+        audio: { total: number; correct: number; missed: number; falseAlarms: number }
+    }>({ 
+        position: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
+        audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 }
+    }); // 准确率统计
     const [isAudioPlaying, setIsAudioPlaying] = useState(false); // 音频播放状态
     const [intervalDelay, setIntervalDelay] = useState<number | null>(null); // 试验间隔
     const [startDelay, setStartDelay] = useState<number | null>(null); // 开始延迟
@@ -150,8 +177,7 @@ export default function GameComponent() {
         setResults([]);
         setActivePosition(null);
         setCurrentResponse({ positionMatch: null, audioMatch: null });
-        setShowFeedback(false);
-        setAccuracy({ position: 0, audio: 0 });
+        setAccuracy({ position: { total: 0, correct: 0, missed: 0, falseAlarms: 0 }, audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 } });
         setIsLoading(false);
         startNextTrial();
         setStartDelay(null);
@@ -159,31 +185,21 @@ export default function GameComponent() {
 
     // 加载音频文件
     useEffect(() => {
-        let hasError = false;
+        // 在 effect 中保存对 audioRefs.current 的引用
+        const currentAudioRefs = audioRefs.current;
         
         GAME_CONFIG.audio.letters.forEach((letter) => {
-            audioRefs.current[letter] = new Howl({
-                src: [
-                    `${GAME_CONFIG.audio.basePath}${
-                        GAME_CONFIG.audio.voices[settings.voiceType]
-                    }${letter.toLowerCase()}.mp3`,
-                ],
-                onloaderror: () => {
-                    console.error(`Failed to load audio for ${letter}`);
-                    hasError = true;
-                },
+            currentAudioRefs[letter] = new Howl({
+                src: [`${GAME_CONFIG.audio.basePath}${
+                    GAME_CONFIG.audio.voices[settings.voiceType]
+                }${letter.toLowerCase()}.mp3`],
                 onplay: () => setIsAudioPlaying(true),
                 onend: () => setIsAudioPlaying(false),
             });
         });
         
-        // 如果有音频加载错误，显示警告
-        if (hasError) {
-            toast("Some audio files failed to load. The game may not work correctly.");
-        }
-        
-        return () =>
-            Object.values(audioRefs.current).forEach((audio) => audio.unload());
+        // 使用保存的引用进行清理
+        return () => Object.values(currentAudioRefs).forEach((audio) => audio.unload());
     }, [settings.voiceType]);
 
     // 结束游戏并计算准确率
@@ -191,18 +207,40 @@ export default function GameComponent() {
         setIntervalDelay(null);
         setGameState("complete");
         
-        // 计算位置和音频的准确率
         if (results.length > 0) {
-            const positionCorrect = results.filter(
-                r => r.isCorrectPositionResponse
+            // 位置统计
+            const positionMatches = results.filter(r => r.isPositionMatch).length;
+            const positionCorrect = results.filter(r => 
+                r.isPositionMatch && r.response.positionMatch === true
             ).length;
-            const audioCorrect = results.filter(
-                r => r.isCorrectAudioResponse
+            const positionMissed = positionMatches - positionCorrect;
+            const positionFalseAlarms = results.filter(r => 
+                !r.isPositionMatch && r.response.positionMatch === true
             ).length;
-            
+
+            // 音频统计
+            const audioMatches = results.filter(r => r.isAudioMatch).length;
+            const audioCorrect = results.filter(r => 
+                r.isAudioMatch && r.response.audioMatch === true
+            ).length;
+            const audioMissed = audioMatches - audioCorrect;
+            const audioFalseAlarms = results.filter(r => 
+                !r.isAudioMatch && r.response.audioMatch === true
+            ).length;
+
             setAccuracy({
-                position: Math.round((positionCorrect / results.length) * 100),
-                audio: Math.round((audioCorrect / results.length) * 100),
+                position: {
+                    total: positionMatches,
+                    correct: positionCorrect,
+                    missed: positionMissed,
+                    falseAlarms: positionFalseAlarms
+                },
+                audio: {
+                    total: audioMatches,
+                    correct: audioCorrect,
+                    missed: audioMissed,
+                    falseAlarms: audioFalseAlarms
+                }
             });
         }
     }, [results]);
@@ -261,7 +299,7 @@ export default function GameComponent() {
 
     // 分享游戏分数
     const shareScore = useCallback(() => {
-        const text = `I achieved ${accuracy.position}% position and ${accuracy.audio}% audio accuracy in ${settings.selectedNBack}-Back training!`;
+        const text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position and ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
         if (navigator.share) {
             navigator
                 .share({
@@ -310,10 +348,15 @@ export default function GameComponent() {
         if (gameState === "playing" && currentTrial > 0) {
             const timer = setTimeout(() => {
                 const currentStimuli = trialHistory[trialHistory.length - 1];
-                const nBackStimuli = trialHistory[trialHistory.length - 1 - settings.selectedNBack];
+                const nBackIndex = trialHistory.length - 1 - settings.selectedNBack;
+                const nBackStimuli = nBackIndex >= 0 && trialHistory.length > nBackIndex 
+                    ? trialHistory[nBackIndex]
+                    : undefined;
                 
-                const isPositionMatch = currentStimuli.position === nBackStimuli.position;
-                const isAudioMatch = currentStimuli.letter === nBackStimuli.letter;
+                const isPositionMatch = nBackStimuli 
+                    ? currentStimuli.position === nBackStimuli.position
+                    : false;
+                const isAudioMatch = currentStimuli.letter === nBackStimuli?.letter;
 
                 const autoResponse = { ...currentResponse };
                 
@@ -338,7 +381,7 @@ export default function GameComponent() {
     }, [currentTrial, currentResponse, gameState, settings.selectedTypes, evaluateResponse, trialHistory, settings.selectedNBack]);
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 min-h-[calc(100vh-10rem)] flex flex-col justify-center">
             <div className="flex justify-between items-center mb-6">
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -348,20 +391,28 @@ export default function GameComponent() {
                                 : settings.selectedTypes[0]}
                         </span>
                         <span>•</span>
-                        <span className="font-medium">{settings.selectedNBack}-back</span>
+                        <span className="font-medium">
+                            {settings.selectedNBack}-back
+                        </span>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
-                    {gameState !== "idle" && (
-                        <Badge
-                            variant={
-                                gameState === "playing"
-                                    ? "destructive"
-                                    : "outline"
-                            }
+                    <div className="relative">
+                        <ConfettiButton>Confetti 🎉</ConfettiButton>
+                    </div>
+
+                    {gameState === "playing" && (
+                        <Button
+                            onClick={togglePause}
+                            variant="outline"
+                            size="sm"
                         >
-                            {gameState}
-                        </Badge>
+                            {isPaused ? (
+                                <PlayCircle className="h-4 w-4" />
+                            ) : (
+                                <PauseCircle className="h-4 w-4" />
+                            )}
+                        </Button>
                     )}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -370,7 +421,7 @@ export default function GameComponent() {
                                 size="sm"
                                 disabled={gameState === "playing"}
                             >
-                                <Settings className="h-4 w-4 mr-1" />
+                                <Settings className="h-4 w-4" />
                                 <span className="hidden sm:inline">
                                     Settings
                                 </span>
@@ -403,21 +454,27 @@ export default function GameComponent() {
                                     />
                                 </div>
                                 <DropdownMenuSeparator />
-                                <Label className="flex items-center justify-between">
+                                <div className="flex items-center justify-between">
                                     <span>Voice</span>
-                                    <Switch
-                                        checked={settings.voiceType === "male"}
-                                        onCheckedChange={(checked) =>
-                                            updateSettings((p) => ({
-                                                ...p,
-                                                voiceType: checked
-                                                    ? "male"
-                                                    : "female",
-                                            }))
-                                        }
-                                        disabled={gameState === "playing"}
-                                    />
-                                </Label>
+                                    <div className="flex items-center gap-2">
+                                        <Button
+                                            size="sm"
+                                            onClick={() =>
+                                                updateSettings((p) => ({
+                                                    ...p,
+                                                    voiceType:
+                                                        p.voiceType === "male"
+                                                            ? "female"
+                                                            : "male",
+                                                }))
+                                            }
+                                        >
+                                            {settings.voiceType === "male"
+                                                ? "Male"
+                                                : "Female"}
+                                        </Button>
+                                    </div>
+                                </div>
                                 <DropdownMenuSeparator />
                                 <div className="space-y-2">
                                     <Label>Training Mode</Label>
@@ -435,7 +492,9 @@ export default function GameComponent() {
                                                     const newTypes = checked
                                                         ? [
                                                               ...settings.selectedTypes,
-                                                              type as "position" | "audio",
+                                                              type as
+                                                                  | "position"
+                                                                  | "audio",
                                                           ]
                                                         : settings.selectedTypes.filter(
                                                               (t) => t !== type
@@ -452,7 +511,9 @@ export default function GameComponent() {
                                                     (settings.selectedTypes
                                                         .length === 1 &&
                                                         settings.selectedTypes.includes(
-                                                            type as "position" | "audio"
+                                                            type as
+                                                                | "position"
+                                                                | "audio"
                                                         ))
                                                 }
                                             />
@@ -469,7 +530,7 @@ export default function GameComponent() {
                 </div>
             </div>
 
-            <div className="max-w-md mx-auto">
+            <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
                 {gameState === "idle" ? (
                     <div className="text-center py-8">
                         <div className="mb-6 p-4 bg-muted/30 rounded-lg">
@@ -497,74 +558,46 @@ export default function GameComponent() {
                             Trial {currentTrial} of{" "}
                             {GAME_CONFIG.trials.perRound}
                         </div>
-                        {showFeedback && (
-                            <div
-                                className={cn(
-                                    "mb-4 text-lg font-bold animate-fade-in-out",
-                                    currentResponse.positionMatch === true
-                                        ? "text-green-500"
-                                        : "text-red-500"
-                                )}
-                            >
-                                {currentResponse.positionMatch === true ? "Position Match!" : "Incorrect"}
-                            </div>
-                        )}
-                        <div className={cn(
-                            "grid gap-2 mx-auto mb-6"
-                        )}>
+
+                        <div
+                            className={cn(
+                                "grid grid-cols-3 gap-2 mx-auto mb-6"
+                            )}
+                        >
                             {Array.from({ length: 9 }).map((_, index) => (
                                 <div
                                     key={index}
                                     className={cn(
                                         "aspect-square rounded-lg transition-all duration-300",
                                         activePosition === index
-                                            ? "bg-yellow-500 border-4 border-black" 
-                                            : "bg-primary scale-95"
+                                            ? "bg-primary"
+                                            : "bg-foreground/5"
                                     )}
                                 />
                             ))}
                         </div>
-                        <div className="flex flex-col sm:flex-row justify-center gap-4">
+                        <div className="flex justify-center gap-4">
                             {settings.selectedTypes.includes("position") && (
                                 <Button
                                     onClick={() => handleResponse("position")}
-                                    variant={currentResponse.positionMatch ? "default" : "outline"}
+                                    variant="outline"
                                     className={cn(
-                                        "flex-1",
-                                        showFeedback &&
-                                            currentResponse.positionMatch &&
-                                            "bg-success hover:bg-success/90"
+                                        "border-2",
+                                        isPositionHighlight && "hover:border-primary border-primary"
                                     )}
-                                    disabled={
-                                        currentResponse.positionMatch !== null || 
-                                        isPaused || 
-                                        !settings.selectedTypes.includes("position")
-                                    }
                                 >
                                     <Square className="w-4 h-4 mr-2" />
-                                    Position Match (A)
+                                    A: Position Match
                                 </Button>
                             )}
                             {settings.selectedTypes.includes("audio") && (
                                 <Button
                                     onClick={() => handleResponse("audio")}
-                                    variant={
-                                        currentResponse.audioMatch
-                                            ? "default"
-                                            : "outline"
-                                    }
+                                    variant="outline"
                                     className={cn(
-                                        "flex-1",
-                                        showFeedback &&
-                                            currentResponse.audioMatch &&
-                                            "bg-success",
-                                        showFeedback &&
-                                            !currentResponse.audioMatch &&
-                                            "bg-destructive"
+                                        "border-2",
+                                        isAudioHighlight && "hover:border-primary border-primary"
                                     )}
-                                    disabled={
-                                        currentResponse.audioMatch !== null
-                                    }
                                 >
                                     <Volume2
                                         className={cn(
@@ -572,59 +605,44 @@ export default function GameComponent() {
                                             isAudioPlaying && "animate-pulse"
                                         )}
                                     />
-                                    Sound Match
+                                    L: Sound Match
                                 </Button>
                             )}
                         </div>
-                        <Progress
-                            value={
-                                (currentTrial / GAME_CONFIG.trials.perRound) *
-                                100
-                            }
-                            className="mt-4"
-                        />
-                        <Button onClick={togglePause} variant="outline" size="sm">
-                            {isPaused ? <PlayCircle className="h-4 w-4" /> : <PauseCircle className="h-4 w-4" />}
-                        </Button>
                     </div>
                 ) : (
                     <div className="text-center py-8">
                         <h2 className="text-xl font-bold mb-4">
-                            Training Complete!
+                            Training Results
                         </h2>
                         <div className="bg-muted/30 p-4 rounded-lg mb-6">
-                            <h3 className="font-bold text-lg mb-3">
-                                Training Results
-                            </h3>
-                            <div className="mt-4 text-lg">
-                                <div>Level: {settings.selectedNBack}-back</div>
-                                <div className="flex justify-between mt-2">
-                                    <span>Position Accuracy:</span>
-                                    <span
-                                        className={cn(
-                                            accuracy.position >=
-                                                GAME_CONFIG.difficulty
-                                                    .targetAccuracy
-                                                ? "text-green-500"
-                                                : "text-red-500"
-                                        )}
-                                    >
-                                        {accuracy.position}%
-                                    </span>
+                            <div className="mt-4 text-sm space-y-3">
+                                <div className="flex justify-between">
+                                    <span>Position Matches:</span>
+                                    <div className="text-right">
+                                        <div>
+                                            {accuracy.position.correct}/
+                                            {accuracy.position.total}
+                                        </div>
+                                        <div className="text-muted-foreground text-xs">
+                                            (Missed: {accuracy.position.missed},
+                                            False:{" "}
+                                            {accuracy.position.falseAlarms})
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span>Audio Accuracy:</span>
-                                    <span
-                                        className={cn(
-                                            accuracy.audio >=
-                                                GAME_CONFIG.difficulty
-                                                    .targetAccuracy
-                                                ? "text-green-500"
-                                                : "text-red-500"
-                                        )}
-                                    >
-                                        {accuracy.audio}%
-                                    </span>
+                                    <span>Audio Matches:</span>
+                                    <div className="text-right">
+                                        <div>
+                                            {accuracy.audio.correct}/
+                                            {accuracy.audio.total}
+                                        </div>
+                                        <div className="text-muted-foreground text-xs">
+                                            (Missed: {accuracy.audio.missed},
+                                            False: {accuracy.audio.falseAlarms})
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
