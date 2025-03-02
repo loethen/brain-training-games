@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
+import { games } from './data/games'
+import { categories } from './data/categories'
 
 // 获取环境变量
 const BASE_URL = process.env.SITE_URL || 'http://localhost:3000'
@@ -26,25 +28,40 @@ function getGameDirectories(): string[] {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 基本路由
-  const routes = [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 1,
-    }
-  ]
-
-  // 添加所有游戏路由
-  const gameDirectories = getGameDirectories()
+  const baseUrl = 'https://yourdomain.com'
   
-  const gameRoutes = gameDirectories.map(gameDir => ({
-    url: `${BASE_URL}/games/${gameDir}`,
+  // Game URLs
+  const gameUrls = games.map((game) => ({
+    url: `${baseUrl}/games/${game.slug}`,
     lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
+    changeFrequency: 'weekly' as const,
     priority: 0.8,
   }))
-
-  return [...routes, ...gameRoutes]
+  
+  // Category URLs
+  const categoryUrls = categories.map((category) => ({
+    url: `${baseUrl}/categories/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))
+  
+  // Static pages
+  const staticUrls = [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 1,
+    },
+    {
+      url: `${baseUrl}/categories`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    // Add other static pages here
+  ]
+  
+  return [...staticUrls, ...gameUrls, ...categoryUrls]
 } 

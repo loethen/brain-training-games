@@ -2,41 +2,36 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardTitle } from "@/components/ui/card"
 import React from "react"
+import { Game } from "@/app/data/games"
+import GameCategories from "@/components/game-categories"
+import { cn } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
 
 interface GameCardProps {
-  title: string
-  description: string
-  slug: string
-  preview: React.ReactNode  // 只接受React组件
+  game: Game
 }
 
-export function GameCard({ title, description, slug, preview }: GameCardProps) {
+export default function GameCard({ game }: GameCardProps) {
   return (
-      <Link href={`/games/${slug}`}>
-          <Card className="overflow-hidden transition-all shadow-none p-4 2xl:p-6 hover:shadow-lg">
-              <div className="flex flex-col lg:flex-row-reverse h-full items-center">
-                  {/* 预览区域 */}
-                  <div className="w-full lg:w-[340px] lg:h-[340px] flex items-end">{preview}</div>
-
-                  {/* 内容区域 */}
-                  <div className=" flex-1 p-4">
-                      <div>
-                          <CardTitle className="text-2xl mb-2">
-                              {title}
-                          </CardTitle>
-                          <CardDescription className="line-clamp-3 text-md">
-                              {description}
-                          </CardDescription>
-                      </div>
-                      <Button
-                          variant="outline"
-                          className="mt-12 self-start md:self-end hover:bg-primary/5"
-                      >
-                          Play Now →
-                      </Button>
-                  </div>
-              </div>
-          </Card>
+    <div className="group relative overflow-hidden rounded-lg border bg-background p-2">
+      <Link href={`/games/${game.slug}`} className="block p-4">
+        <h3 className="text-lg font-semibold">{game.title}</h3>
+        
+        {game.difficulty && (
+          <Badge variant={
+            game.difficulty === "easy" ? "success" : 
+            game.difficulty === "medium" ? "warning" : "destructive"
+          } className="mt-1">
+            {game.difficulty}
+          </Badge>
+        )}
+        
+        <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
+          {game.description}
+        </p>
+        
+        <GameCategories gameId={game.id} className="mt-4" />
       </Link>
+    </div>
   );
 } 

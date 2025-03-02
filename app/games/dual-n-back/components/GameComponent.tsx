@@ -6,17 +6,24 @@ import { PlayCircle, Share2, Volume2, Square, Settings, PauseCircle } from "luci
 import { Howl } from "howler";
 import { useInterval } from "@/hooks/useInterval";
 import { useTimeout } from "@/hooks/useTimeout";
-import {
-    DropdownMenu,
-    DropdownMenuTrigger,
-    DropdownMenuContent,
-    DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+} from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
@@ -39,6 +46,8 @@ type GameSettings = {
     selectedNBack: number;
     voiceType: "male" | "female";
     selectedTypes: ("position" | "audio")[];
+    trialsPerRound: number;
+    trialInterval: number;
 };
 
 // 游戏设置自定义钩子
@@ -47,7 +56,9 @@ function useGameSettings() {
     const [settings, setSettings] = useState<GameSettings>({
         selectedNBack: GAME_CONFIG.difficulty.initialLevel,      // 默认N-back等级
         voiceType: "male",      // 默认语音类型
-        selectedTypes: ["position", "audio"] // 默认启用双模式
+        selectedTypes: ["position", "audio"], // 默认启用双模式
+        trialsPerRound: GAME_CONFIG.trials.perRound, // 默认每轮试验次数
+        trialInterval: GAME_CONFIG.trials.interval, // 默认试验间隔
     });
 
     // 安全更新设置的方法
@@ -66,6 +77,15 @@ function useGameSettings() {
     return { settings, updateSettings };
 }
 
+// Define the form schema
+const settingsFormSchema = z.object({
+    selectedNBack: z.number().min(1).max(4),
+    voiceType: z.enum(["male", "female"]),
+    selectedTypes: z.array(z.enum(["position", "audio"])).min(1),
+    trialsPerRound: z.number().min(10).max(100),
+    trialInterval: z.number().min(1000).max(5000),
+});
+
 export default function GameComponent() {
     const { settings, updateSettings } = useGameSettings();
     
@@ -81,12 +101,50 @@ export default function GameComponent() {
     const [isPositionHighlight, setIsPositionHighlight] = useState(false);
     const [isAudioHighlight, setIsAudioHighlight] = useState(false);
 
+    // 添加一个状态来存储当前游戏会话的字母集
+    const [sessionLetters, setSessionLetters] = useState<string[]>([]);
+
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+    // Create the form
+    const form = useForm<z.infer<typeof settingsFormSchema>>({
+        resolver: zodResolver(settingsFormSchema),
+        defaultValues: settings,
+    });
+
+    // Handle form submission
+    const onSubmit = useCallback((values: z.infer<typeof settingsFormSchema>) => {
+        updateSettings(() => values);
+        setIsSettingsOpen(false);
+    }, [updateSettings]);
+
+    // Reset form when dialog opens
+    useEffect(() => {
+        if (isSettingsOpen) {
+            form.reset(settings);
+        }
+    }, [isSettingsOpen, form, settings]);
+
     const startGame = useCallback(() => {
         setIsLoading(true);
         setGameState("idle");
         setCurrentTrial(0);
         setTrialHistory([]);
         setResults([]);
+        
+        // 为本局游戏随机选择8个字母
+        const allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const selectedLetters: string[] = [];
+        
+        // 随机选择8个不重复的字母
+        while (selectedLetters.length < 8) {
+            const randomLetter = allLetters[Math.floor(Math.random() * allLetters.length)];
+            if (!selectedLetters.includes(randomLetter)) {
+                selectedLetters.push(randomLetter);
+            }
+        }
+        
+        setSessionLetters(selectedLetters);
         setStartDelay(GAME_CONFIG.trials.startDelay);
     }, []);
 
@@ -131,24 +189,29 @@ export default function GameComponent() {
         const isPositionMatch = currentStimuli.position === nBackStimuli.position;
         const isAudioMatch = currentStimuli.letter === nBackStimuli.letter;
         
+        // Create a new result object
         const newResult = {
             stimuli: currentStimuli,
             response,
             isPositionMatch,
             isAudioMatch,
+            // Only evaluate position response if position is a selected type
             isCorrectPositionResponse: 
+                !settings.selectedTypes.includes("position") ? true : // Always correct if not selected
                 isPositionMatch ? 
                     response.positionMatch === true :  // 当有匹配时，必须响应true
                     response.positionMatch !== true,   // 当无匹配时，必须不响应true（可以是false或null）
             
+            // Only evaluate audio response if audio is a selected type
             isCorrectAudioResponse: 
+                !settings.selectedTypes.includes("audio") ? true : // Always correct if not selected
                 isAudioMatch ? 
                     response.audioMatch === true : 
                     response.audioMatch !== true
         };
         
         setResults(prev => [...prev, newResult]);
-    }, [trialHistory, settings.selectedNBack]);
+    }, [trialHistory, settings.selectedNBack, settings.selectedTypes]);
 
     // 组件本地状态
     const [isLoading, setIsLoading] = useState(false);          // 加载状态
@@ -168,7 +231,7 @@ export default function GameComponent() {
 
     // 定时器钩子：控制试验间隔
     useInterval(() => {
-        if (currentTrial < GAME_CONFIG.trials.perRound) {
+        if (currentTrial < settings.trialsPerRound) {
             setActivePosition(null); // 重置激活位置
             startNextTrial();
         } else {
@@ -191,12 +254,16 @@ export default function GameComponent() {
         setStartDelay(null);
     }, startDelay);
 
-    // 加载音频文件
+    // 修改加载音频文件的useEffect
     useEffect(() => {
         // 在 effect 中保存对 audioRefs.current 的引用
         const currentAudioRefs = audioRefs.current;
         
-        GAME_CONFIG.audio.letters.forEach((letter) => {
+        // 清除之前的音频引用
+        Object.values(currentAudioRefs).forEach((audio) => audio.unload());
+        
+        // 只加载本局游戏需要的字母音频
+        sessionLetters.forEach((letter) => {
             currentAudioRefs[letter] = new Howl({
                 src: [`${GAME_CONFIG.audio.basePath}${
                     GAME_CONFIG.audio.voices[settings.voiceType]
@@ -208,7 +275,7 @@ export default function GameComponent() {
         
         // 使用保存的引用进行清理
         return () => Object.values(currentAudioRefs).forEach((audio) => audio.unload());
-    }, [settings.voiceType]);
+    }, [settings.voiceType, sessionLetters]);
 
     // 结束游戏并计算准确率
     const endGame = useCallback(() => {
@@ -276,20 +343,20 @@ export default function GameComponent() {
         }
     }, [results, currentTrial, trialHistory, currentResponse, evaluateResponse]);
 
-    // 生成随机试验刺激
+    // 修改生成随机试验刺激的函数
     const generateTrial = useCallback((): TrialStimuli => {
         // 随机生成位置（0-8对应3x3网格）
         const position = Math.floor(Math.random() * 9);
-        // 随机选择字母
-        const letter = GAME_CONFIG.audio.letters[
-            Math.floor(Math.random() * GAME_CONFIG.audio.letters.length)
-        ];
+        
+        // 从本局游戏的字母集中随机选择一个字母
+        const letter = sessionLetters[Math.floor(Math.random() * sessionLetters.length)];
+        
         return { position, letter };
-    }, []);
+    }, [sessionLetters]);
 
     // 开始下一个试验的核心逻辑
     const startNextTrial = useCallback(() => {
-        if (currentTrial >= GAME_CONFIG.trials.perRound) {
+        if (currentTrial >= settings.trialsPerRound) {
             endGame();
             return;
         }
@@ -307,16 +374,29 @@ export default function GameComponent() {
         // 当有足够历史记录时，按概率创建匹配
         if (trialHistory.length >= settings.selectedNBack) {
             const nBackTrial = trialHistory[trialHistory.length - settings.selectedNBack];
-            if (Math.random() < 0.2) positionStimuli = nBackTrial.position;
-            if (Math.random() < 0.2) letterStimuli = nBackTrial.letter;
+            
+            // 只为选中的训练模式创建匹配
+            if (settings.selectedTypes.includes("position") && Math.random() < 0.2) {
+                positionStimuli = nBackTrial.position;
+            }
+            
+            if (settings.selectedTypes.includes("audio") && Math.random() < 0.2) {
+                letterStimuli = nBackTrial.letter;
+            }
         }
 
         // 最终确定的刺激
         const finalStimuli = { position: positionStimuli, letter: letterStimuli };
         
-        // 更新界面状态
-        setActivePosition(finalStimuli.position);  // 显示位置刺激
-        if (audioRefs.current[finalStimuli.letter]) {
+        // 更新界面状态 - 只在需要时显示位置刺激
+        if (settings.selectedTypes.includes("position")) {
+            setActivePosition(finalStimuli.position);  // 显示位置刺激
+        } else {
+            setActivePosition(null); // 不显示位置刺激
+        }
+        
+        // 只在需要时播放音频
+        if (settings.selectedTypes.includes("audio") && audioRefs.current[finalStimuli.letter]) {
             audioRefs.current[finalStimuli.letter].play(); // 播放音频
         }
         
@@ -330,16 +410,25 @@ export default function GameComponent() {
         setCurrentTrial(prev => prev + 1);
         
         // 设置下一个试验的间隔
-        setIntervalDelay(GAME_CONFIG.trials.interval);
-    }, [currentTrial, generateTrial, settings.selectedNBack, trialHistory, endGame, evaluateResponse, currentResponse]);
+        setIntervalDelay(settings.trialInterval);
+    }, [currentTrial, generateTrial, settings.selectedNBack, settings.trialsPerRound, settings.trialInterval, settings.selectedTypes, trialHistory, endGame, evaluateResponse, currentResponse]);
 
     // 分享游戏分数
     const shareScore = useCallback(() => {
-        const text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position and ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
+        let text = "";
+        
+        if (settings.selectedTypes.length === 2) {
+            text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position and ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
+        } else if (settings.selectedTypes.includes("position")) {
+            text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position accuracy in ${settings.selectedNBack}-Back training!`;
+        } else {
+            text = `I achieved ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
+        }
+        
         if (navigator.share) {
             navigator
                 .share({
-                    title: "My Dual N-Back Score",
+                    title: `My ${settings.selectedTypes.length === 2 ? "Dual" : settings.selectedTypes[0]} N-Back Score`,
                     text,
                     url: window.location.href,
                 })
@@ -349,7 +438,7 @@ export default function GameComponent() {
                 .writeText(text + " " + window.location.href)
                 .then(() => alert("Score copied to clipboard!"));
         }
-    }, [settings.selectedNBack, accuracy]);
+    }, [settings.selectedNBack, settings.selectedTypes, accuracy]);
 
     // 添加键盘快捷键支持
     useEffect(() => {
@@ -372,7 +461,7 @@ export default function GameComponent() {
         if (gameState !== "playing") return;
         
         if (isPaused) {
-            setIntervalDelay(GAME_CONFIG.trials.interval);
+            setIntervalDelay(settings.trialInterval);
         } else {
             setIntervalDelay(null);
         }
@@ -413,7 +502,7 @@ export default function GameComponent() {
                         autoResponse.audioMatch = false; // 应响应但未响应
                     }
                 }
-            }, GAME_CONFIG.trials.interval - 200);
+            }, settings.trialInterval - 200);
             
             return () => clearTimeout(timer);
         }
@@ -449,8 +538,11 @@ export default function GameComponent() {
                             )}
                         </Button>
                     )}
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
+                    <Dialog
+                        open={isSettingsOpen}
+                        onOpenChange={setIsSettingsOpen}
+                    >
+                        <DialogTrigger asChild>
                             <Button
                                 variant="outline"
                                 size="sm"
@@ -461,107 +553,253 @@ export default function GameComponent() {
                                     Settings
                                 </span>
                             </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                            align="end"
-                            className="bg-background p-4 w-64"
-                        >
-                            <div className="space-y-4">
-                                <div className="space-y-4">
-                                    <Label className="flex justify-between items-center">
-                                        <span>Difficulty</span>
-                                        <span className="text-primary">
-                                            {settings.selectedNBack}-Back
-                                        </span>
-                                    </Label>
-                                    <Slider
-                                        min={1}
-                                        max={4}
-                                        step={1}
-                                        value={[settings.selectedNBack]}
-                                        onValueChange={([val]) =>
-                                            updateSettings((p) => ({
-                                                ...p,
-                                                selectedNBack: val,
-                                            }))
-                                        }
-                                        disabled={gameState === "playing"}
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle>Game Settings</DialogTitle>
+                            </DialogHeader>
+                            <Form {...form}>
+                                <form
+                                    onSubmit={form.handleSubmit(onSubmit)}
+                                    className="space-y-6"
+                                >
+                                    <FormField
+                                        control={form.control}
+                                        name="selectedNBack"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel className="flex items-center justify-between">
+                                                    N-Back Level
+                                                    <span className="text-sm text-muted-foreground">
+                                                        {field.value}-Back
+                                                    </span>
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Slider
+                                                        min={1}
+                                                        max={GAME_CONFIG.difficulty.maxLevel}
+                                                        step={1}
+                                                        value={[field.value]}
+                                                        onValueChange={(vals) =>
+                                                            field.onChange(
+                                                                vals[0]
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            gameState ===
+                                                            "playing"
+                                                        }
+                                                    />
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
                                     />
-                                </div>
-                                <DropdownMenuSeparator />
-                                <div className="flex items-center justify-between">
-                                    <span>Voice</span>
-                                    <div className="flex items-center gap-2">
+
+                                    <FormField
+                                        control={form.control}
+                                        name="voiceType"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel>
+                                                    Voice Type
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <RadioGroup
+                                                        onValueChange={
+                                                            field.onChange
+                                                        }
+                                                        value={field.value}
+                                                        className="flex space-x-4"
+                                                    >
+                                                        <div className="flex items-center space-x-2">
+                                                            <RadioGroupItem
+                                                                value="male"
+                                                                id="male"
+                                                            />
+                                                            <Label htmlFor="male">
+                                                                Male
+                                                            </Label>
+                                                        </div>
+                                                        <div className="flex items-center space-x-2">
+                                                            <RadioGroupItem
+                                                                value="female"
+                                                                id="female"
+                                                            />
+                                                            <Label htmlFor="female">
+                                                                Female
+                                                            </Label>
+                                                        </div>
+                                                    </RadioGroup>
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="selectedTypes"
+                                        render={() => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel>
+                                                    Training Mode
+                                                </FormLabel>
+                                                <div className="space-y-2">
+                                                    {["position", "audio"].map(
+                                                        (type) => (
+                                                            <div
+                                                                key={type}
+                                                                className="flex items-center gap-2"
+                                                            >
+                                                                <Checkbox
+                                                                    id={`mode-${type}`}
+                                                                    checked={form
+                                                                        .watch(
+                                                                            "selectedTypes"
+                                                                        )
+                                                                        .includes(
+                                                                            type as
+                                                                                | "position"
+                                                                                | "audio"
+                                                                        )}
+                                                                    onCheckedChange={(
+                                                                        checked
+                                                                    ) => {
+                                                                        const currentTypes =
+                                                                            form.getValues(
+                                                                                "selectedTypes"
+                                                                            );
+                                                                        const newTypes =
+                                                                            checked
+                                                                                ? [
+                                                                                      ...currentTypes,
+                                                                                      type as
+                                                                                          | "position"
+                                                                                          | "audio",
+                                                                                  ]
+                                                                                : currentTypes.filter(
+                                                                                      (
+                                                                                          t
+                                                                                      ) =>
+                                                                                          t !==
+                                                                                          type
+                                                                                  );
+
+                                                                        if (
+                                                                            newTypes.length ===
+                                                                            0
+                                                                        ) {
+                                                                            toast(
+                                                                                "Must keep at least one training mode enabled"
+                                                                            );
+                                                                            return;
+                                                                        }
+
+                                                                        form.setValue(
+                                                                            "selectedTypes",
+                                                                            newTypes
+                                                                        );
+                                                                    }}
+                                                                    disabled={
+                                                                        gameState ===
+                                                                            "playing" ||
+                                                                        (form.watch(
+                                                                            "selectedTypes"
+                                                                        )
+                                                                            .length ===
+                                                                            1 &&
+                                                                            form
+                                                                                .watch(
+                                                                                    "selectedTypes"
+                                                                                )
+                                                                                .includes(
+                                                                                    type as
+                                                                                        | "position"
+                                                                                        | "audio"
+                                                                                ))
+                                                                    }
+                                                                />
+                                                                <Label
+                                                                    htmlFor={`mode-${type}`}
+                                                                >
+                                                                    {type
+                                                                        .charAt(
+                                                                            0
+                                                                        )
+                                                                        .toUpperCase() +
+                                                                        type.slice(
+                                                                            1
+                                                                        )}
+                                                                </Label>
+                                                            </div>
+                                                        )
+                                                    )}
+                                                </div>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="trialsPerRound"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel className="flex items-center justify-between">
+                                                    Trials Per Round
+                                                    <span className="text-sm text-muted-foreground">
+                                                        {field.value} trials
+                                                    </span>
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Slider
+                                                        min={10}
+                                                        max={50}
+                                                        step={5}
+                                                        value={[field.value]}
+                                                        onValueChange={(vals) => field.onChange(vals[0])}
+                                                        disabled={gameState === "playing"}
+                                                    />
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="trialInterval"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel className="flex items-center justify-between">
+                                                    Trial Speed
+                                                    <span className="text-sm text-muted-foreground">
+                                                        {(field.value / 1000).toFixed(1)}s
+                                                    </span>
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Slider
+                                                        min={1500}
+                                                        max={4000}
+                                                        step={250}
+                                                        value={[field.value]}
+                                                        onValueChange={(vals) => field.onChange(vals[0])}
+                                                        disabled={gameState === "playing"}
+                                                    />
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <DialogFooter>
                                         <Button
-                                            size="sm"
-                                            onClick={() =>
-                                                updateSettings((p) => ({
-                                                    ...p,
-                                                    voiceType:
-                                                        p.voiceType === "male"
-                                                            ? "female"
-                                                            : "male",
-                                                }))
-                                            }
+                                            type="submit"
+                                            disabled={gameState === "playing"}
                                         >
-                                            {settings.voiceType === "male"
-                                                ? "Male"
-                                                : "Female"}
+                                            Save Changes
                                         </Button>
-                                    </div>
-                                </div>
-                                <DropdownMenuSeparator />
-                                <div className="space-y-2">
-                                    <Label>Training Mode</Label>
-                                    {["position", "audio"].map((type) => (
-                                        <div
-                                            key={type}
-                                            className="flex items-center gap-2"
-                                        >
-                                            <Checkbox
-                                                id={`mode-${type}`}
-                                                checked={settings.selectedTypes.includes(
-                                                    type as "position" | "audio"
-                                                )}
-                                                onCheckedChange={(checked) => {
-                                                    const newTypes = checked
-                                                        ? [
-                                                              ...settings.selectedTypes,
-                                                              type as
-                                                                  | "position"
-                                                                  | "audio",
-                                                          ]
-                                                        : settings.selectedTypes.filter(
-                                                              (t) => t !== type
-                                                          );
-                                                    if (newTypes.length === 0)
-                                                        return;
-                                                    updateSettings((p) => ({
-                                                        ...p,
-                                                        selectedTypes: newTypes,
-                                                    }));
-                                                }}
-                                                disabled={
-                                                    gameState === "playing" ||
-                                                    (settings.selectedTypes
-                                                        .length === 1 &&
-                                                        settings.selectedTypes.includes(
-                                                            type as
-                                                                | "position"
-                                                                | "audio"
-                                                        ))
-                                                }
-                                            />
-                                            <Label htmlFor={`mode-${type}`}>
-                                                {type.charAt(0).toUpperCase() +
-                                                    type.slice(1)}
-                                            </Label>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                                    </DialogFooter>
+                                </form>
+                            </Form>
+                        </DialogContent>
+                    </Dialog>
                 </div>
             </div>
 
@@ -590,27 +828,41 @@ export default function GameComponent() {
                 ) : gameState === "playing" ? (
                     <div className="text-center py-6">
                         <div className="text-lg font-medium mb-4">
-                            Trial {currentTrial} of{" "}
-                            {GAME_CONFIG.trials.perRound}
+                            Trial {currentTrial} of {settings.trialsPerRound}
                         </div>
 
-                        <div
-                            className={cn(
-                                "grid grid-cols-3 gap-2 mx-auto mb-6"
-                            )}
-                        >
-                            {Array.from({ length: 9 }).map((_, index) => (
-                                <div
-                                    key={index}
-                                    className={cn(
-                                        "aspect-square rounded-lg transition-all duration-300",
-                                        activePosition === index
-                                            ? "bg-primary"
-                                            : "bg-foreground/5"
-                                    )}
-                                />
-                            ))}
-                        </div>
+                        {/* Only show the grid if position is a selected type */}
+                        {settings.selectedTypes.includes("position") && (
+                            <div className={cn("grid grid-cols-3 gap-2 mx-auto mb-6")}>
+                                {Array.from({ length: 9 }).map((_, index) => (
+                                    <div
+                                        key={index}
+                                        className={cn(
+                                            "aspect-square rounded-lg transition-all duration-300",
+                                            activePosition === index
+                                                ? "bg-primary"
+                                                : "bg-foreground/5"
+                                        )}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                        
+                        {/* If only audio is selected, show a visual indicator for audio */}
+                        {!settings.selectedTypes.includes("position") && settings.selectedTypes.includes("audio") && (
+                            <div className="flex justify-center items-center h-32 mb-6">
+                                <div className={cn(
+                                    "w-16 h-16 rounded-full flex items-center justify-center",
+                                    isAudioPlaying ? "bg-primary/20" : "bg-foreground/5"
+                                )}>
+                                    <Volume2 className={cn(
+                                        "w-8 h-8",
+                                        isAudioPlaying ? "text-primary animate-pulse" : "text-muted-foreground"
+                                    )} />
+                                </div>
+                            </div>
+                        )}
+                        
                         <div className="flex justify-center gap-4">
                             {settings.selectedTypes.includes("position") && (
                                 <Button
@@ -618,7 +870,8 @@ export default function GameComponent() {
                                     variant="outline"
                                     className={cn(
                                         "border-2",
-                                        isPositionHighlight && "hover:border-primary border-primary"
+                                        isPositionHighlight &&
+                                            "hover:border-primary border-primary"
                                     )}
                                 >
                                     <Square className="w-4 h-4 mr-2" />
@@ -631,7 +884,8 @@ export default function GameComponent() {
                                     variant="outline"
                                     className={cn(
                                         "border-2",
-                                        isAudioHighlight && "hover:border-primary border-primary"
+                                        isAudioHighlight &&
+                                            "hover:border-primary border-primary"
                                     )}
                                 >
                                     <Volume2
@@ -651,67 +905,80 @@ export default function GameComponent() {
                             Training Results
                         </h2>
                         <div className="bg-muted/30 p-6 rounded-lg mb-6 max-w-md mx-auto">
-                            <div className="grid grid-cols-2 gap-6">
-                                {/* Position Results */}
-                                <div className="space-y-3 border-r pr-4">
-                                    <h3 className="font-semibold text-primary">Position</h3>
-                                    <div className="flex flex-col items-center">
-                                        <div className="text-3xl font-bold">
-                                            {accuracy.position.correct}/{accuracy.position.total}
+                            <div className={cn(
+                                "grid gap-6",
+                                settings.selectedTypes.length === 2 ? "grid-cols-2" : "grid-cols-1"
+                            )}>
+                                {settings.selectedTypes.includes("position") && (
+                                    <div className={cn(
+                                        "space-y-3", 
+                                        settings.selectedTypes.length === 2 && "border-r pr-4"
+                                    )}>
+                                        <h3 className="font-semibold text-primary">Position</h3>
+                                        <div className="flex flex-col items-center">
+                                            <div className="text-3xl font-bold">
+                                                {accuracy.position.correct}/{accuracy.position.total}
+                                            </div>
+                                            <div className="text-sm text-muted-foreground">
+                                                {accuracy.position.total > 0 
+                                                    ? Math.round((accuracy.position.correct / accuracy.position.total) * 100) 
+                                                    : 0}% Accuracy
+                                            </div>
                                         </div>
-                                        <div className="text-sm text-muted-foreground">
-                                            {accuracy.position.total > 0 
-                                                ? Math.round((accuracy.position.correct / accuracy.position.total) * 100) 
-                                                : 0}% Accuracy
+                                        <div className="text-xs text-muted-foreground space-y-1">
+                                            <div className="flex justify-between">
+                                                <span>Missed:</span>
+                                                <span>{accuracy.position.missed}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span>False Alarms:</span>
+                                                <span>{accuracy.position.falseAlarms}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="text-xs text-muted-foreground space-y-1">
-                                        <div className="flex justify-between">
-                                            <span>Missed:</span>
-                                            <span>{accuracy.position.missed}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>False Alarms:</span>
-                                            <span>{accuracy.position.falseAlarms}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                )}
 
-                                {/* Audio Results */}
-                                <div className="space-y-3 pl-2">
-                                    <h3 className="font-semibold text-primary">Audio</h3>
-                                    <div className="flex flex-col items-center">
-                                        <div className="text-3xl font-bold">
-                                            {accuracy.audio.correct}/{accuracy.audio.total}
+                                {settings.selectedTypes.includes("audio") && (
+                                    <div className={cn(
+                                        "space-y-3",
+                                        settings.selectedTypes.length === 2 && "pl-2"
+                                    )}>
+                                        <h3 className="font-semibold text-primary">Audio</h3>
+                                        <div className="flex flex-col items-center">
+                                            <div className="text-3xl font-bold">
+                                                {accuracy.audio.correct}/{accuracy.audio.total}
+                                            </div>
+                                            <div className="text-sm text-muted-foreground">
+                                                {accuracy.audio.total > 0 
+                                                    ? Math.round((accuracy.audio.correct / accuracy.audio.total) * 100) 
+                                                    : 0}% Accuracy
+                                            </div>
                                         </div>
-                                        <div className="text-sm text-muted-foreground">
-                                            {accuracy.audio.total > 0 
-                                                ? Math.round((accuracy.audio.correct / accuracy.audio.total) * 100) 
-                                                : 0}% Accuracy
+                                        <div className="text-xs text-muted-foreground space-y-1">
+                                            <div className="flex justify-between">
+                                                <span>Missed:</span>
+                                                <span>{accuracy.audio.missed}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span>False Alarms:</span>
+                                                <span>{accuracy.audio.falseAlarms}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="text-xs text-muted-foreground space-y-1">
-                                        <div className="flex justify-between">
-                                            <span>Missed:</span>
-                                            <span>{accuracy.audio.missed}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>False Alarms:</span>
-                                            <span>{accuracy.audio.falseAlarms}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                )}
                             </div>
 
                             <div className="mt-6 pt-4 border-t border-border/40">
                                 <div className="text-sm">
-                                    <div className="flex justify-between items-center">
-                                        <span className="font-medium">Overall Performance:</span>
-                                        <span className="font-bold">
-                                            {Math.round(((accuracy.position.correct + accuracy.audio.correct) / 
-                                                (accuracy.position.total + accuracy.audio.total || 1)) * 100)}%
-                                        </span>
-                                    </div>
+                                    {settings.selectedTypes.length === 2 && (
+                                        <div className="flex justify-between items-center">
+                                            <span className="font-medium">Overall Performance:</span>
+                                            <span className="font-bold">
+                                                {Math.round(((accuracy.position.correct + accuracy.audio.correct) / 
+                                                    (accuracy.position.total + accuracy.audio.total || 1)) * 100)}%
+                                            </span>
+                                        </div>
+                                    )}
                                     <div className="mt-2 text-xs text-muted-foreground">
                                         <p>Level: {settings.selectedNBack}-Back • Trials: {currentTrial}</p>
                                     </div>
