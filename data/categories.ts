@@ -1,13 +1,26 @@
-export type Category = {
+export interface Category {
   id: string;
   name: string;
-  description: string;
   slug: string;
-  icon?: string; // Optional icon name for visual representation
-};
+  description: string;
+  icon?: string;
+}
 
-// Define all categories
 export const categories: Category[] = [
+  {
+    id: "focus",
+    name: "Focus",
+    slug: "focus",
+    description: "Games that train your ability to concentrate and maintain attention on specific tasks.",
+    icon: "Focus"
+  },
+  {
+    id: "memory",
+    name: "Memory",
+    slug: "memory",
+    description: "Exercises to improve your short-term and working memory capacity.",
+    icon: "Brain"
+  },
   {
     id: "working-memory",
     name: "Working Memory",
@@ -57,4 +70,13 @@ export const categories: Category[] = [
     slug: "cognitive-flexibility",
     icon: "Shuffle"
   }
-]; 
+];
+
+// 辅助函数
+export function getCategory(id: string): Category | undefined {
+  return categories.find(category => category.id === id);
+}
+
+export function getCategoryBySlug(slug: string): Category | undefined {
+  return categories.find(category => category.slug === slug);
+} 

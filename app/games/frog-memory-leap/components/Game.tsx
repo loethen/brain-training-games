@@ -13,6 +13,8 @@ const GameComponent = dynamic(() => import('./GameComponent'), {
 
 export default function Game() {
     return (
-        <GameComponent />
+        <div className="max-w-3xl mx-auto aspect-[4/3]">
+            <GameComponent />
+        </div>
     );
 } 

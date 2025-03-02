@@ -31,7 +31,7 @@ export default function GameCategories({
         <Link 
           key={category.id}
           href={`/categories/${category.slug}`}
-          className="text-sm px-2 py-1 bg-muted/50 rounded-md hover:bg-muted transition-colors flex items-center gap-1"
+          className="text-primary px-2 py-1 bg-muted rounded-md hover:bg-muted transition-colors flex items-center gap-1"
         >
           {category.icon && iconMap[category.icon]}
           {category.name}

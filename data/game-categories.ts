@@ -1,53 +1,26 @@
-import { Category, categories } from "./categories";
+import { getCategory, type Category } from "./categories";
 
-export type GameCategory = {
-  gameId: string;
-  categoryIds: string[];
+// 游戏和类别之间的关系映射
+const gameCategoryMap: Record<string, string[]> = {
+  "schulte-table": ["selective-attention", "visual-tracking", "reaction-time"],
+  "dual-n-back": ["working-memory", "divided-attention"],
+  "fish-trace": ["visual-tracking", "sustained-attention"],
+  "frog-memory-leap": ["working-memory", "visual-tracking"],
+  "larger-number": ["reaction-time", "selective-attention"],
+  "mahjong-dual-n-back": ["working-memory", "divided-attention", "cognitive-flexibility"],
+  "pattern-recall-challenge": ["working-memory", "visual-tracking"],
+  // 其他游戏...
 };
 
-// Map games to their categories
-export const gameCategoryMappings: GameCategory[] = [
-  {
-    gameId: "dual-n-back",
-    categoryIds: ["working-memory", "divided-attention"]
-  },
-  {
-    gameId: "fish-trace",
-    categoryIds: ["visual-tracking", "sustained-attention"]
-  },
-  {
-    gameId: "frog-memory-leap",
-    categoryIds: ["working-memory", "visual-tracking"]
-  },
-  {
-    gameId: "larger-number",
-    categoryIds: ["reaction-time", "selective-attention"]
-  },
-  {
-    gameId: "mahjong-dual-n-back",
-    categoryIds: ["working-memory", "divided-attention", "cognitive-flexibility"]
-  },
-  {
-    gameId: "pattern-recall-challenge",
-    categoryIds: ["working-memory", "visual-tracking"]
-  },
-  {
-    gameId: "schulte-table",
-    categoryIds: ["selective-attention", "visual-tracking", "reaction-time"]
-  },
-  // Add more game-category mappings as you create more games
-];
-
-// Helper functions
+// 获取特定游戏的所有类别
 export function getGameCategories(gameId: string): Category[] {
-  const mapping = gameCategoryMappings.find(m => m.gameId === gameId);
-  if (!mapping) return [];
-  
-  return categories.filter(category => mapping.categoryIds.includes(category.id));
+  const categoryIds = gameCategoryMap[gameId] || [];
+  return categoryIds.map(id => getCategory(id)).filter(Boolean) as Category[];
 }
 
+// 获取特定类别的所有游戏
 export function getCategoryGames(categoryId: string): string[] {
-  return gameCategoryMappings
-    .filter(mapping => mapping.categoryIds.includes(categoryId))
-    .map(mapping => mapping.gameId);
+  return Object.entries(gameCategoryMap)
+    .filter(([_, categories]) => categories.includes(categoryId))
+    .map(([gameId, _]) => gameId);
 } 

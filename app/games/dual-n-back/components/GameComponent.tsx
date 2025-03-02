@@ -509,7 +509,7 @@ export default function GameComponent() {
     }, [currentTrial, currentResponse, gameState, settings.selectedTypes, evaluateResponse, trialHistory, settings.selectedNBack]);
 
     return (
-        <div className="container mx-auto p-4 min-h-[calc(100vh-10rem)] flex flex-col justify-center">
+        <div className="container mx-auto p-4 flex flex-col justify-center">
             <div className="flex justify-between items-center mb-6">
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
