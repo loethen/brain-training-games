@@ -1,6 +1,6 @@
-import { categories } from "@/app/data/categories";
+import { categories } from "@/data/categories";
 import Link from "next/link";
-import { Brain, Focus, Zap, PuzzlePiece, Eye } from "lucide-react";
+import { Brain, Focus, Zap, Puzzle, Eye, Target, Split, Shuffle } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,8 +12,11 @@ const iconMap: Record<string, React.ReactNode> = {
   Brain: <Brain className="h-6 w-6" />,
   Focus: <Focus className="h-6 w-6" />,
   Zap: <Zap className="h-6 w-6" />,
-  PuzzlePiece: <PuzzlePiece className="h-6 w-6" />,
-  Eye: <Eye className="h-6 w-6" />
+  PuzzlePiece: <Puzzle className="h-6 w-6" />,
+  Eye: <Eye className="h-6 w-6" />,
+  Target: <Target className="h-6 w-6" />,
+  Split: <Split className="h-6 w-6" />,
+  Shuffle: <Shuffle className="h-6 w-6" />
 };
 
 export default function CategoriesPage() {

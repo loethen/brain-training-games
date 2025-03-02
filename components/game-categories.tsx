@@ -1,14 +1,17 @@
 import Link from "next/link";
-import { getGameCategories } from "@/app/data/categories";
-import { Brain, Focus, Zap, PuzzlePiece, Eye } from "lucide-react";
+import { getGameCategories } from "@/data/game-categories";
+import { Brain, Focus, Zap, Puzzle, Eye, Target, Split, Shuffle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const iconMap: Record<string, React.ReactNode> = {
   Brain: <Brain className="h-4 w-4" />,
   Focus: <Focus className="h-4 w-4" />,
   Zap: <Zap className="h-4 w-4" />,
-  PuzzlePiece: <PuzzlePiece className="h-4 w-4" />,
-  Eye: <Eye className="h-4 w-4" />
+  PuzzlePiece: <Puzzle className="h-4 w-4" />,
+  Eye: <Eye className="h-4 w-4" />,
+  Target: <Target className="h-4 w-4" />,
+  Split: <Split className="h-4 w-4" />,
+  Shuffle: <Shuffle className="h-4 w-4" />
 };
 
 export default function GameCategories({ 
@@ -24,7 +27,6 @@ export default function GameCategories({
   
   return (
     <div className={cn("flex flex-wrap gap-2", className)}>
-      <span className="text-sm text-muted-foreground">Trains:</span>
       {categories.map(category => (
         <Link 
           key={category.id}

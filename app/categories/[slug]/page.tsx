@@ -1,5 +1,6 @@
-import { categories, getCategoryGames } from "@/app/data/categories";
-import { getGames, Game } from "@/app/data/games";
+import { categories } from "@/data/categories";
+import { getCategoryGames } from "@/data/game-categories";
+import { getGames, Game } from "@/data/games";
 import GameCard from "@/components/game-card";
 import { Metadata } from "next";
 

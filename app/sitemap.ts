@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
-import { games } from './data/games'
-import { categories } from './data/categories'
+import { games } from '../data/games'
+import { categories } from '../data/categories'
 
 // 获取环境变量
 const BASE_URL = process.env.SITE_URL || 'http://localhost:3000'
