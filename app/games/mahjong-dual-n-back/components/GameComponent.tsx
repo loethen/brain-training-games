@@ -2,243 +2,357 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { GAME_CONFIG } from "../config";
 import { cn } from "@/lib/utils";
-import { PlayCircle, Share2, Volume2, Square, Settings, PauseCircle } from "lucide-react";
+import {
+    PlayCircle,
+    Share2,
+    Volume2,
+    Square,
+    Settings,
+    PauseCircle,
+} from "lucide-react";
 import { Howl } from "howler";
 import { useInterval } from "@/hooks/useInterval";
 import { useTimeout } from "@/hooks/useTimeout";
-import {
-    DropdownMenu,
-    DropdownMenuTrigger,
-    DropdownMenuContent,
-    DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
-
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+} from "@/components/ui/dialog";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+} from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import Image from "next/image";
 // 定义游戏状态类型
+// 游戏状态：空闲、进行中、已完成
 type GameState = "idle" | "playing" | "complete";
-// 试验刺激类型：麻将牌和音频
-type TrialStimuli = { tile: string; audio: string };
-// 用户响应类型：位置匹配和音频匹配
-type Response = { positionMatch: boolean | null; audioMatch: boolean | null };
+// 试验刺激类型：音频和麻将
+type TrialStimuli = { audio: string; position: string };
+// 用户响应类型：音频匹配和麻将匹配
+type Response = { audioMatch: boolean | null; positionMatch: boolean | null };
 // 试验结果类型：包含刺激、响应和正确性评估
 type TrialResult = {
     stimuli: TrialStimuli;
     response: Response;
-    isPositionMatch: boolean;
     isAudioMatch: boolean;
-    isCorrectPositionResponse: boolean;
+    isPositionMatch: boolean;
     isCorrectAudioResponse: boolean;
+    isCorrectPositionResponse: boolean;
 };
 // 游戏设置类型
 type GameSettings = {
     selectedNBack: number;
+    voiceType: "male" | "female";
     selectedTypes: ("position" | "audio")[];
+    trialsPerRound: number;
+    trialInterval: number;
 };
 
 // 游戏设置自定义钩子
 function useGameSettings() {
     // 默认游戏设置
     const [settings, setSettings] = useState<GameSettings>({
-        selectedNBack: GAME_CONFIG.difficulty.initialLevel,      // 默认N-back等级
-        selectedTypes: ["position", "audio"] // 默认启用双模式
+        selectedNBack: GAME_CONFIG.difficulty.initialLevel, // 默认N-back等级
+        voiceType: "male", // 默认语音类型
+        selectedTypes: ["position", "audio"], // 默认启用双模式
+        trialsPerRound: GAME_CONFIG.trials.perRound, // 默认每轮试验次数
+        trialInterval: GAME_CONFIG.trials.interval, // 默认试验间隔
     });
 
     // 安全更新设置的方法
-    const updateSettings = useCallback((updater: (prev: GameSettings) => GameSettings) => {
-        setSettings(prev => {
-            const newSettings = updater(prev);
-            // 验证设置有效性：至少需要保持一个训练模式启用
-            if (newSettings.selectedTypes.length === 0) {
-                toast("必须至少保持一个训练模式启用");
-                return prev; // 返回之前的有效设置
-            }
-            return newSettings;
-        });
-    }, []);
+    const updateSettings = useCallback(
+        (updater: (prev: GameSettings) => GameSettings) => {
+            setSettings((prev) => {
+                const newSettings = updater(prev);
+                // 验证设置有效性：至少需要保持一个训练模式启用
+                if (newSettings.selectedTypes.length === 0) {
+                    toast("must select at least one training mode");
+                    return prev; // 返回之前的有效设置
+                }
+                return newSettings;
+            });
+        },
+        []
+    );
 
     return { settings, updateSettings };
 }
 
+// Define the form schema
+const settingsFormSchema = z.object({
+    selectedNBack: z.number().min(1).max(4),
+    voiceType: z.enum(["male", "female"]),
+    selectedTypes: z.array(z.enum(["position", "audio"])).min(1),
+    trialsPerRound: z.number().min(10).max(100),
+    trialInterval: z.number().min(1000).max(5000),
+});
+
 export default function GameComponent() {
     const { settings, updateSettings } = useGameSettings();
-    
-    // 游戏状态
+
+    // 原useGameLogic中的状态
     const [gameState, setGameState] = useState<GameState>("idle");
-    const [currentTrial, setCurrentTrial] = useState(0);
-    const [trialHistory, setTrialHistory] = useState<TrialStimuli[]>([]);
-    const [currentStimuli, setCurrentStimuli] = useState<TrialStimuli | null>(null);
-    const [currentResponse, setCurrentResponse] = useState<Response>({ positionMatch: null, audioMatch: null });
-    const [results, setResults] = useState<TrialResult[]>([]);
-    const [accuracy, setAccuracy] = useState({
-        position: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
-        audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 }
+    const [currentTrial, setCurrentTrial] = useState(0); // 当前试验次数
+    const [trialHistory, setTrialHistory] = useState<TrialStimuli[]>([]); // 试验历史记录
+    const [results, setResults] = useState<TrialResult[]>([]); // 所有试验结果存储
+    const [currentResponse, setCurrentResponse] = useState<Response>({
+        audioMatch: null,
+        positionMatch: null,
+    }); // 当前用户的响应状态
+    const [isAudioHighlight, setIsAudioHighlight] = useState(false);
+    const [isPositionHighlight, setIsPositionHighlight] = useState(false);
+
+    // 添加一个状态来存储当前游戏会话的麻将集
+    const [sessionMahjong, setSessionMahjong] = useState<string[]>([]);
+
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+    // Create the form
+    const form = useForm<z.infer<typeof settingsFormSchema>>({
+        resolver: zodResolver(settingsFormSchema),
+        defaultValues: settings,
     });
-    const [isLoading, setIsLoading] = useState(false);
-    const [intervalDelay, setIntervalDelay] = useState<number | null>(null);
-    
-    // 音频相关
-    const audioRef = useRef<Howl | null>(null);
-    
-    // 生成随机麻将牌和音频
-    const generateRandomStimuli = useCallback((): TrialStimuli => {
-        const tiles = GAME_CONFIG.mahjong.tiles;
-        const tileIndex = Math.floor(Math.random() * tiles.length);
-        const audioIndex = Math.floor(Math.random() * tiles.length);
-        
-        return {
-            tile: tiles[tileIndex].id,
-            audio: tiles[audioIndex].id
-        };
-    }, []);
-    
-    // 播放音频
-    const playAudio = useCallback((tileId: string) => {
-        const tile = GAME_CONFIG.mahjong.tiles.find(t => t.id === tileId);
-        if (!tile) return;
-        
-        // 如果已有音频在播放，先停止
-        if (audioRef.current) {
-            audioRef.current.stop();
+
+    // Handle form submission
+    const onSubmit = useCallback(
+        (values: z.infer<typeof settingsFormSchema>) => {
+            updateSettings(() => values);
+            setIsSettingsOpen(false);
+        },
+        [updateSettings]
+    );
+
+    // Reset form when dialog opens
+    useEffect(() => {
+        if (isSettingsOpen) {
+            form.reset(settings);
         }
-        
-        // 创建新的音频实例
-        const audioPath = `${GAME_CONFIG.mahjong.audioPath}${tile.audio}.mp3`;
-        audioRef.current = new Howl({
-            src: [audioPath],
-            volume: 0.8,
-            onloaderror: (id, error) => {
-                console.error("音频加载错误:", error);
-                toast.error("音频加载失败");
-            }
-        });
-        
-        // 播放音频
-        audioRef.current.play();
-    }, []);
-    
-    // 开始新的试验
-    const startNewTrial = useCallback(() => {
-        // 生成新的刺激
-        const newStimuli = generateRandomStimuli();
-        
-        // 更新试验历史和当前刺激
-        setTrialHistory(prev => [...prev, newStimuli]);
-        setCurrentStimuli(newStimuli);
-        setCurrentTrial(prev => prev + 1);
-        
-        // 重置当前响应
-        setCurrentResponse({ positionMatch: null, audioMatch: null });
-        
-        // 播放音频
-        playAudio(newStimuli.audio);
-    }, [generateRandomStimuli, playAudio]);
-    
-    // 评估用户响应
-    const evaluateResponse = useCallback((response: Response) => {
-        if (!currentStimuli || currentTrial <= settings.selectedNBack) return;
-        
-        // 获取N步之前的刺激
-        const previousStimuli = trialHistory[currentTrial - settings.selectedNBack - 1];
-        if (!previousStimuli) return;
-        
-        // 判断是否匹配
-        const isPositionMatch = currentStimuli.tile === previousStimuli.tile;
-        const isAudioMatch = currentStimuli.audio === previousStimuli.audio;
-        
-        // 判断响应是否正确
-        const isCorrectPositionResponse = 
-            (isPositionMatch && response.positionMatch === true) || 
-            (!isPositionMatch && response.positionMatch !== true);
-        
-        const isCorrectAudioResponse = 
-            (isAudioMatch && response.audioMatch === true) || 
-            (!isAudioMatch && response.audioMatch !== true);
-        
-        // 添加到结果中
-        setResults(prev => [...prev, {
-            stimuli: currentStimuli,
-            response,
-            isPositionMatch,
-            isAudioMatch,
-            isCorrectPositionResponse,
-            isCorrectAudioResponse
-        }]);
-    }, [currentStimuli, currentTrial, settings.selectedNBack, trialHistory]);
-    
-    // 用户响应处理
-    const handleResponse = useCallback((type: "position" | "audio") => {
-        if (gameState !== "playing") return;
-        
-        setCurrentResponse(prev => {
-            const newResponse = { ...prev };
-            if (type === "position") {
-                newResponse.positionMatch = true;
-            } else if (type === "audio") {
-                newResponse.audioMatch = true;
-            }
-            return newResponse;
-        });
-    }, [gameState]);
-    
-    // 开始游戏
+    }, [isSettingsOpen, form, settings]);
+
     const startGame = useCallback(() => {
         setIsLoading(true);
-        
-        // 重置游戏状态
         setGameState("idle");
         setCurrentTrial(0);
         setTrialHistory([]);
-        setCurrentStimuli(null);
-        setCurrentResponse({ positionMatch: null, audioMatch: null });
         setResults([]);
+
+        // 为本局游戏随机选择8个字母
+        const allMahjong = GAME_CONFIG.symbols;
+        const selectedMahjong: string[] = [];
+
+        // 随机选择8个不重复的字母
+        while (selectedMahjong.length < 8) {
+            const randomMahjong =
+                allMahjong[Math.floor(Math.random() * allMahjong.length)];
+            if (!selectedMahjong.includes(randomMahjong)) {
+                selectedMahjong.push(randomMahjong);
+            }
+        }
+
+        setSessionMahjong(selectedMahjong);
+        setStartDelay(GAME_CONFIG.trials.startDelay);
+    }, []);
+
+    // 修改handleResponse方法
+    const handleResponse = useCallback((type: "audio" | "position") => {
+        // 设置高亮状态
+        if (type === "audio") {
+            setIsAudioHighlight(true);
+            setTimeout(() => setIsAudioHighlight(false), 300);
+        } else {
+            setIsPositionHighlight(true);
+            setTimeout(() => setIsPositionHighlight(false), 300);
+        }
+
+        setCurrentResponse((prev) => {
+            // 如果已经响应过该类型，则不再更新
+            if (prev[`${type}Match`] !== null) {
+                toast("You have already responded to this type");
+                return prev;
+            }
+
+            // Create the updated response
+            const updatedResponse = {
+                ...prev,
+                [`${type}Match`]: true,
+            };
+
+            return updatedResponse;
+        });
+    }, []);
+
+    const evaluateResponse = useCallback(
+        (response: Response) => {
+            if (trialHistory.length === 0) return; // Safety check
+
+            const currentStimuli = trialHistory[trialHistory.length - 1];
+            const nBackIndex = trialHistory.length - 1 - settings.selectedNBack;
+
+            // Only evaluate if we have enough history
+            if (nBackIndex < 0) return;
+
+            const nBackStimuli = trialHistory[nBackIndex];
+
+            const isPositionMatch =
+                currentStimuli.position === nBackStimuli.position;
+            const isAudioMatch = currentStimuli.audio === nBackStimuli.audio;
+
+            // Create a new result object
+            const newResult = {
+                stimuli: currentStimuli,
+                response,
+                isPositionMatch,
+                isAudioMatch,
+                // Only evaluate position response if position is a selected type
+                isCorrectPositionResponse: !settings.selectedTypes.includes(
+                    "position"
+                )
+                    ? true // Always correct if not selected
+                    : isPositionMatch
+                    ? response.positionMatch === true // 当有匹配时，必须响应true
+                    : response.positionMatch !== true, // 当无匹配时，必须不响应true（可以是false或null）
+
+                // Only evaluate audio response if audio is a selected type
+                isCorrectAudioResponse: !settings.selectedTypes.includes(
+                    "audio"
+                )
+                    ? true // Always correct if not selected
+                    : isAudioMatch
+                    ? response.audioMatch === true
+                    : response.audioMatch !== true,
+            };
+
+            setResults((prev) => [...prev, newResult]);
+        },
+        [trialHistory, settings.selectedNBack, settings.selectedTypes]
+    );
+
+    // 组件本地状态
+    const [isLoading, setIsLoading] = useState(false); // 加载状态
+    const [activePosition, setActivePosition] = useState<string | null>(null); // 当前激活的位置
+    const [accuracy, setAccuracy] = useState<{
+        position: {
+            total: number;
+            correct: number;
+            missed: number;
+            falseAlarms: number;
+        };
+        audio: {
+            total: number;
+            correct: number;
+            missed: number;
+            falseAlarms: number;
+        };
+    }>({
+        position: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
+        audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
+    }); // 准确率统计
+    const [isAudioPlaying, setIsAudioPlaying] = useState(false); // 音频播放状态
+    const [intervalDelay, setIntervalDelay] = useState<number | null>(null); // 试验间隔
+    const [startDelay, setStartDelay] = useState<number | null>(null); // 开始延迟
+    const [isPaused, setIsPaused] = useState(false); // 暂停状态
+    const audioRefs = useRef<{ [key: string]: Howl }>({}); // 音频引用缓存
+
+    // 定时器钩子：控制试验间隔
+    useInterval(() => {
+        if (currentTrial < settings.trialsPerRound) {
+            setActivePosition(null); // 重置激活位置
+            startNextTrial();
+        } else {
+            endGame();
+            setIntervalDelay(null);
+        }
+    }, intervalDelay);
+
+    // 延时钩子：控制游戏开始
+    useTimeout(() => {
+        setGameState("playing");
+        setCurrentTrial(0);
+        setTrialHistory([]);
+        setResults([]);
+        setActivePosition(null);
+        setCurrentResponse({ positionMatch: null, audioMatch: null });
         setAccuracy({
             position: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
-            audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 }
+            audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
         });
-        
-        // 延迟开始游戏，给用户准备时间
-        setTimeout(() => {
-            setIsLoading(false);
-            setGameState("playing");
-            
-            // 设置试验间隔
-            setIntervalDelay(GAME_CONFIG.trials.interval);
-        }, 1000);
-    }, []);
-    
+        setIsLoading(false);
+        startNextTrial();
+        setStartDelay(null);
+    }, startDelay);
+
+    // 修改加载音频文件的useEffect
+    useEffect(() => {
+        // 在 effect 中保存对 audioRefs.current 的引用
+        const currentAudioRefs = audioRefs.current;
+
+        // 清除之前的音频引用
+        Object.values(currentAudioRefs).forEach((audio) => audio.unload());
+
+        // 只加载本局游戏需要的字母音频
+        sessionMahjong.forEach((mahjong) => {
+            currentAudioRefs[mahjong] = new Howl({
+                src: [
+                    `${GAME_CONFIG.audio.basePath}${
+                        GAME_CONFIG.audio.voices[settings.voiceType]
+                    }${mahjong.toLowerCase()}.mp3`,
+                ],
+                onplay: () => setIsAudioPlaying(true),
+                onend: () => setIsAudioPlaying(false),
+            });
+        });
+
+        // 使用保存的引用进行清理
+        return () =>
+            Object.values(currentAudioRefs).forEach((audio) => audio.unload());
+    }, [settings.voiceType, sessionMahjong]);
+
     // 结束游戏并计算准确率
     const endGame = useCallback(() => {
         setIntervalDelay(null);
         setGameState("complete");
-        
-        // 评估最后一次试验（如果存在）
+
+        // Evaluate the last trial if it exists
         if (currentTrial > 0 && trialHistory.length > 0) {
             evaluateResponse(currentResponse);
         }
-        
+
         if (results.length > 0) {
             // 位置统计
-            const positionMatches = results.filter(r => r.isPositionMatch).length;
-            const positionCorrect = results.filter(r => 
-                r.isPositionMatch && r.response.positionMatch === true
+            const positionMatches = results.filter(
+                (r) => r.isPositionMatch
+            ).length;
+            const positionCorrect = results.filter(
+                (r) => r.isPositionMatch && r.response.positionMatch === true
             ).length;
             const positionMissed = positionMatches - positionCorrect;
-            const positionFalseAlarms = results.filter(r => 
-                !r.isPositionMatch && r.response.positionMatch === true
+            const positionFalseAlarms = results.filter(
+                (r) => !r.isPositionMatch && r.response.positionMatch === true
             ).length;
 
             // 音频统计
-            const audioMatches = results.filter(r => r.isAudioMatch).length;
-            const audioCorrect = results.filter(r => 
-                r.isAudioMatch && r.response.audioMatch === true
+            const audioMatches = results.filter((r) => r.isAudioMatch).length;
+            const audioCorrect = results.filter(
+                (r) => r.isAudioMatch && r.response.audioMatch === true
             ).length;
             const audioMissed = audioMatches - audioCorrect;
-            const audioFalseAlarms = results.filter(r => 
-                !r.isAudioMatch && r.response.audioMatch === true
+            const audioFalseAlarms = results.filter(
+                (r) => !r.isAudioMatch && r.response.audioMatch === true
             ).length;
 
             const newAccuracy = {
@@ -246,391 +360,824 @@ export default function GameComponent() {
                     total: positionMatches,
                     correct: positionCorrect,
                     missed: positionMissed,
-                    falseAlarms: positionFalseAlarms
+                    falseAlarms: positionFalseAlarms,
                 },
                 audio: {
                     total: audioMatches,
                     correct: audioCorrect,
                     missed: audioMissed,
-                    falseAlarms: audioFalseAlarms
-                }
+                    falseAlarms: audioFalseAlarms,
+                },
             };
-            
+
             setAccuracy(newAccuracy);
-            
-            // 检查是否完美得分并触发彩带庆祝
-            const isPerfectScore = 
-                (positionMatches === 0 || positionCorrect === positionMatches) && 
+
+            // Check for perfect score and trigger confetti
+            const isPerfectScore =
+                (positionMatches === 0 ||
+                    positionCorrect === positionMatches) &&
                 (audioMatches === 0 || audioCorrect === audioMatches) &&
-                positionFalseAlarms === 0 && 
+                positionFalseAlarms === 0 &&
                 audioFalseAlarms === 0;
-                
+
             if (isPerfectScore && currentTrial > 5) {
-                // 触发彩带庆祝
+                // Trigger confetti celebration
                 confetti({
                     particleCount: 100,
                     spread: 70,
-                    origin: { y: 0.6 }
+                    origin: { y: 0.6 },
                 });
             }
         }
-    }, [results, currentTrial, trialHistory, currentResponse, evaluateResponse]);
-    
-    // 分享得分
-    const shareScore = useCallback(() => {
-        const positionAccuracy = accuracy.position.total > 0
-            ? Math.round((accuracy.position.correct / accuracy.position.total) * 100)
-            : 0;
-        const audioAccuracy = accuracy.audio.total > 0
-            ? Math.round((accuracy.audio.correct / accuracy.audio.total) * 100)
-            : 0;
-        
-        const text = `我在麻将 Dual ${settings.selectedNBack}-Back 挑战中获得了 ${positionAccuracy}% 的位置准确率和 ${audioAccuracy}% 的音频准确率！`;
-        
-        if (navigator.share) {
-            navigator.share({
-                title: '麻将 Dual N-Back 挑战',
-                text: text,
-                url: window.location.href
-            }).catch(err => {
-                console.error('分享失败:', err);
-                copyToClipboard(text);
-            });
-        } else {
-            copyToClipboard(text);
-        }
-    }, [accuracy, settings.selectedNBack]);
-    
-    // 复制到剪贴板
-    const copyToClipboard = (text: string) => {
-        navigator.clipboard.writeText(text).then(() => {
-            toast.success('已复制到剪贴板');
-        }).catch(err => {
-            console.error('复制失败:', err);
-            toast.error('复制失败');
-        });
-    };
-    
-    // 使用自定义钩子处理试验间隔
-    useInterval(() => {
-        if (currentTrial >= GAME_CONFIG.trials.perRound) {
+    }, [
+        results,
+        currentTrial,
+        trialHistory,
+        currentResponse,
+        evaluateResponse,
+    ]);
+
+    // 修改生成随机试验刺激的函数
+    const generateTrial = useCallback((): TrialStimuli => {
+        // 从本局游戏的麻将集中随机选择一个麻将
+        const position =
+            sessionMahjong[Math.floor(Math.random() * sessionMahjong.length)];
+
+        // 从本局游戏的麻将集中随机选择另一个麻将，用于音频匹配
+        const audio =
+            sessionMahjong[Math.floor(Math.random() * sessionMahjong.length)];
+
+        return { position, audio };
+    }, [sessionMahjong]);
+
+    // 开始下一个试验的核心逻辑
+    const startNextTrial = useCallback(() => {
+        if (currentTrial >= settings.trialsPerRound) {
             endGame();
             return;
         }
-        
-        // 如果不是第一次试验，评估上一次的响应
-        if (currentTrial > 0) {
+
+        // Evaluate the previous trial's response if it exists
+        if (currentTrial > 0 && trialHistory.length > 0) {
             evaluateResponse(currentResponse);
         }
-        
-        startNewTrial();
-    }, intervalDelay);
-    
-    // 使用自定义钩子处理游戏开始延迟
-    useTimeout(() => {
-        if (gameState === "playing" && currentTrial === 0) {
-            startNewTrial();
+
+        // 生成新刺激，有20%概率创建匹配项
+        const newStimuli = generateTrial();
+        let positionStimuli = newStimuli.position;
+        let audioStimuli = newStimuli.audio;
+
+        // 当有足够历史记录时，按概率创建匹配
+        if (trialHistory.length >= settings.selectedNBack) {
+            const nBackTrial =
+                trialHistory[trialHistory.length - settings.selectedNBack];
+
+            // 只为选中的训练模式创建匹配
+            if (
+                settings.selectedTypes.includes("position") &&
+                Math.random() < 0.2
+            ) {
+                positionStimuli = nBackTrial.position;
+            }
+
+            if (
+                settings.selectedTypes.includes("audio") &&
+                Math.random() < 0.2
+            ) {
+                audioStimuli = nBackTrial.audio;
+            }
         }
-    }, gameState === "playing" && currentTrial === 0 ? GAME_CONFIG.trials.startDelay : null);
-    
-    // 键盘快捷键
+
+        // 最终确定的刺激
+        const finalStimuli = {
+            position: positionStimuli,
+            audio: audioStimuli,
+        };
+
+        // 更新界面状态 - 只在需要时显示位置刺激
+        if (settings.selectedTypes.includes("position")) {
+            setActivePosition(finalStimuli.position); // 显示位置刺激
+        } else {
+            setActivePosition(null); // 不显示位置刺激
+        }
+
+        // 只在需要时播放音频
+        if (
+            settings.selectedTypes.includes("audio") &&
+            audioRefs.current[finalStimuli.audio]
+        ) {
+            audioRefs.current[finalStimuli.audio].play(); // 播放音频
+        }
+
+        // 重置用户响应状态
+        setCurrentResponse({ positionMatch: null, audioMatch: null });
+
+        // 更新试验历史（保留最近N次记录）
+        setTrialHistory((prev) => [...prev, finalStimuli]);
+
+        // 更新试验计数
+        setCurrentTrial((prev) => prev + 1);
+
+        // 设置下一个试验的间隔
+        setIntervalDelay(settings.trialInterval);
+    }, [
+        currentTrial,
+        generateTrial,
+        settings.selectedNBack,
+        settings.trialsPerRound,
+        settings.trialInterval,
+        settings.selectedTypes,
+        trialHistory,
+        endGame,
+        evaluateResponse,
+        currentResponse,
+    ]);
+
+    // 分享游戏分数
+    const shareScore = useCallback(() => {
+        let text = "";
+
+        if (settings.selectedTypes.length === 2) {
+            text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position and ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
+        } else if (settings.selectedTypes.includes("position")) {
+            text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position accuracy in ${settings.selectedNBack}-Back training!`;
+        } else {
+            text = `I achieved ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
+        }
+
+        if (navigator.share) {
+            navigator
+                .share({
+                    title: `My ${
+                        settings.selectedTypes.length === 2
+                            ? "Dual"
+                            : settings.selectedTypes[0]
+                    } N-Back Score`,
+                    text,
+                    url: window.location.href,
+                })
+                .catch(console.error);
+        } else {
+            navigator.clipboard
+                .writeText(text + " " + window.location.href)
+                .then(() => alert("Score copied to clipboard!"));
+        }
+    }, [settings.selectedNBack, settings.selectedTypes, accuracy]);
+
+    // 添加键盘快捷键支持
     useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
+        const handleKeyPress = (e: KeyboardEvent) => {
             if (gameState !== "playing") return;
-            
+
             if (e.key === "a" || e.key === "A") {
                 handleResponse("position");
             } else if (e.key === "l" || e.key === "L") {
                 handleResponse("audio");
             }
         };
-        
-        window.addEventListener("keydown", handleKeyDown);
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown);
-        };
-    }, [gameState, handleResponse]);
-    
-    // 清理音频
-    useEffect(() => {
-        return () => {
-            if (audioRef.current) {
-                audioRef.current.stop();
-            }
-        };
-    }, []);
 
-    // 获取麻将牌名称
-    const getTileName = (tileId: string) => {
-        const tile = GAME_CONFIG.mahjong.tiles.find(t => t.id === tileId);
-        return tile ? tile.name : "";
-    };
+        window.addEventListener("keydown", handleKeyPress);
+        return () => window.removeEventListener("keydown", handleKeyPress);
+    }, [gameState, handleResponse]);
+
+    // 添加暂停功能
+    const togglePause = useCallback(() => {
+        if (gameState !== "playing") return;
+
+        if (isPaused) {
+            setIntervalDelay(settings.trialInterval);
+        } else {
+            setIntervalDelay(null);
+        }
+        setIsPaused(!isPaused);
+    }, [gameState, isPaused, settings.trialInterval]);
+
+    // 添加无响应处理 - 在每个试验结束时自动评估
+    useEffect(() => {
+        if (gameState === "playing" && currentTrial > 0) {
+            const timer = setTimeout(() => {
+                // Call evaluateResponse with the current response before the next trial
+                evaluateResponse(currentResponse);
+
+                const currentStimuli = trialHistory[trialHistory.length - 1];
+                const nBackIndex =
+                    trialHistory.length - 1 - settings.selectedNBack;
+                const nBackStimuli =
+                    nBackIndex >= 0 && trialHistory.length > nBackIndex
+                        ? trialHistory[nBackIndex]
+                        : undefined;
+
+                const isPositionMatch = nBackStimuli
+                    ? currentStimuli.position === nBackStimuli.position
+                    : false;
+                const isAudioMatch = nBackStimuli
+                    ? currentStimuli.audio === nBackStimuli.audio
+                    : false;
+
+                const autoResponse = { ...currentResponse };
+
+                // 仅当需要响应但未响应时标记为错误
+                if (settings.selectedTypes.includes("position")) {
+                    if (
+                        isPositionMatch &&
+                        autoResponse.positionMatch === null
+                    ) {
+                        autoResponse.positionMatch = false; // 应响应但未响应
+                    }
+                }
+
+                if (settings.selectedTypes.includes("audio")) {
+                    if (isAudioMatch && autoResponse.audioMatch === null) {
+                        autoResponse.audioMatch = false; // 应响应但未响应
+                    }
+                }
+            }, settings.trialInterval - 200);
+
+            return () => clearTimeout(timer);
+        }
+    }, [
+        currentTrial,
+        currentResponse,
+        gameState,
+        settings.selectedTypes,
+        evaluateResponse,
+        trialHistory,
+        settings.selectedNBack,
+        settings.trialInterval,
+    ]);
 
     return (
-        <div className="w-full max-w-4xl mx-auto p-4 md:p-8">
-            <div className="flex flex-col items-center">
-                {/* 游戏设置 */}
-                <div className="w-full flex justify-between items-center mb-6">
-                    <div className="text-xl font-bold">
-                        {settings.selectedNBack}-Back
+        <div className="container mx-auto p-4 flex flex-col justify-center">
+            <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <span>
+                            {settings.selectedTypes.length === 2
+                                ? "Dual"
+                                : settings.selectedTypes[0]}
+                        </span>
+                        <span>•</span>
+                        <span className="font-medium">
+                            {settings.selectedNBack}-back
+                        </span>
                     </div>
-                    
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="icon">
-                                <Settings className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-56">
-                            <div className="p-2">
-                                <h4 className="mb-2 text-sm font-medium">N-Back 级别</h4>
-                                <Slider
-                                    defaultValue={[settings.selectedNBack]}
-                                    min={1}
-                                    max={GAME_CONFIG.difficulty.maxLevel}
-                                    step={1}
-                                    onValueChange={(values) => {
-                                        updateSettings(prev => ({
-                                            ...prev,
-                                            selectedNBack: values[0]
-                                        }));
-                                    }}
-                                    disabled={gameState === "playing"}
-                                />
-                                <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                                    <span>1</span>
-                                    <span>{GAME_CONFIG.difficulty.maxLevel}</span>
-                                </div>
-                            </div>
-                            
-                            <DropdownMenuSeparator />
-                            
-                            <div className="p-2">
-                                <h4 className="mb-2 text-sm font-medium">训练模式</h4>
-                                <div className="space-y-2">
-                                    <div className="flex items-center space-x-2">
-                                        <Checkbox
-                                            id="position"
-                                            checked={settings.selectedTypes.includes("position")}
-                                            onCheckedChange={(checked) => {
-                                                updateSettings(prev => ({
-                                                    ...prev,
-                                                    selectedTypes: checked
-                                                        ? [...prev.selectedTypes, "position"]
-                                                        : prev.selectedTypes.filter(t => t !== "position")
-                                                }));
-                                            }}
-                                            disabled={gameState === "playing"}
-                                        />
-                                        <Label htmlFor="position">位置 (麻将牌)</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <Checkbox
-                                            id="audio"
-                                            checked={settings.selectedTypes.includes("audio")}
-                                            onCheckedChange={(checked) => {
-                                                updateSettings(prev => ({
-                                                    ...prev,
-                                                    selectedTypes: checked
-                                                        ? [...prev.selectedTypes, "audio"]
-                                                        : prev.selectedTypes.filter(t => t !== "audio")
-                                                }));
-                                            }}
-                                            disabled={gameState === "playing"}
-                                        />
-                                        <Label htmlFor="audio">音频</Label>
-                                    </div>
-                                </div>
-                            </div>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
                 </div>
-                
-                {/* 游戏区域 */}
-                {gameState === "idle" ? (
-                    <div className="text-center py-12">
-                        <h2 className="text-2xl font-bold mb-4">
-                            麻将 Dual N-Back 挑战
-                        </h2>
-                        <p className="text-muted-foreground mb-8 max-w-md">
-                            {GAME_CONFIG.messages.start.replace("{level}", settings.selectedNBack.toString())}
-                        </p>
-                        <Button 
-                            onClick={startGame} 
-                            disabled={isLoading}
-                            size="lg"
+                <div className="flex items-center gap-2">
+                    {gameState === "playing" && (
+                        <Button
+                            onClick={togglePause}
+                            variant="outline"
+                            size="sm"
                         >
-                            {isLoading ? (
-                                <>加载中...</>
+                            {isPaused ? (
+                                <PlayCircle className="h-4 w-4" />
                             ) : (
-                                <>
-                                    <PlayCircle className="mr-2 h-5 w-5" />
-                                    开始训练
-                                </>
+                                <PauseCircle className="h-4 w-4" />
                             )}
+                        </Button>
+                    )}
+                    <Dialog
+                        open={isSettingsOpen}
+                        onOpenChange={setIsSettingsOpen}
+                    >
+                        <DialogTrigger asChild>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                disabled={gameState === "playing"}
+                            >
+                                <Settings className="h-4 w-4" />
+                                <span className="hidden sm:inline">
+                                    Settings
+                                </span>
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle>Game Settings</DialogTitle>
+                            </DialogHeader>
+                            <Form {...form}>
+                                <form
+                                    onSubmit={form.handleSubmit(onSubmit)}
+                                    className="space-y-6"
+                                >
+                                    <FormField
+                                        control={form.control}
+                                        name="selectedNBack"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel className="flex items-center justify-between">
+                                                    N-Back Level
+                                                    <span className="text-sm text-muted-foreground">
+                                                        {field.value}-Back
+                                                    </span>
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Slider
+                                                        min={1}
+                                                        max={
+                                                            GAME_CONFIG
+                                                                .difficulty
+                                                                .maxLevel
+                                                        }
+                                                        step={1}
+                                                        value={[field.value]}
+                                                        onValueChange={(vals) =>
+                                                            field.onChange(
+                                                                vals[0]
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            gameState ===
+                                                            "playing"
+                                                        }
+                                                    />
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="voiceType"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel>
+                                                    Voice Type
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <RadioGroup
+                                                        onValueChange={
+                                                            field.onChange
+                                                        }
+                                                        value={field.value}
+                                                        className="flex space-x-4"
+                                                    >
+                                                        <div className="flex items-center space-x-2">
+                                                            <RadioGroupItem
+                                                                value="male"
+                                                                id="male"
+                                                            />
+                                                            <Label htmlFor="male">
+                                                                Male
+                                                            </Label>
+                                                        </div>
+                                                        <div className="flex items-center space-x-2">
+                                                            <RadioGroupItem
+                                                                value="female"
+                                                                id="female"
+                                                            />
+                                                            <Label htmlFor="female">
+                                                                Female
+                                                            </Label>
+                                                        </div>
+                                                    </RadioGroup>
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="selectedTypes"
+                                        render={() => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel>
+                                                    Training Mode
+                                                </FormLabel>
+                                                <div className="space-y-2">
+                                                    {["position", "audio"].map(
+                                                        (type) => (
+                                                            <div
+                                                                key={type}
+                                                                className="flex items-center gap-2"
+                                                            >
+                                                                <Checkbox
+                                                                    id={`mode-${type}`}
+                                                                    checked={form
+                                                                        .watch(
+                                                                            "selectedTypes"
+                                                                        )
+                                                                        .includes(
+                                                                            type as
+                                                                                | "position"
+                                                                                | "audio"
+                                                                        )}
+                                                                    onCheckedChange={(
+                                                                        checked
+                                                                    ) => {
+                                                                        const currentTypes =
+                                                                            form.getValues(
+                                                                                "selectedTypes"
+                                                                            );
+                                                                        const newTypes =
+                                                                            checked
+                                                                                ? [
+                                                                                      ...currentTypes,
+                                                                                      type as
+                                                                                          | "position"
+                                                                                          | "audio",
+                                                                                  ]
+                                                                                : currentTypes.filter(
+                                                                                      (
+                                                                                          t
+                                                                                      ) =>
+                                                                                          t !==
+                                                                                          type
+                                                                                  );
+
+                                                                        if (
+                                                                            newTypes.length ===
+                                                                            0
+                                                                        ) {
+                                                                            toast(
+                                                                                "Must keep at least one training mode enabled"
+                                                                            );
+                                                                            return;
+                                                                        }
+
+                                                                        form.setValue(
+                                                                            "selectedTypes",
+                                                                            newTypes
+                                                                        );
+                                                                    }}
+                                                                    disabled={
+                                                                        gameState ===
+                                                                            "playing" ||
+                                                                        (form.watch(
+                                                                            "selectedTypes"
+                                                                        )
+                                                                            .length ===
+                                                                            1 &&
+                                                                            form
+                                                                                .watch(
+                                                                                    "selectedTypes"
+                                                                                )
+                                                                                .includes(
+                                                                                    type as
+                                                                                        | "position"
+                                                                                        | "audio"
+                                                                                ))
+                                                                    }
+                                                                />
+                                                                <Label
+                                                                    htmlFor={`mode-${type}`}
+                                                                >
+                                                                    {type
+                                                                        .charAt(
+                                                                            0
+                                                                        )
+                                                                        .toUpperCase() +
+                                                                        type.slice(
+                                                                            1
+                                                                        )}
+                                                                </Label>
+                                                            </div>
+                                                        )
+                                                    )}
+                                                </div>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="trialsPerRound"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel className="flex items-center justify-between">
+                                                    Trials Per Round
+                                                    <span className="text-sm text-muted-foreground">
+                                                        {field.value} trials
+                                                    </span>
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Slider
+                                                        min={10}
+                                                        max={50}
+                                                        step={5}
+                                                        value={[field.value]}
+                                                        onValueChange={(vals) =>
+                                                            field.onChange(
+                                                                vals[0]
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            gameState ===
+                                                            "playing"
+                                                        }
+                                                    />
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="trialInterval"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-3">
+                                                <FormLabel className="flex items-center justify-between">
+                                                    Trial Speed
+                                                    <span className="text-sm text-muted-foreground">
+                                                        {(
+                                                            field.value / 1000
+                                                        ).toFixed(1)}
+                                                        s
+                                                    </span>
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Slider
+                                                        min={1500}
+                                                        max={4000}
+                                                        step={250}
+                                                        value={[field.value]}
+                                                        onValueChange={(vals) =>
+                                                            field.onChange(
+                                                                vals[0]
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            gameState ===
+                                                            "playing"
+                                                        }
+                                                    />
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <DialogFooter>
+                                        <Button
+                                            type="submit"
+                                            disabled={gameState === "playing"}
+                                        >
+                                            Save Changes
+                                        </Button>
+                                    </DialogFooter>
+                                </form>
+                            </Form>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+            </div>
+
+            <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
+                {gameState === "idle" ? (
+                    <div className="text-center py-8">
+                        <div className="mb-6 p-4 bg-muted/30 rounded-lg">
+                            <h3 className="text-lg font-medium mb-2">
+                                Dual N-Back Challenge
+                            </h3>
+                            <p className="text-muted-foreground">
+                                Track {settings.selectedTypes.join(" and ")}{" "}
+                                from {settings.selectedNBack} steps back.
+                            </p>
+                        </div>
+                        <Button
+                            size="lg"
+                            onClick={startGame}
+                            disabled={isLoading}
+                            className="w-full sm:w-auto"
+                        >
+                            <PlayCircle className="w-5 h-5 mr-2" />
+                            {isLoading ? "Starting..." : "Start Challenge"}
                         </Button>
                     </div>
                 ) : gameState === "playing" ? (
-                    <>
-                        <div className="text-sm text-muted-foreground mb-4">
-                            试验 {currentTrial}/{GAME_CONFIG.trials.perRound}
+                    <div className="text-center py-6">
+                        <div className="text-lg font-medium mb-4">
+                            Trial {currentTrial} of {settings.trialsPerRound}
                         </div>
-                        
-                        {/* 麻将牌展示区域 */}
-                        <div className="relative w-full max-w-md aspect-[3/1] mb-8">
-                            {/* 左侧麻将牌（模糊） */}
-                            <div className="absolute left-0 top-0 w-1/3 h-full flex items-center justify-center">
-                                <div className="w-full h-5/6 bg-muted/50 rounded-lg flex items-center justify-center blur-sm">
-                                    <img 
-                                        src={`${GAME_CONFIG.mahjong.basePath}${currentStimuli?.tile || 'dragon_red'}.svg`} 
-                                        alt="麻将牌" 
-                                        className="w-3/4 h-3/4 object-contain opacity-50"
-                                    />
-                                </div>
+
+                        {/* Only show the grid if position is a selected type */}
+                        <div className="relative mx-auto overflow-hidden">
+                            <div
+                                className="flex gap-2"
+                                style={{
+                                    // transform: `translateX(${slidePosition}px)`,
+                                    transition: "transform 0.3s ease-in-out",
+                                }}
+                            >
+                                {sessionMahjong.map((mahjong) => (
+                                    <div
+                                        key={mahjong}
+                                        className="flex-shrink-0"
+                                    >
+                                        <div className="rounded-lg p-2 shadow-md flex justify-center items-center">
+                                            <Image
+                                                src={`${GAME_CONFIG.symbolBasePath}${mahjong}.svg`}
+                                                alt={mahjong}
+                                                width={200}
+                                                height={250}
+                                                className="relative z-10 bg-white rounded-md shadow-[2px_2px_0px_#d1d5db,4px_4px_0px_#9ca3af,6px_6px_0px_#6b7280,8px_8px_0px_#4b5563]"
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            
-                            {/* 中间麻将牌（当前） */}
-                            <div className="absolute left-1/3 top-0 w-1/3 h-full flex items-center justify-center">
-                                <div className="w-full h-full bg-background shadow-lg rounded-lg flex items-center justify-center transform scale-110 z-10">
-                                    {currentStimuli && (
-                                        <img 
-                                            src={`${GAME_CONFIG.mahjong.basePath}${currentStimuli.tile}.svg`} 
-                                            alt={getTileName(currentStimuli.tile)}
-                                            className="w-3/4 h-3/4 object-contain"
+                        </div>
+
+                        {/* If only audio is selected, show a visual indicator for audio */}
+                        {!settings.selectedTypes.includes("position") &&
+                            settings.selectedTypes.includes("audio") && (
+                                <div className="flex justify-center items-center h-32 mb-6">
+                                    <div
+                                        className={cn(
+                                            "w-16 h-16 rounded-full flex items-center justify-center",
+                                            isAudioPlaying
+                                                ? "bg-primary/20"
+                                                : "bg-foreground/5"
+                                        )}
+                                    >
+                                        <Volume2
+                                            className={cn(
+                                                "w-8 h-8",
+                                                isAudioPlaying
+                                                    ? "text-primary animate-pulse"
+                                                    : "text-muted-foreground"
+                                            )}
                                         />
+                                    </div>
+                                </div>
+                            )}
+
+                        <div className="flex justify-center gap-4">
+                            {settings.selectedTypes.includes("position") && (
+                                <Button
+                                    onClick={() => handleResponse("position")}
+                                    variant="outline"
+                                    className={cn(
+                                        "border-2",
+                                        isPositionHighlight &&
+                                            "hover:border-primary border-primary"
                                     )}
-                                </div>
-                            </div>
-                            
-                            {/* 右侧麻将牌（模糊） */}
-                            <div className="absolute right-0 top-0 w-1/3 h-full flex items-center justify-center">
-                                <div className="w-full h-5/6 bg-muted/50 rounded-lg flex items-center justify-center blur-sm">
-                                    <img 
-                                        src={`${GAME_CONFIG.mahjong.basePath}${currentStimuli?.tile || 'dragon_white'}.svg`} 
-                                        alt="麻将牌" 
-                                        className="w-3/4 h-3/4 object-contain opacity-50"
+                                >
+                                    <Square className="w-4 h-4 mr-2" />
+                                    A: Position Match
+                                </Button>
+                            )}
+                            {settings.selectedTypes.includes("audio") && (
+                                <Button
+                                    onClick={() => handleResponse("audio")}
+                                    variant="outline"
+                                    className={cn(
+                                        "border-2",
+                                        isAudioHighlight &&
+                                            "hover:border-primary border-primary"
+                                    )}
+                                >
+                                    <Volume2
+                                        className={cn(
+                                            "w-4 h-4 mr-2",
+                                            isAudioPlaying && "animate-pulse"
+                                        )}
                                     />
-                                </div>
-                            </div>
+                                    L: Sound Match
+                                </Button>
+                            )}
                         </div>
-                        
-                        {/* 音频指示器 */}
-                        <div className="mb-8">
-                            <Button 
-                                variant="outline" 
-                                size="icon" 
-                                className="h-12 w-12 rounded-full"
-                                disabled
-                            >
-                                <Volume2 className={cn(
-                                    "h-6 w-6",
-                                    currentStimuli ? "text-primary" : "text-muted-foreground"
-                                )} />
-                            </Button>
-                        </div>
-                        
-                        {/* 响应按钮 */}
-                        <div className="grid grid-cols-2 gap-4 w-full max-w-md">
-                            <Button 
-                                onClick={() => handleResponse("position")}
-                                variant={currentResponse.positionMatch ? "default" : "outline"}
-                                className="h-16"
-                                disabled={!settings.selectedTypes.includes("position")}
-                            >
-                                <Square className="mr-2 h-5 w-5" />
-                                位置匹配 (A)
-                            </Button>
-                            <Button 
-                                onClick={() => handleResponse("audio")}
-                                variant={currentResponse.audioMatch ? "default" : "outline"}
-                                className="h-16"
-                                disabled={!settings.selectedTypes.includes("audio")}
-                            >
-                                <Volume2 className="mr-2 h-5 w-5" />
-                                音频匹配 (L)
-                            </Button>
-                        </div>
-                        
-                        {/* 暂停按钮 */}
-                        <div className="mt-8">
-                            <Button 
-                                variant="outline" 
-                                onClick={endGame}
-                            >
-                                <PauseCircle className="mr-2 h-4 w-4" />
-                                结束训练
-                            </Button>
-                        </div>
-                    </>
+                    </div>
                 ) : (
                     <div className="text-center py-8">
                         <h2 className="text-xl font-bold mb-4">
-                            训练结果
+                            Training Results
                         </h2>
                         <div className="bg-muted/30 p-6 rounded-lg mb-6 max-w-md mx-auto">
-                            <div className="grid grid-cols-2 gap-6">
-                                {/* 位置结果 */}
-                                <div className="space-y-3 border-r pr-4">
-                                    <h3 className="font-semibold text-primary">位置</h3>
-                                    <div className="flex flex-col items-center">
-                                        <div className="text-3xl font-bold">
-                                            {accuracy.position.correct}/{accuracy.position.total}
+                            <div
+                                className={cn(
+                                    "grid gap-6",
+                                    settings.selectedTypes.length === 2
+                                        ? "grid-cols-2"
+                                        : "grid-cols-1"
+                                )}
+                            >
+                                {settings.selectedTypes.includes(
+                                    "position"
+                                ) && (
+                                    <div
+                                        className={cn(
+                                            "space-y-3",
+                                            settings.selectedTypes.length ===
+                                                2 && "border-r pr-4"
+                                        )}
+                                    >
+                                        <h3 className="font-semibold text-primary">
+                                            Position
+                                        </h3>
+                                        <div className="flex flex-col items-center">
+                                            <div className="text-3xl font-bold">
+                                                {accuracy.position.correct}/
+                                                {accuracy.position.total}
+                                            </div>
+                                            <div className="text-sm text-muted-foreground">
+                                                {accuracy.position.total > 0
+                                                    ? Math.round(
+                                                          (accuracy.position
+                                                              .correct /
+                                                              accuracy.position
+                                                                  .total) *
+                                                              100
+                                                      )
+                                                    : 0}
+                                                % Accuracy
+                                            </div>
                                         </div>
-                                        <div className="text-sm text-muted-foreground">
-                                            {accuracy.position.total > 0 
-                                                ? Math.round((accuracy.position.correct / accuracy.position.total) * 100) 
-                                                : 0}% 准确率
+                                        <div className="text-xs text-muted-foreground space-y-1">
+                                            <div className="flex justify-between">
+                                                <span>Missed:</span>
+                                                <span>
+                                                    {accuracy.position.missed}
+                                                </span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span>False Alarms:</span>
+                                                <span>
+                                                    {
+                                                        accuracy.position
+                                                            .falseAlarms
+                                                    }
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="text-xs text-muted-foreground space-y-1">
-                                        <div className="flex justify-between">
-                                            <span>漏掉:</span>
-                                            <span>{accuracy.position.missed}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>误报:</span>
-                                            <span>{accuracy.position.falseAlarms}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                )}
 
-                                {/* 音频结果 */}
-                                <div className="space-y-3 pl-2">
-                                    <h3 className="font-semibold text-primary">音频</h3>
-                                    <div className="flex flex-col items-center">
-                                        <div className="text-3xl font-bold">
-                                            {accuracy.audio.correct}/{accuracy.audio.total}
+                                {settings.selectedTypes.includes("audio") && (
+                                    <div
+                                        className={cn(
+                                            "space-y-3",
+                                            settings.selectedTypes.length ===
+                                                2 && "pl-2"
+                                        )}
+                                    >
+                                        <h3 className="font-semibold text-primary">
+                                            Audio
+                                        </h3>
+                                        <div className="flex flex-col items-center">
+                                            <div className="text-3xl font-bold">
+                                                {accuracy.audio.correct}/
+                                                {accuracy.audio.total}
+                                            </div>
+                                            <div className="text-sm text-muted-foreground">
+                                                {accuracy.audio.total > 0
+                                                    ? Math.round(
+                                                          (accuracy.audio
+                                                              .correct /
+                                                              accuracy.audio
+                                                                  .total) *
+                                                              100
+                                                      )
+                                                    : 0}
+                                                % Accuracy
+                                            </div>
                                         </div>
-                                        <div className="text-sm text-muted-foreground">
-                                            {accuracy.audio.total > 0 
-                                                ? Math.round((accuracy.audio.correct / accuracy.audio.total) * 100) 
-                                                : 0}% 准确率
+                                        <div className="text-xs text-muted-foreground space-y-1">
+                                            <div className="flex justify-between">
+                                                <span>Missed:</span>
+                                                <span>
+                                                    {accuracy.audio.missed}
+                                                </span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span>False Alarms:</span>
+                                                <span>
+                                                    {accuracy.audio.falseAlarms}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="text-xs text-muted-foreground space-y-1">
-                                        <div className="flex justify-between">
-                                            <span>漏掉:</span>
-                                            <span>{accuracy.audio.missed}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>误报:</span>
-                                            <span>{accuracy.audio.falseAlarms}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                )}
                             </div>
 
                             <div className="mt-6 pt-4 border-t border-border/40">
                                 <div className="text-sm">
-                                    <div className="flex justify-between items-center">
-                                        <span className="font-medium">总体表现:</span>
-                                        <span className="font-bold">
-                                            {Math.round(((accuracy.position.correct + accuracy.audio.correct) / 
-                                                (accuracy.position.total + accuracy.audio.total || 1)) * 100)}%
-                                        </span>
-                                    </div>
+                                    {settings.selectedTypes.length === 2 && (
+                                        <div className="flex justify-between items-center">
+                                            <span className="font-medium">
+                                                Overall Performance:
+                                            </span>
+                                            <span className="font-bold">
+                                                {Math.round(
+                                                    ((accuracy.position
+                                                        .correct +
+                                                        accuracy.audio
+                                                            .correct) /
+                                                        (accuracy.position
+                                                            .total +
+                                                            accuracy.audio
+                                                                .total || 1)) *
+                                                        100
+                                                )}
+                                                %
+                                            </span>
+                                        </div>
+                                    )}
                                     <div className="mt-2 text-xs text-muted-foreground">
-                                        <p>级别: {settings.selectedNBack}-Back • 试验: {currentTrial}</p>
+                                        <p>
+                                            Level: {settings.selectedNBack}-Back
+                                            • Trials: {currentTrial}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -638,11 +1185,11 @@ export default function GameComponent() {
                         <div className="flex justify-center gap-4 mt-6">
                             <Button onClick={startGame} disabled={isLoading}>
                                 <PlayCircle className="w-4 h-4 mr-2" />
-                                再次挑战
+                                Play Again
                             </Button>
                             <Button variant="outline" onClick={shareScore}>
                                 <Share2 className="w-4 h-4 mr-2" />
-                                分享
+                                Share
                             </Button>
                         </div>
                     </div>
@@ -650,4 +1197,4 @@ export default function GameComponent() {
             </div>
         </div>
     );
-} 
+}
