@@ -951,7 +951,7 @@ export default function GameComponent() {
                             Trial {currentTrial} of {settings.trialsPerRound}
                         </div>
 
-                        <div className="relative w-[176px] mx-auto overflow-hidden py-16">
+                        <div className="relative w-[176px] mx-auto overflow-hidden pt-6 pb-20">
                             <div
                                 className="flex gap-12"
                                 style={{

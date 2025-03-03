@@ -5,7 +5,13 @@ import GameCard from "@/components/game-card";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Metadata } from "next";
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export function generateMetadata({ params }: PageProps): Metadata {
   const category = getCategoryBySlug(params.slug);
   
   if (!category) {
@@ -33,7 +39,7 @@ export function generateStaticParams() {
   }));
 }
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
+export default function CategoryPage({ params }: PageProps) {
   const category = getCategoryBySlug(params.slug);
   
   if (!category) {
