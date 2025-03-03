@@ -450,8 +450,14 @@ export default function GameComponent() {
         // 更新界面状态 - 只在需要时显示位置刺激
         if (settings.selectedTypes.includes("position")) {
             setActivePosition(finalStimuli.position);
-            // 更新滑动距离到 132px (88px * 1.5)
-            setSlidePosition(currentTrial * -132);
+            
+            // 计算滑动位置 - 考虑到麻将宽度和间隙
+            // 每个麻将宽度为160px，间隙为48px (gap-12 in Tailwind equals 3rem or 48px)
+            const tileWidth = 160;
+            const gapWidth = 48;
+            const slideAmount = currentTrial * -(tileWidth + gapWidth);
+            
+            setSlidePosition(slideAmount);
         } else {
             setActivePosition(null);
         }
@@ -605,7 +611,7 @@ export default function GameComponent() {
         <div className="container mx-auto p-4 flex flex-col justify-center">
             <div className="flex justify-between items-center mb-6">
                 <div className="flex flex-col">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-white">
                         <span>
                             {settings.selectedTypes.length === 2
                                 ? "Dual"
@@ -941,12 +947,11 @@ export default function GameComponent() {
                     </div>
                 ) : gameState === "playing" ? (
                     <div className="text-center py-6">
-                        <div className="text-lg font-medium">
+                        <div className="text-lg font-medium text-white">
                             Trial {currentTrial} of {settings.trialsPerRound}
                         </div>
 
-                        {/* 修改麻将显示区域 - 增加容器宽度到 132px (88px * 1.5) */}
-                        <div className="relative w-[350px] mx-auto overflow-hidden py-16">
+                        <div className="relative w-[176px] mx-auto overflow-hidden py-16">
                             <div
                                 className="flex gap-12"
                                 style={{
