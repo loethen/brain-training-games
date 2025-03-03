@@ -19,12 +19,14 @@ interface GameCategoriesProps {
   gameId: string;
   className?: string;
   displayAll?: boolean;
+  showDescription?: boolean;
 }
 
 export default function GameCategories({ 
   gameId, 
   className,
-  displayAll = false
+  displayAll = false,
+  showDescription = false
 }: GameCategoriesProps) {
   const displayCategories = gameId === "all" || displayAll 
     ? categories 
@@ -34,7 +36,7 @@ export default function GameCategories({
   
   if (gameId === "all" || displayAll) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {displayCategories.map(category => (
           <Link 
             key={category.id}
@@ -49,9 +51,11 @@ export default function GameCategories({
               )}
               <h2 className="text-xl font-semibold">{category.name}</h2>
             </div>
-            <p className="text-muted-foreground text-sm">
-              {category.description}
-            </p>
+            {showDescription && (
+              <p className="text-muted-foreground text-sm">
+                {category.description}
+              </p>
+            )}
           </Link>
         ))}
       </div>

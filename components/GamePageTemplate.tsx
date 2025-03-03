@@ -8,7 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 interface FaqItem {
   question: string;
   answer: React.ReactNode;
@@ -41,8 +41,14 @@ export function GamePageTemplate({
 }: GamePageTemplateProps) {
   return (
       <>
+          <Breadcrumbs items={[
+              { label: "Games", href: "/games" },
+              { label: title },
+          ]} />
           {/* 游戏标题和描述 */}
-          <GameHeader title={title} subtitle={subtitle} />
+          <div className="container mx-auto pt-8">
+            <GameHeader title={title} subtitle={subtitle} />
+          </div>
 
           {/* 游戏组件 */}
           <section className="mb-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl p-8">

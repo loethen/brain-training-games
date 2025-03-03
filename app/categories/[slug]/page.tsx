@@ -2,6 +2,7 @@ import { getCategoryBySlug, categories } from "@/data/categories";
 import { getCategoryGames } from "@/data/game-categories";
 import { getGames } from "@/data/games";
 import GameCard from "@/components/game-card";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Metadata } from "next";
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
@@ -43,17 +44,24 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   const games = getGames().filter(game => categoryGames.includes(game.id));
   
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-2">{category.name} Games</h1>
-      <p className="text-muted-foreground mb-8">
-        {category.description}
-      </p>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {games.map(game => (
-          <GameCard key={game.id} game={game} />
-        ))}
+      <div className="container mx-auto py-8">
+          <Breadcrumbs
+              items={[
+                  { label: "Categories", href: "/categories" },
+                  { label: category.name },
+              ]}
+          />
+
+          <h1 className="text-3xl font-bold  mt-12 mb-8 text-center">
+              {category.name} Games
+          </h1>
+          <p className="text-muted-foreground mb-8 bg-muted p-4 rounded-lg">{category.description}</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {games.map((game) => (
+                  <GameCard key={game.id} game={game} />
+              ))}
+          </div>
       </div>
-    </div>
   );
 } 

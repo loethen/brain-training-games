@@ -46,7 +46,9 @@ export default function Home() {
           <section className="mb-24 max-w-[1400px] mx-auto">
               <div className="flex justify-between items-center mb-8">
                   <h2 className="text-3xl font-bold">Popular Games</h2>
-                  <Button variant="ghost">View All →</Button>
+                  <Link href="/games">
+                    <Button variant="ghost">View All →</Button>
+                  </Link>
               </div>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
                   <GameCard
