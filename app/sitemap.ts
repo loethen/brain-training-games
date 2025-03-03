@@ -7,61 +7,86 @@ import { categories } from '../data/categories'
 // 获取环境变量
 const BASE_URL = process.env.SITE_URL || 'http://localhost:3000'
 
-// 获取游戏目录列表
-function getGameDirectories(): string[] {
-  const gamesDir = path.join(process.cwd(), 'app/games')
-  
-  try {
-    // 读取游戏目录
-    return fs.readdirSync(gamesDir)
-      .filter(item => {
-        // 只包含目录，排除文件
-        const itemPath = path.join(gamesDir, item)
-        return fs.statSync(itemPath).isDirectory() && 
-               // 排除以下划线开头的目录（Next.js 特殊目录）
-               !item.startsWith('_')
-      })
-  } catch (error) {
-    console.error('Error reading games directory:', error)
-    return []
-  }
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://yourdomain.com'
-  
-  // Game URLs
-  const gameUrls = games.map((game) => ({
-    url: `${baseUrl}/games/${game.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-  
-  // Category URLs
-  const categoryUrls = categories.map((category) => ({
-    url: `${baseUrl}/categories/${category.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }))
-  
-  // Static pages
-  const staticUrls = [
+  // 基本页面
+  const staticRoutes = [
     {
-      url: baseUrl,
+      url: `${BASE_URL}`,
       lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1,
+      changeFrequency: 'weekly' as const,
+      priority: 1.0,
     },
     {
-      url: `${baseUrl}/categories`,
+      url: `${BASE_URL}/games`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.9,
     },
-    // Add other static pages here
+    {
+      url: `${BASE_URL}/categories`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    // {
+    //   url: `${BASE_URL}/about`,
+    //   lastModified: new Date(),
+    //   changeFrequency: 'monthly' as const,
+    //   priority: 0.7,
+    // },
+    // {
+    //   url: `${BASE_URL}/privacy`,
+    //   lastModified: new Date(),
+    //   changeFrequency: 'monthly' as const,
+    //   priority: 0.5,
+    // },
+    // {
+    //   url: `${BASE_URL}/terms`,
+    //   lastModified: new Date(),
+    //   changeFrequency: 'monthly' as const,
+    //   priority: 0.5,
+    // },
   ]
+
+  // 游戏页面 - 从 data/games.ts 获取数据
+  const gameRoutes = games.map((game) => ({
+    url: `${BASE_URL}/games/${game.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
+
+  // 类别页面 - 从 data/categories.ts 获取数据
+  const categoryRoutes = categories.map((category) => ({
+    url: `${BASE_URL}/categories/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))
+
+  // 博客文章页面（如果有的话）
+  let blogRoutes: MetadataRoute.Sitemap = []
+  const blogDir = path.join(process.cwd(), 'app/blog/posts')
   
-  return [...staticUrls, ...gameUrls, ...categoryUrls]
+  try {
+    if (fs.existsSync(blogDir)) {
+      const blogFiles = fs.readdirSync(blogDir)
+      blogRoutes = blogFiles
+        .filter(file => file.endsWith('.mdx') || file.endsWith('.md'))
+        .map(file => {
+          const slug = file.replace(/\.(mdx|md)$/, '')
+          return {
+            url: `${BASE_URL}/blog/${slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.6,
+          }
+        })
+    }
+  } catch (error) {
+    console.error('Error reading blog directory:', error)
+  }
+
+  // 合并所有路由
+  return [...staticRoutes, ...gameRoutes, ...categoryRoutes, ...blogRoutes]
 } 
