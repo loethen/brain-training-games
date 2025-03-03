@@ -150,6 +150,7 @@ export default function GameComponent() {
         setCurrentTrial(0);
         setTrialHistory([]);
         setResults([]);
+        setSlidePosition(0); // 重置滑动位置
 
         // 为本局游戏随机选择8个字母
         const allMahjong = GAME_CONFIG.symbols;
@@ -267,6 +268,9 @@ export default function GameComponent() {
     const [startDelay, setStartDelay] = useState<number | null>(null); // 开始延迟
     const [isPaused, setIsPaused] = useState(false); // 暂停状态
     const audioRefs = useRef<{ [key: string]: Howl }>({}); // 音频引用缓存
+
+    // 添加滑动位置状态
+    const [slidePosition, setSlidePosition] = useState(0);
 
     // 定时器钩子：控制试验间隔
     useInterval(() => {
@@ -429,21 +433,13 @@ export default function GameComponent() {
 
         // 当有足够历史记录时，按概率创建匹配
         if (trialHistory.length >= settings.selectedNBack) {
-            const nBackTrial =
-                trialHistory[trialHistory.length - settings.selectedNBack];
+            const nBackTrial = trialHistory[trialHistory.length - settings.selectedNBack];
 
-            // 只为选中的训练模式创建匹配
-            if (
-                settings.selectedTypes.includes("position") &&
-                Math.random() < 0.2
-            ) {
+            if (settings.selectedTypes.includes("position") && Math.random() < 0.2) {
                 positionStimuli = nBackTrial.position;
             }
 
-            if (
-                settings.selectedTypes.includes("audio") &&
-                Math.random() < 0.2
-            ) {
+            if (settings.selectedTypes.includes("audio") && Math.random() < 0.2) {
                 audioStimuli = nBackTrial.audio;
             }
         }
@@ -456,9 +452,11 @@ export default function GameComponent() {
 
         // 更新界面状态 - 只在需要时显示位置刺激
         if (settings.selectedTypes.includes("position")) {
-            setActivePosition(finalStimuli.position); // 显示位置刺激
+            setActivePosition(finalStimuli.position);
+            // 每个 trial 向左滑动一个麻将宽度（88px）
+            setSlidePosition(currentTrial * -88);
         } else {
-            setActivePosition(null); // 不显示位置刺激
+            setActivePosition(null);
         }
 
         // 只在需要时播放音频
@@ -491,6 +489,7 @@ export default function GameComponent() {
         endGame,
         evaluateResponse,
         currentResponse,
+        sessionMahjong,
     ]);
 
     // 分享游戏分数
@@ -950,12 +949,12 @@ export default function GameComponent() {
                             Trial {currentTrial} of {settings.trialsPerRound}
                         </div>
 
-                        {/* Only show the grid if position is a selected type */}
-                        <div className="relative mx-auto overflow-hidden">
+                        {/* 修改麻将显示区域 */}
+                        <div className="relative mx-auto overflow-hidden w-[88px]">
                             <div
                                 className="flex gap-2"
                                 style={{
-                                    // transform: `translateX(${slidePosition}px)`,
+                                    transform: `translateX(${slidePosition}px)`,
                                     transition: "transform 0.3s ease-in-out",
                                 }}
                             >
@@ -964,15 +963,16 @@ export default function GameComponent() {
                                         key={mahjong}
                                         className="flex-shrink-0"
                                     >
-                                        <div className="rounded-lg p-2 shadow-md flex justify-center items-center">
-                                            <div className="bg-white rounded-md shadow-[2px_2px_0px_#fef3c7,4px_4px_0px_#f59e0b,6px_6px_0px_#d97706,8px_8px_0px_#b45309] w-20 h-25 flex items-center justify-center">
-                                                <Image
-                                                    src={`${GAME_CONFIG.symbolBasePath}${mahjong}.svg`}
-                                                        alt={mahjong}
-                                                        width={200}
-                                                        height={250}
-                                                />
-                                            </div>
+                                        <div className={cn(
+                                            "bg-white rounded-md shadow-[2px_2px_0px_#fef3c7,4px_4px_0px_#f59e0b,6px_6px_0px_#d97706,8px_8px_0px_#b45309] w-20 h-25 flex items-center justify-center",
+                                            activePosition === mahjong && "ring-2 ring-primary"
+                                        )}>
+                                            <Image
+                                                src={`${GAME_CONFIG.symbolBasePath}${mahjong}.svg`}
+                                                alt={mahjong}
+                                                width={200}
+                                                height={250}
+                                            />
                                         </div>
                                     </div>
                                 ))}
