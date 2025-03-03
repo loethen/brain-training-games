@@ -36,8 +36,8 @@ export default function MahjongDualNBackPage() {
           <p>Train your working memory with this mahjong-themed dual n-back challenge:</p>
           <ul className="list-disc pl-5 mt-2 space-y-1">
             <li>Watch the mahjong tiles appear and listen to the sounds</li>
-            <li>Press "Position" when the current tile matches the position from N steps back</li>
-            <li>Press "Sound" when the current sound matches the sound from N steps back</li>
+            <li>Press &quot;Position&quot; when the current tile matches the position from N steps back</li>
+            <li>Press &quot;Sound&quot; when the current sound matches the sound from N steps back</li>
             <li>As you improve, the N-back level will increase, making the task more challenging</li>
           </ul>
         </>
