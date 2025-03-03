@@ -1,25 +1,24 @@
 import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
-import { Brain, Shuffle, Layers } from 'lucide-react'
+import { Brain, Layers, Zap } from 'lucide-react'
 
 export const metadata: Metadata = {
-    title: "麻将 Dual N-Back - 工作记忆与流体智力训练",
-    description:
-        "使用上海麻将元素的双重N-Back任务，同时训练视觉和听觉工作记忆，提升认知能力和注意力控制。",
+    title: "Mahjong Dual N-Back - Working Memory Training Game",
+    description: "Challenge your working memory with this mahjong-themed cognitive training exercise that improves fluid intelligence using the dual n-back paradigm.",
     keywords: [
-        "麻将 dual n-back",
-        "工作记忆训练",
-        "流体智力游戏",
-        "认知训练",
-        "大脑训练游戏",
-        "注意力控制练习",
-        "n-back 任务",
-        "记忆力提升游戏",
+        "mahjong n-back training",
+        "working memory exercise",
+        "fluid intelligence game",
+        "cognitive training",
+        "brain training game",
+        "attention control practice",
+        "n-back task",
+        "memory improvement game",
     ].join(", "),
     openGraph: {
-        title: "麻将 Dual N-Back - 高级工作记忆训练",
-        description: "使用中国传统麻将元素，训练您的工作记忆和流体智力，科学支持的双重N-Back认知练习。",
+        title: "Mahjong Dual N-Back - Advanced Working Memory Training",
+        description: "Train your working memory and fluid intelligence with the scientifically-backed Mahjong Dual N-Back cognitive exercise.",
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
 };
@@ -33,12 +32,12 @@ export default function MahjongDualNBackPage() {
       gameComponent={<Game />}
       howToPlay={
         <>
-          <p>Train your working memory with this mahjong-themed dual n-back challenge:</p>
+          <p>In this challenging memory task, you&apos;ll need to remember both symbols and colors from N steps back in the sequence:</p>
           <ul className="list-disc pl-5 mt-2 space-y-1">
-            <li>Watch the mahjong tiles appear and listen to the sounds</li>
-            <li>Press &quot;Position&quot; when the current tile matches the position from N steps back</li>
-            <li>Press &quot;Sound&quot; when the current sound matches the sound from N steps back</li>
-            <li>As you improve, the N-back level will increase, making the task more challenging</li>
+            <li>Watch the mahjong tiles as they appear in sequence</li>
+            <li>Press &quot;Symbol&quot; when the current symbol matches the symbol from N steps back</li>
+            <li>Press &quot;Color&quot; when the current color matches the color from N steps back</li>
+            <li>Use keyboard shortcuts: &apos;A&apos; for Symbol match, &apos;L&apos; for Color match</li>
           </ul>
         </>
       }
@@ -46,35 +45,35 @@ export default function MahjongDualNBackPage() {
         {
           icon: <Brain className="w-10 h-10" />,
           title: "Working Memory",
-          description: "Strengthen your ability to hold and manipulate multiple pieces of information simultaneously."
-        },
-        {
-          icon: <Shuffle className="w-10 h-10" />,
-          title: "Cognitive Flexibility",
-          description: "Enhance your ability to switch between different mental tasks and adapt to changing rules."
+          description: "Strengthen your ability to hold and manipulate information in your mind temporarily."
         },
         {
           icon: <Layers className="w-10 h-10" />,
           title: "Fluid Intelligence",
-          description: "Improve your capacity for abstract reasoning and problem-solving in novel situations."
+          description: "Improve your capacity to solve novel problems and adapt to new situations."
+        },
+        {
+          icon: <Zap className="w-10 h-10" />,
+          title: "Attention Control",
+          description: "Enhance your ability to focus on relevant information while ignoring distractions."
         }
       ]}
       faq={[
         {
-          question: "How is this different from regular Dual N-Back?",
-          answer: "This version uses mahjong tiles and sounds instead of grid positions and letters, adding cultural elements while maintaining the core cognitive challenge. The visual complexity of mahjong tiles may provide additional visual processing benefits."
+          question: "What is the science behind Dual N-Back?",
+          answer: "Dual N-Back has been studied extensively in cognitive neuroscience. Research published in PNAS (2008) suggested that training with this task can improve fluid intelligence, which is the ability to solve novel problems and adapt to new situations."
         },
         {
-          question: "Do I need to know how to play mahjong?",
-          answer: "No, you don't need any knowledge of mahjong to benefit from this training. The game simply uses the distinctive visual elements of mahjong tiles as stimuli."
+          question: "How is this different from the regular Dual N-Back?",
+          answer: "This version uses mahjong tiles with symbols and colors instead of positions and letters, providing a fresh visual approach to the same cognitive challenge. The horizontal card format also creates a different visual tracking experience."
         },
         {
-          question: "How difficult is this compared to standard Dual N-Back?",
-          answer: "The core challenge is similar, but some users find the distinctive mahjong tiles easier to differentiate visually than grid positions, while others find the unique sounds more challenging to distinguish than letters."
+          question: "How often should I practice?",
+          answer: "For optimal results, aim for 20-30 minutes of training, 3-4 times per week. Consistency is more important than duration."
         },
         {
-          question: "What's the optimal training schedule?",
-          answer: "Research suggests 20-30 minutes of training, 3-4 times per week for optimal benefits. Start at a comfortable level and allow the adaptive difficulty to increase as your skills improve."
+          question: "Will I see improvements in my daily life?",
+          answer: "Many users report improvements in concentration, multitasking ability, and information retention after regular practice. These skills can transfer to academic, professional, and everyday activities."
         }
       ]}
     />

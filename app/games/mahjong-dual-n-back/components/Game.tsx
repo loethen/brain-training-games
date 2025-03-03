@@ -2,9 +2,9 @@
 
 import dynamic from 'next/dynamic'
 
-// 动态导入游戏组件以防止SSR问题
+// Dynamically import the game component to prevent SSR issues
 const GameComponent = dynamic(() => import('./GameComponent'), {
-    ssr: false, // 禁用服务器端渲染
+    ssr: false, // Disable server-side rendering
     loading: () => (
         <div className="w-full h-full flex items-center justify-center">
             <div>Loading game...</div>

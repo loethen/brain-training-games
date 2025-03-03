@@ -466,7 +466,7 @@ export default function GameComponent() {
             setIntervalDelay(null);
         }
         setIsPaused(!isPaused);
-    }, [gameState, isPaused]);
+    }, [gameState, isPaused, settings.trialInterval]);
 
     // 添加无响应处理 - 在每个试验结束时自动评估
     useEffect(() => {
@@ -474,14 +474,16 @@ export default function GameComponent() {
             const timer = setTimeout(() => {
                 // Call evaluateResponse with the current response before the next trial
                 evaluateResponse(currentResponse);
-                
+
                 const currentStimuli = trialHistory[trialHistory.length - 1];
-                const nBackIndex = trialHistory.length - 1 - settings.selectedNBack;
-                const nBackStimuli = nBackIndex >= 0 && trialHistory.length > nBackIndex 
-                    ? trialHistory[nBackIndex]
-                    : undefined;
-                
-                const isPositionMatch = nBackStimuli 
+                const nBackIndex =
+                    trialHistory.length - 1 - settings.selectedNBack;
+                const nBackStimuli =
+                    nBackIndex >= 0 && trialHistory.length > nBackIndex
+                        ? trialHistory[nBackIndex]
+                        : undefined;
+
+                const isPositionMatch = nBackStimuli
                     ? currentStimuli.position === nBackStimuli.position
                     : false;
                 const isAudioMatch = nBackStimuli
@@ -489,24 +491,36 @@ export default function GameComponent() {
                     : false;
 
                 const autoResponse = { ...currentResponse };
-                
+
                 // 仅当需要响应但未响应时标记为错误
                 if (settings.selectedTypes.includes("position")) {
-                    if (isPositionMatch && autoResponse.positionMatch === null) {
+                    if (
+                        isPositionMatch &&
+                        autoResponse.positionMatch === null
+                    ) {
                         autoResponse.positionMatch = false; // 应响应但未响应
                     }
                 }
-                
+
                 if (settings.selectedTypes.includes("audio")) {
                     if (isAudioMatch && autoResponse.audioMatch === null) {
                         autoResponse.audioMatch = false; // 应响应但未响应
                     }
                 }
             }, settings.trialInterval - 200);
-            
+
             return () => clearTimeout(timer);
         }
-    }, [currentTrial, currentResponse, gameState, settings.selectedTypes, evaluateResponse, trialHistory, settings.selectedNBack]);
+    }, [
+        currentTrial,
+        currentResponse,
+        gameState,
+        settings.selectedTypes,
+        evaluateResponse,
+        trialHistory,
+        settings.selectedNBack,
+        settings.trialInterval,
+    ]);
 
     return (
         <div className="container mx-auto p-4 flex flex-col justify-center">
