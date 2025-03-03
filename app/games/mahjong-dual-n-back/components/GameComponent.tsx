@@ -965,13 +965,14 @@ export default function GameComponent() {
                                         className="flex-shrink-0"
                                     >
                                         <div className="rounded-lg p-2 shadow-md flex justify-center items-center">
-                                            <Image
-                                                src={`${GAME_CONFIG.symbolBasePath}${mahjong}.svg`}
-                                                alt={mahjong}
-                                                width={200}
-                                                height={250}
-                                                className="relative z-10 bg-white rounded-md shadow-[2px_2px_0px_#d1d5db,4px_4px_0px_#9ca3af,6px_6px_0px_#6b7280,8px_8px_0px_#4b5563]"
-                                            />
+                                            <div className="bg-white rounded-md shadow-[2px_2px_0px_#fef3c7,4px_4px_0px_#f59e0b,6px_6px_0px_#d97706,8px_8px_0px_#b45309] w-20 h-25 flex items-center justify-center">
+                                                <Image
+                                                    src={`${GAME_CONFIG.symbolBasePath}${mahjong}.svg`}
+                                                        alt={mahjong}
+                                                        width={200}
+                                                        height={250}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 ))}

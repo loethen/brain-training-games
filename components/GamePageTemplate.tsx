@@ -21,6 +21,7 @@ interface BenefitItem {
 }
 
 interface GamePageTemplateProps {
+  gameBackground?: string;
   gameId: string;
   title: string;
   subtitle: string;
@@ -31,6 +32,7 @@ interface GamePageTemplateProps {
 }
 
 export function GamePageTemplate({
+  gameBackground,
   gameId,
   title,
   subtitle,
@@ -51,7 +53,7 @@ export function GamePageTemplate({
           </div>
 
           {/* 游戏组件 */}
-          <section className="mb-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl p-8">
+          <section className={cn("mb-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl p-8", gameBackground)}>
               {gameComponent}
           </section>
 
