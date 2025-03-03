@@ -453,8 +453,8 @@ export default function GameComponent() {
         // 更新界面状态 - 只在需要时显示位置刺激
         if (settings.selectedTypes.includes("position")) {
             setActivePosition(finalStimuli.position);
-            // 每个 trial 向左滑动一个麻将宽度（88px）
-            setSlidePosition(currentTrial * -88);
+            // 更新滑动距离到 132px (88px * 1.5)
+            setSlidePosition(currentTrial * -132);
         } else {
             setActivePosition(null);
         }
@@ -949,10 +949,10 @@ export default function GameComponent() {
                             Trial {currentTrial} of {settings.trialsPerRound}
                         </div>
 
-                        {/* 修改麻将显示区域 */}
-                        <div className="relative mx-auto overflow-hidden w-[88px]">
+                        {/* 修改麻将显示区域 - 增加容器宽度到 132px (88px * 1.5) */}
+                        <div className="relative mx-auto overflow-hidden w-[132px] pb-8">
                             <div
-                                className="flex gap-2"
+                                className="flex gap-3"
                                 style={{
                                     transform: `translateX(${slidePosition}px)`,
                                     transition: "transform 0.3s ease-in-out",
@@ -964,14 +964,14 @@ export default function GameComponent() {
                                         className="flex-shrink-0"
                                     >
                                         <div className={cn(
-                                            "bg-white rounded-md shadow-[2px_2px_0px_#fef3c7,4px_4px_0px_#f59e0b,6px_6px_0px_#d97706,8px_8px_0px_#b45309] w-20 h-25 flex items-center justify-center",
-                                            activePosition === mahjong && "ring-2 ring-primary"
+                                            "bg-white rounded-lg shadow-[3px_3px_0px_#fef3c7,6px_6px_0px_#f59e0b,9px_9px_0px_#d97706,12px_12px_0px_#b45309] w-[120px] h-[150px] flex items-center justify-center", // 增加尺寸和阴影
+                                            activePosition === mahjong && "ring-3 ring-primary" // 增加ring尺寸
                                         )}>
                                             <Image
                                                 src={`${GAME_CONFIG.symbolBasePath}${mahjong}.svg`}
                                                 alt={mahjong}
-                                                width={200}
-                                                height={250}
+                                                width={120}  // 增加图片尺寸
+                                                height={150}
                                             />
                                         </div>
                                     </div>
