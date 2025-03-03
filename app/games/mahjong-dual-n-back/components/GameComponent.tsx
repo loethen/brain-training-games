@@ -152,18 +152,15 @@ export default function GameComponent() {
         setResults([]);
         setSlidePosition(0); // 重置滑动位置
 
-        // 为本局游戏随机选择8个字母
         const allMahjong = GAME_CONFIG.symbols;
-        const selectedMahjong: string[] = [];
-
-        // 随机选择8个不重复的字母
-        while (selectedMahjong.length < 8) {
-            const randomMahjong =
-                allMahjong[Math.floor(Math.random() * allMahjong.length)];
-            if (!selectedMahjong.includes(randomMahjong)) {
-                selectedMahjong.push(randomMahjong);
-            }
-        }
+        
+        // 为了保持滑动设计的趣味性，我们需要加载更多的麻将
+        // 确保至少有20个麻将用于滑动显示，但不超过可用的总数
+        const displayTileCount = GAME_CONFIG.trials.perRound;
+        
+        // 随机选择不重复的麻将
+        const shuffledMahjong = [...allMahjong].sort(() => Math.random() - 0.5);
+        const selectedMahjong = shuffledMahjong.slice(0, displayTileCount);
 
         setSessionMahjong(selectedMahjong);
         setStartDelay(GAME_CONFIG.trials.startDelay);
@@ -489,7 +486,6 @@ export default function GameComponent() {
         endGame,
         evaluateResponse,
         currentResponse,
-        sessionMahjong,
     ]);
 
     // 分享游戏分数
@@ -945,14 +941,14 @@ export default function GameComponent() {
                     </div>
                 ) : gameState === "playing" ? (
                     <div className="text-center py-6">
-                        <div className="text-lg font-medium mb-4">
+                        <div className="text-lg font-medium">
                             Trial {currentTrial} of {settings.trialsPerRound}
                         </div>
 
                         {/* 修改麻将显示区域 - 增加容器宽度到 132px (88px * 1.5) */}
-                        <div className="relative mx-auto overflow-hidden w-[132px] pb-8">
+                        <div className="relative w-[350px] mx-auto overflow-hidden py-16">
                             <div
-                                className="flex gap-3"
+                                className="flex gap-12"
                                 style={{
                                     transform: `translateX(${slidePosition}px)`,
                                     transition: "transform 0.3s ease-in-out",
@@ -961,17 +957,20 @@ export default function GameComponent() {
                                 {sessionMahjong.map((mahjong) => (
                                     <div
                                         key={mahjong}
-                                        className="flex-shrink-0"
+                                        className="flex-shrink-0 flex items-center justify-center"
                                     >
-                                        <div className={cn(
-                                            "bg-white rounded-lg shadow-[3px_3px_0px_#fef3c7,6px_6px_0px_#f59e0b,9px_9px_0px_#d97706,12px_12px_0px_#b45309] w-[120px] h-[150px] flex items-center justify-center", // 增加尺寸和阴影
-                                            activePosition === mahjong && "ring-3 ring-primary" // 增加ring尺寸
-                                        )}>
+                                        <div
+                                            className={cn(
+                                                "bg-white rounded-2xl shadow-[6px_6px_0px_#ddd,12px_14px_0px_#10ab3b] w-[160px] aspect-[2/3] flex items-center justify-center relative before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] before:pointer-events-none", // 增加尺寸、阴影和内阴影
+                                                activePosition === mahjong &&
+                                                    "ring-3 ring-primary" // 增加ring尺寸
+                                            )}
+                                        >
                                             <Image
                                                 src={`${GAME_CONFIG.symbolBasePath}${mahjong}.svg`}
                                                 alt={mahjong}
-                                                width={120}  // 增加图片尺寸
-                                                height={150}
+                                                width={120} // 增加图片尺寸
+                                                height={180}
                                             />
                                         </div>
                                     </div>

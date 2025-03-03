@@ -44,7 +44,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   const games = getGames().filter(game => categoryGames.includes(game.id));
   
   return (
-      <div className="container mx-auto py-8">
+      <div className="max-w-7xl mx-auto py-8">
           <Breadcrumbs
               items={[
                   { label: "Categories", href: "/categories" },
@@ -52,12 +52,12 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
               ]}
           />
 
-          <h1 className="text-3xl font-bold  mt-12 mb-8 text-center">
+          <h1 className="text-3xl font-bold mt-12 mb-8 text-center">
               {category.name} Games
           </h1>
-          <p className="text-muted-foreground mb-8 bg-muted p-4 rounded-lg">{category.description}</p>
+          <p className="text-semibold mb-12 max-w-4xl mx-auto text-center leading-8">{category.description}</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {games.map((game) => (
                   <GameCard key={game.id} game={game} />
               ))}
