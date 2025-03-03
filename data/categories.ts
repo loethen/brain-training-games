@@ -4,71 +4,142 @@ export interface Category {
   slug: string;
   description: string;
   icon?: string;
+  keywords?: string[];
 }
 
 export const categories: Category[] = [
   {
-    id: "focus",
-    name: "Focus",
-    slug: "focus",
-    description: "Games that train your ability to concentrate and maintain attention on specific tasks.",
-    icon: "Focus"
-  },
-  {
-    id: "memory",
-    name: "Memory",
-    slug: "memory",
-    description: "Exercises to improve your short-term and working memory capacity.",
-    icon: "Brain"
-  },
-  {
     id: "working-memory",
     name: "Working Memory",
-    description: "Games that train your ability to hold and manipulate information in your mind temporarily.",
+    description: "Games that strengthen your ability to temporarily hold and manipulate information. Strong working memory helps students remember instructions, professionals juggle multiple tasks, and everyone follow conversations better. Regular training can improve academic performance, workplace efficiency, and reduce everyday forgetfulness.",
     slug: "working-memory",
-    icon: "Brain"
+    icon: "Brain",
+    keywords: [
+      "working memory training",
+      "memory training",
+      "improve working memory",
+      "working memory exercises",
+      "best way to improve working memory",
+      "boost working memory",
+      "brain working memory",
+      "working memory capacity",
+      "short-term memory improvement",
+      "cognitive training for memory"
+    ]
   },
   {
     id: "visual-tracking",
     name: "Visual Tracking",
-    description: "Games that improve your ability to follow moving objects and maintain visual focus.",
+    description: "Games that enhance your ability to follow moving objects and maintain visual focus. Better visual tracking helps readers avoid line-skipping, drivers track multiple vehicles, and athletes follow fast-moving balls. Training this skill can improve reading fluency, sports performance, and safety in dynamic environments like traffic or crowded spaces.",
     slug: "visual-tracking",
-    icon: "Eye"
+    icon: "Eye",
+    keywords: [
+      "visual tracking exercises",
+      "improve visual tracking",
+      "visual tracking skills",
+      "eye tracking training",
+      "visual attention training",
+      "visual processing speed",
+      "visual focus exercises",
+      "eye movement training",
+      "visual tracking for reading",
+      "sports vision training"
+    ]
   },
   {
     id: "sustained-attention",
     name: "Sustained Attention",
-    description: "Games that develop your ability to maintain focus on a task for extended periods of time.",
+    description: "Games that build your ability to maintain focus over extended periods. Enhanced sustained attention helps students stay engaged during long lectures, professionals maintain productivity throughout the workday, and everyone complete tasks without mental wandering. Training can improve learning outcomes, work quality, and reduce careless errors in daily activities.",
     slug: "sustained-attention",
-    icon: "Focus"
+    icon: "Focus",
+    keywords: [
+      "sustained attention training",
+      "improve focus duration",
+      "concentration exercises",
+      "attention span improvement",
+      "focus training",
+      "mental endurance exercises",
+      "concentration games",
+      "improve attention span",
+      "focus and concentration training",
+      "mindfulness for attention"
+    ]
   },
   {
     id: "selective-attention",
     name: "Selective Attention",
-    description: "Games that enhance your ability to focus on relevant stimuli while ignoring distractions.",
+    description: "Games that improve your ability to focus on relevant information while filtering out distractions. Better selective attention helps students study in noisy environments, professionals concentrate in busy offices, and everyone maintain focus despite interruptions. Training this skill can enhance productivity in distracting settings, improve comprehension of important information, and reduce stress from sensory overload.",
     slug: "selective-attention",
-    icon: "Target"
+    icon: "Target",
+    keywords: [
+      "selective attention training",
+      "filter distractions",
+      "focus amid distractions",
+      "attention filtering exercises",
+      "cognitive control training",
+      "distraction resistance",
+      "improve selective attention",
+      "focus training with distractions",
+      "attention control exercises",
+      "cognitive filtering"
+    ]
   },
   {
     id: "divided-attention",
     name: "Divided Attention",
-    description: "Games that improve your ability to split attention between multiple tasks or stimuli simultaneously.",
+    description: "Games that develop your ability to effectively split attention between multiple tasks or stimuli. Enhanced divided attention helps parents monitor children while completing household tasks, professionals handle concurrent responsibilities, and drivers safely navigate while being aware of surroundings. Training can improve multitasking efficiency, reduce errors when juggling responsibilities, and increase awareness in complex situations.",
     slug: "divided-attention",
-    icon: "Split"
+    icon: "Split",
+    keywords: [
+      "divided attention training",
+      "multitasking exercises",
+      "split attention practice",
+      "dual task training",
+      "improve multitasking ability",
+      "cognitive multitasking",
+      "attention splitting exercises",
+      "multiple task management",
+      "simultaneous processing training",
+      "cognitive load management"
+    ]
   },
   {
     id: "reaction-time",
     name: "Reaction Time",
-    description: "Games that sharpen your speed of response to visual or auditory stimuli.",
+    description: "Games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better, drivers respond quickly to road hazards, and older adults prevent falls. Regular training can improve sports performance, enhance safety in emergency situations, and maintain cognitive vitality with aging. Even millisecond improvements can make significant real-world differences.",
     slug: "reaction-time",
-    icon: "Zap"
+    icon: "Zap",
+    keywords: [
+      "reaction time training",
+      "improve response speed",
+      "faster reflexes exercises",
+      "quick reaction games",
+      "speed training cognitive",
+      "processing speed improvement",
+      "reflex training",
+      "cognitive speed exercises",
+      "faster brain response",
+      "neurological speed training"
+    ]
   },
   {
     id: "cognitive-flexibility",
     name: "Cognitive Flexibility",
-    description: "Games that develop your ability to switch between different concepts or adapt to changing rules.",
+    description: "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively. Training this skill can improve problem-solving creativity, adaptability to new technologies, and resilience when facing unexpected changes.",
     slug: "cognitive-flexibility",
-    icon: "Shuffle"
+    icon: "Shuffle",
+    keywords: [
+      "cognitive flexibility training",
+      "mental flexibility exercises",
+      "adaptive thinking training",
+      "task switching practice",
+      "improve mental adaptability",
+      "cognitive shifting exercises",
+      "mental agility training",
+      "flexible thinking games",
+      "rule switching training",
+      "brain flexibility improvement"
+    ]
   }
 ];
 

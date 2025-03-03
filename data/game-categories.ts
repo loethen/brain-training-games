@@ -21,6 +21,6 @@ export function getGameCategories(gameId: string): Category[] {
 // 获取特定类别的所有游戏
 export function getCategoryGames(categoryId: string): string[] {
   return Object.entries(gameCategoryMap)
-    .filter(([_, categories]) => categories.includes(categoryId))
-    .map(([gameId, _]) => gameId);
+    .filter(([, categories]) => categories.includes(categoryId))
+    .map(([gameId]) => gameId);
 } 

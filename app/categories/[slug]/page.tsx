@@ -15,8 +15,14 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   }
   
   return {
-    title: `${category.name} Games - Brain Training`,
-    description: `Explore our collection of brain training games that focus on ${category.name.toLowerCase()}. ${category.description}`
+    title: `${category.name} Games - Brain Training & Cognitive Enhancement`,
+    description: `Explore our collection of brain training games that focus on ${category.name.toLowerCase()}. ${category.description}`,
+    keywords: category.keywords?.join(", ") || `${category.name.toLowerCase()} games, brain training, cognitive enhancement`,
+    openGraph: {
+      title: `${category.name} Training Games - Improve Your Cognitive Skills`,
+      description: `Enhance your ${category.name.toLowerCase()} with our specialized brain training games. Free, effective, and scientifically-informed exercises.`,
+      images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+    },
   };
 }
 
@@ -39,11 +45,11 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-2">{category.name} Games</h1>
-      <p className="text-muted-foreground mb-8 max-w-2xl">
+      <p className="text-muted-foreground mb-8">
         {category.description}
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {games.map(game => (
           <GameCard key={game.id} game={game} />
         ))}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getGameCategories } from "@/data/game-categories";
 import { Brain, Focus, Zap, Puzzle, Eye, Target, Split, Shuffle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { categories } from "@/data/categories";
 
 const iconMap: Record<string, React.ReactNode> = {
   Brain: <Brain className="h-4 w-4" />,
@@ -14,20 +15,52 @@ const iconMap: Record<string, React.ReactNode> = {
   Shuffle: <Shuffle className="h-4 w-4" />
 };
 
-export default function GameCategories({ 
-  gameId, 
-  className 
-}: { 
+interface GameCategoriesProps {
   gameId: string;
   className?: string;
-}) {
-  const categories = getGameCategories(gameId);
+  displayAll?: boolean;
+}
+
+export default function GameCategories({ 
+  gameId, 
+  className,
+  displayAll = false
+}: GameCategoriesProps) {
+  const displayCategories = gameId === "all" || displayAll 
+    ? categories 
+    : getGameCategories(gameId);
   
-  if (categories.length === 0) return null;
+  if (displayCategories.length === 0) return null;
+  
+  if (gameId === "all" || displayAll) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {displayCategories.map(category => (
+          <Link 
+            key={category.id}
+            href={`/categories/${category.slug}`}
+            className="block p-6 border rounded-lg hover:bg-muted/50 transition-colors"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              {category.icon && (
+                <div className="p-2 bg-primary/10 rounded-full text-primary">
+                  {iconMap[category.icon] || <div className="w-6 h-6" />}
+                </div>
+              )}
+              <h2 className="text-xl font-semibold">{category.name}</h2>
+            </div>
+            <p className="text-muted-foreground text-sm">
+              {category.description}
+            </p>
+          </Link>
+        ))}
+      </div>
+    );
+  }
   
   return (
     <div className={cn("flex flex-wrap gap-2", className)}>
-      {categories.map(category => (
+      {displayCategories.map(category => (
         <Link 
           key={category.id}
           href={`/categories/${category.slug}`}

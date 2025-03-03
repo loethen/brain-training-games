@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Button } from "@/components/ui/button";
-import { GameCard } from "@/components/game-card"
+import GameCard from "@/components/game-card"
 import { GamePreview as SimonGamePreview } from "./games/pattern-recall-challenge/components/GamePreview"
 import { GamePreview as SchulteGamePreview } from "./games/schulte-table/components/GamePreview"
 import { ImagePreview } from "@/components/image-preview"
@@ -50,33 +50,48 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
                   <GameCard
-                      title="Larger Number"
-                      description="Improves focus, speed, and precision in a dynamic number task."
-                      slug="larger-number"
+                      game={{
+                          id: "larger-number",
+                          title: "Larger Number",
+                          description: "Improves focus, speed, and precision in a dynamic number task.",
+                          slug: "larger-number",
+                      }}
                       preview={<ImagePreview src="/games/larger-number.png" />}
                   />
                   <GameCard
-                      title="Pattern Recall Challenge"
-                      description="Strengthen your working memory by remembering and repeating visual sequences."
-                      slug="pattern-recall-challenge"
+                      game={{
+                          id: "pattern-recall-challenge",
+                          title: "Pattern Recall Challenge",
+                          description: "Strengthen your working memory by remembering and repeating visual sequences.",
+                          slug: "pattern-recall-challenge",
+                      }}
                       preview={<SimonGamePreview />}
                   />
                   <GameCard
-                      title="Schulte Table"
-                      description="Enhance your attention and peripheral vision"
-                      slug="schulte-table"
+                      game={{
+                          id: "schulte-table",
+                          title: "Schulte Table",
+                          description: "Enhance your attention and peripheral vision",
+                          slug: "schulte-table",
+                      }}
                       preview={<SchulteGamePreview />}
                   />
                   <GameCard
-                      title="Glowing Fish Trace"
-                      description="Master visual tracking by following glowing fish patterns"
-                      slug="fish-trace"
+                      game={{
+                          id: "fish-trace",
+                          title: "Glowing Fish Trace",
+                          description: "Master visual tracking by following glowing fish patterns",
+                          slug: "fish-trace",
+                      }}
                       preview={<ImagePreview src="/games/fish-trace.png" />}
                   />
                   <GameCard
-                      title="Frog Memory Leap"
-                      description="Enhance Sequential Memory & Spatial Recall Through Progressive Challenges"
-                      slug="frog-memory-leap"
+                      game={{
+                          id: "frog-memory-leap",
+                          title: "Frog Memory Leap",
+                          description: "Enhance Sequential Memory & Spatial Recall Through Progressive Challenges",
+                          slug: "frog-memory-leap",
+                      }}
                       preview={<ImagePreview src="/games/frog-path.png" />}
                   />
               </div>
