@@ -5,14 +5,13 @@ import GameCard from "@/components/game-card";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Metadata } from "next";
 
-type PageProps = {
-  params: {
-    slug: string;
-  };
+type Props = {
+  params: Promise<{ slug: string }>;
 };
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const category = getCategoryBySlug(params.slug);
+export async function generateMetadata( {params}: Props ): Promise<Metadata> {
+  const { slug } = await params;
+  const category = getCategoryBySlug(slug);
   
   if (!category) {
     return {
@@ -39,8 +38,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function CategoryPage({ params }: PageProps) {
-  const category = getCategoryBySlug(params.slug);
+export default async function CategoryPage({ params }: Props) {
+  const { slug } = await params;
+  const category = getCategoryBySlug(slug);
   
   if (!category) {
     return <div>Category not found</div>;

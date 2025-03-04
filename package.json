@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3003",
+    "dev": "next dev --turbopack -p 3003",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.2",
-    "@next/third-parties": "^15.1.7",
+    "@next/third-parties": "15.2.1",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-checkbox": "^1.1.4",
     "@radix-ui/react-dialog": "^1.1.6",
@@ -30,11 +30,11 @@
     "embla-carousel-react": "^8.5.2",
     "howler": "^2.2.4",
     "lucide-react": "^0.475.0",
-    "next": "^15.1.7",
+    "next": "15.2.1",
     "next-themes": "^0.4.4",
     "phaser": "^3.88.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-hook-form": "^7.54.2",
     "sonner": "^2.0.1",
     "tailwind-merge": "^3.0.1",
@@ -46,12 +46,16 @@
     "@eslint/eslintrc": "^3",
     "@types/howler": "^2.2.12",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
     "eslint": "^9",
-    "eslint-config-next": "15.1.7",
+    "eslint-config-next": "15.2.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4"
   }
 }
