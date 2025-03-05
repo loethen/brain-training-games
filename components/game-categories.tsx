@@ -49,7 +49,7 @@ export default function GameCategories({
                   {iconMap[category.icon] || <div className="w-6 h-6" />}
                 </div>
               )}
-              <h2 className="text-xl font-semibold">{category.name}</h2>
+              <h2 className="font-semibold">{category.name}</h2>
             </div>
             {showDescription && (
               <p className="text-muted-foreground text-sm">
@@ -68,7 +68,7 @@ export default function GameCategories({
         <Link 
           key={category.id}
           href={`/categories/${category.slug}`}
-          className="text-primary px-2 py-1 bg-muted rounded-md hover:bg-muted transition-colors flex items-center gap-1"
+          className="px-2 py-1 bg-muted rounded-md hover:bg-muted transition-colors flex items-center gap-1 text-sm mt-2"
         >
           {category.icon && iconMap[category.icon]}
           {category.name}

@@ -21,20 +21,11 @@ export default function Home() {
   return (
       <div className="md:py-12">
           {/* Hero Section */}
-          <section className="max-w-7xl mx-auto mb-24 p-6 md:p-12">
+          <section className="max-w-7xl mx-auto p-6 md:p-12">
               <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="text-center md:text-left">
-                      <h1 className="font-outfit text-3xl sm:text-5xl font-bold mb-6">
-                          Free Games to Boost
-                          <div className="flex flex-wrap items-center gap-x-4 mt-2">
-                              <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
-                                  Memory
-                              </span>
-                              <span>&</span>
-                              <span className="bg-gradient-to-r from-blue-400 via-green-400 to-cyan-500 bg-clip-text text-transparent">
-                                  Concentration
-                              </span>
-                          </div>
+                  <div className="w-full md:w-1/2 text-center md:text-left">
+                      <h1 className="font-outfit text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                          Free Games to Boost Memory & Concentration
                       </h1>
                       <p className="sm:text-xl mb-6">
                           Play Free Brain Games Online Anytime
@@ -45,7 +36,7 @@ export default function Home() {
                           </Button>
                       </Link>
                   </div>
-                  <div className="flex-1">
+                  <div className="w-full md:w-1/2">
                       <BrainGameIcons />
                   </div>
               </div>
@@ -60,6 +51,15 @@ export default function Home() {
                   </Link>
               </div>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
+                  <GameCard 
+                    game={{
+                        id: "dual-n-back",
+                        title: "Dual N-Back",
+                        description: "Enhance your working memory by remembering and repeating visual sequences.",
+                        slug: "dual-n-back",
+                    }}
+                    preview={<ImagePreview src="/games/dual-n-back.png" />}
+                  />
                   <GameCard
                       game={{
                           id: "larger-number",

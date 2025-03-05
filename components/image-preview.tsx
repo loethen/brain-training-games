@@ -2,15 +2,13 @@ import Image from "next/image"
 
 export function ImagePreview({ src }: { src: string }) {
   return (
-    <div className="relative h-full w-full flex items-center justify-center">
+    <div className="relative w-full aspect-[4/3]">
       <Image
         src={src}
         alt="Game preview"
-        width={400}
-        height={400}
+        fill
+        className="object-contain"
         quality={100}
-        className="object-cover rounded-xl"
-        priority={true}
       />
     </div>
   )

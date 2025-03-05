@@ -21,17 +21,17 @@ export default function GameCard({ game, preview, className }: GameCardProps) {
           {/* 预览区域 - 如果提供了预览组件则显示 */}
           {preview && (
               <Link href={`/games/${game.slug}`}>
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-muted/20 flex items-center justify-center">
+                  <div className="w-full overflow-hidden bg-muted/20 flex items-center justify-center">
                       {preview}
                   </div>
               </Link>
           )}
           <div className="block px-6 py-4">
               <Link href={`/games/${game.slug}`}>
-                  <h3 className="text-lg font-semibold">{game.title}</h3>
+                  <h2 className="text-xl font-semibold text-primary">{game.title}</h2>
               </Link>
 
-              <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
+              <p className="mt-2 text-muted-foreground line-clamp-2">
                   {game.description}
               </p>
 

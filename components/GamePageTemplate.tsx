@@ -54,7 +54,7 @@ export function GamePageTemplate({
 
           {/* 游戏组件 */}
           <section className={cn(
-            "mb-16 rounded-xl p-8", 
+            "mb-16 rounded-xl p-2 md:p-8", 
             gameBackground || "bg-gradient-to-br from-primary/10 to-secondary/10"
           )}>
               {gameComponent}
