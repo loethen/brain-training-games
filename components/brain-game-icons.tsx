@@ -1,0 +1,127 @@
+"use client";
+
+import React, { forwardRef, useRef } from "react";
+import { cn } from "@/lib/utils";
+import { AnimatedBeam } from "@/components/magicui/animated-beam";
+import { 
+  Brain, 
+  Grid3x3, 
+  Target, 
+  LayoutGrid, 
+  Calculator, 
+  Eye, 
+  Zap
+} from "lucide-react";
+
+const GameIcon = forwardRef<
+  HTMLDivElement,
+  { className?: string; children?: React.ReactNode; icon: React.ElementType; color: string }
+>(({ className, children, icon: Icon, color }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "z-10 flex size-12 sm:size-14 md:size-16 items-center justify-center rounded-full bg-white p-1 sm:p-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
+        className
+      )}
+    >
+      <Icon size={28} className="sm:size-32 md:size-40" color={color} strokeWidth={1.5} />
+      {children}
+    </div>
+  );
+});
+
+GameIcon.displayName = "GameIcon";
+
+export function BrainGameIcons() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const brainRef = useRef<HTMLDivElement>(null);
+  const memoryRef = useRef<HTMLDivElement>(null);
+  const focusRef = useRef<HTMLDivElement>(null);
+  const patternRef = useRef<HTMLDivElement>(null);
+  const numberRef = useRef<HTMLDivElement>(null);
+  const trackingRef = useRef<HTMLDivElement>(null);
+  const reactionRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      className="relative w-full max-w-full md:max-w-md lg:max-w-lg mx-auto h-[280px] sm:h-[300px] md:h-[320px]"
+      ref={containerRef}
+    >
+      <div className="absolute inset-0 flex flex-col items-stretch justify-between p-4 sm:p-6 md:p-10 gap-6 sm:gap-8 md:gap-10">
+        <div className="flex flex-row items-center justify-between">
+          <GameIcon ref={memoryRef} icon={Grid3x3} color="#ec4899" />
+          <GameIcon ref={focusRef} icon={Target} color="#10b981" />
+        </div>
+        <div className="flex flex-row items-center justify-between">
+          <GameIcon ref={patternRef} icon={LayoutGrid} color="#a855f7" />
+          <div
+            ref={brainRef}
+            className="z-10 flex size-16 sm:size-20 md:size-24 items-center justify-center rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-2 sm:p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
+          >
+            <Brain size={32} className="sm:size-40 md:size-48" color="white" strokeWidth={1.5} />
+          </div>
+          <GameIcon ref={numberRef} icon={Calculator} color="#f59e0b" />
+        </div>
+        <div className="flex flex-row items-center justify-between">
+          <GameIcon ref={trackingRef} icon={Eye} color="#3b82f6" />
+          <GameIcon ref={reactionRef} icon={Zap} color="#ef4444" />
+        </div>
+      </div>
+
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={memoryRef}
+        toRef={brainRef}
+        curvature={-75}
+        endYOffset={-10}
+        gradientStartColor="#ec4899"
+        gradientStopColor="#db2777"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={patternRef}
+        toRef={brainRef}
+        gradientStartColor="#a855f7"
+        gradientStopColor="#8b5cf6"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={trackingRef}
+        toRef={brainRef}
+        curvature={75}
+        endYOffset={10}
+        gradientStartColor="#3b82f6"
+        gradientStopColor="#2563eb"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={focusRef}
+        toRef={brainRef}
+        curvature={-75}
+        endYOffset={-10}
+        reverse
+        gradientStartColor="#10b981"
+        gradientStopColor="#059669"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={numberRef}
+        toRef={brainRef}
+        reverse
+        gradientStartColor="#f59e0b"
+        gradientStopColor="#d97706"
+      />
+      <AnimatedBeam
+        containerRef={containerRef}
+        fromRef={reactionRef}
+        toRef={brainRef}
+        curvature={75}
+        endYOffset={10}
+        reverse
+        gradientStartColor="#ef4444"
+        gradientStopColor="#dc2626"
+      />
+    </div>
+  );
+} 

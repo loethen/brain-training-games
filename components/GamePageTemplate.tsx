@@ -53,7 +53,10 @@ export function GamePageTemplate({
           </div>
 
           {/* 游戏组件 */}
-          <section className={cn("mb-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl p-8", gameBackground)}>
+          <section className={cn(
+            "mb-16 rounded-xl p-8", 
+            gameBackground || "bg-gradient-to-br from-primary/10 to-secondary/10"
+          )}>
               {gameComponent}
           </section>
 

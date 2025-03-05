@@ -7,6 +7,8 @@ import { ImagePreview } from "@/components/image-preview"
 import { Marquee } from "@/components/magicui/marquee";
 import { cn } from "@/lib/utils";
 import Link from 'next/link';
+import { BrainGameIcons } from "@/components/brain-game-icons";
+
 export const metadata: Metadata = {
     title: "Free Focus & Memory Games | FreeFocusGames",
     description:
@@ -19,26 +21,33 @@ export default function Home() {
   return (
       <div className="md:py-12">
           {/* Hero Section */}
-          <section className="max-w-7xl mx-auto mb-24 p-6 md:p-12 rounded-3xl text-center">
-              <div className="">
-                  <h1 className="font-outfit text-2xl sm:text-4xl font-bold mb-6 inline-flex flex-wrap items-center justify-center gap-x-4">
-                      Free Focus Games to Boost
-                      <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
-                          Memory
-                      </span>
-                      <span>and</span>
-                      <span className="bg-gradient-to-r from-blue-400 via-green-400 to-cyan-500 bg-clip-text text-transparent">
-                          Concentration
-                      </span>
-                  </h1>
-                  <p className="sm:text-xl mb-6">
-                      Play Free Brain Games Online Anytime
-                  </p>
-                  <Link href="/games/larger-number">
-                      <Button className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white">
-                          Start Challenge
-                      </Button>
-                  </Link>
+          <section className="max-w-7xl mx-auto mb-24 p-6 md:p-12">
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                  <div className="text-center md:text-left">
+                      <h1 className="font-outfit text-3xl sm:text-5xl font-bold mb-6">
+                          Free Games to Boost
+                          <div className="flex flex-wrap items-center gap-x-4 mt-2">
+                              <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+                                  Memory
+                              </span>
+                              <span>&</span>
+                              <span className="bg-gradient-to-r from-blue-400 via-green-400 to-cyan-500 bg-clip-text text-transparent">
+                                  Concentration
+                              </span>
+                          </div>
+                      </h1>
+                      <p className="sm:text-xl mb-6">
+                          Play Free Brain Games Online Anytime
+                      </p>
+                      <Link href="/games/larger-number">
+                          <Button className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white">
+                              Start Challenge
+                          </Button>
+                      </Link>
+                  </div>
+                  <div className="flex-1">
+                      <BrainGameIcons />
+                  </div>
               </div>
           </section>
 

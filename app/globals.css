@@ -2,33 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 引入 Outfit 字体（假设字体文件在 /fonts 目录下） */
+@font-face {
+  font-family: "Outfit";
+  src: url("/fonts/Outfit-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer base {
   :root {
+    /* 核心颜色 */
     --background: 0 0% 100%; /* 白色 */
     --foreground: 0 0% 0%;    /* 黑色 */
-    --border: 0 0% 90%;      /* 浅灰色边框 */
-    
-    --primary: 217 91% 60%; /* 亮蓝色 */
-    --primary-foreground: 0 0% 100%;
-    
-    --secondary: 0 0% 98%;
-    --secondary-foreground: 0 0% 0%;
-    
-    --muted: 0 0% 98%;
-    --muted-foreground: 0 0% 45%;
-    
-    --accent: 0 0% 98%;      /* 浅灰悬停背景 */
-    --accent-foreground: 0 0% 0%;
-    
-    --input: 0 0% 90%;
-    --ring: 0 0% 0%;
-    
-    --radius: 0.5rem;
 
+    /* 边框和输入框 */
+    --border: 0 0% 90%;      /* 浅灰色边框 */
+    --input: 0 0% 90%;       /* 浅灰色输入框 */
+
+    /* 主要颜色 */
+    --primary: 217 91% 60%;  /* 亮蓝色 */
+    --primary-foreground: 0 0% 100%; /* 白色 */
+
+    /* 辅助色和柔和色 */
+    --secondary: 0 0% 96%;   /* 更深的浅灰色 */
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 98%;       /* 浅灰色 */
+    --muted-foreground: 0 0% 35%; /* 深灰色以提高对比度 */
+    --accent: 217 91% 90%;   /* 浅蓝色悬停背景 */
+    --accent-foreground: 0 0% 0%;
+
+    /* 其他 */
+    --radius: 0.5rem;
+    --ring: 0 0% 0%;         /* 黑色 */
+
+    /* 侧边栏样式 */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -38,39 +50,47 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
+    /* 状态颜色 */
     --destructive: 0 84.2% 60.2%; /* 红色 */
     --success: 142.1 76.2% 36.3%; /* 绿色 */
   }
+
   .dark {
+    /* 核心颜色 */
     --background: 0 0% 10%;  /* 深灰 */
     --foreground: 0 0% 100%; /* 白色 */
+
+    /* 边框和输入框 */
     --border: 0 0% 20%;      /* 深灰边框 */
-    
-    --primary: 217 91% 60%; /* 保持相同蓝色 */
+    --input: 240 3.7% 15.9%; /* 暗灰输入框 */
+
+    /* 主要颜色 */
+    --primary: 217 80% 50%;  /* 柔和蓝色，适合暗色主题 */
     --primary-foreground: 0 0% 100%;
-    
+
+    /* 辅助色和柔和色 */
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 0 0% 20%;      /* 深灰悬停背景 */
+    --accent: 217 80% 30%;   /* 深蓝色悬停背景 */
     --accent-foreground: 0 0% 100%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --input: 240 3.7% 15.9%;
+
+    /* 其他 */
+    --radius: 0.5rem;
     --ring: 240 4.9% 83.9%;
 
+    /* 侧边栏样式 */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 224 50% 40%; /* 调整为低饱和度蓝色 */
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
+    /* 状态颜色 */
     --destructive: 0 72% 51%; /* 暗红 */
     --success: 142.1 70% 45%; /* 暗绿 */
   }
@@ -88,12 +108,19 @@ body {
 /* Custom utilities */
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-foreground via-foreground/80 to-foreground/60 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--primary-foreground))] to-[hsl(var(--accent))] bg-clip-text text-transparent;
+  }
+  .btn-destructive {
+    @apply bg-[hsl(var(--destructive))] text-[hsl(var(--foreground))];
+  }
+  .btn-success {
+    @apply bg-[hsl(var(--success))] text-[hsl(var(--foreground))];
   }
 }
 
 @layer base {
-  * {
+  /* 仅在需要的元素上应用边框和轮廓 */
+  input, button, select {
     @apply border-border outline-ring/50;
   }
   body {
