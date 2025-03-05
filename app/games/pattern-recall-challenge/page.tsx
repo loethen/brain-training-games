@@ -2,6 +2,9 @@ import { Metadata } from "next";
 import { PatternRecallGame } from "./components/PatternRecallGame";
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Grid, Brain, Eye } from 'lucide-react'
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { GamePreview } from "./components/GamePreview"
 
 export const metadata: Metadata = {
     title: "Pattern Recall Challenge - Visual Memory Training Game",
@@ -41,6 +44,15 @@ export default function PatternRecallPage() {
                         <li>Recreate the pattern by clicking on the correct squares</li>
                         <li>Patterns become more complex as you advance through levels</li>
                     </ul>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant="outline" className="mt-4">Watch Demo</Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogTitle>Demo</DialogTitle>
+                            <GamePreview />
+                        </DialogContent>
+                    </Dialog>
                 </>
             }
             benefits={[

@@ -30,7 +30,7 @@ export default function Home() {
                       <p className="sm:text-xl mb-6">
                           Play Free Brain Games Online Anytime
                       </p>
-                      <Link href="/games/larger-number">
+                      <Link href="/games">
                           <Button className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white">
                               Start Challenge
                           </Button>
