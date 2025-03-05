@@ -28,6 +28,12 @@ export default function GameComponent() {
     const [totalAttempts, setTotalAttempts] = useState(0);
     const [correctAnswers, setCorrectAnswers] = useState(0);
 
+    // End the game
+    const endGame = useCallback(() => {
+        setGameState('complete');
+        setChallengeResult(evaluateChallenge(totalAttempts, correctAnswers));
+    }, [totalAttempts, correctAnswers]);
+
     // Timer for the game
     useEffect(() => {
         let timerId: number;
@@ -48,7 +54,7 @@ export default function GameComponent() {
         return () => {
             if (timerId) clearInterval(timerId);
         };
-    }, [gameState]);
+    }, [gameState, endGame]);
 
     // Generate new numbers for the round
     const generateNumbers = useCallback(() => {
@@ -109,12 +115,6 @@ export default function GameComponent() {
                 ? `🎉 Congratulations! You've completed the challenge brilliantly!`
                 : `💪 Keep going! You're just one step away from success, try again!`
         };
-    };
-
-    // End the game
-    const endGame = () => {
-        setGameState('complete');
-        setChallengeResult(evaluateChallenge(totalAttempts, correctAnswers));
     };
 
     // Share score

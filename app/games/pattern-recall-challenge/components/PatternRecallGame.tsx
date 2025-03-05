@@ -45,6 +45,33 @@ export function PatternRecallGame() {
         }
     };
 
+    const showPattern = useCallback(async (newPattern: number[]) => {
+        // 按顺序显示每个方块
+        for (const blockId of newPattern) {
+            setBlocks((blocks) =>
+                blocks.map((block) => ({
+                    ...block,
+                    isHighlighted: block.id === blockId,
+                }))
+            );
+
+            await new Promise((resolve) => setTimeout(resolve, 800));
+
+            setBlocks((blocks) =>
+                blocks.map((block) => ({
+                    ...block,
+                    isHighlighted: false,
+                }))
+            );
+
+            await new Promise((resolve) => setTimeout(resolve, 200));
+        }
+
+        resetBlocks();
+        setGameState("guessing");
+        setUserPattern([]);
+    }, []);
+
     const startGame = useCallback(() => {
         // 先重置状态
         setIsLoading(true);
@@ -63,7 +90,7 @@ export function PatternRecallGame() {
             setPattern(newPattern);
             void showPattern(newPattern);
         }, 1000);
-    }, []);
+    }, [showPattern]);
 
     const handleBlockClick = useCallback(
         (blockId: number) => {
@@ -124,38 +151,6 @@ export function PatternRecallGame() {
         setGameTime((endTime - startTime) / 1000); // 转换为秒
         updateBestScore(score);
         setShowResults(true);
-    }
-
-    async function showPattern(newPattern: number[]) {
-        // 按顺序显示每个方块
-        for (const blockId of newPattern) {
-            // 高亮当前方块
-            setBlocks((blocks) =>
-                blocks.map((block) => ({
-                    ...block,
-                    isHighlighted: block.id === blockId,
-                }))
-            );
-
-            // 等待一段时间
-            await new Promise((resolve) => setTimeout(resolve, 800));
-
-            // 取消高亮
-            setBlocks((blocks) =>
-                blocks.map((block) => ({
-                    ...block,
-                    isHighlighted: false,
-                }))
-            );
-
-            // 方块之间的间隔
-            await new Promise((resolve) => setTimeout(resolve, 200));
-        }
-
-        // 所有方块显示完毕，开始猜测阶段
-        resetBlocks();
-        setGameState("guessing");
-        setUserPattern([]);
     }
 
     function handleSuccess() {
