@@ -54,7 +54,7 @@ export function GamePageTemplate({
 
           {/* 游戏组件 */}
           <section className={cn(
-            "mb-16 rounded-xl p-2 md:p-6 border border-border", 
+            "mb-16 rounded-xl p-2 md:p-4 border border-border", 
             gameBackground
           )}>
               {gameComponent}

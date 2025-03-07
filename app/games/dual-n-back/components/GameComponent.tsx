@@ -126,12 +126,23 @@ export default function GameComponent() {
         }
     }, [isSettingsOpen, form, settings]);
 
+    // 添加滚动容器的ref
+    const gameContainerRef = useRef<HTMLDivElement>(null);
+    
     const startGame = useCallback(() => {
         setIsLoading(true);
         setGameState("idle");
         setCurrentTrial(0);
         setTrialHistory([]);
         setResults([]);
+        
+        // 延迟滚动确保布局更新完成
+        setTimeout(() => {
+            gameContainerRef.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'  // 改为从顶部对齐
+            });
+        }, 50);  // 50ms延迟确保状态更新
         
         // 为本局游戏随机选择8个字母
         const allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -524,7 +535,11 @@ export default function GameComponent() {
     ]);
 
     return (
-        <div className="container mx-auto p-4 flex flex-col justify-center">
+        <div 
+            className="mx-auto p-2 flex flex-col justify-center" 
+            ref={gameContainerRef}
+            style={{ scrollMarginTop: "100px" }} // 添加滚动边距
+        >
             <div className="flex justify-between items-center mb-6">
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -920,30 +935,30 @@ export default function GameComponent() {
                             {settings.selectedTypes.includes("position") && (
                                 <Button
                                     onClick={() => handleResponse("position")}
-                                    variant="outline"
+                                    variant="ghost"
                                     className={cn(
-                                        "border-2",
+                                        "border-2 rounded-full shadow-none",
                                         isPositionHighlight &&
                                             "hover:border-primary border-primary"
                                     )}
                                 >
-                                    <Square className="w-4 h-4 mr-2" />
+                                    <Square className="w-4 h-4 mr-1 bg-primary" />
                                     A: Position Match
                                 </Button>
                             )}
                             {settings.selectedTypes.includes("audio") && (
                                 <Button
                                     onClick={() => handleResponse("audio")}
-                                    variant="outline"
+                                    variant="ghost"
                                     className={cn(
-                                        "border-2",
+                                        "border-2 rounded-full shadow-none",
                                         isAudioHighlight &&
                                             "hover:border-primary border-primary"
                                     )}
                                 >
                                     <Volume2
                                         className={cn(
-                                            "w-4 h-4 mr-2",
+                                            "w-4 h-4 mr-1",
                                             isAudioPlaying && "animate-pulse"
                                         )}
                                     />
