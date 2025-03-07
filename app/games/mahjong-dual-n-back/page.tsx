@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default function MahjongDualNBackPage() {
   return (
       <GamePageTemplate
-          gameBackground="bg-[radial-gradient(circle,#2a9d5c_0%,#1e7a47_100%)]"
+          gameBackground="bg-[linear-gradient(to_bottom_right,#f0fff4_0%,#c8e6c9_30%,#a5d6a7_70%,#81c784_100%)]"
           gameId="mahjong-dual-n-back"
           title="Mahjong Dual N-Back"
           subtitle="Advanced working memory training with traditional mahjong tiles"

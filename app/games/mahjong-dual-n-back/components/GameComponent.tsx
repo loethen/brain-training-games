@@ -6,7 +6,6 @@ import {
     PlayCircle,
     Share2,
     Volume2,
-    Square,
     Settings,
     PauseCircle,
 } from "lucide-react";
@@ -639,17 +638,26 @@ export default function GameComponent() {
                 </div>
                 <div className="flex items-center gap-2">
                     {gameState === "playing" && (
-                        <Button
-                            onClick={togglePause}
-                            variant="outline"
-                            size="sm"
-                        >
-                            {isPaused ? (
-                                <PlayCircle className="h-4 w-4" />
-                            ) : (
-                                <PauseCircle className="h-4 w-4" />
-                            )}
-                        </Button>
+                        <>
+                            <Button
+                                onClick={togglePause}
+                                variant="outline"
+                                size="sm"
+                            >
+                                {isPaused ? (
+                                    <PlayCircle className="h-4 w-4" />
+                                ) : (
+                                    <PauseCircle className="h-4 w-4" />
+                                )}
+                            </Button>
+                            <Button
+                                onClick={() => window.location.reload()}
+                                variant="outline"
+                                size="sm"
+                            >
+                                Restart
+                            </Button>
+                        </>
                     )}
                     <Dialog
                         open={isSettingsOpen}
@@ -1031,13 +1039,26 @@ export default function GameComponent() {
                                     onClick={() => handleResponse("position")}
                                     variant="outline"
                                     className={cn(
-                                        "border-2 rounded-full shadow-none",
+                                        "rounded-lg shadow-md bg-white/90 border-2 border-emerald-800 hover:bg-white",
+                                        "text-emerald-900 hover:text-emerald-900 font-medium",
+                                        "transition-all duration-200",
                                         isPositionHighlight &&
-                                            "hover:border-primary border-primary"
+                                            "border-blue-500 ring-2 ring-blue-200"
                                     )}
                                 >
-                                    <Square className="w-4 h-4 mr-1 bg-primary" />
-                                    A: Position Match
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-6 h-6 bg-emerald-100 rounded-md flex items-center justify-center border border-emerald-300">
+                                            <span className="text-emerald-700 text-lg">
+                                                🀫
+                                            </span>
+                                        </div>
+                                        <span>
+                                            Position{" "}
+                                            <span className="text-xs text-emerald-600">
+                                                (A)
+                                            </span>
+                                        </span>
+                                    </div>
                                 </Button>
                             )}
                             {settings.selectedTypes.includes("audio") && (
@@ -1045,18 +1066,26 @@ export default function GameComponent() {
                                     onClick={() => handleResponse("audio")}
                                     variant="outline"
                                     className={cn(
-                                        "border-2 rounded-full shadow-none",
+                                        "rounded-lg shadow-md bg-white/90 border-2 border-emerald-800 hover:bg-white",
+                                        "text-emerald-900 hover:text-emerald-900 font-medium",
+                                        "transition-all duration-200",
                                         isAudioHighlight &&
-                                            "hover:border-primary border-primary"
+                                            "border-blue-500 ring-2 ring-blue-200"
                                     )}
                                 >
-                                    <Volume2
-                                        className={cn(
-                                            "w-4 h-4 mr-1",
-                                            isAudioPlaying && "animate-pulse"
-                                        )}
-                                    />
-                                    L: Sound Match
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-6 h-6 bg-amber-100 rounded-md flex items-center justify-center border border-amber-300">
+                                            <span className="text-amber-700 text-lg">
+                                                🀇
+                                            </span>
+                                        </div>
+                                        <span>
+                                            Sound{" "}
+                                            <span className="text-xs text-emerald-600">
+                                                (L)
+                                            </span>
+                                        </span>
+                                    </div>
                                 </Button>
                             )}
                         </div>
