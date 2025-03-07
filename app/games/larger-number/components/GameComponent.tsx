@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { GAME_CONFIG } from '../config';
@@ -74,17 +74,28 @@ export default function GameComponent() {
         setOptions(newOptions);
     }, []);
 
+    // Add scroll container ref
+    const gameContainerRef = useRef<HTMLDivElement>(null);
+
     // Start a new game
     const startGame = useCallback(() => {
         setIsLoading(true);
         setTimeout(() => {
             setGameState('playing');
-            setTimeLeft(GAME_CONFIG.gameTime); // Reset the timer
+            setTimeLeft(GAME_CONFIG.gameTime);
             setCorrectAnswers(0);
             setTotalAttempts(0);
             setChallengeResult(null);
             generateNumbers();
             setIsLoading(false);
+            
+            // Add scroll logic
+            setTimeout(() => {
+                gameContainerRef.current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 50);
         }, 1000);
     }, [generateNumbers]);
 
@@ -147,7 +158,11 @@ export default function GameComponent() {
     };
 
     return (
-        <div className="flex flex-col p-8 min-h-[500px]">
+        <div 
+            className="flex flex-col p-8"
+            ref={gameContainerRef}
+            style={{ scrollMarginTop: "90px" }}
+        >
             {/* Timer display */}
             {gameState !== "idle" && (
                 <div className="flex justify-end items-center mb-2">
