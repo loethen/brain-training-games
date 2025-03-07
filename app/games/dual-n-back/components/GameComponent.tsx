@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
@@ -591,7 +592,11 @@ export default function GameComponent() {
                                                 <FormControl>
                                                     <Slider
                                                         min={1}
-                                                        max={GAME_CONFIG.difficulty.maxLevel}
+                                                        max={
+                                                            GAME_CONFIG
+                                                                .difficulty
+                                                                .maxLevel
+                                                        }
                                                         step={1}
                                                         value={[field.value]}
                                                         onValueChange={(vals) =>
@@ -769,8 +774,15 @@ export default function GameComponent() {
                                                         max={50}
                                                         step={5}
                                                         value={[field.value]}
-                                                        onValueChange={(vals) => field.onChange(vals[0])}
-                                                        disabled={gameState === "playing"}
+                                                        onValueChange={(vals) =>
+                                                            field.onChange(
+                                                                vals[0]
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            gameState ===
+                                                            "playing"
+                                                        }
                                                     />
                                                 </FormControl>
                                             </FormItem>
@@ -785,7 +797,10 @@ export default function GameComponent() {
                                                 <FormLabel className="flex items-center justify-between">
                                                     Trial Speed
                                                     <span className="text-sm text-muted-foreground">
-                                                        {(field.value / 1000).toFixed(1)}s
+                                                        {(
+                                                            field.value / 1000
+                                                        ).toFixed(1)}
+                                                        s
                                                     </span>
                                                 </FormLabel>
                                                 <FormControl>
@@ -794,8 +809,15 @@ export default function GameComponent() {
                                                         max={4000}
                                                         step={250}
                                                         value={[field.value]}
-                                                        onValueChange={(vals) => field.onChange(vals[0])}
-                                                        disabled={gameState === "playing"}
+                                                        onValueChange={(vals) =>
+                                                            field.onChange(
+                                                                vals[0]
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            gameState ===
+                                                            "playing"
+                                                        }
                                                     />
                                                 </FormControl>
                                             </FormItem>
@@ -829,15 +851,19 @@ export default function GameComponent() {
                                 from {settings.selectedNBack} steps back.
                             </p>
                         </div>
-                        <Button
-                            size="lg"
-                            onClick={startGame}
-                            disabled={isLoading}
-                            className="w-full sm:w-auto"
-                        >
-                            <PlayCircle className="w-5 h-5 mr-2" />
-                            {isLoading ? "Starting..." : "Start Challenge"}
-                        </Button>
+                        <div className="flex justify-center">
+                            <ShimmerButton
+                                onClick={startGame}
+                                disabled={isLoading}
+                            >
+                                <span className="flex items-center justify-center text-white">
+                                    <PlayCircle className="w-5 h-5 mr-2" />
+                                    {isLoading
+                                        ? "Starting..."
+                                        : "Start Challenge"}
+                                </span>
+                            </ShimmerButton>
+                        </div>
                     </div>
                 ) : gameState === "playing" ? (
                     <div className="text-center py-6">
@@ -847,7 +873,11 @@ export default function GameComponent() {
 
                         {/* Only show the grid if position is a selected type */}
                         {settings.selectedTypes.includes("position") && (
-                            <div className={cn("grid grid-cols-3 gap-2 mx-auto mb-6")}>
+                            <div
+                                className={cn(
+                                    "grid grid-cols-3 gap-2 mx-auto mb-6"
+                                )}
+                            >
                                 {Array.from({ length: 9 }).map((_, index) => (
                                     <div
                                         key={index}
@@ -861,22 +891,31 @@ export default function GameComponent() {
                                 ))}
                             </div>
                         )}
-                        
+
                         {/* If only audio is selected, show a visual indicator for audio */}
-                        {!settings.selectedTypes.includes("position") && settings.selectedTypes.includes("audio") && (
-                            <div className="flex justify-center items-center h-32 mb-6">
-                                <div className={cn(
-                                    "w-16 h-16 rounded-full flex items-center justify-center",
-                                    isAudioPlaying ? "bg-primary/20" : "bg-foreground/5"
-                                )}>
-                                    <Volume2 className={cn(
-                                        "w-8 h-8",
-                                        isAudioPlaying ? "text-primary animate-pulse" : "text-muted-foreground"
-                                    )} />
+                        {!settings.selectedTypes.includes("position") &&
+                            settings.selectedTypes.includes("audio") && (
+                                <div className="flex justify-center items-center h-32 mb-6">
+                                    <div
+                                        className={cn(
+                                            "w-16 h-16 rounded-full flex items-center justify-center",
+                                            isAudioPlaying
+                                                ? "bg-primary/20"
+                                                : "bg-foreground/5"
+                                        )}
+                                    >
+                                        <Volume2
+                                            className={cn(
+                                                "w-8 h-8",
+                                                isAudioPlaying
+                                                    ? "text-primary animate-pulse"
+                                                    : "text-muted-foreground"
+                                            )}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                        
+                            )}
+
                         <div className="flex justify-center gap-4">
                             {settings.selectedTypes.includes("position") && (
                                 <Button
@@ -919,63 +958,106 @@ export default function GameComponent() {
                             Training Results
                         </h2>
                         <div className="bg-muted/30 p-6 rounded-lg mb-6 max-w-md mx-auto">
-                            <div className={cn(
-                                "grid gap-6",
-                                settings.selectedTypes.length === 2 ? "grid-cols-2" : "grid-cols-1"
-                            )}>
-                                {settings.selectedTypes.includes("position") && (
-                                    <div className={cn(
-                                        "space-y-3", 
-                                        settings.selectedTypes.length === 2 && "border-r pr-4"
-                                    )}>
-                                        <h3 className="font-semibold text-primary">Position</h3>
+                            <div
+                                className={cn(
+                                    "grid gap-6",
+                                    settings.selectedTypes.length === 2
+                                        ? "grid-cols-2"
+                                        : "grid-cols-1"
+                                )}
+                            >
+                                {settings.selectedTypes.includes(
+                                    "position"
+                                ) && (
+                                    <div
+                                        className={cn(
+                                            "space-y-3",
+                                            settings.selectedTypes.length ===
+                                                2 && "border-r pr-4"
+                                        )}
+                                    >
+                                        <h3 className="font-semibold text-primary">
+                                            Position
+                                        </h3>
                                         <div className="flex flex-col items-center">
                                             <div className="text-3xl font-bold">
-                                                {accuracy.position.correct}/{accuracy.position.total}
+                                                {accuracy.position.correct}/
+                                                {accuracy.position.total}
                                             </div>
                                             <div className="text-sm text-muted-foreground">
-                                                {accuracy.position.total > 0 
-                                                    ? Math.round((accuracy.position.correct / accuracy.position.total) * 100) 
-                                                    : 0}% Accuracy
+                                                {accuracy.position.total > 0
+                                                    ? Math.round(
+                                                          (accuracy.position
+                                                              .correct /
+                                                              accuracy.position
+                                                                  .total) *
+                                                              100
+                                                      )
+                                                    : 0}
+                                                % Accuracy
                                             </div>
                                         </div>
                                         <div className="text-xs text-muted-foreground space-y-1">
                                             <div className="flex justify-between">
                                                 <span>Missed:</span>
-                                                <span>{accuracy.position.missed}</span>
+                                                <span>
+                                                    {accuracy.position.missed}
+                                                </span>
                                             </div>
                                             <div className="flex justify-between">
                                                 <span>False Alarms:</span>
-                                                <span>{accuracy.position.falseAlarms}</span>
+                                                <span>
+                                                    {
+                                                        accuracy.position
+                                                            .falseAlarms
+                                                    }
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                 )}
 
                                 {settings.selectedTypes.includes("audio") && (
-                                    <div className={cn(
-                                        "space-y-3",
-                                        settings.selectedTypes.length === 2 && "pl-2"
-                                    )}>
-                                        <h3 className="font-semibold text-primary">Audio</h3>
+                                    <div
+                                        className={cn(
+                                            "space-y-3",
+                                            settings.selectedTypes.length ===
+                                                2 && "pl-2"
+                                        )}
+                                    >
+                                        <h3 className="font-semibold text-primary">
+                                            Audio
+                                        </h3>
                                         <div className="flex flex-col items-center">
                                             <div className="text-3xl font-bold">
-                                                {accuracy.audio.correct}/{accuracy.audio.total}
+                                                {accuracy.audio.correct}/
+                                                {accuracy.audio.total}
                                             </div>
                                             <div className="text-sm text-muted-foreground">
-                                                {accuracy.audio.total > 0 
-                                                    ? Math.round((accuracy.audio.correct / accuracy.audio.total) * 100) 
-                                                    : 0}% Accuracy
+                                                {accuracy.audio.total > 0
+                                                    ? Math.round(
+                                                          (accuracy.audio
+                                                              .correct /
+                                                              accuracy.audio
+                                                                  .total) *
+                                                              100
+                                                      )
+                                                    : 0}
+                                                % Accuracy
                                             </div>
                                         </div>
                                         <div className="text-xs text-muted-foreground space-y-1">
                                             <div className="flex justify-between">
                                                 <span>Missed:</span>
-                                                <span>{accuracy.audio.missed}</span>
+                                                <span>
+                                                    {accuracy.audio.missed}
+                                                </span>
                                             </div>
                                             <div className="flex justify-between">
                                                 <span>False Alarms:</span>
-                                                <span>{accuracy.audio.falseAlarms}</span>
+                                                <span>
+                                                    {accuracy.audio.falseAlarms}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -986,25 +1068,48 @@ export default function GameComponent() {
                                 <div className="text-sm">
                                     {settings.selectedTypes.length === 2 && (
                                         <div className="flex justify-between items-center">
-                                            <span className="font-medium">Overall Performance:</span>
+                                            <span className="font-medium">
+                                                Overall Performance:
+                                            </span>
                                             <span className="font-bold">
-                                                {Math.round(((accuracy.position.correct + accuracy.audio.correct) / 
-                                                    (accuracy.position.total + accuracy.audio.total || 1)) * 100)}%
+                                                {Math.round(
+                                                    ((accuracy.position
+                                                        .correct +
+                                                        accuracy.audio
+                                                            .correct) /
+                                                        (accuracy.position
+                                                            .total +
+                                                            accuracy.audio
+                                                                .total || 1)) *
+                                                        100
+                                                )}
+                                                %
                                             </span>
                                         </div>
                                     )}
                                     <div className="mt-2 text-xs text-muted-foreground">
-                                        <p>Level: {settings.selectedNBack}-Back • Trials: {currentTrial}</p>
+                                        <p>
+                                            Level: {settings.selectedNBack}-Back
+                                            • Trials: {currentTrial}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="flex justify-center gap-4 mt-6">
-                            <Button onClick={startGame} disabled={isLoading}>
+                            <Button
+                                className="rounded-full"
+                                onClick={startGame}
+                                disabled={isLoading}
+                            >
                                 <PlayCircle className="w-4 h-4 mr-2" />
                                 Play Again
                             </Button>
-                            <Button variant="outline" onClick={shareScore}>
+                            <Button
+                                className="rounded-full"
+                                variant="outline"
+                                onClick={shareScore}
+                            >
                                 <Share2 className="w-4 h-4 mr-2" />
                                 Share
                             </Button>

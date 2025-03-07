@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { inter, outfit } from "./fonts";
+import { inter } from "./fonts";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Layout } from "@/components/layout"
@@ -160,8 +160,7 @@ export default async function RootLayout({
           <body
               className={cn(
                   "min-h-screen bg-background font-sans antialiased",
-                  inter.variable,
-                  outfit.variable
+                  inter.variable
               )}
           >
               <ThemeProvider

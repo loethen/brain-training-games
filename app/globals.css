@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 引入 Outfit 字体（假设字体文件在 /fonts 目录下） */
-@font-face {
-  font-family: "Outfit";
-  src: url("/fonts/Outfit-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -24,8 +16,8 @@ body {
     --border: 0 0% 90%;      /* 浅灰色边框 */
     --input: 0 0% 90%;       /* 浅灰色输入框 */
 
-    /* 主要颜色 */
-    --primary: 217 91% 60%;  /* 亮蓝色 */
+    /* 主要颜色 - 改为黑色 */
+    --primary: 0 0% 0%;      /* 黑色 */
     --primary-foreground: 0 0% 100%; /* 白色 */
 
     /* 辅助色和柔和色 */
@@ -33,7 +25,7 @@ body {
     --secondary-foreground: 0 0% 0%;
     --muted: 0 0% 98%;       /* 浅灰色 */
     --muted-foreground: 0 0% 35%; /* 深灰色以提高对比度 */
-    --accent: 217 91% 90%;   /* 浅蓝色悬停背景 */
+    --accent: 0 0% 95%;      /* 更浅的灰色悬停背景 */
     --accent-foreground: 0 0% 0%;
 
     /* 其他 */
@@ -48,7 +40,7 @@ body {
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 0 0% 0%;  /* 改为黑色 */
 
     /* 状态颜色 */
     --destructive: 0 84.2% 60.2%; /* 红色 */
@@ -64,16 +56,16 @@ body {
     --border: 0 0% 20%;      /* 深灰边框 */
     --input: 240 3.7% 15.9%; /* 暗灰输入框 */
 
-    /* 主要颜色 */
-    --primary: 217 80% 50%;  /* 柔和蓝色，适合暗色主题 */
-    --primary-foreground: 0 0% 100%;
+    /* 主要颜色 - 改为黑色 */
+    --primary: 0 0% 80%;     /* 暗黑色 */
+    --primary-foreground: 0 0% 10%;
 
     /* 辅助色和柔和色 */
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 217 80% 30%;   /* 深蓝色悬停背景 */
+    --accent: 0 0% 20%;      /* 改为暗灰色悬停背景 */
     --accent-foreground: 0 0% 100%;
 
     /* 其他 */
@@ -83,12 +75,12 @@ body {
     /* 侧边栏样式 */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224 50% 40%; /* 调整为低饱和度蓝色 */
+    --sidebar-primary: 0 0% 20%; /* 改为黑色 */
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 0 0% 70%;  /* 改为灰色 */
 
     /* 状态颜色 */
     --destructive: 0 72% 51%; /* 暗红 */
@@ -100,15 +92,12 @@ body {
   body {
     @apply bg-background text-foreground;
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-outfit;
-  }
 }
 
 /* Custom utilities */
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--primary-foreground))] to-[hsl(var(--accent))] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--foreground))] to-[hsl(var(--accent))] bg-clip-text text-transparent;
   }
   .btn-destructive {
     @apply bg-[hsl(var(--destructive))] text-[hsl(var(--foreground))];
@@ -116,6 +105,7 @@ body {
   .btn-success {
     @apply bg-[hsl(var(--success))] text-[hsl(var(--foreground))];
   }
+
 }
 
 @layer base {
@@ -123,6 +113,7 @@ body {
   input, button, select {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
