@@ -38,6 +38,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
 type GameState = "idle" | "playing" | "complete";
@@ -144,6 +145,8 @@ export default function GameComponent() {
         }
     }, [isSettingsOpen, form, settings]);
 
+    const gameContainerRef = useRef<HTMLDivElement>(null);
+
     const startGame = useCallback(() => {
         setIsLoading(true);
         setGameState("idle");
@@ -164,6 +167,13 @@ export default function GameComponent() {
 
         setSessionMahjong(selectedMahjong);
         setStartDelay(GAME_CONFIG.trials.startDelay);
+
+        setTimeout(() => {
+            gameContainerRef.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }, 50);
     }, []);
 
     // 修改handleResponse方法
@@ -608,10 +618,14 @@ export default function GameComponent() {
     ]);
 
     return (
-        <div className="container mx-auto p-4 flex flex-col justify-center">
+        <div
+            className="container mx-auto p-4 flex flex-col justify-center"
+            ref={gameContainerRef}
+            style={{ scrollMarginTop: "90px" }}
+        >
             <div className="flex justify-between items-center mb-6">
                 <div className="flex flex-col">
-                    <div className="flex items-center gap-2 text-sm text-white">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <span>
                             {settings.selectedTypes.length === 2
                                 ? "Dual"
@@ -928,26 +942,30 @@ export default function GameComponent() {
                     <div className="text-center py-8">
                         <div className="mb-6 p-4 bg-muted/30 rounded-lg">
                             <h3 className="text-lg font-medium mb-2">
-                                Dual N-Back Challenge
+                                Mahjong Dual N-Back Challenge
                             </h3>
                             <p className="text-muted-foreground">
                                 Track {settings.selectedTypes.join(" and ")}{" "}
                                 from {settings.selectedNBack} steps back.
                             </p>
                         </div>
-                        <Button
-                            size="lg"
-                            onClick={startGame}
-                            disabled={isLoading}
-                            className="w-full sm:w-auto"
-                        >
-                            <PlayCircle className="w-5 h-5 mr-2" />
-                            {isLoading ? "Starting..." : "Start Challenge"}
-                        </Button>
+                        <div className="flex justify-center">
+                            <ShimmerButton
+                                onClick={startGame}
+                                disabled={isLoading}
+                            >
+                                <span className="flex items-center justify-center text-white">
+                                    <PlayCircle className="w-5 h-5 mr-2" />
+                                    {isLoading
+                                        ? "Starting..."
+                                        : "Start Challenge"}
+                                </span>
+                            </ShimmerButton>
+                        </div>
                     </div>
                 ) : gameState === "playing" ? (
                     <div className="text-center py-6">
-                        <div className="text-lg font-medium text-white">
+                        <div className="text-lg font-medium text-muted-foreground">
                             Trial {currentTrial} of {settings.trialsPerRound}
                         </div>
 
@@ -1013,12 +1031,12 @@ export default function GameComponent() {
                                     onClick={() => handleResponse("position")}
                                     variant="outline"
                                     className={cn(
-                                        "border-2",
+                                        "border-2 rounded-full shadow-none",
                                         isPositionHighlight &&
                                             "hover:border-primary border-primary"
                                     )}
                                 >
-                                    <Square className="w-4 h-4 mr-2" />
+                                    <Square className="w-4 h-4 mr-1 bg-primary" />
                                     A: Position Match
                                 </Button>
                             )}
@@ -1027,14 +1045,14 @@ export default function GameComponent() {
                                     onClick={() => handleResponse("audio")}
                                     variant="outline"
                                     className={cn(
-                                        "border-2",
+                                        "border-2 rounded-full shadow-none",
                                         isAudioHighlight &&
                                             "hover:border-primary border-primary"
                                     )}
                                 >
                                     <Volume2
                                         className={cn(
-                                            "w-4 h-4 mr-2",
+                                            "w-4 h-4 mr-1",
                                             isAudioPlaying && "animate-pulse"
                                         )}
                                     />
@@ -1188,11 +1206,19 @@ export default function GameComponent() {
                             </div>
                         </div>
                         <div className="flex justify-center gap-4 mt-6">
-                            <Button onClick={startGame} disabled={isLoading}>
+                            <Button
+                                onClick={startGame}
+                                disabled={isLoading}
+                                className="rounded-full"
+                            >
                                 <PlayCircle className="w-4 h-4 mr-2" />
                                 Play Again
                             </Button>
-                            <Button variant="outline" onClick={shareScore}>
+                            <Button
+                                variant="outline"
+                                onClick={shareScore}
+                                className="rounded-full"
+                            >
                                 <Share2 className="w-4 h-4 mr-2" />
                                 Share
                             </Button>

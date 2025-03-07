@@ -68,7 +68,7 @@ function useGameSettings() {
             const newSettings = updater(prev);
             // 验证设置有效性：至少需要保持一个训练模式启用
             if (newSettings.selectedTypes.length === 0) {
-                toast("必须至少保持一个训练模式启用");
+                toast("must select at least one training mode");
                 return prev; // 返回之前的有效设置
             }
             return newSettings;
