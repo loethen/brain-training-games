@@ -57,7 +57,7 @@ type TrialResult = {
 // 游戏设置类型
 type GameSettings = {
     selectedNBack: number;
-    voiceType: "male" | "female";
+    voiceType: "male" | "female" | "chinese_female";
     selectedTypes: ("position" | "audio")[];
     trialsPerRound: number;
     trialInterval: number;
@@ -96,7 +96,7 @@ function useGameSettings() {
 // Define the form schema
 const settingsFormSchema = z.object({
     selectedNBack: z.number().min(1).max(4),
-    voiceType: z.enum(["male", "female"]),
+    voiceType: z.enum(["male", "female", "chinese_female"]),
     selectedTypes: z.array(z.enum(["position", "audio"])).min(1),
     trialsPerRound: z.number().min(10).max(100),
     trialInterval: z.number().min(1000).max(5000),
@@ -440,12 +440,50 @@ export default function GameComponent() {
         // 当有足够历史记录时，按概率创建匹配
         if (trialHistory.length >= settings.selectedNBack) {
             const nBackTrial = trialHistory[trialHistory.length - settings.selectedNBack];
-
-            if (settings.selectedTypes.includes("position") && Math.random() < 0.2) {
+            
+            // 计算当前已经生成的匹配数量
+            const positionMatches = results.filter(r => r.isPositionMatch).length;
+            const audioMatches = results.filter(r => r.isAudioMatch).length;
+            
+            // 计算剩余试验次数
+            const remainingTrials = settings.trialsPerRound - currentTrial;
+            
+            // 计算期望的匹配数量（约20%的试验应该有匹配）
+            const expectedMatches = Math.ceil(settings.trialsPerRound * 0.2);
+            
+            // 如果只选择了position类型，并且匹配数量不足，增加匹配概率
+            if (settings.selectedTypes.includes("position") && 
+                settings.selectedTypes.length === 1 && 
+                positionMatches < expectedMatches) {
+                
+                // 如果剩余试验次数较少且匹配数量远低于期望值，强制创建匹配
+                if (remainingTrials <= (expectedMatches - positionMatches) * 2) {
+                    positionStimuli = nBackTrial.position;
+                } else {
+                    // 否则增加匹配概率
+                    if (Math.random() < 0.3) {
+                        positionStimuli = nBackTrial.position;
+                    }
+                }
+            } else if (settings.selectedTypes.includes("position") && Math.random() < 0.2) {
                 positionStimuli = nBackTrial.position;
             }
 
-            if (settings.selectedTypes.includes("audio") && Math.random() < 0.2) {
+            // 如果只选择了audio类型，并且匹配数量不足，增加匹配概率
+            if (settings.selectedTypes.includes("audio") && 
+                settings.selectedTypes.length === 1 && 
+                audioMatches < expectedMatches) {
+                
+                // 如果剩余试验次数较少且匹配数量远低于期望值，强制创建匹配
+                if (remainingTrials <= (expectedMatches - audioMatches) * 2) {
+                    audioStimuli = nBackTrial.audio;
+                } else {
+                    // 否则增加匹配概率
+                    if (Math.random() < 0.3) {
+                        audioStimuli = nBackTrial.audio;
+                    }
+                }
+            } else if (settings.selectedTypes.includes("audio") && Math.random() < 0.2) {
                 audioStimuli = nBackTrial.audio;
             }
         }
@@ -501,6 +539,7 @@ export default function GameComponent() {
         endGame,
         evaluateResponse,
         currentResponse,
+        results,
     ]);
 
     // 分享游戏分数
@@ -624,7 +663,7 @@ export default function GameComponent() {
         >
             <div className="flex justify-between items-center mb-6">
                 <div className="flex flex-col">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-white">
                         <span>
                             {settings.selectedTypes.length === 2
                                 ? "Dual"
@@ -734,7 +773,7 @@ export default function GameComponent() {
                                                             field.onChange
                                                         }
                                                         value={field.value}
-                                                        className="flex space-x-4"
+                                                        className="flex flex-col space-y-2"
                                                     >
                                                         <div className="flex items-center space-x-2">
                                                             <RadioGroupItem
@@ -742,7 +781,7 @@ export default function GameComponent() {
                                                                 id="male"
                                                             />
                                                             <Label htmlFor="male">
-                                                                Male
+                                                                English Male
                                                             </Label>
                                                         </div>
                                                         <div className="flex items-center space-x-2">
@@ -751,7 +790,16 @@ export default function GameComponent() {
                                                                 id="female"
                                                             />
                                                             <Label htmlFor="female">
-                                                                Female
+                                                                English Female
+                                                            </Label>
+                                                        </div>
+                                                        <div className="flex items-center space-x-2">
+                                                            <RadioGroupItem
+                                                                value="chinese_female"
+                                                                id="chinese_female"
+                                                            />
+                                                            <Label htmlFor="chinese_female">
+                                                                Chinese Female
                                                             </Label>
                                                         </div>
                                                     </RadioGroup>
@@ -948,11 +996,11 @@ export default function GameComponent() {
             <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
                 {gameState === "idle" ? (
                     <div className="text-center py-8">
-                        <div className="mb-6 p-4 bg-muted/30 rounded-lg">
-                            <h3 className="text-lg font-medium mb-2">
+                        <div className="mb-6 p-8 bg-muted/20 rounded-lg">
+                            <h3 className="text-lg font-medium mb-2 text-white">
                                 Mahjong Dual N-Back Challenge
                             </h3>
-                            <p className="text-muted-foreground">
+                            <p className="text-white/80">
                                 Track {settings.selectedTypes.join(" and ")}{" "}
                                 from {settings.selectedNBack} steps back.
                             </p>
@@ -973,7 +1021,7 @@ export default function GameComponent() {
                     </div>
                 ) : gameState === "playing" ? (
                     <div className="text-center py-6">
-                        <div className="text-lg font-medium text-muted-foreground">
+                        <div className="text-lg font-medium text-white">
                             Trial {currentTrial} of {settings.trialsPerRound}
                         </div>
 

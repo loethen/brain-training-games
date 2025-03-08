@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 const GameComponent = dynamic(() => import('./GameComponent'), {
     ssr: false, // Disable server-side rendering
     loading: () => (
-        <div className="w-full h-full flex items-center justify-center">
+        <div className="w-full h-full flex items-center justify-center text-white">
             <div>Loading game...</div>
         </div>
     )

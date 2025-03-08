@@ -173,6 +173,21 @@ async def generate_mahjong_audio_files(voice, gender_folder):
     
     print(f"All mahjong tile audio files for {gender_folder} voice generated successfully!")
 
+# 重新生成特定字母的音频文件
+async def regenerate_specific_letter(voice, gender_folder, letter):
+    """重新生成特定字母的音频文件"""
+    # 创建输出目录
+    output_dir = f"public/games/dual-n-back/audio/{gender_folder}/"
+    os.makedirs(output_dir, exist_ok=True)
+    
+    file_path = f"{output_dir}{letter}.mp3"
+    print(f"Regenerating {file_path}...")
+    
+    communicate = Communicate(letter, voice["ShortName"])
+    await communicate.save(file_path)
+    
+    print(f"Letter '{letter}' audio file for {gender_folder} voice regenerated successfully!")
+
 # 主程序
 async def main():
     english_voices = await list_voices()
@@ -190,8 +205,9 @@ async def main():
     print("4. 只生成麻将牌男声音频")
     print("5. 只生成麻将牌女声音频")
     print("6. 预览声音")
+    print("7. 重新生成特定字母音频")
     
-    choice = input("请输入选项 (1-6): ")
+    choice = input("请输入选项 (1-7): ")
     
     if choice == "1" or choice == "3":
         # 生成双n-back游戏字母音频
@@ -250,6 +266,21 @@ async def main():
                 await preview_mahjong_tiles(english_voices[voice_idx], mahjong_tiles)
         else:
             print("无效的声音索引!")
+    
+    if choice == "7":
+        # 重新生成特定字母音频
+        gender = input("\n请选择性别 (male/female): ").lower()
+        letter = input("请输入要重新生成的字母: ").lower()
+        
+        if letter not in letters:
+            print(f"无效的字母! 有效字母为: {', '.join(letters)}")
+        else:
+            voice_idx = male_voice_idx if gender == "male" else female_voice_idx
+            if 0 <= voice_idx < len(english_voices):
+                print(f"\n使用{gender}声 {english_voices[voice_idx]['Name']} 重新生成字母 '{letter}' 音频...")
+                await regenerate_specific_letter(english_voices[voice_idx], gender, letter)
+            else:
+                print("无效的声音索引!")
     
     print("\n所有音频文件生成完成!")
 

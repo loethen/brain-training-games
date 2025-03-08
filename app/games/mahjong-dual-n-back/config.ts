@@ -28,6 +28,7 @@ export const GAME_CONFIG = {
         voices: {
             male: "male/",
             female: "female/",
+            chinese_female: "chinese_female/",
         },
     },
     messages: {
