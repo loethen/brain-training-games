@@ -155,11 +155,11 @@ export default function GameComponent() {
         setSlidePosition(0); // 重置滑动位置
 
         const allMahjong = GAME_CONFIG.symbols;
-        
+
         // 为了保持滑动设计的趣味性，我们需要加载更多的麻将
         // 确保至少有20个麻将用于滑动显示，但不超过可用的总数
         const displayTileCount = GAME_CONFIG.trials.perRound;
-        
+
         // 随机选择不重复的麻将
         const shuffledMahjong = [...allMahjong].sort(() => Math.random() - 0.5);
         const selectedMahjong = shuffledMahjong.slice(0, displayTileCount);
@@ -169,8 +169,8 @@ export default function GameComponent() {
 
         setTimeout(() => {
             gameContainerRef.current?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+                behavior: "smooth",
+                block: "start",
             });
         }, 50);
     }, []);
@@ -439,25 +439,32 @@ export default function GameComponent() {
 
         // 当有足够历史记录时，按概率创建匹配
         if (trialHistory.length >= settings.selectedNBack) {
-            const nBackTrial = trialHistory[trialHistory.length - settings.selectedNBack];
-            
+            const nBackTrial =
+                trialHistory[trialHistory.length - settings.selectedNBack];
+
             // 计算当前已经生成的匹配数量
-            const positionMatches = results.filter(r => r.isPositionMatch).length;
-            const audioMatches = results.filter(r => r.isAudioMatch).length;
-            
+            const positionMatches = results.filter(
+                (r) => r.isPositionMatch
+            ).length;
+            const audioMatches = results.filter((r) => r.isAudioMatch).length;
+
             // 计算剩余试验次数
             const remainingTrials = settings.trialsPerRound - currentTrial;
-            
+
             // 计算期望的匹配数量（约20%的试验应该有匹配）
             const expectedMatches = Math.ceil(settings.trialsPerRound * 0.2);
-            
+
             // 如果只选择了position类型，并且匹配数量不足，增加匹配概率
-            if (settings.selectedTypes.includes("position") && 
-                settings.selectedTypes.length === 1 && 
-                positionMatches < expectedMatches) {
-                
+            if (
+                settings.selectedTypes.includes("position") &&
+                settings.selectedTypes.length === 1 &&
+                positionMatches < expectedMatches
+            ) {
                 // 如果剩余试验次数较少且匹配数量远低于期望值，强制创建匹配
-                if (remainingTrials <= (expectedMatches - positionMatches) * 2) {
+                if (
+                    remainingTrials <=
+                    (expectedMatches - positionMatches) * 2
+                ) {
                     positionStimuli = nBackTrial.position;
                 } else {
                     // 否则增加匹配概率
@@ -465,15 +472,19 @@ export default function GameComponent() {
                         positionStimuli = nBackTrial.position;
                     }
                 }
-            } else if (settings.selectedTypes.includes("position") && Math.random() < 0.2) {
+            } else if (
+                settings.selectedTypes.includes("position") &&
+                Math.random() < 0.2
+            ) {
                 positionStimuli = nBackTrial.position;
             }
 
             // 如果只选择了audio类型，并且匹配数量不足，增加匹配概率
-            if (settings.selectedTypes.includes("audio") && 
-                settings.selectedTypes.length === 1 && 
-                audioMatches < expectedMatches) {
-                
+            if (
+                settings.selectedTypes.includes("audio") &&
+                settings.selectedTypes.length === 1 &&
+                audioMatches < expectedMatches
+            ) {
                 // 如果剩余试验次数较少且匹配数量远低于期望值，强制创建匹配
                 if (remainingTrials <= (expectedMatches - audioMatches) * 2) {
                     audioStimuli = nBackTrial.audio;
@@ -483,7 +494,10 @@ export default function GameComponent() {
                         audioStimuli = nBackTrial.audio;
                     }
                 }
-            } else if (settings.selectedTypes.includes("audio") && Math.random() < 0.2) {
+            } else if (
+                settings.selectedTypes.includes("audio") &&
+                Math.random() < 0.2
+            ) {
                 audioStimuli = nBackTrial.audio;
             }
         }
@@ -497,13 +511,13 @@ export default function GameComponent() {
         // 更新界面状态 - 只在需要时显示位置刺激
         if (settings.selectedTypes.includes("position")) {
             setActivePosition(finalStimuli.position);
-            
+
             // 计算滑动位置 - 考虑到麻将宽度和间隙
             // 每个麻将宽度为160px，间隙为48px (gap-12 in Tailwind equals 3rem or 48px)
             const tileWidth = 160;
             const gapWidth = 48;
             const slideAmount = currentTrial * -(tileWidth + gapWidth);
-            
+
             setSlidePosition(slideAmount);
         } else {
             setActivePosition(null);
