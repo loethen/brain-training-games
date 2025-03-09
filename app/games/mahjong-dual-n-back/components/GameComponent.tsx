@@ -83,7 +83,6 @@ export default function GameComponent() {
     const gameContainerRef = useRef<HTMLDivElement>(null);
 
     const [isLoading, setIsLoading] = useState(false); // 加载状态
-    const [activePosition, setActivePosition] = useState<string | null>(null); // 当前激活的位置
     const [accuracy, setAccuracy] = useState<{
         position: {
             total: number;
@@ -119,7 +118,6 @@ export default function GameComponent() {
         setSlidePosition(0);
         
         // 重置用户交互状态
-        setActivePosition(null);
         setCurrentResponse({ positionMatch: null, audioMatch: null });
         
         // 重置统计数据
@@ -235,7 +233,6 @@ export default function GameComponent() {
     // 定时器钩子：控制试验间隔
     useInterval(() => {
         if (currentTrial < settings.trialsPerRound) {
-            setActivePosition(null); // 重置激活位置
             startNextTrial();
         } else {
             endGame();
@@ -328,16 +325,28 @@ export default function GameComponent() {
 
             setAccuracy(newAccuracy);
 
-            // Check for perfect score and trigger confetti
-            const isPerfectScore =
-                (positionMatches === 0 ||
-                    positionCorrect === positionMatches) &&
-                (audioMatches === 0 || audioCorrect === audioMatches) &&
-                positionFalseAlarms === 0 &&
-                audioFalseAlarms === 0;
+            // 计算每种模式的正确率
+            const positionAccuracy = positionMatches > 0 
+                ? positionCorrect / positionMatches 
+                : 1;
+            
+            const audioAccuracy = audioMatches > 0 
+                ? audioCorrect / audioMatches 
+                : 1;
 
-            if (isPerfectScore && currentTrial > 5) {
-                // Trigger confetti celebration
+            // 检查是否所有选中的模式都达到100%正确率
+            const isPerfectScore = 
+                // 如果选择了位置模式，检查位置正确率
+                (!settings.selectedTypes.includes("position") || 
+                    (positionAccuracy === 1 && positionFalseAlarms === 0)) &&
+                // 如果选择了音频模式，检查音频正确率
+                (!settings.selectedTypes.includes("audio") || 
+                    (audioAccuracy === 1 && audioFalseAlarms === 0)) &&
+                // 确保至少完成了一定数量的试验
+                currentTrial > 5;
+
+            if (isPerfectScore) {
+                // 触发confetti庆祝
                 confetti({
                     particleCount: 100,
                     spread: 70,
@@ -351,6 +360,7 @@ export default function GameComponent() {
         trialHistory,
         currentResponse,
         evaluateResponse,
+        settings.selectedTypes,
     ]);
 
     // 修改生成随机试验刺激的函数
@@ -373,7 +383,7 @@ export default function GameComponent() {
             return;
         }
 
-        // Evaluate the previous trial's response if it exists
+        // 评估上一个试验的响应
         if (currentTrial > 0 && trialHistory.length > 0) {
             evaluateResponse(currentResponse);
         }
@@ -433,19 +443,18 @@ export default function GameComponent() {
             audio: audioStimuli,
         };
 
-        // 更新界面状态 - 只在需要时显示位置刺激
-        if (settings.selectedTypes.includes("position")) {
-            setActivePosition(finalStimuli.position);
+        // 更新试验历史
+        setTrialHistory((prev) => [...prev, finalStimuli]);
 
+        // 更新滑动位置
+        if (settings.selectedTypes.includes("position")) {
             // 计算滑动位置 - 考虑到麻将宽度和间隙
-            // 每个麻将宽度为160px，间隙为48px (gap-12 in Tailwind equals 3rem or 48px)
             const tileWidth = 160;
             const gapWidth = 48;
-            const slideAmount = currentTrial * -(tileWidth + gapWidth);
-
+            // 注意：这里使用trialHistory.length而不是currentTrial
+            // 因为我们刚刚添加了新的试验到历史中
+            const slideAmount = -((trialHistory.length) * (tileWidth + gapWidth));
             setSlidePosition(slideAmount);
-        } else {
-            setActivePosition(null);
         }
 
         // 只在需要时播放音频
@@ -453,14 +462,11 @@ export default function GameComponent() {
             settings.selectedTypes.includes("audio") &&
             audioRefs.current[finalStimuli.audio]
         ) {
-            audioRefs.current[finalStimuli.audio].play(); // 播放音频
+            audioRefs.current[finalStimuli.audio].play();
         }
 
         // 重置用户响应状态
         setCurrentResponse({ positionMatch: null, audioMatch: null });
-
-        // 更新试验历史（保留最近N次记录）
-        setTrialHistory((prev) => [...prev, finalStimuli]);
 
         // 更新试验计数
         setCurrentTrial((prev) => prev + 1);
@@ -631,23 +637,26 @@ export default function GameComponent() {
                                     transition: "transform 0.3s ease-in-out",
                                 }}
                             >
-                                {sessionMahjong.map((mahjong) => (
+                                {trialHistory.map((trial, index) => (
                                     <div
-                                        key={mahjong}
+                                        key={index}
                                         className="flex-shrink-0 flex items-center justify-center"
                                     >
                                         <div
                                             className={cn(
-                                                "bg-white rounded-2xl shadow-[6px_6px_0px_#ddd,12px_14px_0px_#10ab3b] w-[160px] aspect-[2/3] flex items-center justify-center relative before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] before:pointer-events-none", // 增加尺寸、阴影和内阴影
-                                                activePosition === mahjong &&
-                                                    "ring-3 ring-primary" // 增加ring尺寸
+                                                "bg-white rounded-2xl shadow-[6px_6px_0px_#ddd,12px_14px_0px_#10ab3b] w-[160px] aspect-[2/3] flex items-center justify-center relative before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] before:pointer-events-none",
+                                                index === trialHistory.length - 1 && "ring-3 ring-primary"
                                             )}
                                         >
                                             <Image
-                                                src={`${GAME_CONFIG.symbolBasePath}${mahjong}.svg`}
-                                                alt={mahjong}
-                                                width={120} // 增加图片尺寸
+                                                src={`${GAME_CONFIG.symbolBasePath}${trial.position}.svg`}
+                                                alt={trial.position}
+                                                width={120}
                                                 height={180}
+                                                style={{
+                                                    width: "120px",
+                                                    height: "180px",
+                                                }}
                                             />
                                         </div>
                                     </div>
