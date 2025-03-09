@@ -6,38 +6,16 @@ import {
     PlayCircle,
     Share2,
     Volume2,
-    Settings,
     PauseCircle,
 } from "lucide-react";
 import { Howl } from "howler";
 import { useInterval } from "@/hooks/useInterval";
 import { useTimeout } from "@/hooks/useTimeout";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-    DialogFooter,
-} from "@/components/ui/dialog";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-} from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import SettingsDialog, { GameSettings } from "./SettingsDialog";
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
 type GameState = "idle" | "playing" | "complete";
@@ -53,14 +31,6 @@ type TrialResult = {
     isPositionMatch: boolean;
     isCorrectAudioResponse: boolean;
     isCorrectPositionResponse: boolean;
-};
-// 游戏设置类型
-type GameSettings = {
-    selectedNBack: number;
-    voiceType: "male" | "female" | "chinese_female";
-    selectedTypes: ("position" | "audio")[];
-    trialsPerRound: number;
-    trialInterval: number;
 };
 
 // 游戏设置自定义钩子
@@ -93,15 +63,6 @@ function useGameSettings() {
     return { settings, updateSettings };
 }
 
-// Define the form schema
-const settingsFormSchema = z.object({
-    selectedNBack: z.number().min(1).max(4),
-    voiceType: z.enum(["male", "female", "chinese_female"]),
-    selectedTypes: z.array(z.enum(["position", "audio"])).min(1),
-    trialsPerRound: z.number().min(10).max(100),
-    trialInterval: z.number().min(1000).max(5000),
-});
-
 export default function GameComponent() {
     const { settings, updateSettings } = useGameSettings();
 
@@ -119,30 +80,6 @@ export default function GameComponent() {
 
     // 添加一个状态来存储当前游戏会话的麻将集
     const [sessionMahjong, setSessionMahjong] = useState<string[]>([]);
-
-    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-
-    // Create the form
-    const form = useForm<z.infer<typeof settingsFormSchema>>({
-        resolver: zodResolver(settingsFormSchema),
-        defaultValues: settings,
-    });
-
-    // Handle form submission
-    const onSubmit = useCallback(
-        (values: z.infer<typeof settingsFormSchema>) => {
-            updateSettings(() => values);
-            setIsSettingsOpen(false);
-        },
-        [updateSettings]
-    );
-
-    // Reset form when dialog opens
-    useEffect(() => {
-        if (isSettingsOpen) {
-            form.reset(settings);
-        }
-    }, [isSettingsOpen, form, settings]);
 
     const gameContainerRef = useRef<HTMLDivElement>(null);
 
@@ -712,305 +649,18 @@ export default function GameComponent() {
                             </Button>
                         </>
                     )}
-                    <Dialog
-                        open={isSettingsOpen}
-                        onOpenChange={setIsSettingsOpen}
-                    >
-                        <DialogTrigger asChild>
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                disabled={gameState === "playing"}
-                            >
-                                <Settings className="h-4 w-4" />
-                                <span className="hidden sm:inline">
-                                    Settings
-                                </span>
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
-                            <DialogHeader>
-                                <DialogTitle>Game Settings</DialogTitle>
-                            </DialogHeader>
-                            <Form {...form}>
-                                <form
-                                    onSubmit={form.handleSubmit(onSubmit)}
-                                    className="space-y-6"
-                                >
-                                    <FormField
-                                        control={form.control}
-                                        name="selectedNBack"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel className="flex items-center justify-between">
-                                                    N-Back Level
-                                                    <span className="text-sm text-muted-foreground">
-                                                        {field.value}-Back
-                                                    </span>
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Slider
-                                                        min={1}
-                                                        max={
-                                                            GAME_CONFIG
-                                                                .difficulty
-                                                                .maxLevel
-                                                        }
-                                                        step={1}
-                                                        value={[field.value]}
-                                                        onValueChange={(vals) =>
-                                                            field.onChange(
-                                                                vals[0]
-                                                            )
-                                                        }
-                                                        disabled={
-                                                            gameState ===
-                                                            "playing"
-                                                        }
-                                                    />
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    <FormField
-                                        control={form.control}
-                                        name="voiceType"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel>
-                                                    Voice Type
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <RadioGroup
-                                                        onValueChange={
-                                                            field.onChange
-                                                        }
-                                                        value={field.value}
-                                                        className="flex flex-col space-y-2"
-                                                    >
-                                                        <div className="flex items-center space-x-2">
-                                                            <RadioGroupItem
-                                                                value="male"
-                                                                id="male"
-                                                            />
-                                                            <Label htmlFor="male">
-                                                                English Male
-                                                            </Label>
-                                                        </div>
-                                                        <div className="flex items-center space-x-2">
-                                                            <RadioGroupItem
-                                                                value="female"
-                                                                id="female"
-                                                            />
-                                                            <Label htmlFor="female">
-                                                                English Female
-                                                            </Label>
-                                                        </div>
-                                                        <div className="flex items-center space-x-2">
-                                                            <RadioGroupItem
-                                                                value="chinese_female"
-                                                                id="chinese_female"
-                                                            />
-                                                            <Label htmlFor="chinese_female">
-                                                                Chinese Female
-                                                            </Label>
-                                                        </div>
-                                                    </RadioGroup>
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    <FormField
-                                        control={form.control}
-                                        name="selectedTypes"
-                                        render={() => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel>
-                                                    Training Mode
-                                                </FormLabel>
-                                                <div className="space-y-2">
-                                                    {["position", "audio"].map(
-                                                        (type) => (
-                                                            <div
-                                                                key={type}
-                                                                className="flex items-center gap-2"
-                                                            >
-                                                                <Checkbox
-                                                                    id={`mode-${type}`}
-                                                                    checked={form
-                                                                        .watch(
-                                                                            "selectedTypes"
-                                                                        )
-                                                                        .includes(
-                                                                            type as
-                                                                                | "position"
-                                                                                | "audio"
-                                                                        )}
-                                                                    onCheckedChange={(
-                                                                        checked
-                                                                    ) => {
-                                                                        const currentTypes =
-                                                                            form.getValues(
-                                                                                "selectedTypes"
-                                                                            );
-                                                                        const newTypes =
-                                                                            checked
-                                                                                ? [
-                                                                                      ...currentTypes,
-                                                                                      type as
-                                                                                          | "position"
-                                                                                          | "audio",
-                                                                                  ]
-                                                                                : currentTypes.filter(
-                                                                                      (
-                                                                                          t
-                                                                                      ) =>
-                                                                                          t !==
-                                                                                          type
-                                                                                  );
-
-                                                                        if (
-                                                                            newTypes.length ===
-                                                                            0
-                                                                        ) {
-                                                                            toast(
-                                                                                "Must keep at least one training mode enabled"
-                                                                            );
-                                                                            return;
-                                                                        }
-
-                                                                        form.setValue(
-                                                                            "selectedTypes",
-                                                                            newTypes
-                                                                        );
-                                                                    }}
-                                                                    disabled={
-                                                                        gameState ===
-                                                                            "playing" ||
-                                                                        (form.watch(
-                                                                            "selectedTypes"
-                                                                        )
-                                                                            .length ===
-                                                                            1 &&
-                                                                            form
-                                                                                .watch(
-                                                                                    "selectedTypes"
-                                                                                )
-                                                                                .includes(
-                                                                                    type as
-                                                                                        | "position"
-                                                                                        | "audio"
-                                                                                ))
-                                                                    }
-                                                                />
-                                                                <Label
-                                                                    htmlFor={`mode-${type}`}
-                                                                >
-                                                                    {type
-                                                                        .charAt(
-                                                                            0
-                                                                        )
-                                                                        .toUpperCase() +
-                                                                        type.slice(
-                                                                            1
-                                                                        )}
-                                                                </Label>
-                                                            </div>
-                                                        )
-                                                    )}
-                                                </div>
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    <FormField
-                                        control={form.control}
-                                        name="trialsPerRound"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel className="flex items-center justify-between">
-                                                    Trials Per Round
-                                                    <span className="text-sm text-muted-foreground">
-                                                        {field.value} trials
-                                                    </span>
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Slider
-                                                        min={10}
-                                                        max={50}
-                                                        step={5}
-                                                        value={[field.value]}
-                                                        onValueChange={(vals) =>
-                                                            field.onChange(
-                                                                vals[0]
-                                                            )
-                                                        }
-                                                        disabled={
-                                                            gameState ===
-                                                            "playing"
-                                                        }
-                                                    />
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    <FormField
-                                        control={form.control}
-                                        name="trialInterval"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel className="flex items-center justify-between">
-                                                    Trial Speed
-                                                    <span className="text-sm text-muted-foreground">
-                                                        {(
-                                                            field.value / 1000
-                                                        ).toFixed(1)}
-                                                        s
-                                                    </span>
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Slider
-                                                        min={1500}
-                                                        max={4000}
-                                                        step={250}
-                                                        value={[field.value]}
-                                                        onValueChange={(vals) =>
-                                                            field.onChange(
-                                                                vals[0]
-                                                            )
-                                                        }
-                                                        disabled={
-                                                            gameState ===
-                                                            "playing"
-                                                        }
-                                                    />
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    <DialogFooter>
-                                        <Button
-                                            type="submit"
-                                            disabled={gameState === "playing"}
-                                        >
-                                            Save Changes
-                                        </Button>
-                                    </DialogFooter>
-                                </form>
-                            </Form>
-                        </DialogContent>
-                    </Dialog>
+                    <SettingsDialog 
+                        settings={settings}
+                        updateSettings={updateSettings}
+                        isDisabled={gameState === "playing"}
+                    />
                 </div>
             </div>
 
             <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
                 {gameState === "idle" ? (
                     <div className="text-center py-8">
-                        <div className="mb-6 p-8 bg-muted/20 rounded-lg">
+                        <div className="p-8 bg-muted/20 rounded-lg mb-16">
                             <h3 className="text-lg font-medium mb-2 text-white">
                                 Mahjong Dual N-Back Challenge
                             </h3>
