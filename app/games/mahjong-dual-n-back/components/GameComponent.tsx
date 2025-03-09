@@ -66,15 +66,14 @@ function useGameSettings() {
 export default function GameComponent() {
     const { settings, updateSettings } = useGameSettings();
 
-    // 原useGameLogic中的状态
     const [gameState, setGameState] = useState<GameState>("idle");
-    const [currentTrial, setCurrentTrial] = useState(0); // 当前试验次数
-    const [trialHistory, setTrialHistory] = useState<TrialStimuli[]>([]); // 试验历史记录
-    const [results, setResults] = useState<TrialResult[]>([]); // 所有试验结果存储
+    const [currentTrial, setCurrentTrial] = useState(0); 
+    const [trialHistory, setTrialHistory] = useState<TrialStimuli[]>([]); 
+    const [results, setResults] = useState<TrialResult[]>([]); 
     const [currentResponse, setCurrentResponse] = useState<Response>({
         audioMatch: null,
         positionMatch: null,
-    }); // 当前用户的响应状态
+    }); // 当前用户做出的响应状态 true：用户认为存在匹配并做出了响应 false：用户明确表示不存在匹配（在这个游戏实现中很少使用） null：用户没有做出任何响应（默认值）
     const [isAudioHighlight, setIsAudioHighlight] = useState(false);
     const [isPositionHighlight, setIsPositionHighlight] = useState(false);
 
@@ -83,34 +82,79 @@ export default function GameComponent() {
 
     const gameContainerRef = useRef<HTMLDivElement>(null);
 
-    const startGame = useCallback(() => {
-        setIsLoading(true);
-        setGameState("idle");
+    const [isLoading, setIsLoading] = useState(false); // 加载状态
+    const [activePosition, setActivePosition] = useState<string | null>(null); // 当前激活的位置
+    const [accuracy, setAccuracy] = useState<{
+        position: {
+            total: number;
+            correct: number;
+            missed: number;
+            falseAlarms: number;
+        };
+        audio: {
+            total: number;
+            correct: number;
+            missed: number;
+            falseAlarms: number;
+        };
+    }>({
+        position: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
+        audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
+    }); // 准确率统计
+    const [isAudioPlaying, setIsAudioPlaying] = useState(false); // 音频播放状态
+    const [intervalDelay, setIntervalDelay] = useState<number | null>(null); // 试验间隔
+    const [startDelay, setStartDelay] = useState<number | null>(null); // 开始延迟
+    const [isPaused, setIsPaused] = useState(false); // 暂停状态
+    const audioRefs = useRef<{ [key: string]: Howl }>({}); // 音频引用缓存
+
+    // 添加滑动位置状态
+    const [slidePosition, setSlidePosition] = useState(0);
+
+    // 提取所有重置逻辑到一个函数
+    const resetAllGameState = useCallback(() => {
+        // 重置游戏进度
         setCurrentTrial(0);
         setTrialHistory([]);
         setResults([]);
-        setSlidePosition(0); // 重置滑动位置
+        setSlidePosition(0);
+        
+        // 重置用户交互状态
+        setActivePosition(null);
+        setCurrentResponse({ positionMatch: null, audioMatch: null });
+        
+        // 重置统计数据
+        setAccuracy({
+            position: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
+            audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
+        });
+    }, []);
 
+    // 修改后的 startGame 函数
+    const startGame = useCallback(() => {
+        setIsLoading(true);
+        setGameState("idle"); // 先设置为idle状态
+        
+        // 重置所有游戏状态
+        resetAllGameState();
+
+        // 选择麻将
         const allMahjong = GAME_CONFIG.symbols;
-
-        // 为了保持滑动设计的趣味性，我们需要加载更多的麻将
-        // 确保至少有20个麻将用于滑动显示，但不超过可用的总数
         const displayTileCount = GAME_CONFIG.trials.perRound;
-
-        // 随机选择不重复的麻将
         const shuffledMahjong = [...allMahjong].sort(() => Math.random() - 0.5);
         const selectedMahjong = shuffledMahjong.slice(0, displayTileCount);
-
         setSessionMahjong(selectedMahjong);
+        
+        // 设置开始延迟
         setStartDelay(GAME_CONFIG.trials.startDelay);
 
+        // 滚动到游戏区域
         setTimeout(() => {
             gameContainerRef.current?.scrollIntoView({
                 behavior: "smooth",
                 block: "start",
             });
         }, 50);
-    }, []);
+    }, [resetAllGameState]);
 
     // 修改handleResponse方法
     const handleResponse = useCallback((type: "audio" | "position") => {
@@ -186,34 +230,7 @@ export default function GameComponent() {
         [trialHistory, settings.selectedNBack, settings.selectedTypes]
     );
 
-    // 组件本地状态
-    const [isLoading, setIsLoading] = useState(false); // 加载状态
-    const [activePosition, setActivePosition] = useState<string | null>(null); // 当前激活的位置
-    const [accuracy, setAccuracy] = useState<{
-        position: {
-            total: number;
-            correct: number;
-            missed: number;
-            falseAlarms: number;
-        };
-        audio: {
-            total: number;
-            correct: number;
-            missed: number;
-            falseAlarms: number;
-        };
-    }>({
-        position: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
-        audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
-    }); // 准确率统计
-    const [isAudioPlaying, setIsAudioPlaying] = useState(false); // 音频播放状态
-    const [intervalDelay, setIntervalDelay] = useState<number | null>(null); // 试验间隔
-    const [startDelay, setStartDelay] = useState<number | null>(null); // 开始延迟
-    const [isPaused, setIsPaused] = useState(false); // 暂停状态
-    const audioRefs = useRef<{ [key: string]: Howl }>({}); // 音频引用缓存
-
-    // 添加滑动位置状态
-    const [slidePosition, setSlidePosition] = useState(0);
+    
 
     // 定时器钩子：控制试验间隔
     useInterval(() => {
@@ -226,18 +243,10 @@ export default function GameComponent() {
         }
     }, intervalDelay);
 
-    // 延时钩子：控制游戏开始
+    // 简化后的 useTimeout 钩子
     useTimeout(() => {
+        // 只改变游戏状态和启动游戏，不再重置状态
         setGameState("playing");
-        setCurrentTrial(0);
-        setTrialHistory([]);
-        setResults([]);
-        setActivePosition(null);
-        setCurrentResponse({ positionMatch: null, audioMatch: null });
-        setAccuracy({
-            position: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
-            audio: { total: 0, correct: 0, missed: 0, falseAlarms: 0 },
-        });
         setIsLoading(false);
         startNextTrial();
         setStartDelay(null);
@@ -391,51 +400,30 @@ export default function GameComponent() {
             // 计算期望的匹配数量（约20%的试验应该有匹配）
             const expectedMatches = Math.ceil(settings.trialsPerRound * 0.2);
 
-            // 如果只选择了position类型，并且匹配数量不足，增加匹配概率
-            if (
-                settings.selectedTypes.includes("position") &&
-                settings.selectedTypes.length === 1 &&
-                positionMatches < expectedMatches
-            ) {
-                // 如果剩余试验次数较少且匹配数量远低于期望值，强制创建匹配
-                if (
-                    remainingTrials <=
-                    (expectedMatches - positionMatches) * 2
-                ) {
+            // 位置匹配逻辑
+            if (settings.selectedTypes.includes("position")) {
+                // 如果匹配数量不足且剩余试验较少，增加匹配概率
+                if (positionMatches < expectedMatches && remainingTrials <= (expectedMatches - positionMatches) * 2) {
+                    // 强制创建匹配或增加匹配概率
+                    positionStimuli = Math.random() < 0.5 ? nBackTrial.position : positionStimuli;
+                } 
+                // 正常匹配概率
+                else if (Math.random() < 0.2) {
                     positionStimuli = nBackTrial.position;
-                } else {
-                    // 否则增加匹配概率
-                    if (Math.random() < 0.3) {
-                        positionStimuli = nBackTrial.position;
-                    }
                 }
-            } else if (
-                settings.selectedTypes.includes("position") &&
-                Math.random() < 0.2
-            ) {
-                positionStimuli = nBackTrial.position;
             }
 
-            // 如果只选择了audio类型，并且匹配数量不足，增加匹配概率
-            if (
-                settings.selectedTypes.includes("audio") &&
-                settings.selectedTypes.length === 1 &&
-                audioMatches < expectedMatches
-            ) {
-                // 如果剩余试验次数较少且匹配数量远低于期望值，强制创建匹配
-                if (remainingTrials <= (expectedMatches - audioMatches) * 2) {
+            // 音频匹配逻辑
+            if (settings.selectedTypes.includes("audio")) {
+                // 如果匹配数量不足且剩余试验较少，增加匹配概率
+                if (audioMatches < expectedMatches && remainingTrials <= (expectedMatches - audioMatches) * 2) {
+                    // 强制创建匹配或增加匹配概率
+                    audioStimuli = Math.random() < 0.5 ? nBackTrial.audio : audioStimuli;
+                } 
+                // 正常匹配概率
+                else if (Math.random() < 0.2) {
                     audioStimuli = nBackTrial.audio;
-                } else {
-                    // 否则增加匹配概率
-                    if (Math.random() < 0.3) {
-                        audioStimuli = nBackTrial.audio;
-                    }
                 }
-            } else if (
-                settings.selectedTypes.includes("audio") &&
-                Math.random() < 0.2
-            ) {
-                audioStimuli = nBackTrial.audio;
             }
         }
 
@@ -552,60 +540,6 @@ export default function GameComponent() {
         setIsPaused(!isPaused);
     }, [gameState, isPaused, settings.trialInterval]);
 
-    // 添加无响应处理 - 在每个试验结束时自动评估
-    useEffect(() => {
-        if (gameState === "playing" && currentTrial > 0) {
-            const timer = setTimeout(() => {
-                // Call evaluateResponse with the current response before the next trial
-                evaluateResponse(currentResponse);
-
-                const currentStimuli = trialHistory[trialHistory.length - 1];
-                const nBackIndex =
-                    trialHistory.length - 1 - settings.selectedNBack;
-                const nBackStimuli =
-                    nBackIndex >= 0 && trialHistory.length > nBackIndex
-                        ? trialHistory[nBackIndex]
-                        : undefined;
-
-                const isPositionMatch = nBackStimuli
-                    ? currentStimuli.position === nBackStimuli.position
-                    : false;
-                const isAudioMatch = nBackStimuli
-                    ? currentStimuli.audio === nBackStimuli.audio
-                    : false;
-
-                const autoResponse = { ...currentResponse };
-
-                // 仅当需要响应但未响应时标记为错误
-                if (settings.selectedTypes.includes("position")) {
-                    if (
-                        isPositionMatch &&
-                        autoResponse.positionMatch === null
-                    ) {
-                        autoResponse.positionMatch = false; // 应响应但未响应
-                    }
-                }
-
-                if (settings.selectedTypes.includes("audio")) {
-                    if (isAudioMatch && autoResponse.audioMatch === null) {
-                        autoResponse.audioMatch = false; // 应响应但未响应
-                    }
-                }
-            }, settings.trialInterval - 200);
-
-            return () => clearTimeout(timer);
-        }
-    }, [
-        currentTrial,
-        currentResponse,
-        gameState,
-        settings.selectedTypes,
-        evaluateResponse,
-        trialHistory,
-        settings.selectedNBack,
-        settings.trialInterval,
-    ]);
-
     return (
         <div
             className="container mx-auto p-4 flex flex-col justify-center"
@@ -641,7 +575,7 @@ export default function GameComponent() {
                                 )}
                             </Button>
                             <Button
-                                onClick={() => window.location.reload()}
+                                onClick={startGame}
                                 variant="outline"
                                 size="sm"
                             >
