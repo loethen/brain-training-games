@@ -21,11 +21,11 @@ const GameIcon = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "z-10 flex size-12 sm:size-14 md:size-16 items-center justify-center rounded-full bg-white p-1 sm:p-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
+        "z-10 flex size-8 sm:size-10 md:size-12 items-center justify-center rounded-full bg-white p-1 shadow-[0_0_15px_-10px_rgba(0,0,0,0.6)]",
         className
       )}
     >
-      <Icon size={28} className="size-32" color={color} strokeWidth={1.5} />
+      <Icon size={20} className="size-24" color={color} strokeWidth={1.5} />
       {children}
     </div>
   );
@@ -45,10 +45,10 @@ export function BrainGameIcons() {
 
   return (
     <div 
-        className="relative w-full aspect-[4/3] max-w-xl mx-auto" 
+        className="relative w-full aspect-[4/3] max-w-md mx-auto opacity-85" 
         ref={containerRef}
     >
-        <div className="absolute inset-0 flex flex-col items-stretch justify-between p-4 sm:p-6 md:p-10">
+        <div className="absolute inset-0 flex flex-col items-stretch justify-between p-3 sm:p-4 md:p-6">
             <div className="flex flex-row items-center justify-between">
                 <GameIcon ref={memoryRef} icon={Grid3x3} color="#ec4899" />
                 <GameIcon ref={focusRef} icon={Target} color="#10b981" />
@@ -57,9 +57,9 @@ export function BrainGameIcons() {
                 <GameIcon ref={patternRef} icon={LayoutGrid} color="#a855f7" />
                 <div
                     ref={brainRef}
-                    className="z-10 flex size-16 sm:size-20 items-center justify-center rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-2 sm:p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
+                    className="z-10 flex size-12 sm:size-14 items-center justify-center rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-1.5 sm:p-2 shadow-[0_0_15px_-10px_rgba(0,0,0,0.6)]"
                 >
-                    <Brain size={32} className="size-32" color="white" strokeWidth={1.5} />
+                    <Brain size={24} className="size-24" color="white" strokeWidth={1.5} />
                 </div>
                 <GameIcon ref={numberRef} icon={Calculator} color="#f59e0b" />
             </div>
@@ -77,6 +77,7 @@ export function BrainGameIcons() {
             endYOffset={-10}
             gradientStartColor="#ec4899"
             gradientStopColor="#db2777"
+            className="opacity-60"
         />
         <AnimatedBeam
             containerRef={containerRef}
@@ -84,6 +85,7 @@ export function BrainGameIcons() {
             toRef={brainRef}
             gradientStartColor="#a855f7"
             gradientStopColor="#8b5cf6"
+            className="opacity-60"
         />
         <AnimatedBeam
             containerRef={containerRef}
@@ -93,6 +95,7 @@ export function BrainGameIcons() {
             endYOffset={10}
             gradientStartColor="#3b82f6"
             gradientStopColor="#2563eb"
+            className="opacity-60"
         />
         <AnimatedBeam
             containerRef={containerRef}
@@ -103,6 +106,7 @@ export function BrainGameIcons() {
             reverse
             gradientStartColor="#10b981"
             gradientStopColor="#059669"
+            className="opacity-60"
         />
         <AnimatedBeam
             containerRef={containerRef}
@@ -111,6 +115,7 @@ export function BrainGameIcons() {
             reverse
             gradientStartColor="#f59e0b"
             gradientStopColor="#d97706"
+            className="opacity-60"
         />
         <AnimatedBeam
             containerRef={containerRef}
@@ -121,6 +126,7 @@ export function BrainGameIcons() {
             reverse
             gradientStartColor="#ef4444"
             gradientStopColor="#dc2626"
+            className="opacity-60"
         />
     </div>
   );

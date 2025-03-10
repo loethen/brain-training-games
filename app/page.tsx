@@ -24,20 +24,20 @@ export default function Home() {
             {/* Hero Section */}
             <section className="max-w-7xl mx-auto p-6 md:p-12">
                 <div className="flex flex-col md:flex-row items-center gap-8">
-                    <div className="w-full md:w-1/2 text-center md:text-left">
-                        <h1 className="text-3xl sm:text-4xl font-bold mb-6">
-                            Free Games to Boost Memory & Concentration
+                    <div className="w-full md:w-3/5 text-center md:text-left">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                            Free Games for Memory & Concentration
                         </h1>
                         <p className="sm:text-xl mb-6">
-                            Play Free Brain Games Online Anytime
+                            Boost focus and memory with fun online challenges
                         </p>
                         <Link href="/games">
                             <InteractiveHoverButton>
-                                Start Challenge
+                                Start Playing Now
                             </InteractiveHoverButton>
                         </Link>
                     </div>
-                    <div className="w-full md:w-1/2">
+                    <div className="w-full md:w-2/5">
                         <BrainGameIcons />
                     </div>
                 </div>

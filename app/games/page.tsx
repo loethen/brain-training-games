@@ -26,12 +26,11 @@ export default function GamesPage() {
           <Breadcrumbs items={[{ label: "Games" }]} />
 
           <h1 className="text-3xl font-bold mt-12 mb-4 text-center">
-              Brain Training Games
+              Focus Training Games
           </h1>
           <p className="text-muted-foreground mb-12 max-w-2xl mx-auto text-center">
-              Explore our collection of free cognitive training games designed
-              to enhance your mental abilities through regular, targeted
-              practice.
+              Discover our free focus-enhancing games, crafted to sharpen your
+              attention and concentration with fun, targeted challenges.
           </p>
 
           {/* 类别筛选 */}
@@ -69,7 +68,9 @@ export default function GamesPage() {
 
           {/* 关于认知训练的信息 */}
           <section className="my-16 p-8 bg-muted rounded-lg max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold mb-4 text-center">About Brain Training</h2>
+              <h2 className="text-2xl font-bold mb-4 text-center">
+                  About Brain Training
+              </h2>
               <div className="space-y-4 text-muted-foreground">
                   <p>
                       Cognitive training, often called brain training, involves
