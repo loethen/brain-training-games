@@ -21,11 +21,11 @@ const GameIcon = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "z-10 flex size-8 sm:size-10 md:size-12 items-center justify-center rounded-full bg-white p-1 shadow-[0_0_15px_-10px_rgba(0,0,0,0.6)]",
+        "z-10 flex size-8 sm:size-10 md:size-11 items-center justify-center rounded-full bg-white p-1 shadow-[0_0_15px_-10px_rgba(0,0,0,0.6)]",
         className
       )}
     >
-      <Icon size={20} className="size-24" color={color} strokeWidth={1.5} />
+      <Icon size={18} className="size-20" color={color} strokeWidth={1.5} />
       {children}
     </div>
   );
@@ -45,10 +45,10 @@ export function BrainGameIcons() {
 
   return (
     <div 
-        className="relative w-full aspect-[4/3] max-w-md mx-auto opacity-85" 
+        className="relative w-full aspect-[5/3] max-w-sm mx-auto opacity-85 " 
         ref={containerRef}
     >
-        <div className="absolute inset-0 flex flex-col items-stretch justify-between p-3 sm:p-4 md:p-6">
+        <div className="absolute inset-0 flex flex-col items-stretch justify-between p-2 sm:p-3 md:p-4">
             <div className="flex flex-row items-center justify-between">
                 <GameIcon ref={memoryRef} icon={Grid3x3} color="#ec4899" />
                 <GameIcon ref={focusRef} icon={Target} color="#10b981" />
@@ -57,9 +57,9 @@ export function BrainGameIcons() {
                 <GameIcon ref={patternRef} icon={LayoutGrid} color="#a855f7" />
                 <div
                     ref={brainRef}
-                    className="z-10 flex size-12 sm:size-14 items-center justify-center rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-1.5 sm:p-2 shadow-[0_0_15px_-10px_rgba(0,0,0,0.6)]"
+                    className="z-10 flex size-10 sm:size-12 items-center justify-center rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-1 sm:p-1.5 shadow-[0_0_15px_-10px_rgba(0,0,0,0.6)]"
                 >
-                    <Brain size={24} className="size-24" color="white" strokeWidth={1.5} />
+                    <Brain size={20} className="size-20" color="white" strokeWidth={1.5} />
                 </div>
                 <GameIcon ref={numberRef} icon={Calculator} color="#f59e0b" />
             </div>

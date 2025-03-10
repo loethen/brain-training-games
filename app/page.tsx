@@ -22,22 +22,24 @@ export default function Home() {
     return (
         <div>
             {/* Hero Section */}
-            <section className="max-w-7xl mx-auto p-6 md:p-12">
+            <section className="max-w-7xl mx-auto p-6 md:p-12 md:mb-12">
                 <div className="flex flex-col md:flex-row items-center gap-8">
-                    <div className="w-full md:w-3/5 text-center md:text-left">
+                    <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
                         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
                             Free Games for Memory & Concentration
                         </h1>
-                        <p className="sm:text-xl mb-6">
+                        <p className="sm:text-xl lg:text-2xl mb-8">
                             Boost focus and memory with fun online challenges
                         </p>
-                        <Link href="/games">
-                            <InteractiveHoverButton>
-                                Start Playing Now
-                            </InteractiveHoverButton>
-                        </Link>
+                        <div className="mb-4">
+                            <Link href="/games">
+                                <InteractiveHoverButton>
+                                    Start Playing Now
+                                </InteractiveHoverButton>
+                            </Link>
+                        </div>
                     </div>
-                    <div className="w-full md:w-2/5">
+                    <div className="w-full md:w-2/5 flex items-center justify-center py-4">
                         <BrainGameIcons />
                     </div>
                 </div>

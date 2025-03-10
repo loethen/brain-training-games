@@ -65,7 +65,7 @@ export default async function CategoryPage({ params }: Props) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {games.map((game) => (
-                  <GameCard key={game.id} game={game} />
+                  <GameCard key={game.id} game={game} preview={game.preview} />
               ))}
           </div>
       </div>
