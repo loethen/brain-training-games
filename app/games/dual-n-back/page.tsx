@@ -5,7 +5,8 @@ import { Brain, Layers, Zap } from 'lucide-react'
 
 export const metadata: Metadata = {
     title: "Dual N-Back - Working Memory Training Game",
-    description: "Challenge your working memory with this scientifically-backed cognitive training exercise that improves fluid intelligence.",
+    description:
+        "Boost your brainpower with our free online Dual N-Back game, designed to enhance working memory and cognitive skills. This science-backed memory training tool offers dynamic challenges and real-time feedback to improve focus, intelligence, and mental agility. Perfect for students, professionals, and brain training enthusiasts, it adapts to your level for a fun, effective way to unlock your cognitive potential. Play now and level up your mind!",
     keywords: [
         "dual n-back training",
         "working memory exercise",
@@ -15,10 +16,13 @@ export const metadata: Metadata = {
         "attention control practice",
         "n-back task",
         "memory improvement game",
+        "free online Dual N-Back",
+        "improve working memory",
     ].join(", "),
     openGraph: {
         title: "Dual N-Back - Advanced Working Memory Training",
-        description: "Train your working memory and fluid intelligence with the scientifically-backed Dual N-Back cognitive exercise.",
+        description:
+            "Train your working memory and fluid intelligence with the scientifically-backed Dual N-Back cognitive exercise.",
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
 };
@@ -76,6 +80,7 @@ export default function DualNBackPage() {
           answer: "Many users report improvements in concentration, multitasking ability, and information retention after regular practice. These skills can transfer to academic, professional, and everyday activities."
         }
       ]}
+      relatedGames={["mahjong-dual-n-back", "pattern-recall-challenge"]}
     />
   );
 } 

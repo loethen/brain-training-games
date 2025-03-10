@@ -9,6 +9,9 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import GameCard from '@/components/game-card';
+import { getGame } from '@/data/games';
+
 interface FaqItem {
   question: string;
   answer: React.ReactNode;
@@ -29,6 +32,7 @@ interface GamePageTemplateProps {
   howToPlay: React.ReactNode;
   benefits?: BenefitItem[];
   faq?: FaqItem[];
+  relatedGames?: string[];
 }
 
 export function GamePageTemplate({
@@ -39,7 +43,8 @@ export function GamePageTemplate({
   gameComponent,
   howToPlay,
   benefits,
-  faq
+  faq,
+  relatedGames
 }: GamePageTemplateProps) {
   return (
       <>
@@ -120,6 +125,29 @@ export function GamePageTemplate({
                           </AccordionItem>
                       ))}
                   </Accordion>
+              </section>
+          )}
+
+          {/* 相关游戏推荐 - 可选 */}
+          {relatedGames && relatedGames.length > 0 && (
+              <section className="max-w-6xl mx-auto mb-16">
+                  <h2 className="text-3xl font-bold mb-12 text-center">
+                      Related Games
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {relatedGames.map((gameId) => {
+                          const game = getGame(gameId);
+                          if (!game) return null;
+                          
+                          return (
+                              <GameCard 
+                                  key={gameId} 
+                                  game={game} 
+                                  preview={game.preview}
+                              />
+                          );
+                      })}
+                  </div>
               </section>
           )}
 

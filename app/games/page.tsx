@@ -63,7 +63,7 @@ export default function GamesPage() {
           {/* 游戏网格 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {games.map((game) => (
-                  <GameCard key={game.id} game={game} />
+                  <GameCard key={game.id} game={game} preview={game.preview} />
               ))}
           </div>
 

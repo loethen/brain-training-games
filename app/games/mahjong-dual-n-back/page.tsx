@@ -5,7 +5,8 @@ import { Brain, Layers, Zap } from 'lucide-react'
 
 export const metadata: Metadata = {
     title: "Mahjong Dual N-Back - Working Memory Training Game",
-    description: "Challenge your working memory with this mahjong-themed cognitive training exercise that improves fluid intelligence using the dual n-back paradigm.",
+    description:
+        "Sharpen your mind with our free Mahjong Dual N-Back game, a fun twist on classic memory training. Combining the strategy of Mahjong tiles with science-backed Dual N-Back challenges, this online tool boosts working memory, focus, and cognitive skills. Perfect for Mahjong fans, students, and brain training enthusiasts, it offers dynamic levels and real-time feedback to enhance mental agility. Play now and master your memory with a Mahjong flair!",
     keywords: [
         "mahjong n-back training",
         "mahjong memory game",
@@ -17,10 +18,17 @@ export const metadata: Metadata = {
         "n-back task with mahjong tiles",
         "memory improvement game",
         "traditional mahjong brain training",
+        "free mahjong n-back game",
+        "mahjong n-back training game",
+        "mahjong n-back memory game",
+        "mahjong n-back cognitive training",
+        "mahjong n-back working memory game",
+        "mahjong n-back fluid intelligence game",
     ].join(", "),
     openGraph: {
         title: "Mahjong Dual N-Back - Advanced Working Memory Training",
-        description: "Train your working memory and fluid intelligence with the scientifically-backed Mahjong Dual N-Back cognitive exercise featuring traditional mahjong tiles.",
+        description:
+            "Train your working memory and cognitive skills with the scientifically-backed Mahjong Dual N-Back cognitive exercise featuring traditional mahjong tiles.",
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
 };
@@ -114,6 +122,7 @@ export default function MahjongDualNBackPage() {
                   answer: "No prior knowledge of mahjong is required. While we use the beautiful visual elements of traditional mahjong tiles, the cognitive task focuses on remembering positions and sounds rather than mahjong gameplay. The exercise is designed to be accessible to everyone regardless of their familiarity with mahjong.",
               },
           ]}
+          relatedGames={["dual-n-back", ]}
       />
   );
 } 

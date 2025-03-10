@@ -54,10 +54,22 @@ export default function Home() {
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
                     <GameCard
                         game={{
+                            id: "mahjong-dual-n-back",
+                            title: "Mahjong Dual N-Back",
+                            description:
+                                "Boost memory and focus with Mahjong-inspired Dual N-Back challenges!",
+                            slug: "mahjong-dual-n-back",
+                        }}
+                        preview={
+                            <ImagePreview src="/games/mahjong-dual-n-back.png" />
+                        }
+                    />
+                    <GameCard
+                        game={{
                             id: "dual-n-back",
                             title: "Dual N-Back",
                             description:
-                                "Enhance your working memory by remembering and repeating visual sequences.",
+                                "Sharpen your mind with classic Dual N-Back memory training!",
                             slug: "dual-n-back",
                         }}
                         preview={<ImagePreview src="/games/dual-n-back.png" />}
@@ -67,7 +79,7 @@ export default function Home() {
                             id: "larger-number",
                             title: "Larger Number",
                             description:
-                                "Improves focus, speed, and precision in a dynamic number task.",
+                                "Click the bigger number fast to sharpen your focus!",
                             slug: "larger-number",
                         }}
                         preview={
