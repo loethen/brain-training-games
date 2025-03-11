@@ -105,6 +105,23 @@ export default function GameComponent() {
     const [startDelay, setStartDelay] = useState<number | null>(null); // 开始延迟
     const [isPaused, setIsPaused] = useState(false); // 暂停状态
     const audioRefs = useRef<{ [key: string]: Howl }>({}); // 音频引用缓存
+    
+    // 添加预加载状态
+    const [preloadState, setPreloadState] = useState<{
+        isPreloading: boolean;
+        loadedAudio: number;
+        totalAudio: number;
+        loadedImages: number;
+        totalImages: number;
+        error: string | null;
+    }>({
+        isPreloading: false,
+        loadedAudio: 0,
+        totalAudio: 0,
+        loadedImages: 0,
+        totalImages: 0,
+        error: null
+    });
 
     // 添加滑动位置状态
     const [slidePosition, setSlidePosition] = useState(0);
@@ -127,6 +144,120 @@ export default function GameComponent() {
         });
     }, []);
 
+    // 预加载所有游戏资源
+    const preloadGameAssets = useCallback(async () => {
+        try {
+            setPreloadState(prev => ({
+                ...prev,
+                isPreloading: true,
+                error: null
+            }));
+            
+            // 选择麻将
+            const allMahjong = GAME_CONFIG.symbols;
+            const displayTileCount = GAME_CONFIG.trials.perRound;
+            const shuffledMahjong = [...allMahjong].sort(() => Math.random() - 0.5);
+            const selectedMahjong = shuffledMahjong.slice(0, displayTileCount);
+            setSessionMahjong(selectedMahjong);
+            
+            // 预加载音频文件
+            const totalAudio = selectedMahjong.length;
+            setPreloadState(prev => ({
+                ...prev,
+                totalAudio,
+                loadedAudio: 0
+            }));
+            
+            // 清除之前的音频引用
+            Object.values(audioRefs.current).forEach(audio => audio.unload());
+            
+            // 创建加载音频的Promise数组
+            const audioPromises = selectedMahjong.map((mahjong) => {
+                return new Promise<void>((resolve, reject) => {
+                    const audioPath = `${GAME_CONFIG.audio.basePath}${
+                        GAME_CONFIG.audio.voices[settings.voiceType]
+                    }${mahjong.toLowerCase()}.mp3`;
+                    
+                    audioRefs.current[mahjong] = new Howl({
+                        src: [audioPath],
+                        onplay: () => setIsAudioPlaying(true),
+                        onend: () => setIsAudioPlaying(false),
+                        onload: () => {
+                            setPreloadState(prev => ({
+                                ...prev,
+                                loadedAudio: prev.loadedAudio + 1
+                            }));
+                            resolve();
+                        },
+                        onloaderror: (id, error) => {
+                            console.error(`Error loading audio ${mahjong}:`, error);
+                            reject(new Error(`Failed to load audio: ${mahjong}`));
+                        }
+                    });
+                });
+            });
+            
+            // 预加载麻将图像
+            const totalImages = selectedMahjong.length;
+            setPreloadState(prev => ({
+                ...prev,
+                totalImages,
+                loadedImages: 0
+            }));
+            
+            // 创建加载图像的Promise数组
+            const imagePromises = selectedMahjong.map((mahjong) => {
+                return new Promise<void>((resolve, reject) => {
+                    // 使用HTMLImageElement代替直接使用Image构造函数
+                    const img = document.createElement('img');
+                    img.src = `${GAME_CONFIG.symbolBasePath}${mahjong}.svg`;
+                    img.onload = () => {
+                        setPreloadState(prev => ({
+                            ...prev,
+                            loadedImages: prev.loadedImages + 1
+                        }));
+                        resolve();
+                    };
+                    img.onerror = () => {
+                        console.error(`Error loading image ${mahjong}`);
+                        reject(new Error(`Failed to load image: ${mahjong}`));
+                    };
+                });
+            });
+            
+            // 等待所有资源加载完成
+            await Promise.all([...audioPromises, ...imagePromises]);
+            
+            // 设置开始延迟
+            setStartDelay(GAME_CONFIG.trials.startDelay);
+            
+            // 滚动到游戏区域
+            setTimeout(() => {
+                gameContainerRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+            }, 50);
+            
+            // 预加载完成，设置游戏状态为playing
+            setGameState("playing");
+            setPreloadState(prev => ({
+                ...prev,
+                isPreloading: false
+            }));
+            
+        } catch (error) {
+            console.error("Error preloading game assets:", error);
+            setPreloadState(prev => ({
+                ...prev,
+                isPreloading: false,
+                error: error instanceof Error ? error.message : "Unknown error loading game assets"
+            }));
+            // 重置游戏状态
+            setGameState("idle");
+        }
+    }, [settings.voiceType]);
+
     // 修改后的 startGame 函数
     const startGame = useCallback(() => {
         setIsLoading(true);
@@ -134,25 +265,10 @@ export default function GameComponent() {
         
         // 重置所有游戏状态
         resetAllGameState();
-
-        // 选择麻将
-        const allMahjong = GAME_CONFIG.symbols;
-        const displayTileCount = GAME_CONFIG.trials.perRound;
-        const shuffledMahjong = [...allMahjong].sort(() => Math.random() - 0.5);
-        const selectedMahjong = shuffledMahjong.slice(0, displayTileCount);
-        setSessionMahjong(selectedMahjong);
         
-        // 设置开始延迟
-        setStartDelay(GAME_CONFIG.trials.startDelay);
-
-        // 滚动到游戏区域
-        setTimeout(() => {
-            gameContainerRef.current?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-            });
-        }, 50);
-    }, [resetAllGameState]);
+        // 开始预加载资源
+        preloadGameAssets();
+    }, [resetAllGameState, preloadGameAssets]);
 
     // 修改handleResponse方法
     const handleResponse = useCallback((type: "audio" | "position") => {
@@ -248,32 +364,6 @@ export default function GameComponent() {
         startNextTrial();
         setStartDelay(null);
     }, startDelay);
-
-    // 修改加载音频文件的useEffect
-    useEffect(() => {
-        // 在 effect 中保存对 audioRefs.current 的引用
-        const currentAudioRefs = audioRefs.current;
-
-        // 清除之前的音频引用
-        Object.values(currentAudioRefs).forEach((audio) => audio.unload());
-
-        // 只加载本局游戏需要的字母音频
-        sessionMahjong.forEach((mahjong) => {
-            currentAudioRefs[mahjong] = new Howl({
-                src: [
-                    `${GAME_CONFIG.audio.basePath}${
-                        GAME_CONFIG.audio.voices[settings.voiceType]
-                    }${mahjong.toLowerCase()}.mp3`,
-                ],
-                onplay: () => setIsAudioPlaying(true),
-                onend: () => setIsAudioPlaying(false),
-            });
-        });
-
-        // 使用保存的引用进行清理
-        return () =>
-            Object.values(currentAudioRefs).forEach((audio) => audio.unload());
-    }, [settings.voiceType, sessionMahjong]);
 
     // 结束游戏并计算准确率
     const endGame = useCallback(() => {
@@ -612,14 +702,20 @@ export default function GameComponent() {
                         <div className="flex justify-center">
                             <ShimmerButton
                                 onClick={startGame}
-                                disabled={isLoading}
+                                disabled={isLoading || preloadState.isPreloading}
                             >
-                                <span className="flex items-center justify-center text-white">
-                                    <PlayCircle className="w-5 h-5 mr-2" />
-                                    {isLoading
-                                        ? "Starting..."
-                                        : "Start Challenge"}
-                                </span>
+                                {preloadState.isPreloading ? (
+                                    <>
+                                        <span className="animate-spin mr-2">⏳</span>
+                                        Loading... ({preloadState.loadedAudio}/{preloadState.totalAudio} audio, 
+                                        {preloadState.loadedImages}/{preloadState.totalImages} images)
+                                    </>
+                                ) : (
+                                    <>
+                                        <PlayCircle className="w-5 h-5 mr-2" />
+                                        Start Training
+                                    </>
+                                )}
                             </ShimmerButton>
                         </div>
                     </div>
@@ -892,11 +988,21 @@ export default function GameComponent() {
                         <div className="flex justify-center gap-4 mt-6">
                             <Button
                                 onClick={startGame}
-                                disabled={isLoading}
+                                disabled={isLoading || preloadState.isPreloading}
                                 className="rounded-full"
                             >
-                                <PlayCircle className="w-4 h-4 mr-2" />
-                                Play Again
+                                {preloadState.isPreloading ? (
+                                    <>
+                                        <span className="animate-spin mr-2">⏳</span>
+                                        Loading... ({preloadState.loadedAudio}/{preloadState.totalAudio} audio, 
+                                        {preloadState.loadedImages}/{preloadState.totalImages} images)
+                                    </>
+                                ) : (
+                                    <>
+                                        <PlayCircle className="w-4 h-4 mr-2" />
+                                        Play Again
+                                    </>
+                                )}
                             </Button>
                             <Button
                                 variant="outline"
