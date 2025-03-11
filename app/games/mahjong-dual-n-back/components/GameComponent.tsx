@@ -671,7 +671,7 @@ export default function GameComponent() {
                                 )}
                             </Button>
                             <Button
-                                onClick={startGame}
+                                onClick={()=>window.location.reload()}
                                 variant="outline"
                                 size="sm"
                             >
