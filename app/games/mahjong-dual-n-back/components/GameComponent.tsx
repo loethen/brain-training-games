@@ -627,6 +627,10 @@ export default function GameComponent() {
                             <span>
                                 {settings.selectedTypes.length === 2
                                     ? "Dual"
+                                    : settings.selectedTypes[0] === "position"
+                                    ? "Tile"
+                                    : settings.selectedTypes[0] === "audio"
+                                    ? "Sound"
                                     : settings.selectedTypes[0]}
                             </span>
                             <span>•</span>
@@ -674,7 +678,10 @@ export default function GameComponent() {
                                     Mahjong Dual N-Back Challenge
                                 </h3>
                                 <p className="text-white/80">
-                                    Track {settings.selectedTypes.join(" and ")}{" "}
+                                    Track {settings.selectedTypes.map(type => 
+                                        type === "position" ? "tile" : 
+                                        type === "audio" ? "sound" : type
+                                    ).join(" and ")}{" "}
                                     from {settings.selectedNBack} steps back.
                                 </p>
                             </div>
