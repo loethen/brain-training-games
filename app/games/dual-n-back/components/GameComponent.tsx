@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { ShareModal } from "@/components/ui/ShareModal";
 
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
@@ -425,32 +426,13 @@ export default function GameComponent() {
         setIntervalDelay(settings.trialInterval);
     }, [currentTrial, generateTrial, settings.selectedNBack, settings.trialsPerRound, settings.trialInterval, settings.selectedTypes, trialHistory, endGame, evaluateResponse, currentResponse]);
 
+    // Add showShareModal state
+    const [showShareModal, setShowShareModal] = useState(false);
+
     // 分享游戏分数
     const shareScore = useCallback(() => {
-        let text = "";
-        
-        if (settings.selectedTypes.length === 2) {
-            text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position and ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
-        } else if (settings.selectedTypes.includes("position")) {
-            text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position accuracy in ${settings.selectedNBack}-Back training!`;
-        } else {
-            text = `I achieved ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
-        }
-        
-        if (navigator.share) {
-            navigator
-                .share({
-                    title: `My ${settings.selectedTypes.length === 2 ? "Dual" : settings.selectedTypes[0]} N-Back Score`,
-                    text,
-                    url: window.location.href,
-                })
-                .catch(console.error);
-        } else {
-            navigator.clipboard
-                .writeText(text + " " + window.location.href)
-                .then(() => alert("Score copied to clipboard!"));
-        }
-    }, [settings.selectedNBack, settings.selectedTypes, accuracy]);
+        setShowShareModal(true);
+    }, []);
 
     // 添加键盘快捷键支持
     useEffect(() => {
@@ -535,603 +517,611 @@ export default function GameComponent() {
     ]);
 
     return (
-        <div 
-            className="mx-auto p-2 flex flex-col justify-center" 
-            ref={gameContainerRef}
-            style={{ scrollMarginTop: "100px" }} // 添加滚动边距
-        >
-            <div className="flex justify-between items-center mb-6">
-                <div className="flex flex-col">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <span>
-                            {settings.selectedTypes.length === 2
-                                ? "Dual"
-                                : settings.selectedTypes[0]}
-                        </span>
-                        <span>•</span>
-                        <span className="font-medium">
-                            {settings.selectedNBack}-back
-                        </span>
+        <div className="space-y-8 max-w-lg mx-auto">
+            <div 
+                className="mx-auto p-2 flex flex-col justify-center" 
+                ref={gameContainerRef}
+                style={{ scrollMarginTop: "100px" }} // 添加滚动边距
+            >
+                <div className="flex justify-between items-center mb-6">
+                    <div className="flex flex-col">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <span>
+                                {settings.selectedTypes.length === 2
+                                    ? "Dual"
+                                    : settings.selectedTypes[0]}
+                            </span>
+                            <span>•</span>
+                            <span className="font-medium">
+                                {settings.selectedNBack}-back
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div className="flex items-center gap-2">
-                    {gameState === "playing" && (
-                        <Button
-                            onClick={togglePause}
-                            variant="outline"
-                            size="sm"
-                        >
-                            {isPaused ? (
-                                <PlayCircle className="h-4 w-4" />
-                            ) : (
-                                <PauseCircle className="h-4 w-4" />
-                            )}
-                        </Button>
-                    )}
-                    <Dialog
-                        open={isSettingsOpen}
-                        onOpenChange={setIsSettingsOpen}
-                    >
-                        <DialogTrigger asChild>
+                    <div className="flex items-center gap-2">
+                        {gameState === "playing" && (
                             <Button
+                                onClick={togglePause}
                                 variant="outline"
                                 size="sm"
-                                disabled={gameState === "playing"}
                             >
-                                <Settings className="h-4 w-4" />
-                                <span className="hidden sm:inline">
-                                    Settings
-                                </span>
+                                {isPaused ? (
+                                    <PlayCircle className="h-4 w-4" />
+                                ) : (
+                                    <PauseCircle className="h-4 w-4" />
+                                )}
                             </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
-                            <DialogHeader>
-                                <DialogTitle>Game Settings</DialogTitle>
-                            </DialogHeader>
-                            <Form {...form}>
-                                <form
-                                    onSubmit={form.handleSubmit(onSubmit)}
-                                    className="space-y-6"
+                        )}
+                        <Dialog
+                            open={isSettingsOpen}
+                            onOpenChange={setIsSettingsOpen}
+                        >
+                            <DialogTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    disabled={gameState === "playing"}
                                 >
-                                    <FormField
-                                        control={form.control}
-                                        name="selectedNBack"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel className="flex items-center justify-between">
-                                                    N-Back Level
-                                                    <span className="text-sm text-muted-foreground">
-                                                        {field.value}-Back
-                                                    </span>
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Slider
-                                                        min={1}
-                                                        max={
-                                                            GAME_CONFIG
-                                                                .difficulty
-                                                                .maxLevel
-                                                        }
-                                                        step={1}
-                                                        value={[field.value]}
-                                                        onValueChange={(vals) =>
-                                                            field.onChange(
-                                                                vals[0]
-                                                            )
-                                                        }
-                                                        disabled={
-                                                            gameState ===
-                                                            "playing"
-                                                        }
-                                                    />
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
-                                    />
+                                    <Settings className="h-4 w-4" />
+                                    <span className="hidden sm:inline">
+                                        Settings
+                                    </span>
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                    <DialogTitle>Game Settings</DialogTitle>
+                                </DialogHeader>
+                                <Form {...form}>
+                                    <form
+                                        onSubmit={form.handleSubmit(onSubmit)}
+                                        className="space-y-6"
+                                    >
+                                        <FormField
+                                            control={form.control}
+                                            name="selectedNBack"
+                                            render={({ field }) => (
+                                                <FormItem className="space-y-3">
+                                                    <FormLabel className="flex items-center justify-between">
+                                                        N-Back Level
+                                                        <span className="text-sm text-muted-foreground">
+                                                            {field.value}-Back
+                                                        </span>
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Slider
+                                                            min={1}
+                                                            max={
+                                                                GAME_CONFIG
+                                                                    .difficulty
+                                                                    .maxLevel
+                                                            }
+                                                            step={1}
+                                                            value={[field.value]}
+                                                            onValueChange={(vals) =>
+                                                                field.onChange(
+                                                                    vals[0]
+                                                                )
+                                                            }
+                                                            disabled={
+                                                                gameState ===
+                                                                "playing"
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                </FormItem>
+                                            )}
+                                        />
 
-                                    <FormField
-                                        control={form.control}
-                                        name="voiceType"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel>
-                                                    Voice Type
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <RadioGroup
-                                                        onValueChange={
-                                                            field.onChange
-                                                        }
-                                                        value={field.value}
-                                                        className="flex space-x-4"
-                                                    >
-                                                        <div className="flex items-center space-x-2">
-                                                            <RadioGroupItem
-                                                                value="male"
-                                                                id="male"
-                                                            />
-                                                            <Label htmlFor="male">
-                                                                Male
-                                                            </Label>
-                                                        </div>
-                                                        <div className="flex items-center space-x-2">
-                                                            <RadioGroupItem
-                                                                value="female"
-                                                                id="female"
-                                                            />
-                                                            <Label htmlFor="female">
-                                                                Female
-                                                            </Label>
-                                                        </div>
-                                                    </RadioGroup>
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    <FormField
-                                        control={form.control}
-                                        name="selectedTypes"
-                                        render={() => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel>
-                                                    Training Mode
-                                                </FormLabel>
-                                                <div className="space-y-2">
-                                                    {["position", "audio"].map(
-                                                        (type) => (
-                                                            <div
-                                                                key={type}
-                                                                className="flex items-center gap-2"
-                                                            >
-                                                                <Checkbox
-                                                                    id={`mode-${type}`}
-                                                                    checked={form
-                                                                        .watch(
-                                                                            "selectedTypes"
-                                                                        )
-                                                                        .includes(
-                                                                            type as
-                                                                                | "position"
-                                                                                | "audio"
-                                                                        )}
-                                                                    onCheckedChange={(
-                                                                        checked
-                                                                    ) => {
-                                                                        const currentTypes =
-                                                                            form.getValues(
-                                                                                "selectedTypes"
-                                                                            );
-                                                                        const newTypes =
-                                                                            checked
-                                                                                ? [
-                                                                                      ...currentTypes,
-                                                                                      type as
-                                                                                          | "position"
-                                                                                          | "audio",
-                                                                                  ]
-                                                                                : currentTypes.filter(
-                                                                                      (
-                                                                                          t
-                                                                                      ) =>
-                                                                                          t !==
-                                                                                          type
-                                                                                  );
-
-                                                                        if (
-                                                                            newTypes.length ===
-                                                                            0
-                                                                        ) {
-                                                                            toast(
-                                                                                "Must keep at least one training mode enabled"
-                                                                            );
-                                                                            return;
-                                                                        }
-
-                                                                        form.setValue(
-                                                                            "selectedTypes",
-                                                                            newTypes
-                                                                        );
-                                                                    }}
-                                                                    disabled={
-                                                                        gameState ===
-                                                                            "playing" ||
-                                                                        (form.watch(
-                                                                            "selectedTypes"
-                                                                        )
-                                                                            .length ===
-                                                                            1 &&
-                                                                            form
-                                                                                .watch(
-                                                                                    "selectedTypes"
-                                                                                )
-                                                                                .includes(
-                                                                                    type as
-                                                                                        | "position"
-                                                                                        | "audio"
-                                                                                ))
-                                                                    }
+                                        <FormField
+                                            control={form.control}
+                                            name="voiceType"
+                                            render={({ field }) => (
+                                                <FormItem className="space-y-3">
+                                                    <FormLabel>
+                                                        Voice Type
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <RadioGroup
+                                                            onValueChange={
+                                                                field.onChange
+                                                            }
+                                                            value={field.value}
+                                                            className="flex space-x-4"
+                                                        >
+                                                            <div className="flex items-center space-x-2">
+                                                                <RadioGroupItem
+                                                                    value="male"
+                                                                    id="male"
                                                                 />
-                                                                <Label
-                                                                    htmlFor={`mode-${type}`}
-                                                                >
-                                                                    {type
-                                                                        .charAt(
-                                                                            0
-                                                                        )
-                                                                        .toUpperCase() +
-                                                                        type.slice(
-                                                                            1
-                                                                        )}
+                                                                <Label htmlFor="male">
+                                                                    Male
                                                                 </Label>
                                                             </div>
-                                                        )
-                                                    )}
-                                                </div>
-                                            </FormItem>
-                                        )}
-                                    />
+                                                            <div className="flex items-center space-x-2">
+                                                                <RadioGroupItem
+                                                                    value="female"
+                                                                    id="female"
+                                                                />
+                                                                <Label htmlFor="female">
+                                                                    Female
+                                                                </Label>
+                                                            </div>
+                                                        </RadioGroup>
+                                                    </FormControl>
+                                                </FormItem>
+                                            )}
+                                        />
 
-                                    <FormField
-                                        control={form.control}
-                                        name="trialsPerRound"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel className="flex items-center justify-between">
-                                                    Trials Per Round
-                                                    <span className="text-sm text-muted-foreground">
-                                                        {field.value} trials
-                                                    </span>
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Slider
-                                                        min={10}
-                                                        max={50}
-                                                        step={5}
-                                                        value={[field.value]}
-                                                        onValueChange={(vals) =>
-                                                            field.onChange(
-                                                                vals[0]
+                                        <FormField
+                                            control={form.control}
+                                            name="selectedTypes"
+                                            render={() => (
+                                                <FormItem className="space-y-3">
+                                                    <FormLabel>
+                                                        Training Mode
+                                                    </FormLabel>
+                                                    <div className="space-y-2">
+                                                        {["position", "audio"].map(
+                                                            (type) => (
+                                                                <div
+                                                                    key={type}
+                                                                    className="flex items-center gap-2"
+                                                                >
+                                                                    <Checkbox
+                                                                        id={`mode-${type}`}
+                                                                        checked={form
+                                                                            .watch(
+                                                                                "selectedTypes"
+                                                                            )
+                                                                            .includes(
+                                                                                type as
+                                                                                    | "position"
+                                                                                    | "audio"
+                                                                            )}
+                                                                        onCheckedChange={(
+                                                                            checked
+                                                                        ) => {
+                                                                            const currentTypes =
+                                                                                form.getValues(
+                                                                                    "selectedTypes"
+                                                                                );
+                                                                            const newTypes =
+                                                                                checked
+                                                                                    ? [
+                                                                                          ...currentTypes,
+                                                                                          type as
+                                                                                              | "position"
+                                                                                              | "audio",
+                                                                                      ]
+                                                                                    : currentTypes.filter(
+                                                                                          (
+                                                                                              t
+                                                                                          ) =>
+                                                                                              t !==
+                                                                                              type
+                                                                                      );
+
+                                                                            if (
+                                                                                newTypes.length ===
+                                                                                0
+                                                                            ) {
+                                                                                toast(
+                                                                                    "Must keep at least one training mode enabled"
+                                                                                );
+                                                                                return;
+                                                                            }
+
+                                                                            form.setValue(
+                                                                                "selectedTypes",
+                                                                                newTypes
+                                                                            );
+                                                                        }}
+                                                                        disabled={
+                                                                            gameState ===
+                                                                                "playing" ||
+                                                                            (form.watch(
+                                                                                "selectedTypes"
+                                                                            )
+                                                                                .length ===
+                                                                                1 &&
+                                                                                form
+                                                                                    .watch(
+                                                                                        "selectedTypes"
+                                                                                    )
+                                                                                    .includes(
+                                                                                        type as
+                                                                                            | "position"
+                                                                                            | "audio"
+                                                                                    ))
+                                                                        }
+                                                                    />
+                                                                    <Label
+                                                                        htmlFor={`mode-${type}`}
+                                                                    >
+                                                                        {type
+                                                                            .charAt(
+                                                                                0
+                                                                            )
+                                                                            .toUpperCase() +
+                                                                            type.slice(
+                                                                                1
+                                                                            )}
+                                                                    </Label>
+                                                                </div>
                                                             )
-                                                        }
-                                                        disabled={
-                                                            gameState ===
-                                                            "playing"
-                                                        }
-                                                    />
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
-                                    />
+                                                        )}
+                                                    </div>
+                                                </FormItem>
+                                            )}
+                                        />
 
-                                    <FormField
-                                        control={form.control}
-                                        name="trialInterval"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-3">
-                                                <FormLabel className="flex items-center justify-between">
-                                                    Trial Speed
-                                                    <span className="text-sm text-muted-foreground">
-                                                        {(
-                                                            field.value / 1000
-                                                        ).toFixed(1)}
-                                                        s
-                                                    </span>
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Slider
-                                                        min={1500}
-                                                        max={4000}
-                                                        step={250}
-                                                        value={[field.value]}
-                                                        onValueChange={(vals) =>
-                                                            field.onChange(
-                                                                vals[0]
-                                                            )
-                                                        }
-                                                        disabled={
-                                                            gameState ===
-                                                            "playing"
-                                                        }
-                                                    />
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
-                                    />
+                                        <FormField
+                                            control={form.control}
+                                            name="trialsPerRound"
+                                            render={({ field }) => (
+                                                <FormItem className="space-y-3">
+                                                    <FormLabel className="flex items-center justify-between">
+                                                        Trials Per Round
+                                                        <span className="text-sm text-muted-foreground">
+                                                            {field.value} trials
+                                                        </span>
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Slider
+                                                            min={10}
+                                                            max={50}
+                                                            step={5}
+                                                            value={[field.value]}
+                                                            onValueChange={(vals) =>
+                                                                field.onChange(
+                                                                    vals[0]
+                                                                )
+                                                            }
+                                                            disabled={
+                                                                gameState ===
+                                                                "playing"
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                </FormItem>
+                                            )}
+                                        />
 
-                                    <DialogFooter>
-                                        <Button
-                                            type="submit"
-                                            disabled={gameState === "playing"}
-                                        >
-                                            Save Changes
-                                        </Button>
-                                    </DialogFooter>
-                                </form>
-                            </Form>
-                        </DialogContent>
-                    </Dialog>
-                </div>
-            </div>
+                                        <FormField
+                                            control={form.control}
+                                            name="trialInterval"
+                                            render={({ field }) => (
+                                                <FormItem className="space-y-3">
+                                                    <FormLabel className="flex items-center justify-between">
+                                                        Trial Speed
+                                                        <span className="text-sm text-muted-foreground">
+                                                            {(
+                                                                field.value / 1000
+                                                            ).toFixed(1)}
+                                                            s
+                                                        </span>
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Slider
+                                                            min={1500}
+                                                            max={4000}
+                                                            step={250}
+                                                            value={[field.value]}
+                                                            onValueChange={(vals) =>
+                                                                field.onChange(
+                                                                    vals[0]
+                                                                )
+                                                            }
+                                                            disabled={
+                                                                gameState ===
+                                                                "playing"
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                </FormItem>
+                                            )}
+                                        />
 
-            <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
-                {gameState === "idle" ? (
-                    <div className="text-center py-8">
-                        <div className="mb-6 p-4 bg-muted/30 rounded-lg">
-                            <h3 className="text-lg font-medium mb-2">
-                                Dual N-Back Challenge
-                            </h3>
-                            <p className="text-muted-foreground">
-                                Track {settings.selectedTypes.join(" and ")}{" "}
-                                from {settings.selectedNBack} steps back.
-                            </p>
-                        </div>
-                        <div className="flex justify-center">
-                            <ShimmerButton
-                                onClick={startGame}
-                                disabled={isLoading}
-                            >
-                                <span className="flex items-center justify-center text-white">
-                                    <PlayCircle className="w-5 h-5 mr-2" />
-                                    {isLoading
-                                        ? "Starting..."
-                                        : "Start Challenge"}
-                                </span>
-                            </ShimmerButton>
-                        </div>
+                                        <DialogFooter>
+                                            <Button
+                                                type="submit"
+                                                disabled={gameState === "playing"}
+                                            >
+                                                Save Changes
+                                            </Button>
+                                        </DialogFooter>
+                                    </form>
+                                </Form>
+                            </DialogContent>
+                        </Dialog>
                     </div>
-                ) : gameState === "playing" ? (
-                    <div className="text-center py-6">
-                        <div className="text-lg font-medium mb-4">
-                            Trial {currentTrial} of {settings.trialsPerRound}
-                        </div>
+                </div>
 
-                        {/* Only show the grid if position is a selected type */}
-                        {settings.selectedTypes.includes("position") && (
-                            <div
-                                className={cn(
-                                    "grid grid-cols-3 gap-2 mx-auto mb-6"
-                                )}
-                            >
-                                {Array.from({ length: 9 }).map((_, index) => (
-                                    <div
-                                        key={index}
-                                        className={cn(
-                                            "aspect-square rounded-lg transition-all duration-300",
-                                            activePosition === index
-                                                ? "bg-primary"
-                                                : "bg-foreground/5"
-                                        )}
-                                    />
-                                ))}
+                <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
+                    {gameState === "idle" ? (
+                        <div className="text-center py-8">
+                            <div className="mb-6 p-4 bg-muted/30 rounded-lg">
+                                <h3 className="text-lg font-medium mb-2">
+                                    Dual N-Back Challenge
+                                </h3>
+                                <p className="text-muted-foreground">
+                                    Track {settings.selectedTypes.join(" and ")}{" "}
+                                    from {settings.selectedNBack} steps back.
+                                </p>
                             </div>
-                        )}
+                            <div className="flex justify-center">
+                                <ShimmerButton
+                                    onClick={startGame}
+                                    disabled={isLoading}
+                                >
+                                    <span className="flex items-center justify-center text-white">
+                                        <PlayCircle className="w-5 h-5 mr-2" />
+                                        {isLoading
+                                            ? "Starting..."
+                                            : "Start Challenge"}
+                                    </span>
+                                </ShimmerButton>
+                            </div>
+                        </div>
+                    ) : gameState === "playing" ? (
+                        <div className="text-center py-6">
+                            <div className="text-lg font-medium mb-4">
+                                Trial {currentTrial} of {settings.trialsPerRound}
+                            </div>
 
-                        {/* If only audio is selected, show a visual indicator for audio */}
-                        {!settings.selectedTypes.includes("position") &&
-                            settings.selectedTypes.includes("audio") && (
-                                <div className="flex justify-center items-center h-32 mb-6">
-                                    <div
+                            {/* Only show the grid if position is a selected type */}
+                            {settings.selectedTypes.includes("position") && (
+                                <div
+                                    className={cn(
+                                        "grid grid-cols-3 gap-2 mx-auto mb-6"
+                                    )}
+                                >
+                                    {Array.from({ length: 9 }).map((_, index) => (
+                                        <div
+                                            key={index}
+                                            className={cn(
+                                                "aspect-square rounded-lg transition-all duration-300",
+                                                activePosition === index
+                                                    ? "bg-primary"
+                                                    : "bg-foreground/5"
+                                            )}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* If only audio is selected, show a visual indicator for audio */}
+                            {!settings.selectedTypes.includes("position") &&
+                                settings.selectedTypes.includes("audio") && (
+                                    <div className="flex justify-center items-center h-32 mb-6">
+                                        <div
+                                            className={cn(
+                                                "w-16 h-16 rounded-full flex items-center justify-center",
+                                                isAudioPlaying
+                                                    ? "bg-primary/20"
+                                                    : "bg-foreground/5"
+                                            )}
+                                        >
+                                            <Volume2
+                                                className={cn(
+                                                    "w-8 h-8",
+                                                    isAudioPlaying
+                                                        ? "text-primary animate-pulse"
+                                                        : "text-muted-foreground"
+                                                )}
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+
+                            <div className="flex justify-center gap-4">
+                                {settings.selectedTypes.includes("position") && (
+                                    <Button
+                                        onClick={() => handleResponse("position")}
+                                        variant="ghost"
                                         className={cn(
-                                            "w-16 h-16 rounded-full flex items-center justify-center",
-                                            isAudioPlaying
-                                                ? "bg-primary/20"
-                                                : "bg-foreground/5"
+                                            "border-2 rounded-full shadow-none",
+                                            isPositionHighlight &&
+                                                "hover:border-primary border-primary"
+                                        )}
+                                    >
+                                        <Square className="w-4 h-4 mr-1 bg-primary" />
+                                        A: Position Match
+                                    </Button>
+                                )}
+                                {settings.selectedTypes.includes("audio") && (
+                                    <Button
+                                        onClick={() => handleResponse("audio")}
+                                        variant="ghost"
+                                        className={cn(
+                                            "border-2 rounded-full shadow-none",
+                                            isAudioHighlight &&
+                                                "hover:border-primary border-primary"
                                         )}
                                     >
                                         <Volume2
                                             className={cn(
-                                                "w-8 h-8",
-                                                isAudioPlaying
-                                                    ? "text-primary animate-pulse"
-                                                    : "text-muted-foreground"
+                                                "w-4 h-4 mr-1",
+                                                isAudioPlaying && "animate-pulse"
                                             )}
                                         />
-                                    </div>
-                                </div>
-                            )}
-
-                        <div className="flex justify-center gap-4">
-                            {settings.selectedTypes.includes("position") && (
-                                <Button
-                                    onClick={() => handleResponse("position")}
-                                    variant="ghost"
-                                    className={cn(
-                                        "border-2 rounded-full shadow-none",
-                                        isPositionHighlight &&
-                                            "hover:border-primary border-primary"
-                                    )}
-                                >
-                                    <Square className="w-4 h-4 mr-1 bg-primary" />
-                                    A: Position Match
-                                </Button>
-                            )}
-                            {settings.selectedTypes.includes("audio") && (
-                                <Button
-                                    onClick={() => handleResponse("audio")}
-                                    variant="ghost"
-                                    className={cn(
-                                        "border-2 rounded-full shadow-none",
-                                        isAudioHighlight &&
-                                            "hover:border-primary border-primary"
-                                    )}
-                                >
-                                    <Volume2
-                                        className={cn(
-                                            "w-4 h-4 mr-1",
-                                            isAudioPlaying && "animate-pulse"
-                                        )}
-                                    />
-                                    L: Sound Match
-                                </Button>
-                            )}
-                        </div>
-                    </div>
-                ) : (
-                    <div className="text-center py-8">
-                        <h2 className="text-xl font-bold mb-4">
-                            Training Results
-                        </h2>
-                        <div className="bg-muted/30 p-6 rounded-lg mb-6 max-w-md mx-auto">
-                            <div
-                                className={cn(
-                                    "grid gap-6",
-                                    settings.selectedTypes.length === 2
-                                        ? "grid-cols-2"
-                                        : "grid-cols-1"
-                                )}
-                            >
-                                {settings.selectedTypes.includes(
-                                    "position"
-                                ) && (
-                                    <div
-                                        className={cn(
-                                            "space-y-3",
-                                            settings.selectedTypes.length ===
-                                                2 && "border-r pr-4"
-                                        )}
-                                    >
-                                        <h3 className="font-semibold text-primary">
-                                            Position
-                                        </h3>
-                                        <div className="flex flex-col items-center">
-                                            <div className="text-3xl font-bold">
-                                                {accuracy.position.correct}/
-                                                {accuracy.position.total}
-                                            </div>
-                                            <div className="text-sm text-muted-foreground">
-                                                {accuracy.position.total > 0
-                                                    ? Math.round(
-                                                          (accuracy.position
-                                                              .correct /
-                                                              accuracy.position
-                                                                  .total) *
-                                                              100
-                                                      )
-                                                    : 0}
-                                                % Accuracy
-                                            </div>
-                                        </div>
-                                        <div className="text-xs text-muted-foreground space-y-1">
-                                            <div className="flex justify-between">
-                                                <span>Missed:</span>
-                                                <span>
-                                                    {accuracy.position.missed}
-                                                </span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span>False Alarms:</span>
-                                                <span>
-                                                    {
-                                                        accuracy.position
-                                                            .falseAlarms
-                                                    }
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {settings.selectedTypes.includes("audio") && (
-                                    <div
-                                        className={cn(
-                                            "space-y-3",
-                                            settings.selectedTypes.length ===
-                                                2 && "pl-2"
-                                        )}
-                                    >
-                                        <h3 className="font-semibold text-primary">
-                                            Audio
-                                        </h3>
-                                        <div className="flex flex-col items-center">
-                                            <div className="text-3xl font-bold">
-                                                {accuracy.audio.correct}/
-                                                {accuracy.audio.total}
-                                            </div>
-                                            <div className="text-sm text-muted-foreground">
-                                                {accuracy.audio.total > 0
-                                                    ? Math.round(
-                                                          (accuracy.audio
-                                                              .correct /
-                                                              accuracy.audio
-                                                                  .total) *
-                                                              100
-                                                      )
-                                                    : 0}
-                                                % Accuracy
-                                            </div>
-                                        </div>
-                                        <div className="text-xs text-muted-foreground space-y-1">
-                                            <div className="flex justify-between">
-                                                <span>Missed:</span>
-                                                <span>
-                                                    {accuracy.audio.missed}
-                                                </span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span>False Alarms:</span>
-                                                <span>
-                                                    {accuracy.audio.falseAlarms}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        L: Sound Match
+                                    </Button>
                                 )}
                             </div>
+                        </div>
+                    ) : (
+                        <div className="text-center py-8">
+                            <h2 className="text-xl font-bold mb-4">
+                                Training Results
+                            </h2>
+                            <div className="bg-muted/30 p-6 rounded-lg mb-6 max-w-md mx-auto">
+                                <div
+                                    className={cn(
+                                        "grid gap-6",
+                                        settings.selectedTypes.length === 2
+                                            ? "grid-cols-2"
+                                            : "grid-cols-1"
+                                    )}
+                                >
+                                    {settings.selectedTypes.includes(
+                                        "position"
+                                    ) && (
+                                        <div
+                                            className={cn(
+                                                "space-y-3",
+                                                settings.selectedTypes.length ===
+                                                    2 && "border-r pr-4"
+                                            )}
+                                        >
+                                            <h3 className="font-semibold text-primary">
+                                                Position
+                                            </h3>
+                                            <div className="flex flex-col items-center">
+                                                <div className="text-3xl font-bold">
+                                                    {accuracy.position.correct}/
+                                                    {accuracy.position.total}
+                                                </div>
+                                                <div className="text-sm text-muted-foreground">
+                                                    {accuracy.position.total > 0
+                                                        ? Math.round(
+                                                              (accuracy.position
+                                                                  .correct /
+                                                                  accuracy.position
+                                                                      .total) *
+                                                              100
+                                                          )
+                                                        : 0}
+                                                    % Accuracy
+                                                </div>
+                                            </div>
+                                            <div className="text-xs text-muted-foreground space-y-1">
+                                                <div className="flex justify-between">
+                                                    <span>Missed:</span>
+                                                    <span>
+                                                        {accuracy.position.missed}
+                                                    </span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span>False Alarms:</span>
+                                                    <span>
+                                                        {
+                                                            accuracy.position
+                                                                .falseAlarms
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
 
-                            <div className="mt-6 pt-4 border-t border-border/40">
-                                <div className="text-sm">
-                                    {settings.selectedTypes.length === 2 && (
-                                        <div className="flex justify-between items-center">
-                                            <span className="font-medium">
-                                                Overall Performance:
-                                            </span>
-                                            <span className="font-bold">
-                                                {Math.round(
-                                                    ((accuracy.position
-                                                        .correct +
-                                                        accuracy.audio
-                                                            .correct) /
+                                    {settings.selectedTypes.includes("audio") && (
+                                        <div
+                                            className={cn(
+                                                "space-y-3",
+                                                settings.selectedTypes.length ===
+                                                    2 && "pl-2"
+                                            )}
+                                        >
+                                            <h3 className="font-semibold text-primary">
+                                                Audio
+                                            </h3>
+                                            <div className="flex flex-col items-center">
+                                                <div className="text-3xl font-bold">
+                                                    {accuracy.audio.correct}/
+                                                    {accuracy.audio.total}
+                                                </div>
+                                                <div className="text-sm text-muted-foreground">
+                                                    {accuracy.audio.total > 0
+                                                        ? Math.round(
+                                                              (accuracy.audio
+                                                                  .correct /
+                                                                  accuracy.audio
+                                                                      .total) *
+                                                              100
+                                                          )
+                                                        : 0}
+                                                    % Accuracy
+                                                </div>
+                                            </div>
+                                            <div className="text-xs text-muted-foreground space-y-1">
+                                                <div className="flex justify-between">
+                                                    <span>Missed:</span>
+                                                    <span>
+                                                        {accuracy.audio.missed}
+                                                    </span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span>False Alarms:</span>
+                                                    <span>
+                                                        {accuracy.audio.falseAlarms}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="mt-6 pt-4 border-t border-border/40">
+                                    <div className="text-sm">
+                                        {settings.selectedTypes.length === 2 && (
+                                            <div className="flex justify-between items-center">
+                                                <span className="font-medium">
+                                                    Overall Performance:
+                                                </span>
+                                                <span className="font-bold">
+                                                    {Math.round(
+                                                        ((accuracy.position
+                                                            .correct +
+                                                            accuracy.audio
+                                                                .correct) /
                                                         (accuracy.position
                                                             .total +
                                                             accuracy.audio
                                                                 .total || 1)) *
                                                         100
-                                                )}
-                                                %
-                                            </span>
+                                                    )}
+                                                    %
+                                                </span>
+                                            </div>
+                                        )}
+                                        <div className="mt-2 text-xs text-muted-foreground">
+                                            <p>
+                                                Level: {settings.selectedNBack}-Back
+                                                • Trials: {currentTrial}
+                                            </p>
                                         </div>
-                                    )}
-                                    <div className="mt-2 text-xs text-muted-foreground">
-                                        <p>
-                                            Level: {settings.selectedNBack}-Back
-                                            • Trials: {currentTrial}
-                                        </p>
                                     </div>
                                 </div>
                             </div>
+                            <div className="flex justify-center gap-4 mt-6">
+                                <Button
+                                    className="rounded-full"
+                                    onClick={startGame}
+                                    disabled={isLoading}
+                                >
+                                    <PlayCircle className="w-4 h-4 mr-2" />
+                                    Play Again
+                                </Button>
+                                <Button
+                                    className="rounded-full"
+                                    variant="outline"
+                                    onClick={shareScore}
+                                >
+                                    <Share2 className="w-4 h-4 mr-2" />
+                                    Share
+                                </Button>
+                            </div>
                         </div>
-                        <div className="flex justify-center gap-4 mt-6">
-                            <Button
-                                className="rounded-full"
-                                onClick={startGame}
-                                disabled={isLoading}
-                            >
-                                <PlayCircle className="w-4 h-4 mr-2" />
-                                Play Again
-                            </Button>
-                            <Button
-                                className="rounded-full"
-                                variant="outline"
-                                onClick={shareScore}
-                            >
-                                <Share2 className="w-4 h-4 mr-2" />
-                                Share
-                            </Button>
-                        </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
+            
+            {/* Add ShareModal at the end of the component */}
+            <ShareModal 
+                isOpen={showShareModal}
+                onClose={() => setShowShareModal(false)}
+            />
         </div>
     );
 }

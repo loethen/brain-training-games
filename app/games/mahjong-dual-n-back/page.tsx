@@ -122,7 +122,7 @@ export default function MahjongDualNBackPage() {
                   answer: "No prior knowledge of mahjong is required. While we use the beautiful visual elements of traditional mahjong tiles, the cognitive task focuses on remembering positions and sounds rather than mahjong gameplay. The exercise is designed to be accessible to everyone regardless of their familiarity with mahjong.",
               },
           ]}
-          relatedGames={["dual-n-back", ]}
+          relatedGames={["dual-n-back", "pattern-recall-challenge"]}
       />
   );
 } 

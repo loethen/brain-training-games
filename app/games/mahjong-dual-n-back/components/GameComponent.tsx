@@ -16,6 +16,7 @@ import confetti from "canvas-confetti";
 import Image from "next/image";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import SettingsDialog, { GameSettings } from "./SettingsDialog";
+import { ShareModal } from "@/components/ui/ShareModal";
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
 type GameState = "idle" | "playing" | "complete";
@@ -125,6 +126,9 @@ export default function GameComponent() {
 
     // 添加滑动位置状态
     const [slidePosition, setSlidePosition] = useState(0);
+
+    // 添加分享模态状态
+    const [showShareModal, setShowShareModal] = useState(false);
 
     // 提取所有重置逻辑到一个函数
     const resetAllGameState = useCallback(() => {
@@ -284,7 +288,7 @@ export default function GameComponent() {
         setCurrentResponse((prev) => {
             // 如果已经响应过该类型，则不再更新
             if (prev[`${type}Match`] !== null) {
-                toast("You have already responded to this type");
+                // toast("You have already responded to this type");
                 return prev;
             }
 
@@ -579,34 +583,8 @@ export default function GameComponent() {
 
     // 分享游戏分数
     const shareScore = useCallback(() => {
-        let text = "";
-
-        if (settings.selectedTypes.length === 2) {
-            text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position and ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
-        } else if (settings.selectedTypes.includes("position")) {
-            text = `I achieved ${accuracy.position.correct}/${accuracy.position.total} position accuracy in ${settings.selectedNBack}-Back training!`;
-        } else {
-            text = `I achieved ${accuracy.audio.correct}/${accuracy.audio.total} audio accuracy in ${settings.selectedNBack}-Back training!`;
-        }
-
-        if (navigator.share) {
-            navigator
-                .share({
-                    title: `My ${
-                        settings.selectedTypes.length === 2
-                            ? "Dual"
-                            : settings.selectedTypes[0]
-                    } N-Back Score`,
-                    text,
-                    url: window.location.href,
-                })
-                .catch(console.error);
-        } else {
-            navigator.clipboard
-                .writeText(text + " " + window.location.href)
-                .then(() => alert("Score copied to clipboard!"));
-        }
-    }, [settings.selectedNBack, settings.selectedTypes, accuracy]);
+        setShowShareModal(true);
+    }, []);
 
     // 添加键盘快捷键支持
     useEffect(() => {
@@ -637,385 +615,392 @@ export default function GameComponent() {
     }, [gameState, isPaused, settings.trialInterval]);
 
     return (
-        <div
-            className="container mx-auto p-4 flex flex-col justify-center"
-            ref={gameContainerRef}
-            style={{ scrollMarginTop: "90px" }}
-        >
-            <div className="flex justify-between items-center mb-6">
-                <div className="flex flex-col">
-                    <div className="flex items-center gap-2 text-sm text-white">
-                        <span>
-                            {settings.selectedTypes.length === 2
-                                ? "Dual"
-                                : settings.selectedTypes[0]}
-                        </span>
-                        <span>•</span>
-                        <span className="font-medium">
-                            {settings.selectedNBack}-back
-                        </span>
-                    </div>
-                </div>
-                <div className="flex items-center gap-2">
-                    {gameState === "playing" && (
-                        <>
-                            <Button
-                                onClick={togglePause}
-                                variant="outline"
-                                size="sm"
-                            >
-                                {isPaused ? (
-                                    <PlayCircle className="h-4 w-4" />
-                                ) : (
-                                    <PauseCircle className="h-4 w-4" />
-                                )}
-                            </Button>
-                            <Button
-                                onClick={()=>window.location.reload()}
-                                variant="outline"
-                                size="sm"
-                            >
-                                Restart
-                            </Button>
-                        </>
-                    )}
-                    <SettingsDialog 
-                        settings={settings}
-                        updateSettings={updateSettings}
-                        isDisabled={gameState === "playing"}
-                    />
-                </div>
-            </div>
-
-            <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
-                {gameState === "idle" ? (
-                    <div className="text-center py-8">
-                        <div className="p-8 bg-muted/20 rounded-lg mb-16">
-                            <h3 className="text-lg font-medium mb-2 text-white">
-                                Mahjong Dual N-Back Challenge
-                            </h3>
-                            <p className="text-white/80">
-                                Track {settings.selectedTypes.join(" and ")}{" "}
-                                from {settings.selectedNBack} steps back.
-                            </p>
-                        </div>
-                        <div className="flex justify-center">
-                            <ShimmerButton
-                                onClick={startGame}
-                                disabled={isLoading || preloadState.isPreloading}
-                            >
-                                {preloadState.isPreloading ? (
-                                    <>
-                                        <span className="animate-spin mr-2">⏳</span>
-                                        Loading... ({preloadState.loadedAudio}/{preloadState.totalAudio} audio, 
-                                        {preloadState.loadedImages}/{preloadState.totalImages} images)
-                                    </>
-                                ) : (
-                                    <>
-                                        <PlayCircle className="w-5 h-5 mr-2" />
-                                        Start Training
-                                    </>
-                                )}
-                            </ShimmerButton>
+        <div className="space-y-8 max-w-lg mx-auto">
+            <div
+                className="container mx-auto p-4 flex flex-col justify-center"
+                ref={gameContainerRef}
+                style={{ scrollMarginTop: "90px" }}
+            >
+                <div className="flex justify-between items-center mb-6">
+                    <div className="flex flex-col">
+                        <div className="flex items-center gap-2 text-sm text-white">
+                            <span>
+                                {settings.selectedTypes.length === 2
+                                    ? "Dual"
+                                    : settings.selectedTypes[0]}
+                            </span>
+                            <span>•</span>
+                            <span className="font-medium">
+                                {settings.selectedNBack}-back
+                            </span>
                         </div>
                     </div>
-                ) : gameState === "playing" ? (
-                    <div className="text-center py-6">
-                        <div className="text-lg font-medium text-white">
-                            Trial {currentTrial} of {settings.trialsPerRound}
-                        </div>
+                    <div className="flex items-center gap-2">
+                        {gameState === "playing" && (
+                            <>
+                                <Button
+                                    onClick={togglePause}
+                                    variant="outline"
+                                    size="sm"
+                                >
+                                    {isPaused ? (
+                                        <PlayCircle className="h-4 w-4" />
+                                    ) : (
+                                        <PauseCircle className="h-4 w-4" />
+                                    )}
+                                </Button>
+                                <Button
+                                    onClick={()=>window.location.reload()}
+                                    variant="outline"
+                                    size="sm"
+                                >
+                                    Restart
+                                </Button>
+                            </>
+                        )}
+                        <SettingsDialog 
+                            settings={settings}
+                            updateSettings={updateSettings}
+                            isDisabled={gameState === "playing"}
+                        />
+                    </div>
+                </div>
 
-                        <div className="relative w-[176px] mx-auto overflow-hidden pt-6 pb-20">
-                            <div
-                                className="flex gap-12"
-                                style={{
-                                    transform: `translateX(${slidePosition}px)`,
-                                    transition: "transform 0.3s ease-in-out",
-                                }}
-                            >
-                                {trialHistory.map((trial, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex-shrink-0 flex items-center justify-center"
-                                    >
+                <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
+                    {gameState === "idle" ? (
+                        <div className="text-center py-8">
+                            <div className="p-8 bg-muted/20 rounded-lg mb-16">
+                                <h3 className="text-lg font-medium mb-2 text-white">
+                                    Mahjong Dual N-Back Challenge
+                                </h3>
+                                <p className="text-white/80">
+                                    Track {settings.selectedTypes.join(" and ")}{" "}
+                                    from {settings.selectedNBack} steps back.
+                                </p>
+                            </div>
+                            <div className="flex justify-center">
+                                <ShimmerButton
+                                    onClick={startGame}
+                                    disabled={isLoading || preloadState.isPreloading}
+                                >
+                                    {preloadState.isPreloading ? (
+                                        <>
+                                            <span className="animate-spin mr-2">⏳</span>
+                                            Loading...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <PlayCircle className="w-5 h-5 mr-2" />
+                                            Start Training
+                                        </>
+                                    )}
+                                </ShimmerButton>
+                            </div>
+                        </div>
+                    ) : gameState === "playing" ? (
+                        <div className="text-center py-6">
+                            <div className="text-lg font-medium text-white">
+                                Trial {currentTrial} of {settings.trialsPerRound}
+                            </div>
+
+                            <div className="relative w-[176px] mx-auto overflow-hidden pt-6 pb-20">
+                                <div
+                                    className="flex gap-12"
+                                    style={{
+                                        transform: `translateX(${slidePosition}px)`,
+                                        transition: "transform 0.3s ease-in-out",
+                                    }}
+                                >
+                                    {trialHistory.map((trial, index) => (
+                                        <div
+                                            key={index}
+                                            className="flex-shrink-0 flex items-center justify-center"
+                                        >
+                                            <div
+                                                className={cn(
+                                                    "bg-white rounded-2xl shadow-[6px_6px_0px_#ddd,12px_14px_0px_#10ab3b] w-[160px] aspect-[2/3] flex items-center justify-center relative before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] before:pointer-events-none",
+                                                    index === trialHistory.length - 1 && "ring-3 ring-primary"
+                                                )}
+                                            >
+                                                <Image
+                                                    src={`${GAME_CONFIG.symbolBasePath}${trial.position}.svg`}
+                                                    alt={trial.position}
+                                                    width={120}
+                                                    height={180}
+                                                    style={{
+                                                        width: "120px",
+                                                        height: "180px",
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* If only audio is selected, show a visual indicator for audio */}
+                            {!settings.selectedTypes.includes("position") &&
+                                settings.selectedTypes.includes("audio") && (
+                                    <div className="flex justify-center items-center h-32 mb-6">
                                         <div
                                             className={cn(
-                                                "bg-white rounded-2xl shadow-[6px_6px_0px_#ddd,12px_14px_0px_#10ab3b] w-[160px] aspect-[2/3] flex items-center justify-center relative before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] before:pointer-events-none",
-                                                index === trialHistory.length - 1 && "ring-3 ring-primary"
+                                                "w-16 h-16 rounded-full flex items-center justify-center",
+                                                isAudioPlaying
+                                                    ? "bg-primary/20"
+                                                    : "bg-foreground/5"
                                             )}
                                         >
-                                            <Image
-                                                src={`${GAME_CONFIG.symbolBasePath}${trial.position}.svg`}
-                                                alt={trial.position}
-                                                width={120}
-                                                height={180}
-                                                style={{
-                                                    width: "120px",
-                                                    height: "180px",
-                                                }}
+                                            <Volume2
+                                                className={cn(
+                                                    "w-8 h-8",
+                                                    isAudioPlaying
+                                                        ? "text-primary animate-pulse"
+                                                        : "text-muted-foreground"
+                                                )}
                                             />
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* If only audio is selected, show a visual indicator for audio */}
-                        {!settings.selectedTypes.includes("position") &&
-                            settings.selectedTypes.includes("audio") && (
-                                <div className="flex justify-center items-center h-32 mb-6">
-                                    <div
-                                        className={cn(
-                                            "w-16 h-16 rounded-full flex items-center justify-center",
-                                            isAudioPlaying
-                                                ? "bg-primary/20"
-                                                : "bg-foreground/5"
-                                        )}
-                                    >
-                                        <Volume2
-                                            className={cn(
-                                                "w-8 h-8",
-                                                isAudioPlaying
-                                                    ? "text-primary animate-pulse"
-                                                    : "text-muted-foreground"
-                                            )}
-                                        />
-                                    </div>
-                                </div>
-                            )}
-
-                        <div className="flex justify-center gap-4">
-                            {settings.selectedTypes.includes("position") && (
-                                <Button
-                                    onClick={() => handleResponse("position")}
-                                    variant="outline"
-                                    className={cn(
-                                        "rounded-lg shadow-md bg-white/90 border-2 border-emerald-800 hover:bg-white",
-                                        "text-emerald-900 hover:text-emerald-900 font-medium",
-                                        "transition-all duration-200",
-                                        isPositionHighlight &&
-                                            "border-blue-500 ring-2 ring-blue-200"
-                                    )}
-                                >
-                                    <div className="flex items-center space-x-2">
-                                        <div className="w-6 h-6 bg-emerald-100 rounded-md flex items-center justify-center border border-emerald-300">
-                                            <span className="text-emerald-700 text-lg">
-                                                🀫
-                                            </span>
-                                        </div>
-                                        <span>
-                                            Position{" "}
-                                            <span className="text-xs text-emerald-600">
-                                                (A)
-                                            </span>
-                                        </span>
-                                    </div>
-                                </Button>
-                            )}
-                            {settings.selectedTypes.includes("audio") && (
-                                <Button
-                                    onClick={() => handleResponse("audio")}
-                                    variant="outline"
-                                    className={cn(
-                                        "rounded-lg shadow-md bg-white/90 border-2 border-emerald-800 hover:bg-white",
-                                        "text-emerald-900 hover:text-emerald-900 font-medium",
-                                        "transition-all duration-200",
-                                        isAudioHighlight &&
-                                            "border-blue-500 ring-2 ring-blue-200"
-                                    )}
-                                >
-                                    <div className="flex items-center space-x-2">
-                                        <div className="w-6 h-6 bg-amber-100 rounded-md flex items-center justify-center border border-amber-300">
-                                            <span className="text-amber-700 text-lg">
-                                                🀇
-                                            </span>
-                                        </div>
-                                        <span>
-                                            Sound{" "}
-                                            <span className="text-xs text-emerald-600">
-                                                (L)
-                                            </span>
-                                        </span>
-                                    </div>
-                                </Button>
-                            )}
-                        </div>
-                    </div>
-                ) : (
-                    <div className="text-center py-8">
-                        <h2 className="text-xl font-bold mb-4">
-                            Training Results
-                        </h2>
-                        <div className="bg-muted/30 p-6 rounded-lg mb-6 max-w-md mx-auto">
-                            <div
-                                className={cn(
-                                    "grid gap-6",
-                                    settings.selectedTypes.length === 2
-                                        ? "grid-cols-2"
-                                        : "grid-cols-1"
-                                )}
-                            >
-                                {settings.selectedTypes.includes(
-                                    "position"
-                                ) && (
-                                    <div
-                                        className={cn(
-                                            "space-y-3",
-                                            settings.selectedTypes.length ===
-                                                2 && "border-r pr-4"
-                                        )}
-                                    >
-                                        <h3 className="font-semibold text-primary">
-                                            Position
-                                        </h3>
-                                        <div className="flex flex-col items-center">
-                                            <div className="text-3xl font-bold">
-                                                {accuracy.position.correct}/
-                                                {accuracy.position.total}
-                                            </div>
-                                            <div className="text-sm text-muted-foreground">
-                                                {accuracy.position.total > 0
-                                                    ? Math.round(
-                                                          (accuracy.position
-                                                              .correct /
-                                                              accuracy.position
-                                                                  .total) *
-                                                              100
-                                                      )
-                                                    : 0}
-                                                % Accuracy
-                                            </div>
-                                        </div>
-                                        <div className="text-xs text-muted-foreground space-y-1">
-                                            <div className="flex justify-between">
-                                                <span>Missed:</span>
-                                                <span>
-                                                    {accuracy.position.missed}
-                                                </span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span>False Alarms:</span>
-                                                <span>
-                                                    {
-                                                        accuracy.position
-                                                            .falseAlarms
-                                                    }
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 )}
 
+                            <div className="flex justify-center gap-4">
+                                {settings.selectedTypes.includes("position") && (
+                                    <Button
+                                        onClick={() => handleResponse("position")}
+                                        variant="outline"
+                                        className={cn(
+                                            "rounded-lg shadow-md bg-white/90 border-2 border-emerald-800 hover:bg-white",
+                                            "text-emerald-900 hover:text-emerald-900 font-medium",
+                                            "transition-all duration-200",
+                                            isPositionHighlight &&
+                                                "border-blue-500 ring-2 ring-blue-200"
+                                        )}
+                                    >
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-6 h-6 bg-emerald-100 rounded-md flex items-center justify-center border border-emerald-300">
+                                                <span className="text-emerald-700 text-lg">
+                                                    🀫
+                                                </span>
+                                            </div>
+                                            <span>
+                                                Position{" "}
+                                                <span className="text-xs text-emerald-600">
+                                                    (A)
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </Button>
+                                )}
                                 {settings.selectedTypes.includes("audio") && (
-                                    <div
+                                    <Button
+                                        onClick={() => handleResponse("audio")}
+                                        variant="outline"
                                         className={cn(
-                                            "space-y-3",
-                                            settings.selectedTypes.length ===
-                                                2 && "pl-2"
+                                            "rounded-lg shadow-md bg-white/90 border-2 border-emerald-800 hover:bg-white",
+                                            "text-emerald-900 hover:text-emerald-900 font-medium",
+                                            "transition-all duration-200",
+                                            isAudioHighlight &&
+                                                "border-blue-500 ring-2 ring-blue-200"
                                         )}
                                     >
-                                        <h3 className="font-semibold text-primary">
-                                            Audio
-                                        </h3>
-                                        <div className="flex flex-col items-center">
-                                            <div className="text-3xl font-bold">
-                                                {accuracy.audio.correct}/
-                                                {accuracy.audio.total}
-                                            </div>
-                                            <div className="text-sm text-muted-foreground">
-                                                {accuracy.audio.total > 0
-                                                    ? Math.round(
-                                                          (accuracy.audio
-                                                              .correct /
-                                                              accuracy.audio
-                                                                  .total) *
-                                                              100
-                                                      )
-                                                    : 0}
-                                                % Accuracy
-                                            </div>
-                                        </div>
-                                        <div className="text-xs text-muted-foreground space-y-1">
-                                            <div className="flex justify-between">
-                                                <span>Missed:</span>
-                                                <span>
-                                                    {accuracy.audio.missed}
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-6 h-6 bg-amber-100 rounded-md flex items-center justify-center border border-amber-300">
+                                                <span className="text-amber-700 text-lg">
+                                                    🀇
                                                 </span>
                                             </div>
-                                            <div className="flex justify-between">
-                                                <span>False Alarms:</span>
-                                                <span>
-                                                    {accuracy.audio.falseAlarms}
+                                            <span>
+                                                Sound{" "}
+                                                <span className="text-xs text-emerald-600">
+                                                    (L)
                                                 </span>
-                                            </div>
+                                            </span>
                                         </div>
-                                    </div>
+                                    </Button>
                                 )}
                             </div>
+                        </div>
+                    ) : (
+                        <div className="text-center py-8">
+                            <h2 className="text-xl font-bold mb-4">
+                                Training Results
+                            </h2>
+                            <div className="bg-muted/30 p-6 rounded-lg mb-6 max-w-md mx-auto">
+                                <div
+                                    className={cn(
+                                        "grid gap-6",
+                                        settings.selectedTypes.length === 2
+                                            ? "grid-cols-2"
+                                            : "grid-cols-1"
+                                    )}
+                                >
+                                    {settings.selectedTypes.includes(
+                                        "position"
+                                    ) && (
+                                        <div
+                                            className={cn(
+                                                "space-y-3",
+                                                settings.selectedTypes.length ===
+                                                    2 && "border-r pr-4"
+                                            )}
+                                        >
+                                            <h3 className="font-semibold text-primary">
+                                                Position
+                                            </h3>
+                                            <div className="flex flex-col items-center">
+                                                <div className="text-3xl font-bold">
+                                                    {accuracy.position.correct}/
+                                                    {accuracy.position.total}
+                                                </div>
+                                                <div className="text-sm text-muted-foreground">
+                                                    {accuracy.position.total > 0
+                                                        ? Math.round(
+                                                              (accuracy.position
+                                                                  .correct /
+                                                                  accuracy.position
+                                                                      .total) *
+                                                              100
+                                                          )
+                                                        : 0}
+                                                    % Accuracy
+                                                </div>
+                                            </div>
+                                            <div className="text-xs text-muted-foreground space-y-1">
+                                                <div className="flex justify-between">
+                                                    <span>Missed:</span>
+                                                    <span>
+                                                        {accuracy.position.missed}
+                                                    </span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span>False Alarms:</span>
+                                                    <span>
+                                                        {
+                                                            accuracy.position
+                                                                .falseAlarms
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
 
-                            <div className="mt-6 pt-4 border-t border-border/40">
-                                <div className="text-sm">
-                                    {settings.selectedTypes.length === 2 && (
-                                        <div className="flex justify-between items-center">
-                                            <span className="font-medium">
-                                                Overall Performance:
-                                            </span>
-                                            <span className="font-bold">
-                                                {Math.round(
-                                                    ((accuracy.position
-                                                        .correct +
-                                                        accuracy.audio
-                                                            .correct) /
+                                    {settings.selectedTypes.includes("audio") && (
+                                        <div
+                                            className={cn(
+                                                "space-y-3",
+                                                settings.selectedTypes.length ===
+                                                    2 && "pl-2"
+                                            )}
+                                        >
+                                            <h3 className="font-semibold text-primary">
+                                                Audio
+                                            </h3>
+                                            <div className="flex flex-col items-center">
+                                                <div className="text-3xl font-bold">
+                                                    {accuracy.audio.correct}/
+                                                    {accuracy.audio.total}
+                                                </div>
+                                                <div className="text-sm text-muted-foreground">
+                                                    {accuracy.audio.total > 0
+                                                        ? Math.round(
+                                                              (accuracy.audio
+                                                                  .correct /
+                                                                  accuracy.audio
+                                                                      .total) *
+                                                              100
+                                                          )
+                                                        : 0}
+                                                    % Accuracy
+                                                </div>
+                                            </div>
+                                            <div className="text-xs text-muted-foreground space-y-1">
+                                                <div className="flex justify-between">
+                                                    <span>Missed:</span>
+                                                    <span>
+                                                        {accuracy.audio.missed}
+                                                    </span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span>False Alarms:</span>
+                                                    <span>
+                                                        {accuracy.audio.falseAlarms}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="mt-6 pt-4 border-t border-border/40">
+                                    <div className="text-sm">
+                                        {settings.selectedTypes.length === 2 && (
+                                            <div className="flex justify-between items-center">
+                                                <span className="font-medium">
+                                                    Overall Performance:
+                                                </span>
+                                                <span className="font-bold">
+                                                    {Math.round(
+                                                        ((accuracy.position
+                                                            .correct +
+                                                            accuracy.audio
+                                                                .correct) /
                                                         (accuracy.position
                                                             .total +
                                                             accuracy.audio
                                                                 .total || 1)) *
                                                         100
-                                                )}
-                                                %
-                                            </span>
+                                                    )}
+                                                    %
+                                                </span>
+                                            </div>
+                                        )}
+                                        <div className="mt-2 text-xs text-muted-foreground">
+                                            <p>
+                                                Level: {settings.selectedNBack}-Back
+                                                • Trials: {currentTrial}
+                                            </p>
                                         </div>
-                                    )}
-                                    <div className="mt-2 text-xs text-muted-foreground">
-                                        <p>
-                                            Level: {settings.selectedNBack}-Back
-                                            • Trials: {currentTrial}
-                                        </p>
                                     </div>
                                 </div>
                             </div>
+                            <div className="flex justify-center gap-4 mt-6">
+                                <Button
+                                    onClick={startGame}
+                                    disabled={isLoading || preloadState.isPreloading}
+                                    className="rounded-full"
+                                >
+                                    {preloadState.isPreloading ? (
+                                        <>
+                                            <span className="animate-spin mr-2">⏳</span>
+                                            Loading... ({preloadState.loadedAudio}/{preloadState.totalAudio} audio, 
+                                            {preloadState.loadedImages}/{preloadState.totalImages} images)
+                                        </>
+                                    ) : (
+                                        <>
+                                            <PlayCircle className="w-4 h-4 mr-2" />
+                                            Play Again
+                                        </>
+                                    )}
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    onClick={shareScore}
+                                    className="rounded-full"
+                                >
+                                    <Share2 className="w-4 h-4 mr-2" />
+                                    Share
+                                </Button>
+                            </div>
                         </div>
-                        <div className="flex justify-center gap-4 mt-6">
-                            <Button
-                                onClick={startGame}
-                                disabled={isLoading || preloadState.isPreloading}
-                                className="rounded-full"
-                            >
-                                {preloadState.isPreloading ? (
-                                    <>
-                                        <span className="animate-spin mr-2">⏳</span>
-                                        Loading... ({preloadState.loadedAudio}/{preloadState.totalAudio} audio, 
-                                        {preloadState.loadedImages}/{preloadState.totalImages} images)
-                                    </>
-                                ) : (
-                                    <>
-                                        <PlayCircle className="w-4 h-4 mr-2" />
-                                        Play Again
-                                    </>
-                                )}
-                            </Button>
-                            <Button
-                                variant="outline"
-                                onClick={shareScore}
-                                className="rounded-full"
-                            >
-                                <Share2 className="w-4 h-4 mr-2" />
-                                Share
-                            </Button>
-                        </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
+            
+            {/* Add ShareModal at the end of the component */}
+            <ShareModal 
+                isOpen={showShareModal}
+                onClose={() => setShowShareModal(false)}
+            />
         </div>
     );
 }

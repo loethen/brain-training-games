@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { GAME_CONFIG } from '../config';
 import { cn } from '@/lib/utils';
 import { PlayCircle, Clock, Share2} from 'lucide-react';
+import { ShareModal } from '@/components/ui/ShareModal';
 
 type GameState = 'idle' | 'playing' | 'complete';
 type NumberOption = { value: number; position: 'left' | 'right' };
@@ -23,6 +24,7 @@ export default function GameComponent() {
     ]);
     const [isLoading, setIsLoading] = useState(false);
     const [challengeResult, setChallengeResult] = useState<ChallengeResult | null>(null);
+    const [showShareModal, setShowShareModal] = useState(false);
     
     // Stats tracking
     const [totalAttempts, setTotalAttempts] = useState(0);
@@ -130,25 +132,7 @@ export default function GameComponent() {
 
     // Share score
     const shareScore = () => {
-        const currentAccuracy = totalAttempts === 0 ? '--' : Math.round((correctAnswers / totalAttempts) * 100);
-        const accuracyText = currentAccuracy === '--' ? '0%' : `${currentAccuracy}%`;
-        
-        const text = `I completed ${totalAttempts} number comparisons in 30 seconds with an accuracy of ${accuracyText}! You should try it too?`;
-        
-        if (navigator.share) {
-            navigator.share({
-                title: 'My Larger Number Challenge',
-                text: text,
-                url: window.location.href,
-            }).catch(err => {
-                console.error('Error sharing:', err);
-            });
-        } else {
-            // Fallback for browsers that don't support the Web Share API
-            navigator.clipboard.writeText(text + ' ' + window.location.href)
-                .then(() => alert('Score copied to clipboard!'))
-                .catch(err => console.error('Error copying text:', err));
-        }
+        setShowShareModal(true);
     };
 
     // Calculate accuracy
@@ -158,128 +142,136 @@ export default function GameComponent() {
     };
 
     return (
-        <div 
-            className="flex flex-col p-8"
-            ref={gameContainerRef}
-            style={{ scrollMarginTop: "90px" }}
-        >
-            {/* Timer display */}
-            {gameState !== "idle" && (
-                <div className="flex justify-end items-center mb-2">
-                    <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        <span>{Math.ceil(timeLeft / 1000)}s</span>
+        <div className="space-y-8 max-w-lg mx-auto">
+            <div 
+                className="flex flex-col p-8"
+                ref={gameContainerRef}
+                style={{ scrollMarginTop: "90px" }}
+            >
+                {/* Timer display */}
+                {gameState !== "idle" && (
+                    <div className="flex justify-end items-center mb-2">
+                        <div className="flex items-center gap-1">
+                            <Clock className="w-4 h-4" />
+                            <span>{Math.ceil(timeLeft / 1000)}s</span>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {/* Timer progress bar */}
-            {gameState === "playing" && (
-                <div className="mb-4">
-                    <Progress
-                        value={(timeLeft / GAME_CONFIG.gameTime) * 100}
-                        className="h-2"
-                    />
-                </div>
-            )}
-
-            {/* Game content */}
-            <div className="flex-1 flex flex-col items-center justify-center relative">
-                {gameState === "idle" ? (
-                    <div className="text-center">
-                        <div className="mb-8 p-4 bg-muted/30 rounded-lg">
-                            <h3>Complete {GAME_CONFIG.attempts} comparisons in 30s with ≥{GAME_CONFIG.accuracy}% accuracy</h3>
-                        </div>
-                        
-                        <Button
-                            size="lg"
-                            onClick={startGame}
-                            disabled={isLoading}
-                            className="gap-2"
-                        >
-                            <PlayCircle className="w-5 h-5" />
-                            {isLoading ? "Starting..." : "Start Challenge"}
-                        </Button>
+                {/* Timer progress bar */}
+                {gameState === "playing" && (
+                    <div className="mb-4">
+                        <Progress
+                            value={(timeLeft / GAME_CONFIG.gameTime) * 100}
+                            className="h-2"
+                        />
                     </div>
-                ) : gameState === "playing" ? (
-                    <>
-                        {/* Stats display */}
-                        <div className="absolute top-0 left-0 right-0 flex justify-center">
-                            <div className="text-xs sm:text-sm bg-background/50 px-2 sm:px-3 py-1 rounded-full">
-                                Correct: {correctAnswers} | Total:{" "}
-                                {totalAttempts}
+                )}
+
+                {/* Game content */}
+                <div className="flex-1 flex flex-col items-center justify-center relative">
+                    {gameState === "idle" ? (
+                        <div className="text-center">
+                            <div className="mb-8 p-4 bg-muted/30 rounded-lg">
+                                <h3>Complete {GAME_CONFIG.attempts} comparisons in 30s with ≥{GAME_CONFIG.accuracy}% accuracy</h3>
                             </div>
-                        </div>
-
-                        {/* Game options */}
-                        <div className="text-center mb-8 mt-10">
-                            <div className="text-lg font-medium mb-2">
-                                Which number is larger?
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4 sm:gap-8 w-full max-w-md">
-                            {options.map((option, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => handleSelection(option)}
-                                    className={cn(
-                                        "flex-1 aspect-square rounded-xl flex items-center justify-center text-2xl sm:text-4xl font-bold transition-all ",
-                                        "active:scale-95",
-                                        "bg-foreground/5 hover:bg-foreground/10"
-                                    )}
-                                >
-                                    {option.value}
-                                </button>
-                            ))}
-                        </div>
-                    </>
-                ) : (
-                    <div className="text-center">
-                        <h2 className="text-xl sm:text-2xl font-bold mb-4">
-                            Time&apos;s Up!
-                        </h2>
-
-                        {/* Challenge result */}
-                        {challengeResult && (
-                            <div className="bg-muted/30 p-4 rounded-lg mb-6">
-                                <div className="flex justify-center items-center gap-2 mb-3">
-                                    <h3 className="font-bold text-lg">
-                                        {challengeResult.message}
-                                    </h3>
-                                </div>
-                                <div className="mt-4 text-lg">
-                                    <div>Total Attempts: {totalAttempts}</div>
-                                    <div>Correct: {correctAnswers}</div>
-                                    <div>Accuracy: {calculateAccuracy()}%</div>
-                                    <div className="text-sm text-muted-foreground mt-6">
-                                        Target: {GAME_CONFIG.attempts} attempts with ≥{GAME_CONFIG.accuracy}% accuracy
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center">
-                            <Button 
+                            
+                            <Button
+                                size="lg"
                                 onClick={startGame}
                                 disabled={isLoading}
                                 className="gap-2"
                             >
-                                <PlayCircle className="w-4 h-4" />
-                                {isLoading ? "Starting..." : "Play Again"}
-                            </Button>
-                            <Button
-                                variant="outline"
-                                onClick={shareScore}
-                                className="gap-2"
-                            >
-                                <Share2 className="w-4 h-4" />
-                                Share
+                                <PlayCircle className="w-5 h-5" />
+                                {isLoading ? "Starting..." : "Start Challenge"}
                             </Button>
                         </div>
-                    </div>
-                )}
+                    ) : gameState === "playing" ? (
+                        <>
+                            {/* Stats display */}
+                            <div className="absolute top-0 left-0 right-0 flex justify-center">
+                                <div className="text-xs sm:text-sm bg-background/50 px-2 sm:px-3 py-1 rounded-full">
+                                    Correct: {correctAnswers} | Total:{" "}
+                                    {totalAttempts}
+                                </div>
+                            </div>
+
+                            {/* Game options */}
+                            <div className="text-center mb-8 mt-10">
+                                <div className="text-lg font-medium mb-2">
+                                    Which number is larger?
+                                </div>
+                            </div>
+
+                            <div className="flex gap-4 sm:gap-8 w-full max-w-md">
+                                {options.map((option, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleSelection(option)}
+                                        className={cn(
+                                            "flex-1 aspect-square rounded-xl flex items-center justify-center text-2xl sm:text-4xl font-bold transition-all ",
+                                            "active:scale-95",
+                                            "bg-foreground/5 hover:bg-foreground/10"
+                                        )}
+                                    >
+                                        {option.value}
+                                    </button>
+                                ))}
+                            </div>
+                        </>
+                    ) : (
+                        <div className="text-center">
+                            <h2 className="text-xl sm:text-2xl font-bold mb-4">
+                                Time&apos;s Up!
+                            </h2>
+
+                            {/* Challenge result */}
+                            {challengeResult && (
+                                <div className="bg-muted/30 p-4 rounded-lg mb-6">
+                                    <div className="flex justify-center items-center gap-2 mb-3">
+                                        <h3 className="font-bold text-lg">
+                                            {challengeResult.message}
+                                        </h3>
+                                    </div>
+                                    <div className="mt-4 text-lg">
+                                        <div>Total Attempts: {totalAttempts}</div>
+                                        <div>Correct: {correctAnswers}</div>
+                                        <div>Accuracy: {calculateAccuracy()}%</div>
+                                        <div className="text-sm text-muted-foreground mt-6">
+                                            Target: {GAME_CONFIG.attempts} attempts with ≥{GAME_CONFIG.accuracy}% accuracy
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center">
+                                <Button 
+                                    onClick={startGame}
+                                    disabled={isLoading}
+                                    className="gap-2"
+                                >
+                                    <PlayCircle className="w-4 h-4" />
+                                    {isLoading ? "Starting..." : "Play Again"}
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    onClick={shareScore}
+                                    className="gap-2"
+                                >
+                                    <Share2 className="w-4 h-4" />
+                                    Share
+                                </Button>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
+            
+            {/* Add ShareModal at the end of the component */}
+            <ShareModal 
+                isOpen={showShareModal}
+                onClose={() => setShowShareModal(false)}
+            />
         </div>
     );
 } 
