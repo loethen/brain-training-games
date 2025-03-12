@@ -782,7 +782,7 @@ export default function GameComponent() {
                                                 </span>
                                             </div>
                                             <span>
-                                                Position{" "}
+                                                Tile Match{" "}
                                                 <span className="text-xs text-emerald-600">
                                                     (A)
                                                 </span>
@@ -809,7 +809,7 @@ export default function GameComponent() {
                                                 </span>
                                             </div>
                                             <span>
-                                                Sound{" "}
+                                                Sound Match{" "}
                                                 <span className="text-xs text-emerald-600">
                                                     (L)
                                                 </span>
@@ -844,7 +844,7 @@ export default function GameComponent() {
                                             )}
                                         >
                                             <h3 className="font-semibold text-primary">
-                                                Position
+                                                Tile Match
                                             </h3>
                                             <div className="flex flex-col items-center">
                                                 <div className="text-3xl font-bold">

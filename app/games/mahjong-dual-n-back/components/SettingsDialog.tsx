@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { toast } from "sonner";
 import { Settings } from "lucide-react";
 
 import {
@@ -199,86 +198,68 @@ export default function SettingsDialog({
                                             (type) => (
                                                 <div
                                                     key={type}
-                                                    className="flex items-center gap-2"
+                                                    className="flex items-center space-x-2"
                                                 >
-                                                    <Checkbox
-                                                        id={`mode-${type}`}
-                                                        checked={form
-                                                            .watch(
-                                                                "selectedTypes"
-                                                            )
-                                                            .includes(
-                                                                type as
-                                                                    | "position"
-                                                                    | "audio"
-                                                            )}
-                                                        onCheckedChange={(
-                                                            checked
-                                                        ) => {
-                                                            const currentTypes =
-                                                                form.getValues(
-                                                                    "selectedTypes"
-                                                                );
-                                                            const newTypes =
-                                                                checked
-                                                                    ? [
-                                                                          ...currentTypes,
-                                                                          type as
-                                                                              | "position"
-                                                                              | "audio",
-                                                                      ]
-                                                                    : currentTypes.filter(
-                                                                          (
-                                                                              t
-                                                                          ) =>
-                                                                              t !==
-                                                                              type
-                                                                      );
-
-                                                            if (
-                                                                newTypes.length ===
-                                                                0
-                                                            ) {
-                                                                toast(
-                                                                    "Must keep at least one training mode enabled"
-                                                                );
-                                                                return;
-                                                            }
-
-                                                            form.setValue(
-                                                                "selectedTypes",
-                                                                newTypes
-                                                            );
-                                                        }}
-                                                        disabled={
-                                                            isDisabled ||
-                                                            (form.watch(
-                                                                "selectedTypes"
-                                                            )
-                                                                .length ===
-                                                                1 &&
-                                                                form
-                                                                    .watch(
-                                                                        "selectedTypes"
-                                                                    )
-                                                                    .includes(
-                                                                        type as
-                                                                            | "position"
-                                                                            | "audio"
-                                                                    ))
+                                                    <FormField
+                                                        control={
+                                                            form.control
                                                         }
+                                                        name="selectedTypes"
+                                                        render={({
+                                                            field,
+                                                        }) => (
+                                                            <FormItem>
+                                                                <FormControl>
+                                                                    <Checkbox
+                                                                        id={`mode-${type}`}
+                                                                        checked={field.value.includes(
+                                                                            type as "position" | "audio"
+                                                                        )}
+                                                                        onCheckedChange={(
+                                                                            checked
+                                                                        ) => {
+                                                                            const updatedTypes =
+                                                                                checked
+                                                                                    ? [
+                                                                                          ...field.value,
+                                                                                          type as "position" | "audio",
+                                                                                      ]
+                                                                                    : field.value.filter(
+                                                                                          (
+                                                                                              t
+                                                                                          ) =>
+                                                                                              t !==
+                                                                                              type
+                                                                                      );
+                                                                            field.onChange(
+                                                                                updatedTypes
+                                                                            );
+                                                                        }}
+                                                                        disabled={
+                                                                            isDisabled ||
+                                                                            (field.value.length ===
+                                                                                1 &&
+                                                                                field.value.includes(
+                                                                                    type as "position" | "audio"
+                                                                                ))
+                                                                        }
+                                                                    />
+                                                                </FormControl>
+                                                            </FormItem>
+                                                        )}
                                                     />
                                                     <Label
                                                         htmlFor={`mode-${type}`}
                                                     >
-                                                        {type
-                                                            .charAt(
-                                                                0
-                                                            )
-                                                            .toUpperCase() +
-                                                            type.slice(
-                                                                1
-                                                            )}
+                                                        {type === "position" 
+                                                            ? "Tile Match" 
+                                                            : type === "audio"
+                                                            ? "Sound Match"
+                                                            : type
+                                                                .charAt(0)
+                                                                .toUpperCase() +
+                                                              type.slice(1)
+                                                        }
                                                     </Label>
                                                 </div>
                                             )

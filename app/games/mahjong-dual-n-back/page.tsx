@@ -45,7 +45,7 @@ export default function MahjongDualNBackPage() {
               <>
                   <p>
                       In this challenging memory task inspired by traditional
-                      Mahjong, you&apos;ll need to remember both the position
+                      Mahjong, you&apos;ll need to remember both the tile patterns
                       and audio stimuli from N steps back in the sequence:
                   </p>
                   <ul className="list-disc pl-5 mt-2 space-y-1">
@@ -54,16 +54,16 @@ export default function MahjongDualNBackPage() {
                         felt table
                       </li>
                       <li>
-                          Press &quot;Position&quot; when the current tile
-                          position matches the position from N steps back
+                          Press &quot;Tile Match&quot; when the current tile
+                          matches the tile from N steps back
                       </li>
                       <li>
-                          Press &quot;Sound&quot; when the current sound matches
+                          Press &quot;Sound Match&quot; when the current sound matches
                           the sound from N steps back
                       </li>
                       <li>
-                          Use keyboard shortcuts: &apos;A&apos; for Position
-                          match, &apos;L&apos; for Sound match
+                          Use keyboard shortcuts: &apos;A&apos; for Tile Match,
+                          &apos;L&apos; for Sound Match
                       </li>
                       <li>
                           Start with 1-back (remembering the previous tile) and
