@@ -8,6 +8,7 @@ export function ImagePreview({ src }: { src: string }) {
         alt="Game preview"
         fill
         className="object-contain"
+        sizes="100vw"
         quality={100}
       />
     </div>
