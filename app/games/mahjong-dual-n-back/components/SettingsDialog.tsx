@@ -38,11 +38,11 @@ export type GameSettings = {
 
 // Define the form schema
 const settingsFormSchema = z.object({
-    selectedNBack: z.number().min(1).max(4),
+    selectedNBack: z.number().min(1).max(9),
     voiceType: z.enum(["male", "female", "chinese_female"]),
     selectedTypes: z.array(z.enum(["position", "audio"])).min(1),
-    trialsPerRound: z.number().min(10).max(100),
-    trialInterval: z.number().min(1000).max(5000),
+    trialsPerRound: z.number().min(10).max(50),
+    trialInterval: z.number().min(1000).max(8000),
 });
 
 type SettingsDialogProps = {
@@ -314,9 +314,9 @@ export default function SettingsDialog({
                                     </FormLabel>
                                     <FormControl>
                                         <Slider
-                                            min={1500}
-                                            max={4000}
-                                            step={250}
+                                            min={1000}
+                                            max={8000}
+                                            step={500}
                                             value={[field.value]}
                                             onValueChange={(vals) =>
                                                 field.onChange(
