@@ -126,7 +126,9 @@ export default function Home() {
                                 "Enhance Sequential Memory & Spatial Recall Through Progressive Challenges",
                             slug: "frog-memory-leap",
                         }}
-                        preview={<ImagePreview src="/games/frog-path.png" />}
+                        preview={
+                            <ImagePreview src="/games/frog-memory-leap.png" />
+                        }
                     />
                 </div>
             </section>
