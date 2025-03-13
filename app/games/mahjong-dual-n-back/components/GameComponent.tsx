@@ -130,6 +130,9 @@ export default function GameComponent() {
     // 添加分享模态状态
     const [showShareModal, setShowShareModal] = useState(false);
 
+    // 在组件顶部添加图像缓存引用
+    const imageCache = useRef<Record<string, HTMLImageElement>>({});
+
     // 提取所有重置逻辑到一个函数
     const resetAllGameState = useCallback(() => {
         // 重置游戏进度
@@ -175,6 +178,9 @@ export default function GameComponent() {
             // 清除之前的音频引用
             Object.values(audioRefs.current).forEach(audio => audio.unload());
             
+            // 清除之前的图像缓存
+            imageCache.current = {};
+            
             // 创建加载音频的Promise数组
             const audioPromises = selectedMahjong.map((mahjong) => {
                 return new Promise<void>((resolve, reject) => {
@@ -201,7 +207,7 @@ export default function GameComponent() {
                 });
             });
             
-            // 预加载麻将图像
+            // 预加载麻将图像 - 改进这部分
             const totalImages = selectedMahjong.length;
             setPreloadState(prev => ({
                 ...prev,
@@ -212,9 +218,13 @@ export default function GameComponent() {
             // 创建加载图像的Promise数组
             const imagePromises = selectedMahjong.map((mahjong) => {
                 return new Promise<void>((resolve, reject) => {
-                    // 使用HTMLImageElement代替直接使用Image构造函数
                     const img = document.createElement('img');
-                    img.src = `${GAME_CONFIG.symbolBasePath}${mahjong}.svg`;
+                    const imgSrc = `${GAME_CONFIG.symbolBasePath}${mahjong}.svg`;
+                    img.src = imgSrc;
+                    
+                    // 存储到缓存中
+                    imageCache.current[mahjong] = img;
+                    
                     img.onload = () => {
                         setPreloadState(prev => ({
                             ...prev,
@@ -231,6 +241,9 @@ export default function GameComponent() {
             
             // 等待所有资源加载完成
             await Promise.all([...audioPromises, ...imagePromises]);
+            
+            // 添加额外的延迟确保浏览器完全处理了所有资源
+            await new Promise(resolve => setTimeout(resolve, 500));
             
             // 设置开始延迟
             setStartDelay(GAME_CONFIG.trials.startDelay);
@@ -537,36 +550,60 @@ export default function GameComponent() {
             audio: audioStimuli,
         };
 
-        // 更新试验历史
-        setTrialHistory((prev) => [...prev, finalStimuli]);
+        // 确保图片已经加载完成
+        const preloadCurrentImage = () => {
+            return new Promise<void>((resolve) => {
+                // 检查图像是否已在缓存中
+                if (imageCache.current[finalStimuli.position] && 
+                    imageCache.current[finalStimuli.position].complete) {
+                    resolve();
+                    return;
+                }
+                
+                const img = document.createElement('img');
+                img.src = `${GAME_CONFIG.symbolBasePath}${finalStimuli.position}.svg`;
+                if (img.complete) {
+                    resolve();
+                } else {
+                    img.onload = () => resolve();
+                    img.onerror = () => resolve(); // 即使加载失败也继续
+                }
+            });
+        };
 
-        // 更新滑动位置
-        if (settings.selectedTypes.includes("position")) {
-            // 计算滑动位置 - 考虑到麻将宽度和间隙
-            const tileWidth = 160;
-            const gapWidth = 48;
-            // 注意：这里使用trialHistory.length而不是currentTrial
-            // 因为我们刚刚添加了新的试验到历史中
-            const slideAmount = -((trialHistory.length) * (tileWidth + gapWidth));
-            setSlidePosition(slideAmount);
-        }
+        // 使用Promise同步音频和图片
+        preloadCurrentImage().then(() => {
+            // 更新试验历史
+            setTrialHistory((prev) => [...prev, finalStimuli]);
 
-        // 只在需要时播放音频
-        if (
-            settings.selectedTypes.includes("audio") &&
-            audioRefs.current[finalStimuli.audio]
-        ) {
-            audioRefs.current[finalStimuli.audio].play();
-        }
+            // 更新滑动位置
+            if (settings.selectedTypes.includes("position")) {
+                const tileWidth = 160;
+                const gapWidth = 48;
+                const slideAmount = -((trialHistory.length) * (tileWidth + gapWidth));
+                setSlidePosition(slideAmount);
+            }
 
-        // 重置用户响应状态
-        setCurrentResponse({ positionMatch: null, audioMatch: null });
+            // 只在需要时播放音频
+            if (
+                settings.selectedTypes.includes("audio") &&
+                audioRefs.current[finalStimuli.audio]
+            ) {
+                // 确保音频和图片同步显示
+                setTimeout(() => {
+                    audioRefs.current[finalStimuli.audio].play();
+                }, 50); // 短暂延迟确保DOM更新后再播放音频
+            }
 
-        // 更新试验计数
-        setCurrentTrial((prev) => prev + 1);
+            // 重置用户响应状态
+            setCurrentResponse({ positionMatch: null, audioMatch: null });
 
-        // 设置下一个试验的间隔
-        setIntervalDelay(settings.trialInterval);
+            // 更新试验计数
+            setCurrentTrial((prev) => prev + 1);
+
+            // 设置下一个试验的间隔
+            setIntervalDelay(settings.trialInterval);
+        });
     }, [
         currentTrial,
         generateTrial,
@@ -738,6 +775,8 @@ export default function GameComponent() {
                                                         width: "120px",
                                                         height: "180px",
                                                     }}
+                                                    priority={true}
+                                                    loading="eager"
                                                 />
                                             </div>
                                         </div>
