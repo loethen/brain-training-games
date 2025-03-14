@@ -5,6 +5,7 @@ import { Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Link, usePathname } from "@/i18n/navigation"
 import { useState } from "react"
+import { useLocale } from "next-intl"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,24 +13,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export function Header({ onToggleSidebar }: { 
-  onToggleSidebar: () => void 
-}) {
-  const { theme, setTheme } = useTheme()
+// 语言切换下拉菜单组件
+function LanguageSwitcher() {
   const pathname = usePathname()
+  const locale = useLocale()
   const [open, setOpen] = useState(false)
-
-  // 语言切换下拉菜单组件
-  const LanguageSwitcher = () => (
+  
+  return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground">
           <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline">{pathname.startsWith('/zh') ? '中文' : 'English'}</span>
+          <span className="hidden sm:inline">{locale === 'zh' ? '中文' : 'English'}</span>
           <ChevronDown className="h-3 w-3" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="bg-background">
         <DropdownMenuItem asChild>
           <Link href={pathname} locale="en">
             English
@@ -43,6 +42,12 @@ export function Header({ onToggleSidebar }: {
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+
+export function Header({ onToggleSidebar }: { 
+  onToggleSidebar: () => void 
+}) {
+  const { theme, setTheme } = useTheme()
 
   return (
     <header className="sticky z-50 top-0 bg-background/80 backdrop-blur-sm">
