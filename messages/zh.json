@@ -1,0 +1,35 @@
+{
+  "common": {
+    "home": "首页",
+    "games": "游戏",
+    "about": "关于",
+    "contact": "联系我们"
+  },
+  "metadata": {
+    "title": "免费专注力和记忆力训练游戏 | FreeFocusGames",
+    "description": "在FreeFocusGames.com玩免费专注力游戏，提高记忆力和注意力！",
+    "keywords": "免费专注力游戏, 记忆力游戏, 免费记忆力游戏, 提高记忆力的游戏, 专注力和注意力游戏, freefocusgames, 提高专注力的脑力游戏, 免费配对游戏, 儿童专注力游戏, 儿童记忆力游戏, 成人注意力游戏, 脑力训练游戏, 注意力提升游戏, 在线认知游戏, 记忆力练习, 在线专注力练习, 儿童教育游戏, 老年人脑力游戏, ADHD注意力游戏, 老年人记忆力游戏, 在线专注力训练",
+    "ogTitle": "免费专注力和记忆力游戏 | 适合所有年龄段的脑力训练",
+    "ogDescription": "通过免费的科学认知游戏增强专注力、记忆力和注意力。包括舒尔特表格、模式回忆挑战等多种提升脑力的活动。"
+  },
+  "home": {
+    "title": "免费记忆力和专注力训练游戏",
+    "subtitle": "通过有趣的在线挑战提升专注力和记忆力",
+    "popularGames": "热门游戏",
+    "benefitsTitle": "专注力：你的秘密超能力",
+    "benefitsIntro": "想象一下：你的孩子无需不断提醒就能专心完成任务，你轻松掌握会议重点，最终沉浸在那本你一直想读的书中。这就是训练专注力的力量。",
+    "familyLifeTitle": "家庭生活",
+    "familyLifeDesc": "帮助孩子更快完成作业，减少分心。在家庭时光中保持全神贯注，不受心理杂念干扰。",
+    "workPerformanceTitle": "工作表现",
+    "workPerformanceDesc": "告别会议中的走神。更快进入心流状态，以清晰的思维处理复杂任务。",
+    "personalGrowthTitle": "个人成长",
+    "personalGrowthDesc": "无论是学习新技能还是追求爱好，强大的专注力都能帮助你以两倍的速度取得进步。",
+    "dailyPractice": "每天只需10分钟 - 就像为你的大脑进行力量训练。",
+    "benefitsConclusion": "更敏锐的专注力，更美好的生活。",
+    "testimonialsTitle": "真实用户，真实效果"
+  },
+  "buttons": {
+    "startPlaying": "立即开始游戏",
+    "viewAll": "查看全部"
+  }
+} 

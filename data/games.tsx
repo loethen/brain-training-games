@@ -1,5 +1,5 @@
-import { GamePreview as SimonGamePreview } from "@/app/games/pattern-recall-challenge/components/GamePreview";
-import { GamePreview as SchulteTableGamePreview } from "@/app/games/schulte-table/components/GamePreview";
+import { GamePreview as SimonGamePreview } from "@/app/[locale]/games/pattern-recall-challenge/components/GamePreview";
+import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/games/schulte-table/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 export type Game = {
   id: string;

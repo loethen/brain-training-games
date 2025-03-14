@@ -9,16 +9,34 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { BrainGameIcons } from "@/components/brain-game-icons";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-export const metadata: Metadata = {
-    title: "Free Focus & Memory Games | FreeFocusGames",
-    description:
-        "Play free focus games at FreeFocusGames.com to improve memory and concentration!",
-    keywords:
-        "free focus games, memory games, free memory games, games to improve memory, focus and concentration games, freefocusgames, brain games for focus, free matching games, focus games for kids, memory games for children, concentration games for adults, brain training games, attention improvement games, cognitive games online, memory exercises, focus exercises online, educational games for kids, brain games for elderly, attention games for ADHD, memory games for seniors, focus training online",
-};
+export async function generateMetadata(
+  { params }: { params: { locale: string } }
+): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale });
+  
+  return {
+    title: t('metadata.title', 'Free Focus & Memory Games | FreeFocusGames'),
+    description: t('metadata.description', 'Play free focus games at FreeFocusGames.com to improve memory and concentration!'),
+    keywords: t('metadata.keywords', 'free focus games, memory games, free memory games, games to improve memory, focus and concentration games, freefocusgames, brain games for focus, free matching games, focus games for kids, memory games for children, concentration games for adults, brain training games, attention improvement games, cognitive games online, memory exercises, focus exercises online, educational games for kids, brain games for elderly, attention games for ADHD, memory games for seniors, focus training online'),
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"
+    ),
+    openGraph: {
+      images: "/og/oglogo.png",
+      title: t('metadata.ogTitle', 'Free Focus & Memory Games | Brain Training for All Ages'),
+      description: t('metadata.ogDescription', 'Enhance focus, memory and concentration with free science-based cognitive games. Featuring Schulte Table, Pattern Recall Challenge, and more brain-boosting activities.'),
+      siteName: "FreeFocusGames",
+      type: "website",
+    },
+  };
+}
 
 export default function Home() {
+    const t = useTranslations();
+    
     return (
         <div>
             {/* Hero Section */}
@@ -26,15 +44,15 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row items-center gap-8">
                     <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
                         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-                            Free Games for Memory & Concentration
+                            {t('home.title')}
                         </h1>
                         <p className="sm:text-xl lg:text-2xl mb-8">
-                            Boost focus and memory with fun online challenges
+                            {t('home.subtitle')}
                         </p>
                         <div className="mb-4">
                             <Link href="/games">
                                 <InteractiveHoverButton>
-                                    Start Playing Now
+                                    {t('buttons.startPlaying')}
                                 </InteractiveHoverButton>
                             </Link>
                         </div>
@@ -48,9 +66,9 @@ export default function Home() {
             {/* Games Section */}
             <section className="mb-24 max-w-[1400px] mx-auto">
                 <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-3xl font-bold">Popular Games</h2>
+                    <h2 className="text-3xl font-bold">{t('home.popularGames', 'Popular Games')}</h2>
                     <Link href="/games">
-                        <Button variant="ghost">View All →</Button>
+                        <Button variant="ghost">{t('buttons.viewAll')} →</Button>
                     </Link>
                 </div>
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
@@ -136,27 +154,22 @@ export default function Home() {
             {/* Benefits Section */}
             <section className="mb-24 max-w-3xl mx-auto px-6">
                 <h2 className="text-3xl font-bold text-center mb-8">
-                    Focus: Your Secret Superpower
+                    {t('home.benefitsTitle', 'Focus: Your Secret Superpower')}
                 </h2>
 
                 <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
                     <p>
-                        Imagine: Your child stays on task without constant
-                        reminders, you nail meeting priorities effortlessly, and
-                        finally get lost in that book you&apos;ve been meaning
-                        to read. That&apos;s the power of trained focus.
+                        {t('home.benefitsIntro', 'Imagine: Your child stays on task without constant reminders, you nail meeting priorities effortlessly, and finally get lost in that book you\'ve been meaning to read. That\'s the power of trained focus.')}
                     </p>
 
                     <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
                         <div className="shrink-0 text-2xl">👨👧</div>
                         <div>
                             <h3 className="font-medium mb-2 text-foreground">
-                                Family Life
+                                {t('home.familyLifeTitle', 'Family Life')}
                             </h3>
                             <p>
-                                Help kids complete homework faster with fewer
-                                distractions. Be fully present during family
-                                time without mental clutter.
+                                {t('home.familyLifeDesc', 'Help kids complete homework faster with fewer distractions. Be fully present during family time without mental clutter.')}
                             </p>
                         </div>
                     </div>
@@ -165,12 +178,10 @@ export default function Home() {
                         <div className="shrink-0 text-2xl">💼</div>
                         <div>
                             <h3 className="font-medium mb-2 text-foreground">
-                                Work Performance
+                                {t('home.workPerformanceTitle', 'Work Performance')}
                             </h3>
                             <p>
-                                Say goodbye to zoning out in meetings. Achieve
-                                flow state faster and handle complex tasks with
-                                crystal-clear thinking.
+                                {t('home.workPerformanceDesc', 'Say goodbye to zoning out in meetings. Achieve flow state faster and handle complex tasks with crystal-clear thinking.')}
                             </p>
                         </div>
                     </div>
@@ -179,22 +190,19 @@ export default function Home() {
                         <div className="shrink-0 text-2xl">🎯</div>
                         <div>
                             <h3 className="font-medium mb-2 text-foreground">
-                                Personal Growth
+                                {t('home.personalGrowthTitle', 'Personal Growth')}
                             </h3>
                             <p>
-                                Whether learning new skills or pursuing hobbies,
-                                strong focus helps you make progress twice as
-                                fast.
+                                {t('home.personalGrowthDesc', 'Whether learning new skills or pursuing hobbies, strong focus helps you make progress twice as fast.')}
                             </p>
                         </div>
                     </div>
 
                     <p className="text-center mt-8">
-                        Just 10 minutes daily - it&apos;s like weightlifting for
-                        your brain.
+                        {t('home.dailyPractice', 'Just 10 minutes daily - it\'s like weightlifting for your brain.')}
                         <br />
                         <span className="text-primary font-medium">
-                            Sharper focus, better life.
+                            {t('home.benefitsConclusion', 'Sharper focus, better life.')}
                         </span>
                     </p>
                 </div>
@@ -203,7 +211,7 @@ export default function Home() {
             {/* Testimonials Section */}
             <section className="mb-24 max-w-7xl mx-auto">
                 <h2 className="text-3xl font-bold text-center mb-12">
-                    Real People, Real Results
+                    {t('home.testimonialsTitle', 'Real People, Real Results')}
                 </h2>
 
                 <div className="relative flex w-full flex-col items-center justify-center overflow-hidden px-6">
