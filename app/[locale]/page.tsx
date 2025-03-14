@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import GameCard from "@/components/game-card";
 import { GamePreview as SimonGamePreview } from "./games/pattern-recall-challenge/components/GamePreview";
@@ -10,29 +9,6 @@ import Link from "next/link";
 import { BrainGameIcons } from "@/components/brain-game-icons";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-
-export async function generateMetadata(
-  { params }: { params: { locale: string } }
-): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale });
-  
-  return {
-    title: t('metadata.title', 'Free Focus & Memory Games | FreeFocusGames'),
-    description: t('metadata.description', 'Play free focus games at FreeFocusGames.com to improve memory and concentration!'),
-    keywords: t('metadata.keywords', 'free focus games, memory games, free memory games, games to improve memory, focus and concentration games, freefocusgames, brain games for focus, free matching games, focus games for kids, memory games for children, concentration games for adults, brain training games, attention improvement games, cognitive games online, memory exercises, focus exercises online, educational games for kids, brain games for elderly, attention games for ADHD, memory games for seniors, focus training online'),
-    metadataBase: new URL(
-      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"
-    ),
-    openGraph: {
-      images: "/og/oglogo.png",
-      title: t('metadata.ogTitle', 'Free Focus & Memory Games | Brain Training for All Ages'),
-      description: t('metadata.ogDescription', 'Enhance focus, memory and concentration with free science-based cognitive games. Featuring Schulte Table, Pattern Recall Challenge, and more brain-boosting activities.'),
-      siteName: "FreeFocusGames",
-      type: "website",
-    },
-  };
-}
 
 export default function Home() {
     const t = useTranslations();
