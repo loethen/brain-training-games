@@ -3,6 +3,7 @@ import { getGameCategories } from "@/data/game-categories";
 import { Brain, Focus, Zap, Puzzle, Eye, Target, Split, Shuffle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { categories } from "@/data/categories";
+import { useTranslations } from 'next-intl';
 
 const iconMap: Record<string, React.ReactNode> = {
   Brain: <Brain className="h-4 w-4" />,
@@ -28,6 +29,7 @@ export default function GameCategories({
   displayAll = false,
   showDescription = false
 }: GameCategoriesProps) {
+  const t = useTranslations('categories');
   const displayCategories = gameId === "all" || displayAll 
     ? categories 
     : getGameCategories(gameId);
@@ -49,11 +51,11 @@ export default function GameCategories({
                   {iconMap[category.icon] || <div className="w-6 h-6" />}
                 </div>
               )}
-              <h2 className="font-semibold">{category.name}</h2>
+              <h2 className="font-semibold">{t(`categoryNames.${category.id}`, { defaultMessage: category.name })}</h2>
             </div>
             {showDescription && (
               <p className="text-muted-foreground text-sm">
-                {category.description}
+                {t(`categoryDescriptions.${category.id}`, { defaultMessage: category.description })}
               </p>
             )}
           </Link>
@@ -71,7 +73,7 @@ export default function GameCategories({
           className="px-2 py-1 bg-muted rounded-md hover:bg-muted transition-colors flex items-center gap-1 text-sm mt-2"
         >
           {category.icon && iconMap[category.icon]}
-          {category.name}
+          {t(`categoryNames.${category.id}`, { defaultMessage: category.name })}
         </Link>
       ))}
     </div>

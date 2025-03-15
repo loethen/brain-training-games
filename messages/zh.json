@@ -3,14 +3,17 @@
     "home": "首页",
     "games": "游戏",
     "about": "关于",
-    "contact": "联系我们"
+    "contact": "联系我们",
+    "categories": "分类",
+    "toggleSidebar": "切换侧边栏",
+    "toggleTheme": "切换主题",
+    "language": "语言",
+    "allRightsReserved": "版权所有"
   },
   "metadata": {
     "title": "免费专注力和记忆力训练游戏 | 脑力训练 | FreeFocusGames",
-    "description": "通过免费的科学脑力游戏提高记忆力、注意力和认知能力，适合所有年龄段。为儿童、成人和老年人提供提升专注力和注意力的完美选择。",
-    "keywords": "免费专注力游戏, 记忆力游戏, 脑力训练游戏, 注意力游戏, 注意力提升游戏, 在线认知游戏, 儿童专注力游戏, 儿童记忆力游戏, 成人注意力游戏, 老年人脑力游戏, ADHD注意力游戏, 老年人记忆力游戏, 在线专注力训练, 记忆力练习, 在线专注力练习, 儿童教育游戏, 认知训练, 免费配对游戏, 工作记忆游戏",
-    "ogTitle": "免费专注力和记忆力游戏 | 适合所有年龄段的脑力训练",
-    "ogDescription": "通过免费的科学认知游戏增强专注力、记忆力和注意力。包括舒尔特表格、模式回忆挑战等多种提升脑力的活动。"
+    "description": "通过免费的科学脑力游戏提高记忆力、注意力和认知能力，适合所有年龄段。",
+    "keywords": "免费专注力游戏, 记忆力游戏, 脑力训练游戏, 注意力游戏, 注意力提升游戏, 在线认知游戏"
   },
   "home": {
     "title": "免费记忆力和专注力训练游戏",
@@ -26,7 +29,138 @@
     "personalGrowthDesc": "无论是学习新技能还是追求爱好，强大的专注力都能帮助你以两倍的速度取得进步。",
     "dailyPractice": "每天只需10分钟 - 就像为你的大脑进行力量训练。",
     "benefitsConclusion": "更敏锐的专注力，更美好的生活。",
-    "testimonialsTitle": "真实用户，真实效果"
+    "testimonialsTitle": "真实用户，真实效果",
+    "testimonials": {
+      "sarah": {
+        "name": "莎拉",
+        "username": "@sarah_writes",
+        "body": "经过3年的拖延，终于完成了我的小说初稿！"
+      },
+      "mike": {
+        "name": "迈克",
+        "username": "@chef_mike",
+        "body": "现在可以不分心地按照复杂的烘焙食谱操作了"
+      },
+      "emma": {
+        "name": "艾玛",
+        "username": "@nature_em",
+        "body": "记住我们山间徒步的每一个转弯 - 再也不会迷路了！"
+      },
+      "sophia": {
+        "name": "索菲亚",
+        "username": "@math_mom",
+        "body": "我儿子的数学成绩在3个月内提高了2个等级！"
+      },
+      "liam": {
+        "name": "利亚姆",
+        "username": "@adhd_dad",
+        "body": "每天15分钟帮助我女儿能够安静地完成家庭作业"
+      },
+      "tom": {
+        "name": "汤姆",
+        "username": "@movie_tom",
+        "body": "现在能够捕捉电影中的情节转折 - 不再感到困惑！"
+      },
+      "lisa": {
+        "name": "丽莎",
+        "username": "@organized_lisa",
+        "body": "在杂乱的房间里立即找到钥匙 - 救星！"
+      },
+      "david": {
+        "name": "大卫",
+        "username": "@dad_athlete",
+        "body": "再也不会错过孩子的足球进球了"
+      },
+      "olivia": {
+        "name": "奥利维亚",
+        "username": "@homeschool_olivia",
+        "body": "通过专注练习，学习时间减少了40%"
+      },
+      "ethan": {
+        "name": "伊森",
+        "username": "@gaming_dad",
+        "body": "现在可以轻松平衡游戏时间和学习时间"
+      }
+    },
+    "metaTitle": "免费记忆力和专注力训练游戏",
+    "metaDescription": "通过有趣的在线挑战提升专注力和记忆力。适合所有年龄段的免费脑力训练游戏。",
+    "metaKeywords": "记忆力游戏, 专注力游戏, 注意力游戏, 脑力训练, 免费在线游戏",
+    "ogTitle": "免费专注力和记忆力游戏 - 在线训练你的大脑",
+    "ogDescription": "通过我们基于科学的免费脑力游戏提高记忆力和注意力。适合所有年龄段！"
+  },
+  "categories": {
+    "title": "分类",
+    "heading": "游戏分类",
+    "description": "按认知技能类别浏览我们的脑力训练游戏。每个类别专注于心理表现的不同方面。",
+    "metaTitle": "游戏分类 | 脑力训练",
+    "metaDescription": "按认知技能类别浏览我们的脑力训练游戏。找到针对特定心理能力的游戏。",
+    "metaKeywords": "脑力训练分类, 认知技能, 记忆力游戏, 专注力游戏, 注意力游戏, 反应时间游戏, 认知灵活性",
+    "ogTitle": "脑力训练游戏分类",
+    "ogDescription": "探索我们分类的脑力游戏集合，旨在增强特定认知能力。",
+    "categoryNames": {
+      "working-memory": "工作记忆",
+      "visual-tracking": "视觉追踪",
+      "sustained-attention": "持续注意力",
+      "selective-attention": "选择性注意力",
+      "divided-attention": "分散注意力",
+      "reaction-time": "反应时间",
+      "cognitive-flexibility": "认知灵活性"
+    },
+    "categoryDescriptions": {
+      "working-memory": "增强你暂时保持和操作信息能力的游戏。强大的工作记忆帮助学生记住指令，专业人士同时处理多项任务，以及每个人更好地跟随对话。",
+      "visual-tracking": "增强你跟踪移动物体和保持视觉焦点能力的游戏。更好的视觉追踪帮助读者避免跳行，驾驶员跟踪多辆车辆，以及运动员跟踪快速移动的球。",
+      "sustained-attention": "培养你长时间保持专注能力的游戏。增强的持续注意力帮助学生在长时间讲座中保持投入，专业人士在整个工作日保持生产力，以及每个人在没有精神游走的情况下完成任务。",
+      "selective-attention": "提高你专注于相关信息同时过滤干扰能力的游戏。更好的选择性注意力帮助学生在嘈杂环境中学习，专业人士在繁忙办公室中集中注意力，以及每个人在干扰中保持专注。",
+      "divided-attention": "发展你有效地在多个任务或刺激之间分配注意力能力的游戏。增强的分散注意力帮助父母在完成家务的同时监督孩子，专业人士处理并行责任，以及驾驶员在注意周围环境的同时安全导航。",
+      "reaction-time": "锻炼你对视觉或听觉刺激反应速度的游戏。更快的反应时间帮助运动员表现更好，驾驶员快速应对道路危险，以及老年人预防跌倒。",
+      "cognitive-flexibility": "增强你在不同概念之间切换或适应变化规则能力的游戏。更大的认知灵活性帮助学生跨学科应用知识，专业人士适应不断变化的工作要求，以及每个人更有效地应对社交场合。"
+    },
+    "categoryNotFound": "未找到分类",
+    "categoryNotFoundDesc": "无法找到请求的分类。",
+    "categoryMetaTitle": "{categoryName}游戏 - 脑力训练与认知能力提升",
+    "categoryMetaDescription": "探索我们专注于{categoryName}的脑力训练游戏集合。{categoryDescription}",
+    "categoryOgTitle": "{categoryName}训练游戏 - 提升你的认知能力",
+    "categoryOgDescription": "通过我们专业的脑力训练游戏增强你的{categoryName}。免费、有效且基于科学的练习。",
+    "categoryGamesHeading": "{categoryName}游戏"
+  },
+  "games": {
+    "title": "游戏",
+    "heading": "专注力训练游戏",
+    "description": "探索我们的免费专注力提升游戏，通过有趣、有针对性的挑战来锻炼你的注意力和集中力。",
+    "filters": {
+      "all": "所有游戏",
+      "more": "更多分类..."
+    },
+    "metaTitle": "脑力训练游戏 | 提升专注力、记忆力和认知能力",
+    "metaDescription": "探索我们的免费脑力训练游戏系列，旨在增强包括记忆力、注意力、处理速度等在内的认知能力。",
+    "metaKeywords": "脑力游戏, 认知训练, 记忆力游戏, 专注力游戏, 注意力游戏, 脑力训练, 免费脑力游戏, 思维锻炼, 认知能力提升, 大脑健身",
+    "ogTitle": "免费脑力训练游戏 | 提升你的认知能力",
+    "ogDescription": "探索基于科学的游戏，增强你的记忆力、专注力、注意力和其他认知能力。免费训练你的大脑。",
+    "schulteTable": {
+      "title": "舒尔特表格",
+      "subtitle": "增强你的注意力和周边视觉",
+      "howToPlay": "尽快按升序（1-25）找出并点击数字。尝试使用周边视觉而不是逐个扫描每个数字！",
+      "watchDemo": "观看演示",
+      "metaTitle": "舒尔特表格 - 周边视觉和注意力训练游戏",
+      "metaDescription": "通过舒尔特表格练习提高你的周边视觉、注意力持续时间和阅读速度。按顺序找出数字，同时训练你的大脑更快地处理视觉信息。",
+      "metaKeywords": "舒尔特表格练习, 周边视觉训练, 视觉注意力游戏, 速读练习, 数字序列游戏, 视觉处理训练, 注意力跨度提升, 认知速度练习",
+      "ogTitle": "舒尔特表格 - 训练你的周边视觉和注意力",
+      "ogDescription": "挑战自己按顺序找出数字，同时发展更快的视觉处理能力。科学证明可以提高阅读速度和注意力。"
+    },
+    "dualNBack": {
+      "title": "双重N-Back",
+      "subtitle": "高级工作记忆训练，提升认知能力",
+      "howToPlayIntro": "在这个具有挑战性的记忆任务中，你需要记住序列中N步之前的视觉和听觉刺激：",
+      "howToPlay1": "观察网格并聆听字母",
+      "howToPlay2": "当当前位置与N步之前的位置匹配时，按\"位置\"按钮",
+      "howToPlay3": "当当前字母与N步之前的字母匹配时，按\"声音\"按钮",
+      "howToPlay4": "随着你的进步，N-back级别将增加，使任务更具挑战性",
+      "metaTitle": "双重N-Back - 工作记忆训练游戏",
+      "metaDescription": "通过我们免费的在线双重N-Back游戏提升你的脑力，该游戏旨在增强工作记忆和认知技能。这个基于科学的记忆训练工具提供动态挑战和实时反馈，以提高专注力、智力和思维敏捷度。非常适合学生、专业人士和脑力训练爱好者，它会根据你的水平进行调整，为你提供一种有趣、有效的方式来释放你的认知潜能。立即开始游戏，提升你的思维水平！",
+      "metaKeywords": "双重n-back训练, 工作记忆练习, 流体智力游戏, 认知训练, 脑力训练游戏, 注意力控制练习, n-back任务, 记忆力提升游戏, 免费在线双重N-Back, 提高工作记忆",
+      "ogTitle": "双重N-Back - 高级工作记忆训练",
+      "ogDescription": "通过科学支持的双重N-Back认知练习训练你的工作记忆和流体智力。"
+    }
   },
   "buttons": {
     "startPlaying": "立即开始游戏",

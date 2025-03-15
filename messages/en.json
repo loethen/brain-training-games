@@ -3,14 +3,17 @@
     "home": "Home",
     "games": "Games",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "categories": "Categories",
+    "toggleSidebar": "Toggle sidebar",
+    "toggleTheme": "Toggle theme",
+    "language": "Language",
+    "allRightsReserved": "All rights reserved"
   },
   "metadata": {
     "title": "Free Focus & Memory Games | Brain Training | FreeFocusGames",
-    "description": "Improve memory, concentration and cognitive skills with free science-based brain games for all ages. Perfect for kids, adults, and seniors looking to boost focus and attention.",
-    "keywords": "free focus games, memory games, brain training games, concentration games, attention improvement games, cognitive games online, focus games for kids, memory games for children, concentration games for adults, brain games for elderly, attention games for ADHD, memory games for seniors, focus training online, memory exercises, focus exercises online, educational games for kids, cognitive training, free matching games, working memory games",
-    "ogTitle": "Free Focus & Memory Games | Brain Training for All Ages",
-    "ogDescription": "Enhance focus, memory and concentration with free science-based cognitive games. Featuring Schulte Table, Pattern Recall Challenge, and more brain-boosting activities."
+    "description": "Improve memory, concentration and cognitive skills with free science-based brain games for all ages.",
+    "keywords": "free focus games, memory games, brain training games, concentration games, attention improvement games, cognitive games online"
   },
   "home": {
     "title": "Free Games for Memory & Concentration",
@@ -26,7 +29,138 @@
     "personalGrowthDesc": "Whether learning new skills or pursuing hobbies, strong focus helps you make progress twice as fast.",
     "dailyPractice": "Just 10 minutes daily - it's like weightlifting for your brain.",
     "benefitsConclusion": "Sharper focus, better life.",
-    "testimonialsTitle": "Real People, Real Results"
+    "testimonialsTitle": "Real People, Real Results",
+    "testimonials": {
+      "sarah": {
+        "name": "Sarah",
+        "username": "@sarah_writes",
+        "body": "Finally finished my novel draft after 3 years of procrastination!"
+      },
+      "mike": {
+        "name": "Mike",
+        "username": "@chef_mike",
+        "body": "Can now follow complex baking recipes without getting distracted"
+      },
+      "emma": {
+        "name": "Emma",
+        "username": "@nature_em",
+        "body": "Remember every turn on our mountain hikes - no more getting lost!"
+      },
+      "sophia": {
+        "name": "Sophia",
+        "username": "@math_mom",
+        "body": "My son's math scores improved 2 grades after 3 months!"
+      },
+      "liam": {
+        "name": "Liam",
+        "username": "@adhd_dad",
+        "body": "15 mins/day helped my daughter sit through homework time"
+      },
+      "tom": {
+        "name": "Tom",
+        "username": "@movie_tom",
+        "body": "Actually catch plot twists in movies now - no more confusion!"
+      },
+      "lisa": {
+        "name": "Lisa",
+        "username": "@organized_lisa",
+        "body": "Spot my keys instantly in messy rooms - lifesaver!"
+      },
+      "david": {
+        "name": "David",
+        "username": "@dad_athlete",
+        "body": "Never miss my kid's soccer goals anymore"
+      },
+      "olivia": {
+        "name": "Olivia",
+        "username": "@homeschool_olivia",
+        "body": "Cut learning time by 40% with focused practice"
+      },
+      "ethan": {
+        "name": "Ethan",
+        "username": "@gaming_dad",
+        "body": "Now balance game time and study time effortlessly"
+      }
+    },
+    "metaTitle": "Free Games for Memory & Concentration",
+    "metaDescription": "Boost focus and memory with fun online challenges. Free brain training games for all ages.",
+    "metaKeywords": "memory games, focus games, concentration games, brain training, free online games",
+    "ogTitle": "Free Focus & Memory Games - Train Your Brain Online",
+    "ogDescription": "Improve your memory and concentration with our free science-based brain games. Perfect for all ages!"
+  },
+  "categories": {
+    "title": "Categories",
+    "heading": "Game Categories",
+    "description": "Browse our collection of brain training games by cognitive skill category. Each category focuses on a different aspect of mental performance.",
+    "metaTitle": "Game Categories | Brain Training",
+    "metaDescription": "Browse our brain training games by cognitive skill category. Find games that target specific mental abilities.",
+    "metaKeywords": "brain training categories, cognitive skills, memory games, focus games, attention games, reaction time games, cognitive flexibility",
+    "ogTitle": "Brain Training Game Categories",
+    "ogDescription": "Explore our categorized collection of brain games designed to enhance specific cognitive abilities.",
+    "categoryNames": {
+      "working-memory": "Working Memory",
+      "visual-tracking": "Visual Tracking",
+      "sustained-attention": "Sustained Attention",
+      "selective-attention": "Selective Attention",
+      "divided-attention": "Divided Attention",
+      "reaction-time": "Reaction Time",
+      "cognitive-flexibility": "Cognitive Flexibility"
+    },
+    "categoryDescriptions": {
+      "working-memory": "Games that strengthen your ability to temporarily hold and manipulate information. Strong working memory helps students remember instructions, professionals juggle multiple tasks, and everyone follow conversations better.",
+      "visual-tracking": "Games that enhance your ability to follow moving objects and maintain visual focus. Better visual tracking helps readers avoid line-skipping, drivers track multiple vehicles, and athletes follow fast-moving balls.",
+      "sustained-attention": "Games that build your ability to maintain focus over extended periods. Enhanced sustained attention helps students stay engaged during long lectures, professionals maintain productivity throughout the workday, and everyone complete tasks without mental wandering.",
+      "selective-attention": "Games that improve your ability to focus on relevant information while filtering out distractions. Better selective attention helps students study in noisy environments, professionals concentrate in busy offices, and everyone maintain focus despite interruptions.",
+      "divided-attention": "Games that develop your ability to effectively split attention between multiple tasks or stimuli. Enhanced divided attention helps parents monitor children while completing household tasks, professionals handle concurrent responsibilities, and drivers safely navigate while being aware of surroundings.",
+      "reaction-time": "Games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better, drivers respond quickly to road hazards, and older adults prevent falls.",
+      "cognitive-flexibility": "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively."
+    },
+    "categoryNotFound": "Category Not Found",
+    "categoryNotFoundDesc": "The requested category could not be found.",
+    "categoryMetaTitle": "{categoryName} Games - Brain Training & Cognitive Enhancement",
+    "categoryMetaDescription": "Explore our collection of brain training games that focus on {categoryName}. {categoryDescription}",
+    "categoryOgTitle": "{categoryName} Training Games - Improve Your Cognitive Skills",
+    "categoryOgDescription": "Enhance your {categoryName} with our specialized brain training games. Free, effective, and scientifically-informed exercises.",
+    "categoryGamesHeading": "{categoryName} Games"
+  },
+  "games": {
+    "title": "Games",
+    "heading": "Focus Training Games",
+    "description": "Discover our free focus-enhancing games, crafted to sharpen your attention and concentration with fun, targeted challenges.",
+    "filters": {
+      "all": "All Games",
+      "more": "More Categories..."
+    },
+    "metaTitle": "Brain Training Games | Improve Focus, Memory & Cognitive Skills",
+    "metaDescription": "Explore our collection of free brain training games designed to enhance cognitive abilities including memory, attention, processing speed and more.",
+    "metaKeywords": "brain games, cognitive training, memory games, focus games, attention games, brain training, free brain games, mental exercises, cognitive enhancement, brain fitness",
+    "ogTitle": "Free Brain Training Games | Improve Your Cognitive Skills",
+    "ogDescription": "Discover scientifically-informed games to enhance your memory, focus, attention, and other cognitive abilities. Train your brain for free.",
+    "schulteTable": {
+      "title": "Schulte Table",
+      "subtitle": "Enhance your attention and peripheral vision",
+      "howToPlay": "Find and click numbers in ascending order (1-25) as quickly as possible. Try to use your peripheral vision instead of scanning each number!",
+      "watchDemo": "Watch Demo",
+      "metaTitle": "Schulte Table - Peripheral Vision & Attention Training Game",
+      "metaDescription": "Improve your peripheral vision, attention span, and reading speed with the Schulte Table exercise. Find numbers in sequence while training your brain to process visual information faster.",
+      "metaKeywords": "schulte table exercise, peripheral vision training, visual attention game, speed reading practice, number sequence game, visual processing training, attention span improvement, cognitive speed exercise",
+      "ogTitle": "Schulte Table - Train Your Peripheral Vision & Attention",
+      "ogDescription": "Challenge yourself to find numbers in sequence while developing faster visual processing. Scientifically proven to enhance reading speed and attention."
+    },
+    "dualNBack": {
+      "title": "Dual N-Back",
+      "subtitle": "Advanced working memory training for cognitive enhancement",
+      "howToPlayIntro": "In this challenging memory task, you'll need to remember both visual and auditory stimuli from N steps back in the sequence:",
+      "howToPlay1": "Watch the grid and listen to the letters",
+      "howToPlay2": "Press \"Position\" when the current position matches the position from N steps back",
+      "howToPlay3": "Press \"Sound\" when the current letter matches the letter from N steps back",
+      "howToPlay4": "As you improve, the N-back level will increase, making the task more difficult",
+      "metaTitle": "Dual N-Back - Working Memory Training Game",
+      "metaDescription": "Boost your brainpower with our free online Dual N-Back game, designed to enhance working memory and cognitive skills. This science-backed memory training tool offers dynamic challenges and real-time feedback to improve focus, intelligence, and mental agility. Perfect for students, professionals, and brain training enthusiasts, it adapts to your level for a fun, effective way to unlock your cognitive potential. Play now and level up your mind!",
+      "metaKeywords": "dual n-back training, working memory exercise, fluid intelligence game, cognitive training, brain training game, attention control practice, n-back task, memory improvement game, free online Dual N-Back, improve working memory",
+      "ogTitle": "Dual N-Back - Advanced Working Memory Training",
+      "ogDescription": "Train your working memory and fluid intelligence with the scientifically-backed Dual N-Back cognitive exercise."
+    }
   },
   "buttons": {
     "startPlaying": "Start Playing Now",

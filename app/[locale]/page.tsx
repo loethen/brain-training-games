@@ -9,9 +9,103 @@ import Link from "next/link";
 import { BrainGameIcons } from "@/components/brain-game-icons";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from "next";
+
+// 为首页定义特定的元数据
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale;
+  const t = await getTranslations({ locale, namespace: 'home' });
+  
+  return {
+    // 首页特定标题
+    title: t('metaTitle'),
+    // 首页特定描述
+    description: t('metaDescription'),
+    // 首页特定关键词
+    keywords: t('metaKeywords').split(',').map(keyword => keyword.trim()),
+    // 首页特定 Open Graph 数据
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+    },
+  };
+}
 
 export default function Home() {
     const t = useTranslations();
+    const testimonials = useTranslations('home.testimonials');
+    
+    // 第一组评价
+    const firstRowReviews = [
+        {
+            name: testimonials('sarah.name'),
+            username: testimonials('sarah.username'),
+            body: testimonials('sarah.body'),
+            gradient: "from-blue-400 to-cyan-500",
+        },
+        {
+            name: testimonials('mike.name'),
+            username: testimonials('mike.username'),
+            body: testimonials('mike.body'),
+            gradient: "from-purple-400 to-pink-500",
+        },
+        {
+            name: testimonials('emma.name'),
+            username: testimonials('emma.username'),
+            body: testimonials('emma.body'),
+            gradient: "from-green-400 to-emerald-500",
+        },
+        {
+            name: testimonials('sophia.name'),
+            username: testimonials('sophia.username'),
+            body: testimonials('sophia.body'),
+            gradient: "from-rose-400 to-pink-500",
+        },
+        {
+            name: testimonials('liam.name'),
+            username: testimonials('liam.username'),
+            body: testimonials('liam.body'),
+            gradient: "from-sky-400 to-blue-500",
+        },
+    ];
+    
+    // 第二组评价
+    const secondRowReviews = [
+        {
+            name: testimonials('tom.name'),
+            username: testimonials('tom.username'),
+            body: testimonials('tom.body'),
+            gradient: "from-orange-400 to-red-500",
+        },
+        {
+            name: testimonials('lisa.name'),
+            username: testimonials('lisa.username'),
+            body: testimonials('lisa.body'),
+            gradient: "from-yellow-400 to-amber-500",
+        },
+        {
+            name: testimonials('david.name'),
+            username: testimonials('david.username'),
+            body: testimonials('david.body'),
+            gradient: "from-indigo-400 to-violet-500",
+        },
+        {
+            name: testimonials('olivia.name'),
+            username: testimonials('olivia.username'),
+            body: testimonials('olivia.body'),
+            gradient: "from-teal-400 to-cyan-500",
+        },
+        {
+            name: testimonials('ethan.name'),
+            username: testimonials('ethan.username'),
+            body: testimonials('ethan.body'),
+            gradient: "from-amber-400 to-orange-500",
+        },
+    ];
     
     return (
         <div>
@@ -42,7 +136,7 @@ export default function Home() {
             {/* Games Section */}
             <section className="mb-24 max-w-[1400px] mx-auto">
                 <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-3xl font-bold">{t('home.popularGames', 'Popular Games')}</h2>
+                    <h2 className="text-3xl font-bold">{t('home.popularGames')}</h2>
                     <Link href="/games">
                         <Button variant="ghost">{t('buttons.viewAll')} →</Button>
                     </Link>
@@ -130,22 +224,22 @@ export default function Home() {
             {/* Benefits Section */}
             <section className="mb-24 max-w-3xl mx-auto px-6">
                 <h2 className="text-3xl font-bold text-center mb-8">
-                    {t('home.benefitsTitle', 'Focus: Your Secret Superpower')}
+                    {t('home.benefitsTitle')}
                 </h2>
 
                 <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
                     <p>
-                        {t('home.benefitsIntro', 'Imagine: Your child stays on task without constant reminders, you nail meeting priorities effortlessly, and finally get lost in that book you\'ve been meaning to read. That\'s the power of trained focus.')}
+                        {t('home.benefitsIntro')}
                     </p>
 
                     <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
                         <div className="shrink-0 text-2xl">👨👧</div>
                         <div>
                             <h3 className="font-medium mb-2 text-foreground">
-                                {t('home.familyLifeTitle', 'Family Life')}
+                                {t('home.familyLifeTitle')}
                             </h3>
                             <p>
-                                {t('home.familyLifeDesc', 'Help kids complete homework faster with fewer distractions. Be fully present during family time without mental clutter.')}
+                                {t('home.familyLifeDesc')}
                             </p>
                         </div>
                     </div>
@@ -154,10 +248,10 @@ export default function Home() {
                         <div className="shrink-0 text-2xl">💼</div>
                         <div>
                             <h3 className="font-medium mb-2 text-foreground">
-                                {t('home.workPerformanceTitle', 'Work Performance')}
+                                {t('home.workPerformanceTitle')}
                             </h3>
                             <p>
-                                {t('home.workPerformanceDesc', 'Say goodbye to zoning out in meetings. Achieve flow state faster and handle complex tasks with crystal-clear thinking.')}
+                                {t('home.workPerformanceDesc')}
                             </p>
                         </div>
                     </div>
@@ -166,19 +260,19 @@ export default function Home() {
                         <div className="shrink-0 text-2xl">🎯</div>
                         <div>
                             <h3 className="font-medium mb-2 text-foreground">
-                                {t('home.personalGrowthTitle', 'Personal Growth')}
+                                {t('home.personalGrowthTitle')}
                             </h3>
                             <p>
-                                {t('home.personalGrowthDesc', 'Whether learning new skills or pursuing hobbies, strong focus helps you make progress twice as fast.')}
+                                {t('home.personalGrowthDesc')}
                             </p>
                         </div>
                     </div>
 
                     <p className="text-center mt-8">
-                        {t('home.dailyPractice', 'Just 10 minutes daily - it\'s like weightlifting for your brain.')}
+                        {t('home.dailyPractice')}
                         <br />
                         <span className="text-primary font-medium">
-                            {t('home.benefitsConclusion', 'Sharper focus, better life.')}
+                            {t('home.benefitsConclusion')}
                         </span>
                     </p>
                 </div>
@@ -187,43 +281,12 @@ export default function Home() {
             {/* Testimonials Section */}
             <section className="mb-24 max-w-7xl mx-auto">
                 <h2 className="text-3xl font-bold text-center mb-12">
-                    {t('home.testimonialsTitle', 'Real People, Real Results')}
+                    {t('home.testimonialsTitle')}
                 </h2>
 
                 <div className="relative flex w-full flex-col items-center justify-center overflow-hidden px-6">
                     <Marquee pauseOnHover className="[--duration:20s] mb-8">
-                        {[
-                            {
-                                name: "Sarah",
-                                username: "@sarah_writes",
-                                body: "Finally finished my novel draft after 3 years of procrastination!",
-                                gradient: "from-blue-400 to-cyan-500",
-                            },
-                            {
-                                name: "Mike",
-                                username: "@chef_mike",
-                                body: "Can now follow complex baking recipes without getting distracted",
-                                gradient: "from-purple-400 to-pink-500",
-                            },
-                            {
-                                name: "Emma",
-                                username: "@nature_em",
-                                body: "Remember every turn on our mountain hikes - no more getting lost!",
-                                gradient: "from-green-400 to-emerald-500",
-                            },
-                            {
-                                name: "Sophia",
-                                username: "@math_mom",
-                                body: "My son's math scores improved 2 grades after 3 months!",
-                                gradient: "from-rose-400 to-pink-500",
-                            },
-                            {
-                                name: "Liam",
-                                username: "@adhd_dad",
-                                body: "15 mins/day helped my daughter sit through homework time",
-                                gradient: "from-sky-400 to-blue-500",
-                            },
-                        ].map((review) => (
+                        {firstRowReviews.map((review) => (
                             <div key={review.username} className="mx-4 w-72">
                                 <div
                                     className={cn(
@@ -256,38 +319,7 @@ export default function Home() {
                     </Marquee>
 
                     <Marquee reverse pauseOnHover className="[--duration:20s]">
-                        {[
-                            {
-                                name: "Tom",
-                                username: "@movie_tom",
-                                body: "Actually catch plot twists in movies now - no more confusion!",
-                                gradient: "from-orange-400 to-red-500",
-                            },
-                            {
-                                name: "Lisa",
-                                username: "@organized_lisa",
-                                body: "Spot my keys instantly in messy rooms - lifesaver!",
-                                gradient: "from-yellow-400 to-amber-500",
-                            },
-                            {
-                                name: "David",
-                                username: "@dad_athlete",
-                                body: "Never miss my kid's soccer goals anymore",
-                                gradient: "from-indigo-400 to-violet-500",
-                            },
-                            {
-                                name: "Olivia",
-                                username: "@homeschool_olivia",
-                                body: "Cut learning time by 40% with focused practice",
-                                gradient: "from-teal-400 to-cyan-500",
-                            },
-                            {
-                                name: "Ethan",
-                                username: "@gaming_dad",
-                                body: "Now balance game time and study time effortlessly",
-                                gradient: "from-amber-400 to-orange-500",
-                            },
-                        ].map((review) => (
+                        {secondRowReviews.map((review) => (
                             <div key={review.username} className="mx-4 w-72">
                                 <div
                                     className={cn(

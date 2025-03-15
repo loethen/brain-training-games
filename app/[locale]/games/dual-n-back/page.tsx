@@ -2,46 +2,46 @@ import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Brain, Layers, Zap } from 'lucide-react'
+import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
-export const metadata: Metadata = {
-    title: "Dual N-Back - Working Memory Training Game",
-    description:
-        "Boost your brainpower with our free online Dual N-Back game, designed to enhance working memory and cognitive skills. This science-backed memory training tool offers dynamic challenges and real-time feedback to improve focus, intelligence, and mental agility. Perfect for students, professionals, and brain training enthusiasts, it adapts to your level for a fun, effective way to unlock your cognitive potential. Play now and level up your mind!",
-    keywords: [
-        "dual n-back training",
-        "working memory exercise",
-        "fluid intelligence game",
-        "cognitive training",
-        "brain training game",
-        "attention control practice",
-        "n-back task",
-        "memory improvement game",
-        "free online Dual N-Back",
-        "improve working memory",
-    ].join(", "),
+// 将静态元数据改为动态生成函数
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale;
+  const t = await getTranslations({ locale, namespace: 'games' });
+  
+  return {
+    title: t('dualNBack.metaTitle', 'Dual N-Back - Working Memory Training Game'),
+    description: t('dualNBack.metaDescription', 'Boost your brainpower with our free online Dual N-Back game, designed to enhance working memory and cognitive skills. This science-backed memory training tool offers dynamic challenges and real-time feedback to improve focus, intelligence, and mental agility. Perfect for students, professionals, and brain training enthusiasts, it adapts to your level for a fun, effective way to unlock your cognitive potential. Play now and level up your mind!'),
+    keywords: t('dualNBack.metaKeywords', 'dual n-back training, working memory exercise, fluid intelligence game, cognitive training, brain training game, attention control practice, n-back task, memory improvement game, free online Dual N-Back, improve working memory').split(',').map(keyword => keyword.trim()),
     openGraph: {
-        title: "Dual N-Back - Advanced Working Memory Training",
-        description:
-            "Train your working memory and fluid intelligence with the scientifically-backed Dual N-Back cognitive exercise.",
-        images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+      title: t('dualNBack.ogTitle', 'Dual N-Back - Advanced Working Memory Training'),
+      description: t('dualNBack.ogDescription', 'Train your working memory and fluid intelligence with the scientifically-backed Dual N-Back cognitive exercise.'),
+      images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
-};
+  };
+}
 
 export default function DualNBackPage() {
+  const t = useTranslations('games');
+  
   return (
     <GamePageTemplate
       gameId="dual-n-back"
-      title="Dual N-Back"
-      subtitle="Advanced working memory training for cognitive enhancement"
+      title={t('dualNBack.title', 'Dual N-Back')}
+      subtitle={t('dualNBack.subtitle', 'Advanced working memory training for cognitive enhancement')}
       gameComponent={<Game />}
       howToPlay={
         <>
-          <p>In this challenging memory task, you&apos;ll need to remember both visual and auditory stimuli from N steps back in the sequence:</p>
+          <p>{t('dualNBack.howToPlayIntro', 'In this challenging memory task, you\'ll need to remember both visual and auditory stimuli from N steps back in the sequence:')}</p>
           <ul className="list-disc pl-5 mt-2 space-y-1">
-            <li>Watch the grid and listen to the letters</li>
-            <li>Press &quot;Position&quot; when the current position matches the position from N steps back</li>
-            <li>Press &quot;Sound&quot; when the current letter matches the letter from N steps back</li>
-            <li>As you improve, the N-back level will increase, making the task more difficult</li>
+            <li>{t('dualNBack.howToPlay1', 'Watch the grid and listen to the letters')}</li>
+            <li>{t('dualNBack.howToPlay2', 'Press "Position" when the current position matches the position from N steps back')}</li>
+            <li>{t('dualNBack.howToPlay3', 'Press "Sound" when the current letter matches the letter from N steps back')}</li>
+            <li>{t('dualNBack.howToPlay4', 'As you improve, the N-back level will increase, making the task more difficult')}</li>
           </ul>
         </>
       }

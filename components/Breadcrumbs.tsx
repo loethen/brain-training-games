@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 // 定义面包屑项的接口
 export interface BreadcrumbItem {
@@ -13,13 +14,15 @@ interface BreadcrumbsProps {
 }
 
 export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
+  const t = useTranslations('common');
+  
   return (
     <nav className={`text-sm mb-4 ${className}`} aria-label="Breadcrumb">
       <ol className="flex items-center flex-wrap gap-1 text-muted-foreground">
         {/* 首页始终是第一个项目 */}
         <li>
           <Link href="/" className="hover:text-foreground transition-colors">
-            Home
+            {t('home')}
           </Link>
         </li>
         

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Header } from "./header"
 import { useState, useEffect, useCallback } from "react"
 import { Footer } from "./Footer"
+import { useTranslations } from 'next-intl';
 
 export function Layout({
     children,
@@ -12,6 +13,7 @@ export function Layout({
     children: React.ReactNode;
     initialIsMobile: boolean;
 }) {
+    const t = useTranslations('common');
     const [isSidebarOpen, setIsSidebarOpen] = useState(!initialIsMobile);
     const [isMobile, setIsMobile] = useState(initialIsMobile);
 
@@ -81,9 +83,9 @@ export function Layout({
         `}
             >
                 <nav className="w-full space-y-1 pl-4 text-sm">
-                    <NavItem href="/">Home</NavItem>
-                    <NavItem href="/categories">Categories</NavItem>
-                    <NavItem href="/games">Games</NavItem>
+                    <NavItem href="/">{t('home')}</NavItem>
+                    <NavItem href="/categories">{t('categories')}</NavItem>
+                    <NavItem href="/games">{t('games')}</NavItem>
                 </nav>
             </div>
 

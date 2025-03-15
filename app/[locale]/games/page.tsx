@@ -6,38 +6,49 @@ import { categories } from "@/data/categories";
 import { Button } from "@/components/ui/button";
 import { Filter } from "lucide-react";
 import Link from "next/link";
+import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
-export const metadata: Metadata = {
-  title: "Brain Training Games | Improve Focus, Memory & Cognitive Skills",
-  description: "Explore our collection of free brain training games designed to enhance cognitive abilities including memory, attention, processing speed and more.",
-  keywords: "brain games, cognitive training, memory games, focus games, attention games, brain training, free brain games, mental exercises, cognitive enhancement, brain fitness",
-  openGraph: {
-    title: "Free Brain Training Games | Improve Your Cognitive Skills",
-    description: "Discover scientifically-informed games to enhance your memory, focus, attention, and other cognitive abilities. Train your brain for free.",
-    images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
-  },
-};
+// 将静态元数据改为动态生成函数
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale;
+  const t = await getTranslations({ locale, namespace: 'games' });
+  
+  return {
+    title: t('metaTitle', 'Brain Training Games | Improve Focus, Memory & Cognitive Skills'),
+    description: t('metaDescription', 'Explore our collection of free brain training games designed to enhance cognitive abilities including memory, attention, processing speed and more.'),
+    keywords: t('metaKeywords', 'brain games, cognitive training, memory games, focus games, attention games, brain training, free brain games, mental exercises, cognitive enhancement, brain fitness').split(',').map(keyword => keyword.trim()),
+    openGraph: {
+      title: t('ogTitle', 'Free Brain Training Games | Improve Your Cognitive Skills'),
+      description: t('ogDescription', 'Discover scientifically-informed games to enhance your memory, focus, attention, and other cognitive abilities. Train your brain for free.'),
+      images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+    },
+  };
+}
 
 export default function GamesPage() {
   const games = getGames();
+  const t = useTranslations('games');
   
   return (
       <div className="mx-auto">
-          <Breadcrumbs items={[{ label: "Games" }]} />
+          <Breadcrumbs items={[{ label: t('title', 'Games') }]} />
 
           <h1 className="text-3xl font-bold mt-12 mb-4 text-center">
-              Focus Training Games
+              {t('heading', 'Focus Training Games')}
           </h1>
           <p className="text-muted-foreground mb-12 max-w-2xl mx-auto text-center">
-              Discover our free focus-enhancing games, crafted to sharpen your
-              attention and concentration with fun, targeted challenges.
+              {t('description', 'Discover our free focus-enhancing games, crafted to sharpen your attention and concentration with fun, targeted challenges.')}
           </p>
 
           {/* 类别筛选 */}
           <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
               <Button variant="outline" size="sm" className="rounded-full">
                   <Filter className="h-4 w-4 mr-2" />
-                  All Games
+                  {t('filters.all', 'All Games')}
               </Button>
 
               {categories.slice(0, 6).map((category) => (
@@ -54,7 +65,7 @@ export default function GamesPage() {
 
               <Link href="/categories">
                   <Button variant="outline" size="sm" className="rounded-full">
-                      More Categories...
+                      {t('filters.more', 'More Categories...')}
                   </Button>
               </Link>
           </div>

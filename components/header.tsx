@@ -5,7 +5,7 @@ import { Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Link, usePathname } from "@/i18n/navigation"
 import { useState } from "react"
-import { useLocale } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,11 +18,12 @@ function LanguageSwitcher() {
   const pathname = usePathname()
   const locale = useLocale()
   const [open, setOpen] = useState(false)
+  const t = useTranslations('common');
   
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground">
+        <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground" aria-label={t('language')}>
           <Globe className="h-4 w-4" />
           <span className="hidden sm:inline">{locale === 'zh' ? '中文' : 'English'}</span>
           <ChevronDown className="h-3 w-3" />
@@ -48,6 +49,7 @@ export function Header({ onToggleSidebar }: {
   onToggleSidebar: () => void 
 }) {
   const { theme, setTheme } = useTheme()
+  const t = useTranslations('common');
 
   return (
     <header className="sticky z-50 top-0 bg-background/80 backdrop-blur-sm">
@@ -70,7 +72,7 @@ export function Header({ onToggleSidebar }: {
               size="icon"
               className="text-muted-foreground hidden md:inline-flex"
               onClick={onToggleSidebar}
-              aria-label="Toggle sidebar"
+              aria-label={t('toggleSidebar')}
           >
               <PanelLeft className="h-5 w-5" />
           </Button>
@@ -85,7 +87,7 @@ export function Header({ onToggleSidebar }: {
           >
             <Sun className="h-5 w-5 block dark:hidden" />
             <Moon className="h-5 w-5 hidden dark:block" />
-            <span className="sr-only">Toggle theme</span>
+            <span className="sr-only">{t('toggleTheme')}</span>
           </Button>
           
           {/* 桌面端语言切换 */}
@@ -106,7 +108,7 @@ export function Header({ onToggleSidebar }: {
           >
             <Sun className="h-5 w-5 block dark:hidden" />
             <Moon className="h-5 w-5 hidden dark:block" />
-            <span className="sr-only">Toggle theme</span>
+            <span className="sr-only">{t('toggleTheme')}</span>
           </Button>
           
           {/* 移动端侧边栏切换 */}
@@ -115,7 +117,7 @@ export function Header({ onToggleSidebar }: {
               size="icon"
               className="text-muted-foreground"
               onClick={onToggleSidebar}
-              aria-label="Toggle sidebar"
+              aria-label={t('toggleSidebar')}
           >
               <PanelLeft className="h-5 w-5" />
           </Button>
