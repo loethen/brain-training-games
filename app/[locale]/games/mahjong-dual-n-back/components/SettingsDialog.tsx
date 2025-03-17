@@ -3,6 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Settings } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import {
     Dialog,
@@ -56,6 +58,7 @@ export default function SettingsDialog({
     updateSettings,
     isDisabled,
 }: SettingsDialogProps) {
+    const t = useTranslations('games.mahjongDualNBack.gameUI');
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     // Create the form
@@ -90,13 +93,13 @@ export default function SettingsDialog({
                 >
                     <Settings className="h-4 w-4" />
                     <span className="hidden sm:inline">
-                        Settings
+                        {t('settings')}
                     </span>
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Game Settings</DialogTitle>
+                    <DialogTitle>{t('gameSettings')}</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                     <form
@@ -109,25 +112,19 @@ export default function SettingsDialog({
                             render={({ field }) => (
                                 <FormItem className="space-y-3">
                                     <FormLabel className="flex items-center justify-between">
-                                        N-Back Level
+                                        {t('nBackLevel')}
                                         <span className="text-sm text-muted-foreground">
-                                            {field.value}-Back
+                                            {t('back', { level: field.value })}
                                         </span>
                                     </FormLabel>
                                     <FormControl>
                                         <Slider
                                             min={1}
-                                            max={
-                                                GAME_CONFIG
-                                                    .difficulty
-                                                    .maxLevel
-                                            }
+                                            max={GAME_CONFIG.difficulty.maxLevel}
                                             step={1}
                                             value={[field.value]}
                                             onValueChange={(vals) =>
-                                                field.onChange(
-                                                    vals[0]
-                                                )
+                                                field.onChange(vals[0])
                                             }
                                             disabled={isDisabled}
                                         />
@@ -142,15 +139,13 @@ export default function SettingsDialog({
                             render={({ field }) => (
                                 <FormItem className="space-y-3">
                                     <FormLabel>
-                                        Voice Type
+                                        {t('voiceType')}
                                     </FormLabel>
                                     <FormControl>
                                         <RadioGroup
-                                            onValueChange={
-                                                field.onChange
-                                            }
+                                            onValueChange={field.onChange}
                                             value={field.value}
-                                            className="flex flex-col space-y-2"
+                                            className="flex flex-wrap gap-4"
                                         >
                                             <div className="flex items-center space-x-2">
                                                 <RadioGroupItem
@@ -158,7 +153,7 @@ export default function SettingsDialog({
                                                     id="male"
                                                 />
                                                 <Label htmlFor="male">
-                                                    English Male
+                                                    {t('male')}
                                                 </Label>
                                             </div>
                                             <div className="flex items-center space-x-2">
@@ -167,7 +162,7 @@ export default function SettingsDialog({
                                                     id="female"
                                                 />
                                                 <Label htmlFor="female">
-                                                    English Female
+                                                    {t('female')}
                                                 </Label>
                                             </div>
                                             <div className="flex items-center space-x-2">
@@ -176,7 +171,7 @@ export default function SettingsDialog({
                                                     id="chinese_female"
                                                 />
                                                 <Label htmlFor="chinese_female">
-                                                    Chinese Female
+                                                    {t('chineseFemale')}
                                                 </Label>
                                             </div>
                                         </RadioGroup>
@@ -191,75 +186,45 @@ export default function SettingsDialog({
                             render={() => (
                                 <FormItem className="space-y-3">
                                     <FormLabel>
-                                        Training Mode
+                                        {t('trainingMode')}
                                     </FormLabel>
                                     <div className="space-y-2">
                                         {["position", "audio"].map(
                                             (type) => (
                                                 <div
                                                     key={type}
-                                                    className="flex items-center space-x-2"
+                                                    className="flex items-center gap-2"
                                                 >
-                                                    <FormField
-                                                        control={
-                                                            form.control
+                                                    <Checkbox
+                                                        id={`mode-${type}`}
+                                                        checked={form
+                                                            .watch("selectedTypes")
+                                                            .includes(
+                                                                type as "position" | "audio"
+                                                            )}
+                                                        onCheckedChange={(checked) => {
+                                                            const currentTypes = form.getValues("selectedTypes");
+                                                            const newTypes = checked
+                                                                ? [...currentTypes, type as "position" | "audio"]
+                                                                : currentTypes.filter((t) => t !== type);
+
+                                                            if (newTypes.length === 0) {
+                                                                toast(t('keepOneMode'));
+                                                                return;
+                                                            }
+
+                                                            form.setValue("selectedTypes", newTypes);
+                                                        }}
+                                                        disabled={
+                                                            isDisabled ||
+                                                            (form.watch("selectedTypes").length === 1 &&
+                                                                form.watch("selectedTypes").includes(
+                                                                    type as "position" | "audio"
+                                                                ))
                                                         }
-                                                        name="selectedTypes"
-                                                        render={({
-                                                            field,
-                                                        }) => (
-                                                            <FormItem>
-                                                                <FormControl>
-                                                                    <Checkbox
-                                                                        id={`mode-${type}`}
-                                                                        checked={field.value.includes(
-                                                                            type as "position" | "audio"
-                                                                        )}
-                                                                        onCheckedChange={(
-                                                                            checked
-                                                                        ) => {
-                                                                            const updatedTypes =
-                                                                                checked
-                                                                                    ? [
-                                                                                          ...field.value,
-                                                                                          type as "position" | "audio",
-                                                                                      ]
-                                                                                    : field.value.filter(
-                                                                                          (
-                                                                                              t
-                                                                                          ) =>
-                                                                                              t !==
-                                                                                              type
-                                                                                      );
-                                                                            field.onChange(
-                                                                                updatedTypes
-                                                                            );
-                                                                        }}
-                                                                        disabled={
-                                                                            isDisabled ||
-                                                                            (field.value.length ===
-                                                                                1 &&
-                                                                                field.value.includes(
-                                                                                    type as "position" | "audio"
-                                                                                ))
-                                                                        }
-                                                                    />
-                                                                </FormControl>
-                                                            </FormItem>
-                                                        )}
                                                     />
-                                                    <Label
-                                                        htmlFor={`mode-${type}`}
-                                                    >
-                                                        {type === "position" 
-                                                            ? "Tile Match" 
-                                                            : type === "audio"
-                                                            ? "Sound Match"
-                                                            : type
-                                                                .charAt(0)
-                                                                .toUpperCase() +
-                                                              type.slice(1)
-                                                        }
+                                                    <Label htmlFor={`mode-${type}`}>
+                                                        {t(type === "position" ? 'tile' : 'sound')}
                                                     </Label>
                                                 </div>
                                             )
@@ -275,9 +240,9 @@ export default function SettingsDialog({
                             render={({ field }) => (
                                 <FormItem className="space-y-3">
                                     <FormLabel className="flex items-center justify-between">
-                                        Trials Per Round
+                                        {t('trialsPerRound')}
                                         <span className="text-sm text-muted-foreground">
-                                            {field.value} trials
+                                            {t('trials', { count: field.value })}
                                         </span>
                                     </FormLabel>
                                     <FormControl>
@@ -287,9 +252,7 @@ export default function SettingsDialog({
                                             step={5}
                                             value={[field.value]}
                                             onValueChange={(vals) =>
-                                                field.onChange(
-                                                    vals[0]
-                                                )
+                                                field.onChange(vals[0])
                                             }
                                             disabled={isDisabled}
                                         />
@@ -304,24 +267,19 @@ export default function SettingsDialog({
                             render={({ field }) => (
                                 <FormItem className="space-y-3">
                                     <FormLabel className="flex items-center justify-between">
-                                        Trial Speed
+                                        {t('trialSpeed')}
                                         <span className="text-sm text-muted-foreground">
-                                            {(
-                                                field.value / 1000
-                                            ).toFixed(1)}
-                                            s
+                                            {t('seconds', { seconds: (field.value / 1000).toFixed(1) })}
                                         </span>
                                     </FormLabel>
                                     <FormControl>
                                         <Slider
-                                            min={1000}
+                                            min={2000}
                                             max={8000}
                                             step={500}
                                             value={[field.value]}
                                             onValueChange={(vals) =>
-                                                field.onChange(
-                                                    vals[0]
-                                                )
+                                                field.onChange(vals[0])
                                             }
                                             disabled={isDisabled}
                                         />
@@ -335,7 +293,7 @@ export default function SettingsDialog({
                                 type="submit"
                                 disabled={isDisabled}
                             >
-                                Save Changes
+                                {t('saveChanges')}
                             </Button>
                         </DialogFooter>
                     </form>

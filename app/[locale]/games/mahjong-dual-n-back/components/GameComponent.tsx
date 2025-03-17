@@ -17,6 +17,7 @@ import Image from "next/image";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import SettingsDialog, { GameSettings } from "./SettingsDialog";
 import { ShareModal } from "@/components/ui/ShareModal";
+import { useTranslations } from "next-intl";
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
 type GameState = "idle" | "playing" | "complete";
@@ -65,6 +66,7 @@ function useGameSettings() {
 }
 
 export default function GameComponent() {
+    const t = useTranslations('games.mahjongDualNBack.gameUI');
     const { settings, updateSettings } = useGameSettings();
 
     const [gameState, setGameState] = useState<GameState>("idle");
@@ -712,14 +714,15 @@ export default function GameComponent() {
                         <div className="text-center py-8">
                             <div className="p-8 bg-muted/20 rounded-lg mb-16">
                                 <h3 className="text-lg font-medium mb-2 text-white">
-                                    Mahjong Dual N-Back Challenge
+                                    {t('challenge')}
                                 </h3>
                                 <p className="text-white/80">
-                                    Track {settings.selectedTypes.map(type => 
-                                        type === "position" ? "tile" : 
-                                        type === "audio" ? "sound" : type
-                                    ).join(" and ")}{" "}
-                                    from {settings.selectedNBack} steps back.
+                                    {t('trackInfo', {
+                                        types: settings.selectedTypes.map(type => 
+                                            t(type === "position" ? 'tile' : 'sound')
+                                        ).join(" & "),
+                                        level: settings.selectedNBack
+                                    })}
                                 </p>
                             </div>
                             <div className="flex justify-center">
@@ -735,7 +738,7 @@ export default function GameComponent() {
                                     ) : (
                                         <>
                                             <PlayCircle className="w-5 h-5 mr-2" />
-                                            Start Training
+                                            {t('startTraining')}
                                         </>
                                     )}
                                 </ShimmerButton>
@@ -744,7 +747,7 @@ export default function GameComponent() {
                     ) : gameState === "playing" ? (
                         <div className="text-center py-6">
                             <div className="text-lg font-medium text-white">
-                                Trial {currentTrial} of {settings.trialsPerRound}
+                                {t('trial', { current: currentTrial, total: settings.trialsPerRound })}
                             </div>
 
                             <div className="relative w-[176px] mx-auto overflow-hidden pt-6 pb-20">
@@ -828,9 +831,9 @@ export default function GameComponent() {
                                                 </span>
                                             </div>
                                             <span>
-                                                Tile Match{" "}
+                                                {t('tileMatch')}{" "}
                                                 <span className="text-xs text-emerald-600">
-                                                    (A)
+                                                    ({t('keyA')})
                                                 </span>
                                             </span>
                                         </div>
@@ -855,9 +858,9 @@ export default function GameComponent() {
                                                 </span>
                                             </div>
                                             <span>
-                                                Sound Match{" "}
+                                                {t('soundMatch')}{" "}
                                                 <span className="text-xs text-emerald-600">
-                                                    (L)
+                                                    ({t('keyL')})
                                                 </span>
                                             </span>
                                         </div>
@@ -868,7 +871,7 @@ export default function GameComponent() {
                     ) : (
                         <div className="text-center py-8">
                             <h2 className="text-xl font-bold mb-4">
-                                Training Results
+                                {t('trainingResults')}
                             </h2>
                             <div className="bg-muted/30 p-6 rounded-lg mb-6 max-w-md mx-auto">
                                 <div
@@ -890,40 +893,38 @@ export default function GameComponent() {
                                             )}
                                         >
                                             <h3 className="font-semibold text-primary">
-                                                Tile Match
+                                                {t('tile')}
                                             </h3>
                                             <div className="flex flex-col items-center">
                                                 <div className="text-3xl font-bold">
-                                                    {accuracy.position.correct}/
-                                                    {accuracy.position.total}
+                                                    {t('accuracy', {
+                                                        correct: accuracy.position.correct,
+                                                        total: accuracy.position.total
+                                                    })}
                                                 </div>
                                                 <div className="text-sm text-muted-foreground">
-                                                    {accuracy.position.total > 0
-                                                        ? Math.round(
-                                                              (accuracy.position
-                                                                  .correct /
-                                                                  accuracy.position
-                                                                      .total) *
-                                                              100
-                                                          )
-                                                        : 0}
-                                                    % Accuracy
+                                                    {t('accuracyPercent', {
+                                                        percent: accuracy.position.total > 0
+                                                            ? Math.round(
+                                                                (accuracy.position.correct /
+                                                                    accuracy.position.total) *
+                                                                100
+                                                            )
+                                                            : 0
+                                                    })}
                                                 </div>
                                             </div>
                                             <div className="text-xs text-muted-foreground space-y-1">
                                                 <div className="flex justify-between">
-                                                    <span>Missed:</span>
+                                                    <span>{t('missed')}:</span>
                                                     <span>
                                                         {accuracy.position.missed}
                                                     </span>
                                                 </div>
                                                 <div className="flex justify-between">
-                                                    <span>False Alarms:</span>
+                                                    <span>{t('falseAlarms')}:</span>
                                                     <span>
-                                                        {
-                                                            accuracy.position
-                                                                .falseAlarms
-                                                        }
+                                                        {accuracy.position.falseAlarms}
                                                     </span>
                                                 </div>
                                             </div>
@@ -939,35 +940,36 @@ export default function GameComponent() {
                                             )}
                                         >
                                             <h3 className="font-semibold text-primary">
-                                                Audio
+                                                {t('sound')}
                                             </h3>
                                             <div className="flex flex-col items-center">
                                                 <div className="text-3xl font-bold">
-                                                    {accuracy.audio.correct}/
-                                                    {accuracy.audio.total}
+                                                    {t('accuracy', {
+                                                        correct: accuracy.audio.correct,
+                                                        total: accuracy.audio.total
+                                                    })}
                                                 </div>
                                                 <div className="text-sm text-muted-foreground">
-                                                    {accuracy.audio.total > 0
-                                                        ? Math.round(
-                                                              (accuracy.audio
-                                                                  .correct /
-                                                                  accuracy.audio
-                                                                      .total) *
-                                                              100
-                                                          )
-                                                        : 0}
-                                                    % Accuracy
+                                                    {t('accuracyPercent', {
+                                                        percent: accuracy.audio.total > 0
+                                                            ? Math.round(
+                                                                (accuracy.audio.correct /
+                                                                    accuracy.audio.total) *
+                                                                100
+                                                            )
+                                                            : 0
+                                                    })}
                                                 </div>
                                             </div>
                                             <div className="text-xs text-muted-foreground space-y-1">
                                                 <div className="flex justify-between">
-                                                    <span>Missed:</span>
+                                                    <span>{t('missed')}:</span>
                                                     <span>
                                                         {accuracy.audio.missed}
                                                     </span>
                                                 </div>
                                                 <div className="flex justify-between">
-                                                    <span>False Alarms:</span>
+                                                    <span>{t('falseAlarms')}:</span>
                                                     <span>
                                                         {accuracy.audio.falseAlarms}
                                                     </span>
@@ -982,7 +984,7 @@ export default function GameComponent() {
                                         {settings.selectedTypes.length === 2 && (
                                             <div className="flex justify-between items-center">
                                                 <span className="font-medium">
-                                                    Overall Performance:
+                                                    {t('overallPerformance')}:
                                                 </span>
                                                 <span className="font-bold">
                                                     {Math.round(
@@ -1002,8 +1004,8 @@ export default function GameComponent() {
                                         )}
                                         <div className="mt-2 text-xs text-muted-foreground">
                                             <p>
-                                                Level: {settings.selectedNBack}-Back
-                                                • Trials: {currentTrial}
+                                                {t('level')}: {t('back', { level: settings.selectedNBack })}
+                                                • {t('trials', { count: currentTrial })}
                                             </p>
                                         </div>
                                     </div>
@@ -1018,13 +1020,17 @@ export default function GameComponent() {
                                     {preloadState.isPreloading ? (
                                         <>
                                             <span className="animate-spin mr-2">⏳</span>
-                                            Loading... ({preloadState.loadedAudio}/{preloadState.totalAudio} audio, 
-                                            {preloadState.loadedImages}/{preloadState.totalImages} images)
+                                            {t('loadingStatus', {
+                                                loadedAudio: preloadState.loadedAudio,
+                                                totalAudio: preloadState.totalAudio,
+                                                loadedImages: preloadState.loadedImages,
+                                                totalImages: preloadState.totalImages
+                                            })}
                                         </>
                                     ) : (
                                         <>
                                             <PlayCircle className="w-4 h-4 mr-2" />
-                                            Play Again
+                                            {t('playAgain')}
                                         </>
                                     )}
                                 </Button>
@@ -1034,7 +1040,7 @@ export default function GameComponent() {
                                     className="rounded-full"
                                 >
                                     <Share2 className="w-4 h-4 mr-2" />
-                                    Share
+                                    {t('share')}
                                 </Button>
                             </div>
                         </div>
@@ -1046,6 +1052,8 @@ export default function GameComponent() {
             <ShareModal 
                 isOpen={showShareModal}
                 onClose={() => setShowShareModal(false)}
+                title={t('challenge')}
+                url={window.location.href}
             />
         </div>
     );
