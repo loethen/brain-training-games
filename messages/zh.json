@@ -465,9 +465,68 @@
       "title": "青蛙记忆跳跃",
       "description": "通过记住青蛙在荷叶上跳跃的顺序来挑战你的顺序记忆能力。"
     },
-    "larger-number": {
-      "title": "大数字",
-      "description": "快速识别两个数字中较大的一个，训练处理速度和注意力。"
+    "largerNumber": {
+      "title": "大数字挑战",
+      "subtitle": "训练你的处理速度和数字比较能力",
+      "howToPlayIntro": "在这个快节奏的挑战中快速识别哪个数字更大：",
+      "howToPlay1": "屏幕上会出现两个数字",
+      "howToPlay2": "尽快点击或触摸较大的数字",
+      "howToPlay3": "尝试既快又准确",
+      "howToPlay4": "看看你在30秒内能得到多少正确答案",
+      "benefits": {
+        "processingSpeed": {
+          "title": "处理速度",
+          "description": "提高你的大脑处理和响应数字信息的速度。"
+        },
+        "selectiveAttention": {
+          "title": "选择性注意力",
+          "description": "提高你专注于相关信息并快速做出决策的能力。"
+        },
+        "numericalCognition": {
+          "title": "数字认知",
+          "description": "增强参与理解和比较数量的大脑通路。"
+        }
+      },
+      "faq": {
+        "mathSkills": {
+          "question": "这如何帮助数学技能？",
+          "answer": "这个游戏训练支撑数学思维的基本认知过程：快速数字识别、大小比较和决策。这些技能为更复杂的数学能力奠定基础。"
+        },
+        "children": {
+          "question": "这对学习数学的儿童有好处吗？",
+          "answer": "是的！这个游戏有助于发展数感，这对早期数学发展至关重要。它对正在学习比较数量和理解数字关系的儿童特别有帮助。"
+        },
+        "processingSpeed": {
+          "question": "处理速度如何影响学习？",
+          "answer": "处理速度影响你接收、理解和响应信息的速度。更快的处理能力使你能够更有效地处理复杂任务，并减少学习活动中的认知负担。"
+        },
+        "adults": {
+          "question": "成年人能从这种训练中受益吗？",
+          "answer": "绝对可以。处理速度可能随着年龄的增长而下降，定期训练可以帮助维持或改善这种认知功能。这个游戏提供了一种快速、有趣的方式来锻炼这些神经通路。"
+        }
+      },
+      "metaTitle": "大数字挑战 - 数字比较训练游戏",
+      "metaDescription": "通过这个快节奏的数字比较游戏提高你的数字处理速度和决策能力。训练你的大脑快速识别较大的数字。",
+      "metaKeywords": "数字比较游戏, 数字处理训练, 决策速度练习, 数学脑力训练, 认知速度游戏, 数字大小比较, 反应时间训练, 教育数学游戏",
+      "ogTitle": "大数字挑战 - 训练你的数字处理速度",
+      "ogDescription": "在这个快节奏的脑力训练游戏中快速识别哪个数字更大。提高你的决策速度和数字处理能力。",
+      "gameUI": {
+        "challenge": "完成{attempts}次尝试，准确率达到{accuracy}%即可成功",
+        "starting": "开始中...",
+        "startChallenge": "开始挑战",
+        "whichIsLarger": "哪个数字更大？",
+        "correct": "正确",
+        "total": "总计",
+        "accuracy": "准确率",
+        "congratulations": "恭喜！你已成功完成挑战。",
+        "keepGoing": "继续练习！每次尝试都会让你变得更好。",
+        "timeUp": "时间到！",
+        "totalAttempts": "总尝试次数",
+        "correctAnswers": "正确答案数",
+        "target": "目标：{attempts}次尝试，准确率{accuracy}%",
+        "playAgain": "再玩一次",
+        "share": "分享结果"
+      }
     },
     "mahjong-dual-n-back": {
       "title": "麻将双重N-Back",
