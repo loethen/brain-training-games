@@ -278,11 +278,88 @@
       "howToPlay2": "当当前位置与N步之前的位置匹配时，按\"位置\"按钮",
       "howToPlay3": "当当前字母与N步之前的字母匹配时，按\"声音\"按钮",
       "howToPlay4": "随着你的进步，N-back级别将增加，使任务更具挑战性",
+      "description": "通过记忆N步之前的视觉和听觉刺激来训练你的工作记忆。",
+      "howToPlay": "在这个游戏中，你将看到一系列刺激 - 网格中的位置和字母。你的任务是识别当前刺激是否与N步之前的刺激相匹配。当位置匹配时按下位置按钮，当字母匹配时按下声音按钮。",
+      "benefits": {
+        "workingMemory": {
+          "title": "工作记忆",
+          "description": "增强你在脑海中保持和操作多条信息的能力，这对学习和解决问题至关重要。"
+        },
+        "fluidIntelligence": {
+          "title": "流体智力",
+          "description": "提高你的推理能力和解决新问题的能力，这是认知能力的关键方面。"
+        },
+        "attentionControl": {
+          "title": "注意力控制",
+          "description": "增强你的专注力和过滤干扰的能力，帮助你在日常任务中保持高效。"
+        }
+      },
+      "faq": {
+        "science": {
+          "question": "什么是N-Back？",
+          "answer": "N-Back是一种认知任务，你必须记住序列中N步之前发生的事情。例如，在2-Back任务中，你需要记住2步之前显示的内容。"
+        },
+        "practice": {
+          "question": "我应该多久练习一次？",
+          "answer": "为了获得最佳效果，尝试每天练习20-30分钟，每周4-5天。一致性比持续时间更重要。"
+        },
+        "progress": {
+          "question": "我如何知道自己是否在进步？",
+          "answer": "随着你的进步，你将能够在保持准确性的同时增加N-Back级别（从1-back到2-back，3-back等）。你的反应时间也会提高。"
+        },
+        "challenging": {
+          "question": "这个训练有多具挑战性？",
+          "answer": "双重N-Back是一项相当具有挑战性的认知任务，特别是当你增加N的值时。这种挑战正是使其成为有效的大脑训练工具的原因。"
+        },
+        "improvements": {
+          "question": "这种训练会改善我的日常生活吗？",
+          "answer": "许多用户报告在定期练习双重N-Back后，注意力集中、多任务处理能力和信息保留能力都有所提高。这些技能可以转移到需要关注多个信息流的学术、专业和日常活动中。"
+        }
+      },
+      "gameUI": {
+        "dual": "双重",
+        "position": "位置",
+        "audio": "音频",
+        "sound": "声音",
+        "back": "{level}-back",
+        "challenge": "双重N-Back挑战",
+        "trackInfo": "追踪{level}步之前的{types}。",
+        "starting": "开始中...",
+        "startChallenge": "开始挑战",
+        "trial": "试验 {current}/{total}",
+        "positionMatch": "A: 位置匹配",
+        "soundMatch": "L: 声音匹配",
+        "trainingResults": "训练结果",
+        "accuracy": "{correct}/{total}",
+        "accuracyPercent": "准确率 {percent}%",
+        "missed": "错过",
+        "falseAlarms": "误报",
+        "overallPerformance": "整体表现",
+        "level": "级别:",
+        "trials": "试验: {count}",
+        "playAgain": "再玩一次",
+        "shareResults": "分享结果",
+        "settings": "设置",
+        "gameSettings": "游戏设置",
+        "nBackLevel": "N-Back级别",
+        "voiceType": "语音类型",
+        "male": "男声",
+        "female": "女声",
+        "trainingMode": "训练模式",
+        "trialsPerRound": "每轮试验次数",
+        "trialSpeed": "试验速度",
+        "seconds": "{seconds}秒",
+        "saveChanges": "保存更改",
+        "keepOneMode": "你必须保持至少一种模式启用"
+      },
+      "gameMessages": {
+        "keepOneMode": "你必须保持至少一种模式启用"
+      },
       "metaTitle": "双重N-Back - 工作记忆训练游戏",
       "metaDescription": "通过我们免费的在线双重N-Back游戏提升你的脑力，该游戏旨在增强工作记忆和认知技能。这个基于科学的记忆训练工具提供动态挑战和实时反馈，以提高专注力、智力和思维敏捷度。非常适合学生、专业人士和脑力训练爱好者，它会根据你的水平进行调整，为你提供一种有趣、有效的方式来释放你的认知潜能。立即开始游戏，提升你的思维水平！",
       "metaKeywords": "双重n-back训练, 工作记忆练习, 流体智力游戏, 认知训练, 脑力训练游戏, 注意力控制练习, n-back任务, 记忆力提升游戏, 免费在线双重N-Back, 提高工作记忆",
       "ogTitle": "双重N-Back - 高级工作记忆训练",
-      "ogDescription": "通过科学支持的双重N-Back认知练习训练你的工作记忆和流体智力。"
+      "ogDescription": "通过科学支持的双重N-Back认知练习训练你的工作记忆和认知技能，提高专注力和思维敏捷度。"
     },
     "mahjongDualNBack": {
       "title": "麻将双重N-Back",

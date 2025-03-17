@@ -255,10 +255,10 @@
       }
     },
     "metaTitle": "Brain Training Games | Improve Focus, Memory & Cognitive Skills",
-    "metaDescription": "Explore our collection of free brain training games designed to enhance cognitive abilities including memory, attention, processing speed and more.",
+    "metaDescription": "Explore our collection of free brain training games designed to enhance cognitive abilities including memory, attention, processing speed, and more.",
     "metaKeywords": "brain games, cognitive training, memory games, focus games, attention games, brain training, free brain games, mental exercises, cognitive enhancement, brain fitness",
-    "ogTitle": "Free Brain Training Games | Improve Your Cognitive Skills",
-    "ogDescription": "Discover scientifically-informed games to enhance your memory, focus, attention, and other cognitive abilities. Train your brain for free.",
+    "ogTitle": "Free Brain Training Games | Boost Your Cognitive Skills",
+    "ogDescription": "Explore science-based games to enhance your memory, focus, attention, and other cognitive abilities. Train your brain for free.",
     "schulteTable": {
       "title": "Schulte Table",
       "subtitle": "Enhance your attention and peripheral vision",
@@ -272,17 +272,62 @@
     },
     "dualNBack": {
       "title": "Dual N-Back",
-      "subtitle": "Advanced working memory training for cognitive enhancement",
-      "howToPlayIntro": "In this challenging memory task, you'll need to remember both visual and auditory stimuli from N steps back in the sequence:",
-      "howToPlay1": "Watch the grid and listen to the letters",
-      "howToPlay2": "Press \"Position\" when the current position matches the position from N steps back",
-      "howToPlay3": "Press \"Sound\" when the current letter matches the letter from N steps back",
-      "howToPlay4": "As you improve, the N-back level will increase, making the task more difficult",
-      "metaTitle": "Dual N-Back - Working Memory Training Game",
-      "metaDescription": "Boost your brainpower with our free online Dual N-Back game, designed to enhance working memory and cognitive skills. This science-backed memory training tool offers dynamic challenges and real-time feedback to improve focus, intelligence, and mental agility. Perfect for students, professionals, and brain training enthusiasts, it adapts to your level for a fun, effective way to unlock your cognitive potential. Play now and level up your mind!",
-      "metaKeywords": "dual n-back training, working memory exercise, fluid intelligence game, cognitive training, brain training game, attention control practice, n-back task, memory improvement game, free online Dual N-Back, improve working memory",
-      "ogTitle": "Dual N-Back - Advanced Working Memory Training",
-      "ogDescription": "Train your working memory and fluid intelligence with the scientifically-backed Dual N-Back cognitive exercise."
+      "description": "Train your working memory by remembering visual and auditory stimuli N steps back.",
+      "howToPlay": "In this game, you'll be presented with a sequence of stimuli - positions in a grid and letters. Your task is to identify when the current stimulus matches the one from N steps back. Press the position button when the position matches, and the sound button when the letter matches.",
+      "benefits": "Dual N-Back is one of the few brain training exercises scientifically proven to improve fluid intelligence and working memory. It challenges your brain to hold multiple pieces of information simultaneously while processing new inputs.",
+      "faq": [
+        {
+          "question": "What is N-Back?",
+          "answer": "N-Back is a cognitive task where you must remember what happened N steps ago in a sequence. For example, in a 2-Back task, you need to remember what was shown 2 steps previously."
+        },
+        {
+          "question": "How do I know if I'm improving?",
+          "answer": "As you improve, you'll be able to increase the N-Back level (from 1-back to 2-back, 3-back, etc.) while maintaining accuracy. Your reaction time will also improve."
+        },
+        {
+          "question": "How often should I practice?",
+          "answer": "For optimal results, try to practice 20-30 minutes per day, 4-5 days per week. Consistency is more important than duration."
+        }
+      ],
+      "gameUI": {
+        "dual": "Dual",
+        "position": "Position",
+        "audio": "Audio",
+        "sound": "Sound",
+        "back": "{level}-back",
+        "challenge": "Dual N-Back Challenge",
+        "trackInfo": "Track {types} from {level} steps back.",
+        "starting": "Starting...",
+        "startChallenge": "Start Challenge",
+        "trial": "Trial {current} of {total}",
+        "positionMatch": "A: Position Match",
+        "soundMatch": "L: Sound Match",
+        "trainingResults": "Training Results",
+        "accuracy": "{correct}/{total}",
+        "accuracyPercent": "{percent}% Accuracy",
+        "missed": "Missed",
+        "falseAlarms": "False Alarms",
+        "overallPerformance": "Overall Performance",
+        "level": "Level:",
+        "trials": "Trials: {count}",
+        "playAgain": "Play Again",
+        "shareResults": "Share Results",
+        "settings": "Settings",
+        "gameSettings": "Game Settings",
+        "nBackLevel": "N-Back Level",
+        "voiceType": "Voice Type",
+        "male": "Male",
+        "female": "Female",
+        "trainingMode": "Training Mode",
+        "trialsPerRound": "Trials Per Round",
+        "trialSpeed": "Trial Speed",
+        "seconds": "{seconds}s",
+        "saveChanges": "Save Changes",
+        "keepOneMode": "You must keep at least one mode enabled"
+      },
+      "gameMessages": {
+        "keepOneMode": "You must keep at least one mode enabled"
+      }
     },
     "mahjongDualNBack": {
       "title": "Mahjong Dual N-Back",

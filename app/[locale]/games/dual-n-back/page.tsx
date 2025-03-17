@@ -14,12 +14,12 @@ export async function generateMetadata(
   const t = await getTranslations({ locale, namespace: 'games' });
   
   return {
-    title: t('dualNBack.metaTitle', 'Dual N-Back - Working Memory Training Game'),
-    description: t('dualNBack.metaDescription', 'Boost your brainpower with our free online Dual N-Back game, designed to enhance working memory and cognitive skills. This science-backed memory training tool offers dynamic challenges and real-time feedback to improve focus, intelligence, and mental agility. Perfect for students, professionals, and brain training enthusiasts, it adapts to your level for a fun, effective way to unlock your cognitive potential. Play now and level up your mind!'),
-    keywords: t('dualNBack.metaKeywords', 'dual n-back training, working memory exercise, fluid intelligence game, cognitive training, brain training game, attention control practice, n-back task, memory improvement game, free online Dual N-Back, improve working memory').split(',').map(keyword => keyword.trim()),
+    title: t('dualNBack.metaTitle'),
+    description: t('dualNBack.metaDescription'),
+    keywords: t('dualNBack.metaKeywords').split(',').map(keyword => keyword.trim()),
     openGraph: {
-      title: t('dualNBack.ogTitle', 'Dual N-Back - Advanced Working Memory Training'),
-      description: t('dualNBack.ogDescription', 'Train your working memory and fluid intelligence with the scientifically-backed Dual N-Back cognitive exercise.'),
+      title: t('dualNBack.ogTitle'),
+      description: t('dualNBack.ogDescription'),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
   };
@@ -31,53 +31,53 @@ export default function DualNBackPage() {
   return (
     <GamePageTemplate
       gameId="dual-n-back"
-      title={t('dualNBack.title', 'Dual N-Back')}
-      subtitle={t('dualNBack.subtitle', 'Advanced working memory training for cognitive enhancement')}
+      title={t('dualNBack.title')}
+      subtitle={t('dualNBack.subtitle')}
       gameComponent={<Game />}
       howToPlay={
         <>
-          <p>{t('dualNBack.howToPlayIntro', 'In this challenging memory task, you\'ll need to remember both visual and auditory stimuli from N steps back in the sequence:')}</p>
+          <p>{t('dualNBack.howToPlayIntro')}</p>
           <ul className="list-disc pl-5 mt-2 space-y-1">
-            <li>{t('dualNBack.howToPlay1', 'Watch the grid and listen to the letters')}</li>
-            <li>{t('dualNBack.howToPlay2', 'Press "Position" when the current position matches the position from N steps back')}</li>
-            <li>{t('dualNBack.howToPlay3', 'Press "Sound" when the current letter matches the letter from N steps back')}</li>
-            <li>{t('dualNBack.howToPlay4', 'As you improve, the N-back level will increase, making the task more difficult')}</li>
+            <li>{t('dualNBack.howToPlay1')}</li>
+            <li>{t('dualNBack.howToPlay2')}</li>
+            <li>{t('dualNBack.howToPlay3')}</li>
+            <li>{t('dualNBack.howToPlay4')}</li>
           </ul>
         </>
       }
       benefits={[
         {
           icon: <Brain className="w-10 h-10" />,
-          title: "Working Memory",
-          description: "Strengthen your ability to hold and manipulate information in your mind temporarily."
+          title: t('dualNBack.benefits.workingMemory.title'),
+          description: t('dualNBack.benefits.workingMemory.description')
         },
         {
           icon: <Layers className="w-10 h-10" />,
-          title: "Fluid Intelligence",
-          description: "Improve your capacity to solve novel problems and adapt to new situations."
+          title: t('dualNBack.benefits.fluidIntelligence.title'),
+          description: t('dualNBack.benefits.fluidIntelligence.description')
         },
         {
           icon: <Zap className="w-10 h-10" />,
-          title: "Attention Control",
-          description: "Enhance your ability to focus on relevant information while ignoring distractions."
+          title: t('dualNBack.benefits.attentionControl.title'),
+          description: t('dualNBack.benefits.attentionControl.description')
         }
       ]}
       faq={[
         {
-          question: "What is the science behind Dual N-Back?",
-          answer: "Dual N-Back has been studied extensively in cognitive neuroscience. Research published in PNAS (2008) suggested that training with this task can improve fluid intelligence, which is the ability to solve novel problems and adapt to new situations."
+          question: t('dualNBack.faq.science.question'),
+          answer: t('dualNBack.faq.science.answer')
         },
         {
-          question: "How often should I practice?",
-          answer: "For optimal results, aim for 20-30 minutes of training, 3-4 times per week. Consistency is more important than duration."
+          question: t('dualNBack.faq.practice.question'),
+          answer: t('dualNBack.faq.practice.answer')
         },
         {
-          question: "Why is this task so challenging?",
-          answer: "Dual N-Back is deliberately difficult because it forces your brain to simultaneously track two types of information (visual and auditory) while continuously updating your working memory. This cognitive load is what makes it effective for brain training."
+          question: t('dualNBack.faq.challenging.question'),
+          answer: t('dualNBack.faq.challenging.answer')
         },
         {
-          question: "Will I see improvements in my daily life?",
-          answer: "Many users report improvements in concentration, multitasking ability, and information retention after regular practice. These skills can transfer to academic, professional, and everyday activities."
+          question: t('dualNBack.faq.improvements.question'),
+          answer: t('dualNBack.faq.improvements.answer')
         }
       ]}
       relatedGames={["mahjong-dual-n-back", "block-memory-challenge"]}

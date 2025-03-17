@@ -21,9 +21,10 @@ export const GAME_CONFIG = {
     }
   },
   messages: {
-    start: "Remember both position and sound from N steps back",
-    levelUp: "Great job! Moving to {level}-back",
-    levelDown: "Let's try an easier level: {level}-back",
-    complete: "Training complete! Position accuracy: {position}%, Audio accuracy: {audio}%"
+    // 这些消息将在GameComponent中通过翻译函数获取
+    start: "gameMessages.start",
+    levelUp: "gameMessages.levelUp",
+    levelDown: "gameMessages.levelDown",
+    complete: "gameMessages.complete"
   }
 } as const; 
