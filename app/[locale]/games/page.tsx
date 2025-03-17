@@ -18,12 +18,12 @@ export async function generateMetadata(
   const t = await getTranslations({ locale, namespace: 'games' });
   
   return {
-    title: t('metaTitle', 'Brain Training Games | Improve Focus, Memory & Cognitive Skills'),
-    description: t('metaDescription', 'Explore our collection of free brain training games designed to enhance cognitive abilities including memory, attention, processing speed and more.'),
-    keywords: t('metaKeywords', 'brain games, cognitive training, memory games, focus games, attention games, brain training, free brain games, mental exercises, cognitive enhancement, brain fitness').split(',').map(keyword => keyword.trim()),
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+    keywords: t('metaKeywords').split(',').map(keyword => keyword.trim()),
     openGraph: {
-      title: t('ogTitle', 'Free Brain Training Games | Improve Your Cognitive Skills'),
-      description: t('ogDescription', 'Discover scientifically-informed games to enhance your memory, focus, attention, and other cognitive abilities. Train your brain for free.'),
+      title: t('ogTitle'),
+      description: t('ogDescription'),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
   };
@@ -32,23 +32,24 @@ export async function generateMetadata(
 export default function GamesPage() {
   const games = getGames();
   const t = useTranslations('games');
+  const categoryT = useTranslations('categories.categoryNames');
   
   return (
       <div className="mx-auto">
-          <Breadcrumbs items={[{ label: t('title', 'Games') }]} />
+          <Breadcrumbs items={[{ label: t('title') }]} />
 
           <h1 className="text-3xl font-bold mt-12 mb-4 text-center">
-              {t('heading', 'Focus Training Games')}
+              {t('heading')}
           </h1>
           <p className="text-muted-foreground mb-12 max-w-2xl mx-auto text-center">
-              {t('description', 'Discover our free focus-enhancing games, crafted to sharpen your attention and concentration with fun, targeted challenges.')}
+              {t('description')}
           </p>
 
           {/* 类别筛选 */}
           <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
               <Button variant="outline" size="sm" className="rounded-full">
                   <Filter className="h-4 w-4 mr-2" />
-                  {t('filters.all', 'All Games')}
+                  {t('filters.all')}
               </Button>
 
               {categories.slice(0, 6).map((category) => (
@@ -58,14 +59,14 @@ export default function GamesPage() {
                           size="sm"
                           className="rounded-full"
                       >
-                          {category.name}
+                          {categoryT(category.slug)}
                       </Button>
                   </Link>
               ))}
 
               <Link href="/categories">
                   <Button variant="outline" size="sm" className="rounded-full">
-                      {t('filters.more', 'More Categories...')}
+                      {t('filters.more')}
                   </Button>
               </Link>
           </div>
@@ -80,27 +81,17 @@ export default function GamesPage() {
           {/* 关于认知训练的信息 */}
           <section className="my-16 p-8 bg-muted rounded-lg max-w-4xl mx-auto">
               <h2 className="text-2xl font-bold mb-4 text-center">
-                  About Brain Training
+                  {t('aboutBrainTraining.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                   <p>
-                      Cognitive training, often called brain training, involves
-                      regular mental exercises designed to improve specific
-                      cognitive functions like memory, attention, processing
-                      speed, and problem-solving abilities.
+                      {t('aboutBrainTraining.paragraph1')}
                   </p>
                   <p>
-                      Our games are designed based on principles from cognitive
-                      psychology and neuroscience. Each game targets specific
-                      cognitive skills that are important for everyday
-                      functioning, academic success, and professional
-                      performance.
+                      {t('aboutBrainTraining.paragraph2')}
                   </p>
                   <p>
-                      For best results, we recommend regular practice across
-                      different cognitive domains. Training for just 15-20
-                      minutes a day, 3-4 times per week can lead to noticeable
-                      improvements in your cognitive abilities over time.
+                      {t('aboutBrainTraining.paragraph3')}
                   </p>
               </div>
           </section>
@@ -108,50 +99,48 @@ export default function GamesPage() {
           {/* 推荐训练计划 */}
           <section className="mt-16 mb-16">
               <h2 className="text-2xl font-bold mb-8 text-center">
-                  Recommended Training Plans
+                  {t('trainingPlans.title')}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="p-6 border rounded-lg hover:bg-muted/50 transition-colors">
                       <h3 className="text-xl font-semibold mb-2">
-                          Focus Enhancement
+                          {t('trainingPlans.focus.title')}
                       </h3>
                       <p className="text-muted-foreground mb-4">
-                          Improve your ability to concentrate and resist
-                          distractions.
+                          {t('trainingPlans.focus.description')}
                       </p>
                       <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                          <li>Schulte Table (10 min)</li>
-                          <li>Fish Trace (5 min)</li>
-                          <li>Larger Number (5 min)</li>
+                          <li>{t('trainingPlans.focus.item1')}</li>
+                          <li>{t('trainingPlans.focus.item2')}</li>
+                          <li>{t('trainingPlans.focus.item3')}</li>
                       </ul>
                   </div>
 
                   <div className="p-6 border rounded-lg hover:bg-muted/50 transition-colors">
                       <h3 className="text-xl font-semibold mb-2">
-                          Memory Boost
+                          {t('trainingPlans.memory.title')}
                       </h3>
                       <p className="text-muted-foreground mb-4">
-                          Strengthen your working memory and recall abilities.
+                          {t('trainingPlans.memory.description')}
                       </p>
                       <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                          <li>Dual N-Back (10 min)</li>
-                          <li>Pattern Recall Challenge (5 min)</li>
-                          <li>Frog Memory Leap (5 min)</li>
+                          <li>{t('trainingPlans.memory.item1')}</li>
+                          <li>{t('trainingPlans.memory.item2')}</li>
+                          <li>{t('trainingPlans.memory.item3')}</li>
                       </ul>
                   </div>
 
                   <div className="p-6 border rounded-lg hover:bg-muted/50 transition-colors">
                       <h3 className="text-xl font-semibold mb-2">
-                          Cognitive Flexibility
+                          {t('trainingPlans.flexibility.title')}
                       </h3>
                       <p className="text-muted-foreground mb-4">
-                          Enhance your ability to adapt to changing tasks and
-                          rules.
+                          {t('trainingPlans.flexibility.description')}
                       </p>
                       <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                          <li>Mahjong Dual N-Back (10 min)</li>
-                          <li>Larger Number (5 min)</li>
-                          <li>Schulte Table (5 min)</li>
+                          <li>{t('trainingPlans.flexibility.item1')}</li>
+                          <li>{t('trainingPlans.flexibility.item2')}</li>
+                          <li>{t('trainingPlans.flexibility.item3')}</li>
                       </ul>
                   </div>
               </div>

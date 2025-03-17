@@ -7,11 +7,11 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/
 import { GamePreview } from "./components/GamePreview"
 
 export const metadata: Metadata = {
-    title: "Pattern Recall Challenge - Visual Memory Training Game",
+    title: "Block Memory Challenge - Visual Memory Training Game",
     description:
-        "Test your visual memory by recalling patterns of increasing complexity. This pattern recall game helps improve concentration, attention span, and cognitive flexibility.",
+        "Test your visual memory by recalling patterns of increasing complexity. This block memory game helps improve concentration, attention span, and cognitive flexibility.",
     keywords: [
-        "pattern recall game",
+        "block memory game",
         "visual sequence memory",
         "working memory training",
         "cognitive flexibility exercise",
@@ -21,18 +21,18 @@ export const metadata: Metadata = {
         "short-term memory practice",
     ].join(", "),
     openGraph: {
-        title: "Pattern Recall Challenge - Train Your Visual Memory",
+        title: "Block Memory Challenge - Train Your Visual Memory",
         description:
             "Remember and repeat increasingly complex visual sequences to enhance your working memory and cognitive flexibility.",
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
 };
 
-export default function PatternRecallPage() {
+export default function BlockMemoryPage() {
     return (
         <GamePageTemplate
-            gameId="pattern-recall-challenge"
-            title="Pattern Recall Challenge"
+            gameId="block-memory-challenge"
+            title="Block Memory Challenge"
             subtitle="Train your visual memory and pattern recognition"
             gameComponent={<PatternRecallGame />}
             howToPlay={

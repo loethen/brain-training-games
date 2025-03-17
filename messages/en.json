@@ -115,6 +115,92 @@
       "reaction-time": "Games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better, drivers respond quickly to road hazards, and older adults prevent falls.",
       "cognitive-flexibility": "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively."
     },
+    "keywords": {
+      "working-memory": {
+        "working memory training": "Working memory training",
+        "memory training": "Memory training",
+        "improve working memory": "Improve working memory",
+        "working memory exercises": "Working memory exercises",
+        "best way to improve working memory": "Best way to improve working memory",
+        "boost working memory": "Boost working memory",
+        "brain working memory": "Brain working memory",
+        "working memory capacity": "Working memory capacity",
+        "short-term memory improvement": "Short-term memory improvement",
+        "cognitive training for memory": "Cognitive training for memory"
+      },
+      "visual-tracking": {
+        "visual tracking exercises": "Visual tracking exercises",
+        "improve visual tracking": "Improve visual tracking",
+        "visual tracking skills": "Visual tracking skills",
+        "eye tracking training": "Eye tracking training",
+        "visual attention training": "Visual attention training",
+        "visual processing speed": "Visual processing speed",
+        "visual focus exercises": "Visual focus exercises",
+        "eye movement training": "Eye movement training",
+        "visual tracking for reading": "Visual tracking for reading",
+        "sports vision training": "Sports vision training"
+      },
+      "sustained-attention": {
+        "sustained attention training": "Sustained attention training",
+        "improve focus duration": "Improve focus duration",
+        "concentration exercises": "Concentration exercises",
+        "attention span improvement": "Attention span improvement",
+        "focus training": "Focus training",
+        "mental endurance exercises": "Mental endurance exercises",
+        "concentration games": "Concentration games",
+        "improve attention span": "Improve attention span",
+        "focus and concentration training": "Focus and concentration training",
+        "mindfulness for attention": "Mindfulness for attention"
+      },
+      "selective-attention": {
+        "selective attention training": "Selective attention training",
+        "filter distractions": "Filter distractions",
+        "focus amid distractions": "Focus amid distractions",
+        "attention filtering exercises": "Attention filtering exercises",
+        "cognitive control training": "Cognitive control training",
+        "distraction resistance": "Distraction resistance",
+        "improve selective attention": "Improve selective attention",
+        "focus training with distractions": "Focus training with distractions",
+        "attention control exercises": "Attention control exercises",
+        "cognitive filtering": "Cognitive filtering"
+      },
+      "divided-attention": {
+        "divided attention training": "Divided attention training",
+        "multitasking exercises": "Multitasking exercises",
+        "split attention practice": "Split attention practice",
+        "dual task training": "Dual task training",
+        "improve multitasking ability": "Improve multitasking ability",
+        "cognitive multitasking": "Cognitive multitasking",
+        "attention splitting exercises": "Attention splitting exercises",
+        "multiple task management": "Multiple task management",
+        "simultaneous processing training": "Simultaneous processing training",
+        "cognitive load management": "Cognitive load management"
+      },
+      "reaction-time": {
+        "reaction time training": "Reaction time training",
+        "improve response speed": "Improve response speed",
+        "faster reflexes exercises": "Faster reflexes exercises",
+        "quick reaction games": "Quick reaction games",
+        "speed training cognitive": "Speed training cognitive",
+        "processing speed improvement": "Processing speed improvement",
+        "reflex training": "Reflex training",
+        "cognitive speed exercises": "Cognitive speed exercises",
+        "faster brain response": "Faster brain response",
+        "neurological speed training": "Neurological speed training"
+      },
+      "cognitive-flexibility": {
+        "cognitive flexibility training": "Cognitive flexibility training",
+        "mental flexibility exercises": "Mental flexibility exercises",
+        "adaptive thinking training": "Adaptive thinking training",
+        "task switching practice": "Task switching practice",
+        "improve mental adaptability": "Improve mental adaptability",
+        "cognitive shifting exercises": "Cognitive shifting exercises",
+        "mental agility training": "Mental agility training",
+        "flexible thinking games": "Flexible thinking games",
+        "rule switching training": "Rule switching training",
+        "brain flexibility improvement": "Brain flexibility improvement"
+      }
+    },
     "categoryNotFound": "Category Not Found",
     "categoryNotFoundDesc": "The requested category could not be found.",
     "categoryMetaTitle": "{categoryName} Games - Brain Training & Cognitive Enhancement",
@@ -130,6 +216,43 @@
     "filters": {
       "all": "All Games",
       "more": "More Categories..."
+    },
+    "template": {
+      "howToPlay": "How to Play",
+      "cognitiveBenefits": "Cognitive Benefits",
+      "faq": "Frequently Asked Questions",
+      "relatedGames": "Related Games",
+      "trainingCategories": "Training Categories"
+    },
+    "aboutBrainTraining": {
+      "title": "About Brain Training",
+      "paragraph1": "Cognitive training, often called brain training, involves regular mental exercises designed to improve specific cognitive functions like memory, attention, processing speed, and problem-solving abilities.",
+      "paragraph2": "Our games are designed based on principles from cognitive psychology and neuroscience. Each game targets specific cognitive skills that are important for everyday functioning, academic success, and professional performance.",
+      "paragraph3": "For best results, we recommend regular practice across different cognitive domains. Training for just 15-20 minutes a day, 3-4 times per week can lead to noticeable improvements in your cognitive abilities over time."
+    },
+    "trainingPlans": {
+      "title": "Recommended Training Plans",
+      "focus": {
+        "title": "Focus Enhancement",
+        "description": "Improve your ability to concentrate and resist distractions.",
+        "item1": "Schulte Table (10 min)",
+        "item2": "Fish Trace (5 min)",
+        "item3": "Larger Number (5 min)"
+      },
+      "memory": {
+        "title": "Memory Boost",
+        "description": "Strengthen your working memory and recall abilities.",
+        "item1": "Dual N-Back (10 min)",
+        "item2": "Block Memory Challenge (5 min)",
+        "item3": "Frog Memory Leap (5 min)"
+      },
+      "flexibility": {
+        "title": "Cognitive Flexibility",
+        "description": "Enhance your ability to adapt to changing tasks and rules.",
+        "item1": "Mahjong Dual N-Back (10 min)",
+        "item2": "Larger Number (5 min)",
+        "item3": "Schulte Table (5 min)"
+      }
     },
     "metaTitle": "Brain Training Games | Improve Focus, Memory & Cognitive Skills",
     "metaDescription": "Explore our collection of free brain training games designed to enhance cognitive abilities including memory, attention, processing speed and more.",
@@ -160,6 +283,86 @@
       "metaKeywords": "dual n-back training, working memory exercise, fluid intelligence game, cognitive training, brain training game, attention control practice, n-back task, memory improvement game, free online Dual N-Back, improve working memory",
       "ogTitle": "Dual N-Back - Advanced Working Memory Training",
       "ogDescription": "Train your working memory and fluid intelligence with the scientifically-backed Dual N-Back cognitive exercise."
+    },
+    "mahjongDualNBack": {
+      "title": "Mahjong Dual N-Back",
+      "subtitle": "Advanced working memory training with traditional mahjong tiles",
+      "howToPlayIntro": "In this challenging memory task inspired by traditional Mahjong, you'll need to remember both the tile patterns and audio stimuli from N steps back in the sequence:",
+      "howToPlay1": "Watch as mahjong tiles appear in sequence on the teal felt table",
+      "howToPlay2": "Press \"Tile Match\" when the current tile matches the tile from N steps back",
+      "howToPlay3": "Press \"Sound Match\" when the current sound matches the sound from N steps back",
+      "howToPlay4": "Use keyboard shortcuts: 'A' for Tile Match, 'L' for Sound Match",
+      "howToPlay5": "Start with 1-back (remembering the previous tile) and progress to higher levels as your memory improves",
+      "howToPlay6": "Adjust settings to customize your training experience with different N-back levels and stimulus types",
+      "benefits": {
+        "workingMemory": {
+          "title": "Working Memory",
+          "description": "Strengthen your ability to hold and manipulate multiple pieces of information in mind while tracking mahjong tile positions and sounds."
+        },
+        "fluidIntelligence": {
+          "title": "Fluid Intelligence",
+          "description": "Improve your problem-solving abilities and cognitive flexibility through the challenging dual-task nature of the mahjong n-back exercise."
+        },
+        "attentionControl": {
+          "title": "Attention Control",
+          "description": "Enhance your focus and ability to filter out distractions while monitoring both visual and auditory mahjong stimuli simultaneously."
+        }
+      },
+      "faq": {
+        "science": {
+          "question": "What is the science behind Mahjong Dual N-Back?",
+          "answer": "Dual N-Back has been studied extensively in cognitive neuroscience. Research published in PNAS (2008) suggested that training with this task can improve fluid intelligence. Our mahjong-themed version combines position and audio matching with traditional mahjong aesthetics to create an engaging cognitive workout."
+        },
+        "difference": {
+          "question": "How is this different from the regular Dual N-Back?",
+          "answer": "While maintaining the core dual n-back mechanics of tracking position and audio stimuli, our version incorporates authentic mahjong tiles and a traditional green felt background. This cultural theming makes the exercise more visually engaging while preserving the cognitive challenge that makes dual n-back effective."
+        },
+        "practice": {
+          "question": "How often should I practice with the mahjong tiles?",
+          "answer": "For optimal results, aim for 20-30 minutes of mahjong dual n-back training, 3-4 times per week. Consistency is more important than duration. Regular practice helps your brain build stronger neural pathways for working memory tasks involving both visual position and auditory processing."
+        },
+        "improvements": {
+          "question": "Will I see improvements in my daily life from mahjong memory training?",
+          "answer": "Many users report improvements in concentration, multitasking ability, and information retention after regular practice with dual n-back exercises. The position and audio tracking skills developed here can transfer to academic, professional, and everyday activities requiring attention to multiple streams of information."
+        },
+        "knowledge": {
+          "question": "Do I need to know how to play mahjong to use this training game?",
+          "answer": "No prior knowledge of mahjong is required. While we use the beautiful visual elements of traditional mahjong tiles, the cognitive task focuses on remembering positions and sounds rather than mahjong gameplay. The exercise is designed to be accessible to everyone regardless of their familiarity with mahjong."
+        }
+      },
+      "metaTitle": "Mahjong Dual N-Back - Working Memory Training Game",
+      "metaDescription": "Sharpen your mind with our free Mahjong Dual N-Back game, a fun twist on classic memory training. Combining the strategy of Mahjong tiles with science-backed Dual N-Back challenges, this online tool boosts working memory, focus, and cognitive skills. Perfect for Mahjong fans, students, and brain training enthusiasts, it offers dynamic levels and real-time feedback to enhance mental agility. Play now and master your memory with a Mahjong flair!",
+      "metaKeywords": "mahjong n-back training, mahjong memory game, working memory exercise, fluid intelligence game, cognitive training with mahjong, brain training game, attention control practice, n-back task with mahjong tiles, memory improvement game, traditional mahjong brain training, free mahjong n-back game",
+      "ogTitle": "Mahjong Dual N-Back - Advanced Working Memory Training",
+      "ogDescription": "Train your working memory and cognitive skills with the scientifically-backed Mahjong Dual N-Back cognitive exercise featuring traditional mahjong tiles."
+    },
+    "dual-n-back": {
+      "title": "Dual N-Back",
+      "description": "A challenging memory task that trains working memory by requiring you to remember both visual and auditory stimuli N steps back."
+    },
+    "fish-trace": {
+      "title": "Glowing Fish Trace",
+      "description": "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment."
+    },
+    "frog-memory-leap": {
+      "title": "Frog Memory Leap",
+      "description": "Challenge your sequential memory by remembering the order of frog jumps across lily pads."
+    },
+    "larger-number": {
+      "title": "Larger Number",
+      "description": "Quickly identify the larger of two numbers to train processing speed and attention."
+    },
+    "mahjong-dual-n-back": {
+      "title": "Mahjong Dual N-Back",
+      "description": "A variant of Dual N-Back using mahjong tiles and sounds to train working memory and cognitive skills."
+    },
+    "block-memory-challenge": {
+      "title": "Block Memory Challenge",
+      "description": "Test your visual memory by recalling increasingly complex block sequences."
+    },
+    "schulte-table": {
+      "title": "Schulte Table",
+      "description": "Enhance peripheral vision and attention by finding numbers in sequence on a grid as quickly as possible."
     }
   },
   "buttons": {

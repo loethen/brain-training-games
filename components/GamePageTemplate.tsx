@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import GameCard from '@/components/game-card';
 import { getGame } from '@/data/games';
-
+import { useTranslations } from 'next-intl';
 interface FaqItem {
   question: string;
   answer: React.ReactNode;
@@ -46,10 +46,13 @@ export function GamePageTemplate({
   faq,
   relatedGames
 }: GamePageTemplateProps) {
+  const t = useTranslations('common');
+  const gameT = useTranslations('games.template');
+  
   return (
       <>
           <Breadcrumbs items={[
-              { label: "Games", href: "/games" },
+              { label: t('games'), href: "/games" },
               { label: title },
           ]} />
           {/* 游戏标题和描述 */}
@@ -68,7 +71,7 @@ export function GamePageTemplate({
           {/* 游戏玩法说明 */}
           <section className="max-w-6xl mx-auto mb-16 space-y-6">
               <div className="p-6 rounded-lg bg-muted/50">
-                  <h3 className="text-xl font-semibold mb-3">🎯 How to Play</h3>
+                  <h3 className="text-xl font-semibold mb-3">🎯 {gameT('howToPlay')}</h3>
                   <div className="space-y-3 text-lg text-muted-foreground">
                       {howToPlay}
                   </div>
@@ -79,7 +82,7 @@ export function GamePageTemplate({
           {benefits && benefits.length > 0 && (
               <section className="max-w-6xl mx-auto mb-16 py-16">
                   <h2 className="text-3xl font-bold mb-12 text-center">
-                      Cognitive Benefits
+                      {gameT('cognitiveBenefits')}
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                       {benefits.map((benefit, index) => (
@@ -111,7 +114,7 @@ export function GamePageTemplate({
           {faq && faq.length > 0 && (
               <section className="max-w-6xl mx-auto mb-16">
                   <h2 className="text-3xl font-bold mb-12 text-center">
-                      Frequently Asked Questions
+                      {gameT('faq')}
                   </h2>
                   <Accordion  type="single" collapsible className="max-w-2xl mx-auto">
                       {faq.map((item, index) => (
@@ -132,7 +135,7 @@ export function GamePageTemplate({
           {relatedGames && relatedGames.length > 0 && (
               <section className="max-w-6xl mx-auto mb-16">
                   <h2 className="text-3xl font-bold mb-12 text-center">
-                      Related Games
+                      {gameT('relatedGames')}
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {relatedGames.map((gameId) => {
@@ -155,7 +158,7 @@ export function GamePageTemplate({
           <section className="mt-16 pt-8">
               <div className="text-center">
                   <h2 className="text-3xl font-bold mb-12 text-center">
-                      Training Categories
+                      {gameT('trainingCategories')}
                   </h2>
                   <div className="flex justify-center"> 
                       <GameCategories gameId={gameId} />

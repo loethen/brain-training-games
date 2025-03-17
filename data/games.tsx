@@ -1,4 +1,4 @@
-import { GamePreview as SimonGamePreview } from "@/app/[locale]/games/pattern-recall-challenge/components/GamePreview";
+import { GamePreview as SimonGamePreview } from "@/app/[locale]/games/block-memory-challenge/components/GamePreview";
 import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/games/schulte-table/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 export type Game = {
@@ -52,11 +52,11 @@ export const games: Game[] = [
         preview: <ImagePreview src="/games/mahjong-dual-n-back.png" />,
     },
     {
-        id: "pattern-recall-challenge",
-        title: "Pattern Recall Challenge",
+        id: "block-memory-challenge",
+        title: "Block Memory Challenge",
         description:
-            "Test your visual memory by recalling patterns of increasing complexity.",
-        slug: "pattern-recall-challenge",
+            "Test your visual memory by recalling increasingly complex block sequences.",
+        slug: "block-memory-challenge",
         preview: <SimonGamePreview />,
     },
     {

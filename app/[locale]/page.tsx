@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import GameCard from "@/components/game-card";
-import { GamePreview as SimonGamePreview } from "./games/pattern-recall-challenge/components/GamePreview";
+import { GamePreview as SimonGamePreview } from "./games/block-memory-challenge/components/GamePreview";
 import { GamePreview as SchulteGamePreview } from "./games/schulte-table/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 import { Marquee } from "@/components/magicui/marquee";
@@ -178,11 +178,11 @@ export default function Home() {
                     />
                     <GameCard
                         game={{
-                            id: "pattern-recall-challenge",
-                            title: "Pattern Recall Challenge",
+                            id: "block-memory-challenge",
+                            title: "Block Memory Challenge",
                             description:
                                 "Strengthen your working memory by remembering and repeating visual sequences.",
-                            slug: "pattern-recall-challenge",
+                            slug: "block-memory-challenge",
                         }}
                         preview={<SimonGamePreview />}
                     />

@@ -27,6 +27,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const categoryName = t(`categoryNames.${category.id}`, { defaultMessage: category.name });
   const categoryDescription = t(`categoryDescriptions.${category.id}`, { defaultMessage: category.description });
   
+  // 翻译关键词
+  let translatedKeywords = '';
+  if (category.keywords && category.keywords.length > 0) {
+    const keywordsT = await getTranslations({ locale, namespace: 'categories.keywords' });
+    try {
+      const translatedKeywordsArray = category.keywords.map(keyword => 
+        keywordsT(`${category.id}.${keyword}`, { defaultMessage: keyword })
+      );
+      translatedKeywords = translatedKeywordsArray.join(", ");
+    } catch {
+      // 如果翻译失败，使用原始关键词
+      translatedKeywords = category.keywords.join(", ");
+    }
+  } else {
+    translatedKeywords = `${categoryName.toLowerCase()} games, brain training, cognitive enhancement`;
+  }
+  
   return {
     title: t('categoryMetaTitle', { 
       categoryName: categoryName 
@@ -35,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       categoryName: categoryName.toLowerCase(),
       categoryDescription: categoryDescription
     }),
-    keywords: category.keywords?.join(", ") || `${categoryName.toLowerCase()} games, brain training, cognitive enhancement`,
+    keywords: translatedKeywords,
     openGraph: {
       title: t('categoryOgTitle', { 
         categoryName: categoryName 

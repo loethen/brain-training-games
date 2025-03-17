@@ -8,7 +8,7 @@ const gameCategoryMap: Record<string, string[]> = {
   "frog-memory-leap": ["working-memory", "visual-tracking"],
   "larger-number": ["reaction-time", "selective-attention"],
   "mahjong-dual-n-back": ["working-memory", "divided-attention", "cognitive-flexibility"],
-  "pattern-recall-challenge": ["working-memory", "visual-tracking"],
+  "block-memory-challenge": ["working-memory", "visual-tracking"],
   // 其他游戏...
 };
 

@@ -115,6 +115,92 @@
       "reaction-time": "锻炼你对视觉或听觉刺激反应速度的游戏。更快的反应时间帮助运动员表现更好，驾驶员快速应对道路危险，以及老年人预防跌倒。",
       "cognitive-flexibility": "增强你在不同概念之间切换或适应变化规则能力的游戏。更大的认知灵活性帮助学生跨学科应用知识，专业人士适应不断变化的工作要求，以及每个人更有效地应对社交场合。"
     },
+    "keywords": {
+      "working-memory": {
+        "working memory training": "工作记忆训练",
+        "memory training": "记忆力训练",
+        "improve working memory": "提高工作记忆",
+        "working memory exercises": "工作记忆练习",
+        "best way to improve working memory": "提高工作记忆的最佳方法",
+        "boost working memory": "增强工作记忆",
+        "brain working memory": "大脑工作记忆",
+        "working memory capacity": "工作记忆容量",
+        "short-term memory improvement": "短期记忆提升",
+        "cognitive training for memory": "记忆认知训练"
+      },
+      "visual-tracking": {
+        "visual tracking exercises": "视觉追踪练习",
+        "improve visual tracking": "提高视觉追踪能力",
+        "visual tracking skills": "视觉追踪技能",
+        "eye tracking training": "眼动追踪训练",
+        "visual attention training": "视觉注意力训练",
+        "visual processing speed": "视觉处理速度",
+        "visual focus exercises": "视觉专注力练习",
+        "eye movement training": "眼球运动训练",
+        "visual tracking for reading": "阅读视觉追踪",
+        "sports vision training": "运动视觉训练"
+      },
+      "sustained-attention": {
+        "sustained attention training": "持续注意力训练",
+        "improve focus duration": "提高专注持续时间",
+        "concentration exercises": "集中注意力练习",
+        "attention span improvement": "注意力广度提升",
+        "focus training": "专注力训练",
+        "mental endurance exercises": "心理耐力练习",
+        "concentration games": "专注力游戏",
+        "improve attention span": "提高注意力持续时间",
+        "focus and concentration training": "专注力和集中力训练",
+        "mindfulness for attention": "正念注意力"
+      },
+      "selective-attention": {
+        "selective attention training": "选择性注意力训练",
+        "filter distractions": "过滤干扰",
+        "focus amid distractions": "在干扰中保持专注",
+        "attention filtering exercises": "注意力过滤练习",
+        "cognitive control training": "认知控制训练",
+        "distraction resistance": "抗干扰能力",
+        "improve selective attention": "提高选择性注意力",
+        "focus training with distractions": "干扰环境下的专注力训练",
+        "attention control exercises": "注意力控制练习",
+        "cognitive filtering": "认知过滤"
+      },
+      "divided-attention": {
+        "divided attention training": "分散注意力训练",
+        "multitasking exercises": "多任务处理练习",
+        "split attention practice": "分割注意力练习",
+        "dual task training": "双任务训练",
+        "improve multitasking ability": "提高多任务处理能力",
+        "cognitive multitasking": "认知多任务处理",
+        "attention splitting exercises": "注意力分割练习",
+        "multiple task management": "多任务管理",
+        "simultaneous processing training": "同步处理训练",
+        "cognitive load management": "认知负荷管理"
+      },
+      "reaction-time": {
+        "reaction time training": "反应时间训练",
+        "improve response speed": "提高反应速度",
+        "faster reflexes exercises": "快速反射练习",
+        "quick reaction games": "快速反应游戏",
+        "speed training cognitive": "认知速度训练",
+        "processing speed improvement": "处理速度提升",
+        "reflex training": "反射训练",
+        "cognitive speed exercises": "认知速度练习",
+        "faster brain response": "更快的大脑反应",
+        "neurological speed training": "神经速度训练"
+      },
+      "cognitive-flexibility": {
+        "cognitive flexibility training": "认知灵活性训练",
+        "mental flexibility exercises": "思维灵活性练习",
+        "adaptive thinking training": "适应性思维训练",
+        "task switching practice": "任务切换练习",
+        "improve mental adaptability": "提高思维适应能力",
+        "cognitive shifting exercises": "认知转换练习",
+        "mental agility training": "思维敏捷性训练",
+        "flexible thinking games": "灵活思维游戏",
+        "rule switching training": "规则切换训练",
+        "brain flexibility improvement": "大脑灵活性提升"
+      }
+    },
     "categoryNotFound": "未找到分类",
     "categoryNotFoundDesc": "无法找到请求的分类。",
     "categoryMetaTitle": "{categoryName}游戏 - 脑力训练与认知能力提升",
@@ -130,6 +216,43 @@
     "filters": {
       "all": "所有游戏",
       "more": "更多分类..."
+    },
+    "template": {
+      "howToPlay": "游戏玩法",
+      "cognitiveBenefits": "认知益处",
+      "faq": "常见问题",
+      "relatedGames": "相关游戏",
+      "trainingCategories": "训练类别"
+    },
+    "aboutBrainTraining": {
+      "title": "关于脑力训练",
+      "paragraph1": "认知训练，通常被称为脑力训练，包括定期进行的心理练习，旨在提高特定认知功能，如记忆力、注意力、处理速度和解决问题的能力。",
+      "paragraph2": "我们的游戏基于认知心理学和神经科学原理设计。每个游戏都针对特定的认知技能，这些技能对日常功能、学业成功和职业表现都很重要。",
+      "paragraph3": "为了获得最佳效果，我们建议在不同认知领域进行定期练习。每天只需15-20分钟，每周3-4次的训练，随着时间的推移，可以明显改善你的认知能力。"
+    },
+    "trainingPlans": {
+      "title": "推荐训练计划",
+      "focus": {
+        "title": "专注力提升",
+        "description": "提高你的集中能力和抵抗干扰的能力。",
+        "item1": "舒尔特表格（10分钟）",
+        "item2": "鱼形追踪（5分钟）",
+        "item3": "大数字（5分钟）"
+      },
+      "memory": {
+        "title": "记忆力增强",
+        "description": "增强你的工作记忆和回忆能力。",
+        "item1": "双重N-Back（10分钟）",
+        "item2": "方块记忆挑战（5分钟）",
+        "item3": "青蛙记忆跳跃（5分钟）"
+      },
+      "flexibility": {
+        "title": "认知灵活性",
+        "description": "提高你适应变化任务和规则的能力。",
+        "item1": "麻将双重N-Back（10分钟）",
+        "item2": "大数字（5分钟）",
+        "item3": "舒尔特表格（5分钟）"
+      }
     },
     "metaTitle": "脑力训练游戏 | 提升专注力、记忆力和认知能力",
     "metaDescription": "探索我们的免费脑力训练游戏系列，旨在增强包括记忆力、注意力、处理速度等在内的认知能力。",
@@ -160,6 +283,86 @@
       "metaKeywords": "双重n-back训练, 工作记忆练习, 流体智力游戏, 认知训练, 脑力训练游戏, 注意力控制练习, n-back任务, 记忆力提升游戏, 免费在线双重N-Back, 提高工作记忆",
       "ogTitle": "双重N-Back - 高级工作记忆训练",
       "ogDescription": "通过科学支持的双重N-Back认知练习训练你的工作记忆和流体智力。"
+    },
+    "mahjongDualNBack": {
+      "title": "麻将双重N-Back",
+      "subtitle": "使用传统麻将牌的高级工作记忆训练",
+      "howToPlayIntro": "在这个受传统麻将启发的挑战性记忆任务中，你需要记住序列中N步之前的麻将牌图案和音频刺激：",
+      "howToPlay1": "观察麻将牌在青色毛毡桌上按顺序出现",
+      "howToPlay2": "当当前麻将牌与N步之前的麻将牌匹配时，按\"牌匹配\"按钮",
+      "howToPlay3": "当当前声音与N步之前的声音匹配时，按\"声音匹配\"按钮",
+      "howToPlay4": "使用键盘快捷键：'A'表示牌匹配，'L'表示声音匹配",
+      "howToPlay5": "从1-back（记住前一个麻将牌）开始，随着记忆力提高逐渐进阶到更高级别",
+      "howToPlay6": "调整设置，使用不同的N-back级别和刺激类型自定义你的训练体验",
+      "benefits": {
+        "workingMemory": {
+          "title": "工作记忆",
+          "description": "在跟踪麻将牌位置和声音的同时，增强你在脑海中保持和操作多条信息的能力。"
+        },
+        "fluidIntelligence": {
+          "title": "流体智力",
+          "description": "通过麻将n-back练习的双重任务挑战性，提高你的问题解决能力和认知灵活性。"
+        },
+        "attentionControl": {
+          "title": "注意力控制",
+          "description": "在同时监控麻将视觉和听觉刺激的过程中，增强你的专注力和过滤干扰的能力。"
+        }
+      },
+      "faq": {
+        "science": {
+          "question": "麻将双重N-Back背后的科学原理是什么？",
+          "answer": "双重N-Back在认知神经科学领域已被广泛研究。2008年发表在PNAS上的研究表明，使用这项任务进行训练可以提高流体智力。我们的麻将主题版本将位置和音频匹配与传统麻将美学相结合，创造出一种引人入胜的认知锻炼。"
+        },
+        "difference": {
+          "question": "这与常规双重N-Back有什么不同？",
+          "answer": "在保持跟踪位置和音频刺激的核心双重n-back机制的同时，我们的版本融入了真实的麻将牌和传统的绿色毛毡背景。这种文化主题使练习在视觉上更具吸引力，同时保留了使双重n-back有效的认知挑战。"
+        },
+        "practice": {
+          "question": "我应该多久练习一次麻将牌？",
+          "answer": "为了获得最佳效果，每周进行3-4次麻将双重n-back训练，每次20-30分钟。持续性比时长更重要。定期练习有助于你的大脑为涉及视觉位置和听觉处理的工作记忆任务建立更强的神经通路。"
+        },
+        "improvements": {
+          "question": "麻将记忆训练会改善我的日常生活吗？",
+          "answer": "许多用户报告在定期练习双重n-back练习后，注意力集中、多任务处理能力和信息保留能力都有所提高。这里发展的位置和音频跟踪技能可以转移到需要关注多个信息流的学术、专业和日常活动中。"
+        },
+        "knowledge": {
+          "question": "我需要懂得如何玩麻将才能使用这个训练游戏吗？",
+          "answer": "不需要事先了解麻将。虽然我们使用传统麻将牌的精美视觉元素，但认知任务专注于记忆位置和声音，而不是麻将游戏玩法。这个练习旨在让每个人都能使用，无论他们是否熟悉麻将。"
+        }
+      },
+      "metaTitle": "麻将双重N-Back - 工作记忆训练游戏",
+      "metaDescription": "通过我们免费的麻将双重N-Back游戏锻炼你的思维，这是经典记忆训练的有趣变体。结合麻将牌的策略与科学支持的双重N-Back挑战，这个在线工具可以提升工作记忆、专注力和认知技能。非常适合麻将爱好者、学生和脑力训练爱好者，它提供动态级别和实时反馈，以增强思维敏捷度。立即开始游戏，以麻将风格掌握你的记忆力！",
+      "metaKeywords": "麻将n-back训练, 麻将记忆游戏, 工作记忆练习, 流体智力游戏, 麻将认知训练, 脑力训练游戏, 注意力控制练习, 麻将牌n-back任务, 记忆力提升游戏, 传统麻将脑力训练, 免费麻将n-back游戏",
+      "ogTitle": "麻将双重N-Back - 高级工作记忆训练",
+      "ogDescription": "通过科学支持的麻将双重N-Back认知练习训练你的工作记忆和认知技能，特色是传统麻将牌。"
+    },
+    "dual-n-back": {
+      "title": "双重N-Back",
+      "description": "一项具有挑战性的记忆任务，通过要求您记住N步之前的视觉和听觉刺激来训练工作记忆。"
+    },
+    "fish-trace": {
+      "title": "发光鱼追踪",
+      "description": "通过在动态水下环境中跟踪发光的鱼来提高视觉追踪能力。"
+    },
+    "frog-memory-leap": {
+      "title": "青蛙记忆跳跃",
+      "description": "通过记住青蛙在荷叶上跳跃的顺序来挑战你的顺序记忆能力。"
+    },
+    "larger-number": {
+      "title": "大数字",
+      "description": "快速识别两个数字中较大的一个，训练处理速度和注意力。"
+    },
+    "mahjong-dual-n-back": {
+      "title": "麻将双重N-Back",
+      "description": "使用麻将牌和声音的双重N-Back变体，训练工作记忆和认知技能。"
+    },
+    "block-memory-challenge": {
+      "title": "方块记忆挑战",
+      "description": "通过回忆越来越复杂的方块顺序来测试你的视觉记忆。"
+    },
+    "schulte-table": {
+      "title": "舒尔特表格",
+      "description": "通过尽快在网格上按顺序找出数字来增强周边视觉和注意力。"
     }
   },
   "buttons": {

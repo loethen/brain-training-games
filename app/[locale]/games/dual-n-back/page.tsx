@@ -80,7 +80,7 @@ export default function DualNBackPage() {
           answer: "Many users report improvements in concentration, multitasking ability, and information retention after regular practice. These skills can transfer to academic, professional, and everyday activities."
         }
       ]}
-      relatedGames={["mahjong-dual-n-back", "pattern-recall-challenge"]}
+      relatedGames={["mahjong-dual-n-back", "block-memory-challenge"]}
     />
   );
 } 
