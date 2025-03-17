@@ -37,6 +37,11 @@ type GameSettings = {
     trialInterval: number;
 };
 
+// 添加 Props 类型定义
+type GameComponentProps = {
+    t?: ReturnType<typeof useTranslations>;
+};
+
 // 游戏设置自定义钩子
 function useGameSettings() {
     // 默认游戏设置
@@ -56,8 +61,11 @@ function useGameSettings() {
     return { settings, updateSettings };
 }
 
-export default function GameComponent() {
-    const t = useTranslations('games.dualNBack.gameUI');
+export default function GameComponent({ t: propT }: GameComponentProps) {
+    // 如果提供了 t prop，则使用它，否则使用 useTranslations 获取
+    const defaultT = useTranslations('games.dualNBack.gameUI');
+    const t = propT || defaultT;
+    
     const { settings, updateSettings } = useGameSettings();
     
     // 原useGameLogic中的状态

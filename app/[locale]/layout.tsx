@@ -89,6 +89,9 @@ export default async function RootLayout({
 
     if (!hasLocale(routing.locales, locale)) notFound();
 
+    // 获取当前语言的消息
+    const messages = (await import(`../../messages/${locale}.json`)).default;
+
     return (
         <html lang={locale} suppressHydrationWarning>
             <head>
@@ -123,7 +126,7 @@ export default async function RootLayout({
                     inter.variable
                 )}
             >
-                <NextIntlClientProvider>
+                <NextIntlClientProvider locale={locale} messages={messages}>
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="system"

@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic'
+import { NextIntlClientProvider, useMessages, useLocale } from 'next-intl';
 
 // Dynamically import the game component to prevent SSR issues
 const GameComponent = dynamic(() => import('./GameComponent'), {
@@ -13,7 +14,13 @@ const GameComponent = dynamic(() => import('./GameComponent'), {
 });
 
 export default function Game() {
+    // 获取当前语言和消息
+    const locale = useLocale();
+    const messages = useMessages();
+    
     return (
-        <GameComponent />
+        <NextIntlClientProvider locale={locale} messages={messages}>
+            <GameComponent />
+        </NextIntlClientProvider>
     );
 } 
