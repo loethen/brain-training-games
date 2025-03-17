@@ -17,7 +17,8 @@ export const GAME_CONFIG = {
     basePath: '/games/dual-n-back/audio/',
     voices: {
         male: 'male/',
-        female: 'female/'
+        female: 'female/',
+        chinese_female: 'chinese_female/'
     }
   },
   messages: {

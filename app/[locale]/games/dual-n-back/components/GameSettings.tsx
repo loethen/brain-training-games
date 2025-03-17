@@ -252,8 +252,8 @@ export default function GameSettings({ settings, onSettingsChange, disabled = fa
                                     </FormLabel>
                                     <FormControl>
                                         <Slider
-                                            min={1500}
-                                            max={4000}
+                                            min={1000}
+                                            max={5000}
                                             step={250}
                                             value={[field.value]}
                                             onValueChange={(vals) =>

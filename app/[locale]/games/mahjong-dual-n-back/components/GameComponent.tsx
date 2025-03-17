@@ -18,6 +18,7 @@ import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import SettingsDialog, { GameSettings } from "./SettingsDialog";
 import { ShareModal } from "@/components/ui/ShareModal";
 import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
 type GameState = "idle" | "playing" | "complete";
@@ -37,10 +38,13 @@ type TrialResult = {
 
 // 游戏设置自定义钩子
 function useGameSettings() {
+    // 获取当前语言
+    const locale = useLocale();
+    
     // 默认游戏设置
     const [settings, setSettings] = useState<GameSettings>({
         selectedNBack: GAME_CONFIG.difficulty.initialLevel, // 默认N-back等级
-        voiceType: "male", // 默认语音类型
+        voiceType: locale === "zh" ? "chinese_female" : "male", // 中文环境默认使用中文女声
         selectedTypes: ["position", "audio"], // 默认启用双模式
         trialsPerRound: GAME_CONFIG.trials.perRound, // 默认每轮试验次数
         trialInterval: GAME_CONFIG.trials.interval, // 默认试验间隔

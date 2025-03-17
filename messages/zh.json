@@ -415,7 +415,7 @@
         "voiceType": "语音类型",
         "male": "英语男声",
         "female": "英语女声",
-        "chineseFemale": "中文女声",
+        "chinese_female": "中文女声",
         "trainingMode": "训练模式",
         "tile": "麻将牌",
         "sound": "声音",
