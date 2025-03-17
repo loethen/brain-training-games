@@ -669,11 +669,11 @@ export default function GameComponent() {
                         <div className="flex items-center gap-2 text-sm text-white">
                             <span>
                                 {settings.selectedTypes.length === 2
-                                    ? "Dual"
+                                    ? t('Dual')
                                     : settings.selectedTypes[0] === "position"
-                                    ? "Tile"
+                                    ? t('tile')
                                     : settings.selectedTypes[0] === "audio"
-                                    ? "Sound"
+                                    ? t('sound')
                                     : settings.selectedTypes[0]}
                             </span>
                             <span>•</span>
