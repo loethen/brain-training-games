@@ -492,7 +492,16 @@
         "correctAnswers": "Correct Answers",
         "target": "Target: {attempts} attempts with {accuracy}% accuracy",
         "playAgain": "Play Again",
-        "share": "Share Results"
+        "share": "Share Results",
+        "settings": "Settings",
+        "level": "Level",
+        "adjustDifficulty": "Adjust Difficulty",
+        "adjustDifficultyDescription": "Would you like to decrease the difficulty to make the challenge easier?",
+        "decreaseDifficulty": "Decrease Difficulty",
+        "keepCurrentDifficulty": "Keep Current Difficulty",
+        "nextLevel": "Next Level Target:",
+        "nextLevelTarget": "Complete {attempts} attempts with {accuracy}% accuracy",
+        "continueChallenge": "Continue Challenge"
       }
     },
     "mahjong-dual-n-back": {

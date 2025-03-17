@@ -525,7 +525,16 @@
         "correctAnswers": "正确答案数",
         "target": "目标：{attempts}次尝试，准确率{accuracy}%",
         "playAgain": "再玩一次",
-        "share": "分享结果"
+        "share": "分享",
+        "settings": "设置",
+        "level": "等级",
+        "adjustDifficulty": "调整难度",
+        "adjustDifficultyDescription": "您想降低难度使挑战更容易吗？",
+        "decreaseDifficulty": "降低难度",
+        "keepCurrentDifficulty": "保持当前难度",
+        "nextLevel": "下一关目标：",
+        "nextLevelTarget": "完成{attempts}次尝试，准确率达到{accuracy}%",
+        "continueChallenge": "继续挑战"
       }
     },
     "mahjong-dual-n-back": {
