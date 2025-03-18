@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { PlayCircle, Trophy, Loader2 } from 'lucide-react'
 import { ShareModal } from '@/components/ui/ShareModal'
+import { useTranslations } from 'next-intl'
 
 interface Block {
   id: number
@@ -14,6 +15,7 @@ interface Block {
 }
 
 export function PatternRecallGame() {
+    const t = useTranslations("games.blockMemoryChallenge.gameUI")
     const [gameState, setGameState] = useState<
         "idle" | "showing" | "guessing" | "complete" | "failed"
     >("idle");
@@ -189,7 +191,7 @@ export function PatternRecallGame() {
                 <div className="flex justify-between items-center">
                     <div className="flex gap-4 items-center">
                         <div className="text-lg font-medium">
-                            Level: {level}
+                            {t("level")}: {level}
                         </div>
                         <div className="flex items-center gap-1">
                             <Trophy className="w-4 h-4" />
@@ -199,11 +201,11 @@ export function PatternRecallGame() {
                     <div className="flex items-center gap-2 text-muted-foreground">
                         <div className="text-sm">
                             {gameState === "showing"
-                                ? "Watch the sequence..."
+                                ? t("watchSequence")
                                 : gameState === "guessing"
-                                ? "Repeat the sequence"
+                                ? t("repeatSequence")
                                 : gameState === "complete"
-                                ? "Well done!"
+                                ? t("wellDone")
                                 : ""}
                         </div>
                     </div>
@@ -238,7 +240,7 @@ export function PatternRecallGame() {
                         {bestScore > 0 && (
                             <div className="text-center mb-2">
                                 <div className="text-sm text-muted-foreground">
-                                    Personal Best
+                                    {t("personalBest")}
                                 </div>
                                 <div className="text-2xl font-bold">
                                     {bestScore}
@@ -256,7 +258,7 @@ export function PatternRecallGame() {
                             ) : (
                                 <PlayCircle className="w-5 h-5" />
                             )}
-                            {isLoading ? "Starting..." : "Start Game"}
+                            {isLoading ? t("starting") : t("startGame")}
                         </Button>
                     </div>
                 )}
@@ -266,39 +268,39 @@ export function PatternRecallGame() {
                     <div className="absolute inset-0 flex items-center justify-center bg-background/5 backdrop-blur-sm">
                         <div className="bg-background p-6 rounded-xl shadow-lg space-y-4">
                             <h3 className="text-2xl font-bold text-center mb-4">
-                                Game Over!
+                                {t("gameOver")}
                             </h3>
                             <div className="space-y-2">
                                 <p className="flex justify-between gap-4">
-                                    <span>Final Score:</span>
+                                    <span>{t("finalScore")}:</span>
                                     <span className="font-bold">{score}</span>
                                 </p>
                                 <p className="flex justify-between gap-4">
-                                    <span>Best Score:</span>
+                                    <span>{t("bestScore")}:</span>
                                     <span className="font-bold">
                                         {bestScore}
                                     </span>
                                 </p>
                                 <p className="flex justify-between gap-4">
-                                    <span>Time:</span>
+                                    <span>{t("time")}:</span>
                                     <span className="font-bold">
                                         {gameTime.toFixed(1)}s
                                     </span>
                                 </p>
                                 <p className="flex justify-between gap-4">
-                                    <span>Levels Completed:</span>
+                                    <span>{t("levelsCompleted")}:</span>
                                     <span className="font-bold">
                                         {level - 1}
                                     </span>
                                 </p>
                             </div>
                             <div className="flex gap-2 justify-center mt-6">
-                                <Button onClick={startGame}>Play Again</Button>
+                                <Button onClick={startGame}>{t("playAgain")}</Button>
                                 <Button
                                     variant="outline"
                                     onClick={handleShareClick}
                                 >
-                                    Share
+                                    {t("share")}
                                 </Button>
                             </div>
                         </div>

@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { CheckCircle2, XCircle } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function GamePreview() {
+  const t = useTranslations("games.blockMemoryChallenge.gameUI")
   const [activeBlock, setActiveBlock] = useState<number | null>(null)
   const [activeType, setActiveType] = useState<'pattern' | 'correct' | 'error'>('pattern')
   const [status, setStatus] = useState<string>('')
@@ -18,7 +20,7 @@ export function GamePreview() {
     const animate = async () => {
       while (isAnimating) {
         // 正确示范
-        setStatus('Watch the pattern...')
+        setStatus(t('watchSequence'))
         // 显示第一个方块
         setActiveBlock(4)
         setActiveType('pattern')
@@ -34,7 +36,7 @@ export function GamePreview() {
         await wait(1000)
 
         // 用户输入阶段
-        setStatus('Your turn...')
+        setStatus(t('yourTurn'))
         // 正确输入第一个方块
         setActiveBlock(4)
         setActiveType('correct')
@@ -55,7 +57,7 @@ export function GamePreview() {
         await wait(1000)
 
         // 错误示范
-        setStatus('Watch the pattern...')
+        setStatus(t('watchSequence'))
         // 显示第一个方块
         setActiveBlock(7)
         setActiveType('pattern')
@@ -71,7 +73,7 @@ export function GamePreview() {
         await wait(1000)
 
         // 用户输入阶段
-        setStatus('Your turn...')
+        setStatus(t('yourTurn'))
         // 正确输入第一个方块
         setActiveBlock(7)
         setActiveType('correct')
@@ -103,7 +105,7 @@ export function GamePreview() {
       isAnimating = false
       clearTimeout(timeoutId)
     }
-  }, [])
+  }, [t])
 
   return (
     <div className="w-full max-w-[400px] mx-auto">

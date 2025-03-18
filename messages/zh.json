@@ -537,7 +537,72 @@
     },
     "blockMemoryChallenge": {
       "title": "方块记忆挑战",
-      "description": "通过回忆越来越复杂的方块顺序来测试你的视觉记忆。"
+      "description": "通过回忆越来越复杂的方块顺序来测试你的视觉记忆。",
+      "subtitle": "训练你的视觉记忆和模式识别能力",
+      "metaTitle": "方块记忆挑战 - 视觉记忆训练游戏",
+      "metaDescription": "通过记忆并重复逐渐复杂的视觉序列，增强你的工作记忆和认知灵活性。",
+      "metaKeywords": "方块记忆游戏,视觉序列记忆,工作记忆训练,认知灵活性练习,注意力提升,序列记忆游戏,视觉模式识别,短期记忆练习",
+      "ogTitle": "方块记忆挑战 - 训练你的视觉记忆",
+      "ogDescription": "记忆并重复越来越复杂的视觉序列，提升你的工作记忆力和认知灵活性。",
+      "howToPlay": {
+        "intro": "在这个挑战性的记忆游戏中记忆并重新创建闪烁的方块序列：",
+        "step1": "方块会按照特定顺序逐个高亮显示",
+        "step2": "仔细观察并记住方块高亮的顺序",
+        "step3": "序列展示完毕后，按照相同顺序点击方块",
+        "step4": "随着级别提升，序列会变得更长且更难记忆",
+        "watchDemo": "观看演示",
+        "demo": "演示"
+      },
+      "benefits": {
+        "workingMemory": {
+          "title": "工作记忆",
+          "description": "增强你在脑海中暂时保持和操作视觉信息的能力。"
+        },
+        "visualProcessing": {
+          "title": "视觉处理",
+          "description": "提高你的大脑处理和解释视觉模式的速度和准确性。"
+        },
+        "patternRecognition": {
+          "title": "模式识别",
+          "description": "增强你识别和记忆视觉模式的能力，这是学习和解决问题的关键技能。"
+        }
+      },
+      "faq": {
+        "dailyLife": {
+          "question": "视觉模式记忆如何帮助日常生活？",
+          "answer": "视觉模式记忆对导航、识别面孔、通过图表学习新信息以及从阅读X光片到建筑设计等许多专业技能都至关重要。"
+        },
+        "learning": {
+          "question": "这能提高我学习新事物的能力吗？",
+          "answer": "是的！强大的视觉记忆力帮助你保留以视觉格式呈现的信息，这是我们学习的主要方式。这种技能可以转移到学术学习、专业发展和培养新爱好中。"
+        },
+        "practice": {
+          "question": "我应该多久练习一次？",
+          "answer": "为了获得最佳效果，每天练习10-15分钟。持续、定期的练习比偶尔的长时间练习更有效。"
+        },
+        "children": {
+          "question": "这个游戏适合儿童吗？",
+          "answer": "当然！这个游戏对发展中的大脑非常有益。视觉记忆对阅读、数学和许多其他学术技能至关重要。渐进式的难度确保随着技能提高，游戏仍然具有挑战性。"
+        }
+      },
+      "gameUI": {
+        "level": "等级",
+        "score": "分数",
+        "bestScore": "最佳",
+        "time": "时间",
+        "startGame": "开始游戏",
+        "starting": "开始中...",
+        "playAgain": "再玩一次",
+        "share": "分享",
+        "gameOver": "游戏结束！",
+        "finalScore": "最终得分",
+        "levelsCompleted": "完成等级",
+        "watchSequence": "观察序列...",
+        "repeatSequence": "重复序列",
+        "wellDone": "做得好！",
+        "personalBest": "个人最佳",
+        "yourTurn": "轮到你了..."
+      }
     }
   },
   "buttons": {
