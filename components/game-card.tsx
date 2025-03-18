@@ -13,6 +13,10 @@ interface GameCardProps {
 
 export default function GameCard({ game, preview, className }: GameCardProps) {
   const t = useTranslations('games');
+    const camelCaseId = game.id.replace(/-([a-z])/g, (_, char) =>
+        char.toUpperCase()
+    ).replace(/-/g, '');
+
   
   return (
       <div
@@ -32,12 +36,12 @@ export default function GameCard({ game, preview, className }: GameCardProps) {
           <div className="block px-6 py-4">
               <Link href={`/games/${game.slug}`}>
                   <h2 className="text-xl font-semibold text-primary">
-                      {t(`${game.id}.title`, { defaultMessage: game.title })}
+                      {t(`${camelCaseId}.title`)}
                   </h2>
               </Link>
 
               <p className="mt-2 text-muted-foreground line-clamp-2">
-                  {t(`${game.id}.description`, { defaultMessage: game.description })}
+                  {t(`${camelCaseId}.description`)}
               </p>
 
               <GameCategories gameId={game.id} className="mt-4" />

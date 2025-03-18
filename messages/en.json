@@ -262,6 +262,7 @@
     "schulteTable": {
       "title": "Schulte Table",
       "subtitle": "Enhance your attention and peripheral vision",
+      "description": "Enhance your attention and peripheral vision",
       "howToPlay": "Find and click numbers in ascending order (1-25) as quickly as possible. Try to use your peripheral vision instead of scanning each number!",
       "watchDemo": "Watch Demo",
       "metaTitle": "Schulte Table - Peripheral Vision & Attention Training Game",
@@ -272,23 +273,49 @@
     },
     "dualNBack": {
       "title": "Dual N-Back",
+      "subtitle": "Train your working memory by remembering visual and auditory stimuli N steps back.",
       "description": "Train your working memory by remembering visual and auditory stimuli N steps back.",
-      "howToPlay": "In this game, you'll be presented with a sequence of stimuli - positions in a grid and letters. Your task is to identify when the current stimulus matches the one from N steps back. Press the position button when the position matches, and the sound button when the letter matches.",
-      "benefits": "Dual N-Back is one of the few brain training exercises scientifically proven to improve fluid intelligence and working memory. It challenges your brain to hold multiple pieces of information simultaneously while processing new inputs.",
-      "faq": [
-        {
+      "howToPlayIntro": "In this game, you'll be presented with a sequence of stimuli - positions in a grid and letters. Your task is to identify when the current stimulus matches the one from N steps back. Press the position button when the position matches, and the sound button when the letter matches.",
+      "howToPlay1": "Watch the grid and listen to the letter",
+      "howToPlay2": "Press the position button when the position matches",
+      "howToPlay3": "Press the sound button when the letter matches.",
+      "howToPlay4": "As you improve, the N-back level will increase, making the task more challenging.",
+      "benefits": {
+        "workingMemory": {
+          "title": "Working Memory",
+          "description": "Improve your ability to hold and manipulate multiple pieces of information in mind while tracking positions and sounds."
+        },
+        "fluidIntelligence": {
+          "title": "Fluid Intelligence",
+          "description": "Improve your problem-solving abilities and cognitive flexibility through the challenging dual-task nature of the mahjong n-back exercise."
+        },
+        "attentionControl": {
+          "title": "Attention Control",
+          "description": "Enhance your focus and ability to filter out distractions while monitoring both visual and auditory mahjong stimuli simultaneously."
+        }
+      },
+      "faq": {
+        "science": {
           "question": "What is N-Back?",
           "answer": "N-Back is a cognitive task where you must remember what happened N steps ago in a sequence. For example, in a 2-Back task, you need to remember what was shown 2 steps previously."
         },
-        {
+        "practice": {
+          "question": "How often should I practice?",
+          "answer": "For optimal results, try to practice 20-30 minutes per day, 4-5 days per week. Consistency is more important than duration."
+        },
+        "progress": {
           "question": "How do I know if I'm improving?",
           "answer": "As you improve, you'll be able to increase the N-Back level (from 1-back to 2-back, 3-back, etc.) while maintaining accuracy. Your reaction time will also improve."
         },
-        {
-          "question": "How often should I practice?",
-          "answer": "For optimal results, try to practice 20-30 minutes per day, 4-5 days per week. Consistency is more important than duration."
+        "challenging": {
+          "question": "How challenging is this game?",
+          "answer": "This game is designed to be challenging. It's a great way to improve your attention and working memory."
+        },
+        "improvements": {
+          "question": "How will this improve my life?",
+          "answer": "This game is a great way to improve your attention and working memory. It's a fun way to train your brain."
         }
-      ],
+      },
       "gameUI": {
         "dual": "Dual",
         "position": "Position",
@@ -327,11 +354,17 @@
       },
       "gameMessages": {
         "keepOneMode": "You must keep at least one mode enabled"
-      }
+      },
+      "metaTitle": "Dual N-Back - Working Memory Training Game",
+      "metaDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Featuring a dual-task nature that challenges your brain to hold multiple pieces of information simultaneously while processing new inputs.",
+      "metaKeywords": "dual n-back training, working memory game, cognitive training, attention control practice, n-back task, memory improvement game, free dual n-back game, brain training game, cognitive speed exercise, attention span improvement",
+      "ogTitle": "Dual N-Back - Advanced Working Memory Training",
+      "ogDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Featuring a dual-task nature that challenges your brain to hold multiple pieces of information simultaneously while processing new inputs."
     },
     "mahjongDualNBack": {
       "title": "Mahjong Dual N-Back",
       "subtitle": "Advanced working memory training with traditional mahjong tiles",
+      "description": "A variant of Dual N-Back using mahjong tiles and sounds to train working memory and cognitive skills.",
       "howToPlayIntro": "In this challenging memory task inspired by traditional Mahjong, you'll need to remember both the tile patterns and audio stimuli from N steps back in the sequence:",
       "howToPlay1": "Watch as mahjong tiles appear in sequence on the teal felt table",
       "howToPlay2": "Press \"Tile Match\" when the current tile matches the tile from N steps back",
@@ -376,6 +409,7 @@
         }
       },
       "gameUI": {
+        "Dual": "Dual",
         "settings": "Settings",
         "gameSettings": "Game Settings",
         "nBackLevel": "N-Back Level",
@@ -420,21 +454,18 @@
       "ogTitle": "Mahjong Dual N-Back - Advanced Working Memory Training",
       "ogDescription": "Train your working memory and cognitive skills with the scientifically-backed Mahjong Dual N-Back cognitive exercise featuring traditional mahjong tiles."
     },
-    "dual-n-back": {
-      "title": "Dual N-Back",
-      "description": "A challenging memory task that trains working memory by requiring you to remember both visual and auditory stimuli N steps back."
-    },
-    "fish-trace": {
+    "fishTrace": {
       "title": "Glowing Fish Trace",
       "description": "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment."
     },
-    "frog-memory-leap": {
+    "frogMemoryLeap": {
       "title": "Frog Memory Leap",
       "description": "Challenge your sequential memory by remembering the order of frog jumps across lily pads."
     },
     "largerNumber": {
       "title": "Larger Number Challenge",
       "subtitle": "Train your processing speed and numerical comparison skills",
+      "description": "Quickly identify the larger of two numbers to train processing speed and attention.",
       "howToPlayIntro": "Quickly identify which number is larger in this fast-paced challenge:",
       "howToPlay1": "Two numbers will appear on the screen",
       "howToPlay2": "Tap or click on the larger number as quickly as possible",
@@ -504,17 +535,9 @@
         "continueChallenge": "Continue Challenge"
       }
     },
-    "mahjong-dual-n-back": {
-      "title": "Mahjong Dual N-Back",
-      "description": "A variant of Dual N-Back using mahjong tiles and sounds to train working memory and cognitive skills."
-    },
-    "block-memory-challenge": {
+    "blockMemoryChallenge": {
       "title": "Block Memory Challenge",
       "description": "Test your visual memory by recalling increasingly complex block sequences."
-    },
-    "schulte-table": {
-      "title": "Schulte Table",
-      "description": "Enhance peripheral vision and attention by finding numbers in sequence on a grid as quickly as possible."
     }
   },
   "buttons": {

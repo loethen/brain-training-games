@@ -17,7 +17,9 @@ export default function Game() {
     // 获取当前语言和消息
     const locale = useLocale();
     const messages = useMessages();
-    
+
+    console.log('locale', locale);
+    console.log('messages', messages);
     return (
         <NextIntlClientProvider locale={locale} messages={messages}>
             <GameComponent />
