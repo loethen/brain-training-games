@@ -422,8 +422,7 @@
         "trialsPerRound": "每轮回合数",
         "trialSpeed": "回合速度",
         "seconds": "{seconds}秒",
-        "saveChanges": "保存更改",
-        "keepOneMode": "你必须保持至少一种模式启用"
+        "saveChanges": "保存更改"
       },
       "gameMessages": {
         "keepOneMode": "你必须保持至少一种模式启用"
