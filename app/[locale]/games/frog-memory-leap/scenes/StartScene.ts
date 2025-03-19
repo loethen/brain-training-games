@@ -25,6 +25,7 @@ export class StartScene extends Scene {
         
         this.add.image(width/2, height/2, "pond").setScale(0.6);
 
+        // 添加开始按钮
         const btn = this.add.image(width/2, height/2, "start_btn")
             .setScale(0.6);
         

@@ -21,13 +21,16 @@ export class FrogScene extends Scene {
     private score: number = 0;
     private startTime: number = 0;
     private streakMultiplier: number = 1;
+    private translate: (key: string, params?: Record<string, string | number>) => string;
 
     constructor() {
         super({ key: 'FrogScene' });
+        this.translate = (key: string) => key;
     }
 
     init(config: { level?: number; score?: number; numLilyPads?: number; numJumps?: number; jumpSequence?: number[] }) {
-        // 清理之前的游戏对象
+        this.translate = this.game.registry.get('t') || ((key: string) => key);
+        
         this.lilyPads.forEach(pad => {
             pad.rippleTween?.stop();
             pad.rippleGraphics?.destroy();
@@ -37,31 +40,26 @@ export class FrogScene extends Scene {
         this.messageText?.destroy();
         this.messageBg?.destroy();
         
-        // 保存关卡和分数
         this.level = config.level || 1;
         this.score = config.score || 0;
         
-        // 计算当前关卡的跳跃次数
         this.numJumps = Math.min(
             GAME_CONFIG.difficulty.initial.numJumps + 
             (this.level - 1) * GAME_CONFIG.difficulty.increment.numJumps,
             GAME_CONFIG.difficulty.maxJumps
         );
         
-        // 计算所需的荷叶数量
         this.numLilyPads = Math.max(
             config.numLilyPads || GAME_CONFIG.lilyPad.count,
-            this.numJumps + 2  // 确保荷叶数量足够
+            this.numJumps + 2
         );
 
-        // 生成或使用提供的跳跃序列
         if (config.jumpSequence && config.jumpSequence.length === this.numLilyPads) {
             this.jumpSequence = config.jumpSequence;
         } else {
             this.jumpSequence = Utils.Array.Shuffle([...Array(this.numLilyPads).keys()]);
         }
             
-        // 重置其他状态
         this.currentJumpIndex = 0;
         this.streakMultiplier = 1;
         this.playerSequence = [];
@@ -83,22 +81,19 @@ export class FrogScene extends Scene {
     }
 
     create() {
-        // 确保在创建新对象前清空场景
         this.children.removeAll();
         
-        // 创建游戏对象
         this.add.image(400, 300, 'pond').setScale(0.6);
         this.createMessage();
         this.createLilyPads();
         this.createFrog();
         this.createAnimations();
         
-        // 延迟开始自动跳跃，给场景加载一些时间
         this.time.delayedCall(100, () => {
             this.setupAutoJump();
         });
         
-        this.setText(GAME_CONFIG.messages.start);
+        this.setText(this.translate('watch'));
     }
 
     createLilyPads() {
@@ -113,7 +108,6 @@ export class FrogScene extends Scene {
                 });
 
                 if (!tooClose) {
-                    // 创建阴影
                     const shadow = this.add.graphics({ 
                         x: x + GAME_CONFIG.lilyPad.shadow.offset.x, 
                         y: y + GAME_CONFIG.lilyPad.shadow.offset.y 
@@ -121,7 +115,6 @@ export class FrogScene extends Scene {
                     shadow.fillStyle(0x000000, GAME_CONFIG.lilyPad.shadow.alpha);
                     shadow.fillCircle(0, 0, GAME_CONFIG.lilyPad.shadow.radius);
 
-                    // 创建荷叶
                     const lilyPad = this.add.sprite(x, y, 'lilyPad')
                         .setScale(GAME_CONFIG.lilyPad.scale) as LilyPad;
                     lilyPad.setInteractive();
@@ -137,10 +130,8 @@ export class FrogScene extends Scene {
     }
 
     createRippleForLilyPad(lilyPad: LilyPad) {
-        // 创建一个容器来存放荷叶和它的涟漪效果
         const rippleGraphics = this.add.graphics();
         
-        // 创建补间动画
         const rippleTween = this.tweens.add({
             targets: { alpha: 1, radius: GAME_CONFIG.lilyPad.ripple.radius.from },
             alpha: { from: 1, to: 0 },
@@ -165,11 +156,10 @@ export class FrogScene extends Scene {
             },
             onStop: () => {
                 rippleGraphics.clear();
-                rippleGraphics.destroy();  // 添加销毁graphics
+                rippleGraphics.destroy();
             }
         });
 
-        // 保存 tween 引用和 graphics 对象
         lilyPad.rippleTween = rippleTween;
         lilyPad.rippleGraphics = rippleGraphics;
     }
@@ -200,7 +190,6 @@ export class FrogScene extends Scene {
     createMessage() {
         const messageY = GAME_CONFIG.ui.message.y;
         
-        // 创建背景
         this.messageBg = this.add.graphics();
         this.messageBg.fillStyle(GAME_CONFIG.ui.message.background.color, GAME_CONFIG.ui.message.background.alpha);
         this.messageBg.lineStyle(
@@ -208,7 +197,6 @@ export class FrogScene extends Scene {
             GAME_CONFIG.ui.message.background.borderColor
         );
         
-        // 创建文本
         this.messageText = this.add.text(
             this.scale.width / 2,
             messageY,
@@ -216,11 +204,9 @@ export class FrogScene extends Scene {
             GAME_CONFIG.ui.message.style
         ).setOrigin(0.5, 0.5);
         
-        // 设置文本效果
         this.messageText.setStroke('#000000', 2);
         this.messageText.setShadow(1, 1, '#000000', 2, true, true);
         
-        // 确保背景在文本下方
         this.messageBg.setDepth(this.messageText.depth - 1);
     }
 
@@ -228,14 +214,12 @@ export class FrogScene extends Scene {
         this.messageText.setColor('#FFFFFF');
         this.messageText.setText(message);
         
-        // 重新计算背景大小
         const padding = GAME_CONFIG.ui.message.style.padding;
         const textWidth = this.messageText.width;
         const textHeight = this.messageText.height;
         const cornerRadius = GAME_CONFIG.ui.message.background.cornerRadius;
         const messageY = GAME_CONFIG.ui.message.y;
         
-        // 更新背景
         this.messageBg.clear();
         this.messageBg.fillStyle(GAME_CONFIG.ui.message.background.color, GAME_CONFIG.ui.message.background.alpha);
         this.messageBg.lineStyle(
@@ -258,15 +242,10 @@ export class FrogScene extends Scene {
             Math.pow(GAME_CONFIG.difficulty.increment.speedup, this.level - 1)
         );
 
-        // 显示关卡预览信息 - 移除速度显示
-        this.setText(GAME_CONFIG.messages.nextLevel
-            .replace('{level}', this.level.toString())
-            .replace('{jumps}', this.numJumps.toString())
-        );
+        this.setText(this.translate('level', { level: this.level.toString(), jumps: this.numJumps.toString() }));
 
-        // 添加延迟开始
         this.time.delayedCall(2000, () => {
-            this.setText(GAME_CONFIG.messages.jumping);
+            this.setText(this.translate('watch'));
             this.time.addEvent({
                 delay: jumpDelay,
                 callback: this.performJump,
@@ -278,7 +257,6 @@ export class FrogScene extends Scene {
 
     performJump() {
         if (this.currentJumpIndex < this.jumpSequence.length - 1) {
-            // 清理当前荷叶的涟漪效果
             const currentPad = this.lilyPads[this.jumpSequence[this.currentJumpIndex]];
             currentPad.rippleTween?.pause();
 
@@ -301,7 +279,6 @@ export class FrogScene extends Scene {
                 },
                 onComplete: () => {
                     this.frog.setTexture('frog', GAME_CONFIG.frog.frames.idle);
-                    // 开始新荷叶的涟漪效果
                     nextPad.rippleTween?.restart();
                 },
             });
@@ -325,7 +302,6 @@ export class FrogScene extends Scene {
         this.currentJumpIndex = 1;
         this.startTime = Date.now();
         
-        // 清理所有荷叶的涟漪效果
         this.lilyPads.forEach(pad => pad.rippleTween?.pause());
         
         const startPad = this.lilyPads[this.jumpSequence[0]];
@@ -333,30 +309,25 @@ export class FrogScene extends Scene {
         this.frog.setTexture('frog', GAME_CONFIG.frog.frames.idle);
         this.frog.angle = 0;
         
-        // 开始初始荷叶的涟漪效果
         startPad.rippleTween?.restart();
         
-        this.setText(GAME_CONFIG.messages.yourTurn);
+        this.setText(this.translate('repeat'));
     }
 
     handleLilyPadClick(padIndex: number) {
         if (this.gameState !== 'playing') return;
-
+        
         const correctPadIndex = this.jumpSequence[this.currentJumpIndex];
         
         if (padIndex === correctPadIndex) {
-            // 清理当前荷叶的涟漪效果
             const currentPad = this.lilyPads[this.jumpSequence[this.currentJumpIndex - 1]];
             currentPad.rippleTween?.pause();
 
-            // 正确选择 - 添加绿色发光效果
             const targetPad = this.lilyPads[padIndex];
             this.createCorrectGlow(targetPad);
             
-            // 记录玩家选择
             this.playerSequence.push(padIndex);
             
-            // 让青蛙跳到选中的荷叶
             const angle = PhaserMath.Angle.Between(
                 this.frog.x,
                 this.frog.y,
@@ -376,20 +347,16 @@ export class FrogScene extends Scene {
                 },
                 onComplete: () => {
                     this.frog.setTexture('frog', GAME_CONFIG.frog.frames.idle);
-                    // 开始新荷叶的涟漪效果
                     targetPad.rippleTween?.restart();
                     
-                    // 更新当前索引
                     this.currentJumpIndex++;
                     
-                    // 检查是否完成所有跳跃
                     if (this.currentJumpIndex > this.numJumps) {
                         this.handleSuccess();
                     }
                 },
             });
         } else {
-            // 错误选择
             this.handleFailure();
         }
     }
@@ -413,7 +380,7 @@ export class FrogScene extends Scene {
                 ripple.clear();
                 ripple.lineStyle(
                     GAME_CONFIG.lilyPad.ripple.lineWidth, 
-                    0x00ff00,  // 绿色
+                    0x00ff00,
                     currentAlpha
                 );
                 ripple.strokeCircle(lilyPad.x, lilyPad.y, currentRadius);
@@ -426,7 +393,7 @@ export class FrogScene extends Scene {
 
     handleFailure() {
         this.gameState = 'complete';
-        this.setText(GAME_CONFIG.messages.fail);
+        this.setText(this.translate('gameOver'));
         this.streakMultiplier = 1;
 
         const wrongPad = this.lilyPads[this.jumpSequence[this.currentJumpIndex]];
@@ -448,7 +415,7 @@ export class FrogScene extends Scene {
                 ripple.clear();
                 ripple.lineStyle(
                     GAME_CONFIG.lilyPad.ripple.lineWidth, 
-                    0xff0000,  // 红色
+                    0xff0000,
                     currentAlpha
                 );
                 ripple.strokeCircle(wrongPad.x, wrongPad.y, currentRadius);
@@ -456,6 +423,17 @@ export class FrogScene extends Scene {
             onComplete: () => {
                 ripple.destroy();
                 this.time.delayedCall(500, () => {
+                    this.add.text(
+                        this.scale.width / 2,
+                        this.scale.height / 2 - 40,
+                        this.translate('score', { score: this.score.toString() }),
+                        {
+                            fontSize: '28px',
+                            color: '#ffffff',
+                            fontStyle: 'bold'
+                        }
+                    ).setOrigin(0.5);
+                    
                     this.createRetryButton();
                 });
             }
@@ -463,35 +441,27 @@ export class FrogScene extends Scene {
     }
 
     createRetryButton() {
-        // 创建按钮容器
         const buttonContainer = this.add.container(this.scale.width / 2, this.scale.height / 2 + 100);
         
-        // 创建按钮背景 - 3D 效果
         const buttonBg = this.add.graphics();
         
-        // 主体颜色
-        buttonBg.fillStyle(0xFFD700);  // 金色
+        buttonBg.fillStyle(0xFFD700);
         
-        // 绘制主体形状
         buttonBg.fillRoundedRect(-100, -25, 200, 50, 25);
         
-        // 添加底部阴影（深色区域）
         const shadow = this.add.graphics();
-        shadow.fillStyle(0xFFA500, 0.5);  // 半透明橙色
+        shadow.fillStyle(0xFFA500, 0.5);
         shadow.fillRoundedRect(-100, 0, 200, 25, { tl: 0, tr: 0, bl: 25, br: 25 });
         
-        // 添加顶部高光效果
         const highlight = this.add.graphics();
-        highlight.fillStyle(0xFFFFFF, 0.3);  // 半透明白色
+        highlight.fillStyle(0xFFFFFF, 0.3);
         highlight.fillRoundedRect(-95, -22, 190, 15, 20);
         
-        // 添加边框
         const border = this.add.graphics();
         border.lineStyle(3, 0x000000, 0.3);
         border.strokeRoundedRect(-100, -25, 200, 50, 25);
         
-        // 创建文本
-        const buttonText = this.add.text(0, 0, 'TRY AGAIN', {
+        const buttonText = this.add.text(0, 0, this.translate('tryAgain'), {
             fontSize: '28px',
             fontFamily: 'Arial Black',
             color: '#FFFFFF',
@@ -500,14 +470,11 @@ export class FrogScene extends Scene {
             strokeThickness: 4,
         }).setOrigin(0.5);
         
-        // 添加到容器
         buttonContainer.add([buttonBg, shadow, highlight, border, buttonText]);
         
-        // 添加交互
         buttonContainer.setSize(200, 50);
         buttonContainer.setInteractive({ useHandCursor: true });
         
-        // 添加相同的交互效果
         buttonContainer.on('pointerover', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -546,7 +513,7 @@ export class FrogScene extends Scene {
                 alpha: 0,
                 duration: 200,
                 onComplete: () => {
-                    this.scene.restart({
+                    this.scene.start('StartScene', {
                         level: this.level,
                         score: this.score
                     });
@@ -560,10 +527,8 @@ export class FrogScene extends Scene {
         const levelScore = this.calculateScore();
         this.score += levelScore;
         
-        // 创建礼花效果
         this.createSuccessConfetti();
         
-        // 检查是否达到最大关卡
         const nextJumps = Math.min(
             GAME_CONFIG.difficulty.initial.numJumps + 
             this.level * GAME_CONFIG.difficulty.increment.numJumps,
@@ -572,57 +537,56 @@ export class FrogScene extends Scene {
         
         if (nextJumps === GAME_CONFIG.difficulty.maxJumps && 
             this.numJumps === GAME_CONFIG.difficulty.maxJumps) {
-            // 通关结束
-            this.setText(GAME_CONFIG.messages.maxLevel
-                .replace('{score}', this.score.toString())
-            );
+            this.setText(this.translate('maxLevel', { score: this.score.toString() }));
             this.time.delayedCall(1500, () => {
                 this.createRetryFromStartButton();
             });
         } else {
-            // 显示当前分数和完成信息
-            this.setText(GAME_CONFIG.messages.success
-                .replace('{score}', this.score.toString())
-                .replace('{level}', this.level.toString())
-            );
+            this.setText(this.translate('success', { 
+                score: this.score.toString(), 
+                level: this.level.toString() 
+            }));
             
             this.time.delayedCall(1500, () => {
+                this.add.text(
+                    this.scale.width / 2,
+                    this.scale.height / 2 - 40,
+                    this.translate('score', { score: this.score.toString() }),
+                    {
+                        fontSize: '28px',
+                        color: '#ffffff',
+                        fontStyle: 'bold'
+                    }
+                ).setOrigin(0.5);
+                
                 this.createNextLevelButton();
             });
         }
     }
 
     createNextLevelButton() {
-        // 创建按钮容器
         const buttonContainer = this.add.container(this.scale.width / 2, this.scale.height / 2 + 100);
         
-        // 创建按钮背景 - 3D 效果
         const buttonBg = this.add.graphics();
         
-        // 主体颜色
-        buttonBg.fillStyle(0xFFD700);  // 金色
+        buttonBg.fillStyle(0xFFD700);
         
-        // 绘制主体形状 - 增大尺寸
-        buttonBg.fillRoundedRect(-120, -30, 240, 60, 30);  // 宽度240，高度60，圆角30
+        buttonBg.fillRoundedRect(-120, -30, 240, 60, 30);
         
-        // 添加底部阴影（深色区域）
         const shadow = this.add.graphics();
-        shadow.fillStyle(0xFFA500, 0.5);  // 半透明橙色
+        shadow.fillStyle(0xFFA500, 0.5);
         shadow.fillRoundedRect(-120, 0, 240, 30, { tl: 0, tr: 0, bl: 30, br: 30 });
         
-        // 添加顶部高光效果
         const highlight = this.add.graphics();
-        highlight.fillStyle(0xFFFFFF, 0.3);  // 半透明白色
+        highlight.fillStyle(0xFFFFFF, 0.3);
         highlight.fillRoundedRect(-115, -27, 230, 20, 25);
         
-        // 添加边框
         const border = this.add.graphics();
         border.lineStyle(3, 0x000000, 0.3);
         border.strokeRoundedRect(-120, -30, 240, 60, 30);
         
-        // 创建文本 - 增大字体
-        const buttonText = this.add.text(0, 0, 'NEXT LEVEL', {
-            fontSize: '32px',  // 从28px增大到32px
+        const buttonText = this.add.text(0, 0, this.translate('nextLevel'), {
+            fontSize: '32px',
             fontFamily: 'Arial Black',
             color: '#FFFFFF',
             align: 'center',
@@ -630,14 +594,11 @@ export class FrogScene extends Scene {
             strokeThickness: 4,
         }).setOrigin(0.5);
         
-        // 添加到容器（注意添加顺序，从底层到顶层）
         buttonContainer.add([buttonBg, shadow, highlight, border, buttonText]);
         
-        // 添加交互 - 更新尺寸
         buttonContainer.setSize(240, 60);
         buttonContainer.setInteractive({ useHandCursor: true });
         
-        // 悬停效果
         buttonContainer.on('pointerover', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -645,7 +606,6 @@ export class FrogScene extends Scene {
                 scaleY: 1.05,
                 duration: 100
             });
-            // 提亮效果
             buttonBg.clear().fillStyle(0xFFE44D).fillRoundedRect(-120, -30, 240, 60, 30);
         });
         
@@ -656,7 +616,6 @@ export class FrogScene extends Scene {
                 scaleY: 1,
                 duration: 100
             });
-            // 恢复原色
             buttonBg.clear().fillStyle(0xFFD700).fillRoundedRect(-120, -30, 240, 60, 30);
         });
         
@@ -667,12 +626,10 @@ export class FrogScene extends Scene {
                 scaleY: 0.95,
                 duration: 100
             });
-            // 按下效果
             buttonBg.clear().fillStyle(0xFFA500).fillRoundedRect(-120, -30, 240, 60, 30);
         });
         
         buttonContainer.on('pointerup', () => {
-            // 播放按钮动画
             this.tweens.add({
                 targets: buttonContainer,
                 scaleX: 1.1,
@@ -680,68 +637,37 @@ export class FrogScene extends Scene {
                 alpha: 0,
                 duration: 200,
                 onComplete: () => {
-                    // 直接重启场景到下一关
-                    this.scene.restart({
+                    this.scene.start('StartScene', {
                         level: this.level + 1,
                         score: this.score
                     });
                 }
             });
         });
-
-        // 添加关卡预览文本
-        const nextJumps = Math.min(
-            GAME_CONFIG.difficulty.initial.numJumps + 
-            this.level * GAME_CONFIG.difficulty.increment.numJumps,
-            GAME_CONFIG.difficulty.maxJumps
-        );
-        
-        this.add.text(
-            this.scale.width / 2,
-            this.scale.height / 2 + 50,
-            `Next: ${nextJumps} jumps`,
-            {
-                fontSize: '24px',
-                fontFamily: 'Arial',
-                color: '#FFD700',
-                align: 'center',
-                stroke: '#000000',
-                strokeThickness: 3,
-            }
-        ).setOrigin(0.5);
     }
 
-    // 添加新方法：从头开始的按钮
     createRetryFromStartButton() {
-        // 创建按钮容器
         const buttonContainer = this.add.container(this.scale.width / 2, this.scale.height / 2 + 100);
         
-        // 创建按钮背景 - 3D 效果
         const buttonBg = this.add.graphics();
         
-        // 主体颜色
-        buttonBg.fillStyle(0xFFD700);  // 金色
+        buttonBg.fillStyle(0xFFD700);
         
-        // 绘制主体形状
-        buttonBg.fillRoundedRect(-120, -25, 240, 50, 25);  // 稍微加宽一点以适应更长的文本
+        buttonBg.fillRoundedRect(-120, -25, 240, 50, 25);
         
-        // 添加底部阴影（深色区域）
         const shadow = this.add.graphics();
-        shadow.fillStyle(0xFFA500, 0.5);  // 半透明橙色
+        shadow.fillStyle(0xFFA500, 0.5);
         shadow.fillRoundedRect(-120, 0, 240, 25, { tl: 0, tr: 0, bl: 25, br: 25 });
         
-        // 添加顶部高光效果
         const highlight = this.add.graphics();
-        highlight.fillStyle(0xFFFFFF, 0.3);  // 半透明白色
+        highlight.fillStyle(0xFFFFFF, 0.3);
         highlight.fillRoundedRect(-115, -22, 230, 15, 20);
         
-        // 添加边框
         const border = this.add.graphics();
         border.lineStyle(3, 0x000000, 0.3);
         border.strokeRoundedRect(-120, -25, 240, 50, 25);
         
-        // 创建文本
-        const buttonText = this.add.text(0, 0, 'PLAY AGAIN', {
+        const buttonText = this.add.text(0, 0, this.translate('playAgain'), {
             fontSize: '28px',
             fontFamily: 'Arial Black',
             color: '#FFFFFF',
@@ -750,14 +676,11 @@ export class FrogScene extends Scene {
             strokeThickness: 4,
         }).setOrigin(0.5);
         
-        // 添加到容器（注意添加顺序，从底层到顶层）
         buttonContainer.add([buttonBg, shadow, highlight, border, buttonText]);
         
-        // 添加交互
         buttonContainer.setSize(240, 50);
         buttonContainer.setInteractive({ useHandCursor: true });
         
-        // 悬停效果
         buttonContainer.on('pointerover', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -765,7 +688,6 @@ export class FrogScene extends Scene {
                 scaleY: 1.05,
                 duration: 100
             });
-            // 提亮效果
             buttonBg.clear().fillStyle(0xFFE44D).fillRoundedRect(-120, -25, 240, 50, 25);
         });
         
@@ -776,11 +698,9 @@ export class FrogScene extends Scene {
                 scaleY: 1,
                 duration: 100
             });
-            // 恢复原色
             buttonBg.clear().fillStyle(0xFFD700).fillRoundedRect(-120, -25, 240, 50, 25);
         });
         
-        // 点击效果
         buttonContainer.on('pointerdown', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -788,12 +708,10 @@ export class FrogScene extends Scene {
                 scaleY: 0.95,
                 duration: 100
             });
-            // 按下效果
             buttonBg.clear().fillStyle(0xFFA500).fillRoundedRect(-120, -25, 240, 50, 25);
         });
         
         buttonContainer.on('pointerup', () => {
-            // 播放按钮动画
             this.tweens.add({
                 targets: buttonContainer,
                 scaleX: 1.1,
@@ -801,7 +719,6 @@ export class FrogScene extends Scene {
                 alpha: 0,
                 duration: 200,
                 onComplete: () => {
-                    // 重启场景到第一关
                     this.scene.restart({
                         level: 1,
                         score: 0
@@ -810,11 +727,10 @@ export class FrogScene extends Scene {
             });
         });
 
-        // 添加最终分数文本
         this.add.text(
             this.scale.width / 2,
             this.scale.height / 2 + 50,
-            `Final Score: ${this.score}`,
+            this.translate('finalScore', { score: this.score.toString() }),
             {
                 fontSize: '24px',
                 fontFamily: 'Arial',
@@ -827,20 +743,14 @@ export class FrogScene extends Scene {
     }
 
     calculateScore() {
-        // 基础分数
         let levelScore = GAME_CONFIG.scoring.base * this.streakMultiplier;
         
-        // 时间奖励
         const timeElapsed = Date.now() - this.startTime;
         if (timeElapsed < GAME_CONFIG.scoring.timeBonus.threshold) {
             levelScore += GAME_CONFIG.scoring.timeBonus.points;
-            // 显示完美时机奖励
-            this.setText(GAME_CONFIG.messages.perfect
-                .replace('{bonus}', GAME_CONFIG.scoring.timeBonus.points.toString())
-            );
+            this.setText(this.translate('perfect', { bonus: GAME_CONFIG.scoring.timeBonus.points.toString() }));
         }
         
-        // 增加连击系数
         this.streakMultiplier += GAME_CONFIG.scoring.streak.multiplier;
         
         return Math.floor(levelScore);
@@ -854,18 +764,16 @@ export class FrogScene extends Scene {
                 lilyPad.rippleTween.restart();
             } else if (!isCurrentPad && !lilyPad.rippleTween?.paused) {
                 lilyPad.rippleTween?.pause();
-                lilyPad.rippleGraphics?.clear();  // 添加清理
+                lilyPad.rippleGraphics?.clear();
             }
         });
     }
 
-    // 添加场景清理方法
     shutdown() {
-        // 清理所有游戏对象
         this.lilyPads.forEach(pad => {
             pad.rippleTween?.stop();
-            pad.rippleGraphics?.clear();  // 先清理
-            pad.rippleGraphics?.destroy();  // 再销毁
+            pad.rippleGraphics?.clear();
+            pad.rippleGraphics?.destroy();
         });
         this.children.removeAll();
         this.lilyPads = [];
@@ -873,33 +781,28 @@ export class FrogScene extends Scene {
         this.messageText?.destroy();
         this.messageBg?.destroy();
         
-        // 停止所有正在进行的计时器
         this.time.removeAllEvents();
         
-        // 停止所有正在进行的动画
         this.tweens.killAll();
         
-        // 清理所有粒子系统
         this.add.particles().destroy();
     }
 
-    // 修改礼花效果方法
     private createSuccessConfetti() {
         const centerX = this.scale.width / 2;
         const centerY = this.scale.height / 2;
         
-        // 在高处创建爆开效果
         const burst = this.add.particles(0, 0, 'confetti', {
             x: centerX,
-            y: centerY - 150,  // 在高处爆开
+            y: centerY - 150,
             frame: [0, 4, 8, 12, 16],
             lifespan: { min: 2500, max: 3000 },
             speed: { min: 100, max: 200 },
-            angle: { min: 0, max: 360 },  // 向所有方向扩散
+            angle: { min: 0, max: 360 },
             gravityY: 100,
             scale: { start: 1, end: 0.2 },
             quantity: 1,
-            frequency: -1,  // 一次性爆开
+            frequency: -1,
             blendMode: 'ADD',
             rotate: {
                 onEmit: () => PhaserMath.Between(0, 360),
@@ -909,9 +812,8 @@ export class FrogScene extends Scene {
             }
         });
 
-        burst.explode(40);  // 一次性发射40个粒子
+        burst.explode(40);
 
-        // 2.5秒后清理爆开效果
         this.time.delayedCall(2500, () => {
             burst.destroy();
         });

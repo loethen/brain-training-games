@@ -592,7 +592,69 @@
     },
     "frogMemoryLeap": {
       "title": "Frog Memory Leap",
-      "description": "Challenge your sequential memory by remembering the order of frog jumps across lily pads."
+      "subtitle": "Train your sequential memory and pattern recognition",
+      "description": "Challenge your sequential memory by remembering the order of frog jumps across lily pads.",
+      "gameUI": {
+        "loading": "Loading game...",
+        "start": "Start Game",
+        "level": "Level {level}",
+        "watch": "Watch the sequence",
+        "repeat": "Repeat the sequence",
+        "correct": "Correct!",
+        "wrong": "Wrong!",
+        "gameOver": "Game Over",
+        "score": "Score: {score}",
+        "highScore": "High Score: {score}",
+        "tryAgain": "Try Again",
+        "nextLevel": "Next Level",
+        "success": "Perfect! Score: {score}\nLevel {level} completed! 🎉"
+      },
+      "metadata": {
+        "title": "Frog Memory Leap - Sequential Memory Training Game",
+        "description": "Challenge your spatial memory by remembering the sequence of frog jumps across lily pads. A fun brain training game to improve working memory and attention span.",
+        "keywords": "sequential memory game,spatial recall training,frog jump memory game,pattern recognition game,working memory exercise,brain training for kids and adults,cognitive skills improvement,attention span game",
+        "ogTitle": "Frog Memory Leap - Train Your Sequential Memory",
+        "ogDescription": "Watch the frog jump across lily pads and remember the exact sequence to advance through increasingly challenging levels."
+      },
+      "howToPlay": {
+        "intro": "Watch and remember the sequence of frog jumps, then repeat it:",
+        "step1": "Observe carefully as the frog jumps from lily pad to lily pad",
+        "step2": "After the demonstration, recreate the exact sequence by clicking on the lily pads in the correct order",
+        "step3": "Each level adds more jumps to the sequence",
+        "step4": "Try to reach the highest level possible!"
+      },
+      "benefits": {
+        "workingMemory": {
+          "title": "Working Memory",
+          "description": "Strengthen your ability to hold and recall sequences of information in the correct order."
+        },
+        "visualSpatialMemory": {
+          "title": "Visual-Spatial Memory",
+          "description": "Enhance your capacity to remember locations and spatial relationships between objects."
+        },
+        "patternRecognition": {
+          "title": "Pattern Recognition",
+          "description": "Develop your ability to identify and remember patterns, an essential skill for learning and problem-solving."
+        }
+      },
+      "faq": {
+        "sequentialMemory": {
+          "question": "How does sequential memory help in daily life?",
+          "answer": "Sequential memory is crucial for following directions, learning new skills, remembering phone numbers, and executing multi-step tasks. It's fundamental to many aspects of learning and daily functioning."
+        },
+        "ageGroups": {
+          "question": "Is this game suitable for all ages?",
+          "answer": "Yes! This game is designed to be engaging for children and challenging for adults. The progressive difficulty ensures that players of all ages and abilities can benefit."
+        },
+        "practiceTips": {
+          "question": "How often should I practice?",
+          "answer": "For best results, practice for 10-15 minutes daily. Consistent, regular practice is more effective than occasional longer sessions."
+        },
+        "learningDifficulties": {
+          "question": "Can this help with learning difficulties?",
+          "answer": "Yes, many learning difficulties involve challenges with sequential processing and working memory. Regular practice with this game may help strengthen these cognitive skills."
+        }
+      }
     },
     "largerNumber": {
       "title": "Larger Number Challenge",
