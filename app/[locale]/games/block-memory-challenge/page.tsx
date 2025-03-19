@@ -6,31 +6,24 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { GamePreview } from "./components/GamePreview"
 import { useTranslations } from 'next-intl'
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
 }: {
   params: { locale: string }
 }): Promise<Metadata> {
-  const messages = (await import(`@/messages/${params.locale}.json`)).default
-  const game = messages.games.blockMemoryChallenge;
-  
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale;
+  const t = await getTranslations({ locale, namespace: "games.blockMemoryChallenge" });
+
   return {
-    title: game.metaTitle || game.title,
-    description: game.metaDescription || game.description,
-    keywords: game.metaKeywords || [
-        "block memory game",
-        "visual sequence memory",
-        "working memory training",
-        "cognitive flexibility exercise",
-        "attention span improvement",
-        "sequence memorization game",
-        "visual pattern recognition",
-        "short-term memory practice",
-    ].join(", "),
+    title: t("metaTitle") || t("title"),
+    description: t("metaDescription") || t("description"),
+    keywords: t("metaKeywords").split(",").map(keyword => keyword.trim()),
     openGraph: {
-        title: game.ogTitle || `${game.title} - ${game.subtitle}`,
-        description: game.ogDescription || game.description,
+        title: t("ogTitle") || `${t("title")} - ${t("subtitle")}`,
+        description: t("ogDescription") || t("description"),
         images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
   }

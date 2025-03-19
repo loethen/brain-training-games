@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 
 interface Cell {
   number: number
@@ -10,6 +11,7 @@ interface Cell {
 }
 
 export function GamePreview() {
+  const t = useTranslations('games.schulteTable.gameUI')
   const [grid, setGrid] = useState<Cell[]>([])
   const [status, setStatus] = useState<string>('')
 
@@ -30,7 +32,7 @@ export function GamePreview() {
     const animate = async () => {
       while (isAnimating) {
         // 重置状态
-        setStatus('Find numbers in sequence...')
+        setStatus(t('findNumbersInSequence'))
         await wait(1500)
 
         // 演示正确顺序
@@ -46,7 +48,7 @@ export function GamePreview() {
           })))
         }
 
-        setStatus('Like this! 👆')
+        setStatus(t('likeThis'))
         await wait(1500)
 
         // 重新洗牌
@@ -70,7 +72,7 @@ export function GamePreview() {
       isAnimating = false
       clearTimeout(timeoutId)
     }
-  }, [])
+  }, [t])
 
   return (
     <div className="w-full max-w-[400px] mx-auto">

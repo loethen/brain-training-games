@@ -264,12 +264,85 @@
       "subtitle": "Enhance your attention and peripheral vision",
       "description": "Enhance your attention and peripheral vision",
       "howToPlay": "Find and click numbers in ascending order (1-25) as quickly as possible. Try to use your peripheral vision instead of scanning each number!",
+      "speedStandards": {
+        "title": "Speed Standards",
+        "intro": "Here are the reference standards for a 5x5 (1-25) Schulte Table test:",
+        "children": {
+          "title": "Children (6 years old):",
+          "brilliant": "Brilliant: 60 seconds or less",
+          "optimal": "Optimal: Up to 70 seconds",
+          "mediocre": "Mediocre: Up to 80 seconds"
+        },
+        "adults": {
+          "title": "Adults:",
+          "excellent": "Excellent: About 25 seconds (1 digit per second)",
+          "good": "Good: 50-74 seconds",
+          "normal": "Normal: 74-98 seconds",
+          "needsImprovement": "Needs Improvement: More than 98 seconds"
+        }
+      },
       "watchDemo": "Watch Demo",
+      "demo": "Demo",
       "metaTitle": "Schulte Table - Peripheral Vision & Attention Training Game",
       "metaDescription": "Improve your peripheral vision, attention span, and reading speed with the Schulte Table exercise. Find numbers in sequence while training your brain to process visual information faster.",
       "metaKeywords": "schulte table exercise, peripheral vision training, visual attention game, speed reading practice, number sequence game, visual processing training, attention span improvement, cognitive speed exercise",
       "ogTitle": "Schulte Table - Train Your Peripheral Vision & Attention",
-      "ogDescription": "Challenge yourself to find numbers in sequence while developing faster visual processing. Scientifically proven to enhance reading speed and attention."
+      "ogDescription": "Challenge yourself to find numbers in sequence while developing faster visual processing. Scientifically proven to enhance reading speed and attention.",
+      "benefits": {
+        "visualProcessing": {
+          "title": "Visual Processing",
+          "description": "Improve your ability to quickly process visual information and expand your field of vision."
+        },
+        "focusTraining": {
+          "title": "Focus Training",
+          "description": "Enhance concentration and attention span through systematic visual search exercises."
+        },
+        "readingSpeed": {
+          "title": "Reading Speed",
+          "description": "Develop faster reading skills by training your eyes to capture more information at once."
+        }
+      },
+      "faq": {
+        "howItWorks": {
+          "question": "How does the Schulte Table work?",
+          "answer": "The Schulte Table trains your brain to process visual information more efficiently by forcing you to maintain focus while using peripheral vision to locate numbers quickly."
+        },
+        "bestPractice": {
+          "question": "What is the best way to practice?",
+          "answer": "Try to keep your eyes fixed on the center of the table and use your peripheral vision to spot numbers. Practice daily for 10-15 minutes for best results."
+        },
+        "readingHelp": {
+          "question": "How does this help with reading speed?",
+          "answer": "By training your peripheral vision, you can perceive more text at once while reading. This reduces the number of eye movements needed, allowing you to process information faster and read more efficiently."
+        },
+        "research": {
+          "question": "Is this exercise backed by research?",
+          "answer": "Yes, the Schulte Table has been used in cognitive psychology for decades. Research shows it effectively improves visual attention, processing speed, and can help with conditions like ADHD by strengthening attention networks."
+        },
+        "peripheralVision": {
+          "question": "What is peripheral vision and why is it important?",
+          "answer": "Peripheral vision is your ability to perceive information at the edges of your visual field without looking directly at it. It's crucial in daily life for activities like driving (noticing surrounding vehicles), reading (capturing more text at once), and sports (being aware of teammates' positions). Strong peripheral vision improves your spatial awareness, reaction time, and ability to distribute attention effectively."
+        }
+      },
+      "gameUI": {
+        "best": "Best",
+        "time": "Time",
+        "bestTime": "Best Time",
+        "mistakes": "Mistakes",
+        "findNumber": "Find number",
+        "findNumbersInSequence": "Find numbers in sequence...",
+        "likeThis": "Like this! 👆",
+        "startGame": "Start Game",
+        "starting": "Starting...",
+        "playAgain": "Play Again",
+        "share": "Share",
+        "restart": "Restart",
+        "gameComplete": "Game Complete!",
+        "gameStopped": "Game Paused",
+        "timeElapsed": "Time Elapsed",
+        "resumeGame": "Resume Game",
+        "stop": "Pause"
+      }
     },
     "dualNBack": {
       "title": "Dual N-Back",
@@ -350,15 +423,15 @@
         "trialSpeed": "Trial Speed",
         "seconds": "{seconds}s",
         "saveChanges": "Save Changes",
-        "gameMessages": {
-          "keepOneMode": "You must keep at least one mode enabled"
-        },
-        "metaTitle": "Dual N-Back - Working Memory Training Game",
-        "metaDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Featuring a dual-task nature that challenges your brain to hold multiple pieces of information simultaneously while processing new inputs.",
-        "metaKeywords": "dual n-back training, working memory game, cognitive training, attention control practice, n-back task, memory improvement game, free dual n-back game, brain training game, cognitive speed exercise, attention span improvement",
-        "ogTitle": "Dual N-Back - Advanced Working Memory Training",
-        "ogDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Featuring a dual-task nature that challenges your brain to hold multiple pieces of information simultaneously while processing new inputs."
-      }
+      },
+      "gameMessages": {
+        "keepOneMode": "You must keep at least one mode enabled"
+      },
+      "metaTitle": "Dual N-Back - Working Memory Training Game",
+      "metaDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Featuring a dual-task nature that challenges your brain to hold multiple pieces of information simultaneously while processing new inputs.",
+      "metaKeywords": "dual n-back training, working memory game, cognitive training, attention control practice, n-back task, memory improvement game, free dual n-back game, brain training game, cognitive speed exercise, attention span improvement",
+      "ogTitle": "Dual N-Back - Advanced Working Memory Training",
+      "ogDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Featuring a dual-task nature that challenges your brain to hold multiple pieces of information simultaneously while processing new inputs."
     },
     "mahjongDualNBack": {
       "title": "Mahjong Dual N-Back",

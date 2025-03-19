@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { XLogo } from '@/components/ui/XLogo'
 import { Facebook, Linkedin, Link as LinkIcon, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 interface ShareModalProps {
   isOpen: boolean
@@ -11,8 +12,20 @@ interface ShareModalProps {
   title?: string
 }
 
-export function ShareModal({ isOpen, onClose, url = window.location.href, title = 'Free Focus Games' }: ShareModalProps) {
+export function ShareModal({ isOpen, onClose, url, title = 'Free Focus Games' }: ShareModalProps) {
+  const [currentUrl, setCurrentUrl] = useState<string>(url || '')
+  
+  // 在客户端初始化时获取当前URL
+  useEffect(() => {
+    if (!url) {
+      setCurrentUrl(window.location.href)
+    }
+  }, [url])
+  
   if (!isOpen) return null
+
+  // 使用当前URL状态，而不是直接访问window
+  const shareUrl = currentUrl || ''
 
   const shareOptions = [
     {
@@ -21,7 +34,7 @@ export function ShareModal({ isOpen, onClose, url = window.location.href, title 
       onClick: () =>
         window.open(
           `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            `Check out this focus training game! ${url}`
+            `Check out this focus training game! ${shareUrl}`
           )}`,
           "_blank"
         ),
@@ -32,7 +45,7 @@ export function ShareModal({ isOpen, onClose, url = window.location.href, title 
       onClick: () =>
         window.open(
           `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            url
+            shareUrl
           )}`,
           "_blank"
         ),
@@ -43,7 +56,7 @@ export function ShareModal({ isOpen, onClose, url = window.location.href, title 
       onClick: () =>
         window.open(
           `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-            url
+            shareUrl
           )}&title=${encodeURIComponent(title)}`,
           "_blank"
         ),
@@ -52,7 +65,7 @@ export function ShareModal({ isOpen, onClose, url = window.location.href, title 
       name: "Copy Link",
       icon: <LinkIcon className="w-4 h-4" />,
       onClick: () => {
-        navigator.clipboard.writeText(url);
+        navigator.clipboard.writeText(shareUrl);
         alert("Link copied to clipboard!");
       },
     },
