@@ -422,7 +422,7 @@
         "trialsPerRound": "Trials Per Round",
         "trialSpeed": "Trial Speed",
         "seconds": "{seconds}s",
-        "saveChanges": "Save Changes",
+        "saveChanges": "Save Changes"
       },
       "gameMessages": {
         "keepOneMode": "You must keep at least one mode enabled"

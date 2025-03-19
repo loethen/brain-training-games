@@ -193,10 +193,6 @@ export function SchulteGame() {
       {gameState !== 'idle' && (
         <div className="flex justify-between items-center">
           <div className="flex gap-4 items-center">
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <Trophy className="w-4 h-4" />
-              <span>{t('best')}: {bestTime.toFixed(1)}s</span>
-            </div>
             <div className="flex items-center gap-1">
               <Clock className="w-4 h-4" />
               <span>{currentTime.toFixed(1)}s</span>
@@ -239,6 +235,12 @@ export function SchulteGame() {
         {/* Start Button Overlay */}
         {gameState === 'idle' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-muted/90 backdrop-blur-sm">
+            {bestTime > 0 && (
+              <div className="flex items-center gap-1 text-muted-foreground mb-2">
+                <Trophy className="w-4 h-4" />
+                <span>{t('best')}: {bestTime.toFixed(1)}s</span>
+              </div>
+            )}
             <Button 
               size="lg" 
               onClick={startGame}
