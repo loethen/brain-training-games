@@ -528,6 +528,7 @@
     },
     "fishTrace": {
       "title": "Glowing Fish Trace",
+      "subtitle": "Train your visual tracking and sustained attention",
       "description": "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment.",
       "gameUI": {
         "loading": "Loading game...",
@@ -541,6 +542,52 @@
         "tryAgain": "Try Again",
         "soundOn": "Sound On",
         "soundOff": "Sound Off"
+      },
+      "metadata": {
+        "title": "Glowing Fish Trace - Visual Tracking & Attention Training Game",
+        "description": "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment. Train your attention, working memory, and focus through progressive challenges.",
+        "keywords": "visual tracking exercise,attention training game,fish tracking game,working memory practice,visual focus training,multiple object tracking,cognitive enhancement game,visual attention exercise",
+        "ogTitle": "Glowing Fish Trace - Train Your Visual Tracking Skills",
+        "ogDescription": "Follow the glowing fish and remember which ones were highlighted. Enhance your visual attention and working memory through engaging underwater challenges."
+      },
+      "howToPlay": {
+        "intro": "Follow the glowing fish in this underwater tracking challenge:",
+        "step1": "Watch carefully as certain fish glow with colored circles",
+        "step2": "Keep tracking those fish even after the circles disappear",
+        "step3": "When prompted, click on the fish that had the glowing circles",
+        "step4": "As you improve, more fish will appear and move faster"
+      },
+      "benefits": {
+        "visualTracking": {
+          "title": "Visual Tracking",
+          "description": "Improve your ability to follow moving objects and maintain visual focus in dynamic environments."
+        },
+        "sustainedAttention": {
+          "title": "Sustained Attention",
+          "description": "Enhance your capacity to maintain concentration on specific targets over extended periods."
+        },
+        "selectiveAttention": {
+          "title": "Selective Attention",
+          "description": "Develop your ability to focus on relevant stimuli while ignoring distractions."
+        }
+      },
+      "faq": {
+        "visualTracking": {
+          "question": "How does visual tracking training benefit everyday life?",
+          "answer": "Strong visual tracking skills are essential for reading, driving, sports, and navigating busy environments. This training can help improve performance in all these areas."
+        },
+        "children": {
+          "question": "Is this suitable for children?",
+          "answer": "Yes! This game is excellent for children and adults alike. Visual tracking training is particularly beneficial for developing readers and those with attention difficulties."
+        },
+        "trainingDuration": {
+          "question": "How long should each training session be?",
+          "answer": "Aim for 10-15 minute sessions. Quality of attention is more important than duration - it's better to do shorter sessions with full concentration than longer ones with diminished focus."
+        },
+        "readingDifficulties": {
+          "question": "Can this help with reading difficulties?",
+          "answer": "Yes, many reading difficulties are connected to visual tracking problems. Regular practice with this game may help improve reading fluency and comprehension by strengthening the visual tracking system."
+        }
       }
     },
     "frogMemoryLeap": {

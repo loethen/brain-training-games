@@ -2,57 +2,51 @@ import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Eye, Focus, Target } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
-export const metadata: Metadata = {
-    title: "Glowing Fish Trace - Visual Tracking & Attention Training Game",
-    description:
-        "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment. Train your attention, working memory, and focus through progressive challenges.",
-    keywords: [
-        "visual tracking exercise",
-        "attention training game",
-        "fish tracking game",
-        "working memory practice",
-        "visual focus training",
-        "multiple object tracking",
-        "cognitive enhancement game",
-        "visual attention exercise",
-    ].join(", "),
-    openGraph: {
-        title: "Glowing Fish Trace - Train Your Visual Tracking Skills",
-        description: "Follow the glowing fish and remember which ones were highlighted. Enhance your visual attention and working memory through engaging underwater challenges.",
-        images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
-    }
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+    const t = await getTranslations({ locale, namespace: 'games.fishTrace' });
+    
+    return {
+        title: t('metadata.title'),
+        description: t('metadata.description'),
+        keywords: t('metadata.keywords'),
+        openGraph: {
+            title: t('metadata.ogTitle'),
+            description: t('metadata.ogDescription'),
+            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+        }
+    };
+}
 
 export default function FishTracePage() {
+  const t = useTranslations('games.fishTrace');
+  
   return (
       <GamePageTemplate
           gameBackground='bg-gradient-to-b from-cyan-300 via-blue-500 to-blue-800 dark:from-cyan-900 dark:via-blue-950 dark:to-slate-950'
           gameId="fish-trace"
-          title="Glowing Fish Trace"
-          subtitle="Train your visual tracking and sustained attention"
+          title={t('title')}
+          subtitle={t('subtitle')}
           gameComponent={<Game />}
           howToPlay={
               <>
                   <p>
-                      Follow the glowing fish in this underwater tracking
-                      challenge:
+                      {t('howToPlay.intro')}
                   </p>
                   <ul className="list-disc pl-5 mt-2 space-y-1">
                       <li>
-                          Watch carefully as certain fish glow with colored
-                          circles
+                          {t('howToPlay.step1')}
                       </li>
                       <li>
-                          Keep tracking those fish even after the circles
-                          disappear
+                          {t('howToPlay.step2')}
                       </li>
                       <li>
-                          When prompted, click on the fish that had the glowing
-                          circles
+                          {t('howToPlay.step3')}
                       </li>
                       <li>
-                          As you improve, more fish will appear and move faster
+                          {t('howToPlay.step4')}
                       </li>
                   </ul>
               </>
@@ -60,40 +54,36 @@ export default function FishTracePage() {
           benefits={[
               {
                   icon: <Eye className="w-10 h-10" />,
-                  title: "Visual Tracking",
-                  description:
-                      "Improve your ability to follow moving objects and maintain visual focus in dynamic environments.",
+                  title: t('benefits.visualTracking.title'),
+                  description: t('benefits.visualTracking.description'),
               },
               {
                   icon: <Focus className="w-10 h-10" />,
-                  title: "Sustained Attention",
-                  description:
-                      "Enhance your capacity to maintain concentration on specific targets over extended periods.",
+                  title: t('benefits.sustainedAttention.title'),
+                  description: t('benefits.sustainedAttention.description'),
               },
               {
                   icon: <Target className="w-10 h-10" />,
-                  title: "Selective Attention",
-                  description:
-                      "Develop your ability to focus on relevant stimuli while ignoring distractions.",
+                  title: t('benefits.selectiveAttention.title'),
+                  description: t('benefits.selectiveAttention.description'),
               },
           ]}
           faq={[
               {
-                  question:
-                      "How does visual tracking training benefit everyday life?",
-                  answer: "Strong visual tracking skills are essential for reading, driving, sports, and navigating busy environments. This training can help improve performance in all these areas.",
+                  question: t('faq.visualTracking.question'),
+                  answer: t('faq.visualTracking.answer'),
               },
               {
-                  question: "Is this suitable for children?",
-                  answer: "Yes! This game is excellent for children and adults alike. Visual tracking training is particularly beneficial for developing readers and those with attention difficulties.",
+                  question: t('faq.children.question'),
+                  answer: t('faq.children.answer'),
               },
               {
-                  question: "How long should each training session be?",
-                  answer: "Aim for 10-15 minute sessions. Quality of attention is more important than duration - it's better to do shorter sessions with full concentration than longer ones with diminished focus.",
+                  question: t('faq.trainingDuration.question'),
+                  answer: t('faq.trainingDuration.answer'),
               },
               {
-                  question: "Can this help with reading difficulties?",
-                  answer: "Yes, many reading difficulties are connected to visual tracking problems. Regular practice with this game may help improve reading fluency and comprehension by strengthening the visual tracking system.",
+                  question: t('faq.readingDifficulties.question'),
+                  answer: t('faq.readingDifficulties.answer'),
               },
           ]}
       />
