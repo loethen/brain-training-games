@@ -9,9 +9,9 @@ import { useTranslations } from 'next-intl'
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
-  params,
+  params
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const resolvedParams = await params;
   const locale = resolvedParams.locale;
