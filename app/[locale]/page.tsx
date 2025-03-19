@@ -114,15 +114,15 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row items-center gap-8">
                     <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
                         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-                            {t('home.title')}
+                            {t("home.title")}
                         </h1>
                         <p className="sm:text-xl lg:text-2xl mb-8">
-                            {t('home.subtitle')}
+                            {t("home.subtitle")}
                         </p>
                         <div className="mb-4">
                             <Link href="/games">
                                 <InteractiveHoverButton>
-                                    {t('buttons.startPlaying')}
+                                    {t("buttons.startPlaying")}
                                 </InteractiveHoverButton>
                             </Link>
                         </div>
@@ -136,12 +136,48 @@ export default function Home() {
             {/* Games Section */}
             <section className="mb-24 max-w-[1400px] mx-auto">
                 <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-3xl font-bold">{t('home.popularGames')}</h2>
+                    <h2 className="text-3xl font-bold">
+                        {t("home.popularGames")}
+                    </h2>
                     <Link href="/games">
-                        <Button variant="ghost">{t('buttons.viewAll')} →</Button>
+                        <Button variant="ghost">
+                            {t("buttons.viewAll")} →
+                        </Button>
                     </Link>
                 </div>
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
+                    <GameCard
+                        game={{
+                            id: "schulte-table",
+                            title: "Schulte Table",
+                            description:
+                                "Enhance your attention and peripheral vision",
+                            slug: "schulte-table",
+                        }}
+                        preview={<SchulteGamePreview />}
+                    />
+                    <GameCard
+                        game={{
+                            id: "block-memory-challenge",
+                            title: "Block Memory Challenge",
+                            description:
+                                "Strengthen your working memory by remembering and repeating visual sequences.",
+                            slug: "block-memory-challenge",
+                        }}
+                        preview={<SimonGamePreview />}
+                    />
+                    <GameCard
+                        game={{
+                            id: "larger-number",
+                            title: "Larger Number",
+                            description:
+                                "Click the bigger number fast to sharpen your focus!",
+                            slug: "larger-number",
+                        }}
+                        preview={
+                            <ImagePreview src="/games/larger-number.png" />
+                        }
+                    />
                     <GameCard
                         game={{
                             id: "mahjong-dual-n-back",
@@ -163,38 +199,6 @@ export default function Home() {
                             slug: "dual-n-back",
                         }}
                         preview={<ImagePreview src="/games/dual-n-back.png" />}
-                    />
-                    <GameCard
-                        game={{
-                            id: "larger-number",
-                            title: "Larger Number",
-                            description:
-                                "Click the bigger number fast to sharpen your focus!",
-                            slug: "larger-number",
-                        }}
-                        preview={
-                            <ImagePreview src="/games/larger-number.png" />
-                        }
-                    />
-                    <GameCard
-                        game={{
-                            id: "block-memory-challenge",
-                            title: "Block Memory Challenge",
-                            description:
-                                "Strengthen your working memory by remembering and repeating visual sequences.",
-                            slug: "block-memory-challenge",
-                        }}
-                        preview={<SimonGamePreview />}
-                    />
-                    <GameCard
-                        game={{
-                            id: "schulte-table",
-                            title: "Schulte Table",
-                            description:
-                                "Enhance your attention and peripheral vision",
-                            slug: "schulte-table",
-                        }}
-                        preview={<SchulteGamePreview />}
                     />
                     <GameCard
                         game={{
@@ -224,23 +228,19 @@ export default function Home() {
             {/* Benefits Section */}
             <section className="mb-24 max-w-3xl mx-auto px-6">
                 <h2 className="text-3xl font-bold text-center mb-8">
-                    {t('home.benefitsTitle')}
+                    {t("home.benefitsTitle")}
                 </h2>
 
                 <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
-                    <p>
-                        {t('home.benefitsIntro')}
-                    </p>
+                    <p>{t("home.benefitsIntro")}</p>
 
                     <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
                         <div className="shrink-0 text-2xl">👨👧</div>
                         <div>
                             <h3 className="font-medium mb-2 text-foreground">
-                                {t('home.familyLifeTitle')}
+                                {t("home.familyLifeTitle")}
                             </h3>
-                            <p>
-                                {t('home.familyLifeDesc')}
-                            </p>
+                            <p>{t("home.familyLifeDesc")}</p>
                         </div>
                     </div>
 
@@ -248,11 +248,9 @@ export default function Home() {
                         <div className="shrink-0 text-2xl">💼</div>
                         <div>
                             <h3 className="font-medium mb-2 text-foreground">
-                                {t('home.workPerformanceTitle')}
+                                {t("home.workPerformanceTitle")}
                             </h3>
-                            <p>
-                                {t('home.workPerformanceDesc')}
-                            </p>
+                            <p>{t("home.workPerformanceDesc")}</p>
                         </div>
                     </div>
 
@@ -260,19 +258,17 @@ export default function Home() {
                         <div className="shrink-0 text-2xl">🎯</div>
                         <div>
                             <h3 className="font-medium mb-2 text-foreground">
-                                {t('home.personalGrowthTitle')}
+                                {t("home.personalGrowthTitle")}
                             </h3>
-                            <p>
-                                {t('home.personalGrowthDesc')}
-                            </p>
+                            <p>{t("home.personalGrowthDesc")}</p>
                         </div>
                     </div>
 
                     <p className="text-center mt-8">
-                        {t('home.dailyPractice')}
+                        {t("home.dailyPractice")}
                         <br />
                         <span className="text-primary font-medium">
-                            {t('home.benefitsConclusion')}
+                            {t("home.benefitsConclusion")}
                         </span>
                     </p>
                 </div>
@@ -281,7 +277,7 @@ export default function Home() {
             {/* Testimonials Section */}
             <section className="mb-24 max-w-7xl mx-auto">
                 <h2 className="text-3xl font-bold text-center mb-12">
-                    {t('home.testimonialsTitle')}
+                    {t("home.testimonialsTitle")}
                 </h2>
 
                 <div className="relative flex w-full flex-col items-center justify-center overflow-hidden px-6">

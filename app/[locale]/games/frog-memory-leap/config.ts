@@ -72,15 +72,15 @@ export const GAME_CONFIG = {
         y: { min: 100, max: 500 }
     },
     messages: {
-        start: "Remember the order of frog's jumps!",
-        jumping: "Memorize this pattern...",
-        yourTurn: "Now make the frog jump in the same order!",
-        success: "Perfect! Score: {score}\nLevel {level} completed! 🎉",
-        fail: "Oops! Wrong lily pad. Try again! 🐸",
-        levelStart: "Level {level}: Remember {jumps} jumps!",
-        perfect: "Perfect timing! +{bonus} points! 🌟",
-        nextLevel: "Ready for Level {level}?\n{jumps} jumps!",
-        maxLevel: "Congratulations! You've mastered all levels! 🏆\nFinal Score: {score}"
+        start: "Watch our friendly frog's path! 🐸",
+        jumping: "Keep your eyes on the jumps...",
+        yourTurn: "Your turn! Help the frog follow the same path! 🌿",
+        success: "Amazing job! 🎉 Score: {score}\nYou've completed Level {level}!",
+        fail: "Oops! Not quite right. Let's try again! 🐸",
+        levelStart: "Level {level} begins! 🍃 Remember {jumps} hops!",
+        perfect: "Fantastic timing! +{bonus} bonus points! ⭐",
+        nextLevel: "Ready to hop to Level {level}? 🐸\n{jumps} jumps ahead!",
+        maxLevel: "Incredible! You've mastered the pond! 🏆\nYour Final Score: {score}"
     },
     ui: {
         message: {

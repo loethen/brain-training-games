@@ -56,6 +56,8 @@ export class StartScene extends Scene {
 
     startGame() {
         const config = {
+            level: 1,  // Default to level 1 for new games
+            score: 0,  // Default score to 0
             numLilyPads: GAME_CONFIG.lilyPad.count,
             numJumps: GAME_CONFIG.difficulty.initial.numJumps,
             jumpSequence: Utils.Array.Shuffle([...Array(GAME_CONFIG.lilyPad.count).keys()])
@@ -68,13 +70,15 @@ export class StartScene extends Scene {
         });
     }
 
-    init(data: { nextLevel?: number; score?: number }) {
-        if (data.nextLevel) {
+    init(data: { nextLevel?: number; score?: number; level?: number }) {
+        if (data.nextLevel || data.level) {
+            // Use either nextLevel or level parameter, giving precedence to nextLevel if both exist
+            const nextLevel = data.nextLevel || data.level || 1;
             // 如果是从其他关卡来的，直接开始新关卡
             this.time.delayedCall(100, () => {
                 this.scene.start('FrogScene', {
-                    level: data.nextLevel,
-                    score: data.score
+                    level: nextLevel,
+                    score: data.score || 0
                 });
             });
         }

@@ -233,6 +233,15 @@ export class FrogScene extends Scene {
             textHeight + padding.y * 2,
             cornerRadius
         );
+        
+        this.tweens.killTweensOf(this.messageText);
+        this.messageText.setScale(0.85);
+        this.tweens.add({
+            targets: this.messageText,
+            scale: 1,
+            duration: 300,
+            ease: 'Back.easeOut'
+        });
     }
 
     setupAutoJump() {
@@ -423,16 +432,27 @@ export class FrogScene extends Scene {
             onComplete: () => {
                 ripple.destroy();
                 this.time.delayedCall(500, () => {
-                    this.add.text(
+                    const scoreText = this.add.text(
                         this.scale.width / 2,
                         this.scale.height / 2 - 40,
                         this.translate('score', { score: this.score.toString() }),
                         {
                             fontSize: '28px',
+                            fontFamily: 'Arial',
                             color: '#ffffff',
-                            fontStyle: 'bold'
+                            fontStyle: 'bold',
+                            stroke: '#000000',
+                            strokeThickness: 3,
+                            align: 'center'
                         }
                     ).setOrigin(0.5);
+                    
+                    this.tweens.add({
+                        targets: scoreText,
+                        scale: { from: 0.8, to: 1 },
+                        duration: 300,
+                        ease: 'Back.easeOut'
+                    });
                     
                     this.createRetryButton();
                 });
@@ -447,19 +467,19 @@ export class FrogScene extends Scene {
         
         buttonBg.fillStyle(0xFFD700);
         
-        buttonBg.fillRoundedRect(-100, -25, 200, 50, 25);
+        buttonBg.fillRoundedRect(-120, -25, 240, 50, 25);
         
         const shadow = this.add.graphics();
         shadow.fillStyle(0xFFA500, 0.5);
-        shadow.fillRoundedRect(-100, 0, 200, 25, { tl: 0, tr: 0, bl: 25, br: 25 });
+        shadow.fillRoundedRect(-120, 0, 240, 25, { tl: 0, tr: 0, bl: 25, br: 25 });
         
         const highlight = this.add.graphics();
         highlight.fillStyle(0xFFFFFF, 0.3);
-        highlight.fillRoundedRect(-95, -22, 190, 15, 20);
+        highlight.fillRoundedRect(-115, -22, 230, 15, 20);
         
         const border = this.add.graphics();
         border.lineStyle(3, 0x000000, 0.3);
-        border.strokeRoundedRect(-100, -25, 200, 50, 25);
+        border.strokeRoundedRect(-120, -25, 240, 50, 25);
         
         const buttonText = this.add.text(0, 0, this.translate('tryAgain'), {
             fontSize: '28px',
@@ -472,7 +492,7 @@ export class FrogScene extends Scene {
         
         buttonContainer.add([buttonBg, shadow, highlight, border, buttonText]);
         
-        buttonContainer.setSize(200, 50);
+        buttonContainer.setSize(240, 50);
         buttonContainer.setInteractive({ useHandCursor: true });
         
         buttonContainer.on('pointerover', () => {
@@ -482,7 +502,7 @@ export class FrogScene extends Scene {
                 scaleY: 1.05,
                 duration: 100
             });
-            buttonBg.clear().fillStyle(0xFFE44D).fillRoundedRect(-100, -25, 200, 50, 25);
+            buttonBg.clear().fillStyle(0xFFE44D).fillRoundedRect(-120, -25, 240, 50, 25);
         });
         
         buttonContainer.on('pointerout', () => {
@@ -492,7 +512,7 @@ export class FrogScene extends Scene {
                 scaleY: 1,
                 duration: 100
             });
-            buttonBg.clear().fillStyle(0xFFD700).fillRoundedRect(-100, -25, 200, 50, 25);
+            buttonBg.clear().fillStyle(0xFFD700).fillRoundedRect(-120, -25, 240, 50, 25);
         });
         
         buttonContainer.on('pointerdown', () => {
@@ -502,7 +522,7 @@ export class FrogScene extends Scene {
                 scaleY: 0.95,
                 duration: 100
             });
-            buttonBg.clear().fillStyle(0xFFA500).fillRoundedRect(-100, -25, 200, 50, 25);
+            buttonBg.clear().fillStyle(0xFFA500).fillRoundedRect(-120, -25, 240, 50, 25);
         });
         
         buttonContainer.on('pointerup', () => {
@@ -513,7 +533,7 @@ export class FrogScene extends Scene {
                 alpha: 0,
                 duration: 200,
                 onComplete: () => {
-                    this.scene.start('StartScene', {
+                    this.scene.restart({
                         level: this.level,
                         score: this.score
                     });
@@ -548,16 +568,27 @@ export class FrogScene extends Scene {
             }));
             
             this.time.delayedCall(1500, () => {
-                this.add.text(
+                const scoreText = this.add.text(
                     this.scale.width / 2,
                     this.scale.height / 2 - 40,
                     this.translate('score', { score: this.score.toString() }),
                     {
                         fontSize: '28px',
+                        fontFamily: 'Arial',
                         color: '#ffffff',
-                        fontStyle: 'bold'
+                        fontStyle: 'bold',
+                        stroke: '#000000',
+                        strokeThickness: 3,
+                        align: 'center'
                     }
                 ).setOrigin(0.5);
+                
+                this.tweens.add({
+                    targets: scoreText,
+                    scale: { from: 0.8, to: 1 },
+                    duration: 300,
+                    ease: 'Back.easeOut'
+                });
                 
                 this.createNextLevelButton();
             });
@@ -637,7 +668,7 @@ export class FrogScene extends Scene {
                 alpha: 0,
                 duration: 200,
                 onComplete: () => {
-                    this.scene.start('StartScene', {
+                    this.scene.restart({
                         level: this.level + 1,
                         score: this.score
                     });
@@ -727,7 +758,7 @@ export class FrogScene extends Scene {
             });
         });
 
-        this.add.text(
+        const finalScoreText = this.add.text(
             this.scale.width / 2,
             this.scale.height / 2 + 50,
             this.translate('finalScore', { score: this.score.toString() }),
@@ -740,6 +771,13 @@ export class FrogScene extends Scene {
                 strokeThickness: 3,
             }
         ).setOrigin(0.5);
+        
+        this.tweens.add({
+            targets: finalScoreText,
+            scale: { from: 0.8, to: 1 },
+            duration: 300,
+            ease: 'Back.easeOut'
+        });
     }
 
     calculateScore() {
