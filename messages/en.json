@@ -275,10 +275,10 @@
         },
         "adults": {
           "title": "Adults:",
-          "excellent": "Excellent: About 25 seconds (1 digit per second)",
-          "good": "Good: 50-74 seconds",
-          "normal": "Normal: 74-98 seconds",
-          "needsImprovement": "Needs Improvement: More than 98 seconds"
+          "beginner": "Beginner Level: 40-60 seconds",
+          "average": "Average Proficiency: 25-40 seconds",
+          "advanced": "Advanced Level: 15-25 seconds",
+          "elite": "Elite Performance: Under 15 seconds"
         }
       },
       "watchDemo": "Watch Demo",

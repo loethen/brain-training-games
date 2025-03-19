@@ -63,10 +63,10 @@ export default function SchultePage() {
                           <div className="space-y-1">
                               <p className="text-sm font-medium">{standardsT("adults.title")}</p>
                               <ul className="text-sm space-y-1 list-disc pl-5">
-                                  <li>{standardsT("adults.excellent")}</li>
-                                  <li>{standardsT("adults.good")}</li>
-                                  <li>{standardsT("adults.normal")}</li>
-                                  <li>{standardsT("adults.needsImprovement")}</li>
+                                  <li>{standardsT("adults.beginner")}</li>
+                                  <li>{standardsT("adults.average")}</li>
+                                  <li>{standardsT("adults.advanced")}</li>
+                                  <li>{standardsT("adults.elite")}</li>
                               </ul>
                           </div>
                       </div>

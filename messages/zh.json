@@ -275,10 +275,10 @@
         },
         "adults": {
           "title": "成人：",
-          "excellent": "优秀：约25秒（每秒1个数字）",
-          "good": "良好：50-74秒",
-          "normal": "一般：74-98秒",
-          "needsImprovement": "需要提高：超过98秒"
+          "beginner": "初学者水平：40-60秒",
+          "average": "一般水平：25-40秒",
+          "advanced": "高级水平：15-25秒",
+          "elite": "精英表现：低于15秒"
         }
       },
       "watchDemo": "观看演示",
