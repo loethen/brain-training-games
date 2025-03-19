@@ -20,12 +20,25 @@ function LanguageSwitcher() {
   const [open, setOpen] = useState(false)
   const t = useTranslations('common');
   
+  // 获取当前语言显示名称
+  const getLanguageDisplay = () => {
+    switch(locale) {
+      case 'zh': return '中文';
+      case 'de': return 'Deutsch';
+      case 'ja': return '日本語';
+      case 'es': return 'Español';
+      case 'ko': return '한국어';
+      case 'fr': return 'Français';
+      default: return 'English';
+    }
+  };
+  
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground" aria-label={t('language')}>
           <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline">{locale === 'zh' ? '中文' : 'English'}</span>
+          <span className="hidden sm:inline">{getLanguageDisplay()}</span>
           <ChevronDown className="h-3 w-3" />
         </Button>
       </DropdownMenuTrigger>
@@ -38,6 +51,31 @@ function LanguageSwitcher() {
         <DropdownMenuItem asChild>
           <Link href={pathname} locale="zh">
             中文
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={pathname} locale="de">
+            Deutsch
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={pathname} locale="ja">
+            日本語
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={pathname} locale="es">
+            Español
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={pathname} locale="ko">
+            한국어
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={pathname} locale="fr">
+            Français
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

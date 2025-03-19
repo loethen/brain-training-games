@@ -1,0 +1,806 @@
+{
+    "common": {
+        "home": "Startseite",
+        "games": "Spiele",
+        "about": "Über uns",
+        "contact": "Kontakt",
+        "categories": "Kategorien",
+        "toggleSidebar": "Seitenleiste umschalten",
+        "toggleTheme": "Thema umschalten",
+        "language": "Sprache",
+        "allRightsReserved": "Alle Rechte vorbehalten"
+    },
+    "metadata": {
+        "title": "Kostenlose Fokus- & Gedächtnisspiele | Gehirntraining | FreeFocusGames",
+        "description": "Verbessern Sie Gedächtnis, Konzentration und kognitive Fähigkeiten mit kostenlosen, wissenschaftlich fundierten Gehirnspielen für alle Altersgruppen.",
+        "keywords": "kostenlose Fokusspiele, Gedächtnisspiele, Gehirntraining Spiele, Konzentrationsspiele, Aufmerksamkeitsverbesserungsspiele, kognitive Spiele online"
+    },
+    "home": {
+        "title": "Kostenlose Spiele für Gedächtnis & Konzentration",
+        "subtitle": "Steigern Sie Fokus und Gedächtnis mit unterhaltsamen Online-Herausforderungen",
+        "popularGames": "Beliebte Spiele",
+        "benefitsTitle": "Fokus: Ihre geheime Superkraft",
+        "benefitsIntro": "Stellen Sie sich vor: Ihr Kind bleibt ohne ständige Ermahnungen bei der Aufgabe, Sie meistern Besprechungsprioritäten mühelos und verlieren sich endlich in dem Buch, das Sie schon immer lesen wollten. Das ist die Kraft des trainierten Fokus.",
+        "familyLifeTitle": "Familienleben",
+        "familyLifeDesc": "Helfen Sie Kindern, Hausaufgaben schneller und mit weniger Ablenkungen zu erledigen. Seien Sie bei der Familienzeit vollständig präsent, ohne geistige Unordnung.",
+        "workPerformanceTitle": "Arbeitsleistung",
+        "workPerformanceDesc": "Verabschieden Sie sich vom Abschalten in Besprechungen. Erreichen Sie schneller den Flow-Zustand und bewältigen Sie komplexe Aufgaben mit kristallklarem Denken.",
+        "personalGrowthTitle": "Persönliches Wachstum",
+        "personalGrowthDesc": "Ob beim Erlernen neuer Fähigkeiten oder beim Verfolgen von Hobbys, ein starker Fokus hilft Ihnen, doppelt so schnell Fortschritte zu machen.",
+        "dailyPractice": "Nur 10 Minuten täglich - es ist wie Gewichtheben für Ihr Gehirn.",
+        "benefitsConclusion": "Schärferer Fokus, besseres Leben.",
+        "testimonialsTitle": "Echte Menschen, echte Ergebnisse",
+        "testimonials": {
+            "sarah": {
+                "name": "Sarah",
+                "username": "@sarah_writes",
+                "body": "Endlich meinen Romanentwurf nach 3 Jahren Aufschub fertiggestellt!"
+            },
+            "mike": {
+                "name": "Mike",
+                "username": "@chef_mike",
+                "body": "Kann jetzt komplexe Backrezepte befolgen, ohne abgelenkt zu werden"
+            },
+            "emma": {
+                "name": "Emma",
+                "username": "@nature_em",
+                "body": "Erinnere mich an jede Abzweigung bei unseren Bergwanderungen - kein Verlaufen mehr!"
+            },
+            "sophia": {
+                "name": "Sophia",
+                "username": "@math_mom",
+                "body": "Die Mathesnoten meines Sohnes haben sich nach 3 Monaten um 2 Noten verbessert!"
+            },
+            "liam": {
+                "name": "Liam",
+                "username": "@adhd_dad",
+                "body": "15 Min./Tag halfen meiner Tochter, die Hausaufgabenzeit durchzuhalten"
+            },
+            "tom": {
+                "name": "Tom",
+                "username": "@movie_tom",
+                "body": "Erkenne jetzt tatsächlich Handlungswendungen in Filmen - keine Verwirrung mehr!"
+            },
+            "lisa": {
+                "name": "Lisa",
+                "username": "@organized_lisa",
+                "body": "Finde meine Schlüssel sofort in unordentlichen Räumen - Lebensretter!"
+            },
+            "david": {
+                "name": "David",
+                "username": "@dad_athlete",
+                "body": "Verpasse nie wieder die Fußballtore meines Kindes"
+            },
+            "olivia": {
+                "name": "Olivia",
+                "username": "@homeschool_olivia",
+                "body": "Lernzeit um 40% reduziert durch fokussiertes Üben"
+            },
+            "ethan": {
+                "name": "Ethan",
+                "username": "@gaming_dad",
+                "body": "Balanciere jetzt mühelos Spielzeit und Lernzeit"
+            }
+        },
+        "metaTitle": "Kostenlose Spiele für Gedächtnis & Konzentration",
+        "metaDescription": "Steigern Sie Fokus und Gedächtnis mit unterhaltsamen Online-Herausforderungen. Kostenlose Gehirntraining Spiele für alle Altersgruppen.",
+        "metaKeywords": "Gedächtnisspiele, Fokusspiele, Konzentrationsspiele, Gehirntraining, kostenlose Online-Spiele",
+        "ogTitle": "Kostenlose Fokus- & Gedächtnisspiele - Trainieren Sie Ihr Gehirn online",
+        "ogDescription": "Verbessern Sie Ihr Gedächtnis und Ihre Konzentration mit unseren kostenlosen, wissenschaftlich fundierten Gehirnspielen. Perfekt für alle Altersgruppen!"
+    },
+    "categories": {
+        "title": "Kategorien",
+        "heading": "Spielkategorien",
+        "description": "Durchsuchen Sie unsere Sammlung von Gehirntraining Spielen nach kognitiven Fähigkeitskategorien. Jede Kategorie konzentriert sich auf einen anderen Aspekt der mentalen Leistung.",
+        "metaTitle": "Spielkategorien | Gehirntraining",
+        "metaDescription": "Durchsuchen Sie unsere Gehirntraining Spiele nach kognitiven Fähigkeitskategorien. Finden Sie Spiele, die spezifische mentale Fähigkeiten ansprechen.",
+        "metaKeywords": "Gehirntraining Kategorien, kognitive Fähigkeiten, Gedächtnisspiele, Fokusspiele, Aufmerksamkeitsspiele, Reaktionszeitspiele, kognitive Flexibilität",
+        "ogTitle": "Gehirntraining Spielkategorien",
+        "ogDescription": "Entdecken Sie unsere kategorisierte Sammlung von Gehirnspielen, die darauf ausgelegt sind, spezifische kognitive Fähigkeiten zu verbessern.",
+        "categoryNames": {
+            "working-memory": "Arbeitsgedächtnis",
+            "visual-tracking": "Visuelles Tracking",
+            "sustained-attention": "Anhaltende Aufmerksamkeit",
+            "selective-attention": "Selektive Aufmerksamkeit",
+            "divided-attention": "Geteilte Aufmerksamkeit",
+            "reaction-time": "Reaktionszeit",
+            "cognitive-flexibility": "Kognitive Flexibilität"
+        },
+        "categoryDescriptions": {
+            "working-memory": "Spiele, die Ihre Fähigkeit stärken, Informationen vorübergehend zu halten und zu manipulieren. Ein starkes Arbeitsgedächtnis hilft Schülern, Anweisungen zu erinnern, Fachleuten, mehrere Aufgaben zu jonglieren, und allen, Gespräche besser zu verfolgen.",
+            "visual-tracking": "Spiele, die Ihre Fähigkeit verbessern, sich bewegende Objekte zu verfolgen und den visuellen Fokus aufrechtzuerhalten. Besseres visuelles Tracking hilft Lesern, Zeilensprünge zu vermeiden, Fahrern, mehrere Fahrzeuge zu verfolgen, und Athleten, schnelle Bälle zu folgen.",
+            "sustained-attention": "Spiele, die Ihre Fähigkeit aufbauen, über längere Zeiträume hinweg Fokus zu halten. Verbesserte anhaltende Aufmerksamkeit hilft Schülern, bei langen Vorlesungen engagiert zu bleiben, Fachleuten, die Produktivität während des Arbeitstages aufrechtzuerhalten, und allen, Aufgaben ohne geistiges Abschweifen zu erledigen.",
+            "selective-attention": "Spiele, die Ihre Fähigkeit verbessern, sich auf relevante Informationen zu konzentrieren, während Ablenkungen ausgefiltert werden. Bessere selektive Aufmerksamkeit hilft Schülern, in lauten Umgebungen zu lernen, Fachleuten, sich in geschäftigen Büros zu konzentrieren, und allen, trotz Unterbrechungen Fokus zu halten.",
+            "divided-attention": "Spiele, die Ihre Fähigkeit entwickeln, Aufmerksamkeit effektiv zwischen mehreren Aufgaben oder Reizen aufzuteilen. Verbesserte geteilte Aufmerksamkeit hilft Eltern, Kinder zu überwachen, während sie Haushaltsaufgaben erledigen, Fachleuten, gleichzeitige Verantwortlichkeiten zu bewältigen, und Fahrern, sicher zu navigieren, während sie sich der Umgebung bewusst sind.",
+            "reaction-time": "Spiele, die Ihre Reaktionsgeschwindigkeit auf visuelle oder auditive Reize schärfen. Schnellere Reaktionszeit hilft Athleten, besser zu performen, Fahrern, schnell auf Straßenrisiken zu reagieren, und älteren Erwachsenen, Stürze zu verhindern.",
+            "cognitive-flexibility": "Spiele, die Ihre Fähigkeit verbessern, zwischen verschiedenen Konzepten zu wechseln oder sich an sich ändernde Regeln anzupassen. Größere kognitive Flexibilität hilft Schülern, Wissen über Fächer hinweg anzuwenden, Fachleuten, sich an sich ändernde Arbeitsanforderungen anzupassen, und allen, soziale Situationen effektiver zu navigieren."
+        },
+        "keywords": {
+            "working-memory": {
+                "working memory training": "Arbeitsgedächtnistraining",
+                "memory training": "Gedächtnistraining",
+                "improve working memory": "Arbeitsgedächtnis verbessern",
+                "working memory exercises": "Arbeitsgedächtnisübungen",
+                "best way to improve working memory": "Bester Weg, um Arbeitsgedächtnis zu verbessern",
+                "boost working memory": "Arbeitsgedächtnis steigern",
+                "brain working memory": "Gehirn Arbeitsgedächtnis",
+                "working memory capacity": "Arbeitsgedächtniskapazität",
+                "short-term memory improvement": "Kurzzeitgedächtnisverbesserung",
+                "cognitive training for memory": "Kognitives Training für Gedächtnis"
+            },
+            "visual-tracking": {
+                "visual tracking exercises": "Visuelle Trackingübungen",
+                "improve visual tracking": "Visuelles Tracking verbessern",
+                "visual tracking skills": "Visuelle Trackingfähigkeiten",
+                "eye tracking training": "Augen-Tracking-Training",
+                "visual attention training": "Visuelle Aufmerksamkeitstraining",
+                "visual processing speed": "Visuelle Verarbeitungsgeschwindigkeit",
+                "visual focus exercises": "Visuelle Fokusübungen",
+                "eye movement training": "Augenbewegungstraining",
+                "visual tracking for reading": "Visuelles Tracking für Lesen",
+                "sports vision training": "Sport Vision Training"
+            },
+            "sustained-attention": {
+                "sustained attention training": "Anhaltende Aufmerksamkeitstraining",
+                "improve focus duration": "Fokusdauer verbessern",
+                "concentration exercises": "Konzentrationsübungen",
+                "attention span improvement": "Aufmerksamkeitsspanne Verbesserung",
+                "focus training": "Fokustraining",
+                "mental endurance exercises": "Mentale Ausdauerübungen",
+                "concentration games": "Konzentrationsspiele",
+                "improve attention span": "Aufmerksamkeitsspanne verbessern",
+                "focus and concentration training": "Fokus- und Konzentrationstraining",
+                "mindfulness for attention": "Achtsamkeit für Aufmerksamkeit"
+            },
+            "selective-attention": {
+                "selective attention training": "Selektive Aufmerksamkeitstraining",
+                "filter distractions": "Ablenkungen filtern",
+                "focus amid distractions": "Fokus inmitten von Ablenkungen",
+                "attention filtering exercises": "Aufmerksamkeitsfilterübungen",
+                "cognitive control training": "Kognitive Kontrolltraining",
+                "distraction resistance": "Ablenkungsresistenz",
+                "improve selective attention": "Selektive Aufmerksamkeit verbessern",
+                "focus training with distractions": "Fokustraining mit Ablenkungen",
+                "attention control exercises": "Aufmerksamkeitskontrollübungen",
+                "cognitive filtering": "Kognitives Filtern"
+            },
+            "divided-attention": {
+                "divided attention training": "Geteilte Aufmerksamkeitstraining",
+                "multitasking exercises": "Multitasking-Übungen",
+                "split attention practice": "Geteilte Aufmerksamkeitspraxis",
+                "dual task training": "Duale Aufgabentraining",
+                "improve multitasking ability": "Multitasking-Fähigkeit verbessern",
+                "cognitive multitasking": "Kognitives Multitasking",
+                "attention splitting exercises": "Aufmerksamkeitsaufteilungsübungen",
+                "multiple task management": "Mehrfachaufgabenmanagement",
+                "simultaneous processing training": "Simultane Verarbeitungstraining",
+                "cognitive load management": "Kognitive Lastmanagement"
+            },
+            "reaction-time": {
+                "reaction time training": "Reaktionszeittraining",
+                "improve response speed": "Antwortgeschwindigkeit verbessern",
+                "faster reflexes exercises": "Schnellere Reflexübungen",
+                "quick reaction games": "Schnelle Reaktionsspiele",
+                "speed training cognitive": "Geschwindigkeitstraining kognitiv",
+                "processing speed improvement": "Verarbeitungsgeschwindigkeitsverbesserung",
+                "reflex training": "Reflextraining",
+                "cognitive speed exercises": "Kognitive Geschwindigkeitsübungen",
+                "faster brain response": "Schnellere Gehirnreaktion",
+                "neurological speed training": "Neurologisches Geschwindigkeitstraining"
+            },
+            "cognitive-flexibility": {
+                "cognitive flexibility training": "Kognitive Flexibilitätstraining",
+                "mental flexibility exercises": "Mentale Flexibilitätsübungen",
+                "adaptive thinking training": "Adaptives Denken Training",
+                "task switching practice": "Aufgabenwechselpraxis",
+                "improve mental adaptability": "Mentale Anpassungsfähigkeit verbessern",
+                "cognitive shifting exercises": "Kognitive Verschiebungsübungen",
+                "mental agility training": "Mentale Beweglichkeitstraining",
+                "flexible thinking games": "Flexibles Denken Spiele",
+                "rule switching training": "Regelwechseltraining",
+                "brain flexibility improvement": "Gehirnflexibilitätsverbesserung"
+            }
+        },
+        "categoryNotFound": "Kategorie nicht gefunden",
+        "categoryNotFoundDesc": "Die angeforderte Kategorie konnte nicht gefunden werden.",
+        "categoryMetaTitle": "{categoryName} Spiele - Gehirntraining & kognitive Verbesserung",
+        "categoryMetaDescription": "Entdecken Sie unsere Sammlung von Gehirntraining Spielen, die sich auf {categoryName} konzentrieren. {categoryDescription}",
+        "categoryOgTitle": "{categoryName} Training Spiele - Verbessern Sie Ihre kognitiven Fähigkeiten",
+        "categoryOgDescription": "Verbessern Sie Ihr {categoryName} mit unseren spezialisierten Gehirntraining Spielen. Kostenlos, effektiv und wissenschaftlich fundiert.",
+        "categoryGamesHeading": "{categoryName} Spiele"
+    },
+    "games": {
+        "title": "Spiele",
+        "heading": "Fokus Training Spiele",
+        "description": "Entdecken Sie unsere kostenlosen Fokus-verbessernden Spiele, die entwickelt wurden, um Ihre Aufmerksamkeit und Konzentration mit unterhaltsamen, gezielten Herausforderungen zu schärfen.",
+        "filters": {
+            "all": "Alle Spiele",
+            "more": "Weitere Kategorien..."
+        },
+        "template": {
+            "howToPlay": "Spielanleitung",
+            "cognitiveBenefits": "Kognitive Vorteile",
+            "faq": "Häufig gestellte Fragen",
+            "relatedGames": "Ähnliche Spiele",
+            "trainingCategories": "Trainingskategorien"
+        },
+        "aboutBrainTraining": {
+            "title": "Über Gehirntraining",
+            "paragraph1": "Kognitives Training, oft auch als Gehirntraining bezeichnet, umfasst regelmäßige mentale Übungen, die darauf abzielen, spezifische kognitive Funktionen wie Gedächtnis, Aufmerksamkeit, Verarbeitungsgeschwindigkeit und Problemlösungsfähigkeiten zu verbessern.",
+            "paragraph2": "Unsere Spiele sind basierend auf Prinzipien der kognitiven Psychologie und Neurowissenschaften konzipiert. Jedes Spiel zielt auf spezifische kognitive Fähigkeiten ab, die für die alltägliche Funktionsfähigkeit, den akademischen Erfolg und die berufliche Leistung wichtig sind.",
+            "paragraph3": "Für beste Ergebnisse empfehlen wir regelmäßiges Üben in verschiedenen kognitiven Bereichen. Nur 15-20 Minuten Training pro Tag, 3-4 Mal pro Woche, können im Laufe der Zeit zu spürbaren Verbesserungen Ihrer kognitiven Fähigkeiten führen."
+        },
+        "trainingPlans": {
+            "title": "Empfohlene Trainingspläne",
+            "focus": {
+                "title": "Fokusverbesserung",
+                "description": "Verbessern Sie Ihre Fähigkeit, sich zu konzentrieren und Ablenkungen zu widerstehen.",
+                "item1": "Schulte-Tabelle (10 Min.)",
+                "item2": "Fischspur (5 Min.)",
+                "item3": "Größere Zahl (5 Min.)"
+            },
+            "memory": {
+                "title": "Gedächtnissteigerung",
+                "description": "Stärken Sie Ihr Arbeitsgedächtnis und Ihre Erinnerungsvermögen.",
+                "item1": "Dual N-Back (10 Min.)",
+                "item2": "Block Memory Challenge (5 Min.)",
+                "item3": "Frog Memory Leap (5 Min.)"
+            },
+            "flexibility": {
+                "title": "Kognitive Flexibilität",
+                "description": "Verbessern Sie Ihre Fähigkeit, sich an sich ändernde Aufgaben und Regeln anzupassen.",
+                "item1": "Mahjong Dual N-Back (10 Min.)",
+                "item2": "Größere Zahl (5 Min.)",
+                "item3": "Schulte-Tabelle (5 Min.)"
+            }
+        },
+        "metaTitle": "Gehirntraining Spiele | Verbessern Sie Fokus, Gedächtnis & kognitive Fähigkeiten",
+        "metaDescription": "Entdecken Sie unsere Sammlung von kostenlosen Gehirntraining Spielen, die darauf ausgelegt sind, kognitive Fähigkeiten wie Gedächtnis, Aufmerksamkeit, Verarbeitungsgeschwindigkeit und mehr zu verbessern.",
+        "metaKeywords": "Gehirnspiele, kognitives Training, Gedächtnisspiele, Fokusspiele, Aufmerksamkeitsspiele, Gehirntraining, kostenlose Gehirnspiele, mentale Übungen, kognitive Verbesserung, Gehirnfitness",
+        "ogTitle": "Kostenlose Gehirntraining Spiele | Steigern Sie Ihre kognitiven Fähigkeiten",
+        "ogDescription": "Entdecken Sie wissenschaftlich fundierte Spiele, um Ihr Gedächtnis, Ihren Fokus, Ihre Aufmerksamkeit und andere kognitive Fähigkeiten zu verbessern. Trainieren Sie Ihr Gehirn kostenlos.",
+        "schulteTable": {
+            "title": "Schulte-Tabelle",
+            "subtitle": "Verbessern Sie Ihre Aufmerksamkeit und Ihr peripheres Sehen",
+            "description": "Verbessern Sie Ihre Aufmerksamkeit und Ihr peripheres Sehen",
+            "howToPlay": "Finden und klicken Sie Zahlen in aufsteigender Reihenfolge (1-25) so schnell wie möglich. Versuchen Sie, Ihr peripheres Sehen zu nutzen, anstatt jede Zahl einzeln zu scannen!",
+            "speedStandards": {
+                "title": "Geschwindigkeitsstandards",
+                "intro": "Hier sind die Referenzstandards für einen 5x5 (1-25) Schulte-Tabellentest:",
+                "children": {
+                    "title": "Kinder (6 Jahre alt):",
+                    "brilliant": "Brillant: 60 Sekunden oder weniger",
+                    "optimal": "Optimal: Bis zu 70 Sekunden",
+                    "mediocre": "Mittelmäßig: Bis zu 80 Sekunden"
+                },
+                "adults": {
+                    "title": "Erwachsene:",
+                    "beginner": "Anfängerlevel: 40-60 Sekunden",
+                    "average": "Durchschnittliche Kompetenz: 25-40 Sekunden",
+                    "advanced": "Fortgeschrittenes Level: 15-25 Sekunden",
+                    "elite": "Elite-Leistung: Unter 15 Sekunden"
+                }
+            },
+            "watchDemo": "Demo ansehen",
+            "demo": "Demo",
+            "metaTitle": "Schulte-Tabelle - Peripheres Sehen & Aufmerksamkeitstraining Spiel",
+            "metaDescription": "Verbessern Sie Ihr peripheres Sehen, Ihre Aufmerksamkeitsspanne und Ihre Lesegeschwindigkeit mit der Schulte-Tabelle Übung. Finden Sie Zahlen in Reihenfolge, während Sie Ihr Gehirn trainieren, visuelle Informationen schneller zu verarbeiten.",
+            "metaKeywords": "Schulte-Tabelle Übung, peripheres Sehen Training, visuelles Aufmerksamkeitsspiel, Lesegeschwindigkeitspraxis, Zahlensequenzspiel, visuelle Verarbeitungstraining, Aufmerksamkeitsspannenverbesserung, kognitive Geschwindigkeitsübung",
+            "ogTitle": "Schulte-Tabelle - Trainieren Sie Ihr peripheres Sehen & Aufmerksamkeit",
+            "ogDescription": "Fordern Sie sich heraus, Zahlen in Reihenfolge zu finden, während Sie eine schnellere visuelle Verarbeitung entwickeln. Wissenschaftlich erwiesen, um Lesegeschwindigkeit und Aufmerksamkeit zu verbessern.",
+            "benefits": {
+                "visualProcessing": {
+                    "title": "Visuelle Verarbeitung",
+                    "description": "Verbessern Sie Ihre Fähigkeit, visuelle Informationen schnell zu verarbeiten und Ihr Sichtfeld zu erweitern."
+                },
+                "focusTraining": {
+                    "title": "Fokustraining",
+                    "description": "Verbessern Sie Konzentration und Aufmerksamkeitsspanne durch systematische visuelle Suchübungen."
+                },
+                "readingSpeed": {
+                    "title": "Lesegeschwindigkeit",
+                    "description": "Entwickeln Sie schnellere Lesefähigkeiten, indem Sie Ihre Augen trainieren, mehr Informationen auf einmal zu erfassen."
+                }
+            },
+            "faq": {
+                "howItWorks": {
+                    "question": "Wie funktioniert die Schulte-Tabelle?",
+                    "answer": "Die Schulte-Tabelle trainiert Ihr Gehirn, visuelle Informationen effizienter zu verarbeiten, indem sie Sie zwingt, den Fokus zu halten, während Sie Ihr peripheres Sehen nutzen, um Zahlen schnell zu lokalisieren."
+                },
+                "bestPractice": {
+                    "question": "Was ist die beste Art zu üben?",
+                    "answer": "Versuchen Sie, Ihre Augen auf die Mitte der Tabelle zu fixieren und Ihr peripheres Sehen zu nutzen, um Zahlen zu erkennen. Üben Sie täglich 10-15 Minuten für beste Ergebnisse."
+                },
+                "readingHelp": {
+                    "question": "Wie hilft dies bei der Lesegeschwindigkeit?",
+                    "answer": "Durch das Training Ihres peripheren Sehens können Sie beim Lesen mehr Text auf einmal wahrnehmen. Dies reduziert die Anzahl der Augenbewegungen, die benötigt werden, und ermöglicht es Ihnen, Informationen schneller zu verarbeiten und effizienter zu lesen."
+                },
+                "research": {
+                    "question": "Ist diese Übung durch Forschung gestützt?",
+                    "answer": "Ja, die Schulte-Tabelle wird seit Jahrzehnten in der kognitiven Psychologie verwendet. Forschung zeigt, dass sie effektiv die visuelle Aufmerksamkeit, Verarbeitungsgeschwindigkeit verbessert und bei Bedingungen wie ADHS helfen kann, indem sie Aufmerksamkeitsnetzwerke stärkt."
+                },
+                "peripheralVision": {
+                    "question": "Was ist peripheres Sehen und warum ist es wichtig?",
+                    "answer": "Peripheres Sehen ist Ihre Fähigkeit, Informationen am Rand Ihres Sichtfelds wahrzunehmen, ohne direkt darauf zu schauen. Es ist im täglichen Leben für Aktivitäten wie Fahren (umgebende Fahrzeuge bemerken), Lesen (mehr Text auf einmal erfassen) und Sport (Positionen von Teamkollegen wahrnehmen) entscheidend. Starkes peripheres Sehen verbessert Ihre räumliche Wahrnehmung, Reaktionszeit und Fähigkeit, Aufmerksamkeit effektiv zu verteilen."
+                }
+            },
+            "gameUI": {
+                "best": "Bestes",
+                "time": "Zeit",
+                "bestTime": "Beste Zeit",
+                "mistakes": "Fehler",
+                "findNumber": "Zahl finden",
+                "findNumbersInSequence": "Zahlen in Reihenfolge finden...",
+                "likeThis": "So! 👆",
+                "startGame": "Spiel starten",
+                "starting": "Startet...",
+                "playAgain": "Erneut spielen",
+                "share": "Teilen",
+                "restart": "Neustart",
+                "gameComplete": "Spiel abgeschlossen!",
+                "gameStopped": "Spiel pausiert",
+                "timeElapsed": "Verstrichene Zeit",
+                "resumeGame": "Spiel fortsetzen",
+                "stop": "Pause"
+            }
+        },
+        "dualNBack": {
+            "title": "Dual N-Back",
+            "subtitle": "Trainieren Sie Ihr Arbeitsgedächtnis, indem Sie visuelle und auditive Reize N Schritte zurück erinnern.",
+            "description": "Trainieren Sie Ihr Arbeitsgedächtnis, indem Sie visuelle und auditive Reize N Schritte zurück erinnern.",
+            "howToPlayIntro": "In diesem Spiel werden Ihnen eine Sequenz von Reizen präsentiert - Positionen in einem Raster und Buchstaben. Ihre Aufgabe ist es, zu erkennen, wenn der aktuelle Reiz dem von N Schritten zuvor entspricht. Drücken Sie die Positionstaste, wenn die Position übereinstimmt, und die Soundtaste, wenn der Buchstabe übereinstimmt.",
+            "howToPlay1": "Beobachten Sie das Raster und hören Sie den Buchstaben",
+            "howToPlay2": "Drücken Sie die Positionstaste, wenn die Position übereinstimmt",
+            "howToPlay3": "Drücken Sie die Soundtaste, wenn der Buchstabe übereinstimmt.",
+            "howToPlay4": "Während Sie sich verbessern, wird das N-Back-Level erhöht, was die Aufgabe herausfordernder macht.",
+            "benefits": {
+                "workingMemory": {
+                    "title": "Arbeitsgedächtnis",
+                    "description": "Verbessern Sie Ihre Fähigkeit, mehrere Informationen im Kopf zu behalten und zu manipulieren, während Sie Positionen und Töne verfolgen."
+                },
+                "fluidIntelligence": {
+                    "title": "Fluides Intelligenz",
+                    "description": "Verbessern Sie Ihre Problemlösungsfähigkeiten und kognitive Flexibilität durch die herausfordernde Dual-Task-Natur der Mahjong N-Back Übung."
+                },
+                "attentionControl": {
+                    "title": "Aufmerksamkeitskontrolle",
+                    "description": "Verbessern Sie Ihren Fokus und Ihre Fähigkeit, Ablenkungen auszufiltern, während Sie gleichzeitig visuelle und auditive Mahjong-Reize überwachen."
+                }
+            },
+            "faq": {
+                "science": {
+                    "question": "Was ist N-Back?",
+                    "answer": "N-Back ist eine kognitive Aufgabe, bei der Sie sich erinnern müssen, was N Schritte zuvor in einer Sequenz passiert ist. Zum Beispiel müssen Sie bei einer 2-Back-Aufgabe sich erinnern, was 2 Schritte zuvor gezeigt wurde."
+                },
+                "practice": {
+                    "question": "Wie oft sollte ich üben?",
+                    "answer": "Für optimale Ergebnisse versuchen Sie, 20-30 Minuten pro Tag, 4-5 Tage pro Woche zu üben. Beständigkeit ist wichtiger als Dauer."
+                },
+                "progress": {
+                    "question": "Wie weiß ich, ob ich mich verbessere?",
+                    "answer": "Während Sie sich verbessern, werden Sie in der Lage sein, das N-Back-Level zu erhöhen (von 1-Back zu 2-Back, 3-Back usw.), während Sie die Genauigkeit beibehalten. Ihre Reaktionszeit wird sich ebenfalls verbessern."
+                },
+                "challenging": {
+                    "question": "Wie herausfordernd ist dieses Spiel?",
+                    "answer": "Dieses Spiel ist so konzipiert, dass es herausfordernd ist. Es ist eine großartige Möglichkeit, Ihre Aufmerksamkeit und Ihr Arbeitsgedächtnis zu verbessern."
+                },
+                "improvements": {
+                    "question": "Wie wird dies mein Leben verbessern?",
+                    "answer": "Dieses Spiel ist eine großartige Möglichkeit, Ihre Aufmerksamkeit und Ihr Arbeitsgedächtnis zu verbessern. Es ist eine unterhaltsame Art, Ihr Gehirn zu trainieren."
+                }
+            },
+            "gameUI": {
+                "dual": "Dual",
+                "position": "Position",
+                "audio": "Audio",
+                "sound": "Sound",
+                "back": "{level}-Back",
+                "challenge": "Dual N-Back Herausforderung",
+                "trackInfo": "Verfolgen Sie {types} von {level} Schritten zurück.",
+                "starting": "Startet...",
+                "startChallenge": "Herausforderung starten",
+                "trial": "Versuch {current} von {total}",
+                "positionMatch": "A: Position übereinstimmt",
+                "soundMatch": "L: Sound übereinstimmt",
+                "trainingResults": "Trainingsergebnisse",
+                "accuracy": "{correct}/{total}",
+                "accuracyPercent": "{percent}% Genauigkeit",
+                "missed": "Verpasst",
+                "falseAlarms": "Fehlalarme",
+                "overallPerformance": "Gesamtleistung",
+                "level": "Level:",
+                "trials": "Versuche: {count}",
+                "playAgain": "Erneut spielen",
+                "shareResults": "Ergebnisse teilen",
+                "settings": "Einstellungen",
+                "gameSettings": "Spieleinstellungen",
+                "nBackLevel": "N-Back-Level",
+                "voiceType": "Stimmtyp",
+                "male": "Männlich",
+                "female": "Weiblich",
+                "trainingMode": "Trainingsmodus",
+                "trialsPerRound": "Versuche pro Runde",
+                "trialSpeed": "Versuchsgeschwindigkeit",
+                "seconds": "{seconds}s",
+                "saveChanges": "Änderungen speichern"
+            },
+            "gameMessages": {
+                "keepOneMode": "Sie müssen mindestens einen Modus aktiviert lassen"
+            },
+            "metaTitle": "Dual N-Back - Arbeitsgedächtnis Training Spiel",
+            "metaDescription": "Trainieren Sie Ihr Arbeitsgedächtnis und kognitive Fähigkeiten mit der wissenschaftlich fundierten Dual N-Back kognitiven Übung. Mit einer Dual-Task-Natur, die Ihr Gehirn herausfordert, mehrere Informationen gleichzeitig zu behalten, während es neue Eingaben verarbeitet.",
+            "metaKeywords": "Dual N-Back Training, Arbeitsgedächtnisspiel, kognitives Training, Aufmerksamkeitskontrollpraxis, N-Back-Aufgabe, Gedächtnisverbesserungsspiel, kostenloses Dual N-Back Spiel, Gehirntraining Spiel, kognitive Geschwindigkeitsübung, Aufmerksamkeitsspannenverbesserung",
+            "ogTitle": "Dual N-Back - Fortgeschrittenes Arbeitsgedächtnis Training",
+            "ogDescription": "Trainieren Sie Ihr Arbeitsgedächtnis und kognitive Fähigkeiten mit der wissenschaftlich fundierten Dual N-Back kognitiven Übung. Mit einer Dual-Task-Natur, die Ihr Gehirn herausfordert, mehrere Informationen gleichzeitig zu behalten, während es neue Eingaben verarbeitet."
+        },
+        "mahjongDualNBack": {
+            "title": "Mahjong Dual N-Back",
+            "subtitle": "Fortgeschrittenes Arbeitsgedächtnis Training mit traditionellen Mahjong-Kacheln",
+            "description": "Eine Variante von Dual N-Back, die Mahjong-Kacheln und Töne verwendet, um Arbeitsgedächtnis und kognitive Fähigkeiten zu trainieren.",
+            "howToPlayIntro": "In dieser herausfordernden Gedächtnisaufgabe, inspiriert von traditionellem Mahjong, müssen Sie sowohl die Kachelmuster als auch die Audio-Reize von N Schritten zurück in der Sequenz erinnern:",
+            "howToPlay1": "Beobachten Sie, wie Mahjong-Kacheln in Folge auf dem teal Filz Tisch erscheinen",
+            "howToPlay2": "Drücken Sie \"Kachel übereinstimmt\", wenn die aktuelle Kachel der Kachel von N Schritten zurück entspricht",
+            "howToPlay3": "Drücken Sie \"Sound übereinstimmt\", wenn der aktuelle Sound dem Sound von N Schritten zurück entspricht",
+            "howToPlay4": "Verwenden Sie Tastaturkürzel: 'A' für Kachel übereinstimmt, 'L' für Sound übereinstimmt",
+            "howToPlay5": "Beginnen Sie mit 1-Back (sich an die vorherige Kachel erinnern) und steigen Sie zu höheren Levels auf, während sich Ihr Gedächtnis verbessert",
+            "howToPlay6": "Passen Sie Einstellungen an, um Ihr Trainingserlebnis mit verschiedenen N-Back-Levels und Reiztypen anzupassen",
+            "benefits": {
+                "workingMemory": {
+                    "title": "Arbeitsgedächtnis",
+                    "description": "Stärken Sie Ihre Fähigkeit, mehrere Informationen im Kopf zu behalten und zu manipulieren, während Sie Mahjong-Kachelpositionen und Töne verfolgen."
+                },
+                "fluidIntelligence": {
+                    "title": "Fluides Intelligenz",
+                    "description": "Verbessern Sie Ihre Problemlösungsfähigkeiten und kognitive Flexibilität durch die herausfordernde Dual-Task-Natur der Mahjong N-Back Übung."
+                },
+                "attentionControl": {
+                    "title": "Aufmerksamkeitskontrolle",
+                    "description": "Verbessern Sie Ihren Fokus und Ihre Fähigkeit, Ablenkungen auszufiltern, während Sie gleichzeitig visuelle und auditive Mahjong-Reize überwachen."
+                }
+            },
+            "faq": {
+                "science": {
+                    "question": "Was ist die Wissenschaft hinter Mahjong Dual N-Back?",
+                    "answer": "Dual N-Back wurde ausführlich in der kognitiven Neurowissenschaft untersucht. Forschung, veröffentlicht in PNAS (2008), deutete darauf hin, dass Training mit dieser Aufgabe die fluide Intelligenz verbessern kann. Unsere Mahjong-thematische Version kombiniert Positions- und Audio-Matching mit traditioneller Mahjong-Ästhetik, um ein ansprechendes kognitives Training zu schaffen."
+                },
+                "difference": {
+                    "question": "Wie unterscheidet sich dies vom regulären Dual N-Back?",
+                    "answer": "Während die Kern-Dual N-Back-Mechaniken der Verfolgung von Position und Audio-Reizen beibehalten werden, integriert unsere Version authentische Mahjong-Kacheln und einen traditionellen grünen Filz-Hintergrund. Diese kulturelle Thematik macht die Übung visuell ansprechender, während die kognitive Herausforderung, die Dual N-Back effektiv macht, erhalten bleibt."
+                },
+                "practice": {
+                    "question": "Wie oft sollte ich mit den Mahjong-Kacheln üben?",
+                    "answer": "Für optimale Ergebnisse zielen Sie auf 20-30 Minuten Mahjong Dual N-Back Training, 3-4 Mal pro Woche. Beständigkeit ist wichtiger als Dauer. Regelmäßiges Üben hilft Ihrem Gehirn, stärkere neuronale Pfade für Arbeitsgedächtnisaufgaben aufzubauen, die sowohl visuelle Position als auch auditive Verarbeitung beinhalten."
+                },
+                "improvements": {
+                    "question": "Werde ich Verbesserungen in meinem täglichen Leben durch Mahjong-Gedächtnistraining sehen?",
+                    "answer": "Viele Benutzer berichten von Verbesserungen in Konzentration, Multitasking-Fähigkeit und Informationsbehaltung nach regelmäßigem Üben mit Dual N-Back Übungen. Die hier entwickelten Positions- und Audio-Verfolgungsfähigkeiten können auf akademische, berufliche und alltägliche Aktivitäten übertragen werden, die Aufmerksamkeit auf mehrere Informationsströme erfordern."
+                },
+                "knowledge": {
+                    "question": "Muss ich wissen, wie man Mahjong spielt, um dieses Trainingspiel zu nutzen?",
+                    "answer": "Nein, keine Vorkenntnisse in Mahjong sind erforderlich. Während wir die schönen visuellen Elemente traditioneller Mahjong-Kacheln verwenden, konzentriert sich die kognitive Aufgabe auf das Erinnern von Positionen und Tönen anstelle von Mahjong-Spielweisen. Die Übung ist so konzipiert, dass sie für alle zugänglich ist, unabhängig von ihrer Vertrautheit mit Mahjong."
+                }
+            },
+            "gameUI": {
+                "Dual": "Dual",
+                "settings": "Einstellungen",
+                "gameSettings": "Spieleinstellungen",
+                "nBackLevel": "N-Back-Level",
+                "back": "{level}-Back",
+                "voiceType": "Stimmtyp",
+                "male": "Englisch Männlich",
+                "female": "Englisch Weiblich",
+                "chineseFemale": "Chinesisch Weiblich",
+                "trainingMode": "Trainingsmodus",
+                "tile": "Kachel",
+                "sound": "Sound",
+                "tileMatch": "Kachel übereinstimmt",
+                "soundMatch": "Sound übereinstimmt",
+                "keyA": "A",
+                "keyL": "L",
+                "trialsPerRound": "Versuche pro Runde",
+                "trials": "{count} Versuche",
+                "trialSpeed": "Versuchsgeschwindigkeit",
+                "seconds": "{seconds}s",
+                "saveChanges": "Änderungen speichern",
+                "keepOneMode": "Sie müssen mindestens einen Modus aktiviert lassen",
+                "challenge": "Mahjong Dual N-Back Herausforderung",
+                "trackInfo": "Verfolgen Sie {types} von {level} Schritten zurück.",
+                "loading": "Lädt...",
+                "loadingStatus": "Lädt... ({loadedAudio}/{totalAudio} Audio, {loadedImages}/{totalImages} Bilder)",
+                "startTraining": "Training starten",
+                "restart": "Neustart",
+                "trial": "Versuch {current} von {total}",
+                "trainingResults": "Trainingsergebnisse",
+                "accuracy": "{correct}/{total}",
+                "accuracyPercent": "{percent}% Genauigkeit",
+                "missed": "Verpasst",
+                "falseAlarms": "Fehlalarme",
+                "overallPerformance": "Gesamtleistung",
+                "level": "Level",
+                "playAgain": "Erneut spielen",
+                "share": "Teilen"
+            },
+            "metaTitle": "Mahjong Dual N-Back - Arbeitsgedächtnis Training Spiel",
+            "metaDescription": "Schärfen Sie Ihren Verstand mit unserem kostenlosen Mahjong Dual N-Back Spiel, einer unterhaltsamen Variante des klassischen Gedächtnistrainings. Kombinieren Sie die Strategie von Mahjong-Kacheln mit wissenschaftlich fundierten Dual N-Back Herausforderungen, um Arbeitsgedächtnis, Fokus und kognitive Fähigkeiten zu steigern. Perfekt für Mahjong-Fans, Studenten und Gehirntraining-Enthusiasten, bietet es dynamische Levels und Echtzeit-Feedback, um mentale Beweglichkeit zu verbessern. Spielen Sie jetzt und meistern Sie Ihr Gedächtnis mit Mahjong-Flair!",
+            "metaKeywords": "Mahjong N-Back Training, Mahjong Gedächtnisspiel, Arbeitsgedächtnisübung, fluide Intelligenz Spiel, kognitives Training mit Mahjong, Gehirntraining Spiel, Aufmerksamkeitskontrollpraxis, N-Back-Aufgabe mit Mahjong-Kacheln, Gedächtnisverbesserungsspiel, traditionelles Mahjong Gehirntraining, kostenloses Mahjong N-Back Spiel",
+            "ogTitle": "Mahjong Dual N-Back - Fortgeschrittenes Arbeitsgedächtnis Training",
+            "ogDescription": "Trainieren Sie Ihr Arbeitsgedächtnis und kognitive Fähigkeiten mit der wissenschaftlich fundierten Mahjong Dual N-Back kognitiven Übung mit traditionellen Mahjong-Kacheln."
+        },
+        "fishTrace": {
+            "title": "Leuchtender Fisch Trace",
+            "subtitle": "Trainieren Sie Ihr visuelles Tracking und Ihre anhaltende Aufmerksamkeit",
+            "description": "Verbessern Sie Ihre visuellen Trackingfähigkeiten, indem Sie leuchtende Fische in einer dynamischen Unterwasserumgebung verfolgen.",
+            "gameUI": {
+                "loading": "Spiel lädt...",
+                "start": "Beobachten Sie den Fisch mit leuchtenden Kreisen!",
+                "glowEnding": "Kreise werden bald verschwinden...",
+                "tracking": "Verfolgen Sie diese Fische weiter!",
+                "selection": "Klicken Sie auf den Fisch, der Kreise hatte!",
+                "success": "🎉 Perfekt! Level {level} abgeschlossen!",
+                "fail": "Spiel vorbei! Ihr Endpunktstand: ",
+                "nextLevel": "Weiter zu Level {level}",
+                "tryAgain": "Erneut versuchen",
+                "soundOn": "Sound an",
+                "soundOff": "Sound aus"
+            },
+            "metadata": {
+                "title": "Leuchtender Fisch Trace - Visuelles Tracking & Aufmerksamkeitstraining Spiel",
+                "description": "Verbessern Sie Ihre visuellen Trackingfähigkeiten, indem Sie leuchtende Fische in einer dynamischen Unterwasserumgebung verfolgen. Trainieren Sie Ihre Aufmerksamkeit, Ihr Arbeitsgedächtnis und Ihren Fokus durch progressive Herausforderungen.",
+                "keywords": "visuelle Trackingübung, Aufmerksamkeitstraining Spiel, Fisch Tracking Spiel, Arbeitsgedächtnispraxis, visuelle Fokustraining, mehrfaches Objekt Tracking, kognitives Verbesserungsspiel, visuelle Aufmerksamkeitsübung",
+                "ogTitle": "Leuchtender Fisch Trace - Trainieren Sie Ihre visuellen Trackingfähigkeiten",
+                "ogDescription": "Verfolgen Sie die leuchtenden Fische und erinnern Sie sich, welche hervorgehoben wurden. Verbessern Sie Ihre visuelle Aufmerksamkeit und Ihr Arbeitsgedächtnis durch ansprechende Unterwasserherausforderungen."
+            },
+            "howToPlay": {
+                "intro": "Verfolgen Sie die leuchtenden Fische in dieser Unterwasser-Tracking-Herausforderung:",
+                "step1": "Beobachten Sie genau, wie bestimmte Fische mit farbigen Kreisen leuchten",
+                "step2": "Verfolgen Sie diese Fische weiter, auch nachdem die Kreise verschwinden",
+                "step3": "Wenn Sie dazu aufgefordert werden, klicken Sie auf die Fische, die die leuchtenden Kreise hatten",
+                "step4": "Während Sie sich verbessern, werden mehr Fische erscheinen und sich schneller bewegen"
+            },
+            "benefits": {
+                "visualTracking": {
+                    "title": "Visuelles Tracking",
+                    "description": "Verbessern Sie Ihre Fähigkeit, sich bewegende Objekte zu verfolgen und den visuellen Fokus in dynamischen Umgebungen aufrechtzuerhalten."
+                },
+                "sustainedAttention": {
+                    "title": "Anhaltende Aufmerksamkeit",
+                    "description": "Verbessern Sie Ihre Kapazität, die Konzentration auf bestimmte Ziele über längere Zeiträume aufrechtzuerhalten."
+                },
+                "selectiveAttention": {
+                    "title": "Selektive Aufmerksamkeit",
+                    "description": "Entwickeln Sie Ihre Fähigkeit, sich auf relevante Reize zu konzentrieren, während Sie Ablenkungen ignorieren."
+                }
+            },
+            "faq": {
+                "visualTracking": {
+                    "question": "Wie profitiert visuelles Tracking Training im Alltag?",
+                    "answer": "Starke visuelle Trackingfähigkeiten sind für Lesen, Fahren, Sport und das Navigieren in geschäftigen Umgebungen unerlässlich. Dieses Training kann die Leistung in all diesen Bereichen verbessern."
+                },
+                "children": {
+                    "question": "Ist dies für Kinder geeignet?",
+                    "answer": "Ja! Dieses Spiel ist hervorragend für Kinder und Erwachsene gleichermaßen. Visuelles Tracking Training ist besonders vorteilhaft für sich entwickelnde Leser und diejenigen mit Aufmerksamkeitsschwierigkeiten."
+                },
+                "trainingDuration": {
+                    "question": "Wie lange sollte jede Trainingssitzung sein?",
+                    "answer": "Zielen Sie auf 10-15 Minuten Sitzungen. Die Qualität der Aufmerksamkeit ist wichtiger als die Dauer - es ist besser, kürzere Sitzungen mit voller Konzentration durchzuführen als längere mit verminderter Konzentration."
+                },
+                "readingDifficulties": {
+                    "question": "Kann dies bei Leseschwierigkeiten helfen?",
+                    "answer": "Ja, viele Leseschwierigkeiten hängen mit visuellen Trackingproblemen zusammen. Regelmäßiges Üben mit diesem Spiel kann helfen, die Leseflüssigkeit und das Verständnis zu verbessern, indem das visuelle Tracking-System gestärkt wird."
+                }
+            }
+        },
+        "frogMemoryLeap": {
+            "title": "Frosch Gedächtnis Sprung",
+            "subtitle": "Trainieren Sie Ihr sequentielles Gedächtnis und Ihre Mustererkennung",
+            "description": "Fordern Sie Ihr sequentielles Gedächtnis heraus, indem Sie die Reihenfolge der Froschsprünge über Seerosenblätter erinnern.",
+            "gameUI": {
+                "loading": "Spiel lädt...",
+                "start": "Spiel starten",
+                "level": "Level {level}",
+                "watch": "Beobachten Sie die Sequenz",
+                "repeat": "Sequenz wiederholen",
+                "correct": "Korrekt!",
+                "wrong": "Falsch!",
+                "gameOver": "Spiel vorbei",
+                "score": "Punktstand: {score}",
+                "highScore": "Höchstpunktstand: {score}",
+                "tryAgain": "Erneut versuchen",
+                "nextLevel": "Nächstes Level",
+                "success": "Perfekt! Punktstand: {score}\nLevel {level} abgeschlossen! 🎉"
+            },
+            "metadata": {
+                "title": "Frosch Gedächtnis Sprung - Sequentielles Gedächtnis Training Spiel",
+                "description": "Fordern Sie Ihr räumliches Gedächtnis heraus, indem Sie die Sequenz der Froschsprünge über Seerosenblätter erinnern. Ein unterhaltsames Gehirntraining Spiel, um Arbeitsgedächtnis und Aufmerksamkeitsspanne zu verbessern.",
+                "keywords": "sequentielles Gedächtnisspiel, räumliche Erinnerungs Training, Froschsprung Gedächtnisspiel, Mustererkennungsspiel, Arbeitsgedächtnisübung, Gehirntraining für Kinder und Erwachsene, kognitive Fähigkeiten Verbesserung, Aufmerksamkeitsspannenspiel",
+                "ogTitle": "Frosch Gedächtnis Sprung - Trainieren Sie Ihr sequentielles Gedächtnis",
+                "ogDescription": "Beobachten Sie den Frosch, wie er über Seerosenblätter springt, und erinnern Sie sich an die genaue Sequenz, um durch zunehmend herausfordernde Levels voranzukommen."
+            },
+            "howToPlay": {
+                "intro": "Beobachten und erinnern Sie sich an die Sequenz der Froschsprünge, dann wiederholen Sie sie:",
+                "step1": "Beobachten Sie genau, wie der Frosch von Seerosenblatt zu Seerosenblatt springt",
+                "step2": "Nach der Demonstration, erstellen Sie die exakte Sequenz neu, indem Sie auf die Seerosenblätter in der richtigen Reihenfolge klicken",
+                "step3": "Jedes Level fügt mehr Sprünge zur Sequenz hinzu",
+                "step4": "Versuchen Sie, das höchste Level zu erreichen!"
+            },
+            "benefits": {
+                "workingMemory": {
+                    "title": "Arbeitsgedächtnis",
+                    "description": "Stärken Sie Ihre Fähigkeit, Sequenzen von Informationen in der richtigen Reihenfolge zu behalten und sich zu erinnern."
+                },
+                "visualSpatialMemory": {
+                    "title": "Visuell-räumliches Gedächtnis",
+                    "description": "Verbessern Sie Ihre Kapazität, Orte und räumliche Beziehungen zwischen Objekten zu erinnern."
+                },
+                "patternRecognition": {
+                    "title": "Mustererkennung",
+                    "description": "Entwickeln Sie Ihre Fähigkeit, Muster zu identifizieren und sich zu erinnern, eine wesentliche Fähigkeit für Lernen und Problemlösung."
+                }
+            },
+            "faq": {
+                "sequentialMemory": {
+                    "question": "Wie hilft sequentielles Gedächtnis im Alltag?",
+                    "answer": "Sequentielles Gedächtnis ist entscheidend für das Befolgen von Anweisungen, das Erlernen neuer Fähigkeiten, das Erinnern von Telefonnummern und das Ausführen von mehrstufigen Aufgaben. Es ist grundlegend für viele Aspekte des Lernens und der täglichen Funktionsfähigkeit."
+                },
+                "ageGroups": {
+                    "question": "Ist dieses Spiel für alle Altersgruppen geeignet?",
+                    "answer": "Ja! Dieses Spiel ist so konzipiert, dass es für Kinder ansprechend und für Erwachsene herausfordernd ist. Die progressive Schwierigkeit stellt sicher, dass Spieler aller Altersgruppen und Fähigkeiten davon profitieren können."
+                },
+                "practiceTips": {
+                    "question": "Wie oft sollte ich üben?",
+                    "answer": "Für beste Ergebnisse üben Sie täglich 10-15 Minuten. Beständiges, regelmäßiges Üben ist effektiver als gelegentliche längere Sitzungen."
+                },
+                "learningDifficulties": {
+                    "question": "Kann dies bei Lernschwierigkeiten helfen?",
+                    "answer": "Ja, viele Lernschwierigkeiten beinhalten Herausforderungen mit sequentieller Verarbeitung und Arbeitsgedächtnis. Regelmäßiges Üben mit diesem Spiel kann helfen, diese kognitiven Fähigkeiten zu stärken."
+                }
+            }
+        },
+        "largerNumber": {
+            "title": "Größere Zahl Herausforderung",
+            "subtitle": "Trainieren Sie Ihre Verarbeitungsgeschwindigkeit und numerische Vergleichsfähigkeiten",
+            "description": "Identifizieren Sie schnell die größere von zwei Zahlen, um Verarbeitungsgeschwindigkeit und Aufmerksamkeit zu trainieren.",
+            "howToPlayIntro": "Identifizieren Sie schnell, welche Zahl größer ist in dieser rasanten Herausforderung:",
+            "howToPlay1": "Zwei Zahlen werden auf dem Bildschirm erscheinen",
+            "howToPlay2": "Tippen oder klicken Sie auf die größere Zahl so schnell wie möglich",
+            "howToPlay3": "Versuchen Sie, sowohl schnell als auch genau zu sein",
+            "howToPlay4": "Sehen Sie, wie viele richtige Antworten Sie in 30 Sekunden erreichen können",
+            "benefits": {
+                "processingSpeed": {
+                    "title": "Verarbeitungsgeschwindigkeit",
+                    "description": "Verbessern Sie, wie schnell Ihr Gehirn numerische Informationen verarbeiten und darauf reagieren kann."
+                },
+                "selectiveAttention": {
+                    "title": "Selektive Aufmerksamkeit",
+                    "description": "Verbessern Sie Ihre Fähigkeit, sich auf relevante Informationen zu konzentrieren und schnelle Entscheidungen zu treffen."
+                },
+                "numericalCognition": {
+                    "title": "Numerische Kognition",
+                    "description": "Stärken Sie die Gehirnwege, die am Verstehen und Vergleichen von Mengen beteiligt sind."
+                }
+            },
+            "faq": {
+                "mathSkills": {
+                    "question": "Wie hilft dies bei mathematischen Fähigkeiten?",
+                    "answer": "Dieses Spiel trainiert die grundlegenden kognitiven Prozesse, die dem mathematischen Denken zugrunde liegen: schnelle Zahlenwahrnehmung, Größenvergleich und Entscheidungsfindung. Diese Fähigkeiten bilden die Grundlage für komplexere mathematische Fähigkeiten."
+                },
+                "children": {
+                    "question": "Ist dies gut für Kinder, die Mathematik lernen?",
+                    "answer": "Ja! Dieses Spiel hilft, das Zahlenverständnis zu entwickeln, was für die frühe mathematische Entwicklung entscheidend ist. Es ist besonders hilfreich für Kinder, die lernen, Mengen zu vergleichen und numerische Beziehungen zu verstehen."
+                },
+                "processingSpeed": {
+                    "question": "Wie beeinflusst die Verarbeitungsgeschwindigkeit das Lernen?",
+                    "answer": "Die Verarbeitungsgeschwindigkeit beeinflusst, wie schnell Sie Informationen aufnehmen, verstehen und darauf reagieren können. Schnellere Verarbeitung ermöglicht es Ihnen, komplexe Aufgaben effizient zu bewältigen und reduziert die kognitive Belastung während Lernaktivitäten."
+                },
+                "adults": {
+                    "question": "Können Erwachsene von diesem Training profitieren?",
+                    "answer": "Absolut. Die Verarbeitungsgeschwindigkeit kann mit dem Alter abnehmen, und regelmäßiges Training kann helfen, diese kognitive Funktion zu erhalten oder zu verbessern. Dieses Spiel bietet eine schnelle, ansprechende Möglichkeit, diese neuronalen Pfade zu trainieren."
+                }
+            },
+            "metaTitle": "Größere Zahl Herausforderung - Zahlenvergleich Training Spiel",
+            "metaDescription": "Verbessern Sie Ihre numerische Verarbeitungsgeschwindigkeit und Entscheidungsfindung mit diesem rasanten Zahlenvergleichsspiel. Trainieren Sie Ihr Gehirn, um schnell größere Zahlen zu identifizieren.",
+            "metaKeywords": "Zahlenvergleichsspiel, numerische Verarbeitungstraining, Entscheidungsgeschwindigkeitsübung, Mathematik Gehirntraining, kognitives Geschwindigkeitsspiel, Zahl Größenvergleich, Reaktionszeittraining, pädagogisches Mathematikspiel",
+            "ogTitle": "Größere Zahl Herausforderung - Trainieren Sie Ihre numerische Verarbeitungsgeschwindigkeit",
+            "ogDescription": "Identifizieren Sie schnell, welche Zahl größer ist in diesem rasanten Gehirntraining Spiel. Verbessern Sie Ihre Entscheidungsgeschwindigkeit und numerische Verarbeitung.",
+            "gameUI": {
+                "challenge": "Schließen Sie {attempts} Versuche mit {accuracy}% Genauigkeit ab, um erfolgreich zu sein",
+                "starting": "Startet...",
+                "startChallenge": "Herausforderung starten",
+                "whichIsLarger": "Welche Zahl ist größer?",
+                "correct": "Korrekt",
+                "total": "Gesamt",
+                "accuracy": "Genauigkeit",
+                "congratulations": "Herzlichen Glückwunsch! Sie haben die Herausforderung erfolgreich abgeschlossen.",
+                "keepGoing": "Üben Sie weiter! Sie werden mit jedem Versuch besser.",
+                "timeUp": "Zeit ist abgelaufen!",
+                "totalAttempts": "Gesamtversuche",
+                "correctAnswers": "Richtige Antworten",
+                "target": "Ziel: {attempts} Versuche mit {accuracy}% Genauigkeit",
+                "playAgain": "Erneut spielen",
+                "share": "Ergebnisse teilen",
+                "settings": "Einstellungen",
+                "level": "Level",
+                "adjustDifficulty": "Schwierigkeit anpassen",
+                "adjustDifficultyDescription": "Möchten Sie die Schwierigkeit verringern, um die Herausforderung einfacher zu machen?",
+                "decreaseDifficulty": "Schwierigkeit verringern",
+                "keepCurrentDifficulty": "Aktuelle Schwierigkeit beibehalten",
+                "nextLevel": "Nächstes Level Ziel:",
+                "nextLevelTarget": "Schließen Sie {attempts} Versuche mit {accuracy}% Genauigkeit ab",
+                "continueChallenge": "Herausforderung fortsetzen"
+            }
+        },
+        "blockMemoryChallenge": {
+            "title": "Block Memory Challenge",
+            "description": "Testen Sie Ihr visuelles Gedächtnis, indem Sie zunehmend komplexe Blocksequenzen erinnern.",
+            "subtitle": "Trainieren Sie Ihr visuelles Gedächtnis und Ihre Mustererkennung",
+            "metaTitle": "Block Memory Challenge - Visuelles Gedächtnis Training Spiel",
+            "metaDescription": "Verbessern Sie Ihr Arbeitsgedächtnis und Ihre kognitive Flexibilität, indem Sie zunehmend komplexe visuelle Sequenzen erinnern und wiederholen.",
+            "metaKeywords": "Block Gedächtnisspiel, visuelle Sequenzgedächtnis, Arbeitsgedächtnistraining, kognitive Flexibilitätsübung, Aufmerksamkeitsspannenverbesserung, Sequenzmemorisierungsspiel, visuelle Mustererkennung, Kurzzeitgedächtnispraxis",
+            "ogTitle": "Block Memory Challenge - Trainieren Sie Ihr visuelles Gedächtnis",
+            "ogDescription": "Erinnern und wiederholen Sie zunehmend komplexe visuelle Sequenzen, um Ihr Arbeitsgedächtnis und Ihre kognitive Flexibilität zu verbessern.",
+            "howToPlay": {
+                "intro": "Memorisieren und erstellen Sie blinkende Blocksequenzen in diesem herausfordernden Gedächtnisspiel neu:",
+                "step1": "Blöcke leuchten nacheinander in einer spezifischen Sequenz auf",
+                "step2": "Beobachten Sie genau und erinnern Sie sich an die Reihenfolge der hervorgehobenen Blöcke",
+                "step3": "Nachdem die Sequenz gezeigt wurde, klicken Sie auf die Blöcke in der gleichen Reihenfolge",
+                "step4": "Während die Levels steigen, werden die Sequenzen länger und schwieriger zu erinnern",
+                "watchDemo": "Demo ansehen",
+                "demo": "Demo"
+            },
+            "benefits": {
+                "workingMemory": {
+                    "title": "Arbeitsgedächtnis",
+                    "description": "Verbessern Sie Ihre Fähigkeit, visuelle Informationen temporär im Kopf zu behalten und zu manipulieren."
+                },
+                "visualProcessing": {
+                    "title": "Visuelle Verarbeitung",
+                    "description": "Verbessern Sie, wie schnell und genau Ihr Gehirn visuelle Muster verarbeitet und interpretiert."
+                },
+                "patternRecognition": {
+                    "title": "Mustererkennung",
+                    "description": "Stärken Sie Ihre Fähigkeit, visuelle Muster zu identifizieren und sich zu erinnern, eine Schlüsselfähigkeit für Lernen und Problemlösung."
+                }
+            },
+            "faq": {
+                "dailyLife": {
+                    "question": "Wie hilft visuelles Muster-Gedächtnis im Alltag?",
+                    "answer": "Visuelles Muster-Gedächtnis ist für Navigation, Gesichtserkennung, Lernen neuer Informationen durch Diagramme oder Charts und viele professionelle Fähigkeiten, von der Interpretation von Röntgenbildern bis zum architektonischen Design, unerlässlich."
+                },
+                "learning": {
+                    "question": "Kann dies meine Fähigkeit verbessern, neue Dinge zu lernen?",
+                    "answer": "Ja! Starkes visuelles Gedächtnis hilft Ihnen, Informationen, die in visuellen Formaten präsentiert werden, zu behalten, was bei viel Lernmaterial der Fall ist. Diese Fähigkeit überträgt sich auf akademisches Lernen, berufliche Entwicklung und das Erlernen neuer Hobbys."
+                },
+                "practice": {
+                    "question": "Wie oft sollte ich üben?",
+                    "answer": "Für beste Ergebnisse üben Sie täglich 10-15 Minuten. Beständiges, regelmäßiges Üben ist effektiver als gelegentliche längere Sitzungen."
+                },
+                "children": {
+                    "question": "Ist dieses Spiel für Kinder geeignet?",
+                    "answer": "Absolut! Dieses Spiel ist hervorragend für sich entwickelnde Köpfe. Visuelles Gedächtnis ist entscheidend für Lesen, Mathematik und viele andere akademische Fähigkeiten. Die progressive Schwierigkeit stellt sicher, dass es herausfordernd bleibt, während sich die Fähigkeiten verbessern."
+                }
+            },
+            "gameUI": {
+                "level": "Level",
+                "score": "Punktstand",
+                "bestScore": "Bester",
+                "time": "Zeit",
+                "startGame": "Spiel starten",
+                "starting": "Startet...",
+                "playAgain": "Erneut spielen",
+                "share": "Teilen",
+                "gameOver": "Spiel vorbei!",
+                "finalScore": "Endpunktstand",
+                "levelsCompleted": "Abgeschlossene Levels",
+                "watchSequence": "Sequenz beobachten...",
+                "repeatSequence": "Sequenz wiederholen",
+                "wellDone": "Gut gemacht!",
+                "personalBest": "Persönlicher Bestwert",
+                "yourTurn": "Ihr Zug..."
+            }
+        }
+    },
+    "buttons": {
+        "startPlaying": "Jetzt spielen",
+        "viewAll": "Alle anzeigen"
+    }
+}

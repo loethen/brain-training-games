@@ -1,0 +1,806 @@
+{
+    "common": {
+        "home": "Inicio",
+        "games": "Juegos",
+        "about": "Acerca de",
+        "contact": "Contacto",
+        "categories": "Categorías",
+        "toggleSidebar": "Alternar barra lateral",
+        "toggleTheme": "Alternar tema",
+        "language": "Idioma",
+        "allRightsReserved": "Todos los derechos reservados"
+    },
+    "metadata": {
+        "title": "Juegos gratuitos de enfoque y memoria | Entrenamiento cerebral | FreeFocusGames",
+        "description": "Mejora la memoria, la concentración y las habilidades cognitivas con juegos cerebrales gratuitos y científicamente fundamentados para todas las edades.",
+        "keywords": "juegos gratuitos de enfoque, juegos de memoria, juegos de entrenamiento cerebral, juegos de concentración, juegos para mejorar la atención, juegos cognitivos en línea"
+    },
+    "home": {
+        "title": "Juegos gratuitos para memoria y concentración",
+        "subtitle": "Mejora tu enfoque y memoria con desafíos divertidos en línea",
+        "popularGames": "Juegos populares",
+        "benefitsTitle": "Enfoque: tu superpoder secreto",
+        "benefitsIntro": "Imagina esto: tu hijo se mantiene en la tarea sin recordatorios constantes, tú dominas las prioridades de las reuniones sin esfuerzo y finalmente te sumerges en ese libro que siempre has querido leer. Ese es el poder de un enfoque entrenado.",
+        "familyLifeTitle": "Vida familiar",
+        "familyLifeDesc": "Ayuda a los niños a terminar la tarea más rápido y con menos distracciones. Estar completamente presente en el tiempo en familia, sin desorden mental.",
+        "workPerformanceTitle": "Rendimiento laboral",
+        "workPerformanceDesc": "Deja de desconectar en las reuniones. Alcanza el estado de flujo más rápido y aborda tareas complejas con un pensamiento claro como el cristal.",
+        "personalGrowthTitle": "Crecimiento personal",
+        "personalGrowthDesc": "Ya sea aprendiendo nuevas habilidades o persiguiendo pasatiempos, un enfoque fuerte te ayuda a progresar el doble de rápido.",
+        "dailyPractice": "Solo 10 minutos al día: es como levantar pesas para tu cerebro.",
+        "benefitsConclusion": "Enfoque más agudo, vida mejor.",
+        "testimonialsTitle": "Personas reales, resultados reales",
+        "testimonials": {
+            "sarah": {
+                "name": "Sarah",
+                "username": "@sarah_writes",
+                "body": "¡Finalmente terminé el borrador de mi novela después de 3 años de procrastinación!"
+            },
+            "mike": {
+                "name": "Mike",
+                "username": "@chef_mike",
+                "body": "Ahora puedo seguir recetas de repostería complejas sin distraerme"
+            },
+            "emma": {
+                "name": "Emma",
+                "username": "@nature_em",
+                "body": "Recuerdo cada giro en nuestras caminatas por la montaña: ¡no más perderse!"
+            },
+            "sophia": {
+                "name": "Sophia",
+                "username": "@math_mom",
+                "body": "¡Las calificaciones de matemáticas de mi hijo mejoraron dos grados después de 3 meses!"
+            },
+            "liam": {
+                "name": "Liam",
+                "username": "@adhd_dad",
+                "body": "15 min./día ayudaron a mi hija a superar el tiempo de tarea"
+            },
+            "tom": {
+                "name": "Tom",
+                "username": "@movie_tom",
+                "body": "Ahora realmente capto los giros de la trama en las películas: ¡no más confusión!"
+            },
+            "lisa": {
+                "name": "Lisa",
+                "username": "@organized_lisa",
+                "body": "Encuentro mis llaves al instante en habitaciones desordenadas: ¡un salvavidas!"
+            },
+            "david": {
+                "name": "David",
+                "username": "@dad_athlete",
+                "body": "Nunca más me pierdo los goles de fútbol de mi hijo"
+            },
+            "olivia": {
+                "name": "Olivia",
+                "username": "@homeschool_olivia",
+                "body": "Reduje el tiempo de estudio en un 40% a través de la práctica enfocada"
+            },
+            "ethan": {
+                "name": "Ethan",
+                "username": "@gaming_dad",
+                "body": "Ahora equilibro el tiempo de juego y estudio sin esfuerzo"
+            }
+        },
+        "metaTitle": "Juegos gratuitos para memoria y concentración",
+        "metaDescription": "Mejora tu enfoque y memoria con desafíos divertidos en línea. Juegos gratuitos de entrenamiento cerebral para todas las edades.",
+        "metaKeywords": "juegos de memoria, juegos de enfoque, juegos de concentración, entrenamiento cerebral, juegos en línea gratuitos",
+        "ogTitle": "Juegos gratuitos de enfoque y memoria - Entrena tu cerebro en línea",
+        "ogDescription": "Mejora tu memoria y concentración con nuestros juegos cerebrales gratuitos y científicamente fundamentados. ¡Perfecto para todas las edades!"
+    },
+    "categories": {
+        "title": "Categorías",
+        "heading": "Categorías de juegos",
+        "description": "Explora nuestra colección de juegos de entrenamiento cerebral por categorías de habilidades cognitivas. Cada categoría se enfoca en un aspecto diferente del rendimiento mental.",
+        "metaTitle": "Categorías de juegos | Entrenamiento cerebral",
+        "metaDescription": "Explora nuestros juegos de entrenamiento cerebral por categorías de habilidades cognitivas. Encuentra juegos que se dirigen a habilidades mentales específicas.",
+        "metaKeywords": "categorías de entrenamiento cerebral, habilidades cognitivas, juegos de memoria, juegos de enfoque, juegos de atención, juegos de tiempo de reacción, flexibilidad cognitiva",
+        "ogTitle": "Categorías de juegos de entrenamiento cerebral",
+        "ogDescription": "Descubre nuestra colección categorizada de juegos cerebrales diseñados para mejorar habilidades cognitivas específicas.",
+        "categoryNames": {
+            "working-memory": "Memoria de trabajo",
+            "visual-tracking": "Seguimiento visual",
+            "sustained-attention": "Atención sostenida",
+            "selective-attention": "Atención selectiva",
+            "divided-attention": "Atención dividida",
+            "reaction-time": "Tiempo de reacción",
+            "cognitive-flexibility": "Flexibilidad cognitiva"
+        },
+        "categoryDescriptions": {
+            "working-memory": "Juegos que fortalecen tu capacidad para retener y manipular información temporalmente. Una memoria de trabajo fuerte ayuda a los estudiantes a recordar instrucciones, a los profesionales a manejar múltiples tareas y a todos a seguir mejor las conversaciones.",
+            "visual-tracking": "Juegos que mejoran tu capacidad para seguir objetos en movimiento y mantener el enfoque visual. Un mejor seguimiento visual ayuda a los lectores a evitar saltar líneas, a los conductores a seguir múltiples vehículos y a los atletas a seguir pelotas rápidas.",
+            "sustained-attention": "Juegos que desarrollan tu capacidad para mantener el enfoque durante períodos prolongados. Una atención sostenida mejorada ayuda a los estudiantes a mantenerse comprometidos en clases largas, a los profesionales a mantener la productividad durante el día laboral y a todos a completar tareas sin divagar mentalmente.",
+            "selective-attention": "Juegos que mejoran tu capacidad para concentrarte en información relevante mientras filtras distracciones. Una mejor atención selectiva ayuda a los estudiantes a estudiar en entornos ruidosos, a los profesionales a concentrarse en oficinas ocupadas y a todos a mantener el enfoque a pesar de las interrupciones.",
+            "divided-attention": "Juegos que desarrollan tu capacidad para dividir la atención de manera efectiva entre múltiples tareas o estímulos. Una atención dividida mejorada ayuda a los padres a supervisar a los niños mientras realizan tareas domésticas, a los profesionales a manejar responsabilidades simultáneas y a los conductores a navegar de manera segura mientras están conscientes del entorno.",
+            "reaction-time": "Juegos que agudizan tu velocidad de respuesta a estímulos visuales o auditivos. Un tiempo de reacción más rápido ayuda a los atletas a rendir mejor, a los conductores a reaccionar rápidamente a los peligros en la carretera y a los adultos mayores a prevenir caídas.",
+            "cognitive-flexibility": "Juegos que mejoran tu capacidad para cambiar entre diferentes conceptos o adaptarte a reglas cambiantes. Una mayor flexibilidad cognitiva ayuda a los estudiantes a aplicar conocimientos a través de las materias, a los profesionales a adaptarse a las demandas laborales cambiantes y a todos a navegar situaciones sociales de manera más efectiva."
+        },
+        "keywords": {
+            "working-memory": {
+                "working memory training": "entrenamiento de memoria de trabajo",
+                "memory training": "entrenamiento de memoria",
+                "improve working memory": "mejorar memoria de trabajo",
+                "working memory exercises": "ejercicios de memoria de trabajo",
+                "best way to improve working memory": "mejor manera de mejorar memoria de trabajo",
+                "boost working memory": "potenciar memoria de trabajo",
+                "brain working memory": "memoria de trabajo cerebral",
+                "working memory capacity": "capacidad de memoria de trabajo",
+                "short-term memory improvement": "mejora de memoria a corto plazo",
+                "cognitive training for memory": "entrenamiento cognitivo para memoria"
+            },
+            "visual-tracking": {
+                "visual tracking exercises": "ejercicios de seguimiento visual",
+                "improve visual tracking": "mejorar seguimiento visual",
+                "visual tracking skills": "habilidades de seguimiento visual",
+                "eye tracking training": "entrenamiento de seguimiento ocular",
+                "visual attention training": "entrenamiento de atención visual",
+                "visual processing speed": "velocidad de procesamiento visual",
+                "visual focus exercises": "ejercicios de enfoque visual",
+                "eye movement training": "entrenamiento de movimiento ocular",
+                "visual tracking for reading": "seguimiento visual para lectura",
+                "sports vision training": "entrenamiento de visión deportiva"
+            },
+            "sustained-attention": {
+                "sustained attention training": "entrenamiento de atención sostenida",
+                "improve focus duration": "mejorar duración del enfoque",
+                "concentration exercises": "ejercicios de concentración",
+                "attention span improvement": "mejora del lapso de atención",
+                "focus training": "entrenamiento de enfoque",
+                "mental endurance exercises": "ejercicios de resistencia mental",
+                "concentration games": "juegos de concentración",
+                "improve attention span": "mejorar lapso de atención",
+                "focus and concentration training": "entrenamiento de enfoque y concentración",
+                "mindfulness for attention": "mindfulness para atención"
+            },
+            "selective-attention": {
+                "selective attention training": "entrenamiento de atención selectiva",
+                "filter distractions": "filtrar distracciones",
+                "focus amid distractions": "enfoque entre distracciones",
+                "attention filtering exercises": "ejercicios de filtrado de atención",
+                "cognitive control training": "entrenamiento de control cognitivo",
+                "distraction resistance": "resistencia a distracciones",
+                "improve selective attention": "mejorar atención selectiva",
+                "focus training with distractions": "entrenamiento de enfoque con distracciones",
+                "attention control exercises": "ejercicios de control de atención",
+                "cognitive filtering": "filtrado cognitivo"
+            },
+            "divided-attention": {
+                "divided attention training": "entrenamiento de atención dividida",
+                "multitasking exercises": "ejercicios de multitarea",
+                "split attention practice": "práctica de atención dividida",
+                "dual task training": "entrenamiento de tarea dual",
+                "improve multitasking ability": "mejorar habilidad de multitarea",
+                "cognitive multitasking": "multitarea cognitiva",
+                "attention splitting exercises": "ejercicios de división de atención",
+                "multiple task management": "gestión de múltiples tareas",
+                "simultaneous processing training": "entrenamiento de procesamiento simultáneo",
+                "cognitive load management": "gestión de carga cognitiva"
+            },
+            "reaction-time": {
+                "reaction time training": "entrenamiento de tiempo de reacción",
+                "improve response speed": "mejorar velocidad de respuesta",
+                "faster reflexes exercises": "ejercicios para reflejos más rápidos",
+                "quick reaction games": "juegos de reacción rápida",
+                "speed training cognitive": "entrenamiento de velocidad cognitiva",
+                "processing speed improvement": "mejora de velocidad de procesamiento",
+                "reflex training": "entrenamiento de reflejos",
+                "cognitive speed exercises": "ejercicios de velocidad cognitiva",
+                "faster brain response": "respuesta cerebral más rápida",
+                "neurological speed training": "entrenamiento de velocidad neurológica"
+            },
+            "cognitive-flexibility": {
+                "cognitive flexibility training": "entrenamiento de flexibilidad cognitiva",
+                "mental flexibility exercises": "ejercicios de flexibilidad mental",
+                "adaptive thinking training": "entrenamiento de pensamiento adaptativo",
+                "task switching practice": "práctica de cambio de tarea",
+                "improve mental adaptability": "mejorar adaptabilidad mental",
+                "cognitive shifting exercises": "ejercicios de cambio cognitivo",
+                "mental agility training": "entrenamiento de agilidad mental",
+                "flexible thinking games": "juegos de pensamiento flexible",
+                "rule switching training": "entrenamiento de cambio de reglas",
+                "brain flexibility improvement": "mejora de flexibilidad cerebral"
+            }
+        },
+        "categoryNotFound": "Categoría no encontrada",
+        "categoryNotFoundDesc": "No se pudo encontrar la categoría solicitada.",
+        "categoryMetaTitle": "Juegos de {categoryName} - Entrenamiento cerebral y mejora cognitiva",
+        "categoryMetaDescription": "Explora nuestra colección de juegos de entrenamiento cerebral centrados en {categoryName}. {categoryDescription}",
+        "categoryOgTitle": "Juegos de entrenamiento de {categoryName} - Mejora tus habilidades cognitivas",
+        "categoryOgDescription": "Mejora tu {categoryName} con nuestros juegos especializados de entrenamiento cerebral. Gratis, efectivos y científicamente fundamentados.",
+        "categoryGamesHeading": "Juegos de {categoryName}"
+    },
+    "games": {
+        "title": "Juegos",
+        "heading": "Juegos de entrenamiento de enfoque",
+        "description": "Descubre nuestros juegos gratuitos para mejorar el enfoque, diseñados para agudizar tu atención y concentración con desafíos divertidos y específicos.",
+        "filters": {
+            "all": "Todos los juegos",
+            "more": "Más categorías..."
+        },
+        "template": {
+            "howToPlay": "Cómo jugar",
+            "cognitiveBenefits": "Beneficios cognitivos",
+            "faq": "Preguntas frecuentes",
+            "relatedGames": "Juegos relacionados",
+            "trainingCategories": "Categorías de entrenamiento"
+        },
+        "aboutBrainTraining": {
+            "title": "Acerca del entrenamiento cerebral",
+            "paragraph1": "El entrenamiento cognitivo, a menudo denominado entrenamiento cerebral, implica ejercicios mentales regulares diseñados para mejorar funciones cognitivas específicas como la memoria, la atención, la velocidad de procesamiento y la resolución de problemas.",
+            "paragraph2": "Nuestros juegos están diseñados basándose en principios de la psicología cognitiva y la neurociencia. Cada juego se enfoca en habilidades cognitivas específicas que son importantes para el funcionamiento diario, el éxito académico y el rendimiento profesional.",
+            "paragraph3": "Para obtener los mejores resultados, recomendamos practicar regularmente en diversas áreas cognitivas. Solo 15-20 minutos de entrenamiento al día, 3-4 veces por semana, pueden llevar a mejoras notables en tus habilidades cognitivas con el tiempo."
+        },
+        "trainingPlans": {
+            "title": "Planes de entrenamiento recomendados",
+            "focus": {
+                "title": "Mejora del enfoque",
+                "description": "Mejora tu capacidad para concentrarte y resistir distracciones.",
+                "item1": "Tabla de Schulte (10 min.)",
+                "item2": "Rastro de peces (5 min.)",
+                "item3": "Número mayor (5 min.)"
+            },
+            "memory": {
+                "title": "Potenciación de la memoria",
+                "description": "Fortalece tu memoria de trabajo y capacidad de recuerdo.",
+                "item1": "Dual N-Back (10 min.)",
+                "item2": "Desafío de memoria de bloques (5 min.)",
+                "item3": "Salto de memoria de rana (5 min.)"
+            },
+            "flexibility": {
+                "title": "Flexibilidad cognitiva",
+                "description": "Mejora tu capacidad para adaptarte a tareas y reglas cambiantes.",
+                "item1": "Mahjong Dual N-Back (10 min.)",
+                "item2": "Número mayor (5 min.)",
+                "item3": "Tabla de Schulte (5 min.)"
+            }
+        },
+        "metaTitle": "Juegos de entrenamiento cerebral | Mejora el enfoque, la memoria y las habilidades cognitivas",
+        "metaDescription": "Explora nuestra colección de juegos gratuitos de entrenamiento cerebral diseñados para mejorar habilidades cognitivas como la memoria, la atención, la velocidad de procesamiento y más.",
+        "metaKeywords": "juegos cerebrales, entrenamiento cognitivo, juegos de memoria, juegos de enfoque, juegos de atención, entrenamiento cerebral, juegos cerebrales gratuitos, ejercicios mentales, mejora cognitiva, fitness cerebral",
+        "ogTitle": "Juegos gratuitos de entrenamiento cerebral | Potencia tus habilidades cognitivas",
+        "ogDescription": "Descubre juegos científicamente fundamentados para mejorar tu memoria, enfoque, atención y otras habilidades cognitivas. Entrena tu cerebro gratis.",
+        "schulteTable": {
+            "title": "Tabla de Schulte",
+            "subtitle": "Mejora tu atención y visión periférica",
+            "description": "Mejora tu atención y visión periférica",
+            "howToPlay": "Encuentra y haz clic en los números en orden ascendente (1-25) lo más rápido posible. ¡Intenta usar tu visión periférica en lugar de escanear cada número individualmente!",
+            "speedStandards": {
+                "title": "Estándares de velocidad",
+                "intro": "Aquí están los estándares de referencia para una prueba de Tabla de Schulte 5x5 (1-25):",
+                "children": {
+                    "title": "Niños (6 años):",
+                    "brilliant": "Brillante: 60 segundos o menos",
+                    "optimal": "Óptimo: Hasta 70 segundos",
+                    "mediocre": "Mediocre: Hasta 80 segundos"
+                },
+                "adults": {
+                    "title": "Adultos:",
+                    "beginner": "Nivel principiante: 40-60 segundos",
+                    "average": "Competencia promedio: 25-40 segundos",
+                    "advanced": "Nivel avanzado: 15-25 segundos",
+                    "elite": "Rendimiento elite: Menos de 15 segundos"
+                }
+            },
+            "watchDemo": "Ver demo",
+            "demo": "Demo",
+            "metaTitle": "Tabla de Schulte - Juego de entrenamiento de visión periférica y atención",
+            "metaDescription": "Mejora tu visión periférica, capacidad de atención y velocidad de lectura con el ejercicio de la Tabla de Schulte. Encuentra números en secuencia mientras entrenas tu cerebro para procesar información visual más rápido.",
+            "metaKeywords": "ejercicio de Tabla de Schulte, entrenamiento de visión periférica, juego de atención visual, práctica de velocidad de lectura, juego de secuencia de números, entrenamiento de procesamiento visual, mejora de la capacidad de atención, ejercicio de velocidad cognitiva",
+            "ogTitle": "Tabla de Schulte - Entrena tu visión periférica y atención",
+            "ogDescription": "Desafíate a encontrar números en secuencia mientras desarrollas un procesamiento visual más rápido. Se ha demostrado científicamente que mejora la velocidad de lectura y la atención.",
+            "benefits": {
+                "visualProcessing": {
+                    "title": "Procesamiento visual",
+                    "description": "Mejora tu capacidad para procesar información visual rápidamente y ampliar tu campo de visión."
+                },
+                "focusTraining": {
+                    "title": "Entrenamiento de enfoque",
+                    "description": "Mejora la concentración y la capacidad de atención a través de ejercicios sistemáticos de búsqueda visual."
+                },
+                "readingSpeed": {
+                    "title": "Velocidad de lectura",
+                    "description": "Desarrolla habilidades de lectura más rápidas entrenando tus ojos para captar más información a la vez."
+                }
+            },
+            "faq": {
+                "howItWorks": {
+                    "question": "¿Cómo funciona la Tabla de Schulte?",
+                    "answer": "La Tabla de Schulte entrena tu cerebro para procesar información visual de manera más eficiente al obligarte a mantener el enfoque mientras usas tu visión periférica para localizar números rápidamente."
+                },
+                "bestPractice": {
+                    "question": "¿Cuál es la mejor manera de practicar?",
+                    "answer": "Intenta fijar tus ojos en el centro de la tabla y usar tu visión periférica para localizar los números. Practica de 10 a 15 minutos diarios para obtener los mejores resultados."
+                },
+                "readingHelp": {
+                    "question": "¿Cómo ayuda esto con la velocidad de lectura?",
+                    "answer": "Al entrenar tu visión periférica, puedes percibir más texto a la vez mientras lees. Esto reduce el número de movimientos oculares necesarios, permitiéndote procesar información más rápido y leer de manera más eficiente."
+                },
+                "research": {
+                    "question": "¿Está respaldado este ejercicio por la investigación?",
+                    "answer": "Sí, la Tabla de Schulte se ha utilizado en psicología cognitiva durante décadas. La investigación muestra que mejora efectivamente la atención visual, la velocidad de procesamiento y puede ayudar con condiciones como el TDAH al fortalecer las redes de atención."
+                },
+                "peripheralVision": {
+                    "question": "¿Qué es la visión periférica y por qué es importante?",
+                    "answer": "La visión periférica es tu capacidad para percibir información en los bordes de tu campo visual sin mirar directamente. Es crucial en la vida diaria para actividades como conducir (notar vehículos circundantes), leer (captar más texto a la vez) y deportes (percibir las posiciones de los compañeros de equipo). Una visión periférica fuerte mejora tu conciencia espacial, tiempo de reacción y capacidad para distribuir la atención de manera efectiva."
+                }
+            },
+            "gameUI": {
+                "best": "Mejor",
+                "time": "Tiempo",
+                "bestTime": "Mejor tiempo",
+                "mistakes": "Errores",
+                "findNumber": "Encontrar número",
+                "findNumbersInSequence": "Encontrar números en secuencia...",
+                "likeThis": "¡Así! 👆",
+                "startGame": "Iniciar juego",
+                "starting": "Comenzando...",
+                "playAgain": "Jugar de nuevo",
+                "share": "Compartir",
+                "restart": "Reiniciar",
+                "gameComplete": "¡Juego completado!",
+                "gameStopped": "Juego pausado",
+                "timeElapsed": "Tiempo transcurrido",
+                "resumeGame": "Reanudar juego",
+                "stop": "Pausar"
+            }
+        },
+        "dualNBack": {
+            "title": "Dual N-Back",
+            "subtitle": "Entrena tu memoria de trabajo recordando estímulos visuales y auditivos N pasos atrás.",
+            "description": "Entrena tu memoria de trabajo recordando estímulos visuales y auditivos N pasos atrás.",
+            "howToPlayIntro": "En este juego, se te presentará una secuencia de estímulos: posiciones en una cuadrícula y letras. Tu tarea es identificar cuando el estímulo actual coincide con el de N pasos atrás. Presiona el botón de posición si la posición coincide y el botón de sonido si la letra coincide.",
+            "howToPlay1": "Observa la cuadrícula y escucha la letra",
+            "howToPlay2": "Presiona el botón de posición si la posición coincide",
+            "howToPlay3": "Presiona el botón de sonido si la letra coincide.",
+            "howToPlay4": "A medida que mejoras, el nivel de N-Back aumentará, haciendo la tarea más desafiante.",
+            "benefits": {
+                "workingMemory": {
+                    "title": "Memoria de trabajo",
+                    "description": "Mejora tu capacidad para retener y manipular múltiples piezas de información en tu mente mientras rastreas posiciones y sonidos."
+                },
+                "fluidIntelligence": {
+                    "title": "Inteligencia fluida",
+                    "description": "Mejora tus habilidades de resolución de problemas y flexibilidad cognitiva a través de la naturaleza desafiante de la tarea dual del ejercicio Mahjong N-Back."
+                },
+                "attentionControl": {
+                    "title": "Control de atención",
+                    "description": "Mejora tu enfoque y capacidad para filtrar distracciones mientras monitoreas simultáneamente estímulos visuales y auditivos de Mahjong."
+                }
+            },
+            "faq": {
+                "science": {
+                    "question": "¿Qué es N-Back?",
+                    "answer": "N-Back es una tarea cognitiva en la que debes recordar lo que sucedió N pasos atrás en una secuencia. Por ejemplo, en una tarea de 2-Back, debes recordar lo que se mostró dos pasos atrás."
+                },
+                "practice": {
+                    "question": "¿Con qué frecuencia debo practicar?",
+                    "answer": "Para obtener resultados óptimos, intenta practicar de 20 a 30 minutos al día, 4-5 días a la semana. La consistencia es más importante que la duración."
+                },
+                "progress": {
+                    "question": "¿Cómo sé si estoy mejorando?",
+                    "answer": "A medida que mejoras, podrás aumentar el nivel de N-Back (de 1-Back a 2-Back, 3-Back, etc.) mientras mantienes la precisión. Tu tiempo de reacción también mejorará."
+                },
+                "challenging": {
+                    "question": "¿Qué tan desafiante es este juego?",
+                    "answer": "Este juego está diseñado para ser desafiante. Es una excelente manera de mejorar tu atención y memoria de trabajo."
+                },
+                "improvements": {
+                    "question": "¿Cómo mejorará esto mi vida?",
+                    "answer": "Este juego es una excelente manera de mejorar tu atención y memoria de trabajo. Es una forma divertida de entrenar tu cerebro."
+                }
+            },
+            "gameUI": {
+                "dual": "Dual",
+                "position": "Posición",
+                "audio": "Audio",
+                "sound": "Sonido",
+                "back": "{level}-Back",
+                "challenge": "Desafío Dual N-Back",
+                "trackInfo": "Rastrea {types} de {level} pasos atrás.",
+                "starting": "Comenzando...",
+                "startChallenge": "Iniciar desafío",
+                "trial": "Intento {current} de {total}",
+                "positionMatch": "A: Posición coincide",
+                "soundMatch": "L: Sonido coincide",
+                "trainingResults": "Resultados del entrenamiento",
+                "accuracy": "{correct}/{total}",
+                "accuracyPercent": "{percent}% de precisión",
+                "missed": "Perdidos",
+                "falseAlarms": "Falsas alarmas",
+                "overallPerformance": "Rendimiento general",
+                "level": "Nivel:",
+                "trials": "Intentos: {count}",
+                "playAgain": "Jugar de nuevo",
+                "shareResults": "Compartir resultados",
+                "settings": "Configuración",
+                "gameSettings": "Configuración del juego",
+                "nBackLevel": "Nivel de N-Back",
+                "voiceType": "Tipo de voz",
+                "male": "Masculino",
+                "female": "Femenino",
+                "trainingMode": "Modo de entrenamiento",
+                "trialsPerRound": "Intentos por ronda",
+                "trialSpeed": "Velocidad del intento",
+                "seconds": "{seconds}s",
+                "saveChanges": "Guardar cambios"
+            },
+            "gameMessages": {
+                "keepOneMode": "Debes mantener al menos un modo activado"
+            },
+            "metaTitle": "Dual N-Back - Juego de entrenamiento de memoria de trabajo",
+            "metaDescription": "Entrena tu memoria de trabajo y habilidades cognitivas con el ejercicio cognitivo Dual N-Back, científicamente fundamentado. Con una naturaleza de tarea dual que desafía a tu cerebro a retener múltiples piezas de información simultáneamente mientras procesa nuevas entradas.",
+            "metaKeywords": "entrenamiento Dual N-Back, juego de memoria de trabajo, entrenamiento cognitivo, práctica de control de atención, tarea N-Back, juego de mejora de memoria, juego Dual N-Back gratuito, juego de entrenamiento cerebral, ejercicio de velocidad cognitiva, mejora de la capacidad de atención",
+            "ogTitle": "Dual N-Back - Entrenamiento avanzado de memoria de trabajo",
+            "ogDescription": "Entrena tu memoria de trabajo y habilidades cognitivas con el ejercicio cognitivo Dual N-Back, científicamente fundamentado. Con una naturaleza de tarea dual que desafía a tu cerebro a retener múltiples piezas de información simultáneamente mientras procesa nuevas entradas."
+        },
+        "mahjongDualNBack": {
+            "title": "Mahjong Dual N-Back",
+            "subtitle": "Entrenamiento avanzado de memoria de trabajo con fichas tradicionales de Mahjong",
+            "description": "Una variante de Dual N-Back que utiliza fichas de Mahjong y sonidos para entrenar la memoria de trabajo y las habilidades cognitivas.",
+            "howToPlayIntro": "En esta desafiante tarea de memoria, inspirada en el Mahjong tradicional, debes recordar tanto los patrones de las fichas como los estímulos auditivos de N pasos atrás en la secuencia:",
+            "howToPlay1": "Observa cómo las fichas de Mahjong aparecen en secuencia sobre una mesa de fieltro verde azulado",
+            "howToPlay2": "Presiona \"Ficha coincide\" si la ficha actual coincide con la de N pasos atrás",
+            "howToPlay3": "Presiona \"Sonido coincide\" si el sonido actual coincide con el de N pasos atrás",
+            "howToPlay4": "Usa atajos de teclado: 'A' para ficha coincide, 'L' para sonido coincide",
+            "howToPlay5": "Comienza con 1-Back (recordar la ficha anterior) y avanza a niveles superiores a medida que mejora tu memoria",
+            "howToPlay6": "Ajusta la configuración para personalizar tu experiencia de entrenamiento con diferentes niveles de N-Back y tipos de estímulos",
+            "benefits": {
+                "workingMemory": {
+                    "title": "Memoria de trabajo",
+                    "description": "Fortalece tu capacidad para retener y manipular múltiples piezas de información en tu mente mientras rastreas posiciones y sonidos de fichas de Mahjong."
+                },
+                "fluidIntelligence": {
+                    "title": "Inteligencia fluida",
+                    "description": "Mejora tus habilidades de resolución de problemas y flexibilidad cognitiva a través de la naturaleza desafiante de la tarea dual del ejercicio Mahjong N-Back."
+                },
+                "attentionControl": {
+                    "title": "Control de atención",
+                    "description": "Mejora tu enfoque y capacidad para filtrar distracciones mientras monitoreas simultáneamente estímulos visuales y auditivos de Mahjong."
+                }
+            },
+            "faq": {
+                "science": {
+                    "question": "¿Cuál es la ciencia detrás de Mahjong Dual N-Back?",
+                    "answer": "Dual N-Back ha sido ampliamente estudiado en neurociencia cognitiva. Una investigación publicada en PNAS (2008) sugirió que el entrenamiento con esta tarea puede mejorar la inteligencia fluida. Nuestra versión temática de Mahjong combina la coincidencia de posición y audio con la estética tradicional de Mahjong para crear un entrenamiento cognitivo atractivo."
+                },
+                "difference": {
+                    "question": "¿En qué se diferencia esto del Dual N-Back regular?",
+                    "answer": "Mientras se mantienen las mecánicas centrales de Dual N-Back de rastrear posición y estímulos auditivos, nuestra versión integra fichas de Mahjong auténticas y un fondo de fieltro verde tradicional. Este tema cultural hace que el ejercicio sea visualmente más atractivo mientras mantiene el desafío cognitivo que hace efectivo a Dual N-Back."
+                },
+                "practice": {
+                    "question": "¿Con qué frecuencia debo practicar con las fichas de Mahjong?",
+                    "answer": "Para obtener resultados óptimos, intenta realizar sesiones de 20-30 minutos de entrenamiento Mahjong Dual N-Back, 3-4 veces por semana. La consistencia es más importante que la duración. La práctica regular ayuda a tu cerebro a construir caminos neuronales más fuertes para tareas de memoria de trabajo que involucran tanto posición visual como procesamiento auditivo."
+                },
+                "improvements": {
+                    "question": "¿Veré mejoras en mi vida diaria a través del entrenamiento de memoria Mahjong?",
+                    "answer": "Muchos usuarios reportan mejoras en la concentración, la capacidad de multitarea y la retención de información después de practicar regularmente con ejercicios Dual N-Back. Las habilidades de rastreo de posición y audio desarrolladas aquí pueden transferirse a actividades académicas, profesionales y diarias que requieren atención a múltiples flujos de información."
+                },
+                "knowledge": {
+                    "question": "¿Necesito saber cómo jugar Mahjong para usar este juego de entrenamiento?",
+                    "answer": "No, no se requiere conocimiento previo de Mahjong. Aunque utilizamos los hermosos elementos visuales de las fichas tradicionales de Mahjong, la tarea cognitiva se centra en recordar posiciones y sonidos en lugar de las reglas del juego de Mahjong. El ejercicio está diseñado para ser accesible para todos, independientemente de su familiaridad con Mahjong."
+                }
+            },
+            "gameUI": {
+                "Dual": "Dual",
+                "settings": "Configuración",
+                "gameSettings": "Configuración del juego",
+                "nBackLevel": "Nivel de N-Back",
+                "back": "{level}-Back",
+                "voiceType": "Tipo de voz",
+                "male": "Masculino en inglés",
+                "female": "Femenino en inglés",
+                "chineseFemale": "Femenino en chino",
+                "trainingMode": "Modo de entrenamiento",
+                "tile": "Ficha",
+                "sound": "Sonido",
+                "tileMatch": "Ficha coincide",
+                "soundMatch": "Sonido coincide",
+                "keyA": "A",
+                "keyL": "L",
+                "trialsPerRound": "Intentos por ronda",
+                "trials": "{count} intentos",
+                "trialSpeed": "Velocidad del intento",
+                "seconds": "{seconds}s",
+                "saveChanges": "Guardar cambios",
+                "keepOneMode": "Debes mantener al menos un modo activado",
+                "challenge": "Desafío Mahjong Dual N-Back",
+                "trackInfo": "Rastrea {types} de {level} pasos atrás.",
+                "loading": "Cargando...",
+                "loadingStatus": "Cargando... ({loadedAudio}/{totalAudio} audios, {loadedImages}/{totalImages} imágenes)",
+                "startTraining": "Iniciar entrenamiento",
+                "restart": "Reiniciar",
+                "trial": "Intento {current}/{total}",
+                "trainingResults": "Resultados del entrenamiento",
+                "accuracy": "{correct}/{total}",
+                "accuracyPercent": "{percent}% de precisión",
+                "missed": "Perdidos",
+                "falseAlarms": "Falsas alarmas",
+                "overallPerformance": "Rendimiento general",
+                "level": "Nivel",
+                "playAgain": "Jugar de nuevo",
+                "share": "Compartir"
+            },
+            "metaTitle": "Mahjong Dual N-Back - Juego de entrenamiento de memoria de trabajo",
+            "metaDescription": "Agudiza tu mente con nuestro juego gratuito Mahjong Dual N-Back, una variante divertida del entrenamiento de memoria clásico. Combina la estrategia de las fichas de Mahjong con desafíos Dual N-Back científicamente fundamentados para potenciar la memoria de trabajo, el enfoque y las habilidades cognitivas. Perfecto para fanáticos de Mahjong, estudiantes y entusiastas del entrenamiento cerebral, ofrece niveles dinámicos y retroalimentación en tiempo real para mejorar la agilidad mental. ¡Juega ahora y domina tu memoria con estilo Mahjong!",
+            "metaKeywords": "entrenamiento Mahjong N-Back, juego de memoria Mahjong, ejercicio de memoria de trabajo, juego de inteligencia fluida, entrenamiento cognitivo con Mahjong, juego de entrenamiento cerebral, práctica de control de atención, tarea N-Back con fichas de Mahjong, juego de mejora de memoria, entrenamiento cerebral Mahjong tradicional, juego Mahjong N-Back gratuito",
+            "ogTitle": "Mahjong Dual N-Back - Entrenamiento avanzado de memoria de trabajo",
+            "ogDescription": "Entrena tu memoria de trabajo y habilidades cognitivas con el ejercicio cognitivo Mahjong Dual N-Back, científicamente fundamentado, que presenta fichas tradicionales de Mahjong."
+        },
+        "fishTrace": {
+            "title": "Rastro de peces luminosos",
+            "subtitle": "Entrena tu seguimiento visual y atención sostenida",
+            "description": "Mejora tus habilidades de seguimiento visual siguiendo peces luminosos en un entorno acuático dinámico.",
+            "gameUI": {
+                "loading": "Cargando juego...",
+                "start": "¡Observa el pez con círculos luminosos!",
+                "glowEnding": "Los círculos desaparecerán pronto...",
+                "tracking": "¡Sigue siguiendo a estos peces!",
+                "selection": "¡Haz clic en el pez que tenía círculos!",
+                "success": "🎉 ¡Perfecto! ¡Nivel {level} completado!",
+                "fail": "¡Juego terminado! Tu puntuación final: ",
+                "nextLevel": "Continuar al nivel {level}",
+                "tryAgain": "Intentar de nuevo",
+                "soundOn": "Sonido activado",
+                "soundOff": "Sonido desactivado"
+            },
+            "metadata": {
+                "title": "Rastro de peces luminosos - Juego de entrenamiento de seguimiento visual y atención",
+                "description": "Mejora tus habilidades de seguimiento visual siguiendo peces luminosos en un entorno acuático dinámico. Entrena tu atención, memoria de trabajo y enfoque a través de desafíos progresivos.",
+                "keywords": "ejercicio de seguimiento visual, juego de entrenamiento de atención, juego de seguimiento de peces, práctica de memoria de trabajo, entrenamiento de enfoque visual, seguimiento de múltiples objetos, juego de mejora cognitiva, ejercicio de atención visual",
+                "ogTitle": "Rastro de peces luminosos - Entrena tus habilidades de seguimiento visual",
+                "ogDescription": "Sigue a los peces luminosos y recuerda cuáles fueron destacados. Mejora tu atención visual y memoria de trabajo a través de desafíos acuáticos atractivos."
+            },
+            "howToPlay": {
+                "intro": "Sigue a los peces luminosos en este desafío de seguimiento acuático:",
+                "step1": "Observa cuidadosamente cómo ciertos peces brillan con círculos de colores",
+                "step2": "Continúa siguiendo a estos peces incluso después de que los círculos desaparezcan",
+                "step3": "Cuando se te indique, haz clic en los peces que tenían los círculos luminosos",
+                "step4": "A medida que mejoras, aparecerán más peces y se moverán más rápido"
+            },
+            "benefits": {
+                "visualTracking": {
+                    "title": "Seguimiento visual",
+                    "description": "Mejora tu capacidad para seguir objetos en movimiento y mantener el enfoque visual en entornos dinámicos."
+                },
+                "sustainedAttention": {
+                    "title": "Atención sostenida",
+                    "description": "Mejora tu capacidad para mantener la concentración en objetivos específicos durante períodos prolongados."
+                },
+                "selectiveAttention": {
+                    "title": "Atención selectiva",
+                    "description": "Desarrolla tu capacidad para concentrarte en estímulos relevantes mientras ignoras distracciones."
+                }
+            },
+            "faq": {
+                "visualTracking": {
+                    "question": "¿Cómo beneficia el entrenamiento de seguimiento visual en la vida diaria?",
+                    "answer": "Fuertes habilidades de seguimiento visual son esenciales para leer, conducir, practicar deportes y navegar en entornos concurridos. Este entrenamiento puede mejorar el rendimiento en todas estas áreas."
+                },
+                "children": {
+                    "question": "¿Es esto adecuado para niños?",
+                    "answer": "¡Sí! Este juego es excelente tanto para niños como para adultos. El entrenamiento de seguimiento visual es particularmente beneficioso para lectores en desarrollo y aquellos con dificultades de atención."
+                },
+                "trainingDuration": {
+                    "question": "¿Cuánto tiempo debería durar cada sesión de entrenamiento?",
+                    "answer": "Apunta a sesiones de 10-15 minutos. La calidad de la atención es más importante que la duración: es mejor tener sesiones cortas con plena concentración que sesiones largas con concentración reducida."
+                },
+                "readingDifficulties": {
+                    "question": "¿Puede esto ayudar con las dificultades de lectura?",
+                    "answer": "Sí, muchas dificultades de lectura están relacionadas con problemas de seguimiento visual. La práctica regular con este juego puede ayudar a mejorar la fluidez y comprensión lectora al fortalecer el sistema de seguimiento visual."
+                }
+            }
+        },
+        "frogMemoryLeap": {
+            "title": "Salto de memoria de rana",
+            "subtitle": "Entrena tu memoria secuencial y reconocimiento de patrones",
+            "description": "Desafía tu memoria secuencial recordando el orden de los saltos de rana sobre las hojas de loto.",
+            "gameUI": {
+                "loading": "Cargando juego...",
+                "start": "Iniciar juego",
+                "level": "Nivel {level}",
+                "watch": "Observa la secuencia",
+                "repeat": "Repite la secuencia",
+                "correct": "¡Correcto!",
+                "wrong": "¡Incorrecto!",
+                "gameOver": "Juego terminado",
+                "score": "Puntuación: {score}",
+                "highScore": "Puntuación alta: {score}",
+                "tryAgain": "Intentar de nuevo",
+                "nextLevel": "Siguiente nivel",
+                "success": "¡Perfecto! Puntuación: {score}\n¡Nivel {level} completado! 🎉"
+            },
+            "metadata": {
+                "title": "Salto de memoria de rana - Juego de entrenamiento de memoria secuencial",
+                "description": "Desafía tu memoria espacial recordando la secuencia de saltos de rana sobre las hojas de loto. Un juego divertido de entrenamiento cerebral para mejorar la memoria de trabajo y la capacidad de atención.",
+                "keywords": "juego de memoria secuencial, entrenamiento de recuerdo espacial, juego de memoria de salto de rana, juego de reconocimiento de patrones, ejercicio de memoria de trabajo, entrenamiento cerebral para niños y adultos, mejora de habilidades cognitivas, juego de capacidad de atención",
+                "ogTitle": "Salto de memoria de rana - Entrena tu memoria secuencial",
+                "ogDescription": "Observa a la rana saltar sobre las hojas de loto y recuerda la secuencia exacta para avanzar a través de niveles cada vez más desafiantes."
+            },
+            "howToPlay": {
+                "intro": "Observa y recuerda la secuencia de saltos de rana, luego repítela:",
+                "step1": "Observa cuidadosamente cómo la rana salta de hoja de loto a hoja de loto",
+                "step2": "Después de la demostración, recrea la secuencia exacta haciendo clic en las hojas de loto en el orden correcto",
+                "step3": "Cada nivel agrega más saltos a la secuencia",
+                "step4": "¡Intenta alcanzar el nivel más alto!"
+            },
+            "benefits": {
+                "workingMemory": {
+                    "title": "Memoria de trabajo",
+                    "description": "Fortalece tu capacidad para retener y recordar secuencias de información en el orden correcto."
+                },
+                "visualSpatialMemory": {
+                    "title": "Memoria visual-espacial",
+                    "description": "Mejora tu capacidad para recordar ubicaciones y relaciones espaciales entre objetos."
+                },
+                "patternRecognition": {
+                    "title": "Reconocimiento de patrones",
+                    "description": "Desarrolla tu capacidad para identificar y recordar patrones, una habilidad esencial para el aprendizaje y la resolución de problemas."
+                }
+            },
+            "faq": {
+                "sequentialMemory": {
+                    "question": "¿Cómo ayuda la memoria secuencial en la vida diaria?",
+                    "answer": "La memoria secuencial es crucial para seguir instrucciones, aprender nuevas habilidades, recordar números de teléfono y ejecutar tareas de múltiples pasos. Es fundamental para muchos aspectos del aprendizaje y el funcionamiento diario."
+                },
+                "ageGroups": {
+                    "question": "¿Es este juego adecuado para todas las edades?",
+                    "answer": "¡Sí! Este juego está diseñado para ser atractivo para niños y desafiante para adultos. La dificultad progresiva asegura que jugadores de todas las edades y habilidades puedan beneficiarse."
+                },
+                "practiceTips": {
+                    "question": "¿Con qué frecuencia debo practicar?",
+                    "answer": "Para obtener los mejores resultados, practica de 10 a 15 minutos diarios. La práctica consistente y regular es más efectiva que sesiones largas ocasionales."
+                },
+                "learningDifficulties": {
+                    "question": "¿Puede esto ayudar con las dificultades de aprendizaje?",
+                    "answer": "Sí, muchas dificultades de aprendizaje involucran desafíos con el procesamiento secuencial y la memoria de trabajo. La práctica regular con este juego puede ayudar a fortalecer estas habilidades cognitivas."
+                }
+            }
+        },
+        "largerNumber": {
+            "title": "Desafío del número mayor",
+            "subtitle": "Entrena tu velocidad de procesamiento y habilidades de comparación numérica",
+            "description": "Identifica rápidamente el mayor de dos números para entrenar la velocidad de procesamiento y la atención.",
+            "howToPlayIntro": "Identifica rápidamente cuál número es mayor en este desafío de ritmo rápido:",
+            "howToPlay1": "Se mostrarán dos números en la pantalla",
+            "howToPlay2": "Toca o haz clic en el número mayor lo más rápido posible",
+            "howToPlay3": "Intenta ser rápido y preciso",
+            "howToPlay4": "Ve cuántas respuestas correctas puedes lograr en 30 segundos",
+            "benefits": {
+                "processingSpeed": {
+                    "title": "Velocidad de procesamiento",
+                    "description": "Mejora la rapidez con la que tu cerebro puede procesar y responder a la información numérica."
+                },
+                "selectiveAttention": {
+                    "title": "Atención selectiva",
+                    "description": "Mejora tu capacidad para concentrarte en información relevante y tomar decisiones rápidas."
+                },
+                "numericalCognition": {
+                    "title": "Cognición numérica",
+                    "description": "Fortalece las vías cerebrales involucradas en comprender y comparar cantidades."
+                }
+            },
+            "faq": {
+                "mathSkills": {
+                    "question": "¿Cómo ayuda esto con las habilidades matemáticas?",
+                    "answer": "Este juego entrena los procesos cognitivos fundamentales que subyacen al pensamiento matemático: percepción rápida de números, comparación de magnitudes y toma de decisiones. Estas habilidades forman la base para habilidades matemáticas más complejas."
+                },
+                "children": {
+                    "question": "¿Es esto bueno para niños que están aprendiendo matemáticas?",
+                    "answer": "¡Sí! Este juego ayuda a desarrollar el sentido numérico, que es crucial para el desarrollo matemático temprano. Es especialmente útil para niños que están aprendiendo a comparar cantidades y entender relaciones numéricas."
+                },
+                "processingSpeed": {
+                    "question": "¿Cómo afecta la velocidad de procesamiento al aprendizaje?",
+                    "answer": "La velocidad de procesamiento afecta la rapidez con la que puedes absorber, comprender y responder a la información. Un procesamiento más rápido te permite manejar tareas complejas de manera más eficiente y reduce la carga cognitiva durante las actividades de aprendizaje."
+                },
+                "adults": {
+                    "question": "¿Pueden los adultos beneficiarse de este entrenamiento?",
+                    "answer": "Absolutamente. La velocidad de procesamiento puede disminuir con la edad, y el entrenamiento regular puede ayudar a mantener o mejorar esta función cognitiva. Este juego ofrece una forma rápida y atractiva de entrenar estas vías neuronales."
+                }
+            },
+            "metaTitle": "Desafío del número mayor - Juego de entrenamiento de comparación numérica",
+            "metaDescription": "Mejora tu velocidad de procesamiento numérico y toma de decisiones con este juego de comparación de números de ritmo rápido. Entrena tu cerebro para identificar rápidamente números mayores.",
+            "metaKeywords": "juego de comparación de números, entrenamiento de procesamiento numérico, ejercicio de velocidad de decisión, entrenamiento cerebral de matemáticas, juego de velocidad cognitiva, comparación de magnitudes numéricas, entrenamiento de tiempo de reacción, juego educativo de matemáticas",
+            "ogTitle": "Desafío del número mayor - Entrena tu velocidad de procesamiento numérico",
+            "ogDescription": "Identifica rápidamente cuál número es mayor en este juego de entrenamiento cerebral de ritmo rápido. Mejora tu velocidad de decisión y procesamiento numérico.",
+            "gameUI": {
+                "challenge": "Completa {attempts} intentos con {accuracy}% de precisión para tener éxito",
+                "starting": "Comenzando...",
+                "startChallenge": "Iniciar desafío",
+                "whichIsLarger": "¿Cuál número es mayor?",
+                "correct": "Correcto",
+                "total": "Total",
+                "accuracy": "Precisión",
+                "congratulations": "¡Felicidades! Has completado el desafío con éxito.",
+                "keepGoing": "¡Sigue practicando! Estás mejorando con cada intento.",
+                "timeUp": "¡Tiempo terminado!",
+                "totalAttempts": "Intentos totales",
+                "correctAnswers": "Respuestas correctas",
+                "target": "Objetivo: {attempts} intentos con {accuracy}% de precisión",
+                "playAgain": "Jugar de nuevo",
+                "share": "Compartir resultados",
+                "settings": "Configuración",
+                "level": "Nivel",
+                "adjustDifficulty": "Ajustar dificultad",
+                "adjustDifficultyDescription": "¿Deseas reducir la dificultad para facilitar el desafío?",
+                "decreaseDifficulty": "Reducir dificultad",
+                "keepCurrentDifficulty": "Mantener dificultad actual",
+                "nextLevel": "Objetivo del siguiente nivel:",
+                "nextLevelTarget": "Completa {attempts} intentos con {accuracy}% de precisión",
+                "continueChallenge": "Continuar desafío"
+            }
+        },
+        "blockMemoryChallenge": {
+            "title": "Desafío de memoria de bloques",
+            "description": "Pon a prueba tu memoria visual recordando secuencias de bloques cada vez más complejas.",
+            "subtitle": "Entrena tu memoria visual y reconocimiento de patrones",
+            "metaTitle": "Desafío de memoria de bloques - Juego de entrenamiento de memoria visual",
+            "metaDescription": "Mejora tu memoria de trabajo y flexibilidad cognitiva recordando y repitiendo secuencias visuales cada vez más complejas.",
+            "metaKeywords": "juego de memoria de bloques, memoria de secuencia visual, entrenamiento de memoria de trabajo, ejercicio de flexibilidad cognitiva, mejora de la capacidad de atención, juego de memorización de secuencias, reconocimiento de patrones visuales, práctica de memoria a corto plazo",
+            "ogTitle": "Desafío de memoria de bloques - Entrena tu memoria visual",
+            "ogDescription": "Recuerda y repite secuencias visuales cada vez más complejas para mejorar tu memoria de trabajo y flexibilidad cognitiva.",
+            "howToPlay": {
+                "intro": "Memoriza y recrea secuencias de bloques parpadeantes en este desafiante juego de memoria:",
+                "step1": "Los bloques se iluminan uno tras otro en una secuencia específica",
+                "step2": "Observa cuidadosamente y recuerda el orden de los bloques destacados",
+                "step3": "Después de que se muestre la secuencia, haz clic en los bloques en el mismo orden",
+                "step4": "A medida que subes de nivel, las secuencias se vuelven más largas y difíciles de recordar",
+                "watchDemo": "Ver demo",
+                "demo": "Demo"
+            },
+            "benefits": {
+                "workingMemory": {
+                    "title": "Memoria de trabajo",
+                    "description": "Mejora tu capacidad para retener y manipular información visual temporalmente en tu mente."
+                },
+                "visualProcessing": {
+                    "title": "Procesamiento visual",
+                    "description": "Mejora la rapidez y precisión con la que tu cerebro procesa e interpreta patrones visuales."
+                },
+                "patternRecognition": {
+                    "title": "Reconocimiento de patrones",
+                    "description": "Fortalece tu capacidad para identificar y recordar patrones visuales, una habilidad clave para el aprendizaje y la resolución de problemas."
+                }
+            },
+            "faq": {
+                "dailyLife": {
+                    "question": "¿Cómo ayuda la memoria de patrones visuales en la vida diaria?",
+                    "answer": "La memoria de patrones visuales es esencial para la navegación, el reconocimiento facial, el aprendizaje de nueva información a través de diagramas o gráficos y muchas habilidades profesionales, desde interpretar radiografías hasta el diseño arquitectónico."
+                },
+                "learning": {
+                    "question": "¿Puede esto mejorar mi capacidad para aprender cosas nuevas?",
+                    "answer": "¡Sí! Una memoria visual fuerte te ayuda a retener información presentada en formatos visuales, que es cómo se realiza gran parte de nuestro aprendizaje. Esta habilidad se transfiere al aprendizaje académico, el desarrollo profesional y el aprendizaje de nuevos pasatiempos."
+                },
+                "practice": {
+                    "question": "¿Con qué frecuencia debo practicar?",
+                    "answer": "Para obtener los mejores resultados, practica de 10 a 15 minutos diarios. La práctica consistente y regular es más efectiva que sesiones largas ocasionales."
+                },
+                "children": {
+                    "question": "¿Es este juego adecuado para niños?",
+                    "answer": "¡Absolutamente! Este juego es excelente para mentes en desarrollo. La memoria visual es crucial para la lectura, las matemáticas y muchas otras habilidades académicas. La dificultad progresiva asegura que siga siendo desafiante a medida que mejoran las habilidades."
+                }
+            },
+            "gameUI": {
+                "level": "Nivel",
+                "score": "Puntuación",
+                "bestScore": "Mejor",
+                "time": "Tiempo",
+                "startGame": "Iniciar juego",
+                "starting": "Comenzando...",
+                "playAgain": "Jugar de nuevo",
+                "share": "Compartir",
+                "gameOver": "¡Juego terminado!",
+                "finalScore": "Puntuación final",
+                "levelsCompleted": "Niveles completados",
+                "watchSequence": "Observando secuencia...",
+                "repeatSequence": "Repite la secuencia",
+                "wellDone": "¡Bien hecho!",
+                "personalBest": "Mejor personal",
+                "yourTurn": "Tu turno..."
+            }
+        }
+    },
+    "buttons": {
+        "startPlaying": "Jugar ahora",
+        "viewAll": "Ver todos"
+    }
+}
