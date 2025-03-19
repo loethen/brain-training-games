@@ -528,7 +528,20 @@
     },
     "fishTrace": {
       "title": "Glowing Fish Trace",
-      "description": "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment."
+      "description": "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment.",
+      "gameUI": {
+        "loading": "Loading game...",
+        "start": "Watch the fish with glowing circles!",
+        "glowEnding": "Circles will disappear soon...",
+        "tracking": "Keep tracking those fish!",
+        "selection": "Click on the fish that had circles!",
+        "success": "🎉 Perfect! Level {level} completed!",
+        "fail": "Game Over! Your final score: ",
+        "nextLevel": "Continue to Level {level}",
+        "tryAgain": "Try Again",
+        "soundOn": "Sound On",
+        "soundOff": "Sound Off"
+      }
     },
     "frogMemoryLeap": {
       "title": "Frog Memory Leap",

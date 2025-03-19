@@ -31,12 +31,15 @@ export class SunfishScene extends Scene {
     private messageText!: Phaser.GameObjects.Text;
     private bgMusic: Phaser.Sound.BaseSound | null = null;
     private isMuted: boolean = false;
+    private translate!: (key: string, params?: Record<string, string | number>) => string;
 
     constructor() {
         super({ key: 'SunfishScene' });
     }
 
     init(config: { level?: number; score?: number; sunfishCount?: number; glowingSunfishCount?: number; glowColor?: number; glowDuration?: number; gameDuration?: number; ranbowfishCount?: number; }) {
+        this.translate = this.game.registry.get('t') || ((key: string) => key);
+        
         this.state = {
             level: config.level || 1,
             score: config.score || 0,
@@ -99,7 +102,7 @@ export class SunfishScene extends Scene {
         this.messageText = this.add.text(
             this.scale.width / 2,
             messageY,
-            GAME_CONFIG.messages.start,
+            this.translate('start'),
             {
                 fontSize: '24px',
                 fontFamily: 'Arial',
@@ -385,7 +388,7 @@ export class SunfishScene extends Scene {
 
     startWatchingPhase() {
         this.state.phase = 'watching';
-        this.messageText.setText(GAME_CONFIG.messages.start);
+        this.messageText.setText(this.translate('start'));
         
         const glowingFish = this.chooseGlowFishes(this.sunfishGroup, this.glowingSunfishCount);
         
@@ -396,7 +399,7 @@ export class SunfishScene extends Scene {
 
         // 光圈即将消失的警告
         this.time.delayedCall(this.glowDuration - GAME_CONFIG.timing.warningBeforeGlowEnd, () => {
-            this.messageText.setText(GAME_CONFIG.messages.glowEnding);
+            this.messageText.setText(this.translate('glowEnding'));
         });
 
         // 进入追踪阶段
@@ -407,7 +410,7 @@ export class SunfishScene extends Scene {
 
     startTrackingPhase() {
         this.state.phase = 'tracking';
-        this.messageText.setText(GAME_CONFIG.messages.tracking);
+        this.messageText.setText(this.translate('tracking'));
 
         // 一段时间后进入选择阶段
         this.time.delayedCall(this.gameDuration - this.glowDuration, () => {
@@ -417,7 +420,7 @@ export class SunfishScene extends Scene {
 
     startSelectionPhase() {
         this.state.phase = 'selecting';
-        this.messageText.setText(GAME_CONFIG.messages.selection);
+        this.messageText.setText(this.translate('selection'));
         
         // 停止所有鱼的移动
         this.physics.pause();
@@ -728,14 +731,15 @@ export class SunfishScene extends Scene {
 
     handleSuccess() {
         this.state.score += this.state.level * 100;
-        this.messageText.setText(
-            GAME_CONFIG.messages.success.replace('{level}', this.state.level.toString())
-        );
         
+        // 使用正确的翻译方式，传递参数
+        this.messageText.setText(this.translate('success', { level: this.state.level }));
+        
+        // 为下一关按钮使用参数化翻译
         const nextBtn = this.createGameButton(
             this.scale.width / 2,
             this.scale.height / 2,
-            'NEXT LEVEL'
+            this.translate('nextLevel', { level: this.state.level + 1 })
         );
         
         nextBtn.on('pointerup', () => {
@@ -747,12 +751,13 @@ export class SunfishScene extends Scene {
     }
 
     handleGameOver() {
-        this.messageText.setText(GAME_CONFIG.messages.fail + this.state.score);
+        // 传递分数参数
+        this.messageText.setText(this.translate('fail', { score: this.state.score }));
         
         const tryAgainBtn = this.createGameButton(
             this.scale.width / 2,
             this.scale.height / 2,
-            'TRY AGAIN'
+            this.translate('tryAgain')
         );
         
         tryAgainBtn.on('pointerup', () => {
@@ -827,17 +832,63 @@ export class SunfishScene extends Scene {
     // 新增专用方法处理音乐播放
     private tryPlayMusic() {
         try {
-            if (this.sound.locked) {
-                this.input.once('pointerdown', () => {
-                    if (!this.isMuted && !this.bgMusic?.isPlaying) {
-                        this.bgMusic?.play();
-                    }
-                });
-            } else if (!this.bgMusic?.isPlaying) {
-                this.bgMusic?.play();
+            // 检查声音系统是否可用
+            if (!this.sound || !this.bgMusic) return;
+            
+            // 安全地获取音频上下文
+            let audioContext: AudioContext | null = null;
+            
+            // 检查是否为WebAudio实例并尝试获取上下文
+            if (this.sound.hasOwnProperty('context')) {
+                // 使用类型断言为WebAudioSoundManager
+                const webAudio = this.sound as Phaser.Sound.WebAudioSoundManager;
+                audioContext = webAudio.context;
             }
-        } catch (e) {
-            console.error('Audio play failed:', e);
+            
+            // 检查声音系统状态并播放
+            if (audioContext) {
+                if (audioContext.state === 'running') {
+                    // 直接播放
+                    if (!this.bgMusic.isPlaying) {
+                        this.bgMusic.play();
+                    }
+                } else if (audioContext.state === 'suspended') {
+                    // 尝试恢复AudioContext
+                    audioContext.resume().then(() => {
+                        if (!this.isMuted && !this.bgMusic?.isPlaying) {
+                            this.bgMusic?.play();
+                        }
+                    }).catch((error: Error) => {
+                        console.warn('Failed to resume AudioContext:', error);
+                    });
+                } else {
+                    // 等待用户交互
+                    this.input.once('pointerdown', () => {
+                        if (audioContext) {
+                            audioContext.resume().then(() => {
+                                if (!this.isMuted && !this.bgMusic?.isPlaying) {
+                                    this.bgMusic?.play();
+                                }
+                            }).catch((error: Error) => {
+                                console.warn('Failed to resume AudioContext after interaction:', error);
+                            });
+                        }
+                    });
+                }
+            } else {
+                // 非WebAudio管理器，简单播放方式
+                if (this.sound.locked) {
+                    this.input.once('pointerdown', () => {
+                        if (!this.isMuted && !this.bgMusic?.isPlaying) {
+                            this.bgMusic?.play();
+                        }
+                    });
+                } else if (!this.bgMusic.isPlaying) {
+                    this.bgMusic.play();
+                }
+            }
+        } catch (error: unknown) {
+            console.error('Audio system error:', error);
         }
     }
 } 

@@ -528,8 +528,21 @@
       "ogDescription": "通过科学支持的麻将双重N-Back认知练习训练你的工作记忆和认知技能，特色是传统麻将牌。"
     },
     "fishTrace": {
-      "title": "发光鱼追踪",
-      "description": "通过在动态水下环境中跟踪发光的鱼来提高视觉追踪能力。"
+      "title": "追踪发光小鱼",
+      "description": "通过在动态水下环境中追踪发光鱼来提高视觉追踪能力。",
+      "gameUI": {
+        "loading": "加载中...",
+        "start": "注意观察带有发光圈的鱼！",
+        "glowEnding": "发光圈即将消失...",
+        "tracking": "继续追踪这些鱼！",
+        "selection": "点击之前带有发光圈的鱼！",
+        "success": "🎉 太棒了！完成第{level}关！",
+        "fail": "游戏结束！你的最终得分：",
+        "nextLevel": "继续挑战第{level}关",
+        "tryAgain": "再试一次",
+        "soundOn": "声音开启",
+        "soundOff": "声音关闭"
+      }
     },
     "frogMemoryLeap": {
       "title": "青蛙记忆跳跃",

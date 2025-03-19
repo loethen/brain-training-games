@@ -4,9 +4,14 @@ import { GAME_CONFIG } from '../config';
 export class StartScene extends Scene {
     private canFullscreen: boolean = false;
     private isMobile: boolean = false;
+    private translate: (key: string) => string = (key: string) => key;
 
     constructor() {
         super({ key: 'StartScene' });
+    }
+
+    init() {
+        this.translate = this.game.registry.get('t') || ((key: string) => key);
     }
 
     preload() {

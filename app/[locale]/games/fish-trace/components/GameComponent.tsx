@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 import { Game, Scale, AUTO, Types } from 'phaser';
 import { StartScene } from '../scenes/StartScene';
 import { SunfishScene } from '../scenes/SunfishScene';
+import { useTranslations } from 'next-intl';
 
 export default function GameComponent() {
     const gameRef = useRef<Game | null>(null);
     const gameContainerRef = useRef<HTMLDivElement>(null);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const t = useTranslations('games.fishTrace');
 
     useEffect(() => {
         if (gameRef.current) return;
@@ -31,6 +33,21 @@ export default function GameComponent() {
                 arcade: {},
             },
             scene: [StartScene, SunfishScene],
+            callbacks: {
+                preBoot: (game) => {
+                    game.registry.set('t', (key: string, params?: Record<string, string | number>) => {
+                        try {
+                            if (params) {
+                                return t(`gameUI.${key}`, params);
+                            }
+                            return t(`gameUI.${key}`);
+                        } catch (error) {
+                            console.warn(`Translation error for ${key}:`, error);
+                            return key;
+                        }
+                    });
+                }
+            }
         };
 
         gameRef.current = new Game(config);
@@ -47,7 +64,7 @@ export default function GameComponent() {
             gameRef.current?.destroy(true);
             gameRef.current = null;
         };
-    }, []);
+    }, [t]);
 
     return (
         <div 

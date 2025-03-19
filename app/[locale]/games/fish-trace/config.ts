@@ -63,14 +63,5 @@ export const GAME_CONFIG = {
             glowingCount: 1,
             timeMultiplier: 0.9
         }
-    },
-    messages: {
-        start: "Watch the fish with glowing circles!",
-        glowEnding: "Circles will disappear soon...",
-        tracking: "Keep tracking those fish!",
-        selection: "Click on the fish that had circles!",
-        success: "🎉 Perfect! Level {level} completed!",
-        fail: "Game Over! Your final score: ",
-        nextLevel: "Continue to Level {level}"
     }
 } as const; 
