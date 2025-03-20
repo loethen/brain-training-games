@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link"
+import { Link } from "@/i18n/navigation";
 import { Header } from "./header"
 import { useState, useEffect, useCallback } from "react"
 import { Footer } from "./Footer"

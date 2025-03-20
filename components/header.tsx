@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Link, usePathname, useRouter } from "@/i18n/navigation"
-import { useState, startTransition } from "react"
+import { useState } from "react"
 import { useLocale, useTranslations } from "next-intl"
 import {
   DropdownMenu,
@@ -25,13 +25,12 @@ function LanguageSwitcher() {
   const handleLocaleChange = (newLocale: string) => {
     setOpen(false)
     
-    // 使用 startTransition 包装路由操作
-    startTransition(() => {
+    router.replace(pathname, { locale: newLocale })
+    // startTransition(() => {
       // 先替换当前路径的语言
-      router.replace(pathname, { locale: newLocale })
       // 然后刷新路由缓存，确保语言设置正确传播
-      router.refresh()
-    })
+      // router.refresh()
+    // })
   }
   
   // 获取当前语言显示名称

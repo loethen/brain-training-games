@@ -5,7 +5,7 @@ import { GamePreview as SchulteGamePreview } from "./games/schulte-table/compone
 import { ImagePreview } from "@/components/image-preview";
 import { Marquee } from "@/components/magicui/marquee";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { BrainGameIcons } from "@/components/brain-game-icons";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { useTranslations } from 'next-intl';

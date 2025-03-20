@@ -37,6 +37,7 @@ export default function GameComponent() {
     const [currentDifficulty, setCurrentDifficulty] = useState<DifficultySettings>({
         ...GAME_CONFIG.initialDifficulty
     });
+    const [completedLevelDifficulty, setCompletedLevelDifficulty] = useState<DifficultySettings | null>(null);
     const [difficultyLevel, setDifficultyLevel] = useState<number>(1);
     const [showDifficultyAdjustment, setShowDifficultyAdjustment] = useState(false);
 
@@ -54,21 +55,6 @@ export default function GameComponent() {
     const [scrollDelay, setScrollDelay] = useState<number | null>(null);
     // 游戏开始延迟
     const [startGameDelay, setStartGameDelay] = useState<number | null>(null);
-
-    // 计算下一关难度
-    const getNextLevelDifficulty = useCallback(() => {
-        const { attemptsIncrement, minDifferenceDecrement } = GAME_CONFIG.difficultyAdjustment;
-        
-        const nextAttempts = currentDifficulty.attempts + attemptsIncrement;
-        const nextAccuracy = GAME_CONFIG.calculateRequiredAccuracy(nextAttempts);
-        const nextMinDifference = Math.max(1, currentDifficulty.minDifference - minDifferenceDecrement);
-        
-        return {
-            attempts: nextAttempts,
-            accuracy: nextAccuracy,
-            minDifference: nextMinDifference
-        };
-    }, [currentDifficulty]);
 
     // 滚动到游戏区域
     const scrollToGame = useCallback(() => {
@@ -106,6 +92,7 @@ export default function GameComponent() {
         setCorrectAnswers(0);
         setChallengeResult(null);
         setShowDifficultyAdjustment(false);
+        setCompletedLevelDifficulty(null);
 
         // 延迟启动游戏
         setStartGameDelay(500);
@@ -215,6 +202,8 @@ export default function GameComponent() {
         
         setDifficultyLevel(prev => Math.max(1, prev - 1));
         setShowDifficultyAdjustment(false);
+        // 清除完成的难度级别状态，以便正确显示当前的难度目标
+        setCompletedLevelDifficulty(null);
     }, []);
     
     // 保持当前难度
@@ -233,6 +222,9 @@ export default function GameComponent() {
 
         // 如果挑战成功，触发五彩纸屑效果并更新难度
         if (result.success) {
+            // 保存当前难度设置，用于显示结果
+            setCompletedLevelDifficulty({...currentDifficulty});
+            
             // 延迟一点时间，确保状态更新后再触发动画
             setTimeout(() => {
                 triggerConfetti();
@@ -240,9 +232,10 @@ export default function GameComponent() {
             }, 300);
         } else {
             // 如果挑战失败，显示难度调整选项
+            setCompletedLevelDifficulty({...currentDifficulty});
             setShowDifficultyAdjustment(true);
         }
-    }, [totalAttempts, correctAnswers, evaluateChallenge, increaseDifficulty]);
+    }, [totalAttempts, correctAnswers, evaluateChallenge, increaseDifficulty, currentDifficulty]);
 
     // 触发五彩纸屑效果 - 简化版本
     const triggerConfetti = () => {
@@ -303,12 +296,26 @@ export default function GameComponent() {
         );
     };
 
+    // 获取目标描述
+    const getCurrentLevelTarget = () => {
+        const difficulty = completedLevelDifficulty || currentDifficulty;
+        return t("target", {
+            attempts: difficulty.attempts,
+            accuracy: difficulty.accuracy
+        });
+    };
+
     // 获取下一关目标描述
     const getNextLevelTarget = () => {
-        const nextLevel = getNextLevelDifficulty();
+        const difficulty = completedLevelDifficulty || currentDifficulty;
+        const { attemptsIncrement } = GAME_CONFIG.difficultyAdjustment;
+        
+        const nextAttempts = difficulty.attempts + attemptsIncrement;
+        const nextAccuracy = GAME_CONFIG.calculateRequiredAccuracy(nextAttempts);
+        
         return t("nextLevelTarget", {
-            attempts: nextLevel.attempts,
-            accuracy: nextLevel.accuracy
+            attempts: nextAttempts,
+            accuracy: nextAccuracy
         });
     };
 
@@ -425,10 +432,7 @@ export default function GameComponent() {
                                             {calculateAccuracy()}%
                                         </div>
                                         <div className="text-sm text-muted-foreground mt-6">
-                                            {t("target", {
-                                                attempts: currentDifficulty.attempts,
-                                                accuracy: currentDifficulty.accuracy,
-                                            })}
+                                            {getCurrentLevelTarget()}
                                         </div>
                                         
                                         {/* 显示下一关目标 - 仅在成功时显示 */}

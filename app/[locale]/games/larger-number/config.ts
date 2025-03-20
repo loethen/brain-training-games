@@ -7,12 +7,12 @@ export type DifficultySettings = {
 };
 
 export const GAME_CONFIG = {
-  gameTime: 30_000, // 30 seconds
+  gameTime: 10_000, // 30 seconds
   initialDifficulty: {
     minNumber: 10,
     maxNumber: 99, // 限制最大数字为两位数
     minDifference: 2,
-    attempts: 40, // 从较小的次数开始
+    attempts: 10, // 从较小的次数开始
     accuracy: 90  // 初始准确率
   },
   difficultyAdjustment: {
