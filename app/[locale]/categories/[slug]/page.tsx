@@ -1,4 +1,4 @@
-import { getCategoryBySlug, categories } from "@/data/categories";
+import { getCategoryBySlug } from "@/data/categories";
 import { getCategoryGames } from "@/data/game-categories";
 import { getGames } from "@/data/games";
 import GameCard from "@/components/game-card";
@@ -13,6 +13,8 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, locale } = await params;
   const category = getCategoryBySlug(slug);
+  
+  // Load translations once with a merged namespace
   const t = await getTranslations({ locale, namespace: 'categories' });
   
   if (!category) {
@@ -28,10 +30,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // 翻译关键词
   let translatedKeywords = '';
   if (category.keywords && category.keywords.length > 0) {
-    const keywordsT = await getTranslations({ locale, namespace: 'categories.keywords' });
     try {
+      // Use the same translation function by adjusting the path structure in translation files
       const translatedKeywordsArray = category.keywords.map(keyword => 
-        keywordsT(`${category.id}.${keyword}`, { defaultMessage: keyword })
+        t(`keywords.${category.id}.${keyword}`, { defaultMessage: keyword })
       );
       translatedKeywords = translatedKeywordsArray.join(", ");
     } catch {
@@ -63,15 +65,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export function generateStaticParams() {
-  return categories.map((category) => ({
-    slug: category.slug,
-  }));
-}
-
 export default async function CategoryPage({ params }: Props) {
-  const resolvedParams = await Promise.resolve(params);
-  const { slug, locale } = resolvedParams;
+  const { slug, locale } = await params;
   const category = getCategoryBySlug(slug);
   
   if (!category) {
