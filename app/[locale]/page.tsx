@@ -16,8 +16,7 @@ import type { Metadata } from "next";
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
-  const resolvedParams = await params;
-  const locale = resolvedParams.locale;
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
   
   return {

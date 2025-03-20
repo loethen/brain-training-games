@@ -17,8 +17,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
   // 确保 params 是已解析的对象
-  const resolvedParams = await params;
-  const locale = resolvedParams.locale;
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata' });
   
   return {

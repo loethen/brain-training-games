@@ -11,8 +11,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const resolvedParams = await Promise.resolve(params);
-  const { slug, locale } = resolvedParams;
+  const { slug, locale } = await params;
   const category = getCategoryBySlug(slug);
   const t = await getTranslations({ locale, namespace: 'categories' });
   

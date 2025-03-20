@@ -13,8 +13,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const locale = resolvedParams.locale;
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "games.blockMemoryChallenge" });
 
   return {
