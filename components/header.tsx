@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Link, usePathname } from "@/i18n/navigation"
+import { Link, usePathname, useRouter } from "@/i18n/navigation"
 import { useState } from "react"
 import { useLocale, useTranslations } from "next-intl"
 import {
@@ -18,7 +18,14 @@ function LanguageSwitcher() {
   const pathname = usePathname()
   const locale = useLocale()
   const [open, setOpen] = useState(false)
-  const t = useTranslations('common');
+  const t = useTranslations('common')
+  const router = useRouter()
+  
+  // 修改语言切换处理函数
+  const handleLocaleChange = (newLocale: string) => {
+    setOpen(false)
+    router.replace(pathname, { locale: newLocale })
+  }
   
   // 获取当前语言显示名称
   const getLanguageDisplay = () => {
@@ -43,40 +50,26 @@ function LanguageSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="bg-background">
-        <DropdownMenuItem asChild>
-          <Link href={pathname} locale="en">
-            English
-          </Link>
+        <DropdownMenuItem onSelect={() => handleLocaleChange('en')}>
+          English
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={pathname} locale="zh">
-            中文
-          </Link>
+        <DropdownMenuItem onSelect={() => handleLocaleChange('zh')}>
+          中文
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={pathname} locale="de">
-            Deutsch
-          </Link>
+        <DropdownMenuItem onSelect={() => handleLocaleChange('de')}>
+          Deutsch
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={pathname} locale="ja">
-            日本語
-          </Link>
+        <DropdownMenuItem onSelect={() => handleLocaleChange('ja')}>
+          日本語
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={pathname} locale="es">
-            Español
-          </Link>
+        <DropdownMenuItem onSelect={() => handleLocaleChange('es')}>
+          Español
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={pathname} locale="ko">
-            한국어
-          </Link>
+        <DropdownMenuItem onSelect={() => handleLocaleChange('ko')}>
+          한국어
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={pathname} locale="fr">
-            Français
-          </Link>
+        <DropdownMenuItem onSelect={() => handleLocaleChange('fr')}>
+          Français
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

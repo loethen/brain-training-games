@@ -71,8 +71,6 @@ export class SunfishScene extends Scene {
             frameWidth: GAME_CONFIG.assets.sunfish.frameWidth,
             frameHeight: GAME_CONFIG.assets.sunfish.frameHeight,
         });
-        this.load.image('next_level_btn', GAME_CONFIG.assets.ui.nextLevelBtn);
-        this.load.image('try_again_btn', GAME_CONFIG.assets.ui.tryAgainBtn);
         this.load.audio('bgm', GAME_CONFIG.assets.audio.bgm);
     }
 
