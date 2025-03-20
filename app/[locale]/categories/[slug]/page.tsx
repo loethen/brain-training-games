@@ -7,7 +7,7 @@ import { Metadata } from "next";
 import { getTranslations } from 'next-intl/server';
 
 type Props = {
-  params: { slug: string; locale: string } | Promise<{ slug: string; locale: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
