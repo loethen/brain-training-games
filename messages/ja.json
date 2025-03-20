@@ -206,7 +206,7 @@
         "categoryMetaTitle": "{categoryName} ゲーム - 脳トレーニングと認知向上",
         "categoryMetaDescription": "{categoryName}に焦点を当てた脳トレーニングゲームのコレクションを探検します。{categoryDescription}",
         "categoryOgTitle": "{categoryName} トレーニングゲーム - 認知スキルを向上",
-        "categoryOgDescription": "専門的な脳トレーニングゲームで{categorName}を向上させましょう。無料で効果的、科学的に裏付けられたエクササイズ。",
+        "categoryOgDescription": "専門的な脳トレーニングゲームで{categoryName}を向上させましょう。無料で効果的、科学的に裏付けられたエクササイズ。",
         "categoryGamesHeading": "{categoryName} ゲーム"
     },
     "games": {

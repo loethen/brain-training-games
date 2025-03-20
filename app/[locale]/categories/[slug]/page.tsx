@@ -57,8 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         categoryName: categoryName 
       }),
       description: t('categoryOgDescription', { 
-        categoryName: categoryName.toLowerCase(),
-        categorName: categoryName.toLowerCase()
+        categoryName: categoryName.toLowerCase() 
       }),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
