@@ -1,18 +1,17 @@
-import { getCategoryBySlug, categories, Category } from "@/data/categories";
+import { getCategoryBySlug, categories } from "@/data/categories";
 import { getCategoryGames } from "@/data/game-categories";
 import { getGames } from "@/data/games";
 import GameCard from "@/components/game-card";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Metadata } from "next";
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 type Props = {
-  params: Promise<{ slug: string; locale: string }>;
+  params: { slug: string; locale: string } | Promise<{ slug: string; locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const resolvedParams = await params;
+  const resolvedParams = await Promise.resolve(params);
   const { slug, locale } = resolvedParams;
   const category = getCategoryBySlug(slug);
   const t = await getTranslations({ locale, namespace: 'categories' });
@@ -58,7 +57,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         categoryName: categoryName 
       }),
       description: t('categoryOgDescription', { 
-        categoryName: categoryName.toLowerCase() 
+        categoryName: categoryName.toLowerCase(),
+        categorName: categoryName.toLowerCase()
       }),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
@@ -71,18 +71,9 @@ export function generateStaticParams() {
   }));
 }
 
-// 定义游戏类型
-interface Game {
-  id: string;
-  title: string;
-  description: string;
-  slug: string;
-  preview?: React.ReactNode;
-}
-
 export default async function CategoryPage({ params }: Props) {
-  const resolvedParams = await params;
-  const { slug } = resolvedParams;
+  const resolvedParams = await Promise.resolve(params);
+  const { slug, locale } = resolvedParams;
   const category = getCategoryBySlug(slug);
   
   if (!category) {
@@ -92,38 +83,32 @@ export default async function CategoryPage({ params }: Props) {
   const categoryGames = getCategoryGames(category.id);
   const games = getGames().filter(game => categoryGames.includes(game.id));
   
-  return (
-      <div className="max-w-7xl mx-auto py-8">
-          <ClientContent category={category} games={games} />
-      </div>
-  );
-}
-
-// 客户端组件，用于处理翻译
-function ClientContent({ category, games }: { category: Category, games: Game[] }) {
-  const t = useTranslations('categories');
+  // 获取服务器端翻译
+  const t = await getTranslations({ locale, namespace: 'categories' });
   const categoryName = t(`categoryNames.${category.id}`, { defaultMessage: category.name });
   const categoryDescription = t(`categoryDescriptions.${category.id}`, { defaultMessage: category.description });
+  const categoryGamesHeading = t('categoryGamesHeading', { categoryName: categoryName });
+  const categoriesTitle = t('title');
   
   return (
-    <>
+    <div className="max-w-7xl mx-auto py-8">
       <Breadcrumbs
-          items={[
-              { label: t('title'), href: "/categories" },
-              { label: categoryName },
-          ]}
+        items={[
+          { label: categoriesTitle, href: "/categories" },
+          { label: categoryName },
+        ]}
       />
 
       <h1 className="text-3xl font-bold mt-12 mb-8 text-center">
-          {t('categoryGamesHeading', { categoryName: categoryName })}
+        {categoryGamesHeading}
       </h1>
       <p className="text-semibold mb-12 max-w-4xl mx-auto text-center leading-8">{categoryDescription}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {games.map((game) => (
-              <GameCard key={game.id} game={game} preview={game.preview} />
-          ))}
+        {games.map((game) => (
+          <GameCard key={game.id} game={game} preview={game.preview} />
+        ))}
       </div>
-    </>
+    </div>
   );
 } 
