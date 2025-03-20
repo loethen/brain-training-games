@@ -255,6 +255,22 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
         setIsPaused(prev => !prev);
     }, [isPaused, settings.trialInterval]);
 
+    // 添加键盘快捷键支持
+    useEffect(() => {
+        const handleKeyPress = (e: KeyboardEvent) => {
+            if (gameState !== "playing" || isPaused) return;
+
+            if (e.key === "a" || e.key === "A") {
+                handleResponse("position");
+            } else if (e.key === "l" || e.key === "L") {
+                handleResponse("audio");
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyPress);
+        return () => window.removeEventListener("keydown", handleKeyPress);
+    }, [gameState, handleResponse, isPaused]);
+
     // 定时器钩子：控制试验间隔
     useInterval(() => {
         if (currentTrial < settings.trialsPerRound) {
