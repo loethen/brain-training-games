@@ -10,7 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getMessages } from 'next-intl/server';
 
 // 定义默认元数据，可以被页面级元数据覆盖
 export async function generateMetadata(
@@ -88,8 +88,8 @@ export default async function RootLayout({
 
     if (!hasLocale(routing.locales, locale)) notFound();
 
-    // 获取当前语言的消息
-    const messages = (await import(`../../messages/${locale}.json`)).default;
+    // 直接获取消息，而不是重新导入
+    const messages = await getMessages();
 
     return (
         <html lang={locale} suppressHydrationWarning>
