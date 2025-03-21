@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/
 import { GamePreview } from "./components/GamePreview"
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { generateAlternates } from '@/lib/utils';
 
 // 将静态元数据改为动态生成函数
 export async function generateMetadata(
@@ -24,6 +25,8 @@ export async function generateMetadata(
       description: t('schulteTable.ogDescription'),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
+    // 多语言替代版本
+    alternates: generateAlternates(locale, 'games/schulte-table'),
   };
 }
 

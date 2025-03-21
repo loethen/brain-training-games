@@ -8,6 +8,7 @@ import { Filter } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { generateAlternates } from '@/lib/utils';
 
 // 将静态元数据改为动态生成函数
 export async function generateMetadata(
@@ -25,6 +26,8 @@ export async function generateMetadata(
       description: t('ogDescription'),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
+    // 多语言替代版本
+    alternates: generateAlternates(locale, 'games'),
   };
 }
 

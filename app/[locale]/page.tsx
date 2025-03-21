@@ -4,7 +4,7 @@ import { GamePreview as SimonGamePreview } from "./games/block-memory-challenge/
 import { GamePreview as SchulteGamePreview } from "./games/schulte-table/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 import { Marquee } from "@/components/magicui/marquee";
-import { cn } from "@/lib/utils";
+import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { BrainGameIcons } from "@/components/brain-game-icons";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
@@ -31,6 +31,8 @@ export async function generateMetadata(
       title: t('ogTitle'),
       description: t('ogDescription'),
     },
+    // 多语言替代版本
+    alternates: generateAlternates(locale),
   };
 }
 

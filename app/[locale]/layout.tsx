@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { inter } from "./fonts";
 import "./globals.css";
-import { cn } from "@/lib/utils";
+import { cn, generateAlternates } from "@/lib/utils";
 import { Layout } from "@/components/layout";
 import { ThemeProvider } from "next-themes";
 import { headers } from "next/headers";
@@ -20,11 +20,12 @@ export async function generateMetadata(
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata' });
   
+  // 获取当前URL的基本部分（不包含locale）
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003";
+  
   return {
     // 网站级别的默认元数据
-    metadataBase: new URL(
-        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003"
-    ),
+    metadataBase: new URL(baseUrl),
     // 默认标题模板，页面可以提供具体标题
     title: {
       template: '%s | FreeFocusGames',
@@ -44,6 +45,8 @@ export async function generateMetadata(
     twitter: {
       card: 'summary_large_image',
     },
+    // 多语言替代版本
+    alternates: generateAlternates(locale),
     // 其他通用配置
     robots: {
       index: true,
