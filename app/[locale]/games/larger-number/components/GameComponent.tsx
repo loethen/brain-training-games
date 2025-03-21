@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { RippleButton } from '@/components/ui/ripple-button';
 import { Progress } from '@/components/ui/progress';
 import { GAME_CONFIG, DifficultySettings } from '../config';
 import { cn } from '@/lib/utils';
@@ -32,9 +33,6 @@ export default function GameComponent() {
     const [challengeResult, setChallengeResult] =
         useState<ChallengeResult | null>(null);
     const [showShareModal, setShowShareModal] = useState(false);
-    
-    // 按钮动画状态
-    const [pressedButton, setPressedButton] = useState<string | null>(null);
     
     // 难度设置
     const [currentDifficulty, setCurrentDifficulty] = useState<DifficultySettings>({
@@ -261,14 +259,6 @@ export default function GameComponent() {
         (option: NumberOption) => {
             if (gameState !== "playing") return;
 
-            // 设置按钮按下状态 - 只使用位置作为标识符
-            setPressedButton(option.position);
-            
-            // 100ms后重置按钮状态
-            setTimeout(() => {
-                setPressedButton(null);
-            }, 100);
-
             setTotalAttempts((prev) => prev + 1);
 
             // Check if the user has selected the larger number
@@ -397,19 +387,16 @@ export default function GameComponent() {
 
                             <div className="flex gap-4 sm:gap-8 w-full max-w-md">
                                 {options.map((option, index) => (
-                                    <button
+                                    <RippleButton
                                         key={`${option.position}-${option.value}-${index}`}
                                         onClick={() => handleSelection(option)}
                                         className={cn(
                                             "flex-1 aspect-square rounded-xl flex items-center justify-center text-2xl sm:text-4xl font-bold",
                                             "bg-foreground/5 hover:bg-foreground/10",
-                                            "transition-transform duration-150 ease-out",
-                                            "active:scale-90",
-                                            pressedButton === option.position && "scale-90"
                                         )}
                                     >
                                         {option.value}
-                                    </button>
+                                    </RippleButton>
                                 ))}
                             </div>
                         </>
