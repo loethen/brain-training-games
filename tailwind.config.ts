@@ -100,7 +100,17 @@ export default {
   					height: '0'
   				}
   			},
-  			marquee: {
+  			'ripple': {
+  				'0%': {
+  					transform: 'scale(0)',
+  					opacity: '0.75'
+  				},
+  				'100%': {
+  					transform: 'scale(2)',
+  					opacity: '0'
+  				}
+  			},
+  			'marquee': {
   				from: {
   					transform: 'translateX(0)'
   				},
@@ -139,7 +149,8 @@ export default {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
-  			marquee: 'marquee var(--duration) infinite linear',
+  			'ripple': 'ripple 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+  			'marquee': 'marquee var(--duration) infinite linear',
   			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
   			'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
   			'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear'

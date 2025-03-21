@@ -386,13 +386,14 @@ export default function GameComponent() {
                             </div>
 
                             <div className="flex gap-4 sm:gap-8 w-full max-w-md">
-                                {options.map((option, index) => (
+                                {options.map((option) => (
                                     <RippleButton
-                                        key={`${option.position}-${option.value}-${index}`}
+                                        key={`button-${option.position}`}
                                         onClick={() => handleSelection(option)}
+                                        rippleColor="bg-foreground/20 dark:bg-foreground/30"
                                         className={cn(
-                                            "flex-1 aspect-square rounded-xl flex items-center justify-center text-2xl sm:text-4xl font-bold",
-                                            "bg-foreground/5 hover:bg-foreground/10",
+                                            "flex-1 aspect-square rounded-xl flex items-center justify-center text-2xl sm:text-4xl font-bold cursor-pointer",
+                                            "bg-foreground/5",
                                         )}
                                     >
                                         {option.value}
