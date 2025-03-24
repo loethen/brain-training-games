@@ -1,7 +1,7 @@
 import { getBlogPosts, getBlogPost, getPostNavigation } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { formatDate } from '@/lib/utils';
+import { formatDate, generateAlternates } from '@/lib/utils';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import Markdown from '@/components/markdown';
@@ -17,9 +17,10 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  { params }: { params: { locale: string; slug: string } }
+  { params }: { params: Promise<{ locale: string; slug: string }> }
 ): Promise<Metadata> {
-  const post = await getBlogPost(params.slug, params.locale);
+  const { locale, slug } = await params;
+  const post = await getBlogPost(slug, locale);
   
   if (!post) {
     return {
@@ -37,12 +38,13 @@ export async function generateMetadata(
       description: post.excerpt,
       type: 'article',
     },
+    alternates: generateAlternates(locale, `blog/${slug}`),
   };
 }
 
-export default async function BlogPostPage({ params }: { params: { locale: string; slug: string } }) {
-  const locale = params.locale;
-  const slug = params.slug;
+export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale, slug } = await params;
+  
   const t = await getTranslations({ locale, namespace: 'blog' });
   const commonT = await getTranslations({ locale, namespace: 'common' });
   const post = await getBlogPost(slug, locale);

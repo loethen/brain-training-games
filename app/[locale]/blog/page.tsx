@@ -6,24 +6,31 @@ import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { Breadcrumb } from '@/components/breadcrumb';
 
-export async function generateMetadata(
-  { params }: { params: { locale: string } }
-): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale, namespace: 'blog' });
-  
-  return {
-    title: t('meta.title'),
-    description: t('meta.description'),
-    openGraph: {
-      images: "/og/blog.jpg",
-    },
-  };
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+    const { locale } = await params;
+    const t = await getTranslations({
+        locale,
+        namespace: "blog",
+    });
+
+    return {
+        title: t("meta.title"),
+        description: t("meta.description"),
+        openGraph: {
+            images: "/og/blog.jpg",
+        },
+    };
 }
 
-export default async function BlogPage({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: 'blog' });
-  const commonT = await getTranslations({ locale: params.locale, namespace: 'common' });
-  const posts = await getBlogPosts(params.locale);
+export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'blog' });
+  const commonT = await getTranslations({ locale, namespace: 'common' });
+  const posts = await getBlogPosts(locale);
   
   return (
     <div className="container mx-auto px-4 py-8">
@@ -33,7 +40,7 @@ export default async function BlogPage({ params }: { params: { locale: string } 
             { label: t('title') }
           ]}
           homeLabel={commonT('home')}
-          locale={params.locale}
+          locale={locale}
         />
         
         <h1 className="text-3xl font-bold mb-6">{t('title')}</h1>
@@ -42,7 +49,7 @@ export default async function BlogPage({ params }: { params: { locale: string } 
         <div className="grid gap-8">
           {posts.map(post => (
             <article key={post.slug} className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <Link href={`/${params.locale}/blog/${post.slug}`}>
+              <Link href={`/${locale}/blog/${post.slug}`}>
                 <div className="grid md:grid-cols-[1fr_2fr]">
                   {post.coverImage && (
                     <div className="relative h-48 md:h-full">
@@ -57,7 +64,7 @@ export default async function BlogPage({ params }: { params: { locale: string } 
                   <div className="p-6">
                     <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
                     <div className="text-sm text-muted-foreground mb-3">
-                      {formatDate(post.date, params.locale)}
+                      {formatDate(post.date, locale)}
                     </div>
                     <p className="text-muted-foreground mb-4">{post.excerpt}</p>
                     <div className="flex items-center">
