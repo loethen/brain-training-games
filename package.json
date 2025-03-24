@@ -6,9 +6,13 @@
     "dev": "next dev --turbopack -p 3003",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "translate-blogs": "node scripts/translate-blog-posts.js",
+    "translate-blogs:force": "node scripts/translate-blog-posts.js --force"
   },
   "dependencies": {
+    "@google-cloud/translate": "^9.0.1",
+    "@google/generative-ai": "^0.24.0",
     "@hookform/resolvers": "^4.1.2",
     "@next/third-parties": "15.2.1",
     "@radix-ui/react-accordion": "^1.2.3",
@@ -27,6 +31,7 @@
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "embla-carousel-react": "^8.5.2",
     "gray-matter": "^4.0.3",
     "howler": "^2.2.4",
@@ -47,6 +52,7 @@
     "sonner": "^2.0.1",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
+    "ts-node": "^10.9.2",
     "zod": "^3.24.2"
   },
   "devDependencies": {

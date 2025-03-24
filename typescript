@@ -1,0 +1,50 @@
+Script started on Mon Mar 24 17:23:17 2025
+[1m[7m%[27m[1m[0m                                    ]2;loethen@MacBook-Air-3: ~/TheSecondCurveProjects/freefocusgames]1;..reefocusgames[0m[27m[24m[J(base) [01;32m➜  [36mfreefocusgames[00m [01;34mgit:([31mmain[34m) [33m✗[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                    ]2;loethen@MacBook-Air-3: ~/TheSecondCurveProjects/freefocusgames]1;..reefocusgames[0m[27m[24m[J(base) [01;31m➜  [36mfreefocusgames[00m [01;34mgit:([31mmain[34m) [33m✗[00m [K[?1h=[?2004hccd scripts[1m/[0m[0m [?1l>[?2004l
+]2;cd scripts]1;cd[1m[7m%[27m[1m[0m                                    ]2;loethen@MacBook-Air-3: ~/TheSecondCurveProjects/freefocusgames/scripts]1;..games/scripts[0m[27m[24m[J(base) [01;32m➜  [36mscripts[00m [01;34mgit:([31mmain[34m) [33m✗[00m [K[?1h=[?2004h[7mnpm r[7mu[7mn translate-blogs[27m[K[A[13C[27mn[27mp[27mm[27m [27mru[27mn[27m [27mt[27mr[27ma[27mn[27ms[27ml[27ma[27mt[27me[27m-[27mb[27ml[27mo[27mg[27ms[?1l>[?2004l
+]2;npm run translate-blogs]1;npm
+> freefocusgames@0.1.0 translate-blogs
+> ts-node scripts/translate-blog-posts.ts
+
+[1G[0K[31m(node:72024) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
+(Use `node --trace-warnings ...` to show where the warning was created)[39m
+[31m/Users/loethen/TheSecondCurveProjects/freefocusgames/scripts/translate-blog-posts.ts:1
+import fs from 'fs';
+^^^^^^
+
+SyntaxError: Cannot use import statement outside a module
+[90m    at wrapSafe (node:internal/modules/cjs/loader:1383:18)[39m
+[90m    at Module._compile (node:internal/modules/cjs/loader:1412:20)[39m
+    at Module.m._compile [90m(/Users/loethen/TheSecondCurveProjects/freefocusgames/[39mnode_modules/[4mts-node[24m/src/index.ts:1618:23[90m)[39m
+[90m    at Module._extensions..js (node:internal/modules/cjs/loader:1551:10)[39m
+    at Object.require.extensions.<computed> [as .ts] [90m(/Users/loethen/TheSecondCurveProjects/freefocusgames/[39mnode_modules/[4mts-node[24m/src/index.ts:1621:12[90m)[39m
+[90m    at Module.load (node:internal/modules/cjs/loader:1282:32)[39m
+[90m    at Function.Module._load (node:internal/modules/cjs/loader:1098:12)[39m
+[90m    at TracingChannel.traceSync (node:diagnostics_channel:315:14)[39m
+[90m    at wrapModuleLoad (node:internal/modules/cjs/loader:215:24)[39m
+[90m    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:158:5)[39m[39m
+[1G[0K⠙[1G[0K[1m[7m%[27m[1m[0m                                    ]2;loethen@MacBook-Air-3: ~/TheSecondCurveProjects/freefocusgames/scripts]1;..games/scripts[0m[27m[24m[J(base) [01;31m➜  [36mscripts[00m [01;34mgit:([31mmain[34m) [33m✗[00m [K[?1h=[?2004hccd .. [K[?2004l[K
+[1m[7m%[27m[1m[0m                                    ]2;loethen@MacBook-Air-3: ~/TheSecondCurveProjects/freefocusgames/scripts]1;..games/scripts[0m[27m[24m[J(base) [01;31m➜  [36mscripts[00m [01;34mgit:([31mmain[34m) [33m✗[00m [K[?1h=[?2004h...[?1l>[?2004l
+]2;..]1;..[1m[7m%[27m[1m[0m                                    ]2;loethen@MacBook-Air-3: ~/TheSecondCurveProjects/freefocusgames]1;..reefocusgames[0m[27m[24m[J(base) [01;32m➜  [36mfreefocusgames[00m [01;34mgit:([31mmain[34m) [33m✗[00m [K[?1h=[?2004h[7mnpm run translate-blogs[27m[23D[27mn[27mp[27mm[27m [27mr[27mu[27mn[27m [27mt[27mr[27ma[27mn[27ms[27ml[27ma[27mt[27me[27m-[27mb[27ml[27mo[27mg[27ms[?1l>[?2004l
+]2;npm run translate-blogs]1;npm
+> freefocusgames@0.1.0 translate-blogs
+> ts-node scripts/translate-blog-posts.ts
+
+[1G[0K[31m(node:72186) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
+(Use `node --trace-warnings ...` to show where the warning was created)[39m
+[31m/Users/loethen/TheSecondCurveProjects/freefocusgames/scripts/translate-blog-posts.ts:1
+import fs from 'fs';
+^^^^^^
+
+SyntaxError: Cannot use import statement outside a module
+[90m    at wrapSafe (node:internal/modules/cjs/loader:1383:18)[39m
+[90m    at Module._compile (node:internal/modules/cjs/loader:1412:20)[39m
+    at Module.m._compile [90m(/Users/loethen/TheSecondCurveProjects/freefocusgames/[39mnode_modules/[4mts-node[24m/src/index.ts:1618:23[90m)[39m
+[90m    at Module._extensions..js (node:internal/modules/cjs/loader:1551:10)[39m
+    at Object.require.extensions.<computed> [as .ts] [90m(/Users/loethen/TheSecondCurveProjects/freefocusgames/[39mnode_modules/[4mts-node[24m/src/index.ts:1621:12[90m)[39m
+[90m    at Module.load (node:internal/modules/cjs/loader:1282:32)[39m
+[90m    at Function.Module._load (node:internal/modules/cjs/loader:1098:12)[39m
+[90m    at TracingChannel.traceSync (node:diagnostics_channel:315:14)[39m
+[90m    at wrapModuleLoad (node:internal/modules/cjs/loader:215:24)[39m
+[90m    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:158:5)[39m[39m
+[1G[0K⠙[1G[0K[1m[7m%[27m[1m[0m                                    ]2;loethen@MacBook-Air-3: ~/TheSecondCurveProjects/freefocusgames]1;..reefocusgames[0m[27m[24m[J(base) [01;31m➜  [36mfreefocusgames[00m [01;34mgit:([31mmain[34m) [33m✗[00m [K[?1h=[?2004h

@@ -810,9 +810,9 @@
       "readMore": "Read more",
       "meta": {
         "title": "Blog",
-        "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques.",
-        "previousPost": "Previous Post",
-        "nextPost": "Next Post"
-      }
+        "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques."
+      },
+      "previousPost": "이전 글",
+      "nextPost": "다음 글"
     }
 }

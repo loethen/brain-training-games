@@ -9,7 +9,7 @@ import { Breadcrumb } from '@/components/breadcrumb';
 import { PostNavigation } from '@/components/post-navigation';
 
 export async function generateStaticParams() {
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts('en');
   
   return posts.map((post) => ({
     slug: post.slug,
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 export async function generateMetadata(
   { params }: { params: { locale: string; slug: string } }
 ): Promise<Metadata> {
-  const post = await getBlogPost(params.slug);
+  const post = await getBlogPost(params.slug, params.locale);
   
   if (!post) {
     return {
@@ -45,13 +45,13 @@ export default async function BlogPostPage({ params }: { params: { locale: strin
   const slug = params.slug;
   const t = await getTranslations({ locale, namespace: 'blog' });
   const commonT = await getTranslations({ locale, namespace: 'common' });
-  const post = await getBlogPost(slug);
+  const post = await getBlogPost(slug, locale);
   
   if (!post) {
     notFound();
   }
   
-  const navigation = await getPostNavigation(slug);
+  const navigation = await getPostNavigation(slug, locale);
   
   return (
     <div className="container mx-auto px-4 py-8">

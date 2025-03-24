@@ -24,18 +24,37 @@ export interface PostNavigation {
 }
 
 const BLOG_DIR = path.join(process.cwd(), 'data', 'blog');
+const TRANSLATED_BLOG_DIR = path.join(process.cwd(), 'data', 'blog-translations');
 
-export async function getBlogPosts(): Promise<BlogPost[]> {
+// 获取特定语言的博客目录
+function getBlogDirForLocale(locale: string): string {
+  if (locale === 'en') {
+    return BLOG_DIR;
+  }
+  
+  const translatedDir = path.join(TRANSLATED_BLOG_DIR, locale);
+  
+  // 如果翻译目录不存在，回退到英文目录
+  if (!fs.existsSync(translatedDir)) {
+    return BLOG_DIR;
+  }
+  
+  return translatedDir;
+}
+
+export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
+  const blogDir = getBlogDirForLocale(locale);
+  
   // 确保博客目录存在
-  if (!fs.existsSync(BLOG_DIR)) {
+  if (!fs.existsSync(blogDir)) {
     return [];
   }
   
-  const files = fs.readdirSync(BLOG_DIR);
+  const files = fs.readdirSync(blogDir);
   const posts = files
     .filter((file) => file.endsWith('.md'))
     .map((file) => {
-      const filePath = path.join(BLOG_DIR, file);
+      const filePath = path.join(blogDir, file);
       const slug = file.replace(/\.md$/, '');
       const fileContent = fs.readFileSync(filePath, 'utf8');
       const { data, content } = matter(fileContent);
@@ -59,14 +78,22 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   return posts;
 }
 
-export async function getBlogPost(slug: string): Promise<BlogPost | null> {
+export async function getBlogPost(slug: string, locale: string = 'en'): Promise<BlogPost | null> {
+  const blogDir = getBlogDirForLocale(locale);
+  
   // 确保博客目录存在
-  if (!fs.existsSync(BLOG_DIR)) {
+  if (!fs.existsSync(blogDir)) {
     return null;
   }
   
-  const filePath = path.join(BLOG_DIR, `${slug}.md`);
+  const filePath = path.join(blogDir, `${slug}.md`);
   
+  // 如果翻译的文件不存在，尝试使用英文文件
+  if (!fs.existsSync(filePath) && locale !== 'en') {
+    return getBlogPost(slug, 'en');
+  }
+  
+  // 如果文件仍然不存在，返回 null
   if (!fs.existsSync(filePath)) {
     return null;
   }
@@ -89,8 +116,8 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   };
 }
 
-export async function getPostNavigation(slug: string): Promise<PostNavigation> {
-  const posts = await getBlogPosts();
+export async function getPostNavigation(slug: string, locale: string = 'en'): Promise<PostNavigation> {
+  const posts = await getBlogPosts(locale);
   const currentIndex = posts.findIndex(post => post.slug === slug);
   
   // 如果找不到当前文章，或者只有一篇文章

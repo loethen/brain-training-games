@@ -23,7 +23,7 @@ export async function generateMetadata(
 export default async function BlogPage({ params }: { params: { locale: string } }) {
   const t = await getTranslations({ locale: params.locale, namespace: 'blog' });
   const commonT = await getTranslations({ locale: params.locale, namespace: 'common' });
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts(params.locale);
   
   return (
     <div className="container mx-auto px-4 py-8">
