@@ -1,4 +1,4 @@
-import { getBlogPosts, getBlogPost, getPostNavigation } from '@/lib/blog';
+import { getBlogPost, getPostNavigation } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { formatDate, generateAlternates } from '@/lib/utils';
@@ -7,14 +7,6 @@ import type { Metadata } from 'next';
 import Markdown from '@/components/markdown';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { PostNavigation } from '@/components/post-navigation';
-
-export async function generateStaticParams() {
-  const posts = await getBlogPosts('en');
-  
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
