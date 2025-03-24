@@ -30,33 +30,39 @@ export async function generateMetadata(
   return {
     title: post.title,
     description: post.excerpt,
+    keywords: post.keywords,
     openGraph: {
       images: post.coverImage || "/og/blog.jpg",
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
     },
   };
 }
 
 export default async function BlogPostPage({ params }: { params: { locale: string; slug: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: 'blog' });
-  const commonT = await getTranslations({ locale: params.locale, namespace: 'common' });
-  const post = await getBlogPost(params.slug);
+  const locale = params.locale;
+  const slug = params.slug;
+  const t = await getTranslations({ locale, namespace: 'blog' });
+  const commonT = await getTranslations({ locale, namespace: 'common' });
+  const post = await getBlogPost(slug);
   
   if (!post) {
     notFound();
   }
   
-  const navigation = await getPostNavigation(params.slug);
+  const navigation = await getPostNavigation(slug);
   
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto">
         <Breadcrumb 
           items={[
-            { label: t('title'), href: `/${params.locale}/blog` },
+            { label: t('title'), href: `/${locale}/blog` },
             { label: post.title }
           ]}
           homeLabel={commonT('home')}
-          locale={params.locale}
+          locale={locale}
         />
 
         <article>
@@ -76,7 +82,7 @@ export default async function BlogPostPage({ params }: { params: { locale: strin
             <div>
               <div className="font-medium">{post.author.name}</div>
               <div className="text-sm text-muted-foreground">
-                {formatDate(post.date, params.locale)}
+                {formatDate(post.date, locale)}
               </div>
             </div>
           </div>
@@ -101,7 +107,7 @@ export default async function BlogPostPage({ params }: { params: { locale: strin
         <PostNavigation
           previousPost={navigation.previousPost}
           nextPost={navigation.nextPost}
-          locale={params.locale}
+          locale={locale}
           labels={{
             previousPost: t('previousPost'),
             nextPost: t('nextPost')

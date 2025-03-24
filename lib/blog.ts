@@ -13,6 +13,7 @@ export interface BlogPost {
   date: string;
   excerpt: string;
   coverImage?: string;
+  keywords?: string;
   author: BlogAuthor;
   content: string;
 }
@@ -45,6 +46,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
         date: data.date,
         excerpt: data.excerpt || '',
         coverImage: data.coverImage,
+        keywords: data.keywords || '',
         author: {
           name: data.author?.name || 'Anonymous',
           picture: data.author?.picture,
@@ -78,6 +80,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     date: data.date,
     excerpt: data.excerpt || '',
     coverImage: data.coverImage,
+    keywords: data.keywords || '',
     author: {
       name: data.author?.name || 'Anonymous',
       picture: data.author?.picture,

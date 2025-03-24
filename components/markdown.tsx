@@ -18,16 +18,50 @@ const components: Components = {
     if (!src) return null;
     
     return (
-      <div className="relative h-64 w-full my-6 rounded-lg overflow-hidden">
+      <div className="relative h-64 w-full my-6 rounded-lg overflow-hidden md:h-[400px]">
         <Image
           src={src}
           alt={alt || ''}
           fill
-          className="object-contain"
+          className="object-cover"
         />
       </div>
     );
   },
+  // 支持figure标签和figcaption
+  figure: ({ children }) => (
+    <figure className="my-8">
+      {children}
+    </figure>
+  ),
+  figcaption: ({ children }) => (
+    <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+      {children}
+    </figcaption>
+  ),
+  // 优化引用块
+  blockquote: ({ children }) => (
+    <blockquote className="border-l-4 border-primary pl-4 py-1 my-6 bg-muted/50 rounded-r-md">
+      {children}
+    </blockquote>
+  ),
+  // 优化标题
+  h2: ({ children }) => (
+    <h2 className="text-2xl font-bold mt-10 mb-6 border-b pb-2">
+      {children}
+    </h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="text-xl font-semibold mt-8 mb-4 text-primary">
+      {children}
+    </h3>
+  ),
+  // 优化段落
+  p: ({ children }) => (
+    <p className="leading-relaxed mb-5 text-[17px]">
+      {children}
+    </p>
+  ),
   // 优化链接
   a: ({ href, children }) => {
     // 外部链接
@@ -56,17 +90,21 @@ const components: Components = {
       );
     }
     return <code className="bg-muted text-muted-foreground rounded px-1 py-0.5">{children}</code>;
-  }
+  },
+  // 优化水平分割线
+  hr: () => <hr className="my-10 border-t border-muted-foreground/20" />
 };
 
 export default function Markdown({ content }: MarkdownProps) {
   return (
-    <ReactMarkdown 
-      components={components}
-      remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeRaw, rehypeSlug, [rehypePrism, { ignoreMissing: true }]]}
-    >
-      {content}
-    </ReactMarkdown>
+    <div className="prose-lg max-w-none">
+      <ReactMarkdown 
+        components={components}
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw, rehypeSlug, [rehypePrism, { ignoreMissing: true }]]}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
   );
 } 
