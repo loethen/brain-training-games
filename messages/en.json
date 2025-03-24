@@ -8,7 +8,8 @@
     "toggleSidebar": "Toggle sidebar",
     "toggleTheme": "Toggle theme",
     "language": "Language",
-    "allRightsReserved": "All rights reserved"
+    "allRightsReserved": "All rights reserved",
+    "blog": "Blog"
   },
   "metadata": {
     "title": "Free Focus & Memory Games | Brain Training | FreeFocusGames",
@@ -699,7 +700,7 @@
       },
       "metaTitle": "Larger Number Challenge - Number Comparison Training Game",
       "metaDescription": "Improve your numerical processing speed and decision-making with this fast-paced number comparison game. Train your brain to quickly identify larger numbers.",
-      "metaKeywords": "number comparison game, numerical processing training, decision speed exercise, math brain training, cognitive speed game, number magnitude comparison, reaction time training, educational math game",
+      "metaKeywords": "number comparison game, number size judgment game, quick number recognition game, larger number selection game, math thinking training game, reaction speed number game, math brain training, children number comparison game, fast math decision game, cognitive speed training game, attention number training, math processing speed game, numerical processing training, decision speed exercise, cognitive speed game, number magnitude comparison, reaction time training, educational math game, brain training game, cognitive development, math games for kids, math games for adults, number sense training, quantity comparison, mental math practice, numerical cognition, educational games, arithmetic game, math skills improvement",
       "ogTitle": "Larger Number Challenge - Train Your Numerical Processing Speed",
       "ogDescription": "Quickly identify which number is larger in this fast-paced brain training game. Improve your decision-making speed and numerical processing.",
       "gameUI": {
@@ -802,5 +803,16 @@
   "buttons": {
     "startPlaying": "Start Playing Now",
     "viewAll": "View All"
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Discover the latest insights about focus, concentration techniques and updates from our team.",
+    "readMore": "Read more",
+    "meta": {
+      "title": "Blog",
+      "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques."
+    },
+    "previousPost": "Previous Post",
+    "nextPost": "Next Post"
   }
 }

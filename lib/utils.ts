@@ -29,3 +29,16 @@ export function generateAlternates(locale: string, pagePath: string = '') {
     languages: alternateLanguages,
   };
 }
+
+export function formatDate(date: string, locale: string): string {
+  try {
+    const dateObj = new Date(date);
+    return dateObj.toLocaleDateString(locale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return date;
+  }
+}

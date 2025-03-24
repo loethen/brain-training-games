@@ -8,7 +8,8 @@
         "toggleSidebar": "サイドバーを切り替え",
         "toggleTheme": "テーマを切り替え",
         "language": "言語",
-        "allRightsReserved": "全著作権所有"
+        "allRightsReserved": "全著作権所有",
+        "blog": "ブログ"
     },
     "metadata": {
         "title": "無料の集中力＆記憶力ゲーム | 脳トレーニング | FreeFocusGames",
@@ -699,7 +700,7 @@
             },
             "metaTitle": "より大きな数字チャレンジ - 数値比較トレーニングゲーム",
             "metaDescription": "このペースの速い数値比較ゲームで、数値処理速度と意思決定を向上させましょう。脳をトレーニングして、素早く大きい数字を識別します。",
-            "metaKeywords": "数値比較ゲーム, 数値処理トレーニング, 決定速度エクササイズ, 数学脳トレーニング, 認知速度ゲーム, 数値大きさ比較, 反応時間トレーニング, 教育的な数学ゲーム",
+            "metaKeywords": "数値比較ゲーム, 数字の大きさ判断ゲーム, 素早い数字認識ゲーム, 大きい数字選択ゲーム, 数学的思考トレーニングゲーム, 反応速度数字ゲーム, 数学脳トレーニング, 子供向け数字比較ゲーム, 素早い数学判断ゲーム, 認知速度トレーニングゲーム, 注意力数字トレーニング, 数学処理速度ゲーム, 数値処理トレーニング, 決定速度エクササイズ, 認知速度ゲーム, 数値大きさ比較, 反応時間トレーニング, 教育的な数学ゲーム",
             "ogTitle": "より大きな数字チャレンジ - 数値処理速度をトレーニング",
             "ogDescription": "このペースの速い脳トレーニングゲームで、どの数字が大きいかを素早く識別します。意思決定の速度と数値処理を向上させます。",
             "gameUI": {
@@ -802,5 +803,16 @@
     "buttons": {
         "startPlaying": "今すぐプレイ",
         "viewAll": "すべて表示"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Discover the latest insights about focus, concentration techniques and updates from our team.",
+      "readMore": "Read more",
+      "meta": {
+        "title": "Blog",
+        "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques.",
+        "previousPost": "Previous Post",
+        "nextPost": "Next Post"
+      }
     }
 }

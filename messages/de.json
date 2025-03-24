@@ -8,7 +8,8 @@
         "toggleSidebar": "Seitenleiste umschalten",
         "toggleTheme": "Thema umschalten",
         "language": "Sprache",
-        "allRightsReserved": "Alle Rechte vorbehalten"
+        "allRightsReserved": "Alle Rechte vorbehalten",
+        "blog": "Blog"
     },
     "metadata": {
         "title": "Kostenlose Fokus- & Gedächtnisspiele | Gehirntraining | FreeFocusGames",
@@ -699,7 +700,7 @@
             },
             "metaTitle": "Größere Zahl Herausforderung - Zahlenvergleich Training Spiel",
             "metaDescription": "Verbessern Sie Ihre numerische Verarbeitungsgeschwindigkeit und Entscheidungsfindung mit diesem rasanten Zahlenvergleichsspiel. Trainieren Sie Ihr Gehirn, um schnell größere Zahlen zu identifizieren.",
-            "metaKeywords": "Zahlenvergleichsspiel, numerische Verarbeitungstraining, Entscheidungsgeschwindigkeitsübung, Mathematik Gehirntraining, kognitives Geschwindigkeitsspiel, Zahl Größenvergleich, Reaktionszeittraining, pädagogisches Mathematikspiel",
+            "metaKeywords": "Zahlenvergleichsspiel, Zahlengrößenbeurteilungsspiel, schnelles Zahlenerkennung Spiel, größere Zahlen Auswahlspiel, mathematisches Denktraining Spiel, Reaktionsgeschwindigkeit Zahlenspiel, Mathe Gehirntraining, Zahlenvergleichsspiel für Kinder, schnelle mathematische Entscheidungsspiel, kognitives Geschwindigkeitstraining Spiel, Aufmerksamkeit Zahlentraining, mathematische Verarbeitungsgeschwindigkeitsspiel, numerische Verarbeitungstraining, Entscheidungsgeschwindigkeitsübung, kognitives Geschwindigkeitsspiel, Zahl Größenvergleich, Reaktionszeittraining, pädagogisches Mathematikspiel",
             "ogTitle": "Größere Zahl Herausforderung - Trainieren Sie Ihre numerische Verarbeitungsgeschwindigkeit",
             "ogDescription": "Identifizieren Sie schnell, welche Zahl größer ist in diesem rasanten Gehirntraining Spiel. Verbessern Sie Ihre Entscheidungsgeschwindigkeit und numerische Verarbeitung.",
             "gameUI": {
@@ -802,5 +803,16 @@
     "buttons": {
         "startPlaying": "Jetzt spielen",
         "viewAll": "Alle anzeigen"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Discover the latest insights about focus, concentration techniques and updates from our team.",
+      "readMore": "Read more",
+      "meta": {
+        "title": "Blog",
+        "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques.",
+        "previousPost": "Previous Post",
+        "nextPost": "Next Post"
+      }
     }
 }

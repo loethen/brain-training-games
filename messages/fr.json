@@ -8,7 +8,8 @@
         "toggleSidebar": "Basculer la barre latérale",
         "toggleTheme": "Changer de thème",
         "language": "Langue",
-        "allRightsReserved": "Tous droits réservés"
+        "allRightsReserved": "Tous droits réservés",
+        "blog": "Blog"
     },
     "metadata": {
         "title": "Jeux gratuits de concentration et de mémoire | Entraînement cérébral | FreeFocusGames",
@@ -699,7 +700,7 @@
             },
             "metaTitle": "Défi du plus grand nombre - Jeu d'entraînement à la comparaison numérique",
             "metaDescription": "Améliorez votre vitesse de traitement numérique et votre prise de décision avec ce jeu de comparaison de nombres rapide. Entraînez votre cerveau à identifier rapidement les nombres plus grands.",
-            "metaKeywords": "jeu de comparaison de nombres, entraînement au traitement numérique, exercice de vitesse de décision, entraînement cérébral mathématique, jeu de vitesse cognitive, comparaison de magnitudes numériques",
+            "metaKeywords": "jeu de comparaison de nombres, jeu de jugement de taille de nombres, jeu de reconnaissance rapide de nombres, jeu de sélection du plus grand nombre, jeu d'entraînement de la pensée mathématique, jeu numérique de vitesse de réaction, entraînement cérébral mathématique, jeu de comparaison de nombres pour enfants, jeu de décision mathématique rapide, jeu d'entraînement de vitesse cognitive, entraînement d'attention numérique, jeu de vitesse de traitement mathématique, entraînement au traitement numérique, exercice de vitesse de décision, jeu de vitesse cognitive, comparaison de magnitudes numériques, entraînement au temps de réaction, jeu éducatif de mathématiques",
             "ogTitle": "Défi du plus grand nombre - Entraînez votre vitesse de traitement numérique",
             "ogDescription": "Identifiez rapidement quel nombre est le plus grand dans ce jeu d'entraînement cérébral rapide. Améliorez votre vitesse de décision et votre traitement numérique.",
             "gameUI": {
@@ -802,5 +803,16 @@
     "buttons": {
         "startPlaying": "Commencer à jouer",
         "viewAll": "Voir tous"
+    },  
+    "blog": {
+      "title": "Blog",
+      "description": "Discover the latest insights about focus, concentration techniques and updates from our team.",
+      "readMore": "Read more",
+      "meta": {
+        "title": "Blog",
+        "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques.",
+        "previousPost": "Previous Post",
+        "nextPost": "Next Post"
+      }
     }
 }

@@ -8,7 +8,8 @@
         "toggleSidebar": "Alternar barra lateral",
         "toggleTheme": "Alternar tema",
         "language": "Idioma",
-        "allRightsReserved": "Todos los derechos reservados"
+        "allRightsReserved": "Todos los derechos reservados",
+        "blog": "Blog"
     },
     "metadata": {
         "title": "Juegos gratuitos de enfoque y memoria | Entrenamiento cerebral | FreeFocusGames",
@@ -699,7 +700,7 @@
             },
             "metaTitle": "Desafío del número mayor - Juego de entrenamiento de comparación numérica",
             "metaDescription": "Mejora tu velocidad de procesamiento numérico y toma de decisiones con este juego de comparación de números de ritmo rápido. Entrena tu cerebro para identificar rápidamente números mayores.",
-            "metaKeywords": "juego de comparación de números, entrenamiento de procesamiento numérico, ejercicio de velocidad de decisión, entrenamiento cerebral de matemáticas, juego de velocidad cognitiva, comparación de magnitudes numéricas, entrenamiento de tiempo de reacción, juego educativo de matemáticas",
+            "metaKeywords": "juego de comparación de números, juego de juicio de tamaño de números, juego de reconocimiento rápido de números, juego de selección del número mayor, juego de entrenamiento de pensamiento matemático, juego numérico de velocidad de reacción, entrenamiento cerebral matemático, juego de comparación de números para niños, juego de decisión matemática rápida, juego de entrenamiento de velocidad cognitiva, entrenamiento de atención numérica, juego de velocidad de procesamiento matemático, entrenamiento de procesamiento numérico, ejercicio de velocidad de decisión, juego de velocidad cognitiva, comparación de magnitudes numéricas, entrenamiento de tiempo de reacción, juego educativo de matemáticas",
             "ogTitle": "Desafío del número mayor - Entrena tu velocidad de procesamiento numérico",
             "ogDescription": "Identifica rápidamente cuál número es mayor en este juego de entrenamiento cerebral de ritmo rápido. Mejora tu velocidad de decisión y procesamiento numérico.",
             "gameUI": {
@@ -802,5 +803,16 @@
     "buttons": {
         "startPlaying": "Jugar ahora",
         "viewAll": "Ver todos"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Discover the latest insights about focus, concentration techniques and updates from our team.",
+      "readMore": "Read more",
+      "meta": {
+        "title": "Blog",
+        "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques.",
+        "previousPost": "Previous Post",
+        "nextPost": "Next Post"
+      }
     }
 }

@@ -8,7 +8,8 @@
         "toggleSidebar": "사이드바 전환",
         "toggleTheme": "테마 전환",
         "language": "언어",
-        "allRightsReserved": "모든 권리 보유"
+        "allRightsReserved": "모든 권리 보유",
+        "blog": "블로그"
     },
     "metadata": {
         "title": "무료 집중력 및 기억력 게임 | 두뇌 훈련 | FreeFocusGames",
@@ -699,7 +700,7 @@
             },
             "metaTitle": "더 큰 숫자 도전 - 숫자 비교 훈련 게임",
             "metaDescription": "이 빠른 속도의 숫자 비교 게임으로 숫자 처리 속도와 의사 결정을 향상시키세요. 두뇌를 훈련시켜 더 큰 숫자를 빠르게 식별하세요.",
-            "metaKeywords": "숫자 비교 게임, 숫자 처리 훈련, 결정 속도 운동, 수학 두뇌 훈련, 인지 속도 게임, 숫자 크기 비교, 반응 시간 훈련, 교육적인 수학 게임",
+            "metaKeywords": "숫자 비교 게임, 숫자 크기 판단 게임, 빠른 숫자 인식 게임, 더 큰 숫자 선택 게임, 수학적 사고 훈련 게임, 반응 속도 숫자 게임, 수학 두뇌 훈련, 어린이 숫자 비교 게임, 빠른 수학 결정 게임, 인지 속도 훈련 게임, 주의력 숫자 훈련, 수학 처리 속도 게임, 숫자 처리 훈련, 결정 속도 운동, 인지 속도 게임, 숫자 크기 비교, 반응 시간 훈련, 교육적인 수학 게임",
             "ogTitle": "더 큰 숫자 도전 - 숫자 처리 속도 훈련",
             "ogDescription": "이 빠른 속도의 두뇌 훈련 게임에서 어떤 숫자가 더 큰지 빠르게 식별하세요. 의사 결정 속도와 숫자 처리를 향상시키세요.",
             "gameUI": {
@@ -802,5 +803,16 @@
     "buttons": {
         "startPlaying": "지금 플레이",
         "viewAll": "모두 보기"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Discover the latest insights about focus, concentration techniques and updates from our team.",
+      "readMore": "Read more",
+      "meta": {
+        "title": "Blog",
+        "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques.",
+        "previousPost": "Previous Post",
+        "nextPost": "Next Post"
+      }
     }
 }

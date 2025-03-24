@@ -86,6 +86,7 @@ export function Layout({
                     <NavItem href="/">{t('home')}</NavItem>
                     <NavItem href="/categories">{t('categories')}</NavItem>
                     <NavItem href="/games">{t('games')}</NavItem>
+                    <NavItem href="/blog">{t('blog')}</NavItem>
                 </nav>
             </div>
 
