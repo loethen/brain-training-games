@@ -1,9 +1,10 @@
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
 const matter = require('gray-matter');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const dotenv = require('dotenv');
 const crypto = require('crypto');
+const inquirer = require('inquirer');
 
 // 配置环境变量
 dotenv.config({ path: '.env.local' });
@@ -11,10 +12,65 @@ dotenv.config({ path: '.env.local' });
 // 初始化Gemini API
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
+// 请求控制参数
+const RATE_LIMIT = {
+  requestsPerMinute: 10,  // 每分钟最大请求数
+  retryAttempts: 3,      // 重试次数
+  retryDelay: 5000,      // 重试延迟(ms)
+  cooldownPeriod: 60000  // 冷却时间(ms)
+};
+
+// 请求队列管理
+let requestCount = 0;
+let lastRequestTime = Date.now();
+
+// 延时函数
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+// 重置请求计数器
+async function resetRequestCount() {
+  const now = Date.now();
+  if (now - lastRequestTime >= RATE_LIMIT.cooldownPeriod) {
+    requestCount = 0;
+    lastRequestTime = now;
+  }
+}
+
+// 处理API请求的包装函数
+async function makeAPIRequest(prompt, retryCount = 0) {
+  try {
+    await resetRequestCount();
+    
+    // 检查是否达到速率限制
+    if (requestCount >= RATE_LIMIT.requestsPerMinute) {
+      console.log('Rate limit reached, cooling down...');
+      await delay(RATE_LIMIT.cooldownPeriod);
+      requestCount = 0;
+    }
+    
+    // 获取Gemini模型
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    
+    // 发起请求
+    const result = await model.generateContent(prompt);
+    requestCount++;
+    lastRequestTime = Date.now();
+    
+    return result.response.text().trim();
+  } catch (error) {
+    // 处理429错误
+    if (error.status === 429 && retryCount < RATE_LIMIT.retryAttempts) {
+      console.log(`Rate limit exceeded, retrying in ${RATE_LIMIT.retryDelay/1000}s... (Attempt ${retryCount + 1}/${RATE_LIMIT.retryAttempts})`);
+      await delay(RATE_LIMIT.retryDelay);
+      return makeAPIRequest(prompt, retryCount + 1);
+    }
+    
+    throw error;
+  }
+}
+
 // 支持的语言列表
 const SUPPORTED_LOCALES = ['zh', 'de', 'ja', 'es', 'ko', 'fr'];
-// 源语言（英语）
-const SOURCE_LOCALE = 'en';
 
 // 博客文章目录
 const BLOG_DIR = path.join(process.cwd(), 'data', 'blog');
@@ -78,31 +134,21 @@ function computeFileHash(content) {
 }
 
 // 检查文件是否需要翻译
-function needsTranslation(
-  filePath, 
-  fileName,
-  fileHash,
-  targetLocale,
-  translationRecord
-) {
-  // 如果强制翻译，则始终返回true
-  if (FORCE_TRANSLATE) {
+function needsTranslation(filePath, fileName, fileHash, targetLocale, translationRecord, forceTranslate) {
+  // 如果强制翻译，始终返回true
+  if (forceTranslate) {
     return true;
   }
-  
-  // 检查目标翻译文件是否存在
-  const targetFilePath = path.join(TRANSLATIONS_DIR, targetLocale, fileName);
-  if (!fs.existsSync(targetFilePath)) {
-    return true;
-  }
-  
+
   // 检查翻译记录
-  if (!translationRecord[fileName] || !translationRecord[fileName][targetLocale]) {
-    return true;
+  if (translationRecord && 
+      translationRecord[fileName] && 
+      translationRecord[fileName][targetLocale] && 
+      translationRecord[fileName][targetLocale].hash === fileHash) {
+    return false;
   }
-  
-  // 比较哈希值
-  return translationRecord[fileName][targetLocale].hash !== fileHash;
+
+  return true;
 }
 
 // 翻译frontmatter数据
@@ -110,25 +156,16 @@ async function translateFrontmatter(
   frontmatter,
   targetLocale
 ) {
-  // 复制frontmatter
   const translatedFrontmatter = { ...frontmatter };
-
-  // 需要翻译的字段
   const fieldsToTranslate = ['title', 'description', 'excerpt'];
   
-  // 获取Gemini模型
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-
-  // 翻译每个字段
   for (const field of fieldsToTranslate) {
     if (frontmatter[field] && typeof frontmatter[field] === 'string') {
       const content = frontmatter[field];
-      
-      // 构建翻译提示
       const prompt = `
 You are a professional translator with expertise in creating natural, fluent content in multiple languages.
 
-Task: Translate the following ${field === 'title' ? 'blog title' : field === 'description' ? 'blog description' : 'blog excerpt'} from English to ${targetLocale === 'zh' ? 'Chinese' : targetLocale === 'de' ? 'German' : targetLocale === 'ja' ? 'Japanese' : targetLocale === 'es' ? 'Spanish' : targetLocale === 'ko' ? 'Korean' : 'French'}.
+Task: Translate the following ${field === 'title' ? 'blog title' : field === 'description' ? 'blog description' : 'blog excerpt'} from English to ${targetLocale === 'zh' ? 'Simplified Chinese (not Traditional Chinese)' : targetLocale === 'de' ? 'German' : targetLocale === 'ja' ? 'Japanese' : targetLocale === 'es' ? 'Spanish' : targetLocale === 'ko' ? 'Korean' : 'French'}.
 
 Important instructions:
 1. Provide ONLY ONE direct translation, not multiple options or alternatives
@@ -136,7 +173,10 @@ Important instructions:
 3. Create a translation that sounds natural to native speakers
 4. DO NOT include phrases like "Translation:", "Here's the translation:", etc.
 5. DO NOT explain your translation choices or provide analysis
-6. For Chinese translations, use colloquial and natural-sounding expressions
+6. For Simplified Chinese translations:
+   - Use modern, standard Simplified Chinese characters
+   - Use colloquial and natural-sounding mainland Chinese expressions
+   - Avoid Traditional Chinese characters and Taiwan/Hong Kong expressions
 
 Original text:
 ${content}
@@ -145,12 +185,12 @@ Translation:
 `;
       
       try {
-        const result = await model.generateContent(prompt);
-        const translation = result.response.text().trim();
+        const translation = await makeAPIRequest(prompt);
         translatedFrontmatter[field] = translation;
+        // 每个字段翻译后添加短暂延迟
+        await delay(1000);
       } catch (error) {
         console.error(`Error translating ${field} to ${targetLocale}:`, error);
-        // 保留原文
         translatedFrontmatter[field] = content;
       }
     }
@@ -164,33 +204,28 @@ async function translateContentPreservingCodeBlocks(
   content,
   targetLocale
 ) {
-  // 正则表达式匹配代码块
   const codeBlockRegex = /```[\s\S]*?```/g;
-  
-  // 保存找到的代码块
   const codeBlocks = [];
   
-  // 将代码块替换为占位符
   const contentWithPlaceholders = content.replace(codeBlockRegex, (match) => {
     codeBlocks.push(match);
     return `CODE_BLOCK_${codeBlocks.length - 1}`;
   });
 
-  // 获取Gemini模型
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-  
-  // 构建翻译提示
   const prompt = `
 You are a professional translator with expertise in creating natural, fluent content in multiple languages.
 
-Task: Translate the following blog article content from English to ${targetLocale === 'zh' ? 'Chinese' : targetLocale === 'de' ? 'German' : targetLocale === 'ja' ? 'Japanese' : targetLocale === 'es' ? 'Spanish' : targetLocale === 'ko' ? 'Korean' : 'French'}.
+Task: Translate the following blog article content from English to ${targetLocale === 'zh' ? 'Simplified Chinese (not Traditional Chinese)' : targetLocale === 'de' ? 'German' : targetLocale === 'ja' ? 'Japanese' : targetLocale === 'es' ? 'Spanish' : targetLocale === 'ko' ? 'Korean' : 'French'}.
 
 Important instructions:
 1. Provide ONLY ONE direct translation, not multiple options or alternatives
 2. The text contains placeholders like 'CODE_BLOCK_0', 'CODE_BLOCK_1' - DO NOT translate these placeholders
 3. Maintain the original meaning but use natural expressions in the target language
 4. Create a translation that sounds natural to native speakers
-5. For Chinese translations, use colloquial and natural-sounding expressions
+5. For Simplified Chinese translations:
+   - Use modern, standard Simplified Chinese characters
+   - Use colloquial and natural-sounding mainland Chinese expressions
+   - Avoid Traditional Chinese characters and Taiwan/Hong Kong expressions
 6. Preserve the original formatting, including paragraphs, bullet points, and headers
 7. DO NOT include explanations or notes about your translation
 
@@ -201,40 +236,34 @@ Translation:
 `;
 
   try {
-    // 翻译没有代码块的内容
-    const result = await model.generateContent(prompt);
-    let translatedContent = result.response.text().trim();
+    const translatedContent = await makeAPIRequest(prompt);
     
     // 恢复代码块
+    let finalContent = translatedContent;
     for (let i = 0; i < codeBlocks.length; i++) {
-      translatedContent = translatedContent.replace(`CODE_BLOCK_${i}`, codeBlocks[i]);
+      finalContent = finalContent.replace(`CODE_BLOCK_${i}`, codeBlocks[i]);
     }
     
-    return translatedContent;
+    return finalContent;
   } catch (error) {
     console.error(`Error translating content to ${targetLocale}:`, error);
-    // 出错时返回原文
     return content;
   }
 }
 
 // 翻译和保存文件
-async function translateAndSaveFile(
-  filePath,
-  targetLocale,
-  fileHash,
-  translationRecord
-) {
+async function translateAndSaveFile(filePath, targetLocale, fileHash, translationRecord, forceTranslate = false) {
   try {
-    // 读取文件内容
-    const fileContent = fs.readFileSync(filePath, 'utf8');
     const fileName = path.basename(filePath);
     
     // 检查是否需要翻译
-    if (!needsTranslation(filePath, fileName, fileHash, targetLocale, translationRecord)) {
-      console.log(`Skipping ${fileName} to ${targetLocale} (already up to date)`);
+    if (!needsTranslation(filePath, fileName, fileHash, targetLocale, translationRecord, forceTranslate)) {
+      console.log(`跳过 ${fileName} 到 ${LOCALE_NAMES[targetLocale]} (已是最新)`);
       return;
     }
+    
+    // 读取文件内容
+    const fileContent = fs.readFileSync(filePath, 'utf8');
     
     // 解析frontmatter和markdown内容
     const { data: frontmatter, content } = matter(fileContent);
@@ -252,52 +281,147 @@ async function translateAndSaveFile(
     const targetFilePath = path.join(TRANSLATIONS_DIR, targetLocale, fileName);
     
     fs.writeFileSync(targetFilePath, translatedFileContent);
-    console.log(`Translated ${fileName} to ${targetLocale}`);
     
     // 更新翻译记录
+    if (!translationRecord) {
+      translationRecord = loadTranslationRecord();
+    }
+    
     if (!translationRecord[fileName]) {
       translationRecord[fileName] = {};
     }
     
     translationRecord[fileName][targetLocale] = {
       hash: fileHash,
-      timestamp: Date.now()
+      timestamp: new Date().toISOString()
     };
     
+    // 保存翻译记录
+    saveTranslationRecord(translationRecord);
+    
+    console.log(`✅ ${fileName} 已翻译到 ${LOCALE_NAMES[targetLocale]}`);
   } catch (error) {
-    console.error(`Error translating ${filePath} to ${targetLocale}:`, error);
+    console.error(`翻译 ${fileName} 到 ${targetLocale} 时出错:`, error);
+    throw error;
+  }
+}
+
+// 交互式选择文章和语言
+async function selectBlogAndLanguage() {
+  try {
+    const blogDir = path.join(process.cwd(), 'data/blog');
+    const files = fs.readdirSync(blogDir).filter(file => file.endsWith('.md'));
+
+    // 准备文章选项
+    const blogChoices = await Promise.all(files.map(async file => {
+      const filePath = path.join(blogDir, file);
+      const content = fs.readFileSync(filePath, 'utf8');
+      const { data } = matter(content);
+      return {
+        name: `${data.title || file} (${file})`,
+        value: file
+      };
+    }));
+
+    // 添加"翻译所有文章"选项
+    blogChoices.unshift({
+      name: '📚 翻译所有文章',
+      value: 'ALL'
+    });
+
+    // 选择文章
+    const { selectedBlog } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'selectedBlog',
+        message: '请选择要翻译的文章:',
+        choices: blogChoices,
+        pageSize: 20
+      }
+    ]);
+
+    // 准备语言选项
+    const languageChoices = SUPPORTED_LOCALES.map(locale => ({
+      name: LOCALE_NAMES[locale],
+      value: locale
+    }));
+
+    // 添加"翻译所有语言"选项
+    languageChoices.unshift({
+      name: '🌐 翻译所有语言',
+      value: 'ALL'
+    });
+
+    // 选择语言
+    const { selectedLanguage } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'selectedLanguage',
+        message: '请选择目标语言:',
+        choices: languageChoices
+      }
+    ]);
+
+    // 询问是否强制重新翻译
+    const { forceTranslate } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'forceTranslate',
+        message: '是否强制重新翻译（忽略已有翻译）？',
+        default: false
+      }
+    ]);
+
+    // 确认选择
+    const { confirmed } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'confirmed',
+        message: `确认开始翻译${selectedBlog === 'ALL' ? '所有文章' : `"${selectedBlog}"`}到${selectedLanguage === 'ALL' ? '所有语言' : LOCALE_NAMES[selectedLanguage]}${forceTranslate ? '（强制重新翻译）' : ''}？`,
+        default: true
+      }
+    ]);
+
+    if (!confirmed) {
+      console.log('已取消翻译操作');
+      process.exit(0);
+    }
+
+    return {
+      targetFiles: selectedBlog === 'ALL' ? files : [selectedBlog],
+      targetLocales: selectedLanguage === 'ALL' ? SUPPORTED_LOCALES : [selectedLanguage],
+      forceTranslate
+    };
+  } catch (error) {
+    console.error('选择过程出错:', error);
+    process.exit(1);
   }
 }
 
 // 主函数
 async function translateBlogPosts() {
   try {
-    // 加载翻译记录
-    const translationRecord = loadTranslationRecord();
+    // 交互式选择文章和语言
+    const { targetFiles, targetLocales, forceTranslate } = await selectBlogAndLanguage();
     
-    // 获取所有博客文章
-    const files = fs.readdirSync(BLOG_DIR).filter(file => file.endsWith('.md'));
-    
-    console.log(`Found ${files.length} blog posts to process${FORCE_TRANSLATE ? ' (force mode)' : ''}`);
+    console.log(`\n开始翻译 ${targetFiles.length} 篇文章到 ${targetLocales.length} 种语言${forceTranslate ? '（强制重新翻译）' : ''}...\n`);
     
     // 为每个文件执行翻译
-    for (const file of files) {
+    for (const file of targetFiles) {
       const filePath = path.join(BLOG_DIR, file);
       const fileContent = fs.readFileSync(filePath, 'utf8');
       const fileHash = computeFileHash(fileContent);
       
-      // 翻译成所有支持的语言
-      for (const locale of SUPPORTED_LOCALES) {
-        await translateAndSaveFile(filePath, locale, fileHash, translationRecord);
+      for (const locale of targetLocales) {
+        console.log(`\n📝 正在翻译 ${file} 到 ${LOCALE_NAMES[locale]}...`);
+        await translateAndSaveFile(filePath, locale, fileHash, null, forceTranslate);
       }
     }
     
-    // 保存翻译记录
-    saveTranslationRecord(translationRecord);
-    
-    console.log('Blog translation completed successfully!');
+    console.log('\n✨ 翻译完成！');
   } catch (error) {
-    console.error('Error translating blog posts:', error);
+    console.error('翻译过程出错:', error);
+    process.exit(1);
   }
 }
 

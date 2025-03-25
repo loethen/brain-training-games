@@ -67,6 +67,14 @@ export const games: Game[] = [
         slug: "schulte-table",
         preview: <SchulteTableGamePreview />,
     },
+    {
+        id: "reaction-time",
+        title: "Reaction Time Test",
+        description:
+            "Measure your response speed to visual stimuli and understand your baseline reaction time.",
+        slug: "reaction-time",
+        preview: <ImagePreview src="/games/reaction-time.png" />,
+    },
     // Add more games as you create them
 ];
 

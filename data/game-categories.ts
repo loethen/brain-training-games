@@ -9,6 +9,7 @@ const gameCategoryMap: Record<string, string[]> = {
   "larger-number": ["reaction-time", "selective-attention"],
   "mahjong-dual-n-back": ["working-memory", "divided-attention", "cognitive-flexibility"],
   "block-memory-challenge": ["working-memory", "visual-tracking"],
+  "reaction-time": ["reaction-time", "selective-attention", "sustained-attention"],
   // 其他游戏...
 };
 

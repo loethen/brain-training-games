@@ -798,6 +798,95 @@
                 "personalBest": "Persönlicher Bestwert",
                 "yourTurn": "Ihr Zug..."
             }
+        },
+        "reactionTime": {
+            "title": "Reaktionszeittest",
+            "subtitle": "Messen Sie Ihre Reaktionsgeschwindigkeit auf visuelle Reize",
+            "description": "Testen Sie Ihre Reaktionszeit mit diesem einfachen Online-Tool, das misst, wie schnell Sie auf visuelle Reize reagieren.",
+            "metadata": {
+                "title": "Reaktionszeittest | Kostenloser visueller Stimulusreaktionstest",
+                "description": "Testen Sie Ihre Reaktionszeit mit unserem kostenlosen Online-Tool. Messen Sie, wie schnell Sie auf visuelle Reize reagieren und verfolgen Sie Ihre Ergebnisse.",
+                "keywords": "Reaktionszeittest, visuelle Reaktionszeit, Reaktionsgeschwindigkeitstest, Reflextest online, Reaktionszeit messen",
+                "ogTitle": "Testen Sie Ihre Reaktionszeit - Kostenloses Online-Tool",
+                "ogDescription": "Messen Sie, wie schnell Sie auf visuelle Reize mit unserem einfachen Reaktionszeittest reagieren. Verfolgen Sie Ihre Baseline-Reaktionsgeschwindigkeit."
+            },
+            "howToPlay": {
+                "description": "Dies ist ein einfacher Reaktionszeittest, der misst, wie schnell Sie auf visuelle Änderungen reagieren.",
+                "step1": "Warten Sie, bis der Bildschirm grün wird",
+                "step2": "Klicken oder tippen Sie so schnell wie möglich, wenn sich die Farbe ändert",
+                "step3": "Sehen Sie Ihre Reaktionszeit in Millisekunden",
+                "step4": "Wiederholen Sie mehrere Tests für genauere Ergebnisse"
+            },
+            "benefits": {
+                "measure": {
+                    "title": "Reaktionszeit messen",
+                    "description": "Dieser Test misst die Zeit von der Farbänderung bis zum Klick in Millisekunden."
+                },
+                "baseline": {
+                    "title": "Verstehen Sie Ihre Baseline",
+                    "description": "Erfahren Sie Ihre Baseline-Reaktionszeit und vergleichen Sie mit Ihren vorherigen Ergebnissen."
+                },
+                "consistency": {
+                    "title": "Konsistenz verfolgen",
+                    "description": "Zeichnen Sie mehrere Testergebnisse auf, um die Konsistenz und Variation Ihrer Reaktionszeiten zu sehen."
+                }
+            },
+            "faq": {
+                "what": {
+                    "question": "Was ist Reaktionszeit?",
+                    "answer": "Reaktionszeit ist das Intervall zwischen der Wahrnehmung eines Stimulus (wie das Sehen des grünen Bildschirms) und einer physischen Reaktion (wie dem Klicken). Es umfasst die Zeit, die Ihr Gehirn braucht, um visuelle Informationen zu verarbeiten, zu handeln zu entscheiden und Signale an Ihre Muskeln zu senden. Die durchschnittliche menschliche Reaktionszeit auf visuelle Reize liegt typischerweise zwischen 200-250 Millisekunden, obwohl dies je nach Individuum und Umständen variiert."
+                },
+                "limitations": {
+                    "question": "Was sind die Einschränkungen dieses Tests?",
+                    "answer": "Dieser Test misst nur einfache Reaktionszeit, nicht Auswahlreaktionszeit oder komplexe Entscheidungsfindung. Die Ergebnisse werden von Hardware (Bildwiederholrate des Monitors, Maus/Touchscreen-Latenz), Umweltfaktoren und persönlichem Zustand (wie Müdigkeitslevel) beeinflusst, daher sollte er nicht als präzise wissenschaftliche Messung betrachtet werden."
+                },
+                "factors": {
+                    "question": "Welche Faktoren beeinflussen die Reaktionszeit?",
+                    "answer": "Viele Faktoren beeinflussen die Reaktionszeit, darunter Alter (typischerweise Höhepunkt in den 20ern und verlängert sich danach allmählich), Schlafqualität, Aufmerksamkeitslevel, Ernährung, Medikamente, Müdigkeit und Wachsamkeit während des Tests. Ihre Hardware beeinflusst auch die Messungen, wobei Gaming-Monitore und professionelle Ausrüstung potenziell schnellere Ergebnisse liefern als typische Geräte."
+                },
+                "significance": {
+                    "question": "Was ist die Bedeutung von Reaktionszeitstests?",
+                    "answer": "Reaktionszeitstests bieten eine Möglichkeit, Ihre grundlegende neuronale Reaktionsgeschwindigkeit zu verstehen. Sie können als persönliche Baseline dienen, sollten aber nicht als Trainingstool betrachtet werden. Wenn Sie bemerken, dass Ihre Reaktionszeit deutlich langsamer wird, könnte dies ein Indikator für Müdigkeit, Ablenkung oder andere Gesundheitsfaktoren sein. Für professionelle Wettkämpfer oder bestimmte Berufe kann das Verständnis der Reaktionszeit einen Referenzwert haben."
+                }
+            },
+            "gameUI": {
+                "gameTitle": "Testen Sie Ihre Reaktionszeit",
+                "instructions": "Wenn der blaue Bildschirm grün wird, klicken Sie so schnell wie möglich! Absolvieren Sie 5 Runden, um Ihren Durchschnittswert zu erhalten.",
+                "hardwareNote": "Hinweis: Ihre Ergebnisse hängen von der Hardware Ihres Geräts, der Anzeigeverzögerung und der Eingabeverarbeitungszeit ab.",
+                "startButton": "START",
+                "wait": "WARTEN...",
+                "clickNow": "JETZT KLICKEN",
+                "tooEarly": "ZU FRÜH!",
+                "yourReactionTime": "Ihre Reaktionszeit",
+                "bestTime": "Beste Zeit",
+                "averageTime": "Durchschnittszeit",
+                "round": "Runde",
+                "gameComplete": "Test abgeschlossen!",
+                "playAgain": "Erneut spielen",
+                "share": "Ergebnis teilen",
+                "newBestTime": "Neue Bestzeit",
+                "shareTitle": "Mein Reaktionszeit-Ergebnis",
+                "shareText": "Meine Reaktionszeit",
+                "milliseconds": "Millisekunden",
+                "screenReaderWaiting": "Warten, bis der blaue Bildschirm grün wird. Noch nicht klicken.",
+                "screenReaderReady": "Bildschirm ist jetzt grün. Sofort klicken!",
+                "screenReaderResult": "Ihre Reaktionszeit beträgt",
+                "hardwareFactorsNote": "Ergebnisse variieren je nach Gerät. Gaming-Monitore, Mäuse und Computer können Messungen um bis zu 30-50ms beeinflussen.",
+                "reactionCategory": {
+                    "veryFast": "Sehr schnell - Gaming-Level",
+                    "fast": "Schnell - Überdurchschnittlich",
+                    "average": "Durchschnittliche Reaktion",
+                    "needsPractice": "Weiter üben"
+                }
+            },
+            "ratings": {
+                "master": "Meister",
+                "excellent": "Ausgezeichnet",
+                "great": "Großartig",
+                "good": "Gut",
+                "average": "Durchschnitt",
+                "keepPracticing": "Weiter üben"
+            }
         }
     },
     "buttons": {

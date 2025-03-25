@@ -798,6 +798,95 @@
                 "personalBest": "Meilleur personnel",
                 "yourTurn": "À votre tour..."
             }
+        },
+        "reactionTime": {
+            "title": "Test de Temps de Réaction",
+            "subtitle": "Mesurez votre vitesse de réponse aux stimuli visuels",
+            "description": "Testez votre temps de réaction avec cet outil en ligne simple qui mesure la rapidité avec laquelle vous répondez aux stimuli visuels.",
+            "metadata": {
+                "title": "Test de Temps de Réaction | Test gratuit de réaction aux stimuli visuels",
+                "description": "Testez votre temps de réaction avec notre outil en ligne gratuit. Mesurez la rapidité avec laquelle vous répondez aux stimuli visuels et suivez vos résultats.",
+                "keywords": "test de temps de réaction, temps de réaction visuelle, test de vitesse de réaction, test de réflexes en ligne, mesurer le temps de réaction",
+                "ogTitle": "Testez votre Temps de Réaction - Outil en ligne gratuit",
+                "ogDescription": "Mesurez la rapidité avec laquelle vous répondez aux stimuli visuels avec notre simple test de temps de réaction. Suivez votre vitesse de réaction de base."
+            },
+            "howToPlay": {
+                "description": "Ceci est un simple test de temps de réaction qui mesure votre rapidité à réagir aux changements visuels.",
+                "step1": "Attendez que l'écran devienne vert",
+                "step2": "Cliquez ou tapez aussi vite que possible lorsque la couleur change",
+                "step3": "Voyez votre temps de réaction en millisecondes",
+                "step4": "Répétez plusieurs tests pour des résultats plus précis"
+            },
+            "benefits": {
+                "measure": {
+                    "title": "Mesurer le Temps de Réaction",
+                    "description": "Ce test mesure le temps entre le changement de couleur et votre clic en millisecondes."
+                },
+                "baseline": {
+                    "title": "Comprendre Votre Référence",
+                    "description": "Découvrez votre temps de réaction de base et comparez-le à vos résultats précédents."
+                },
+                "consistency": {
+                    "title": "Suivre la Cohérence",
+                    "description": "Enregistrez plusieurs résultats de tests pour voir la cohérence et la variation de vos temps de réaction."
+                }
+            },
+            "faq": {
+                "what": {
+                    "question": "Qu'est-ce que le temps de réaction ?",
+                    "answer": "Le temps de réaction est l'intervalle entre la perception d'un stimulus (comme voir l'écran vert) et une réaction physique (comme cliquer). Il comprend le temps nécessaire à votre cerveau pour traiter l'information visuelle, décider d'agir et envoyer des signaux à vos muscles. Le temps de réaction humain moyen aux stimuli visuels est généralement compris entre 200 et 250 millisecondes, bien que cela varie selon les individus et les circonstances."
+                },
+                "limitations": {
+                    "question": "Quelles sont les limites de ce test ?",
+                    "answer": "Ce test mesure uniquement le temps de réaction simple, pas le temps de réaction de choix ou la prise de décision complexe. Les résultats sont influencés par le matériel (taux de rafraîchissement du moniteur, latence de la souris/écran tactile), les facteurs environnementaux et l'état personnel (comme le niveau de fatigue), il ne doit donc pas être considéré comme une mesure scientifique précise."
+                },
+                "factors": {
+                    "question": "Quels facteurs influencent le temps de réaction ?",
+                    "answer": "De nombreux facteurs influencent le temps de réaction, notamment l'âge (typiquement à son apogée dans la vingtaine et s'allongeant progressivement par la suite), la qualité du sommeil, le niveau d'attention, la nutrition, les médicaments, la fatigue et la vigilance pendant le test. Votre matériel influence également les mesures, les moniteurs de jeu et l'équipement professionnel fournissant potentiellement des résultats plus rapides que les appareils typiques."
+                },
+                "significance": {
+                    "question": "Quelle est l'importance des tests de temps de réaction ?",
+                    "answer": "Les tests de temps de réaction offrent un moyen de comprendre votre vitesse de réaction neuronale de base. Ils peuvent servir de référence personnelle, mais ne doivent pas être considérés comme un outil d'entraînement. Si vous remarquez que votre temps de réaction devient significativement plus lent, cela pourrait être un indicateur de fatigue, de distraction ou d'autres facteurs de santé. Pour les compétiteurs professionnels ou certaines professions, comprendre le temps de réaction peut avoir une valeur de référence."
+                }
+            },
+            "gameUI": {
+                "gameTitle": "Testez Votre Temps de Réaction",
+                "instructions": "Lorsque l'écran bleu devient vert, cliquez aussi vite que possible ! Complétez 5 tours pour obtenir votre score moyen.",
+                "hardwareNote": "Note : Vos résultats dépendent du matériel de votre appareil, du délai d'affichage et du temps de traitement d'entrée.",
+                "startButton": "DÉMARRER",
+                "wait": "ATTENDEZ...",
+                "clickNow": "CLIQUEZ MAINTENANT",
+                "tooEarly": "TROP TÔT !",
+                "yourReactionTime": "Votre Temps de Réaction",
+                "bestTime": "Meilleur Temps",
+                "averageTime": "Temps Moyen",
+                "round": "Tour",
+                "gameComplete": "Test Terminé !",
+                "playAgain": "Rejouer",
+                "share": "Partager le Résultat",
+                "newBestTime": "Nouveau Meilleur Temps",
+                "shareTitle": "Mon Résultat de Temps de Réaction",
+                "shareText": "Mon temps de réaction",
+                "milliseconds": "millisecondes",
+                "screenReaderWaiting": "En attente que l'écran bleu devienne vert. Ne cliquez pas encore.",
+                "screenReaderReady": "L'écran est maintenant vert. Cliquez immédiatement !",
+                "screenReaderResult": "Votre temps de réaction est",
+                "hardwareFactorsNote": "Les résultats varient selon l'appareil. Les moniteurs de jeu, souris et ordinateurs peuvent impacter les mesures jusqu'à 30-50ms.",
+                "reactionCategory": {
+                    "veryFast": "Très Rapide - Niveau Joueur",
+                    "fast": "Rapide - Au-dessus de la Moyenne",
+                    "average": "Réponse Moyenne",
+                    "needsPractice": "Continuez à Pratiquer"
+                }
+            },
+            "ratings": {
+                "master": "Maître",
+                "excellent": "Excellent",
+                "great": "Formidable",
+                "good": "Bon",
+                "average": "Moyen",
+                "keepPracticing": "Continuez à Pratiquer"
+            }
         }
     },
     "buttons": {

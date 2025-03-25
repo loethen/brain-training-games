@@ -1,0 +1,321 @@
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { toast } from "sonner";
+import { Share, Award } from "lucide-react";
+import { useTranslations } from 'next-intl';
+import { ShareModal } from '@/components/ui/ShareModal';
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+
+const MIN_WAIT_TIME = 2000;
+const MAX_WAIT_TIME = 6000;
+const MAX_ROUNDS = 5;
+
+enum GameStates {
+  START,
+  WAITING,
+  READY,
+  RESULT,
+  SUMMARY
+}
+
+export default function ReactionTimeGame() {
+  const t = useTranslations('games.reactionTime.gameUI');
+  
+  // State management
+  const [gameState, setGameState] = useState<GameStates>(GameStates.START);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [reactionTime, setReactionTime] = useState<number | null>(null);
+  const [bestTime, setBestTime] = useState<number | null>(null);
+  const [results, setResults] = useState<number[]>([]);
+  const [round, setRound] = useState<number>(1);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [pageUrl, setPageUrl] = useState('');
+
+  // Refs for accessibility
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // References for timeout management
+  const timeoutRef = useRef<number | null>(null);
+  
+  // Load best time from localStorage and set page URL
+  useEffect(() => {
+    const savedBestTime = localStorage.getItem('reactionBestTime');
+    if (savedBestTime) {
+      setBestTime(parseInt(savedBestTime));
+    }
+    
+    // Set page URL safely after component mounts in browser
+    setPageUrl(window.location.href);
+  }, []);
+
+  const getAverageTime = (results: number[]) => {
+    if (results.length === 0) return 0;
+    const sum = results.reduce((acc, curr) => acc + curr, 0);
+    return Math.round(sum / results.length);
+  };
+
+  const clearTimeout = () => {
+    if (timeoutRef.current !== null) {
+      window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
+  const resetGame = () => {
+    clearTimeout();
+    setGameState(GameStates.START);
+    setReactionTime(null);
+    setStartTime(null);
+    if (round > MAX_ROUNDS) {
+      setResults([]);
+      setRound(1);
+    }
+  };
+
+  const startGame = () => {
+    clearTimeout();
+    setGameState(GameStates.WAITING);
+    
+    // Set random wait time
+    const randomWaitTime = Math.floor(Math.random() * (MAX_WAIT_TIME - MIN_WAIT_TIME)) + MIN_WAIT_TIME;
+    
+    // Change to READY state after random wait time
+    timeoutRef.current = window.setTimeout(() => {
+      setGameState(GameStates.READY);
+      setStartTime(Date.now());
+    }, randomWaitTime);
+  };
+
+  const handleClick = () => {
+    // If in START state, start the game
+    if (gameState === GameStates.START) {
+      startGame();
+      return;
+    }
+
+    // If waiting, clicked too early
+    if (gameState === GameStates.WAITING) {
+      clearTimeout();
+      setGameState(GameStates.RESULT);
+      setReactionTime(null);
+      return;
+    }
+
+    // If ready, record reaction time
+    if (gameState === GameStates.READY) {
+      const now = Date.now();
+      
+      if (startTime) {
+        const time = now - startTime;
+        setReactionTime(time);
+        
+        // Update best time if better
+        if (bestTime === null || time < bestTime) {
+          setBestTime(time);
+          localStorage.setItem('reactionBestTime', time.toString());
+          toast(t('newBestTime') + `: ${time} ${t('milliseconds')}`);
+        } 
+        
+        // Add to results
+        const newResults = [...results, time];
+        setResults(newResults);
+        
+        // Check if reached max rounds
+        if (round >= MAX_ROUNDS) {
+          setGameState(GameStates.SUMMARY);
+        } else {
+          setRound(prevRound => prevRound + 1);
+          setGameState(GameStates.RESULT);
+        }
+      }
+    }
+
+    // If showing results, start next round or reset
+    if (gameState === GameStates.RESULT) {
+      startGame();
+    }
+
+    // If summary, reset the game
+    if (gameState === GameStates.SUMMARY) {
+      resetGame();
+    }
+  };
+
+  const shareResults = () => {
+    setIsShareModalOpen(true);
+  };
+
+  // Cleanup timers on unmount
+  useEffect(() => {
+    return () => {
+      clearTimeout();
+    };
+  }, []);
+
+  // Focus management for accessibility
+  useEffect(() => {
+    if (gameState === GameStates.READY && containerRef.current) {
+      containerRef.current.focus();
+    }
+  }, [gameState]);
+
+  // Get background color and style based on game state
+  const getBackgroundStyle = () => {
+    switch (gameState) {
+      case GameStates.START:
+        return {
+          className: "bg-blue-500",
+          style: {}
+        };
+      case GameStates.WAITING:
+        return {
+          className: "bg-blue-500",
+          style: {}
+        };
+      case GameStates.READY:
+        return {
+          className: "bg-green-500",
+          style: {}
+        };
+      default:
+        return {
+          className: "bg-gray-800 text-white dark:bg-gray-900",
+          style: {}
+        };
+    }
+  };
+
+  const bgStyle = getBackgroundStyle();
+  let ariaLabel = "";
+
+  // Set aria label for screen readers
+  if (gameState === GameStates.WAITING) {
+    ariaLabel = t('screenReaderWaiting');
+  } else if (gameState === GameStates.READY) {
+    ariaLabel = t('screenReaderReady');
+  }
+
+  return (
+    <>
+      <div className="space-y-6 flex flex-col items-center w-full">
+        {/* Game board */}
+        <div className="relative w-full">
+          <div
+            className={`${bgStyle.className} w-full h-64 md:h-80 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] cursor-pointer flex items-center justify-center relative select-none`}
+            onClick={handleClick}
+            tabIndex={0}
+            ref={containerRef}
+            role="button"
+            aria-label={ariaLabel}
+            style={bgStyle.style}
+          >
+            {/* Game content based on state */}
+            <div className="p-4 text-center">
+              {gameState === GameStates.START && (
+                <div className="flex flex-col items-center justify-center h-full">
+                  <p className="text-2xl md:text-3xl font-bold text-white">{t('startButton')}</p>
+                </div>
+              )}
+              
+              {gameState === GameStates.WAITING && (
+                <div className="flex items-center justify-center h-full">
+                  <motion.p 
+                    className="text-3xl md:text-4xl font-bold text-white"
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                  >
+                    {t('wait')}
+                  </motion.p>
+                </div>
+              )}
+              
+              {gameState === GameStates.READY && (
+                <div className="flex items-center justify-center h-full">
+                  <motion.p 
+                    className="text-3xl md:text-4xl font-bold text-white"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ repeat: Infinity, duration: 0.5 }}
+                  >
+                    {t('clickNow')}
+                  </motion.p>
+                </div>
+              )}
+              
+              {gameState === GameStates.RESULT && (
+                <div className="flex flex-col items-center justify-center h-full">
+                  {reactionTime === null ? (
+                    <motion.p 
+                      className="text-xl md:text-2xl font-bold text-red-500"
+                      animate={{ 
+                        x: [0, -5, 5, -5, 5, 0],
+                        transition: { duration: 0.5 }
+                      }}
+                    >
+                      {t('tooEarly')}
+                    </motion.p>
+                  ) : (
+                    <>
+                      <motion.p 
+                        className="text-4xl md:text-5xl font-bold text-white"
+                        initial={{ scale: 1.5, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {reactionTime}
+                      </motion.p>
+                      <p className="text-sm md:text-base text-gray-200 mt-1">{t('milliseconds')}</p>
+                      <p className="text-xs md:text-sm text-gray-300 mt-3">{t('round')} {round}/{MAX_ROUNDS}</p>
+                    </>
+                  )}
+                </div>
+              )}
+              
+              {gameState === GameStates.SUMMARY && (
+                <div className="flex flex-col items-center justify-center h-full gap-4">
+                  <div className="text-center">
+                    <p className="text-sm md:text-base font-medium text-gray-300">{t('bestTime')}</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white">{Math.min(...results)}</p>
+                    <p className="text-xs text-gray-400">{t('milliseconds')}</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <p className="text-sm md:text-base font-medium text-gray-300">{t('averageTime')}</p>
+                    <p className="text-xl md:text-2xl font-bold text-white">{getAverageTime(results)}</p>
+                    <p className="text-xs text-gray-400">{t('milliseconds')}</p>
+                  </div>
+                  
+                  <div className="flex gap-2 mt-2">
+                    <Button onClick={resetGame} size="sm" variant="secondary" className="text-xs">
+                      {t('playAgain')}
+                    </Button>
+                    <Button onClick={shareResults} size="sm" variant="outline" className="flex items-center justify-center gap-1 text-xs">
+                      <Share size={12} />
+                      {t('share')}
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        {/* Previous best time display (only shown on start screen) */}
+        {gameState === GameStates.START && bestTime && (
+          <div className="flex justify-center items-center space-x-1 text-gray-600 dark:text-gray-400 text-sm">
+            <Award className="w-3 h-3" />
+            <span>{t('bestTime')}: <span className="font-bold">{bestTime}</span> ms</span>
+          </div>
+        )}
+      </div>
+      
+      <ShareModal 
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        title={t('shareTitle')}
+        url={pageUrl}
+      />
+    </>
+  );
+} 

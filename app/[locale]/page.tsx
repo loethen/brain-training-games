@@ -149,6 +149,16 @@ export default function Home() {
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
                     <GameCard
                         game={{
+                            id: "reaction-time",
+                            title: "Reaction Time Test",
+                            description:
+                                "Measure your response speed to visual stimuli and understand your baseline reaction time.",
+                            slug: "reaction-time",
+                        }}
+                        preview={<ImagePreview src="/games/reaction-time.png" />}
+                    />
+                    <GameCard
+                        game={{
                             id: "schulte-table",
                             title: "Schulte Table",
                             description:

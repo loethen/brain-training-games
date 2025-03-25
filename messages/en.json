@@ -798,6 +798,95 @@
         "personalBest": "Personal Best",
         "yourTurn": "Your turn..."
       }
+    },
+    "reactionTime": {
+      "title": "Reaction Time Test",
+      "subtitle": "Measure your response speed to visual stimuli",
+      "description": "Test your reaction time with this simple online tool that measures how quickly you respond to visual stimuli.",
+      "metadata": {
+        "title": "Reaction Time Test | Free Visual Stimulus Response Test",
+        "description": "Test your reaction time with our free online tool. Measure how quickly you respond to visual stimuli and track your results.",
+        "keywords": "reaction time test, visual response time, reaction speed test, reflex test online, measure reaction time",
+        "ogTitle": "Test Your Reaction Time - Free Online Tool",
+        "ogDescription": "Measure how quickly you respond to visual stimuli with our simple reaction time test. Track your baseline response speed."
+      },
+      "howToPlay": {
+        "description": "This is a simple reaction time test that measures how quickly you respond to visual changes.",
+        "step1": "Wait for the screen to turn green",
+        "step2": "Click or tap as quickly as possible when the color changes",
+        "step3": "See your reaction time in milliseconds",
+        "step4": "Repeat several times for more accurate results"
+      },
+      "benefits": {
+        "measure": {
+          "title": "Measure Reaction Time",
+          "description": "This test measures the time from when the color changes to when you click, in milliseconds."
+        },
+        "baseline": {
+          "title": "Understand Your Baseline",
+          "description": "Learn your baseline reaction time and compare against your previous results."
+        },
+        "consistency": {
+          "title": "Track Consistency",
+          "description": "Record multiple test results to see the consistency and variation in your reaction times."
+        }
+      },
+      "faq": {
+        "what": {
+          "question": "What is reaction time?",
+          "answer": "Reaction time is the interval between perceiving a stimulus (like seeing the screen turn green) and making a physical response (like clicking). It includes the time your brain takes to process visual information, decide to act, and send signals to your muscles. Average human reaction time to visual stimuli is typically between 200-250 milliseconds, though this varies by individual and circumstances."
+        },
+        "limitations": {
+          "question": "What are the limitations of this test?",
+          "answer": "This test only measures simple reaction time, not choice reaction time or complex decision-making. Results are affected by hardware (monitor refresh rate, mouse/touchscreen latency), environmental factors, and personal state (like fatigue level), so it shouldn't be considered a precise scientific measurement."
+        },
+        "factors": {
+          "question": "What factors affect reaction time?",
+          "answer": "Many factors influence reaction time, including age (typically peaks in your 20s and gradually lengthens afterward), sleep quality, attention level, diet, medications, fatigue, and alertness during testing. Your hardware also affects measurements, with gaming monitors and professional equipment potentially providing faster results than typical devices."
+        },
+        "significance": {
+          "question": "What's the significance of reaction time testing?",
+          "answer": "Reaction time testing provides a way to understand your basic neural response speed. It can serve as a personal baseline but shouldn't be viewed as a training tool. If you notice your reaction time becoming significantly slower, it may be an indicator of fatigue, distraction, or other health factors. For professional competitors or certain occupations, understanding reaction time may have reference value."
+        }
+      },
+      "gameUI": {
+        "gameTitle": "Test Your Reaction Time",
+        "instructions": "When the blue screen turns green, click as quickly as you can! Complete 5 rounds to get your average score.",
+        "hardwareNote": "Note: Your results depend on your device's hardware, display lag, and input processing time.",
+        "startButton": "START",
+        "wait": "WAIT...",
+        "clickNow": "CLICK NOW",
+        "tooEarly": "TOO EARLY!",
+        "yourReactionTime": "Your Reaction Time",
+        "bestTime": "Best Time",
+        "averageTime": "Average Time",
+        "round": "Round",
+        "gameComplete": "Game Complete!",
+        "playAgain": "Play Again",
+        "share": "Share Result",
+        "newBestTime": "New Best Time",
+        "shareTitle": "My Reaction Time Result",
+        "shareText": "My reaction time",
+        "milliseconds": "milliseconds",
+        "screenReaderWaiting": "Waiting for blue screen to turn green. Do not click yet.",
+        "screenReaderReady": "Screen is now green. Click immediately!",
+        "screenReaderResult": "Your reaction time is",
+        "hardwareFactorsNote": "Results vary by device. Gaming monitors, mice, and computers can impact measurements by up to 30-50ms.",
+        "reactionCategory": {
+          "veryFast": "Very Fast - Gaming Level",
+          "fast": "Fast - Above Average",
+          "average": "Average Response",
+          "needsPractice": "Keep Practicing"
+        }
+      },
+      "ratings": {
+        "master": "Master",
+        "excellent": "Excellent",
+        "great": "Great",
+        "good": "Good",
+        "average": "Average",
+        "keepPracticing": "Keep Practicing"
+      }
     }
   },
   "buttons": {

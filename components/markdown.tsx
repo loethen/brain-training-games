@@ -67,7 +67,12 @@ const components: Components = {
     // 外部链接
     if (href && (href.startsWith('http') || href.startsWith('//'))) {
       return (
-        <a href={href} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+        <a 
+          href={href} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 hover:underline"
+        >
           {children}
         </a>
       );
@@ -75,7 +80,7 @@ const components: Components = {
     
     // 内部链接
     return href ? (
-      <Link href={href} className="text-primary hover:underline">
+      <Link href={href} className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 hover:underline">
         {children}
       </Link>
     ) : null;

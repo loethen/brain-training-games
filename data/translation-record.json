@@ -1,28 +1,54 @@
 {
   "how-to-improve-reaction-time.md": {
     "zh": {
-      "hash": "00c939e06917451d86c00d1103da1f7f",
-      "timestamp": 1742808980262
+      "hash": "5efecee8064c11edc0ede8699d953571",
+      "timestamp": 1742888653219
     },
     "de": {
-      "hash": "00c939e06917451d86c00d1103da1f7f",
-      "timestamp": 1742808993327
+      "hash": "5efecee8064c11edc0ede8699d953571",
+      "timestamp": 1742888662639
     },
     "ja": {
-      "hash": "00c939e06917451d86c00d1103da1f7f",
-      "timestamp": 1742809007070
+      "hash": "5efecee8064c11edc0ede8699d953571",
+      "timestamp": 1742888678945
     },
     "es": {
-      "hash": "00c939e06917451d86c00d1103da1f7f",
-      "timestamp": 1742809021010
+      "hash": "5efecee8064c11edc0ede8699d953571",
+      "timestamp": 1742888688276
     },
     "ko": {
-      "hash": "00c939e06917451d86c00d1103da1f7f",
-      "timestamp": 1742809035860
+      "hash": "5efecee8064c11edc0ede8699d953571",
+      "timestamp": 1742888697648
     },
     "fr": {
-      "hash": "00c939e06917451d86c00d1103da1f7f",
-      "timestamp": 1742809049673
+      "hash": "5efecee8064c11edc0ede8699d953571",
+      "timestamp": 1742888721476
+    }
+  },
+  "how-dopamine-hijacks-focus.md": {
+    "zh": {
+      "hash": "0fc0cdb01a0476e2fa76e41900451692",
+      "timestamp": "2025-03-25T08:08:25.289Z"
+    },
+    "de": {
+      "hash": "0fc0cdb01a0476e2fa76e41900451692",
+      "timestamp": 1742888520873
+    },
+    "ja": {
+      "hash": "0fc0cdb01a0476e2fa76e41900451692",
+      "timestamp": 1742888533453
+    },
+    "es": {
+      "hash": "0fc0cdb01a0476e2fa76e41900451692",
+      "timestamp": 1742888544573
+    },
+    "ko": {
+      "hash": "0fc0cdb01a0476e2fa76e41900451692",
+      "timestamp": 1742888557097
+    },
+    "fr": {
+      "hash": "0fc0cdb01a0476e2fa76e41900451692",
+      "timestamp": 1742888557891
     }
   }
 }

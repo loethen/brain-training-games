@@ -35,6 +35,7 @@
     "embla-carousel-react": "^8.5.2",
     "gray-matter": "^4.0.3",
     "howler": "^2.2.4",
+    "inquirer": "^8.2.6",
     "lucide-react": "^0.475.0",
     "motion": "^12.4.10",
     "next": "15.2.1",
