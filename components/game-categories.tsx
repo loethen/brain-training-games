@@ -11,7 +11,7 @@ import {
     Shuffle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { categories, getCategory } from "@/data/categories";
+import { categories, getCategory, type Category } from "@/data/categories";
 import { useTranslations } from "next-intl";
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -39,10 +39,12 @@ export default function GameCategories({
     showDescription = false,
 }: GameCategoriesProps) {
     const t = useTranslations("categories");
-    const displayCategories =
+    const displayCategories: Category[] =
         gameId === "all" || displayAll 
             ? categories 
-            : getGameCategories(gameId).map(categoryId => getCategory(categoryId)).filter(Boolean);
+            : getGameCategories(gameId)
+                .map(categoryId => getCategory(categoryId))
+                .filter((category): category is Category => category !== undefined);
 
     if (displayCategories.length === 0) return null;
 
