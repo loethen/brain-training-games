@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import { getGameCategories } from "@/data/game-categories";
+import { getGameCategories } from "@/data/games";
 import {
     Brain,
     Focus,
@@ -11,7 +11,7 @@ import {
     Shuffle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { categories } from "@/data/categories";
+import { categories, getCategory } from "@/data/categories";
 import { useTranslations } from "next-intl";
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -40,7 +40,9 @@ export default function GameCategories({
 }: GameCategoriesProps) {
     const t = useTranslations("categories");
     const displayCategories =
-        gameId === "all" || displayAll ? categories : getGameCategories(gameId);
+        gameId === "all" || displayAll 
+            ? categories 
+            : getGameCategories(gameId).map(categoryId => getCategory(categoryId)).filter(Boolean);
 
     if (displayCategories.length === 0) return null;
 

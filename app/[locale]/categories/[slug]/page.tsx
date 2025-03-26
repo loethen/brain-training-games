@@ -1,6 +1,5 @@
 import { getCategoryBySlug } from "@/data/categories";
-import { getCategoryGames } from "@/data/game-categories";
-import { getGames } from "@/data/games";
+import { getGamesByCategory } from "@/data/games";
 import GameCard from "@/components/game-card";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Metadata } from "next";
@@ -73,8 +72,7 @@ export default async function CategoryPage({ params }: Props) {
     return <div>Category not found</div>;
   }
   
-  const categoryGames = getCategoryGames(category.id);
-  const games = getGames().filter(game => categoryGames.includes(game.id));
+  const games = getGamesByCategory(category.id);
   
   // 获取服务器端翻译
   const t = await getTranslations({ locale, namespace: 'categories' });

@@ -1,16 +1,17 @@
 import { Button } from "@/components/ui/button";
 import GameCard from "@/components/game-card";
-import { GamePreview as SimonGamePreview } from "./games/block-memory-challenge/components/GamePreview";
-import { GamePreview as SchulteGamePreview } from "./games/schulte-table/components/GamePreview";
-import { ImagePreview } from "@/components/image-preview";
 import { Marquee } from "@/components/magicui/marquee";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { BrainGameIcons } from "@/components/brain-game-icons";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from "next";
+import { getGames } from "@/data/games";
+import { getBlogPosts, type BlogPost } from "@/lib/blog";
+import Image from "next/image";
+import { formatDate } from "@/lib/utils";
+import { GamesScrollButtons } from "@/components/games-scroll-buttons";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
@@ -36,9 +37,12 @@ export async function generateMetadata(
   };
 }
 
-export default function Home() {
-    const t = useTranslations();
-    const testimonials = useTranslations('home.testimonials');
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    const t = await getTranslations({ locale });
+    const testimonials = await getTranslations({ locale, namespace: 'home.testimonials' });
+    const games = getGames();
+    const posts = await getBlogPosts(locale);
     
     // 第一组评价
     const firstRowReviews = [
@@ -136,103 +140,70 @@ export default function Home() {
 
             {/* Games Section */}
             <section className="mb-24 max-w-[1400px] mx-auto">
+                <div className="px-6">
+                    <div className="flex justify-between items-center mb-8">
+                        <h2 className="text-3xl font-bold">
+                            {t("home.popularGames")}
+                        </h2>
+                        <Link href="/games">
+                            <Button variant="ghost">
+                                {t("buttons.viewAll")} →
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+                <div className="relative group">
+                    <div className="flex overflow-x-auto gap-6 snap-x snap-mandatory scrollbar-hide px-6" id="games-container">
+                        {games.map((game) => (
+                            <div key={game.id} className="min-w-[300px] md:min-w-[400px] snap-start">
+                                <GameCard game={game} preview={game.preview} />
+                            </div>
+                        ))}
+                    </div>
+                    <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent pointer-events-none"></div>
+                    <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
+                    <GamesScrollButtons />
+                </div>
+            </section>
+
+            {/* Latest Blog Posts */}
+            <section className="mb-24 max-w-[1400px] mx-auto px-6">
                 <div className="flex justify-between items-center mb-8">
                     <h2 className="text-3xl font-bold">
-                        {t("home.popularGames")}
+                        {t("home.latestPosts")}
                     </h2>
-                    <Link href="/games">
+                    <Link href="/blog">
                         <Button variant="ghost">
                             {t("buttons.viewAll")} →
                         </Button>
                     </Link>
                 </div>
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-10">
-                    <GameCard
-                        game={{
-                            id: "reaction-time",
-                            title: "Reaction Time Test",
-                            description:
-                                "Measure your response speed to visual stimuli and understand your baseline reaction time.",
-                            slug: "reaction-time",
-                        }}
-                        preview={<ImagePreview src="/games/reaction-time.png" />}
-                    />
-                    <GameCard
-                        game={{
-                            id: "schulte-table",
-                            title: "Schulte Table",
-                            description:
-                                "Enhance your attention and peripheral vision",
-                            slug: "schulte-table",
-                        }}
-                        preview={<SchulteGamePreview />}
-                    />
-                    <GameCard
-                        game={{
-                            id: "block-memory-challenge",
-                            title: "Block Memory Challenge",
-                            description:
-                                "Strengthen your working memory by remembering and repeating visual sequences.",
-                            slug: "block-memory-challenge",
-                        }}
-                        preview={<SimonGamePreview />}
-                    />
-                    <GameCard
-                        game={{
-                            id: "larger-number",
-                            title: "Larger Number",
-                            description:
-                                "Click the bigger number fast to sharpen your focus!",
-                            slug: "larger-number",
-                        }}
-                        preview={
-                            <ImagePreview src="/games/larger-number.png" />
-                        }
-                    />
-                    <GameCard
-                        game={{
-                            id: "mahjong-dual-n-back",
-                            title: "Mahjong Dual N-Back",
-                            description:
-                                "Boost memory and focus with Mahjong-inspired Dual N-Back challenges!",
-                            slug: "mahjong-dual-n-back",
-                        }}
-                        preview={
-                            <ImagePreview src="/games/mahjong-dual-n-back.png" />
-                        }
-                    />
-                    <GameCard
-                        game={{
-                            id: "dual-n-back",
-                            title: "Dual N-Back",
-                            description:
-                                "Sharpen your mind with classic Dual N-Back memory training!",
-                            slug: "dual-n-back",
-                        }}
-                        preview={<ImagePreview src="/games/dual-n-back.png" />}
-                    />
-                    <GameCard
-                        game={{
-                            id: "fish-trace",
-                            title: "Glowing Fish Trace",
-                            description:
-                                "Master visual tracking by following glowing fish patterns",
-                            slug: "fish-trace",
-                        }}
-                        preview={<ImagePreview src="/games/fish-trace.png" />}
-                    />
-                    <GameCard
-                        game={{
-                            id: "frog-memory-leap",
-                            title: "Frog Memory Leap",
-                            description:
-                                "Enhance Sequential Memory & Spatial Recall Through Progressive Challenges",
-                            slug: "frog-memory-leap",
-                        }}
-                        preview={
-                            <ImagePreview src="/games/frog-memory-leap.png" />
-                        }
-                    />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {posts.slice(0, 2).map((post: BlogPost) => (
+                        <article key={post.slug} className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                            <Link href={`/${locale}/blog/${post.slug}`}>
+                                <div className="grid md:grid-cols-[1fr_1.5fr]">
+                                    {post.coverImage && (
+                                        <div className="relative h-48 md:h-full">
+                                            <Image 
+                                                src={post.coverImage}
+                                                alt={post.title}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="p-6">
+                                        <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+                                        <div className="text-sm text-muted-foreground mb-3">
+                                            {formatDate(post.date, locale)}
+                                        </div>
+                                        <p className="text-muted-foreground line-clamp-2">{post.excerpt}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </article>
+                    ))}
                 </div>
             </section>
 
