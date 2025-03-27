@@ -18,35 +18,35 @@ export function PostNavigation({ previousPost, nextPost, locale, labels }: PostN
   }
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-stretch border-t border-b py-6 my-8">
+    <div className="grid md:grid-cols-2 gap-4 border-t border-b py-6 my-8">
       {previousPost ? (
         <Link 
           href={`/${locale}/blog/${previousPost.slug}`}
-          className="flex flex-1 flex-col p-4 rounded-md hover:bg-muted transition-colors group max-w-full"
+          className="flex flex-col p-4 rounded-md hover:bg-muted transition-colors group"
         >
           <span className="flex items-center text-sm text-muted-foreground mb-2">
             <ChevronLeft className="h-4 w-4 mr-1" />
             {labels.previousPost}
           </span>
-          <span className="font-medium group-hover:text-primary truncate">{previousPost.title}</span>
+          <span className="font-medium group-hover:text-primary line-clamp-2">{previousPost.title}</span>
         </Link>
       ) : (
-        <div className="flex-1" />
+        <div />
       )}
 
       {nextPost ? (
         <Link 
           href={`/${locale}/blog/${nextPost.slug}`}
-          className="flex flex-1 flex-col p-4 rounded-md hover:bg-muted transition-colors group text-right max-w-full md:ml-auto"
+          className="flex flex-col p-4 rounded-md hover:bg-muted transition-colors group text-right"
         >
           <span className="flex items-center text-sm text-muted-foreground mb-2 justify-end">
             {labels.nextPost}
             <ChevronRight className="h-4 w-4 ml-1" />
           </span>
-          <span className="font-medium group-hover:text-primary truncate">{nextPost.title}</span>
+          <span className="font-medium group-hover:text-primary line-clamp-2">{nextPost.title}</span>
         </Link>
       ) : (
-        <div className="flex-1" />
+        <div />
       )}
     </div>
   );

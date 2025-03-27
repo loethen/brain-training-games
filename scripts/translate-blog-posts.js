@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const path = require('path');
 const fs = require('fs');
 const matter = require('gray-matter');
@@ -49,8 +50,8 @@ async function makeAPIRequest(prompt, retryCount = 0) {
     }
     
     // 获取Gemini模型
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    
+    // const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
     // 发起请求
     const result = await model.generateContent(prompt);
     requestCount++;
@@ -78,10 +79,6 @@ const BLOG_DIR = path.join(process.cwd(), 'data', 'blog');
 const TRANSLATIONS_DIR = path.join(process.cwd(), 'data', 'blog-translations');
 // 翻译记录文件路径
 const TRANSLATION_RECORD_FILE = path.join(process.cwd(), 'data', 'translation-record.json');
-
-// 处理命令行参数
-const args = process.argv.slice(2);
-const FORCE_TRANSLATE = args.includes('--force');
 
 // 创建翻译目录（如果不存在）
 if (!fs.existsSync(TRANSLATIONS_DIR)) {

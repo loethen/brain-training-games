@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import Markdown from '@/components/markdown';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { PostNavigation } from '@/components/post-navigation';
+import { ShareButton } from '@/components/share-button';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
@@ -92,6 +93,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               />
             </div>
           )}
+          
+          <div className="mb-8">
+            <ShareButton title={post.title} />
+          </div>
           
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <Markdown content={post.content} />
