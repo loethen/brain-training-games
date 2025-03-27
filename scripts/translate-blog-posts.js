@@ -50,8 +50,8 @@ async function makeAPIRequest(prompt, retryCount = 0) {
     }
     
     // 获取Gemini模型
-    // const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
     // 发起请求
     const result = await model.generateContent(prompt);
     requestCount++;
