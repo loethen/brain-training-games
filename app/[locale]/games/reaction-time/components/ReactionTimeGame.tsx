@@ -290,7 +290,7 @@ export default function ReactionTimeGame() {
                     <Button onClick={resetGame} size="sm" variant="secondary" className="text-xs">
                       {t('playAgain')}
                     </Button>
-                    <Button onClick={shareResults} size="sm" variant="outline" className="flex items-center justify-center gap-1 text-xs">
+                    <Button onClick={shareResults} size="sm" className="flex items-center justify-center gap-1 text-xs">
                       <Share size={12} />
                       {t('share')}
                     </Button>
