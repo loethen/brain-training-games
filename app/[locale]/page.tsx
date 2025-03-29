@@ -181,7 +181,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {posts.slice(0, 2).map((post: BlogPost) => (
                         <article key={post.slug} className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                            <Link href={`/${locale}/blog/${post.slug}`}>
+                            <Link href={`/blog/${post.slug}`}>
                                 <div className="grid md:grid-cols-[1fr_1.5fr]">
                                     {post.coverImage && (
                                         <div className="relative h-48 md:h-full">
