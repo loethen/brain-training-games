@@ -42,7 +42,7 @@ export function SchulteGame() {
   useEffect(() => {
     const savedBestTime = localStorage.getItem('schulteGridBestTime')
     if (savedBestTime) {
-      setBestTime(parseInt(savedBestTime))
+      setBestTime(parseFloat(savedBestTime))
     }
     initializeGrid() // 页面加载时就初始化网格
   }, [])
