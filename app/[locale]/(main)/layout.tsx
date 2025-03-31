@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { inter } from "./fonts";
-import "./globals.css";
+import { inter } from "../fonts";
+import "../globals.css";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Layout } from "@/components/layout";
 import { ThemeProvider } from "next-themes";

@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { X, Copy, Check } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 
 interface EmbedCodeModalProps {
   isOpen: boolean
@@ -12,6 +12,8 @@ interface EmbedCodeModalProps {
   gameTitle: string
 }
 
+type CodeType = 'html' | 'react' | 'vue';
+
 export function EmbedCodeModal({ 
   isOpen, 
   onClose, 
@@ -19,9 +21,10 @@ export function EmbedCodeModal({
   gameTitle
 }: EmbedCodeModalProps) {
   const [copied, setCopied] = useState(false)
+  const [codeType, setCodeType] = useState<CodeType>('html')
   const t = useTranslations('games.embed')
+  const locale = useLocale()
   
-  // 复制后重置状态
   useEffect(() => {
     if (copied) {
       const timer = setTimeout(() => {
@@ -33,16 +36,145 @@ export function EmbedCodeModal({
   
   if (!isOpen) return null
 
-  const embedCode = `<!-- Free Focus Games - ${gameTitle} ${t('embedCode')} -->
-<div id="ffg-game-container" style="width:100%; max-width:600px; height:600px; margin:0 auto;"></div>
-<a href="https://freefocusgames.com/games/${gameName}" target="_blank">${t('poweredBy')} Free Focus Games ${gameTitle}</a>
-<script src="https://freefocusgames.com/embed.js"></script>
+  const standardCode = `<!-- HTML Example -->
+<div id="ffg-game-container" style="width:100%; max-width:600px; margin:0 auto;"></div>
+<a href="https://www.freefocusgames.com/games/${gameName}" target="_blank" rel="noopener" class="sr-only">Powered by Free Focus Games ${gameTitle}</a>
+<script src="https://www.freefocusgames.com/embed.js"></script>
 <script>
   FreeFocusGamesEmbed.init({
     game: '${gameName}',
-    container: 'ffg-game-container'
+    container: 'ffg-game-container',
+    locale: '${locale}'
   });
-</script>`
+</script>`;
+
+  const reactCode = `{/* React Example */}
+import Script from 'next/script'  // For Next.js
+// For other React apps, you can use a regular script tag
+
+export function ${gameTitle.replace(/\s+/g, '')}Game() {
+  return (
+    <>
+      <div id="ffg-game-container" style={{
+        width: '100%',
+        maxWidth: '600px',
+        margin: '0 auto'
+      }} />
+      <a 
+        href="https://www.freefocusgames.com/games/${gameName}"
+        target="_blank"
+        rel="noopener"
+        className="sr-only"
+      >
+        Powered by Free Focus Games ${gameTitle}
+      </a>
+      
+      {/* For Next.js */}
+      <Script 
+        src="https://www.freefocusgames.com/embed.js"
+        onLoad={() => {
+          window.FreeFocusGamesEmbed?.init({
+            game: '${gameName}',
+            container: 'ffg-game-container',
+            locale: '${locale}'
+          });
+        }}
+      />
+      
+      {/* For other React apps
+      <script 
+        src="https://www.freefocusgames.com/embed.js" 
+        async 
+        onLoad={() => {
+          window.FreeFocusGamesEmbed?.init({
+            game: '${gameName}',
+            container: 'ffg-game-container',
+            locale: '${locale}'
+          });
+        }}
+      />
+      */}
+    </>
+  );
+}`;
+
+  const vueCode = `<!-- Vue Example -->
+<template>
+  <div class="game-container">
+    <div ref="gameContainer" />
+    <a
+      :href="gameUrl"
+      target="_blank"
+      rel="noopener"
+      class="sr-only"
+    >
+      Powered by Free Focus Games ${gameTitle}
+    </a>
+  </div>
+</template>
+
+<script>
+export default {
+  name: '${gameTitle.replace(/\s+/g, '')}Game',
+  data() {
+    return {
+      gameUrl: 'https://www.freefocusgames.com/games/${gameName}'
+    }
+  },
+  mounted() {
+    const script = document.createElement('script');
+    script.src = 'https://www.freefocusgames.com/embed.js';
+    script.async = true;
+    
+    script.onload = () => {
+      if (window.FreeFocusGamesEmbed && this.$refs.gameContainer) {
+        this.cleanup = window.FreeFocusGamesEmbed.init({
+          game: '${gameName}',
+          container: this.$refs.gameContainer,
+          locale: '${locale}'
+        });
+      }
+    };
+    
+    document.body.appendChild(script);
+    this.script = script;
+  },
+  beforeDestroy() {
+    if (this.cleanup) this.cleanup();
+    if (this.script && document.body.contains(this.script)) {
+      document.body.removeChild(this.script);
+    }
+  }
+}
+</script>
+
+<style scoped>
+.game-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>`;
+
+  const codeMap = {
+    html: standardCode,
+    react: reactCode,
+    vue: vueCode
+  };
+
+  const embedCode = codeMap[codeType];
 
   const handleCopy = async () => {
     try {
@@ -64,12 +196,35 @@ export function EmbedCodeModal({
         </div>
         
         <div className="mb-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mb-2">
             {t('instructions')}
           </p>
+          <div className="flex gap-2">
+            <Button 
+              variant={codeType === 'html' ? "default" : "outline"}
+              size="sm"
+              onClick={() => setCodeType('html')}
+            >
+              HTML
+            </Button>
+            <Button 
+              variant={codeType === 'react' ? "default" : "outline"}
+              size="sm"
+              onClick={() => setCodeType('react')}
+            >
+              React
+            </Button>
+            <Button 
+              variant={codeType === 'vue' ? "default" : "outline"}
+              size="sm"
+              onClick={() => setCodeType('vue')}
+            >
+              Vue
+            </Button>
+          </div>
         </div>
         
-        <div className="relative bg-muted p-4 rounded-md overflow-auto max-h-60 mb-4">
+        <div className="relative bg-muted p-4 rounded-md overflow-auto max-h-[60vh] mb-4">
           <pre className="text-xs leading-relaxed whitespace-pre-wrap break-all">
             {embedCode}
           </pre>

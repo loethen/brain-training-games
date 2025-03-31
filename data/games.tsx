@@ -1,5 +1,5 @@
-import { GamePreview as SimonGamePreview } from "@/app/[locale]/games/block-memory-challenge/components/GamePreview";
-import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/games/schulte-table/components/GamePreview";
+import { GamePreview as SimonGamePreview } from "@/app/[locale]/(main)/games/block-memory-challenge/components/GamePreview";
+import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/games/schulte-table/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 
 export type Game = {

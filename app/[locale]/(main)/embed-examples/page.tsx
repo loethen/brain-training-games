@@ -11,11 +11,9 @@ declare global {
     FreeFocusGamesEmbed?: {
       init: (options: {
         game: string;
-        container: string;
-        width?: string;
-        height?: string;
-        attribution?: boolean;
-      }) => void;
+        container: string | HTMLElement;
+        locale?: string;
+      }) => (() => void) | void;
     }
   }
 }
@@ -23,14 +21,26 @@ declare global {
 export default function EmbedExamplesPage() {
   const [showSchulteModal, setShowSchulteModal] = useState(false)
   const [scriptsLoaded, setScriptsLoaded] = useState(false)
+  const [error, setError] = useState('')
   
   // 加载嵌入脚本后初始化游戏
   useEffect(() => {
     if (scriptsLoaded && typeof window !== 'undefined' && window.FreeFocusGamesEmbed) {
-      window.FreeFocusGamesEmbed.init({
-        game: 'schulte-table',
-        container: 'ffg-game-container'
-      });
+      try {
+        const cleanup = window.FreeFocusGamesEmbed.init({
+          game: 'schulte-table',
+          container: 'ffg-game-container',
+          locale: 'zh'
+        });
+        setError('')
+        
+        // 如果返回了清理函数，在组件卸载时调用
+        if (cleanup) {
+          return cleanup;
+        }
+      } catch {
+        setError('游戏加载失败，请确保添加了正确的归因链接')
+      }
     }
   }, [scriptsLoaded]);
   
@@ -71,8 +81,22 @@ export default function EmbedExamplesPage() {
             <h3 className="text-lg font-medium">嵌入效果预览</h3>
             
             {/* 嵌入游戏实例 */}
-            <div id="ffg-game-container" style={{width: '100%', maxWidth: '600px', height: '600px', margin: '0 auto'}}></div>
-            <a href="https://freefocusgames.com/games/schulte-table" target="_blank" rel="noopener noreferrer">由 Free Focus Games 提供的舒尔特表训练游戏</a>
+            <div id="ffg-game-container" style={{width: '100%', maxWidth: '600px', margin: '0 auto'}}></div>
+            
+            {/* 归因链接 - 必需的 */}
+            {/* <a 
+              href="https://www.freefocusgames.com/games/schulte-table" 
+              target="_blank" 
+              rel="noopener" 
+              className="sr-only"
+            >
+              由 Free Focus Games 提供的舒尔特表训练游戏
+            </a> */}
+            
+            {/* 错误提示 */}
+            {error && (
+              <div className="text-red-500 text-sm">{error}</div>
+            )}
             
             {/* 使用Next.js的Script组件加载脚本 */}
             <Script 
@@ -96,9 +120,16 @@ export default function EmbedExamplesPage() {
           
           <h3>注意事项</h3>
           <ul>
-            <li>归因链接（指向Free Focus Games的链接）是必须的</li>
+            <li>归因链接（指向Free Focus Games的链接）是必需的，且必须包含以下属性：
+              <ul>
+                <li>完整的URL（必须包含www）</li>
+                <li>target=&quot;_blank&quot;</li>
+                <li>rel=&quot;noopener&quot;</li>
+              </ul>
+            </li>
             <li>您可以调整容器的宽度和高度以适应您的网站布局</li>
             <li>游戏内容会自动适应容器大小</li>
+            <li>游戏页面路径格式：/[locale]/embed/游戏名</li>
           </ul>
         </div>
       </section>

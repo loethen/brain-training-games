@@ -1,4 +1,7 @@
 import { notFound, redirect } from 'next/navigation'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
 
 // Supported games list
 const SUPPORTED_GAMES = [
@@ -44,14 +47,14 @@ export default async function Page({ params }: { params: Promise<{ game: string 
   // Check if embedded version is implemented
   if (IMPLEMENTED_GAMES.includes(game)) {
     // Redirect to specific embed page
-    redirect(`/embed/${game}`);
+    redirect(`/${game}`);
   }
   
   // Other games not yet implemented
   const gameTitle = getGameTitle(game);
   
   return (
-    <>
+    <div className={`h-screen flex items-center justify-center ${inter.className}`}>
       <div className="p-8 text-center">
         <h2 className="text-xl font-bold mb-4">Embedded version coming soon</h2>
         <p>
@@ -64,17 +67,17 @@ export default async function Page({ params }: { params: Promise<{ game: string 
             Visit the full {gameTitle} game
           </a>
         </p>
+        
+        {/* Hidden backlink for SEO */}
+        <a 
+          href={`https://freefocusgames.com/games/${game}`} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="sr-only"
+        >
+          {gameTitle} by Free Focus Games
+        </a>
       </div>
-      
-      {/* Hidden backlink for SEO */}
-      <a 
-        href={`https://freefocusgames.com/games/${game}`} 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="sr-only"
-      >
-        {gameTitle} by Free Focus Games
-      </a>
-    </>
+    </div>
   );
 }

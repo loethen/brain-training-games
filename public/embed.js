@@ -1,87 +1,113 @@
-(function(window, document) {
-  // 创建独立命名空间避免冲突
-  window.FreeFocusGamesEmbed = window.FreeFocusGamesEmbed || {};
+// Get base URL for embed script
+function getBaseUrl() {
+  var script = document.currentScript;
+  if (!script) {
+    script = document.querySelector('script[src*="embed.js"]');
+  }
+  if (!script) {
+    return 'https://www.freefocusgames.com';
+  }
+  return script.src.split('/embed.js')[0];
+}
+
+// Validate attribution link
+// Returns null if valid, or an error message string if invalid
+function validateAttribution(game) {
+  // Find all links in the document
+  var links = document.getElementsByTagName('a');
+  var baseUrl = 'https://www.freefocusgames.com';
+  var gameUrl = baseUrl + '/games/' + game;
   
-  // 主函数
-  FreeFocusGamesEmbed.init = function(options) {
-    // 合并默认选项
-    var settings = {
-      game: options.game || '',
-      container: options.container || '',
-      width: options.width || '100%',
-      height: options.height || '600px',
-      attribution: options.attribution !== false // 默认开启归因检查
+  for (var i = 0; i < links.length; i++) {
+    var link = links[i];
+    var href = link.getAttribute('href');
+    var target = link.getAttribute('target');
+    var rel = link.getAttribute('rel');
+    
+    // Check if all required attributes are present and correct
+    if (href && 
+        (href === gameUrl || href.indexOf(gameUrl) === 0) && 
+        target === '_blank' && 
+        (rel && rel.includes('noopener'))) {
+      return null; // Link is valid
+    }
+  }
+  
+  // Link is invalid or missing - Generate styled HTML error message
+  var styledErrorMessage = 
+    '<div style="background-color: #fff3f3; border: 1px solid #ffcdd2; border-radius: 4px; padding: 15px; font-family: sans-serif; color: #333; text-align: left;">' + 
+      '<p style="margin: 0 0 10px 0; font-weight: bold; color: #d32f2f;">Attribution Required</p>' + 
+      '<p style="margin: 0 0 10px 0; font-size: 0.9em;">' + 
+        'To display this game, please add the following link to your page:' + 
+      '</p>' + 
+      '<code style="display: block; background-color: #f5f5f5; padding: 10px; border: 1px solid #eee; border-radius: 3px; font-size: 0.85em; color: #000; overflow-x: auto; white-space: pre;">' + 
+        '&lt;a href="' + gameUrl + '" target="_blank" rel="noopener" class="sr-only"&gt;Powered by Free Focus Games&lt;/a&gt;' + 
+      '</code>' + 
+    '</div>';
+
+  // Also log a plain text version to the console
+  console.error('Attribution Required. Please add the following link: <a href="' + gameUrl + '" target="_blank" rel="noopener" class="sr-only">Powered by Free Focus Games</a>');
+  
+  return styledErrorMessage;
+}
+
+// Create global namespace
+window.FreeFocusGamesEmbed = {};
+
+// Main function
+FreeFocusGamesEmbed.init = function(options) {
+  const { game, container, locale = 'en' } = options;
+  
+  if (!game) {
+    console.error('Game name is required');
+    return;
+  }
+
+  // Get container element first, we need it for error display too
+  let containerElement;
+  if (typeof container === 'string') {
+    containerElement = document.getElementById(container);
+    if (!containerElement) {
+      console.error(`Container element with id "${container}" not found`);
+      return;
+    }
+  } else if (container instanceof HTMLElement) {
+    containerElement = container;
+  } else {
+    console.error('Container must be either an element ID string or an HTMLElement');
+    return;
+  }
+
+  // Validate attribution link
+  var attributionError = validateAttribution(game);
+  if (attributionError) {
+    containerElement.innerHTML = attributionError;
+    return function cleanup() { // Return a cleanup function even for errors
+      if (containerElement) {
+        containerElement.innerHTML = ''; // Clear the error message
+      }
     };
-    
-    // 验证必须参数
-    if (!settings.game || !settings.container) {
-      console.error('FreeFocusGamesEmbed: 游戏名称和容器ID是必须的');
-      return;
+  }
+
+  // Attribution is valid, create and append iframe
+  const iframe = document.createElement('iframe');
+  iframe.style.width = '100%';
+  iframe.style.height = '600px';
+  iframe.style.border = 'none';
+  iframe.src = `${getBaseUrl()}/${locale}/embed/${game}`;
+  
+  // Clear container before appending iframe (in case it had previous content)
+  containerElement.innerHTML = ''; 
+  containerElement.appendChild(iframe);
+
+  // Return cleanup function for the iframe
+  return function cleanup() {
+    if (containerElement && containerElement.contains(iframe)) {
+      containerElement.removeChild(iframe);
     }
-    
-    // 查找容器元素
-    var container = document.getElementById(settings.container);
-    if (!container) {
-      console.error('FreeFocusGamesEmbed: 找不到ID为 ' + settings.container + ' 的容器元素');
-      return;
-    }
-    
-    // 设置容器样式
-    container.style.position = 'relative';
-    container.style.width = settings.width;
-    container.style.height = settings.height;
-    
-    // 验证归因链接
-    var hasAttribution = settings.attribution ? validateAttribution(settings.game) : true;
-    
-    // 创建iframe
-    var iframe = document.createElement('iframe');
-    iframe.src = 'https://freefocusgames.com/embed/' + settings.game;
-    iframe.width = '100%';
-    iframe.height = '100%';
-    iframe.frameBorder = '0';
-    iframe.style.border = 'none';
-    iframe.allowFullscreen = true;
-    
-    // 添加iframe到容器
-    container.appendChild(iframe);
-    
-    // 如果没有归因，添加水印
-    if (!hasAttribution) {
-      addWatermark(container, settings.game);
+    // Ensure container is empty after cleanup
+    if (containerElement) {
+      containerElement.innerHTML = '';
     }
   };
-  
-  // 验证归因链接
-  function validateAttribution(game) {
-    var links = document.getElementsByTagName('a');
-    var baseUrl = 'https://freefocusgames.com/';
-    var gameUrl = baseUrl + 'games/' + game;
-    
-    for (var i = 0; i < links.length; i++) {
-      var href = links[i].getAttribute('href');
-      if (href && (href === baseUrl || href === gameUrl || href.indexOf(gameUrl) === 0)) {
-        return true;
-      }
-    }
-    
-    return false;
-  }
-  
-  // 添加水印
-  function addWatermark(container, game) {
-    var watermark = document.createElement('div');
-    watermark.style.position = 'absolute';
-    watermark.style.bottom = '10px';
-    watermark.style.right = '10px';
-    watermark.style.background = 'rgba(0,0,0,0.7)';
-    watermark.style.color = 'white';
-    watermark.style.padding = '5px 10px';
-    watermark.style.fontSize = '12px';
-    watermark.style.zIndex = '1000';
-    watermark.style.pointerEvents = 'none';
-    watermark.innerHTML = '由 <a href="https://freefocusgames.com/games/' + game + '" target="_blank" style="color:#fff;text-decoration:underline;pointer-events:auto;">Free Focus Games</a> 提供';
-    
-    container.appendChild(watermark);
-  }
-})(window, document); 
+}; 
