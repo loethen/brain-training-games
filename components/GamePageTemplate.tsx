@@ -12,6 +12,9 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import GameCard from '@/components/game-card';
 import { getGame } from '@/data/games';
 import { useTranslations } from 'next-intl';
+import { EmbedButton } from '@/components/ui/EmbedButton';
+import { ShareButton } from '@/components/share-button';
+
 interface FaqItem {
   question: string;
   answer: React.ReactNode;
@@ -62,10 +65,22 @@ export function GamePageTemplate({
 
           {/* 游戏组件 */}
           <section className={cn(
-            "mb-16 rounded-xl p-2 md:p-4 border border-border", 
+            "mb-4 rounded-xl p-2 md:p-4 border border-border", 
             gameBackground
           )}>
               {gameComponent}
+          </section>
+
+          {/* 分享和嵌入部分 */}
+          <section className="max-w-6xl mx-auto mb-12">
+            <div className="flex space-x-2">
+              <ShareButton title={title} />
+              
+              <EmbedButton 
+                gameName={gameId}
+                gameTitle={title}
+              />
+            </div>
           </section>
 
           {/* 游戏玩法说明 */}

@@ -21,7 +21,7 @@ export function ShareButton({ title }: ShareButtonProps) {
         variant="ghost"
         size="sm"
         onClick={() => setIsShareModalOpen(true)}
-        className="flex items-center gap-2 hover:bg-transparent hover:text-primary"
+        className="flex items-center gap-2"
       >
         <Share2 className="w-4 h-4" />
         Share

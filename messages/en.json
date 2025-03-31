@@ -222,9 +222,10 @@
     "template": {
       "howToPlay": "How to Play",
       "cognitiveBenefits": "Cognitive Benefits",
-      "faq": "Frequently Asked Questions",
+      "faq": "FAQ",
       "relatedGames": "Related Games",
-      "trainingCategories": "Training Categories"
+      "trainingCategories": "Training Categories",
+      "embedGame": "Embed This Game"
     },
     "aboutBrainTraining": {
       "title": "About Brain Training",

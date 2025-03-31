@@ -41,7 +41,11 @@ export default function SchultePage() {
           gameId="schulte-table"
           title={t("schulteTable.title")}
           subtitle={t("schulteTable.subtitle")}
-          gameComponent={<SchulteGame />}
+          gameComponent={
+              <div className="relative">
+                  <SchulteGame />
+              </div>
+          }
           howToPlay={
               <>
                   <p>{t("schulteTable.howToPlay")}</p>
