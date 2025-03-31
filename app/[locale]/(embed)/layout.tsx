@@ -34,7 +34,7 @@ export default async function EmbedLayout({
       <body className="bg-background font-sans antialiased min-h-screen">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div className="embed-container flex flex-col h-screen">
-            <div className="flex-grow">{children}</div>
+            <div>{children}</div>
             <footer className="text-center text-xs text-muted-foreground py-2">
               <a 
                 href="https://www.freefocusgames.com" 

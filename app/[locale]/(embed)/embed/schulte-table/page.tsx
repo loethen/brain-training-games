@@ -13,7 +13,7 @@ const SchulteGameComponent = dynamic(
 
 export default function SchulteTableEmbedPage() {
   return (
-    <div className={`h-screen flex items-center justify-center ${inter.className}`}>
+    <div className={`flex items-center justify-center ${inter.className}`}>
       <div className="embedded-game-container p-2 w-full max-w-lg mx-auto">
         <SchulteGameComponent />
         {/* The sr-only link has been removed as requested */}
