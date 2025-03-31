@@ -36,7 +36,7 @@ export function EmbedCodeModal({
   
   if (!isOpen) return null
 
-  const standardCode = `<!-- HTML Example -->
+  const standardCode = `<!-- FreeFocusGames Embed Code -->
 <div id="ffg-game-container" style="width:100%; max-width:600px; margin:0 auto;"></div>
 <a href="https://www.freefocusgames.com/games/${gameName}" target="_blank" rel="noopener" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;">Powered by Free Focus Games ${gameTitle}</a>
 <script src="https://www.freefocusgames.com/embed.js"></script>
@@ -52,7 +52,7 @@ export function EmbedCodeModal({
 import Script from 'next/script'  // For Next.js
 // For other React apps, you can use a regular script tag
 
-export function ${gameTitle.replace(/\s+/g, '')}Game() {
+export function ${gameName.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('')}Game() {
   // Define the styles as an object for React's style prop
   const srOnlyStyle: React.CSSProperties = {
     position: 'absolute',
@@ -128,7 +128,7 @@ export function ${gameTitle.replace(/\s+/g, '')}Game() {
 
 <script>
 export default {
-  name: '${gameTitle.replace(/\s+/g, '')}Game',
+  name: '${gameName.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('')}Game',
   data() {
     return {
       gameUrl: 'https://www.freefocusgames.com/games/${gameName}'

@@ -5,10 +5,20 @@ import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
+// Simple loading component
+const LoadingComponent = () => (
+  <div className="text-center text-muted-foreground">
+    Loading game...
+  </div>
+);
+
 // Dynamically import the Schulte table game component
 const SchulteGameComponent = dynamic(
   () => import('@/app/[locale]/(main)/games/schulte-table/components/SchulteGame').then(mod => mod.SchulteGame),
-  { ssr: false } // Important: Render this component only on the client side
+  {
+    ssr: false, // Important: Render this component only on the client side
+    loading: () => <LoadingComponent />, // Add the loading component here
+  }
 )
 
 export default function SchulteTableEmbedPage() {
