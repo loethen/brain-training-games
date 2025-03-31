@@ -1,13 +1,33 @@
 // Get base URL for embed script
 function getBaseUrl() {
   var script = document.currentScript;
+  var src = script ? script.src : null;
+
   if (!script) {
     script = document.querySelector('script[src*="embed.js"]');
+    src = script ? script.src : null;
   }
-  if (!script) {
+
+  // console.log('getBaseUrl debug: script found=', !!script, 'src=', src); // Optional: Keep for debugging if needed
+
+  if (!script || !src) {
+    // console.log('getBaseUrl debug: Script not found or src is null, falling back to hardcoded.');
     return 'https://www.freefocusgames.com';
   }
-  return script.src.split('/embed.js')[0];
+
+  // Extract base path
+  var basePath = src.split('/embed.js')[0];
+
+  // console.log('getBaseUrl debug: basePath after split=', basePath); // Optional: Keep for debugging if needed
+
+  // Validate basePath: Check if it's empty or doesn't look like a URL origin
+  if (!basePath || !basePath.startsWith('http')) {
+    // console.log('getBaseUrl debug: basePath is invalid (' + basePath + '), falling back to hardcoded.');
+     return 'https://www.freefocusgames.com'; // Fallback if split resulted in empty or non-URL string
+  }
+
+  // console.log('getBaseUrl debug: Returning valid basePath=', basePath);
+  return basePath;
 }
 
 // Validate attribution link

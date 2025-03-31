@@ -38,7 +38,7 @@ export function EmbedCodeModal({
 
   const standardCode = `<!-- HTML Example -->
 <div id="ffg-game-container" style="width:100%; max-width:600px; margin:0 auto;"></div>
-<a href="https://www.freefocusgames.com/games/${gameName}" target="_blank" rel="noopener" class="sr-only">Powered by Free Focus Games ${gameTitle}</a>
+<a href="https://www.freefocusgames.com/games/${gameName}" target="_blank" rel="noopener" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;">Powered by Free Focus Games ${gameTitle}</a>
 <script src="https://www.freefocusgames.com/embed.js"></script>
 <script>
   FreeFocusGamesEmbed.init({
@@ -53,6 +53,19 @@ import Script from 'next/script'  // For Next.js
 // For other React apps, you can use a regular script tag
 
 export function ${gameTitle.replace(/\s+/g, '')}Game() {
+  // Define the styles as an object for React's style prop
+  const srOnlyStyle: React.CSSProperties = {
+    position: 'absolute',
+    width: '1px',
+    height: '1px',
+    padding: 0,
+    margin: '-1px',
+    overflow: 'hidden',
+    clip: 'rect(0, 0, 0, 0)',
+    whiteSpace: 'nowrap',
+    borderWidth: 0 // Use borderWidth for React
+  };
+
   return (
     <>
       <div id="ffg-game-container" style={{
@@ -64,7 +77,7 @@ export function ${gameTitle.replace(/\s+/g, '')}Game() {
         href="https://www.freefocusgames.com/games/${gameName}"
         target="_blank"
         rel="noopener"
-        className="sr-only"
+        style={srOnlyStyle} // Apply the style object
       >
         Powered by Free Focus Games ${gameTitle}
       </a>
@@ -106,7 +119,7 @@ export function ${gameTitle.replace(/\s+/g, '')}Game() {
       :href="gameUrl"
       target="_blank"
       rel="noopener"
-      class="sr-only"
+      style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;" 
     >
       Powered by Free Focus Games ${gameTitle}
     </a>
@@ -155,17 +168,7 @@ export default {
   margin: 0 auto;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+/* Remove .sr-only as it's now inline */
 </style>`;
 
   const codeMap = {
