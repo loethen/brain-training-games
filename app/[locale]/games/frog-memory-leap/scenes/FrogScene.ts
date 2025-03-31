@@ -31,14 +31,14 @@ export class FrogScene extends Scene {
     init(config: { level?: number; score?: number; numLilyPads?: number; numJumps?: number; jumpSequence?: number[] }) {
         this.translate = this.game.registry.get('t') || ((key: string) => key);
         
-        this.lilyPads.forEach(pad => {
-            pad.rippleTween?.stop();
-            pad.rippleGraphics?.destroy();
-        });
-        this.lilyPads = [];
-        this.frog?.destroy();
-        this.messageText?.destroy();
-        this.messageBg?.destroy();
+        // Stop all running tweens to prevent memory leaks
+        this.tweens.killAll();
+        
+        // Clear any existing timers or delayed calls
+        this.time.removeAllEvents();
+        
+        // Clean up existing objects before creating new ones
+        this.cleanupCurrentLevel();
         
         this.level = config.level || 1;
         this.score = config.score || 0;
@@ -81,14 +81,17 @@ export class FrogScene extends Scene {
     }
 
     create() {
-        this.children.removeAll();
+        // Clear existing graphics before creating new ones
+        this.children.removeAll(true);
         
+        // Create the main elements
         this.add.image(400, 300, 'pond').setScale(0.6);
         this.createMessage();
         this.createLilyPads();
         this.createFrog();
         this.createAnimations();
         
+        // Add a slight delay before starting the level
         this.time.delayedCall(100, () => {
             this.setupAutoJump();
         });
@@ -132,8 +135,11 @@ export class FrogScene extends Scene {
     createRippleForLilyPad(lilyPad: LilyPad) {
         const rippleGraphics = this.add.graphics();
         
+        // 只保留内层涟漪效果
+        const rippleData = { alpha: 1, radius: GAME_CONFIG.lilyPad.ripple.radius.from };
+        
         const rippleTween = this.tweens.add({
-            targets: { alpha: 1, radius: GAME_CONFIG.lilyPad.ripple.radius.from },
+            targets: rippleData,
             alpha: { from: 1, to: 0 },
             radius: { 
                 from: GAME_CONFIG.lilyPad.ripple.radius.from, 
@@ -143,15 +149,17 @@ export class FrogScene extends Scene {
             duration: GAME_CONFIG.lilyPad.ripple.duration,
             paused: true,
             repeat: -1,
-            onUpdate: (tween, target) => {
+            onUpdate: () => {
                 rippleGraphics.clear();
-                if (target.alpha > 0) {
+                
+                if (rippleData.alpha > 0) {
+                    // 内圈涟漪
                     rippleGraphics.lineStyle(
                         GAME_CONFIG.lilyPad.ripple.lineWidth, 
                         GAME_CONFIG.lilyPad.ripple.color, 
-                        target.alpha
+                        rippleData.alpha
                     );
-                    rippleGraphics.strokeCircle(lilyPad.x, lilyPad.y, target.radius);
+                    rippleGraphics.strokeCircle(lilyPad.x, lilyPad.y, rippleData.radius);
                 }
             },
             onStop: () => {
@@ -175,16 +183,19 @@ export class FrogScene extends Scene {
     }
 
     createAnimations() {
-        this.anims.create({
-            key: 'jump',
-            frames: GAME_CONFIG.frog.frames.animation.map(frame => ({
-                key: 'frog',
-                frame: frame.frame,
-                duration: frame.duration
-            })),
-            frameRate: GAME_CONFIG.frog.frameRate,
-            repeat: 0
-        });
+        // Check if the animation already exists before creating it
+        if (!this.anims.exists('jump')) {
+            this.anims.create({
+                key: 'jump',
+                frames: GAME_CONFIG.frog.frames.animation.map(frame => ({
+                    key: 'frog',
+                    frame: frame.frame,
+                    duration: frame.duration
+                })),
+                frameRate: GAME_CONFIG.frog.frameRate,
+                repeat: 0
+            });
+        }
     }
 
     createMessage() {
@@ -526,6 +537,8 @@ export class FrogScene extends Scene {
         });
         
         buttonContainer.on('pointerup', () => {
+            buttonContainer.disableInteractive();
+            
             this.tweens.add({
                 targets: buttonContainer,
                 scaleX: 1.1,
@@ -533,9 +546,19 @@ export class FrogScene extends Scene {
                 alpha: 0,
                 duration: 200,
                 onComplete: () => {
-                    this.scene.restart({
-                        level: this.level,
-                        score: this.score
+                    this.cameras.main.fadeOut(300);
+                    
+                    this.cameras.main.once('camerafadeoutcomplete', () => {
+                        this.cleanupCurrentLevel();
+                        
+                        this.init({
+                            level: this.level,
+                            score: this.score
+                        });
+                        
+                        this.create();
+                        
+                        this.cameras.main.fadeIn(300);
                     });
                 }
             });
@@ -661,6 +684,8 @@ export class FrogScene extends Scene {
         });
         
         buttonContainer.on('pointerup', () => {
+            buttonContainer.disableInteractive();
+            
             this.tweens.add({
                 targets: buttonContainer,
                 scaleX: 1.1,
@@ -668,9 +693,22 @@ export class FrogScene extends Scene {
                 alpha: 0,
                 duration: 200,
                 onComplete: () => {
-                    this.scene.restart({
-                        level: this.level + 1,
-                        score: this.score
+                    this.cameras.main.fadeOut(300);
+                    
+                    this.cameras.main.once('camerafadeoutcomplete', () => {
+                        const nextLevel = this.level + 1;
+                        const currentScore = this.score;
+                        
+                        this.cleanupCurrentLevel();
+                        
+                        this.init({
+                            level: nextLevel,
+                            score: currentScore
+                        });
+                        
+                        this.create();
+                        
+                        this.cameras.main.fadeIn(300);
                     });
                 }
             });
@@ -743,6 +781,8 @@ export class FrogScene extends Scene {
         });
         
         buttonContainer.on('pointerup', () => {
+            buttonContainer.disableInteractive();
+            
             this.tweens.add({
                 targets: buttonContainer,
                 scaleX: 1.1,
@@ -750,9 +790,19 @@ export class FrogScene extends Scene {
                 alpha: 0,
                 duration: 200,
                 onComplete: () => {
-                    this.scene.restart({
-                        level: 1,
-                        score: 0
+                    this.cameras.main.fadeOut(300);
+                    
+                    this.cameras.main.once('camerafadeoutcomplete', () => {
+                        this.cleanupCurrentLevel();
+                        
+                        this.init({
+                            level: 1,
+                            score: 0
+                        });
+                        
+                        this.create();
+                        
+                        this.cameras.main.fadeIn(300);
                     });
                 }
             });
@@ -786,7 +836,6 @@ export class FrogScene extends Scene {
         const timeElapsed = Date.now() - this.startTime;
         if (timeElapsed < GAME_CONFIG.scoring.timeBonus.threshold) {
             levelScore += GAME_CONFIG.scoring.timeBonus.points;
-            this.setText(this.translate('perfect', { bonus: GAME_CONFIG.scoring.timeBonus.points.toString() }));
         }
         
         this.streakMultiplier += GAME_CONFIG.scoring.streak.multiplier;
@@ -795,6 +844,7 @@ export class FrogScene extends Scene {
     }
 
     update() {
+        // 确保涟漪效果正确显示
         this.lilyPads.forEach(lilyPad => {
             const isCurrentPad = this.frog.x === lilyPad.x && this.frog.y === lilyPad.y;
             
@@ -855,5 +905,29 @@ export class FrogScene extends Scene {
         this.time.delayedCall(2500, () => {
             burst.destroy();
         });
+    }
+
+    cleanupCurrentLevel() {
+        this.lilyPads.forEach(pad => {
+            pad.rippleTween?.stop();
+            pad.rippleGraphics?.destroy();
+            pad.destroy();
+        });
+        this.lilyPads = [];
+        
+        this.frog?.destroy();
+        
+        this.children.list
+            .filter(child => 
+                child !== this.messageText && 
+                child !== this.messageBg
+            )
+            .forEach(child => {
+                if (child instanceof Phaser.GameObjects.Container) {
+                    child.destroy(true);
+                } else if (child.destroy) {
+                    child.destroy();
+                }
+            });
     }
 } 

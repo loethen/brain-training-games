@@ -27,13 +27,13 @@ export const GAME_CONFIG = {
             radius: 35
         },
         ripple: {
-            lineWidth: 4,
+            lineWidth: 5,
             color: 0xffffff,
             radius: {
-                from: 40,
-                to: 80
+                from: 35,
+                to: 90
             },
-            duration: 1000
+            duration: 1200
         }
     },
     scoring: {
@@ -78,7 +78,6 @@ export const GAME_CONFIG = {
         success: "Amazing job! 🎉 Score: {score}\nYou've completed Level {level}!",
         fail: "Oops! Not quite right. Let's try again! 🐸",
         levelStart: "Level {level} begins! 🍃 Remember {jumps} hops!",
-        perfect: "Fantastic timing! +{bonus} bonus points! ⭐",
         nextLevel: "Ready to hop to Level {level}? 🐸\n{jumps} jumps ahead!",
         maxLevel: "Incredible! You've mastered the pond! 🏆\nYour Final Score: {score}"
     },
