@@ -9,6 +9,7 @@ import { GAME_CONFIG } from '../config'
 import { useTranslations } from 'next-intl'
 import { useTimeout } from '@/hooks/useTimeout'
 import { useInterval } from '@/hooks/useInterval'
+import confetti from 'canvas-confetti'
 
 interface Cell {
   number: number
@@ -145,6 +146,15 @@ export function SchulteGame() {
     setCurrentNumber(1)
   }
 
+  // 触发五彩纸屑效果
+  const triggerConfetti = () => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  };
+
   const handleSuccess = useCallback(() => {
     const endTime = Date.now()
     const timeElapsed = (endTime - startTime) / 1000
@@ -154,6 +164,10 @@ export function SchulteGame() {
     
     setGameState('complete')
     setShowResults(true)
+
+    // Trigger confetti on success
+    triggerConfetti(); 
+
   }, [startTime, updateBestTime])
 
   const handleCellClick = useCallback((cell: Cell) => {
