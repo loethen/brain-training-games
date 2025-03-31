@@ -19,19 +19,20 @@ export default async function EmbedLayout({
   params
 }: { 
   children: React.ReactNode;
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
   // 获取当前语言的消息
   const messages = await getMessages();
+  const { locale } = await params;
   
   return (
-    <html lang={params.locale} className={cn(inter.variable)}>
+    <html lang={locale} className={cn(inter.variable)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="bg-background font-sans antialiased min-h-screen">
-        <NextIntlClientProvider locale={params.locale} messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <div className="embed-container flex flex-col h-screen">
             <div className="flex-grow">{children}</div>
             <footer className="text-center text-xs text-muted-foreground py-2">
