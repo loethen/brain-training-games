@@ -89,7 +89,7 @@ export default function EmbedExamplesPage() {
         <div className="prose max-w-none">
           <h3>如何在您的网站上嵌入游戏</h3>
           <ol>
-            <li>点击"获取嵌入代码"按钮</li>
+            <li>点击获取嵌入代码按钮</li>
             <li>复制提供的HTML代码</li>
             <li>将代码粘贴到您网站的HTML中</li>
           </ol>
