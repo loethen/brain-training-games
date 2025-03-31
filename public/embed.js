@@ -76,22 +76,19 @@ const managedIframes = new Map();
 
 // Global message handler for iframe resize events
 function handleIframeMessage(event) {
-  // IMPORTANT: Validate the origin of the message for security
-  const expectedOrigin = 'https://www.freefocusgames.com'; // Must match the targetOrigin in layout.tsx
-  if (event.origin !== expectedOrigin) {
-    // console.warn('Ignoring message from unexpected origin:', event.origin); // Optional logging
-    return;
-  }
+  // Origin check removed to allow messages from iframe hosted anywhere,
+  // but we still validate the message format and source window.
+  // console.log('[Embed Listener] Received message:', event.data, 'from origin:', event.origin); // Optional debug
 
   // Check if the message is the expected type and has height data
   if (typeof event.data === 'object' && event.data.type === 'ffg-resize' && typeof event.data.height === 'number') {
     // Find the iframe element that sent the message
-    for (const iframeElement of managedIframes.keys()) { // Iterate over keys (iframe elements)
+    for (const iframeElement of managedIframes.keys()) { 
       if (iframeElement.contentWindow === event.source) {
         // Update the iframe's height
         const newHeight = event.data.height;
         iframeElement.style.height = `${newHeight}px`;
-        // console.log('Resized iframe to:', newHeight, 'px'); // Optional logging
+        // console.log('[Embed Listener] Resized iframe to:', newHeight, 'px'); // Optional debug
         break; // Stop searching once found
       }
     }

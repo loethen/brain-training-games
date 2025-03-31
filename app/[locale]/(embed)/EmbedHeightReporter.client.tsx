@@ -9,13 +9,14 @@ export function EmbedHeightReporter({ children }: { children: React.ReactNode })
   useEffect(() => {
     // Ensure we are in an iframe and ResizeObserver is available
     if (typeof window !== 'undefined' && window.parent !== window && 'ResizeObserver' in window) {
-      const targetOrigin = 'https://www.freefocusgames.com'; // IMPORTANT: Set this to your actual parent domain for security
+      // Allow sending to any parent origin since embed location is unknown
+      const targetOrigin = '*'; 
 
       const observer = new ResizeObserver(entries => {
-        for (const entry of entries) { // Use const instead of let
-          // Use scrollHeight for potentially overflowing content
+        for (const entry of entries) { 
           const height = entry.target.scrollHeight;
           // Send message to parent window
+          // console.log('[Embed Reporter] Posting height:', height, 'to target:', targetOrigin); // Optional debug
           window.parent.postMessage({ type: 'ffg-resize', height: height }, targetOrigin);
         }
       });
@@ -24,12 +25,12 @@ export function EmbedHeightReporter({ children }: { children: React.ReactNode })
         observer.observe(containerRef.current);
       }
 
-      // Cleanup function: disconnect the observer when component unmounts
+      // Cleanup function
       return () => {
         observer.disconnect();
       };
     }
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []); 
 
   return <div ref={containerRef}>{children}</div>;
 } 
