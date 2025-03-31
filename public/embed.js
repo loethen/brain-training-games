@@ -71,6 +71,38 @@ function validateAttribution(game) {
   return styledErrorMessage;
 }
 
+// Store references to created iframes and their message handlers
+const managedIframes = new Map();
+
+// Global message handler for iframe resize events
+function handleIframeMessage(event) {
+  // IMPORTANT: Validate the origin of the message for security
+  const expectedOrigin = 'https://www.freefocusgames.com'; // Must match the targetOrigin in layout.tsx
+  if (event.origin !== expectedOrigin) {
+    // console.warn('Ignoring message from unexpected origin:', event.origin); // Optional logging
+    return;
+  }
+
+  // Check if the message is the expected type and has height data
+  if (typeof event.data === 'object' && event.data.type === 'ffg-resize' && typeof event.data.height === 'number') {
+    // Find the iframe element that sent the message
+    for (const iframeElement of managedIframes.keys()) { // Iterate over keys (iframe elements)
+      if (iframeElement.contentWindow === event.source) {
+        // Update the iframe's height
+        const newHeight = event.data.height;
+        iframeElement.style.height = `${newHeight}px`;
+        // console.log('Resized iframe to:', newHeight, 'px'); // Optional logging
+        break; // Stop searching once found
+      }
+    }
+  }
+}
+
+// Add the message listener only once
+if (typeof window !== 'undefined') {
+  window.addEventListener('message', handleIframeMessage);
+}
+
 // Create global namespace
 window.FreeFocusGamesEmbed = {};
 
@@ -112,22 +144,32 @@ FreeFocusGamesEmbed.init = function(options) {
   // Attribution is valid, create and append iframe
   const iframe = document.createElement('iframe');
   iframe.style.width = '100%';
-  iframe.style.height = '600px';
   iframe.style.border = 'none';
+  // Set an initial reasonable height, it will be adjusted by postMessage
+  iframe.style.height = '600px'; 
   iframe.src = `${getBaseUrl()}/${locale}/embed/${game}`;
   
   // Clear container before appending iframe (in case it had previous content)
   containerElement.innerHTML = ''; 
   containerElement.appendChild(iframe);
 
+  // Store iframe reference for the message handler
+  managedIframes.set(iframe, true); // Store the iframe element
+
   // Return cleanup function for the iframe
   return function cleanup() {
     if (containerElement && containerElement.contains(iframe)) {
       containerElement.removeChild(iframe);
     }
+    // Remove iframe reference from our map
+    managedIframes.delete(iframe);
     // Ensure container is empty after cleanup
     if (containerElement) {
       containerElement.innerHTML = '';
     }
+    // Optional: If no more managed iframes, remove the global listener
+    // if (managedIframes.size === 0) {
+    //   window.removeEventListener('message', handleIframeMessage);
+    // }
   };
 }; 
