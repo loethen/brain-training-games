@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { EmbedCodeModal } from '@/components/ui/EmbedCodeModal'
+import { EmbedCodeModal } from '@/components/EmbedCodeModal'
 import Script from 'next/script'
 
 // 扩展Window接口以包含嵌入脚本

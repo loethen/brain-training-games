@@ -223,7 +223,17 @@
             "cognitiveBenefits": "Bénéfices cognitifs",
             "faq": "Questions fréquentes",
             "relatedGames": "Jeux connexes",
-            "trainingCategories": "Catégories d'entraînement"
+            "trainingCategories": "Catégories d'entraînement",
+            "embedGame": "Intégrer ce jeu",
+            "share": "Partager"
+        },
+        "embed": {
+            "embedTitle": "Intégrer {gameTitle} sur votre site web",
+            "instructions": "Copiez le code ci-dessous et collez-le dans le HTML de votre site web pour intégrer ce jeu :",
+            "copied": "Copié",
+            "copyCode": "Copier le code",
+            "embedCode": "Code d'intégration",
+            "poweredBy": "Propulsé par"
         },
         "aboutBrainTraining": {
             "title": "À propos de l'entraînement cérébral",

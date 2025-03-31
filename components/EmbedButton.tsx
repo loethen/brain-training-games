@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Code } from 'lucide-react'
-import { EmbedCodeModal } from '@/components/ui/EmbedCodeModal'
+import { EmbedCodeModal } from '@/components/EmbedCodeModal'
 import { useTranslations } from 'next-intl'
 
 interface EmbedButtonProps {

@@ -224,7 +224,17 @@
             "cognitiveBenefits": "認知上の利点",
             "faq": "よくある質問",
             "relatedGames": "関連ゲーム",
-            "trainingCategories": "トレーニングカテゴリー"
+            "trainingCategories": "トレーニングカテゴリー",
+            "embedGame": "このゲームを埋め込む",
+            "share": "共有"
+        },
+        "embed": {
+            "embedTitle": "あなたのウェブサイトに{gameTitle}を埋め込む",
+            "instructions": "以下のコードをコピーしてウェブサイトのHTMLに貼り付けると、このゲームを埋め込むことができます：",
+            "copied": "コピーしました",
+            "copyCode": "コードをコピー",
+            "embedCode": "埋め込みコード",
+            "poweredBy": "提供元："
         },
         "aboutBrainTraining": {
             "title": "脳トレーニングについて",

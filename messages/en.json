@@ -225,7 +225,16 @@
       "faq": "FAQ",
       "relatedGames": "Related Games",
       "trainingCategories": "Training Categories",
-      "embedGame": "Embed This Game"
+      "embedGame": "Embed This Game",
+      "share": "Share"
+    },
+    "embed": {
+      "embedTitle": "Embed {gameTitle} on your website",
+      "instructions": "Copy the code below and paste it into your website's HTML to embed this game:",
+      "copied": "Copied",
+      "copyCode": "Copy Code",
+      "embedCode": "Embed Code",
+      "poweredBy": "Powered by"
     },
     "aboutBrainTraining": {
       "title": "About Brain Training",

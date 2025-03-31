@@ -224,7 +224,17 @@
             "cognitiveBenefits": "Kognitive Vorteile",
             "faq": "Häufig gestellte Fragen",
             "relatedGames": "Ähnliche Spiele",
-            "trainingCategories": "Trainingskategorien"
+            "trainingCategories": "Trainingskategorien",
+            "embedGame": "Dieses Spiel einbetten",
+            "share": "Teilen"
+        },
+        "embed": {
+            "embedTitle": "{gameTitle} auf Ihrer Website einbetten",
+            "instructions": "Kopieren Sie den folgenden Code und fügen Sie ihn in das HTML Ihrer Website ein, um dieses Spiel einzubetten:",
+            "copied": "Kopiert",
+            "copyCode": "Code kopieren",
+            "embedCode": "Einbettungscode",
+            "poweredBy": "Powered by"
         },
         "aboutBrainTraining": {
             "title": "Über Gehirntraining",

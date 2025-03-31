@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { X, Copy, Check } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 
 interface EmbedCodeModalProps {
   isOpen: boolean
@@ -18,6 +19,7 @@ export function EmbedCodeModal({
   gameTitle
 }: EmbedCodeModalProps) {
   const [copied, setCopied] = useState(false)
+  const t = useTranslations('games.embed')
   
   // 复制后重置状态
   useEffect(() => {
@@ -31,9 +33,9 @@ export function EmbedCodeModal({
   
   if (!isOpen) return null
 
-  const embedCode = `<!-- Free Focus Games - ${gameTitle} 嵌入代码 -->
+  const embedCode = `<!-- Free Focus Games - ${gameTitle} ${t('embedCode')} -->
 <div id="ffg-game-container" style="width:100%; max-width:600px; height:600px; margin:0 auto;"></div>
-<a href="https://freefocusgames.com/games/${gameName}" target="_blank">由 Free Focus Games 提供的${gameTitle}</a>
+<a href="https://freefocusgames.com/games/${gameName}" target="_blank">${t('poweredBy')} Free Focus Games ${gameTitle}</a>
 <script src="https://freefocusgames.com/embed.js"></script>
 <script>
   FreeFocusGamesEmbed.init({
@@ -55,7 +57,7 @@ export function EmbedCodeModal({
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-background p-6 rounded-lg shadow-lg max-w-lg w-full">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-bold">在您的网站上嵌入{gameTitle}</h3>
+          <h3 className="text-lg font-bold">{t('embedTitle', { gameTitle })}</h3>
           <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8">
             <X className="h-4 w-4" />
           </Button>
@@ -63,7 +65,7 @@ export function EmbedCodeModal({
         
         <div className="mb-4">
           <p className="text-sm text-muted-foreground">
-            复制下面的代码并粘贴到您网站的HTML中即可嵌入此游戏：
+            {t('instructions')}
           </p>
         </div>
         
@@ -81,12 +83,12 @@ export function EmbedCodeModal({
           {copied ? (
             <>
               <Check className="h-4 w-4" />
-              已复制
+              {t('copied')}
             </>
           ) : (
             <>
               <Copy className="h-4 w-4" />
-              复制代码
+              {t('copyCode')}
             </>
           )}
         </Button>

@@ -12,7 +12,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import GameCard from '@/components/game-card';
 import { getGame } from '@/data/games';
 import { useTranslations } from 'next-intl';
-import { EmbedButton } from '@/components/ui/EmbedButton';
+import { EmbedButton } from '@/components/EmbedButton';
 import { ShareButton } from '@/components/share-button';
 
 interface FaqItem {

@@ -224,7 +224,17 @@
             "cognitiveBenefits": "인지적 이점",
             "faq": "자주 묻는 질문",
             "relatedGames": "관련 게임",
-            "trainingCategories": "훈련 카테고리"
+            "trainingCategories": "훈련 카테고리",
+            "embedGame": "이 게임 퍼가기",
+            "share": "공유하기"
+        },
+        "embed": {
+            "embedTitle": "웹사이트에 {gameTitle} 퍼가기",
+            "instructions": "아래 코드를 복사하여 웹사이트의 HTML에 붙여넣으면 이 게임을 퍼갈 수 있습니다:",
+            "copied": "복사됨",
+            "copyCode": "코드 복사",
+            "embedCode": "퍼가기 코드",
+            "poweredBy": "제공:"
         },
         "aboutBrainTraining": {
             "title": "두뇌 훈련에 대해",
