@@ -1,4 +1,4 @@
-import '../globals.css'
+import '@/app/[locale]/globals.css'
 
 export const metadata = {
   title: 'Embedded Game',
