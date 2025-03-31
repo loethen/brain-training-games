@@ -6,16 +6,17 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Free Focus Games Embed',
-  description: '专注力训练游戏嵌入版本',
+  description: 'Focus training game embedded version',
+  robots: 'noindex'
 }
 
-export default function EmbedLayout({
+export default function EmbedGameLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh">
+    <html lang="en">
       <body className={inter.className}>
         <main className="min-h-screen flex flex-col justify-center items-center p-2">
           {children}

@@ -51,18 +51,30 @@ export default async function Page({ params }: { params: Promise<{ game: string 
   const gameTitle = getGameTitle(game);
   
   return (
-    <div className="p-8 text-center">
-      <h2 className="text-xl font-bold mb-4">Embedded version coming soon</h2>
-      <p>
-        <a 
-          href={`https://freefocusgames.com/games/${game}`} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="text-primary hover:underline"
-        >
-          Visit the full {gameTitle} game
-        </a>
-      </p>
-    </div>
+    <>
+      <div className="p-8 text-center">
+        <h2 className="text-xl font-bold mb-4">Embedded version coming soon</h2>
+        <p>
+          <a 
+            href={`https://freefocusgames.com/games/${game}`} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Visit the full {gameTitle} game
+          </a>
+        </p>
+      </div>
+      
+      {/* Hidden backlink for SEO */}
+      <a 
+        href={`https://freefocusgames.com/games/${game}`} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="sr-only"
+      >
+        {gameTitle} by Free Focus Games
+      </a>
+    </>
   );
 }
