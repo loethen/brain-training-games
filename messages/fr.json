@@ -17,11 +17,12 @@
         "keywords": "jeux gratuits de concentration, jeux de mémoire, jeux d'entraînement cérébral, jeux de concentration, jeux pour améliorer l'attention, jeux cognitifs en ligne"
     },
     "home": {
-        "title": "Jeux gratuits pour la mémoire et la concentration",
-        "subtitle": "Améliorez votre concentration et votre mémoire avec des défis en ligne amusants",
+        "title": "Jeux gratuits d'entraînement de la mémoire et de la concentration",
+        "subtitle": "Améliorez votre concentration et votre mémoire avec des défis amusants en ligne",
         "popularGames": "Jeux populaires",
+        "latestPosts": "Derniers articles",
         "benefitsTitle": "Concentration : votre superpouvoir secret",
-        "benefitsIntro": "Imaginez ceci : votre enfant reste concentré sur ses tâches sans rappels constants, vous gérez sans effort les priorités des réunions, et vous vous plongez enfin dans ce livre que vous avez toujours voulu lire. C'est le pouvoir d'une concentration entraînée.",
+        "benefitsIntro": "Imaginez : Votre enfant reste concentré sur sa tâche sans rappels constants, vous gérez les priorités de réunion sans effort et vous vous plongez enfin dans ce livre que vous vouliez lire. C'est le pouvoir de la concentration entraînée.",
         "familyLifeTitle": "Vie familiale",
         "familyLifeDesc": "Aidez vos enfants à finir leurs devoirs plus rapidement et avec moins de distractions. Soyez pleinement présent pendant le temps en famille, sans encombrement mental.",
         "workPerformanceTitle": "Performance au travail",
@@ -549,7 +550,7 @@
                 "selection": "Cliquez sur le poisson qui avait des cercles !",
                 "success": "🎉 Parfait ! Niveau {level} terminé !",
                 "fail": "Jeu terminé ! Votre score final : ",
-                "nextLevel": "Continuer au niveau {level}",
+                "nextLevel": "Suivant",
                 "tryAgain": "Réessayer",
                 "soundOn": "Son activé",
                 "soundOff": "Son désactivé"

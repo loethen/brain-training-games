@@ -61,12 +61,12 @@ function validateAttribution(game) {
         'To display this game, please add the following link to your page:' + 
       '</p>' + 
       '<code style="display: block; background-color: #f5f5f5; padding: 10px; border: 1px solid #eee; border-radius: 3px; font-size: 0.85em; color: #000; overflow-x: auto; white-space: pre;">' + 
-        '&lt;a href="' + gameUrl + '" target="_blank" rel="noopener" class="sr-only"&gt;Powered by Free Focus Games&lt;/a&gt;' + 
+        '<a href="' + gameUrl + '" target="_blank" rel="noopener" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">Powered by Free Focus Games</a>' + 
       '</code>' + 
     '</div>';
 
   // Also log a plain text version to the console
-  console.error('Attribution Required. Please add the following link: <a href="' + gameUrl + '" target="_blank" rel="noopener" class="sr-only">Powered by Free Focus Games</a>');
+  console.error('Attribution Required. Please add the following link: <a href="' + gameUrl + '" target="_blank" rel="noopener" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">Powered by Free Focus Games</a>');
   
   return styledErrorMessage;
 }

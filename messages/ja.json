@@ -550,7 +550,7 @@
                 "selection": "輪があった魚をクリック！",
                 "success": "🎉 完璧！レベル {level} 完了！",
                 "fail": "ゲームオーバー！最終スコア：",
-                "nextLevel": "レベル {level} に進む",
+                "nextLevel": "次へ",
                 "tryAgain": "再挑戦",
                 "soundOn": "サウンドオン",
                 "soundOff": "サウンドオフ"

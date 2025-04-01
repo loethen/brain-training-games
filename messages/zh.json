@@ -550,7 +550,7 @@
         "selection": "点击之前带有发光圈的鱼！",
         "success": "🎉 太棒了！完成第{level}关！",
         "fail": "游戏结束！你的最终得分：",
-        "nextLevel": "继续挑战第{level}关",
+        "nextLevel": "下一关",
         "tryAgain": "再试一次",
         "soundOn": "声音开启",
         "soundOff": "声音关闭"

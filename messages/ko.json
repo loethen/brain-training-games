@@ -550,7 +550,7 @@
                 "selection": "고리가 있던 물고기를 클릭하세요!",
                 "success": "🎉 완벽해요! 레벨 {level} 완료!",
                 "fail": "게임 오버! 최종 점수: ",
-                "nextLevel": "레벨 {level}로 진행",
+                "nextLevel": "다음",
                 "tryAgain": "다시 시도",
                 "soundOn": "사운드 켜기",
                 "soundOff": "사운드 끄기"
@@ -736,7 +736,7 @@
                 "adjustDifficultyDescription": "도전을 더 쉽게 하기 위해 난이도를 낮추시겠습니까?",
                 "decreaseDifficulty": "난이도 낮추기",
                 "keepCurrentDifficulty": "현재 난이도 유지",
-                "nextLevel": "다음 레벨 목표:",
+                "nextLevel": "다음",
                 "nextLevelTarget": "{attempts}회 시도에서 {accuracy}% 정확도로 완료",
                 "continueChallenge": "도전 계속"
             }

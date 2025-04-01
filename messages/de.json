@@ -550,7 +550,7 @@
                 "selection": "Klicken Sie auf den Fisch, der Kreise hatte!",
                 "success": "🎉 Perfekt! Level {level} abgeschlossen!",
                 "fail": "Spiel vorbei! Ihr Endpunktstand: ",
-                "nextLevel": "Weiter zu Level {level}",
+                "nextLevel": "Nächstes",
                 "tryAgain": "Erneut versuchen",
                 "soundOn": "Sound an",
                 "soundOff": "Sound aus"

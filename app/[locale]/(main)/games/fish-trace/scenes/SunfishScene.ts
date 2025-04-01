@@ -737,7 +737,7 @@ export class SunfishScene extends Scene {
         const nextBtn = this.createGameButton(
             this.scale.width / 2,
             this.scale.height / 2,
-            this.translate('nextLevel', { level: this.state.level + 1 })
+            this.translate('nextLevel')
         );
         
         nextBtn.on('pointerup', () => {

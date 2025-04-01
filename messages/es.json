@@ -549,7 +549,7 @@
                 "selection": "¡Haz clic en el pez que tenía círculos!",
                 "success": "🎉 ¡Perfecto! ¡Nivel {level} completado!",
                 "fail": "¡Juego terminado! Tu puntuación final: ",
-                "nextLevel": "Continuar al nivel {level}",
+                "nextLevel": "Siguiente",
                 "tryAgain": "Intentar de nuevo",
                 "soundOn": "Sonido activado",
                 "soundOff": "Sonido desactivado"

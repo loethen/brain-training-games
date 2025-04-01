@@ -550,7 +550,7 @@
         "selection": "Click on the fish that had circles!",
         "success": "🎉 Perfect! Level {level} completed!",
         "fail": "Game Over! Your final score: ",
-        "nextLevel": "Continue to Level {level}",
+        "nextLevel": "Next Level",
         "tryAgain": "Try Again",
         "soundOn": "Sound On",
         "soundOff": "Sound Off"
