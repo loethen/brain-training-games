@@ -20,7 +20,7 @@ export const GAME_CONFIG = {
     lilyPad: {
         count: 7,
         scale: 0.15,
-        spacing: 170,
+        spacing: 130,
         shadow: {
             offset: { x: 30, y: 20 },
             alpha: 0.3,

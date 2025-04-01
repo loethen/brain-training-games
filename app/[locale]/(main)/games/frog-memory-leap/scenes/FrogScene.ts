@@ -1,4 +1,4 @@
-import { Scene, Math as PhaserMath, Utils } from 'phaser';
+import { Scene, Math as PhaserMath } from 'phaser';
 import { GAME_CONFIG } from '../config';
 
 interface LilyPad extends Phaser.GameObjects.Sprite {
@@ -54,11 +54,8 @@ export class FrogScene extends Scene {
             this.numJumps + 2
         );
 
-        if (config.jumpSequence && config.jumpSequence.length === this.numLilyPads) {
-            this.jumpSequence = config.jumpSequence;
-        } else {
-            this.jumpSequence = Utils.Array.Shuffle([...Array(this.numLilyPads).keys()]);
-        }
+        // We'll initialize jumpSequence later after we know how many lily pads we actually have
+        this.jumpSequence = config.jumpSequence || [];
             
         this.currentJumpIndex = 0;
         this.streakMultiplier = 1;
@@ -100,36 +97,159 @@ export class FrogScene extends Scene {
     }
 
     createLilyPads() {
-        for (let i = 0; i < this.numLilyPads; i++) {
-            let placed = false;
-            while (!placed) {
-                const x = PhaserMath.Between(GAME_CONFIG.bounds.x.min, GAME_CONFIG.bounds.x.max);
-                const y = PhaserMath.Between(GAME_CONFIG.bounds.y.min, GAME_CONFIG.bounds.y.max);
+        // Implement Poisson Disk Sampling
+        const positions = this.generatePoissonDiskPoints(
+            GAME_CONFIG.bounds.x.min,
+            GAME_CONFIG.bounds.x.max,
+            GAME_CONFIG.bounds.y.min,
+            GAME_CONFIG.bounds.y.max,
+            GAME_CONFIG.lilyPad.spacing,
+            30 // Maximum attempts per sample
+        );
 
-                const tooClose = this.lilyPads.some((pad) => {
-                    return PhaserMath.Distance.Between(pad.x, pad.y, x, y) < GAME_CONFIG.lilyPad.spacing;
-                });
+        // Use however many positions we got (up to numLilyPads)
+        const usablePositions = positions.slice(0, this.numLilyPads);
+        const actualNumPads = usablePositions.length;
+        
+        // Create all lily pads using the positions we have
+        for (let i = 0; i < actualNumPads; i++) {
+            const { x, y } = usablePositions[i];
+            this.createSingleLilyPad(x, y, i);
+        }
+        
+        // Now that we know how many lily pads we have, generate the jump sequence
+        if (this.jumpSequence.length !== this.numJumps + 1) {
+            this.generateJumpSequence(actualNumPads);
+        }
+    }
 
-                if (!tooClose) {
-                    const shadow = this.add.graphics({ 
-                        x: x + GAME_CONFIG.lilyPad.shadow.offset.x, 
-                        y: y + GAME_CONFIG.lilyPad.shadow.offset.y 
-                    });
-                    shadow.fillStyle(0x000000, GAME_CONFIG.lilyPad.shadow.alpha);
-                    shadow.fillCircle(0, 0, GAME_CONFIG.lilyPad.shadow.radius);
+    // Helper method to create a single lily pad
+    private createSingleLilyPad(x: number, y: number, index: number) {
+        const shadow = this.add.graphics({ 
+            x: x + GAME_CONFIG.lilyPad.shadow.offset.x, 
+            y: y + GAME_CONFIG.lilyPad.shadow.offset.y 
+        });
+        shadow.fillStyle(0x000000, GAME_CONFIG.lilyPad.shadow.alpha);
+        shadow.fillCircle(0, 0, GAME_CONFIG.lilyPad.shadow.radius);
 
-                    const lilyPad = this.add.sprite(x, y, 'lilyPad')
-                        .setScale(GAME_CONFIG.lilyPad.scale) as LilyPad;
-                    lilyPad.setInteractive();
-                    lilyPad.on('pointerdown', () => this.handleLilyPadClick(i));
+        const lilyPad = this.add.sprite(x, y, 'lilyPad')
+            .setScale(GAME_CONFIG.lilyPad.scale) as LilyPad;
+        lilyPad.setInteractive();
+        lilyPad.on('pointerdown', () => this.handleLilyPadClick(index));
+        
+        this.lilyPads.push(lilyPad);
+        this.createRippleForLilyPad(lilyPad);
+    }
+
+    // Poisson Disk Sampling algorithm
+    private generatePoissonDiskPoints(
+        xMin: number, 
+        xMax: number, 
+        yMin: number, 
+        yMax: number, 
+        minDistance: number, 
+        maxAttempts: number = 30
+    ): Array<{x: number, y: number}> {
+        const width = xMax - xMin;
+        const height = yMax - yMin;
+        
+        // Calculate cell size for grid acceleration
+        const cellSize = minDistance / Math.sqrt(2);
+        
+        // Calculate grid dimensions
+        const gridWidth = Math.ceil(width / cellSize);
+        const gridHeight = Math.ceil(height / cellSize);
+        
+        // Initialize grid to store points
+        const grid: Array<number | null> = new Array(gridWidth * gridHeight).fill(null);
+        
+        // List to store active points for sampling
+        const active: Array<{x: number, y: number}> = [];
+        
+        // List to store all sample points
+        const points: Array<{x: number, y: number}> = [];
+        
+        // Start with a random point
+        const firstPoint = {
+            x: xMin + Math.random() * width,
+            y: yMin + Math.random() * height
+        };
+        
+        // Insert first point into the data structures
+        active.push(firstPoint);
+        points.push(firstPoint);
+        
+        const gridIndex = (x: number, y: number): number => {
+            return Math.floor((x - xMin) / cellSize) + Math.floor((y - yMin) / cellSize) * gridWidth;
+        };
+        
+        grid[gridIndex(firstPoint.x, firstPoint.y)] = 0;
+        
+        // Main sampling loop
+        while (active.length > 0) {
+            // Pick a random active point
+            const randomIndex = Math.floor(Math.random() * active.length);
+            const point = active[randomIndex];
+            let found = false;
+            
+            // Try to find a new point around the chosen point
+            for (let i = 0; i < maxAttempts; i++) {
+                // Generate a random point within annulus
+                const angle = Math.random() * Math.PI * 2;
+                const radius = minDistance + Math.random() * minDistance;
+                
+                const newX = point.x + radius * Math.cos(angle);
+                const newY = point.y + radius * Math.sin(angle);
+                
+                // Check if the new point is in bounds
+                if (newX >= xMin && newX < xMax && newY >= yMin && newY < yMax) {
+                    // Check if the new point is far enough from other points
+                    const newGridX = Math.floor((newX - xMin) / cellSize);
+                    const newGridY = Math.floor((newY - yMin) / cellSize);
                     
-                    this.lilyPads.push(lilyPad);
-                    placed = true;
-
-                    this.createRippleForLilyPad(lilyPad);
+                    let isValid = true;
+                    
+                    // Check neighboring cells in the grid for existing points
+                    for (let nx = Math.max(0, newGridX - 2); nx <= Math.min(gridWidth - 1, newGridX + 2); nx++) {
+                        for (let ny = Math.max(0, newGridY - 2); ny <= Math.min(gridHeight - 1, newGridY + 2); ny++) {
+                            const neighborIndex = nx + ny * gridWidth;
+                            const neighborPointIndex = grid[neighborIndex];
+                            
+                            if (neighborPointIndex !== null) {
+                                const neighborPoint = points[neighborPointIndex];
+                                const dist = PhaserMath.Distance.Between(newX, newY, neighborPoint.x, neighborPoint.y);
+                                
+                                if (dist < minDistance) {
+                                    isValid = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!isValid) break;
+                    }
+                    
+                    // If valid, add the new point
+                    if (isValid) {
+                        const newPoint = { x: newX, y: newY };
+                        const idx = points.length;
+                        
+                        points.push(newPoint);
+                        active.push(newPoint);
+                        grid[gridIndex(newX, newY)] = idx;
+                        
+                        found = true;
+                        break;
+                    }
                 }
             }
+            
+            // If no point was found after maxAttempts, remove current point from active list
+            if (!found) {
+                active.splice(randomIndex, 1);
+            }
         }
+        
+        return points;
     }
 
     createRippleForLilyPad(lilyPad: LilyPad) {
@@ -929,5 +1049,42 @@ export class FrogScene extends Scene {
                     child.destroy();
                 }
             });
+    }
+
+    // Create a jump sequence that may include repeated pads
+    private generateJumpSequence(actualNumPads: number) {
+        // If we have a predefined sequence, use it
+        if (this.jumpSequence.length > 0) {
+            return;
+        }
+        
+        // If we don't have enough pads, we'll need to repeat some
+        this.jumpSequence = [];
+        
+        // Always start from a random first pad
+        const firstPadIndex = Math.floor(Math.random() * actualNumPads);
+        this.jumpSequence.push(firstPadIndex);
+        
+        // Generate the remaining jumps, allowing for repeats if necessary
+        for (let i = 0; i < this.numJumps; i++) {
+            let nextPadIndex;
+            let attempts = 0;
+            const maxAttempts = 10; // Prevent infinite loops
+            
+            do {
+                // Pick a random pad index
+                nextPadIndex = Math.floor(Math.random() * actualNumPads);
+                attempts++;
+                
+                // Try to avoid the immediately previous pad if possible
+                // But allow it if we've made too many attempts or have very few pads
+            } while (
+                nextPadIndex === this.jumpSequence[this.jumpSequence.length - 1] && 
+                attempts < maxAttempts && 
+                actualNumPads > 2
+            );
+            
+            this.jumpSequence.push(nextPadIndex);
+        }
     }
 } 
