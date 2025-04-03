@@ -82,6 +82,7 @@ export default function LargerNumberPage() {
           answer: t('faq.adults.answer')
         }
       ]}
+      relatedGames={['schulte-table', 'reaction-time', 'block-memory-challenge']}
     />
   );
 } 
