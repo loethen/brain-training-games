@@ -9,7 +9,7 @@ author:
   picture: "/authors/team.png"
 ---
 
-I've always thought my memory was a lost cause. Forgetting milk at the grocery store, missing friends' birthdays unless my phone reminds me, letting work details slip through the cracks—I was convinced that's just how I'm wired. But then I stumbled across Jim Kwik's video, "The No 1 Secret to Better Memory " (watch it here), and everything shifted. It turns out, improving memory isn't about being born with a gift—it's a skill I can train, and it's way more fun than I ever imagined.
+I've always thought my memory was a lost cause. Forgetting milk at the grocery store, missing friends' birthdays unless my phone reminds me, letting work details slip through the cracks—I was convinced that's just how I'm wired. But then I stumbled across Jim Kwik's video, "The No 1 Secret to Better Memory " (<a href="https://www.youtube.com/watch?v=5_xCz9DlSiY" rel="nofollow">watch it here</a>), and everything shifted. It turns out, improving memory isn't about being born with a gift—it's a skill I can train, and it's way more fun than I ever imagined.
 
 ## Motivation: Why Do I Want to Improve Memory?
 
@@ -69,7 +69,7 @@ I've noticed something else, too—improving memory boosts my confidence. Every 
 <figcaption>Creating vivid mental images that connect with emotions makes information stick in your memory far better than simple repetition. Let your imagination run wild!</figcaption>
 </figure>
 
-If you're like me, thinking your memory's a mess, watch Jim Kwik's video (click here). Test his method with those ten foods—it'll show you how fun improving memory can be. It's all about imagination and emotion, waiting for you to spark it.
+If you're like me, thinking your memory's a mess, watch Jim Kwik's video (<a href="https://www.youtube.com/watch?v=5_xCz9DlSiY" rel="nofollow">click here</a>). Test his method with those ten foods—it'll show you how fun improving memory can be. It's all about imagination and emotion, waiting for you to spark it.
 
 But here's where I'll mix it up. I've made my own list—10 fruits I love that are good for you too. Use Kwik's body trick and make your own crazy connections. Can you improve memory with these?
 
