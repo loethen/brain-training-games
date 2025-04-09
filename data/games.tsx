@@ -85,6 +85,15 @@ export const games: Game[] = [
         preview: <ImagePreview src="/games/reaction-time.png" />,
         categories: ["reaction-time", "selective-attention", "sustained-attention"],
     },
+    {
+        id: "baby-animal-matching",
+        title: "Baby Animal Matching",
+        description:
+            "Match pairs of cute baby animals in this classic memory game. Improves visual memory and concentration.",
+        slug: "baby-animal-matching",
+        preview: <ImagePreview src="https://images.unsplash.com/photo-1675203921970-982a980e614f?ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxjdXRlJTIwYmFieSUyMGFuaW1hbHxlbnwwfHx8fDE3NDQwOTU3Mzh8MA&ixlib=rb-4.0.3&w=400" />,
+        categories: ["working-memory", "visual-tracking"],
+    },
     // Add more games as you create them
 ];
 
