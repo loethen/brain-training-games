@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'; // Needed for results UI text
 import { ShareModal } from '@/components/ui/ShareModal'; // Needed for share button
 import confetti from 'canvas-confetti';
 import { useTimeout } from '@/hooks/useTimeout'; // Import custom hook
+import { cn } from '@/lib/utils'; // Import cn utility
 
 // Base structure for animal data
 interface AnimalData {
@@ -266,8 +267,6 @@ export default function GameClient() {
       // Reset logic is handled by useEffect dependency on gridConfig.numPairs
   };
 
-  const gridColsClass = `grid-cols-${gridConfig.cols}`;
-
   return (
     <div className="flex flex-col relative rounded-xl items-center w-full mx-auto px-4 py-8 bg-gradient-to-br from-green-300 to-blue-300">
         <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-white drop-shadow-lg z-10">
@@ -291,7 +290,11 @@ export default function GameClient() {
             </div>
         )}
 
-        <div className={`grid ${gridColsClass} gap-2 sm:gap-4 w-full max-w-3xl mb-6`}> 
+        <div className={cn(
+            "grid gap-2 sm:gap-4 w-full max-w-3xl mb-6",
+            gridConfig.cols === 3 && "grid-cols-3",
+            gridConfig.cols === 4 && "grid-cols-4"
+        )}> 
             {cards.map((card) => ( 
             <FlipCard
                 key={card.id} 
@@ -306,22 +309,24 @@ export default function GameClient() {
             ))}
         </div>
 
-        <div className="flex justify-center space-x-2 sm:space-x-4 w-full max-w-3xl z-10">
-             <p className="text-white font-medium mr-2 sm:mr-4 self-center">
-                 {t('difficulty', { defaultMessage: 'Difficulty' })}:
-             </p>
-            {difficultySettings.map((setting) => (
-                <Button
-                    key={setting.level}
-                    variant={difficultyLevel === setting.level ? "default" : "secondary"}
-                    size="sm"
-                    disabled={(moves > 0 && !showResults) || isLoading}
-                    onClick={() => handleDifficultyChange(setting.level)}
-                    className="flex-1"
-                >
-                    {t(setting.label.split(' ')[0].toLowerCase(), { defaultMessage: setting.label.split(' ')[0] })} ({setting.cols}×{setting.rows})
-                </Button>
-            ))}
+        <div className="w-full max-w-3xl z-10 mb-2">
+            <p className="text-white font-medium mb-2 text-center">
+                {t('difficulty', { defaultMessage: 'Difficulty' })}:
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+                {difficultySettings.map((setting) => (
+                    <Button
+                        key={setting.level}
+                        variant={difficultyLevel === setting.level ? "default" : "secondary"}
+                        size="sm"
+                        disabled={(moves > 0 && !showResults) || isLoading}
+                        onClick={() => handleDifficultyChange(setting.level)}
+                        className="min-w-[80px]"
+                    >
+                        {t(setting.label.split(' ')[0].toLowerCase(), { defaultMessage: setting.label.split(' ')[0] })} ({setting.cols}×{setting.rows})
+                    </Button>
+                ))}
+            </div>
         </div>
 
         {showResults && (
