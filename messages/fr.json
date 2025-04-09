@@ -671,6 +671,7 @@
         "babyAnimalMatching": {
             "title": "Jeu d'Association des Bébés Animaux",
             "subtitle": "Testez votre mémoire avec de mignons bébés animaux !",
+            "description": "Trouvez les paires de bébés animaux correspondantes dans ce jeu de mémoire visuelle amusant.",
             "howToPlayIntro": "Trouvez toutes les paires correspondantes de bébés animaux dans ce jeu de cartes mémoire !",
             "howToPlayStep1": "Sélectionnez votre niveau de difficulté pour commencer",
             "howToPlayStep2": "Cliquez sur une carte pour la retourner et révéler un bébé animal",

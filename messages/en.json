@@ -902,6 +902,7 @@
     "babyAnimalMatching": {
       "title": "Baby Animal Matching Game",
       "subtitle": "Test your memory with cute baby animals!",
+      "description": "Find matching baby animal pairs in this fun visual memory game.",
       "howToPlayIntro": "Find all the matching pairs of baby animals in this memory card game!",
       "howToPlayStep1": "Select your difficulty level to start",
       "howToPlayStep2": "Click on a card to flip it over and reveal a baby animal",

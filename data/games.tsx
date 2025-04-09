@@ -14,6 +14,17 @@ export type Game = {
 
 export const games: Game[] = [
     {
+        id: "baby-animal-matching",
+        title: "Baby Animal Matching",
+        description:
+            "Match pairs of cute baby animals in this classic memory game. Improves visual memory and concentration.",
+        slug: "baby-animal-matching",
+        preview: (
+            <ImagePreview src="https://images.unsplash.com/photo-1583524505974-6facd53f4597?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHw2fHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" />
+        ),
+        categories: ["working-memory", "visual-tracking"],
+    },
+    {
         id: "dual-n-back",
         title: "Dual N-Back",
         description:
@@ -56,7 +67,11 @@ export const games: Game[] = [
             "A variant of Dual N-Back using mahjong tiles and sounds to train working memory and cognitive skills.",
         slug: "mahjong-dual-n-back",
         preview: <ImagePreview src="/games/mahjong-dual-n-back.png" />,
-        categories: ["working-memory", "divided-attention", "cognitive-flexibility"],
+        categories: [
+            "working-memory",
+            "divided-attention",
+            "cognitive-flexibility",
+        ],
     },
     {
         id: "block-memory-challenge",
@@ -83,16 +98,11 @@ export const games: Game[] = [
             "Measure your response speed to visual stimuli and understand your baseline reaction time.",
         slug: "reaction-time",
         preview: <ImagePreview src="/games/reaction-time.png" />,
-        categories: ["reaction-time", "selective-attention", "sustained-attention"],
-    },
-    {
-        id: "baby-animal-matching",
-        title: "Baby Animal Matching",
-        description:
-            "Match pairs of cute baby animals in this classic memory game. Improves visual memory and concentration.",
-        slug: "baby-animal-matching",
-        preview: <ImagePreview src="https://images.unsplash.com/photo-1675203921970-982a980e614f?ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxjdXRlJTIwYmFieSUyMGFuaW1hbHxlbnwwfHx8fDE3NDQwOTU3Mzh8MA&ixlib=rb-4.0.3&w=400" />,
-        categories: ["working-memory", "visual-tracking"],
+        categories: [
+            "reaction-time",
+            "selective-attention",
+            "sustained-attention",
+        ],
     },
     // Add more games as you create them
 ];

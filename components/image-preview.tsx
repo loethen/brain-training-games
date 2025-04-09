@@ -7,7 +7,7 @@ export function ImagePreview({ src }: { src: string }) {
         src={src}
         alt="Game preview"
         fill
-        className="object-contain"
+        className="object-cover"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         quality={100}
       />

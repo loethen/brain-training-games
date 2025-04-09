@@ -902,6 +902,7 @@
         "babyAnimalMatching": {
             "title": "Baby-Tier-Zuordnungsspiel",
             "subtitle": "Teste dein Gedächtnis mit niedlichen Tierbabys!",
+            "description": "Finde passende Tierbaby-Paare in diesem lustigen visuellen Gedächtnisspiel.",
             "howToPlayIntro": "Finde in diesem Memory-Kartenspiel alle passenden Paare von Tierbabys!",
             "howToPlayStep1": "Wähle deinen Schwierigkeitsgrad zum Starten",
             "howToPlayStep2": "Klicke auf eine Karte, um sie umzudrehen und ein Tierbaby aufzudecken",

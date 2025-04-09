@@ -670,6 +670,7 @@
         "babyAnimalMatching": {
             "title": "Juego de Memoria de Crías de Animales",
             "subtitle": "¡Prueba tu memoria con adorables crías de animales!",
+            "description": "Encuentra parejas de crías de animales en este divertido juego de memoria visual.",
             "howToPlayIntro": "¡Encuentra todas las parejas de crías de animales en este juego de cartas de memoria!",
             "howToPlayStep1": "Selecciona tu nivel de dificultad para empezar",
             "howToPlayStep2": "Haz clic en una carta para voltearla y revelar una cría de animal",

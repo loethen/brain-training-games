@@ -671,6 +671,7 @@
     "babyAnimalMatching": {
       "title": "宝宝动物配对游戏",
       "subtitle": "用可爱的宝宝动物来测试你的记忆力！",
+      "description": "在这个有趣的视觉记忆游戏中，找出所有匹配的宝宝动物对！",
       "howToPlayIntro": "在这个记忆卡牌游戏中，找出所有匹配的宝宝动物对！",
       "howToPlayStep1": "选择难度开始游戏",
       "howToPlayStep2": "点击一张卡牌将其翻开，看到一个宝宝动物",
