@@ -914,5 +914,106 @@
       },
       "previousPost": "Vorheriger Beitrag",
       "nextPost": "Nächster Beitrag"
+    },
+    "babyAnimalMatching": {
+      "metaTitle": "Tierbaby-Memo-Spiel | Kostenloses Online-Gedächtnisspiel",
+      "metaDescription": "Spielen Sie unser kostenloses Tierbaby-Memo-Spiel online! Verbessern Sie Gedächtnis, Konzentration und visuelle Erkennungsfähigkeiten mit diesem unterhaltsamen Spiel für alle Altersgruppen. Finden Sie passende Paare süßer Tierbabys.",
+      "metaKeywords": "Tierbaby Memo Spiel, Gedächtnisspiel, Memo Spiel, Konzentrationsspiel, kostenloses Online-Spiel, Kinderspiel, Tierspiel, Gedächtnistraining",
+      "ogTitle": "Tierbaby-Memo - Kostenloses Gedächtnisspiel",
+      "ogDescription": "Schärfen Sie Ihr Gedächtnis und Ihre Konzentration, indem Sie in diesem kostenlosen Online-Spiel niedliche Tierbabys zusammenbringen. Spaß für Kinder und Erwachsene!",
+      "title": "Tierbaby-Memo",
+      "description": "Ein klassisches Gedächtnisspiel mit entzückenden Tierbabys. Drehen Sie Karten um, um Paare zu finden und das Spielfeld zu leeren. Anpassbare Schwierigkeitsstufen machen es für alle Altersgruppen geeignet.",
+      "howToPlay": [
+        "Das Spiel beginnt mit allen Karten verdeckt.",
+        "Klicken Sie auf eine Karte, um sie umzudrehen und das Tierbaby anzuzeigen.",
+        "Klicken Sie auf eine zweite Karte, um ein anderes Tier anzuzeigen.",
+        "Wenn die Tiere übereinstimmen, bleiben die Karten aufgedeckt und werden als gefunden markiert.",
+        "Wenn sie nicht übereinstimmen, drehen sich beide Karten nach kurzer Verzögerung wieder um.",
+        "Drehen Sie weiter Karten um, bis alle Paare gefunden wurden.",
+        "Versuchen Sie, das Spiel mit möglichst wenigen Zügen und in kürzester Zeit abzuschließen!"
+      ],
+      "cognitiveBenefits": [
+        "Verbessert das Arbeitsgedächtnis, da Spieler sich die Positionen zuvor umgedrehter Karten merken müssen.",
+        "Verbessert die visuellen Erkennungs- und Unterscheidungsfähigkeiten.",
+        "Entwickelt Konzentration und anhaltende Aufmerksamkeit.",
+        "Bietet eine unterhaltsame Möglichkeit, die Mustererkennung zu üben."
+      ],
+      "faq": [
+        {
+          "question": "Für welche Altersgruppe ist dieses Spiel geeignet?",
+          "answer": "Dieses Spiel ist für alle Altersgruppen geeignet, von kleinen Kindern, die das Zuordnen lernen, bis hin zu Erwachsenen, die eine unterhaltsame Gedächtnisherausforderung suchen. Die anpassbaren Schwierigkeitsstufen berücksichtigen unterschiedliche Fähigkeiten."
+        },
+        {
+          "question": "Kann ich dieses Spiel auf meinem Handy oder Tablet spielen?",
+          "answer": "Ja, das Tierbaby-Memo-Spiel ist responsiv gestaltet und funktioniert gut auf Desktops, Tablets und Smartphones."
+        },
+        {
+          "question": "Wie verändert der Schwierigkeitsgrad das Spiel?",
+          "answer": "Das Erhöhen des Schwierigkeitsgrads fügt dem Raster mehr Kartenpaare hinzu (z. B. 3x2, 4x2, 4x3, 4x4), wodurch das Spiel herausfordernder wird."
+        }
+      ],
+      "relatedGames": [
+        "schulte-table",
+        "reaction-time",
+        "block-memory-challenge"
+      ],
+      "trainingCategories": [
+        "working-memory",
+        "visual-tracking",
+        "selective-attention"
+      ],
+      "gameUI": {
+        "title": "Tierbaby-Memo",
+        "moves": "Züge",
+        "resetGame": "Zurücksetzen",
+        "loadingImages": "Bilder laden...",
+        "resultsTitle": "Gut gemacht!",
+        "finalMoves": "Züge",
+        "time": "Zeit",
+        "bestTime": "Beste Zeit",
+        "difficultyLevel": "Schwierigkeit",
+        "easy": "Leicht",
+        "medium": "Mittel",
+        "hard": "Schwer",
+        "expert": "Experte",
+        "playAgain": "Nochmal spielen",
+        "shareResults": "Ergebnisse teilen",
+        "difficulty": "Schwierigkeit",
+        "shareTitle": "Schau dir mein Tierbaby-Memo-Ergebnis an!",
+        "shareText": "Ich habe alle Tierbabys in {moves} Zügen und {time} Sekunden auf Schwierigkeitsstufe {difficulty} gefunden!"
+      }
+    },
+    "largerNumber": {
+      "metaTitle": "Größere Zahl Spiel | Kognitives Training Online",
+      "metaDescription": "Trainieren Sie Ihr Gehirn, um schnell größere Zahlen zu identifizieren. Dieses Spiel bietet eine schnelle, ansprechende Möglichkeit, diese neuronalen Pfade zu trainieren.",
+      "metaKeywords": "Zahlenvergleichsspiel, Zahlengrößenbeurteilungsspiel, schnelles Zahlenerkennung Spiel, größere Zahlen Auswahlspiel, mathematisches Denktraining Spiel, Reaktionsgeschwindigkeit Zahlenspiel, Mathe Gehirntraining, Zahlenvergleichsspiel für Kinder, schnelle mathematische Entscheidungsspiel, kognitives Geschwindigkeitstraining Spiel, Aufmerksamkeit Zahlentraining, mathematische Verarbeitungsgeschwindigkeitsspiel, numerische Verarbeitungstraining, Entscheidungsgeschwindigkeitsübung, kognitives Geschwindigkeitsspiel, Zahl Größenvergleich, Reaktionszeittraining, pädagogisches Mathematikspiel",
+      "ogTitle": "Größere Zahl Herausforderung - Trainieren Sie Ihre numerische Verarbeitungsgeschwindigkeit",
+      "ogDescription": "Identifizieren Sie schnell, welche Zahl größer ist in diesem rasanten Gehirntraining Spiel. Verbessern Sie Ihre Entscheidungsgeschwindigkeit und numerische Verarbeitung.",
+      "gameUI": {
+        "challenge": "Schließen Sie {attempts} Versuche mit {accuracy}% Genauigkeit ab, um erfolgreich zu sein",
+        "starting": "Startet...",
+        "startChallenge": "Herausforderung starten",
+        "whichIsLarger": "Welche Zahl ist größer?",
+        "correct": "Korrekt",
+        "total": "Gesamt",
+        "accuracy": "Genauigkeit",
+        "congratulations": "Herzlichen Glückwunsch! Sie haben die Herausforderung erfolgreich abgeschlossen.",
+        "keepGoing": "Üben Sie weiter! Sie werden mit jedem Versuch besser.",
+        "timeUp": "Zeit ist abgelaufen!",
+        "totalAttempts": "Gesamtversuche",
+        "correctAnswers": "Richtige Antworten",
+        "target": "Ziel: {attempts} Versuche mit {accuracy}% Genauigkeit",
+        "playAgain": "Erneut spielen",
+        "share": "Ergebnisse teilen",
+        "settings": "Einstellungen",
+        "level": "Level",
+        "adjustDifficulty": "Schwierigkeit anpassen",
+        "adjustDifficultyDescription": "Möchten Sie die Schwierigkeit verringern, um die Herausforderung einfacher zu machen?",
+        "decreaseDifficulty": "Schwierigkeit verringern",
+        "keepCurrentDifficulty": "Aktuelle Schwierigkeit beibehalten",
+        "nextLevel": "Nächstes Level Ziel:",
+        "nextLevelTarget": "Schließen Sie {attempts} Versuche mit {accuracy}% Genauigkeit ab",
+        "continueChallenge": "Herausforderung fortsetzen"
+      }
     }
 }

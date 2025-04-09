@@ -1,15 +1,18 @@
 'use client';
 
 import React from "react";
-import Image from "next/image";
+import Image from "next/image"; // Re-add Image import
 import { cn } from "@/lib/utils";
+
+// Removed SVG imports
 
 interface CardData {
     id: number;
     animalId: number;
-    animalName: string;
-    imageUrl: string;
+    imageUrl: string; // Ensure this is part of the data
 }
+
+// Removed animalComponentMap
 
 interface FlipCardProps {
     card: CardData;
@@ -17,7 +20,8 @@ interface FlipCardProps {
     isFlipped: boolean;
     matched: boolean;
     isGameOver: boolean;
-    onClick: (index: number) => void;
+    onClick: (index: number) => void; // Removed event
+    isMatching?: boolean; // Added isMatching prop
 }
 
 const FlipCard: React.FC<FlipCardProps> = ({
@@ -27,51 +31,61 @@ const FlipCard: React.FC<FlipCardProps> = ({
     matched,
     isGameOver,
     onClick,
+    isMatching, // Destructure isMatching
 }) => {
-    const handleClick = () => {
-        if (!isGameOver && !matched) {
-            console.log(`Clicked card ${index}, isFlipped: ${isFlipped}`); // 调试用
+    const handleClick = () => { 
+        // Prevent click if matching animation is running
+        if (!isGameOver && !matched && !isMatching) { 
             onClick(index);
         }
     };
 
+    // Removed AnimalSvgComponent logic
+
     return (
         <div
             onClick={handleClick}
-            className="[perspective:1000px] cursor-pointer"
+            // Apply animation class directly to outer div based on isMatching
+            className={cn(
+                "perspective-[1000px] cursor-pointer",
+                 // Removed separate transition/opacity/scale styles
+                 isMatching && 'animate-card-match-effect' // Apply combined animation class
+            )}
         >
             <div
                 className={cn(
-                    'relative w-full h-0 pb-[133%] transform-preserve-3d transition-transform duration-500',
-                    'hover:scale-105 transition-all',
-                    isFlipped && 'rotate-y-180',
-                    isGameOver && 'opacity-70 cursor-default',
-                    matched && 'ring-2 ring-green-400 rounded-xl'
+                    'relative w-full h-0 pb-[120%] transform-3d transition-transform duration-500',
+                    // Apply hover only if NOT matching 
+                    !isMatching && 'hover:scale-105', 
+                    // Always rotate if flipped or matched, regardless of matching animation
+                    (isFlipped || matched) && 'rotate-y-180', 
+                    isGameOver && 'opacity-70', // Keep game over style
+                    // Keep blue ring for matched, but animation will visually override
+                    matched && 'ring-2 ring-offset-2 ring-blue-500 rounded-xl'
                 )}
             >
                 {/* Front of card */}
                 <div className="absolute inset-0 w-full h-full backface-hidden">
-                    <div className="w-full h-full bg-linear-to-br from-blue-400 to-blue-600 rounded-xl shadow-md flex items-center justify-center">
-                        <span className="text-white text-4xl font-bold">?</span>
+                    <div className="w-full h-full bg-white rounded-xl shadow-md flex items-center justify-center"> 
+                        <span className="text-blue-500 text-4xl font-bold">?</span> 
                     </div>
                 </div>
 
-                {/* Back of card */}
+                {/* Back of card - Uses next/image */}
                 <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                    <div className="w-full h-full bg-white rounded-xl shadow-md p-2 flex flex-col items-center justify-center overflow-hidden">
-                        <div className="relative w-full h-full grow">
-                            <Image
+                    <div className="relative w-full h-full bg-white rounded-xl shadow-md flex flex-col items-center justify-center overflow-hidden">
+                        {/* Container for the Image - keeps the padding for border effect */}
+                        <div className="absolute inset-0 p-[10px]">
+                             <Image
                                 src={card.imageUrl}
-                                alt={card.animalName}
-                                fill
-                                sizes="(min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
-                                style={{ objectFit: 'contain' }}
-                                priority={index < 8}
+                                alt={`Baby Animal ${card.animalId}`}
+                                layout="fill" // Fills the container
+                                objectFit="cover" // Covers the area, might crop
+                                className="rounded-md" // Apply rounding
+                                quality={100} // Highest quality
+                                unoptimized={process.env.NODE_ENV === 'development'} // Optional for local dev
                             />
                         </div>
-                        <p className="mt-1 text-xs sm:text-sm font-medium text-gray-700 text-center truncate w-full px-1">
-                            {card.animalName}
-                        </p>
                     </div>
                 </div>
             </div>

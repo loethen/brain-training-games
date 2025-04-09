@@ -895,7 +895,75 @@
                 "great": "Genial",
                 "good": "Bueno",
                 "average": "Promedio",
-                "keepPracticing": "Sigue Practicando"
+                "keepPracticing": "Seguir practicando"
+            }
+        },
+        "babyAnimalMatching": {
+            "metaTitle": "Juego de Memoria de Crías de Animales | Juego de Memoria Online Gratis",
+            "metaDescription": "¡Juega gratis a nuestro juego de Memoria de Crías de Animales online! Mejora la memoria, la concentración y las habilidades de reconocimiento visual con este divertido juego para todas las edades. Encuentra parejas de crías de animales adorables.",
+            "metaKeywords": "juego memoria crías animales, juego de memoria, juego de parejas, juego de concentración, juego online gratis, juego niños, juego animales, entrenamiento memoria",
+            "ogTitle": "Memoria de Crías de Animales - Juego de Memoria Gratis",
+            "ogDescription": "Agudiza tu memoria y concentración emparejando crías de animales adorables en este juego online gratis. ¡Divertido para niños y adultos!",
+            "title": "Memoria de Crías de Animales",
+            "description": "Un clásico juego de memoria y parejas con adorables crías de animales. Voltea las cartas para encontrar las parejas y despejar el tablero. Los niveles de dificultad ajustables lo hacen adecuado para todas las edades.",
+            "howToPlay": [
+                "El juego comienza con todas las cartas boca abajo.",
+                "Haz clic en una carta para voltearla y revelar la cría de animal.",
+                "Haz clic en una segunda carta para revelar otro animal.",
+                "Si los animales coinciden, las cartas permanecen boca arriba y se marcan como emparejadas.",
+                "Si no coinciden, ambas cartas se voltean boca abajo después de un breve retraso.",
+                "Continúa volteando cartas hasta que todas las parejas sean encontradas.",
+                "¡Intenta completar el juego en el menor número de movimientos y en el menor tiempo posible!"
+            ],
+            "cognitiveBenefits": [
+                "Mejora la memoria de trabajo al requerir que los jugadores recuerden la ubicación de las cartas volteadas previamente.",
+                "Mejora las habilidades de reconocimiento y discriminación visual.",
+                "Desarrolla la concentración y la atención sostenida.",
+                "Proporciona una forma divertida de practicar el reconocimiento de patrones."
+            ],
+            "faq": [
+                {
+                    "question": "¿Para qué grupo de edad es adecuado este juego?",
+                    "answer": "Este juego es adecuado para todas las edades, desde niños pequeños que aprenden habilidades de emparejamiento hasta adultos que buscan un divertido desafío de memoria. Los niveles de dificultad ajustables se adaptan a diferentes habilidades."
+                },
+                {
+                    "question": "¿Puedo jugar a este juego en mi teléfono o tableta?",
+                    "answer": "Sí, el juego de Memoria de Crías de Animales está diseñado para ser responsivo y funciona bien en ordenadores de sobremesa, tabletas y teléfonos inteligentes."
+                },
+                {
+                    "question": "¿Cómo cambia el nivel de dificultad el juego?",
+                    "answer": "Aumentar el nivel de dificultad añade más pares de cartas a la cuadrícula (p. ej., 3x2, 4x2, 4x3, 4x4), haciendo el juego más desafiante."
+                }
+            ],
+            "relatedGames": [
+                "schulte-table",
+                "reaction-time",
+                "block-memory-challenge"
+            ],
+            "trainingCategories": [
+                "working-memory",
+                "visual-tracking",
+                "selective-attention"
+            ],
+            "gameUI": {
+                "title": "Memoria Crías Animales",
+                "moves": "Movimientos",
+                "resetGame": "Reiniciar",
+                "loadingImages": "Cargando imágenes...",
+                "resultsTitle": "¡Bien hecho!",
+                "finalMoves": "Movimientos",
+                "time": "Tiempo",
+                "bestTime": "Mejor Tiempo",
+                "difficultyLevel": "Dificultad",
+                "easy": "Fácil",
+                "medium": "Medio",
+                "hard": "Difícil",
+                "expert": "Experto",
+                "playAgain": "Jugar de Nuevo",
+                "shareResults": "Compartir Resultados",
+                "difficulty": "Dificultad",
+                "shareTitle": "¡Mira mi puntuación en Memoria de Crías de Animales!",
+                "shareText": "¡Emparejé todas las crías de animales en {moves} movimientos y {time} segundos en dificultad {difficulty}!"
             }
         }
     },

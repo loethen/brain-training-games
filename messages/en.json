@@ -898,6 +898,74 @@
         "average": "Average",
         "keepPracticing": "Keep Practicing"
       }
+    },
+    "babyAnimalMatching": {
+      "metaTitle": "Baby Animal Matching Game | Free Online Memory Game",
+      "metaDescription": "Play our free Baby Animal Matching game online! Improve memory, focus and visual recognition skills with this fun game for all ages. Find matching pairs of cute baby animals.",
+      "metaKeywords": "baby animal matching game, memory game, matching game, concentration game, free online game, kids game, animal game, memory training",
+      "ogTitle": "Baby Animal Matching - Free Memory Game",
+      "ogDescription": "Sharpen your memory and focus by matching cute baby animals in this free online game. Fun for kids and adults!",
+      "title": "Baby Animal Matching",
+      "description": "A classic memory matching game featuring adorable baby animals. Flip cards to find pairs and clear the board. Adjustable difficulty levels make it suitable for all ages.",
+      "howToPlay": [
+        "The game starts with all cards face down.",
+        "Click on a card to flip it over and reveal the baby animal.",
+        "Click on a second card to reveal another animal.",
+        "If the animals match, the cards stay face up and are marked as matched.",
+        "If they don't match, both cards flip back face down after a short delay.",
+        "Continue flipping cards until all pairs are matched.",
+        "Try to complete the game in the fewest moves and shortest time possible!"
+      ],
+      "cognitiveBenefits": [
+        "Improves working memory by requiring players to remember the locations of previously flipped cards.",
+        "Enhances visual recognition and discrimination skills.",
+        "Develops concentration and sustained attention.",
+        "Provides a fun way to practice pattern recognition."
+      ],
+      "faq": [
+        {
+          "question": "What age group is this game suitable for?",
+          "answer": "This game is suitable for all ages, from young children learning matching skills to adults looking for a fun memory challenge. The adjustable difficulty levels cater to different abilities."
+        },
+        {
+          "question": "Can I play this game on my phone or tablet?",
+          "answer": "Yes, the Baby Animal Matching game is designed to be responsive and works well on desktops, tablets, and smartphones."
+        },
+        {
+          "question": "How does the difficulty level change the game?",
+          "answer": "Increasing the difficulty level adds more pairs of cards to the grid (e.g., 3x2, 4x2, 4x3, 4x4), making the game more challenging."
+        }
+      ],
+      "relatedGames": [
+        "schulte-table",
+        "reaction-time",
+        "block-memory-challenge"
+      ],
+      "trainingCategories": [
+        "working-memory",
+        "visual-tracking",
+        "selective-attention"
+      ],
+      "gameUI": {
+        "title": "Baby Animal Matching",
+        "moves": "Moves",
+        "resetGame": "Reset Game",
+        "loadingImages": "Loading Images...",
+        "resultsTitle": "Well Done!",
+        "finalMoves": "Moves",
+        "time": "Time",
+        "bestTime": "Best Time",
+        "difficultyLevel": "Difficulty",
+        "easy": "Easy",
+        "medium": "Medium",
+        "hard": "Hard",
+        "expert": "Expert",
+        "playAgain": "Play Again",
+        "shareResults": "Share Results",
+        "difficulty": "Difficulty",
+        "shareTitle": "Check out my Baby Animal Matching score!",
+        "shareText": "I matched all the baby animals in {moves} moves and {time} seconds on {difficulty} difficulty!"
+      }
     }
   },
   "buttons": {

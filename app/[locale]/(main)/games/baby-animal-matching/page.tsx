@@ -2,8 +2,6 @@ import { Metadata } from "next";
 import BabyAnimalMatchingGame from "./components/Game";
 import { GamePageTemplate } from '@/components/GamePageTemplate';
 import { Brain, Eye, Search } from 'lucide-react'; // Example icons
-// import { useTranslations } from 'next-intl';
-// import { getTranslations } from "next-intl/server";
 
 // Define types for placeholders
 interface Benefit {
@@ -16,44 +14,67 @@ interface FAQItem {
     answer: string;
 }
 
-// Simplified metadata generation without translations
+// Enhanced metadata generation for better SEO
 export async function generateMetadata(): Promise<Metadata> {
-    // Placeholder metadata
-    const title = "Baby Animal Matching Game";
-    const description = "Test your visual memory by matching pairs of cute baby animals.";
+    // Primary keyword: Baby Animal Matching Game
+    const title = "Baby Animal Matching Game | Memory Training for Kids & Adults";
+    const description = "Play our free Baby Animal Matching Game online! Improve memory, focus and visual recognition skills with cute animal pairs. Fun brain training for all ages.";
     
     return {
         title,
         description,
+        keywords: [
+            "baby animal matching game",
+            "memory game",
+            "matching game",
+            "kids memory game",
+            "animal matching game",
+            "brain training game",
+            "concentration game",
+            "focus training game",
+        ],
         openGraph: {
-            title,
-            description,
-            // images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }], // Add specific image later
+            title: "Baby Animal Matching Game - Test Your Memory With Cute Animals",
+            description:
+                "Match pairs of adorable baby animals in this fun memory game. Perfect for improving concentration and visual memory in children and adults.",
+            type: "website",
+            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
         },
-    }
+        twitter: {
+            card: "summary_large_image",
+            title: "Baby Animal Matching Game | Train Your Memory",
+            description:
+                "Test your memory skills by matching cute baby animal pairs in this free online game.",
+        },
+        alternates: {
+            canonical: "/games/baby-animal-matching",
+        },
+    };
 }
 
 export default function BabyAnimalMatchingPageContainer() {
     // Using direct English strings
-    const title = "Baby Animal Matching";
-    const subtitle = "Test your visual memory!";
-    const howToPlayIntro = "Find all the matching pairs of baby animals!";
+    const title = "Baby Animal Matching Game";
+    const subtitle = "Test your memory with cute baby animals!";
+    const howToPlayIntro = "Find all the matching pairs of baby animals in this memory card game!";
     const howToPlaySteps = [
-        "Click 'Easy' or 'Medium' to start.",
-        "Click on a card to flip it over.",
-        "Click on a second card.",
-        "If the animals match, the cards stay face up.",
-        "If they don't match, they flip back over after a second.",
-        "Match all pairs to win!"
+        "Select your difficulty level to start",
+        "Click on a card to flip it over and reveal a baby animal",
+        "Click on a second card to find its matching pair",
+        "If the animals match, the cards stay face up",
+        "If they don't match, they flip back over after a moment",
+        "Remember card positions to find matches faster",
+        "Match all pairs in the fewest moves to win!"
     ];
     const benefits: Benefit[] = [
-        { icon: <Brain className="w-10 h-10" />, title: "Working Memory", description: "Challenges your ability to hold and manipulate visual information." },
-        { icon: <Eye className="w-10 h-10" />, title: "Visual Recognition", description: "Improves speed and accuracy in recognizing visual patterns." },
-        { icon: <Search className="w-10 h-10" />, title: "Concentration", description: "Requires focus to remember card locations." }
+        { icon: <Brain className="w-10 h-10" />, title: "Working Memory", description: "Challenges your ability to hold and manipulate visual information in your mind." },
+        { icon: <Eye className="w-10 h-10" />, title: "Visual Recognition", description: "Improves speed and accuracy in recognizing and differentiating visual patterns." },
+        { icon: <Search className="w-10 h-10" />, title: "Concentration", description: "Strengthens your focus and attention span by requiring you to remember card locations." }
     ];
     const faq: FAQItem[] = [
-        { question: "Is this game suitable for young children?", answer: "Yes, the simple rules and cute visuals make it great for kids."}, 
-        { question: "How does difficulty affect the game?", answer: "'Easy' has 12 cards (6 pairs) and 'Medium' has 16 cards (8 pairs)."}
+        { question: "Is this baby animal matching game suitable for young children?", answer: "Yes! The simple rules, cute animal visuals, and adjustable difficulty levels make it perfect for children as young as 3-4 years old with parental guidance."}, 
+        { question: "How does difficulty affect the baby animal matching game?", answer: "The game offers multiple difficulty levels: Easy (3×2 grid with 3 pairs), Medium (4×2 grid with 4 pairs), Hard (4×3 grid with 6 pairs), and Expert (4×4 grid with 8 pairs). Higher difficulties require remembering more card positions."},
+        { question: "What cognitive benefits does this memory matching game provide?", answer: "This game enhances working memory, visual recognition, pattern matching skills, and concentration. Regular play can improve focus and attention to detail in both children and adults."}
     ];
 
     return (
@@ -82,7 +103,7 @@ export default function BabyAnimalMatchingPageContainer() {
                 question: f.question,
                 answer: f.answer
             }))}
-            relatedGames={["block-memory-challenge", "frog-memory-leap"]} 
+            relatedGames={["schulte-table", "block-memory-challenge", "reaction-time"]} 
         />
     );
 } 

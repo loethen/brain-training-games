@@ -135,3 +135,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Add combined match effect animation */
+@keyframes card-match-effect {
+  /* Shake phase (first ~400ms) - subtle H & V movement */
+  0% { opacity: 1; transform: scale(1) translate3d(0, 0, 0); }
+  5%, 35% { transform: scale(1) translate3d(-1px, -1px, 0); }
+  10%, 30% { transform: scale(1) translate3d(1px, 1px, 0); }
+  15%, 25% { transform: scale(1) translate3d(-1px, 1px, 0); }
+  20% { transform: scale(1) translate3d(1px, -1px, 0); }
+  /* Ensure transform resets before scaling/fading */
+  40% { opacity: 1; transform: scale(1) translate3d(0, 0, 0); }
+  /* Fade and Scale phase (last ~400ms) */
+  100% { opacity: 0; transform: scale(0.75) translate3d(0, 0, 0); }
+}
+
+.animate-card-match-effect {
+  animation: card-match-effect 0.8s ease-in-out both;
+  /* Disable clicks during/after animation */
+  pointer-events: none; 
+}
