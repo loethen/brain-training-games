@@ -668,8 +668,52 @@
         }
       }
     },
+    "babyAnimalMatching": {
+      "title": "宝宝动物配对游戏",
+      "subtitle": "用可爱的宝宝动物来测试你的记忆力！",
+      "howToPlayIntro": "在这个记忆卡牌游戏中，找出所有匹配的宝宝动物对！",
+      "howToPlayStep1": "选择难度开始游戏",
+      "howToPlayStep2": "点击一张卡牌将其翻开，看到一个宝宝动物",
+      "howToPlayStep3": "点击第二张卡牌，寻找匹配的另一半",
+      "howToPlayStep4": "如果动物匹配，卡牌将保持正面朝上",
+      "howToPlayStep5": "如果它们不匹配，稍后会自动翻回去",
+      "howToPlayStep6": "记住卡牌的位置，以便更快地找到匹配对",
+      "howToPlayStep7": "用最少的步数匹配所有对即可获胜！",
+      "benefit1_title": "工作记忆",
+      "benefit1_desc": "挑战您在脑海中保持和处理视觉信息的能力。",
+      "benefit2_title": "视觉识别",
+      "benefit2_desc": "提高识别和区分视觉模式的速度和准确性。",
+      "benefit3_title": "专注力",
+      "benefit3_desc": "通过要求您记住卡牌位置来增强您的注意力和注意持续时间。",
+      "faq1_question": "这款宝宝动物配对游戏适合幼儿吗？",
+      "faq1_answer": "是的！简单的规则、可爱的动物图案以及可调节的难度级别，使其非常适合 3-4 岁的幼儿在家长指导下玩耍。",
+      "faq2_question": "难度如何影响宝宝动物配对游戏？",
+      "faq2_answer": "游戏提供多种难度级别：简单（3×2 网格，3 对）、中等（4×2 网格，4 对）、困难（4×3 网格，6 对）和专家（4×4 网格，8 对）。更高的难度需要记住更多的卡牌位置。",
+      "faq3_question": "这款记忆配对游戏有哪些认知益处？",
+      "faq3_answer": "这款游戏能增强工作记忆、视觉识别、模式匹配能力和专注力。经常玩可以提高儿童和成人的注意力和对细节的关注度。",
+      "gameUI": {
+        "title": "宝宝动物配对",
+        "moves": "步数",
+        "resetGame": "重置游戏",
+        "loadingImages": "正在加载图片...",
+        "resultsTitle": "完成得好！",
+        "finalMoves": "步数",
+        "time": "时间",
+        "bestTime": "最佳时间",
+        "difficultyLevel": "难度",
+        "easy": "简单",
+        "medium": "中等",
+        "hard": "困难",
+        "expert": "专家",
+        "playAgain": "再玩一次",
+        "shareResults": "分享结果",
+        "difficulty": "难度",
+        "shareTitle": "看看我的宝宝动物配对分数！",
+        "shareText": "我在 {difficulty} 难度下，用 {moves} 步和 {time} 秒匹配了所有宝宝动物！"
+      }
+    },
     "largerNumber": {
-      "title": "大数字挑战",
+      "title": "更大数字挑战",
       "subtitle": "训练你的处理速度和数字比较能力",
       "description": "通过快速识别哪个数字更大来提高你的数字处理速度和决策能力。",
       "howToPlayIntro": "在这个快节奏的挑战中快速识别哪个数字更大：",
@@ -897,74 +941,6 @@
         "good": "良好",
         "average": "一般",
         "keepPracticing": "继续练习"
-      }
-    },
-    "babyAnimalMatching": {
-      "metaTitle": "宝宝动物配对游戏 | 免费在线记忆游戏",
-      "metaDescription": "在线玩我们的免费宝宝动物配对游戏！通过这款适合所有年龄段的有趣游戏，提高记忆力、注意力和视觉识别能力。找到成对的可爱宝宝动物。",
-      "metaKeywords": "宝宝动物配对游戏, 记忆游戏, 配对游戏, 专注力游戏, 免费在线游戏, 儿童游戏, 动物游戏, 记忆力训练",
-      "ogTitle": "宝宝动物配对 - 免费记忆游戏",
-      "ogDescription": "通过在这款免费在线游戏中匹配可爱的宝宝动物来提高您的记忆力和注意力。适合儿童和成人！",
-      "title": "宝宝动物配对",
-      "description": "一款经典的记忆配对游戏，以可爱的宝宝动物为特色。翻开卡片找到配对并清除棋盘。可调节的难度级别使其适合所有年龄段。",
-      "howToPlay": [
-        "游戏开始时所有卡片都面朝下。",
-        "点击一张卡片将其翻转过来，显示宝宝动物。",
-        "点击第二张卡片以显示另一只动物。",
-        "如果动物匹配，卡片将保持面朝上并标记为已匹配。",
-        "如果不匹配，两张卡片会在短暂延迟后翻回面朝下。",
-        "继续翻转卡片，直到所有配对都找到。",
-        "尝试用最少的操作次数和最短的时间完成游戏！"
-      ],
-      "cognitiveBenefits": [
-        "通过要求玩家记住先前翻开卡片的位置来提高工作记忆。",
-        "增强视觉识别和辨别能力。",
-        "培养注意力和持续注意力。",
-        "提供一种有趣的方式来练习模式识别。"
-      ],
-      "faq": [
-        {
-          "question": "这款游戏适合哪个年龄段？",
-          "answer": "这款游戏适合所有年龄段，从学习配对技能的幼儿到寻求有趣记忆挑战的成年人。可调节的难度级别可满足不同的能力。"
-        },
-        {
-          "question": "我可以在手机或平板电脑上玩这款游戏吗？",
-          "answer": "是的，宝宝动物配对游戏设计为响应式，可在台式机、平板电脑和智能手机上良好运行。"
-        },
-        {
-          "question": "难度级别如何改变游戏？",
-          "answer": "提高难度级别会向网格中添加更多对卡片（例如，3x2、4x2、4x3、4x4），使游戏更具挑战性。"
-        }
-      ],
-      "relatedGames": [
-        "schulte-table",
-        "reaction-time",
-        "block-memory-challenge"
-      ],
-      "trainingCategories": [
-        "working-memory",
-        "visual-tracking",
-        "selective-attention"
-      ],
-      "gameUI": {
-        "title": "宝宝动物配对",
-        "moves": "步数",
-        "resetGame": "重置游戏",
-        "loadingImages": "正在加载图片...",
-        "resultsTitle": "完成得好！",
-        "finalMoves": "步数",
-        "time": "时间",
-        "bestTime": "最佳时间",
-        "difficultyLevel": "难度",
-        "easy": "简单",
-        "medium": "中等",
-        "hard": "困难",
-        "expert": "专家",
-        "playAgain": "再玩一次",
-        "shareResults": "分享结果",
-        "difficulty": "难度",
-        "shareTitle": "看看我的宝宝动物配对分数！",
-        "shareText": "我在 {difficulty} 难度下，用 {moves} 步和 {time} 秒匹配了所有宝宝动物！"
       }
     }
   },

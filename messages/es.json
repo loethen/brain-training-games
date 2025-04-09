@@ -667,9 +667,53 @@
                 }
             }
         },
+        "babyAnimalMatching": {
+            "title": "Juego de Memoria de Crías de Animales",
+            "subtitle": "¡Prueba tu memoria con adorables crías de animales!",
+            "howToPlayIntro": "¡Encuentra todas las parejas de crías de animales en este juego de cartas de memoria!",
+            "howToPlayStep1": "Selecciona tu nivel de dificultad para empezar",
+            "howToPlayStep2": "Haz clic en una carta para voltearla y revelar una cría de animal",
+            "howToPlayStep3": "Haz clic en una segunda carta para encontrar su pareja",
+            "howToPlayStep4": "Si los animales coinciden, las cartas permanecen boca arriba",
+            "howToPlayStep5": "Si no coinciden, se voltean de nuevo después de un momento",
+            "howToPlayStep6": "Recuerda la posición de las cartas para encontrar las parejas más rápido",
+            "howToPlayStep7": "¡Empareja todas las cartas en el menor número de movimientos para ganar!",
+            "benefit1_title": "Memoria de Trabajo",
+            "benefit1_desc": "Desafía tu habilidad para retener y manipular información visual en tu mente.",
+            "benefit2_title": "Reconocimiento Visual",
+            "benefit2_desc": "Mejora la velocidad y precisión al reconocer y diferenciar patrones visuales.",
+            "benefit3_title": "Concentración",
+            "benefit3_desc": "Fortalece tu enfoque y capacidad de atención al requerir que recuerdes la ubicación de las cartas.",
+            "faq1_question": "¿Es este juego de memoria de crías de animales adecuado para niños pequeños?",
+            "faq1_answer": "¡Sí! Las reglas sencillas, las imágenes adorables de animales y los niveles de dificultad ajustables lo hacen perfecto para niños de 3-4 años con supervisión parental.",
+            "faq2_question": "¿Cómo afecta la dificultad al juego de memoria de crías de animales?",
+            "faq2_answer": "El juego ofrece múltiples niveles de dificultad: Fácil (cuadrícula de 3x2 con 3 parejas), Medio (cuadrícula de 4x2 con 4 parejas), Difícil (cuadrícula de 4x3 con 6 parejas) y Experto (cuadrícula de 4x4 con 8 parejas). Las dificultades más altas requieren recordar más posiciones de cartas.",
+            "faq3_question": "¿Qué beneficios cognitivos proporciona este juego de memoria?",
+            "faq3_answer": "Este juego mejora la memoria de trabajo, el reconocimiento visual, las habilidades de emparejamiento de patrones y la concentración. Jugar regularmente puede mejorar el enfoque y la atención al detalle tanto en niños como en adultos.",
+            "gameUI": {
+                "title": "Memoria Crías Animales",
+                "moves": "Movimientos",
+                "resetGame": "Reiniciar Juego",
+                "loadingImages": "Cargando imágenes...",
+                "resultsTitle": "¡Bien hecho!",
+                "finalMoves": "Movimientos",
+                "time": "Tiempo",
+                "bestTime": "Mejor Tiempo",
+                "difficultyLevel": "Dificultad",
+                "easy": "Fácil",
+                "medium": "Medio",
+                "hard": "Difícil",
+                "expert": "Experto",
+                "playAgain": "Jugar de Nuevo",
+                "shareResults": "Compartir Resultados",
+                "difficulty": "Dificultad",
+                "shareTitle": "¡Mira mi puntuación en Memoria de Crías de Animales!",
+                "shareText": "¡Emparejé todas las crías de animales en {moves} movimientos y {time} segundos en dificultad {difficulty}!"
+            }
+        },
         "largerNumber": {
-            "title": "Desafío del número mayor",
-            "subtitle": "Entrena tu velocidad de procesamiento y habilidades de comparación numérica",
+            "title": "Desafío del Número Mayor",
+            "subtitle": "Entrena tu velocidad de procesamiento y comparación numérica",
             "description": "Identifica rápidamente el mayor de dos números para entrenar la velocidad de procesamiento y la atención.",
             "howToPlayIntro": "Identifica rápidamente cuál número es mayor en este desafío de ritmo rápido:",
             "howToPlay1": "Se mostrarán dos números en la pantalla",
@@ -708,10 +752,10 @@
                     "answer": "Absolutamente. La velocidad de procesamiento puede disminuir con la edad, y el entrenamiento regular puede ayudar a mantener o mejorar esta función cognitiva. Este juego ofrece una forma rápida y atractiva de entrenar estas vías neuronales."
                 }
             },
-            "metaTitle": "Desafío del número mayor - Juego de entrenamiento de comparación numérica",
+            "metaTitle": "Desafío del Número Mayor - Juego de entrenamiento de comparación numérica",
             "metaDescription": "Mejora tu velocidad de procesamiento numérico y toma de decisiones con este juego de comparación de números de ritmo rápido. Entrena tu cerebro para identificar rápidamente números mayores.",
             "metaKeywords": "juego de comparación de números, juego de juicio de tamaño de números, juego de reconocimiento rápido de números, juego de selección del número mayor, juego de entrenamiento de pensamiento matemático, juego numérico de velocidad de reacción, entrenamiento cerebral matemático, juego de comparación de números para niños, juego de decisión matemática rápida, juego de entrenamiento de velocidad cognitiva, entrenamiento de atención numérica, juego de velocidad de procesamiento matemático, entrenamiento de procesamiento numérico, ejercicio de velocidad de decisión, juego de velocidad cognitiva, comparación de magnitudes numéricas, entrenamiento de tiempo de reacción, juego educativo de matemáticas",
-            "ogTitle": "Desafío del número mayor - Entrena tu velocidad de procesamiento numérico",
+            "ogTitle": "Desafío del Número Mayor - Entrena tu velocidad de procesamiento numérico",
             "ogDescription": "Identifica rápidamente cuál número es mayor en este juego de entrenamiento cerebral de ritmo rápido. Mejora tu velocidad de decisión y procesamiento numérico.",
             "gameUI": {
                 "challenge": "Completa {attempts} intentos con {accuracy}% de precisión para tener éxito",
@@ -897,74 +941,6 @@
                 "average": "Promedio",
                 "keepPracticing": "Seguir practicando"
             }
-        },
-        "babyAnimalMatching": {
-            "metaTitle": "Juego de Memoria de Crías de Animales | Juego de Memoria Online Gratis",
-            "metaDescription": "¡Juega gratis a nuestro juego de Memoria de Crías de Animales online! Mejora la memoria, la concentración y las habilidades de reconocimiento visual con este divertido juego para todas las edades. Encuentra parejas de crías de animales adorables.",
-            "metaKeywords": "juego memoria crías animales, juego de memoria, juego de parejas, juego de concentración, juego online gratis, juego niños, juego animales, entrenamiento memoria",
-            "ogTitle": "Memoria de Crías de Animales - Juego de Memoria Gratis",
-            "ogDescription": "Agudiza tu memoria y concentración emparejando crías de animales adorables en este juego online gratis. ¡Divertido para niños y adultos!",
-            "title": "Memoria de Crías de Animales",
-            "description": "Un clásico juego de memoria y parejas con adorables crías de animales. Voltea las cartas para encontrar las parejas y despejar el tablero. Los niveles de dificultad ajustables lo hacen adecuado para todas las edades.",
-            "howToPlay": [
-                "El juego comienza con todas las cartas boca abajo.",
-                "Haz clic en una carta para voltearla y revelar la cría de animal.",
-                "Haz clic en una segunda carta para revelar otro animal.",
-                "Si los animales coinciden, las cartas permanecen boca arriba y se marcan como emparejadas.",
-                "Si no coinciden, ambas cartas se voltean boca abajo después de un breve retraso.",
-                "Continúa volteando cartas hasta que todas las parejas sean encontradas.",
-                "¡Intenta completar el juego en el menor número de movimientos y en el menor tiempo posible!"
-            ],
-            "cognitiveBenefits": [
-                "Mejora la memoria de trabajo al requerir que los jugadores recuerden la ubicación de las cartas volteadas previamente.",
-                "Mejora las habilidades de reconocimiento y discriminación visual.",
-                "Desarrolla la concentración y la atención sostenida.",
-                "Proporciona una forma divertida de practicar el reconocimiento de patrones."
-            ],
-            "faq": [
-                {
-                    "question": "¿Para qué grupo de edad es adecuado este juego?",
-                    "answer": "Este juego es adecuado para todas las edades, desde niños pequeños que aprenden habilidades de emparejamiento hasta adultos que buscan un divertido desafío de memoria. Los niveles de dificultad ajustables se adaptan a diferentes habilidades."
-                },
-                {
-                    "question": "¿Puedo jugar a este juego en mi teléfono o tableta?",
-                    "answer": "Sí, el juego de Memoria de Crías de Animales está diseñado para ser responsivo y funciona bien en ordenadores de sobremesa, tabletas y teléfonos inteligentes."
-                },
-                {
-                    "question": "¿Cómo cambia el nivel de dificultad el juego?",
-                    "answer": "Aumentar el nivel de dificultad añade más pares de cartas a la cuadrícula (p. ej., 3x2, 4x2, 4x3, 4x4), haciendo el juego más desafiante."
-                }
-            ],
-            "relatedGames": [
-                "schulte-table",
-                "reaction-time",
-                "block-memory-challenge"
-            ],
-            "trainingCategories": [
-                "working-memory",
-                "visual-tracking",
-                "selective-attention"
-            ],
-            "gameUI": {
-                "title": "Memoria Crías Animales",
-                "moves": "Movimientos",
-                "resetGame": "Reiniciar",
-                "loadingImages": "Cargando imágenes...",
-                "resultsTitle": "¡Bien hecho!",
-                "finalMoves": "Movimientos",
-                "time": "Tiempo",
-                "bestTime": "Mejor Tiempo",
-                "difficultyLevel": "Dificultad",
-                "easy": "Fácil",
-                "medium": "Medio",
-                "hard": "Difícil",
-                "expert": "Experto",
-                "playAgain": "Jugar de Nuevo",
-                "shareResults": "Compartir Resultados",
-                "difficulty": "Dificultad",
-                "shareTitle": "¡Mira mi puntuación en Memoria de Crías de Animales!",
-                "shareText": "¡Emparejé todas las crías de animales en {moves} movimientos y {time} segundos en dificultad {difficulty}!"
-            }
         }
     },
     "buttons": {
@@ -980,6 +956,6 @@
         "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques."
       },
       "previousPost": "Publicación anterior",
-      "nextPost": "Siguiente publicación"
+      "nextPost": "Próxima publicación"
     }
 }

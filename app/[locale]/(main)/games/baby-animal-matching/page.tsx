@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import BabyAnimalMatchingGame from "./components/Game";
 import { GamePageTemplate } from '@/components/GamePageTemplate';
 import { Brain, Eye, Search } from 'lucide-react'; // Example icons
+import { useTranslations } from 'next-intl';
 
 // Define types for placeholders
 interface Benefit {
@@ -53,47 +54,53 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function BabyAnimalMatchingPageContainer() {
-    // Using direct English strings
-    const title = "Baby Animal Matching Game";
-    const subtitle = "Test your memory with cute baby animals!";
-    const howToPlayIntro = "Find all the matching pairs of baby animals in this memory card game!";
+    // Initialize translations for the 'games.babyAnimalMatching' namespace
+    const t = useTranslations('games.babyAnimalMatching');
+
+    // Use translation keys
+    const title = t('title');
+    const subtitle = t('subtitle');
+    const howToPlayIntro = t('howToPlayIntro');
+    // Construct the steps array using translation keys
     const howToPlaySteps = [
-        "Select your difficulty level to start",
-        "Click on a card to flip it over and reveal a baby animal",
-        "Click on a second card to find its matching pair",
-        "If the animals match, the cards stay face up",
-        "If they don't match, they flip back over after a moment",
-        "Remember card positions to find matches faster",
-        "Match all pairs in the fewest moves to win!"
+        t('howToPlayStep1'),
+        t('howToPlayStep2'),
+        t('howToPlayStep3'),
+        t('howToPlayStep4'),
+        t('howToPlayStep5'),
+        t('howToPlayStep6'),
+        t('howToPlayStep7')
     ];
+    // Construct the benefits array using translation keys
     const benefits: Benefit[] = [
-        { icon: <Brain className="w-10 h-10" />, title: "Working Memory", description: "Challenges your ability to hold and manipulate visual information in your mind." },
-        { icon: <Eye className="w-10 h-10" />, title: "Visual Recognition", description: "Improves speed and accuracy in recognizing and differentiating visual patterns." },
-        { icon: <Search className="w-10 h-10" />, title: "Concentration", description: "Strengthens your focus and attention span by requiring you to remember card locations." }
+        { icon: <Brain className="w-10 h-10" />, title: t('benefit1_title'), description: t('benefit1_desc') },
+        { icon: <Eye className="w-10 h-10" />, title: t('benefit2_title'), description: t('benefit2_desc') },
+        { icon: <Search className="w-10 h-10" />, title: t('benefit3_title'), description: t('benefit3_desc') }
     ];
+    // Construct the FAQ array using translation keys
     const faq: FAQItem[] = [
-        { question: "Is this baby animal matching game suitable for young children?", answer: "Yes! The simple rules, cute animal visuals, and adjustable difficulty levels make it perfect for children as young as 3-4 years old with parental guidance."}, 
-        { question: "How does difficulty affect the baby animal matching game?", answer: "The game offers multiple difficulty levels: Easy (3×2 grid with 3 pairs), Medium (4×2 grid with 4 pairs), Hard (4×3 grid with 6 pairs), and Expert (4×4 grid with 8 pairs). Higher difficulties require remembering more card positions."},
-        { question: "What cognitive benefits does this memory matching game provide?", answer: "This game enhances working memory, visual recognition, pattern matching skills, and concentration. Regular play can improve focus and attention to detail in both children and adults."}
+        { question: t('faq1_question'), answer: t('faq1_answer') },
+        { question: t('faq2_question'), answer: t('faq2_answer') },
+        { question: t('faq3_question'), answer: t('faq3_answer') }
     ];
 
     return (
         <GamePageTemplate
             gameId="baby-animal-matching"
-            title={title} // Direct string
-            subtitle={subtitle} // Direct string
+            title={title} // Use translated title
+            subtitle={subtitle} // Use translated subtitle
             gameComponent={<BabyAnimalMatchingGame />}
             howToPlay={
                 <>
-                    <p>{howToPlayIntro}</p> 
+                    <p>{howToPlayIntro}</p> {/* Use translated intro */}
                     <ul className="list-disc pl-5 mt-2 space-y-1">
                         {howToPlaySteps.map((step: string, index: number) => (
-                            <li key={index}>{step}</li>
+                            <li key={index}>{step}</li> // Use translated steps
                         ))}
                     </ul>
                 </>
             }
-            // Map directly from placeholder arrays
+            // Map directly from the constructed arrays
             benefits={benefits.map((b) => ({ 
                 icon: b.icon, 
                 title: b.title,

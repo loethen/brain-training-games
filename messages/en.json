@@ -709,7 +709,7 @@
           "answer": "Absolutely. Processing speed can decline with age, and regular training can help maintain or improve this cognitive function. This game provides a quick, engaging way to exercise these neural pathways."
         }
       },
-      "metaTitle": "Larger Number Challenge - Number Comparison Training Game",
+      "metaTitle": "Larger Number Game | Online Cognitive Training",
       "metaDescription": "Improve your numerical processing speed and decision-making with this fast-paced number comparison game. Train your brain to quickly identify larger numbers.",
       "metaKeywords": "number comparison game, number size judgment game, quick number recognition game, larger number selection game, math thinking training game, reaction speed number game, math brain training, children number comparison game, fast math decision game, cognitive speed training game, attention number training, math processing speed game, numerical processing training, decision speed exercise, cognitive speed game, number magnitude comparison, reaction time training, educational math game, brain training game, cognitive development, math games for kids, math games for adults, number sense training, quantity comparison, mental math practice, numerical cognition, educational games, arithmetic game, math skills improvement",
       "ogTitle": "Larger Number Challenge - Train Your Numerical Processing Speed",
@@ -900,57 +900,33 @@
       }
     },
     "babyAnimalMatching": {
-      "metaTitle": "Baby Animal Matching Game | Free Online Memory Game",
-      "metaDescription": "Play our free Baby Animal Matching game online! Improve memory, focus and visual recognition skills with this fun game for all ages. Find matching pairs of cute baby animals.",
-      "metaKeywords": "baby animal matching game, memory game, matching game, concentration game, free online game, kids game, animal game, memory training",
-      "ogTitle": "Baby Animal Matching - Free Memory Game",
-      "ogDescription": "Sharpen your memory and focus by matching cute baby animals in this free online game. Fun for kids and adults!",
-      "title": "Baby Animal Matching",
-      "description": "A classic memory matching game featuring adorable baby animals. Flip cards to find pairs and clear the board. Adjustable difficulty levels make it suitable for all ages.",
-      "howToPlay": [
-        "The game starts with all cards face down.",
-        "Click on a card to flip it over and reveal the baby animal.",
-        "Click on a second card to reveal another animal.",
-        "If the animals match, the cards stay face up and are marked as matched.",
-        "If they don't match, both cards flip back face down after a short delay.",
-        "Continue flipping cards until all pairs are matched.",
-        "Try to complete the game in the fewest moves and shortest time possible!"
-      ],
-      "cognitiveBenefits": [
-        "Improves working memory by requiring players to remember the locations of previously flipped cards.",
-        "Enhances visual recognition and discrimination skills.",
-        "Develops concentration and sustained attention.",
-        "Provides a fun way to practice pattern recognition."
-      ],
-      "faq": [
-        {
-          "question": "What age group is this game suitable for?",
-          "answer": "This game is suitable for all ages, from young children learning matching skills to adults looking for a fun memory challenge. The adjustable difficulty levels cater to different abilities."
-        },
-        {
-          "question": "Can I play this game on my phone or tablet?",
-          "answer": "Yes, the Baby Animal Matching game is designed to be responsive and works well on desktops, tablets, and smartphones."
-        },
-        {
-          "question": "How does the difficulty level change the game?",
-          "answer": "Increasing the difficulty level adds more pairs of cards to the grid (e.g., 3x2, 4x2, 4x3, 4x4), making the game more challenging."
-        }
-      ],
-      "relatedGames": [
-        "schulte-table",
-        "reaction-time",
-        "block-memory-challenge"
-      ],
-      "trainingCategories": [
-        "working-memory",
-        "visual-tracking",
-        "selective-attention"
-      ],
+      "title": "Baby Animal Matching Game",
+      "subtitle": "Test your memory with cute baby animals!",
+      "howToPlayIntro": "Find all the matching pairs of baby animals in this memory card game!",
+      "howToPlayStep1": "Select your difficulty level to start",
+      "howToPlayStep2": "Click on a card to flip it over and reveal a baby animal",
+      "howToPlayStep3": "Click on a second card to find its matching pair",
+      "howToPlayStep4": "If the animals match, the cards stay face up",
+      "howToPlayStep5": "If they don't match, they flip back over after a moment",
+      "howToPlayStep6": "Remember card positions to find matches faster",
+      "howToPlayStep7": "Match all pairs in the fewest moves to win!",
+      "benefit1_title": "Working Memory",
+      "benefit1_desc": "Challenges your ability to hold and manipulate visual information in your mind.",
+      "benefit2_title": "Visual Recognition",
+      "benefit2_desc": "Improves speed and accuracy in recognizing and differentiating visual patterns.",
+      "benefit3_title": "Concentration",
+      "benefit3_desc": "Strengthens your focus and attention span by requiring you to remember card locations.",
+      "faq1_question": "Is this baby animal matching game suitable for young children?",
+      "faq1_answer": "Yes! The simple rules, cute animal visuals, and adjustable difficulty levels make it perfect for children as young as 3-4 years old with parental guidance.",
+      "faq2_question": "How does difficulty affect the baby animal matching game?",
+      "faq2_answer": "The game offers multiple difficulty levels: Easy (3x2 grid with 3 pairs), Medium (4x2 grid with 4 pairs), Hard (4x3 grid with 6 pairs), and Expert (4x4 grid with 8 pairs). Higher difficulties require remembering more card positions.",
+      "faq3_question": "What cognitive benefits does this memory matching game provide?",
+      "faq3_answer": "This game enhances working memory, visual recognition, pattern matching skills, and concentration. Regular play can improve focus and attention to detail in both children and adults.",
       "gameUI": {
         "title": "Baby Animal Matching",
         "moves": "Moves",
         "resetGame": "Reset Game",
-        "loadingImages": "Loading Images...",
+        "loadingImages": "Loading images...",
         "resultsTitle": "Well Done!",
         "finalMoves": "Moves",
         "time": "Time",
@@ -982,5 +958,8 @@
     },
     "previousPost": "Previous Post",
     "nextPost": "Next Post"
+  },
+  "languageSelector": {
+    "label": "Select language"
   }
 }

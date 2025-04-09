@@ -668,9 +668,53 @@
                 }
             }
         },
+        "babyAnimalMatching": {
+            "title": "Jeu d'Association des Bébés Animaux",
+            "subtitle": "Testez votre mémoire avec de mignons bébés animaux !",
+            "howToPlayIntro": "Trouvez toutes les paires correspondantes de bébés animaux dans ce jeu de cartes mémoire !",
+            "howToPlayStep1": "Sélectionnez votre niveau de difficulté pour commencer",
+            "howToPlayStep2": "Cliquez sur une carte pour la retourner et révéler un bébé animal",
+            "howToPlayStep3": "Cliquez sur une deuxième carte pour trouver sa paire correspondante",
+            "howToPlayStep4": "Si les animaux correspondent, les cartes restent face visible",
+            "howToPlayStep5": "S'ils ne correspondent pas, elles se retournent après un instant",
+            "howToPlayStep6": "Mémorisez la position des cartes pour trouver les paires plus rapidement",
+            "howToPlayStep7": "Associez toutes les paires en un minimum de coups pour gagner !",
+            "benefit1_title": "Mémoire de Travail",
+            "benefit1_desc": "Met au défi votre capacité à retenir et à manipuler des informations visuelles dans votre esprit.",
+            "benefit2_title": "Reconnaissance Visuelle",
+            "benefit2_desc": "Améliore la vitesse et la précision de la reconnaissance et de la différenciation des motifs visuels.",
+            "benefit3_title": "Concentration",
+            "benefit3_desc": "Renforce votre concentration et votre capacité d'attention en vous obligeant à mémoriser l'emplacement des cartes.",
+            "faq1_question": "Ce jeu d'association de bébés animaux convient-il aux jeunes enfants ?",
+            "faq1_answer": "Oui ! Les règles simples, les visuels d'animaux mignons et les niveaux de difficulté réglables le rendent parfait pour les enfants dès 3-4 ans avec l'aide des parents.",
+            "faq2_question": "Comment la difficulté affecte-t-elle le jeu d'association de bébés animaux ?",
+            "faq2_answer": "Le jeu propose plusieurs niveaux de difficulté : Facile (grille 3x2 avec 3 paires), Moyen (grille 4x2 avec 4 paires), Difficile (grille 4x3 avec 6 paires) et Expert (grille 4x4 avec 8 paires). Les difficultés plus élevées nécessitent de mémoriser plus de positions de cartes.",
+            "faq3_question": "Quels avantages cognitifs ce jeu de mémoire offre-t-il ?",
+            "faq3_answer": "Ce jeu améliore la mémoire de travail, la reconnaissance visuelle, les compétences d'association de motifs et la concentration. Jouer régulièrement peut améliorer la concentration et l'attention aux détails chez les enfants et les adultes.",
+            "gameUI": {
+                "title": "Association Bébés Animaux",
+                "moves": "Coups",
+                "resetGame": "Réinitialiser Jeu",
+                "loadingImages": "Chargement des images...",
+                "resultsTitle": "Bien joué !",
+                "finalMoves": "Coups",
+                "time": "Temps",
+                "bestTime": "Meilleur Temps",
+                "difficultyLevel": "Difficulté",
+                "easy": "Facile",
+                "medium": "Moyen",
+                "hard": "Difficile",
+                "expert": "Expert",
+                "playAgain": "Rejouer",
+                "shareResults": "Partager Résultats",
+                "difficulty": "Difficulté",
+                "shareTitle": "Regardez mon score à l'Association des bébés animaux !",
+                "shareText": "J'ai associé tous les bébés animaux en {moves} coups et {time} secondes en difficulté {difficulty} !"
+            }
+        },
         "largerNumber": {
-            "title": "Défi du plus grand nombre",
-            "subtitle": "Entraînez votre vitesse de traitement et vos compétences de comparaison numérique",
+            "title": "Défi du Plus Grand Nombre",
+            "subtitle": "Entraînez votre vitesse de traitement et de comparaison numérique",
             "description": "Identifiez rapidement le plus grand des deux nombres pour entraîner la vitesse de traitement et l'attention.",
             "howToPlayIntro": "Identifiez rapidement quel nombre est le plus grand dans ce défi rapide :",
             "howToPlay1": "Deux nombres seront affichés à l'écran",
@@ -709,10 +753,10 @@
                     "answer": "Absolument. La vitesse de traitement peut diminuer avec l'âge, et un entraînement régulier peut aider à maintenir ou à améliorer cette fonction cognitive. Ce jeu offre un moyen rapide et engageant d'entraîner ces voies neuronales."
                 }
             },
-            "metaTitle": "Défi du plus grand nombre - Jeu d'entraînement à la comparaison numérique",
+            "metaTitle": "Défi du Plus Grand Nombre - Jeu d'entraînement à la comparaison numérique",
             "metaDescription": "Améliorez votre vitesse de traitement numérique et votre prise de décision avec ce jeu de comparaison de nombres rapide. Entraînez votre cerveau à identifier rapidement les nombres plus grands.",
             "metaKeywords": "jeu de comparaison de nombres, jeu de jugement de taille de nombres, jeu de reconnaissance rapide de nombres, jeu de sélection du plus grand nombre, jeu d'entraînement de la pensée mathématique, jeu numérique de vitesse de réaction, entraînement cérébral mathématique, jeu de comparaison de nombres pour enfants, jeu de décision mathématique rapide, jeu d'entraînement de vitesse cognitive, entraînement d'attention numérique, jeu de vitesse de traitement mathématique, entraînement au traitement numérique, exercice de vitesse de décision, jeu de vitesse cognitive, comparaison de magnitudes numériques, entraînement au temps de réaction, jeu éducatif de mathématiques",
-            "ogTitle": "Défi du plus grand nombre - Entraînez votre vitesse de traitement numérique",
+            "ogTitle": "Défi du Plus Grand Nombre - Entraînez votre vitesse de traitement numérique",
             "ogDescription": "Identifiez rapidement quel nombre est le plus grand dans ce jeu d'entraînement cérébral rapide. Améliorez votre vitesse de décision et votre traitement numérique.",
             "gameUI": {
                 "challenge": "Complétez {attempts} tentatives avec {accuracy}% de précision pour réussir",
@@ -914,106 +958,5 @@
       },
       "previousPost": "Article précédent",
       "nextPost": "Article suivant"
-    },
-    "babyAnimalMatching": {
-      "metaTitle": "Jeu d'association des bébés animaux | Jeu de mémoire en ligne gratuit",
-      "metaDescription": "Jouez gratuitement à notre jeu d'association des bébés animaux en ligne ! Améliorez la mémoire, la concentration et les compétences de reconnaissance visuelle avec ce jeu amusant pour tous les âges. Trouvez les paires de bébés animaux mignons.",
-      "metaKeywords": "jeu association bébés animaux, jeu de mémoire, jeu d'association, jeu de concentration, jeu en ligne gratuit, jeu pour enfants, jeu animaux, entraînement mémoire",
-      "ogTitle": "Association des bébés animaux - Jeu de mémoire gratuit",
-      "ogDescription": "Affûtez votre mémoire et votre concentration en associant de mignons bébés animaux dans ce jeu en ligne gratuit. Amusant pour les enfants et les adultes !",
-      "title": "Association des bébés animaux",
-      "description": "Un jeu de mémoire classique mettant en scène d'adorables bébés animaux. Retournez les cartes pour trouver les paires et vider le plateau. Les niveaux de difficulté réglables le rendent adapté à tous les âges.",
-      "howToPlay": [
-        "Le jeu commence avec toutes les cartes face cachée.",
-        "Cliquez sur une carte pour la retourner et révéler le bébé animal.",
-        "Cliquez sur une deuxième carte pour révéler un autre animal.",
-        "Si les animaux correspondent, les cartes restent face visible et sont marquées comme associées.",
-        "S'ils ne correspondent pas, les deux cartes se retournent face cachée après un court délai.",
-        "Continuez à retourner les cartes jusqu'à ce que toutes les paires soient associées.",
-        "Essayez de terminer le jeu en un minimum de coups et dans le temps le plus court possible !"
-      ],
-      "cognitiveBenefits": [
-        "Améliore la mémoire de travail en demandant aux joueurs de se souvenir de l'emplacement des cartes précédemment retournées.",
-        "Améliore les compétences de reconnaissance et de discrimination visuelles.",
-        "Développe la concentration et l'attention soutenue.",
-        "Offre une manière amusante de pratiquer la reconnaissance des formes."
-      ],
-      "faq": [
-        {
-          "question": "À quel groupe d'âge ce jeu convient-il ?",
-          "answer": "Ce jeu convient à tous les âges, des jeunes enfants apprenant les compétences d'association aux adultes recherchant un défi de mémoire amusant. Les niveaux de difficulté réglables s'adaptent aux différentes capacités."
-        },
-        {
-          "question": "Puis-je jouer à ce jeu sur mon téléphone ou ma tablette ?",
-          "answer": "Oui, le jeu d'association des bébés animaux est conçu pour être réactif et fonctionne bien sur les ordinateurs de bureau, les tablettes et les smartphones."
-        },
-        {
-          "question": "Comment le niveau de difficulté change-t-il le jeu ?",
-          "answer": "Augmenter le niveau de difficulté ajoute plus de paires de cartes à la grille (par exemple, 3x2, 4x2, 4x3, 4x4), rendant le jeu plus difficile."
-        }
-      ],
-      "relatedGames": [
-        "schulte-table",
-        "reaction-time",
-        "block-memory-challenge"
-      ],
-      "trainingCategories": [
-        "working-memory",
-        "visual-tracking",
-        "selective-attention"
-      ],
-      "gameUI": {
-        "title": "Association Bébés Animaux",
-        "moves": "Coups",
-        "resetGame": "Réinitialiser",
-        "loadingImages": "Chargement des images...",
-        "resultsTitle": "Bien joué !",
-        "finalMoves": "Coups",
-        "time": "Temps",
-        "bestTime": "Meilleur Temps",
-        "difficultyLevel": "Difficulté",
-        "easy": "Facile",
-        "medium": "Moyen",
-        "hard": "Difficile",
-        "expert": "Expert",
-        "playAgain": "Rejouer",
-        "shareResults": "Partager les Résultats",
-        "difficulty": "Difficulté",
-        "shareTitle": "Regardez mon score à l'Association des bébés animaux !",
-        "shareText": "J'ai associé tous les bébés animaux en {moves} coups et {time} secondes en difficulté {difficulty} !"
-      }
-    },
-    "largerNumber": {
-      "metaTitle": "Jeu du Plus Grand Nombre | Entraînement Cognitif en Ligne",
-      "metaDescription": "Améliorez votre vitesse de traitement numérique et votre prise de décision avec ce jeu de comparaison de nombres rapide. Entraînez votre cerveau à identifier rapidement les nombres plus grands.",
-      "metaKeywords": "jeu de comparaison de nombres, jeu de jugement de taille de nombres, jeu de reconnaissance rapide de nombres, jeu de sélection du plus grand nombre, jeu d'entraînement de la pensée mathématique, jeu numérique de vitesse de réaction, entraînement cérébral mathématique, jeu de comparaison de nombres pour enfants, jeu de décision mathématique rapide, jeu d'entraînement de vitesse cognitive, entraînement d'attention numérique, jeu de vitesse de traitement mathématique, entraînement au traitement numérique, exercice de vitesse de décision, jeu de vitesse cognitive, comparaison de magnitudes numériques, entraînement au temps de réaction, jeu éducatif de mathématiques",
-      "ogTitle": "Défi du plus grand nombre - Entraînez votre vitesse de traitement numérique",
-      "ogDescription": "Identifiez rapidement quel nombre est le plus grand dans ce jeu d'entraînement cérébral rapide. Améliorez votre vitesse de décision et votre traitement numérique.",
-      "gameUI": {
-        "challenge": "Complétez {attempts} tentatives avec {accuracy}% de précision pour réussir",
-        "starting": "Démarrage...",
-        "startChallenge": "Commencer le défi",
-        "whichIsLarger": "Quel nombre est le plus grand ?",
-        "correct": "Correct",
-        "total": "Total",
-        "accuracy": "Précision",
-        "congratulations": "Félicitations ! Vous avez réussi le défi avec succès.",
-        "keepGoing": "Continuez à pratiquer ! Vous vous améliorez à chaque tentative.",
-        "timeUp": "Temps écoulé !",
-        "totalAttempts": "Tentatives totales",
-        "correctAnswers": "Réponses correctes",
-        "target": "Objectif : {attempts} tentatives avec {accuracy}% de précision",
-        "playAgain": "Rejouer",
-        "share": "Partager les résultats",
-        "settings": "Paramètres",
-        "level": "Niveau",
-        "adjustDifficulty": "Ajuster la difficulté",
-        "adjustDifficultyDescription": "Souhaitez-vous réduire la difficulté pour faciliter le défi ?",
-        "decreaseDifficulty": "Diminuer la difficulté",
-        "keepCurrentDifficulty": "Garder la difficulté actuelle",
-        "nextLevel": "Objectif du niveau suivant :",
-        "nextLevelTarget": "Complétez {attempts} tentatives avec {accuracy}% de précision",
-        "continueChallenge": "Continuer le défi"
-      }
     }
 }
