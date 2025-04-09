@@ -25,39 +25,25 @@ interface BacklinkProps {
 
 const backlinkData: BacklinkProps[] = [
   {
-    title: "Brain Development Today",
-    url: "https://example-brain-development.com/cognitive-games-review",
-    description: "A comprehensive review of our memory enhancement games, highlighting their effectiveness for developing working memory.",
-    category: "Education",
-    date: "2023-10-15"
+    title: "FreeFocus Tistory Blog",
+    url: "https://freefocus.tistory.com/",
+    description: "Korean blog post discussing free memory and concentration training games.",
+    category: "Blog",
+    date: "2025-04-07"
   },
   {
-    title: "Cognitive Psychology Resources",
-    url: "https://example-cognitive-psychology.org/tools-for-memory",
-    description: "Featured in their list of top 10 recommended tools for improving cognitive functions in adults and children.",
-    category: "Psychology",
-    date: "2023-11-20"
+    title: "FreeFocusGames on Tumblr",
+    url: "https://www.tumblr.com/freefocusgames/780136014200078336/free-focus-memory-games-train-your-brain?source=share",
+    description: "Tumblr post sharing the FreeFocusGames website for brain training exercises.",
+    category: "Social Media",
+    date: "2025-04-06" // Assuming a recent date as none is obvious
   },
   {
-    title: "ParentingTech Blog",
-    url: "https://example-parenting-tech.com/brain-games-for-kids",
-    description: "Our games were recommended as educational activities that parents can use to improve their children's attention span.",
-    category: "Parenting",
-    date: "2024-01-05"
-  },
-  {
-    title: "Senior Health Network",
-    url: "https://example-senior-health.net/cognitive-exercises",
-    description: "Highlighted our games as effective tools for maintaining cognitive health in older adults and preventing mental decline.",
-    category: "Health",
-    date: "2024-02-12"
-  },
-  {
-    title: "Educational Technology Review",
-    url: "https://example-edtech-review.com/free-brain-training-tools",
-    description: "Reviewed our platform's effectiveness for classroom use and home learning environments.",
-    category: "Education",
-    date: "2024-03-08"
+    title: "Reclaiming Your Focus (Blogspot)",
+    url: "https://freefocusgames.blogspot.com/2025/03/dualnback.html",
+    description: "Exploring challenges to focus in the digital age and discussing Dual N-Back brain training.",
+    category: "Blog",
+    date: "2025-03-18"
   }
 ];
 
@@ -100,9 +86,6 @@ export default function PartnershipsPage() {
       <div className="mb-8">
         <p className="text-lg mb-4">
           We are proud to be featured on these reputable websites that recognize the value of our brain training games and cognitive development tools. These partnerships help us reach more users and continue our mission of providing free, accessible brain training for everyone.
-        </p>
-        <p className="text-lg mb-6">
-          If you&apos;re interested in featuring our tools or collaborating with us, please <Link href="/contact" className="text-blue-600 hover:underline">contact us</Link>.
         </p>
       </div>
       

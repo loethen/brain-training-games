@@ -46,6 +46,12 @@ function generateBaseRoutes(locale: string): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}${localePrefix}/partnerships`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
     }
   ]
 }
