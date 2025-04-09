@@ -160,8 +160,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             </div>
                         ))}
                     </div>
-                    <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent pointer-events-none"></div>
-                    <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
+                    <div className="absolute left-0 top-0 bottom-0 w-12 bg-linear-to-r from-background to-transparent pointer-events-none"></div>
+                    <div className="absolute right-0 top-0 bottom-0 w-12 bg-linear-to-l from-background to-transparent pointer-events-none"></div>
                     <GamesScrollButtons />
                 </div>
             </section>
@@ -180,7 +180,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {posts.slice(0, 2).map((post: BlogPost) => (
-                        <article key={post.slug} className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <article key={post.slug} className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow">
                             <Link href={`/blog/${post.slug}`}>
                                 <div className="grid md:grid-cols-[1fr_1.5fr]">
                                     {post.coverImage && (
@@ -277,7 +277,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                     <div className="flex flex-col gap-4">
                                         <div className="flex items-center gap-2">
                                             <div
-                                                className={`h-16 w-16 rounded-full bg-gradient-to-r ${review.gradient}`}
+                                                className={`h-16 w-16 rounded-full bg-linear-to-r ${review.gradient}`}
                                             />
                                             <div className="">
                                                 <h3 className="text-lg font-semibold">
@@ -310,7 +310,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                     <div className="flex flex-col gap-4">
                                         <div className="flex items-center gap-2">
                                             <div
-                                                className={`h-16 w-16 rounded-full bg-gradient-to-r ${review.gradient}`}
+                                                className={`h-16 w-16 rounded-full bg-linear-to-r ${review.gradient}`}
                                             />
                                             <div className="">
                                                 <h3 className="text-lg font-semibold">
@@ -330,8 +330,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         ))}
                     </Marquee>
 
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-background"></div>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background"></div>
                 </div>
             </section>
         </div>

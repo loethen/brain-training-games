@@ -236,7 +236,7 @@ export function PatternRecallGame() {
 
                 {/* Start Button Overlay */}
                 {gameState === "idle" && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-primary/5 rounded-lg backdrop-blur-sm">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-primary/5 rounded-lg backdrop-blur-xs">
                         {bestScore > 0 && (
                             <div className="text-center mb-2">
                                 <div className="text-sm text-muted-foreground">
@@ -265,7 +265,7 @@ export function PatternRecallGame() {
 
                 {/* Results Overlay */}
                 {showResults && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-background/5 backdrop-blur-sm">
+                    <div className="absolute inset-0 flex items-center justify-center bg-background/5 backdrop-blur-xs">
                         <div className="bg-background p-6 rounded-xl shadow-lg space-y-4">
                             <h3 className="text-2xl font-bold text-center mb-4">
                                 {t("gameOver")}

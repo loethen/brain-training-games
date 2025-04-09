@@ -1,9 +1,10 @@
-import { fontFamily } from "tailwindcss/defaultTheme";
+import defaultTheme from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
+import plugin from 'tailwindcss/plugin';
 
 export default {
-    darkMode: ["class"],
+    darkMode: "class",
     content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -80,7 +81,7 @@ export default {
   		fontFamily: {
   			sans: [
   				'var(--font-inter)',
-                    ...fontFamily.sans
+                    ...(defaultTheme.fontFamily?.sans || []),
                 ]
   		},
   		keyframes: {
@@ -159,7 +160,7 @@ export default {
   },
   plugins: [
     animate,
-    function ({ addUtilities }: { addUtilities: any }) {
+    plugin(function ({ addUtilities }) {
       addUtilities({
         '.scrollbar-hide': {
           /* IE and Edge */
@@ -172,6 +173,6 @@ export default {
           }
         }
       })
-    }
+    })
   ],
 } satisfies Config;

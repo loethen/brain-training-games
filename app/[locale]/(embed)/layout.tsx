@@ -37,7 +37,7 @@ export default async function EmbedLayout({
           {/* Use the imported client component */}
           <EmbedHeightReporter>
             <div className="embed-container flex flex-col h-auto">
-              <div className="flex-grow">{children}</div>
+              <div className="grow">{children}</div>
               <footer className="text-center text-xs text-muted-foreground py-2">
                 <a 
                   href="https://www.freefocusgames.com" 

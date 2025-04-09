@@ -248,7 +248,7 @@ export function SchulteGame() {
 
         {/* Start Button Overlay */}
         {gameState === 'idle' && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-muted/90 backdrop-blur-sm">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-muted/90 backdrop-blur-xs">
             {bestTime > 0 && (
               <div className="flex items-center gap-1 text-muted-foreground mb-2">
                 <Trophy className="w-4 h-4" />
@@ -273,7 +273,7 @@ export function SchulteGame() {
 
         {/* Results Overlay */}
         {showResults && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm">
+          <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-xs">
             <div className="bg-background p-6 rounded-xl shadow-lg space-y-4">
               <h3 className="text-2xl font-bold text-center mb-4">
                 {t('gameComplete')}
@@ -309,7 +309,7 @@ export function SchulteGame() {
         
         {/* 停止游戏覆盖层 */}
         {gameState === 'stopped' && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-muted/90 backdrop-blur-sm">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-muted/90 backdrop-blur-xs">
             <div className="text-center space-y-4">
               <h3 className="text-xl font-medium">{t('gameStopped')}</h3>
               <p className="text-sm text-muted-foreground">{t('timeElapsed')}: {gameTime.toFixed(1)}s</p>

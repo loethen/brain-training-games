@@ -20,7 +20,7 @@ const GameComponent = dynamic(() => import('./GameComponent'), {
 
 export default function Game() {
     return (
-        <div className="max-w-3xl mx-auto aspect-[4/3]">
+        <div className="max-w-3xl mx-auto aspect-4/3">
             <GameComponent />
         </div>
     );

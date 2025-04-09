@@ -26,7 +26,7 @@ export default function FishTracePage() {
   
   return (
       <GamePageTemplate
-          gameBackground='bg-gradient-to-b from-cyan-300 via-blue-500 to-blue-800 dark:from-cyan-900 dark:via-blue-950 dark:to-slate-950'
+          gameBackground='bg-linear-to-b from-cyan-300 via-blue-500 to-blue-800 dark:from-cyan-900 dark:via-blue-950 dark:to-slate-950'
           gameId="fish-trace"
           title={t('title')}
           subtitle={t('subtitle')}

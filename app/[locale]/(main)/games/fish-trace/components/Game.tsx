@@ -21,7 +21,7 @@ export default function Game() {
 
     return (
         <NextIntlClientProvider locale={locale} messages={messages}>
-            <div className="max-w-3xl mx-auto aspect-[4/3]">
+            <div className="max-w-3xl mx-auto aspect-4/3">
                 <GameComponent />
             </div>
         </NextIntlClientProvider>

@@ -51,7 +51,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
             >
                 {/* Front of card */}
                 <div className="absolute inset-0 w-full h-full backface-hidden">
-                    <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl shadow-md flex items-center justify-center">
+                    <div className="w-full h-full bg-linear-to-br from-blue-400 to-blue-600 rounded-xl shadow-md flex items-center justify-center">
                         <span className="text-white text-4xl font-bold">?</span>
                     </div>
                 </div>
@@ -59,7 +59,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
                 {/* Back of card */}
                 <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
                     <div className="w-full h-full bg-white rounded-xl shadow-md p-2 flex flex-col items-center justify-center overflow-hidden">
-                        <div className="relative w-full h-full flex-grow">
+                        <div className="relative w-full h-full grow">
                             <Image
                                 src={card.imageUrl}
                                 alt={card.animalName}

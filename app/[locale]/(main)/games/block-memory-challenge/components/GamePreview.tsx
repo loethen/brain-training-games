@@ -109,7 +109,7 @@ export function GamePreview() {
 
   return (
     <div className="w-full max-w-[400px] mx-auto">
-      <div className="aspect-square relative rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 p-6">
+      <div className="aspect-square relative rounded-xl bg-linear-to-br from-primary/10 to-secondary/10 p-6">
         {status && (
           <div className="absolute top-4 left-0 right-0 text-center">
             <span className="bg-background/80 text-sm px-3 py-1 rounded-full">
@@ -138,7 +138,7 @@ export function GamePreview() {
             </div>
 
             {showResult && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-sm rounded-lg">
+              <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-xs rounded-lg">
                 {showResult === 'success' ? (
                   <CheckCircle2 className="w-16 h-16 text-green-500" />
                 ) : (

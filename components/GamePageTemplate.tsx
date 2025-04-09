@@ -106,7 +106,7 @@ export function GamePageTemplate({
                               className={cn(
                                   "relative overflow-hidden rounded-xl p-6 border transition-all duration-300",
                                   "hover:shadow-md hover:border-primary/50 hover:-translate-y-1",
-                                  "bg-gradient-to-br from-background to-muted/30"
+                                  "bg-linear-to-br from-background to-muted/30"
                               )}
                           >
                               <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-8 -mt-8 blur-2xl"></div>

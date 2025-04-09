@@ -1,9 +1,40 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+@config '../../tailwind.config.ts';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* Custom utilities */
+@utility text-gradient {
+  @apply bg-linear-to-r from-[hsl(var(--primary))] via-[hsl(var(--foreground))] to-[hsl(var(--accent))] bg-clip-text text-transparent;
+}
+@utility btn-destructive {
+  @apply bg-[hsl(var(--destructive))] text-[hsl(var(--foreground))];
+}
+@utility btn-success {
+  @apply bg-[hsl(var(--success))] text-[hsl(var(--foreground))];
+}
+
+@layer utilities {
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
 }
 
 @layer base {
@@ -92,20 +123,6 @@ body {
   body {
     @apply bg-background text-foreground;
   }
-}
-
-/* Custom utilities */
-@layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--foreground))] to-[hsl(var(--accent))] bg-clip-text text-transparent;
-  }
-  .btn-destructive {
-    @apply bg-[hsl(var(--destructive))] text-[hsl(var(--foreground))];
-  }
-  .btn-success {
-    @apply bg-[hsl(var(--success))] text-[hsl(var(--foreground))];
-  }
-
 }
 
 @layer base {

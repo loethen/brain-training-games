@@ -86,7 +86,7 @@ const RippleButton = React.forwardRef<HTMLButtonElement, RippleButtonProps>(
       <button
         ref={mergedRef}
         className={cn(
-          "relative overflow-hidden focus:outline-none",
+          "relative overflow-hidden focus:outline-hidden",
           className
         )}
         onClick={handleClick}

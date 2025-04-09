@@ -89,7 +89,7 @@ export function Header({ onToggleSidebar }: {
   const t = useTranslations('common');
 
   return (
-    <header className="sticky z-50 top-0 bg-background/80 backdrop-blur-sm">
+    <header className="sticky z-50 top-0 bg-background/80 backdrop-blur-xs">
       <div className="flex items-center h-16 px-4">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center">

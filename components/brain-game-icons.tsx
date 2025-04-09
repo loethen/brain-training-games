@@ -45,7 +45,7 @@ export function BrainGameIcons() {
 
   return (
     <div 
-        className="relative w-full aspect-[5/3] max-w-sm mx-auto opacity-85 " 
+        className="relative w-full aspect-5/3 max-w-sm mx-auto opacity-85 " 
         ref={containerRef}
     >
         <div className="absolute inset-0 flex flex-col items-stretch justify-between p-2 sm:p-3 md:p-4">
@@ -57,7 +57,7 @@ export function BrainGameIcons() {
                 <GameIcon ref={patternRef} icon={LayoutGrid} color="#a855f7" />
                 <div
                     ref={brainRef}
-                    className="z-10 flex size-10 sm:size-12 items-center justify-center rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-1 sm:p-1.5 shadow-[0_0_15px_-10px_rgba(0,0,0,0.6)]"
+                    className="z-10 flex size-10 sm:size-12 items-center justify-center rounded-full bg-linear-to-r from-purple-400 via-pink-500 to-red-500 p-1 sm:p-1.5 shadow-[0_0_15px_-10px_rgba(0,0,0,0.6)]"
                 >
                     <Brain size={20} className="size-20" color="white" strokeWidth={1.5} />
                 </div>
