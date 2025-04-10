@@ -17,8 +17,9 @@ interface FAQItem {
 }
 
 // Enhanced metadata generation for better SEO
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-    const t = await getTranslations({ locale: params.locale, namespace: 'games.babyAnimalMatching' });
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: 'games.babyAnimalMatching' });
 
     // Load translated metadata
     const title = t('metaTitle');
