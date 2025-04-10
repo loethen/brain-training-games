@@ -44,6 +44,13 @@ const backlinkData: BacklinkProps[] = [
     description: "Exploring challenges to focus in the digital age and discussing Dual N-Back brain training.",
     category: "Blog",
     date: "2025-03-18"
+  },
+  {
+    title: "Schedule a Meeting (Cal.com)",
+    url: "https://cal.com/j-s-xpmucb",
+    description: "Book a 15-minute or 30-minute meeting with J S from FreeFocusGames.",
+    category: "Contact",
+    date: "2024-07-23" // Set to current date
   }
 ];
 

@@ -3,6 +3,7 @@ import BabyAnimalMatchingGame from "./components/Game";
 import { GamePageTemplate } from '@/components/GamePageTemplate';
 import { Brain, Eye, Search } from 'lucide-react'; // Example icons
 import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server'; // Import server-side translator
 
 // Define types for placeholders
 interface Benefit {
@@ -16,39 +17,32 @@ interface FAQItem {
 }
 
 // Enhanced metadata generation for better SEO
-export async function generateMetadata(): Promise<Metadata> {
-    // Primary keyword: Baby Animal Matching Game
-    const title = "Baby Animal Matching Game | Memory Training for Kids & Adults";
-    const description = "Play our free Baby Animal Matching Game online! Improve memory, focus and visual recognition skills with cute animal pairs. Fun brain training for all ages.";
-    
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+    const t = await getTranslations({ locale: params.locale, namespace: 'games.babyAnimalMatching' });
+
+    // Load translated metadata
+    const title = t('metaTitle');
+    const description = t('metaDescription');
+    const keywordsString = t('metaKeywords');
+    const keywords = keywordsString.split(',').map((k: string) => k.trim()).filter((k: string) => k); // Split comma-separated keywords
+
     return {
         title,
         description,
-        keywords: [
-            "baby animal matching game",
-            "memory game",
-            "matching game",
-            "kids memory game",
-            "animal matching game",
-            "brain training game",
-            "concentration game",
-            "focus training game",
-        ],
+        keywords,
         openGraph: {
-            title: "Baby Animal Matching Game - Test Your Memory With Cute Animals",
-            description:
-                "Match pairs of adorable baby animals in this fun memory game. Perfect for improving concentration and visual memory in children and adults.",
+            title: t('ogTitle'),
+            description: t('ogDescription'),
             type: "website",
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }], // Keep image URL static for now
         },
         twitter: {
             card: "summary_large_image",
-            title: "Baby Animal Matching Game | Train Your Memory",
-            description:
-                "Test your memory skills by matching cute baby animal pairs in this free online game.",
+            title: t('twitterTitle'),
+            description: t('twitterDescription'),
         },
         alternates: {
-            canonical: "/games/baby-animal-matching",
+            canonical: "/games/baby-animal-matching", // Keep canonical static or handle localization if needed
         },
     };
 }

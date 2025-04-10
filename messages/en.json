@@ -942,7 +942,14 @@
         "difficulty": "Difficulty",
         "shareTitle": "Check out my Baby Animal Matching score!",
         "shareText": "I matched all the baby animals in {moves} moves and {time} seconds on {difficulty} difficulty!"
-      }
+      },
+      "metaTitle": "Baby Animal Matching Game | Memory Training for Kids & Adults",
+      "metaDescription": "Play our free Baby Animal Matching Game online! Improve memory, focus and visual recognition skills with cute animal pairs. Fun brain training for all ages.",
+      "metaKeywords": "baby animal matching game,memory game,matching game,kids memory game,animal matching game,brain training game,concentration game,focus training game",
+      "ogTitle": "Baby Animal Matching Game - Test Your Memory With Cute Animals",
+      "ogDescription": "Match pairs of adorable baby animals in this fun memory game. Perfect for improving concentration and visual memory in children and adults.",
+      "twitterTitle": "Baby Animal Matching Game | Train Your Memory",
+      "twitterDescription": "Test your memory skills by matching cute baby animal pairs in this free online game."
     }
   },
   "buttons": {

@@ -710,7 +710,14 @@
                 "difficulty": "Dificultad",
                 "shareTitle": "¡Mira mi puntuación en Memoria de Crías de Animales!",
                 "shareText": "¡Emparejé todas las crías de animales en {moves} movimientos y {time} segundos en dificultad {difficulty}!"
-            }
+            },
+            "metaTitle": "Juego de Memoria de Crías de Animales | Entrenamiento de Memoria para Niños y Adultos",
+            "metaDescription": "¡Juega gratis a nuestro Juego de Memoria de Crías de Animales online! Mejora la memoria, la concentración y las habilidades de reconocimiento visual con adorables parejas de animales. Entrenamiento cerebral divertido para todas las edades.",
+            "metaKeywords": "juego memoria crías animales,juego de memoria,juego de parejas,juego memoria niños,juego parejas animales,juego entrenamiento cerebral,juego concentración,juego entrenamiento enfoque",
+            "ogTitle": "Juego de Memoria de Crías de Animales - ¡Prueba tu Memoria con Animales Adorables!",
+            "ogDescription": "Empareja adorables crías de animales en este divertido juego de memoria. Perfecto para mejorar la concentración y la memoria visual en niños y adultos.",
+            "twitterTitle": "Juego de Memoria de Crías de Animales | ¡Entrena tu Memoria!",
+            "twitterDescription": "Prueba tus habilidades de memoria emparejando adorables crías de animales en este juego online gratuito."
         },
         "largerNumber": {
             "title": "Desafío del Número Mayor",

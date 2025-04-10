@@ -711,7 +711,14 @@
                 "difficulty": "Difficulté",
                 "shareTitle": "Regardez mon score à l'Association des bébés animaux !",
                 "shareText": "J'ai associé tous les bébés animaux en {moves} coups et {time} secondes en difficulté {difficulty} !"
-            }
+            },
+            "metaTitle": "Jeu d'Association Bébés Animaux | Entraînement Mémoire Enfants & Adultes",
+            "metaDescription": "Jouez gratuitement à notre Jeu d'Association des Bébés Animaux en ligne ! Améliorez mémoire, concentration et reconnaissance visuelle avec de mignonnes paires d'animaux. Entraînement cérébral ludique pour tous âges.",
+            "metaKeywords": "jeu association bébés animaux,jeu de mémoire,jeu d'association,jeu mémoire enfants,jeu association animaux,jeu entraînement cérébral,jeu concentration,jeu entraînement focus",
+            "ogTitle": "Jeu d'Association Bébés Animaux - Testez Votre Mémoire Avec Mignons Animaux",
+            "ogDescription": "Associez d'adorables bébés animaux dans ce jeu de mémoire amusant. Parfait pour améliorer la concentration et la mémoire visuelle chez les enfants et adultes.",
+            "twitterTitle": "Jeu d'Association Bébés Animaux | Entraînez Votre Mémoire",
+            "twitterDescription": "Testez vos capacités de mémoire en associant de mignonnes paires de bébés animaux dans ce jeu en ligne gratuit."
         },
         "largerNumber": {
             "title": "Défi du Plus Grand Nombre",

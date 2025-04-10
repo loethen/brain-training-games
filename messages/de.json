@@ -942,7 +942,14 @@
                 "difficulty": "Schwierigkeit",
                 "shareTitle": "Schau dir meinen Punktestand beim Baby-Tier-Zuordnungsspiel an!",
                 "shareText": "Ich habe alle Tierbabys in {moves} Zügen und {time} Sekunden auf Schwierigkeitsstufe {difficulty} zugeordnet!"
-            }
+            },
+            "metaTitle": "Baby-Tier-Zuordnungsspiel | Gedächtnistraining für Kinder & Erwachsene",
+            "metaDescription": "Spiele unser kostenloses Baby-Tier-Zuordnungsspiel online! Verbessere Gedächtnis, Fokus und visuelle Erkennungsfähigkeiten mit niedlichen Tierpaaren. Spaßiges Gehirntraining für alle Altersgruppen.",
+            "metaKeywords": "baby-tier-zuordnungsspiel,gedächtnisspiel,zuordnungsspiel,kinder-gedächtnisspiel,tier-zuordnungsspiel,gehirntraining-spiel,konzentrationsspiel,fokus-trainingsspiel",
+            "ogTitle": "Baby-Tier-Zuordnungsspiel - Teste dein Gedächtnis mit niedlichen Tieren",
+            "ogDescription": "Finde passende Paare von niedlichen Tierbabys in diesem lustigen Gedächtnisspiel. Perfekt zur Verbesserung von Konzentration und visuellem Gedächtnis bei Kindern und Erwachsenen.",
+            "twitterTitle": "Baby-Tier-Zuordnungsspiel | Trainiere dein Gedächtnis",
+            "twitterDescription": "Teste deine Gedächtnisfähigkeiten, indem du in diesem kostenlosen Online-Spiel niedliche Tierbaby-Paare zuordnest."
         }
     },
     "buttons": {
