@@ -155,3 +155,17 @@
   /* Disable clicks during/after animation */
   pointer-events: none; 
 }
+
+.post-ul-list ul{
+  list-style-type: disc;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.post-ul-list ol{
+  list-style-type: decimal;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}

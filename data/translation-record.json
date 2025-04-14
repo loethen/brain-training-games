@@ -128,5 +128,31 @@
       "hash": "e7debdded8dcde6421351aa75a24136a",
       "timestamp": "2025-04-06T15:39:09.144Z"
     }
+  },
+  "the-science-of-working-memory-how-your-brain-processes-information.md": {
+    "zh": {
+      "hash": "09d794069602f879cf8b68a7d89b63f2",
+      "timestamp": "2025-04-14T13:54:54.961Z"
+    },
+    "de": {
+      "hash": "09d794069602f879cf8b68a7d89b63f2",
+      "timestamp": "2025-04-14T13:55:19.142Z"
+    },
+    "ja": {
+      "hash": "09d794069602f879cf8b68a7d89b63f2",
+      "timestamp": "2025-04-14T13:55:42.099Z"
+    },
+    "es": {
+      "hash": "09d794069602f879cf8b68a7d89b63f2",
+      "timestamp": "2025-04-14T13:57:03.918Z"
+    },
+    "ko": {
+      "hash": "09d794069602f879cf8b68a7d89b63f2",
+      "timestamp": "2025-04-14T13:57:27.885Z"
+    },
+    "fr": {
+      "hash": "09d794069602f879cf8b68a7d89b63f2",
+      "timestamp": "2025-04-14T13:57:50.276Z"
+    }
   }
 }

@@ -160,25 +160,25 @@ async function translateFrontmatter(
     if (frontmatter[field] && typeof frontmatter[field] === 'string') {
       const content = frontmatter[field];
       const prompt = `
-You are a professional translator with expertise in creating natural, fluent content in multiple languages.
+You are a skilled translator specializing in localizing blog content for a tech-savvy audience interested in cognitive science, brain training, and memory improvement games. Your goal is to make the text sound like it was originally written in the target language.
 
-Task: Translate the following ${field === 'title' ? 'blog title' : field === 'description' ? 'blog description' : 'blog excerpt'} from English to ${targetLocale === 'zh' ? 'Simplified Chinese (not Traditional Chinese)' : targetLocale === 'de' ? 'German' : targetLocale === 'ja' ? 'Japanese' : targetLocale === 'es' ? 'Spanish' : targetLocale === 'ko' ? 'Korean' : 'French'}.
+Task: Translate the following ${field === 'title' ? 'blog title' : field === 'description' ? 'blog description' : 'blog excerpt'} from English to ${targetLocale === 'zh' ? 'Simplified Chinese (for Mainland China)' : LOCALE_NAMES[targetLocale]}.
 
-Important instructions:
-1. Provide ONLY ONE direct translation, not multiple options or alternatives
-2. Maintain the original meaning but use natural expressions in the target language
-3. Create a translation that sounds natural to native speakers
-4. DO NOT include phrases like "Translation:", "Here's the translation:", etc.
-5. DO NOT explain your translation choices or provide analysis
-6. For Simplified Chinese translations:
-   - Use modern, standard Simplified Chinese characters
-   - Use colloquial and natural-sounding mainland Chinese expressions
-   - Avoid Traditional Chinese characters and Taiwan/Hong Kong expressions
+Crucial Instructions:
+1.  **Output ONLY the translated text.** Do NOT include prefixes like "Translation:", explanations, or alternative options.
+2.  **Prioritize naturalness and fluency.** Convey the original meaning and intent using idiomatic expressions in ${LOCALE_NAMES[targetLocale]}. Avoid literal, word-for-word translation.
+3.  **Adapt the tone** to be engaging, informative, and accessible for a general audience interested in the blog's topics. It must sound completely natural to a native speaker.
+4.  **Restructure sentences** freely if the English structure sounds awkward or unnatural in ${LOCALE_NAMES[targetLocale]}.
+5.  **Use appropriate terminology** for cognitive science and brain training topics in ${LOCALE_NAMES[targetLocale]}.
+6.  **For Simplified Chinese (zh) ONLY:**
+    *   Use standard Mainland P.R.C. Simplified Chinese characters and vocabulary.
+    *   Employ modern, common expressions natural to Mainland Chinese readers.
+    *   Strictly avoid Traditional Chinese characters, Taiwan/Hong Kong specific terms, or overly regional phrasing.
 
-Original text:
+Original English text:
 ${content}
 
-Translation:
+${LOCALE_NAMES[targetLocale]} Translation:
 `;
       
       try {
@@ -210,26 +210,27 @@ async function translateContentPreservingCodeBlocks(
   });
 
   const prompt = `
-You are a professional translator with expertise in creating natural, fluent content in multiple languages.
+You are a skilled translator specializing in localizing blog content for a tech-savvy audience interested in cognitive science, brain training, and memory improvement games. Your goal is to make the entire article sound like it was originally written in the target language.
 
-Task: Translate the following blog article content from English to ${targetLocale === 'zh' ? 'Simplified Chinese (not Traditional Chinese)' : targetLocale === 'de' ? 'German' : targetLocale === 'ja' ? 'Japanese' : targetLocale === 'es' ? 'Spanish' : targetLocale === 'ko' ? 'Korean' : 'French'}.
+Task: Translate the following blog article content from English to ${targetLocale === 'zh' ? 'Simplified Chinese (for Mainland China)' : LOCALE_NAMES[targetLocale]}.
 
-Important instructions:
-1. Provide ONLY ONE direct translation, not multiple options or alternatives
-2. The text contains placeholders like 'CODE_BLOCK_0', 'CODE_BLOCK_1' - DO NOT translate these placeholders
-3. Maintain the original meaning but use natural expressions in the target language
-4. Create a translation that sounds natural to native speakers
-5. For Simplified Chinese translations:
-   - Use modern, standard Simplified Chinese characters
-   - Use colloquial and natural-sounding mainland Chinese expressions
-   - Avoid Traditional Chinese characters and Taiwan/Hong Kong expressions
-6. Preserve the original formatting, including paragraphs, bullet points, and headers
-7. DO NOT include explanations or notes about your translation
+Crucial Instructions:
+1.  **Output ONLY the translated text.** Do NOT include any commentary, explanations, or notes before or after the translation.
+2.  **Preserve placeholders exactly:** The text contains placeholders like 'CODE_BLOCK_0'. DO NOT translate these; keep them precisely as they are.
+3.  **Prioritize naturalness and fluency:** Focus on conveying the original meaning and intent using idiomatic, fluent language in ${LOCALE_NAMES[targetLocale]}. Avoid stiff, literal translation.
+4.  **Adapt the tone:** Make it engaging, informative, and accessible for a general audience interested in cognitive improvement. It must sound completely natural to a native speaker.
+5.  **Restructure freely:** Rephrase sentences and restructure paragraphs where needed to improve flow and readability in ${LOCALE_NAMES[targetLocale]}. Don't rigidly follow English sentence structure.
+6.  **Preserve formatting:** Maintain original markdown formatting (paragraphs, headers, lists, bold/italics, links).
+7.  **Use consistent terminology:** Apply appropriate terms for cognitive science, brain training, and memory games consistently in ${LOCALE_NAMES[targetLocale]}.
+8.  **For Simplified Chinese (zh) ONLY:**
+    *   Use standard Mainland P.R.C. Simplified Chinese characters and vocabulary.
+    *   Employ modern, common expressions natural to Mainland Chinese readers.
+    *   Strictly avoid Traditional Chinese characters, Taiwan/Hong Kong specific terms, or overly regional phrasing.
 
-Original text:
+Original English text with placeholders:
 ${contentWithPlaceholders}
 
-Translation:
+${LOCALE_NAMES[targetLocale]} Translation:
 `;
 
   try {

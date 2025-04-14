@@ -98,7 +98,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <ShareButton title={post.title} />
           </div>
           
-          <div className="prose prose-lg dark:prose-invert max-w-none">
+          <div className="prose prose-lg dark:prose-invert max-w-none post-ul-list">
             <Markdown content={post.content} />
           </div>
         </article>

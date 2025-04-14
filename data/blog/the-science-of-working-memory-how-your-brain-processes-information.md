@@ -1,6 +1,6 @@
 ---
 title: "The Science of Working Memory: How Your Brain Processes Information During Learning"
-date: "2025-05-15"
+date: "2025-04-14"
 excerpt: "Discover how your brain processes visual and verbal information through working memory to create meaningful mental models, and learn strategies to optimize your learning experience."
 coverImage: "https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxtZWRpdGF0aW9uJTIwbWluZGZ1bG5lc3MlMjBmb2N1cyUyMGJyYWluJTIwdHJhaW5pbmd8ZW58MHx8fHwxNzQ0NjI0MzAwfDA&ixlib=rb-4.0.3&q=80&w=2000"
 keywords: "working memory, cognitive load, information processing, dual channel processing, mental models, visual learning, verbal learning, learning strategies, brain information processing, memory capacity limitations, cognitive science, learning efficiency, visual information processing, verbal information processing, memory encoding, information selection, memory organization, memory integration, multimedia learning, Richard Mayer, memory optimization, cognitive constraints, learning theory, memory alignment, memory construction"
