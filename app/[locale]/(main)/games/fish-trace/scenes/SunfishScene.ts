@@ -759,8 +759,10 @@ export class SunfishScene extends Scene {
             this.translate('tryAgain')
         );
         
-        tryAgainBtn.on('pointerup', () => {
-            this.scene.restart({ level: 1, score: 0 });
+        tryAgainBtn.on('pointerdown', () => {
+            this.shutdown();
+            // Pass the current level back to init when restarting
+            this.scene.restart({ level: this.state.level });
         });
     }
 
