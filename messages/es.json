@@ -542,6 +542,7 @@
             "subtitle": "Entrena tu seguimiento visual y atención sostenida",
             "description": "Mejora tus habilidades de seguimiento visual siguiendo peces luminosos en un entorno acuático dinámico.",
             "gameUI": {
+                "title": "Rastro de peces luminosos",
                 "loading": "Cargando juego...",
                 "start": "¡Observa el pez con círculos luminosos!",
                 "glowEnding": "Los círculos desaparecerán pronto...",
@@ -552,7 +553,15 @@
                 "nextLevel": "Siguiente",
                 "tryAgain": "Intentar de nuevo",
                 "soundOn": "Sonido activado",
-                "soundOff": "Sonido desactivado"
+                "soundOff": "Sonido desactivado",
+                "selectLevel": "Seleccionar nivel",
+                "levelDesc": {
+                  "0": "Principiante - 6 peces, 2 brillan",
+                  "1": "Fácil - 8 peces, 3 brillan",
+                  "2": "Medio - 10 peces, 4 brillan",
+                  "3": "Difícil - 12 peces, 5 brillan",
+                  "4": "Experto - 15 peces, 6 brillan"
+                }
             },
             "metadata": {
                 "title": "Rastro de peces luminosos - Juego de entrenamiento de seguimiento visual y atención",

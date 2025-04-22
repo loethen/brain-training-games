@@ -64,8 +64,6 @@ export class SunfishScene extends Scene {
 
         // 从存储中重新读取静音状态
         this.isMuted = localStorage.getItem('fishGameMuted') === 'true';
-        
-        console.log(`Starting level ${this.state.level} with ${this.sunfishCount} fish, ${this.glowingSunfishCount} glowing fish, time multiplier: ${timeMultiplier}`);
     }
 
     preload() {
@@ -104,7 +102,7 @@ export class SunfishScene extends Scene {
         this.messageText = this.add.text(
             this.scale.width / 2,
             messageY,
-            this.translate('fishTrace.gameUI.start'),
+            this.translate('start'),
             {
                 fontSize: '24px',
                 fontFamily: 'Arial',
@@ -307,7 +305,6 @@ export class SunfishScene extends Scene {
 
             if (!selectedFishes.includes(selectedFish)) {
                 selectedFishes.push(selectedFish);
-                console.log("Randomly selected sunfish index:", randomIndex+1);
 
                 const glow = this.add.graphics({ 
                     lineStyle: { 
@@ -390,7 +387,7 @@ export class SunfishScene extends Scene {
 
     startWatchingPhase() {
         this.state.phase = 'watching';
-        this.messageText.setText(this.translate('fishTrace.gameUI.start'));
+        this.messageText.setText(this.translate('start'));
         
         const glowingFish = this.chooseGlowFishes(this.sunfishGroup, this.glowingSunfishCount);
         
@@ -401,7 +398,7 @@ export class SunfishScene extends Scene {
 
         // 光圈即将消失的警告
         this.time.delayedCall(this.glowDuration - GAME_CONFIG.timing.warningBeforeGlowEnd, () => {
-            this.messageText.setText(this.translate('fishTrace.gameUI.glowEnding'));
+            this.messageText.setText(this.translate('glowEnding'));
         });
 
         // 进入追踪阶段
@@ -412,7 +409,7 @@ export class SunfishScene extends Scene {
 
     startTrackingPhase() {
         this.state.phase = 'tracking';
-        this.messageText.setText(this.translate('fishTrace.gameUI.tracking'));
+        this.messageText.setText(this.translate('tracking'));
 
         // 一段时间后进入选择阶段
         this.time.delayedCall(this.gameDuration - this.glowDuration, () => {
@@ -422,7 +419,7 @@ export class SunfishScene extends Scene {
 
     startSelectionPhase() {
         this.state.phase = 'selecting';
-        this.messageText.setText(this.translate('fishTrace.gameUI.selection'));
+        this.messageText.setText(this.translate('selection'));
         
         // 停止所有鱼的移动
         this.physics.pause();
@@ -735,13 +732,13 @@ export class SunfishScene extends Scene {
         this.state.score += this.state.level * 100;
         
         // 使用正确的翻译方式，传递参数
-        this.messageText.setText(this.translate('fishTrace.gameUI.success', { level: this.state.level }));
+        this.messageText.setText(this.translate('success', { level: this.state.level }));
         
         // 为下一关按钮使用参数化翻译
         const nextBtn = this.createGameButton(
             this.scale.width / 2,
             this.scale.height / 2,
-            this.translate('fishTrace.gameUI.nextLevel')
+            this.translate('nextLevel')
         );
         
         nextBtn.on('pointerup', () => {
@@ -750,28 +747,16 @@ export class SunfishScene extends Scene {
                 score: this.state.score
             });
         });
-
-        // 解锁下一关（如果是新纪录）
-        const nextLevel = this.state.level + 1;
-        if (nextLevel <= LEVEL_CONFIG.length) {
-            const currentUnlocked = localStorage.getItem('fishGameUnlockedLevel');
-            const unlockedLevel = currentUnlocked ? parseInt(currentUnlocked) : 1;
-            
-            if (nextLevel > unlockedLevel) {
-                localStorage.setItem('fishGameUnlockedLevel', nextLevel.toString());
-                console.log(`New level unlocked: ${nextLevel}`);
-            }
-        }
     }
 
     handleGameOver() {
         // 传递分数参数
-        this.messageText.setText(this.translate('fishTrace.gameUI.fail', { score: this.state.score }));
+        this.messageText.setText(this.translate('fail', { score: this.state.score }));
         
         const tryAgainBtn = this.createGameButton(
             this.scale.width / 2,
             this.scale.height / 2,
-            this.translate('fishTrace.gameUI.tryAgain')
+            this.translate('tryAgain')
         );
         
         tryAgainBtn.on('pointerup', () => {
@@ -872,8 +857,8 @@ export class SunfishScene extends Scene {
                         if (!this.isMuted && !this.bgMusic?.isPlaying) {
                             this.bgMusic?.play();
                         }
-                    }).catch((error: Error) => {
-                        console.warn('Failed to resume AudioContext:', error);
+                    }).catch(() => {
+                        // 恢复失败，不处理
                     });
                 } else {
                     // 等待用户交互
@@ -883,8 +868,8 @@ export class SunfishScene extends Scene {
                                 if (!this.isMuted && !this.bgMusic?.isPlaying) {
                                     this.bgMusic?.play();
                                 }
-                            }).catch((error: Error) => {
-                                console.warn('Failed to resume AudioContext after interaction:', error);
+                            }).catch(() => {
+                                // 交互后恢复失败，不处理
                             });
                         }
                     });
@@ -902,6 +887,7 @@ export class SunfishScene extends Scene {
                 }
             }
         } catch (error: unknown) {
+            // 不再打印音频错误
             console.error('Audio system error:', error);
         }
     }

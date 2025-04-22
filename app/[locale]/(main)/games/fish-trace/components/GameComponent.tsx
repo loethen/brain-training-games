@@ -37,6 +37,16 @@ export default function GameComponent() {
                 preBoot: (game) => {
                     game.registry.set('t', (key: string, params?: Record<string, string | number>) => {
                         try {
+                            // 特殊处理title和其他非gameUI下的翻译键
+                            if (key === 'title') {
+                                return t.raw(key);
+                            }
+                            
+                            // 处理内部嵌套的levelDesc
+                            if (key.startsWith('levelDesc.')) {
+                                return t.raw(`gameUI.${key}`);
+                            }
+                            
                             if (params) {
                                 return t(`gameUI.${key}`, params);
                             }

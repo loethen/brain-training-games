@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { GAME_CONFIG } from '../config';
-import { LEVEL_CONFIG, DEFAULT_MAX_LEVEL } from '../levelConfig';
+import { LEVEL_CONFIG } from '../levelConfig';
 
 export class StartScene extends Scene {
     private canFullscreen: boolean = false;
@@ -9,7 +9,6 @@ export class StartScene extends Scene {
     
     // 关卡选择相关属性
     private selectedLevel: number = 1;
-    private maxUnlockedLevel: number = 1;
     private levelButtons: Phaser.GameObjects.Container[] = [];
     private startButton: Phaser.GameObjects.Image | null = null;
 
@@ -20,12 +19,15 @@ export class StartScene extends Scene {
     init() {
         this.translate = this.game.registry.get('t') || ((key: string) => key);
         
-        // 从本地存储中获取已解锁的最高关卡
-        const savedLevel = localStorage.getItem('fishGameUnlockedLevel');
-        this.maxUnlockedLevel = savedLevel ? parseInt(savedLevel) : DEFAULT_MAX_LEVEL;
-        
-        // 默认选择已解锁的最高关卡
-        this.selectedLevel = this.maxUnlockedLevel;
+        // 读取上次选择的关卡（如果有）
+        const savedLevel = localStorage.getItem('fishGameCurrentLevel');
+        if (savedLevel) {
+            this.selectedLevel = parseInt(savedLevel);
+            // 确保关卡有效
+            if (this.selectedLevel < 1 || this.selectedLevel > LEVEL_CONFIG.length) {
+                this.selectedLevel = 1;
+            }
+        }
     }
 
     preload() {
@@ -61,16 +63,24 @@ export class StartScene extends Scene {
         this.createLevelButtons();
         
         // 添加关卡描述
-        const descStyle = { fontFamily: 'Arial', fontSize: '18px', color: '#ffffff', align: 'center' };
-        this.add.text(width/2, height * 0.6, this.getLevelDescription(), descStyle)
+        const descStyle = { 
+            fontFamily: 'Arial', 
+            fontSize: '20px', 
+            color: '#ffffff', 
+            align: 'center',
+            stroke: '#000000',
+            strokeThickness: 2
+        };
+        this.add.text(width/2, height * 0.53, this.getLevelDescription(), descStyle)
             .setOrigin(0.5)
+            .setShadow(1, 1, '#000000', 3)
             .setName('levelDesc');
             
         // 添加开始游戏按钮
         const btnScale = Math.min(width, height) * 0.0008;
-        this.startButton = this.add.image(width/2, height * 0.75, "sea_btn")
+        this.startButton = this.add.image(width/2, height * 0.8, "sea_btn")
             .setScale(btnScale)
-            .setInteractive()
+            .setInteractive({useHandCursor: true})
             .on('pointerup', () => {
                 if (this.canFullscreen && this.isMobile) {
                     this.scale.startFullscreen();
@@ -84,46 +94,49 @@ export class StartScene extends Scene {
     private createLevelButtons() {
         const width = this.scale.width;
         const height = this.scale.height;
-        const buttonSize = 50;
-        const spacing = 70;
+        const buttonSize = 70; // 增大按钮尺寸
+        const spacing = 90; // 调整按钮间距
         const totalWidth = (LEVEL_CONFIG.length - 1) * spacing;
         const startX = width/2 - totalWidth/2;
         
         for (let i = 0; i < LEVEL_CONFIG.length; i++) {
             const levelNum = i + 1;
-            const isUnlocked = levelNum <= this.maxUnlockedLevel;
             
             // 创建圆形按钮容器
             const container = this.add.container(startX + i * spacing, height * 0.45);
             
             // 创建圆形背景
-            const circle = this.add.circle(0, 0, buttonSize/2, isUnlocked ? 0x0088ff : 0x666666);
-            
-            if (isUnlocked) {
-                circle.setStrokeStyle(3, 0xffffff);
-            }
+            const circle = this.add.circle(0, 0, buttonSize/2, 0x0088ff);
+            circle.setStrokeStyle(3, 0xffffff);
             
             // 添加文本
-            const textStyle = { fontFamily: 'Arial', fontSize: '20px', color: '#ffffff' };
+            const textStyle = { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff', fontWeight: 'bold' };
             const text = this.add.text(0, 0, levelNum.toString(), textStyle)
                 .setOrigin(0.5);
                 
             // 将元素添加到容器
             container.add([circle, text]);
             
-            // 如果关卡已解锁，添加交互
-            if (isUnlocked) {
-                circle.setInteractive({ useHandCursor: true })
-                    .on('pointerup', () => {
-                        this.selectLevel(levelNum);
-                    })
-                    .on('pointerover', () => {
-                        circle.setFillStyle(0x44aaff);
-                    })
-                    .on('pointerout', () => {
-                        circle.setFillStyle(levelNum === this.selectedLevel ? 0x0099ff : 0x0088ff);
-                    });
+            // 给整个容器添加交互区域
+            const hitArea = new Phaser.Geom.Circle(0, 0, buttonSize/2);
+            container.setInteractive(hitArea, Phaser.Geom.Circle.Contains);
+            // 检查input是否存在
+            if (container.input) {
+                container.input.cursor = 'pointer';
             }
+            
+            // 添加交互事件
+            container.on('pointerup', () => {
+                this.selectLevel(levelNum);
+            });
+            
+            container.on('pointerover', () => {
+                circle.setFillStyle(0x44aaff);
+            });
+            
+            container.on('pointerout', () => {
+                circle.setFillStyle(levelNum === this.selectedLevel ? 0x0099ff : 0x0088ff);
+            });
             
             // 设置当前选中的关卡样式
             if (levelNum === this.selectedLevel) {
@@ -137,27 +150,23 @@ export class StartScene extends Scene {
     
     // 选择关卡
     private selectLevel(level: number) {
-        if (level <= this.maxUnlockedLevel) {
-            this.selectedLevel = level;
+        this.selectedLevel = level;
+        
+        // 更新所有按钮样式
+        for (let i = 0; i < this.levelButtons.length; i++) {
+            const container = this.levelButtons[i];
+            const circle = container.getAt(0) as Phaser.GameObjects.Shape;
+            const levelNum = i + 1;
             
-            // 更新所有按钮样式
-            for (let i = 0; i < this.levelButtons.length; i++) {
-                const container = this.levelButtons[i];
-                const circle = container.getAt(0) as Phaser.GameObjects.Shape;
-                const levelNum = i + 1;
-                
-                if (levelNum <= this.maxUnlockedLevel) {
-                    circle.setFillStyle(levelNum === this.selectedLevel ? 0x0099ff : 0x0088ff);
-                    circle.setStrokeStyle(levelNum === this.selectedLevel ? 4 : 3, 
-                                         levelNum === this.selectedLevel ? 0xffff00 : 0xffffff);
-                }
-            }
-            
-            // 更新描述文本
-            const descText = this.children.getByName('levelDesc') as Phaser.GameObjects.Text;
-            if (descText) {
-                descText.setText(this.getLevelDescription());
-            }
+            circle.setFillStyle(levelNum === this.selectedLevel ? 0x0099ff : 0x0088ff);
+            circle.setStrokeStyle(levelNum === this.selectedLevel ? 4 : 3, 
+                                 levelNum === this.selectedLevel ? 0xffff00 : 0xffffff);
+        }
+        
+        // 更新描述文本
+        const descText = this.children.getByName('levelDesc') as Phaser.GameObjects.Text;
+        if (descText) {
+            descText.setText(this.getLevelDescription());
         }
     }
     
@@ -167,6 +176,7 @@ export class StartScene extends Scene {
         
         if (levelIndex >= 0 && levelIndex < LEVEL_CONFIG.length) {
             const config = LEVEL_CONFIG[levelIndex];
+            // 通过translate函数访问，已经配置了前缀，所以路径需要简化
             return this.translate(`levelDesc.${levelIndex}`) || config.description;
         }
         

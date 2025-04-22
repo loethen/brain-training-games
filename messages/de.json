@@ -543,6 +543,7 @@
             "subtitle": "Trainieren Sie Ihr visuelles Tracking und Ihre anhaltende Aufmerksamkeit",
             "description": "Verbessern Sie Ihre visuellen Trackingfähigkeiten, indem Sie leuchtende Fische in einer dynamischen Unterwasserumgebung verfolgen.",
             "gameUI": {
+                "title": "Leuchtender Fisch Trace",
                 "loading": "Spiel lädt...",
                 "start": "Beobachten Sie den Fisch mit leuchtenden Kreisen!",
                 "glowEnding": "Kreise werden bald verschwinden...",
@@ -553,7 +554,15 @@
                 "nextLevel": "Nächstes",
                 "tryAgain": "Erneut versuchen",
                 "soundOn": "Sound an",
-                "soundOff": "Sound aus"
+                "soundOff": "Sound aus",
+                "selectLevel": "Level auswählen",
+                "levelDesc": {
+                  "0": "Anfänger - 6 Fische, 2 leuchten",
+                  "1": "Einfach - 8 Fische, 3 leuchten",
+                  "2": "Mittel - 10 Fische, 4 leuchten",
+                  "3": "Schwer - 12 Fische, 5 leuchten",
+                  "4": "Experte - 15 Fische, 6 leuchten"
+                }
             },
             "metadata": {
                 "title": "Leuchtender Fisch Trace - Visuelles Tracking & Aufmerksamkeitstraining Spiel",

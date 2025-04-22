@@ -41,7 +41,7 @@ export const LEVEL_CONFIG: LevelConfig[] = [
 ];
 
 // 默认解锁的最大关卡
-export const DEFAULT_MAX_LEVEL = 1;
+export const DEFAULT_MAX_LEVEL = LEVEL_CONFIG.length;
 
 // 最大可用关卡数
 export const MAX_AVAILABLE_LEVELS = LEVEL_CONFIG.length; 

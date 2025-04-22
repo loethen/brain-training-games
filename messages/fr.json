@@ -543,6 +543,7 @@
             "subtitle": "Entraînez votre suivi visuel et votre attention soutenue",
             "description": "Améliorez vos compétences de suivi visuel en suivant des poissons luminescents dans un environnement aquatique dynamique.",
             "gameUI": {
+                "title": "Trace de poisson luminescent",
                 "loading": "Chargement du jeu...",
                 "start": "Observez le poisson avec des cercles luminescents !",
                 "glowEnding": "Les cercles vont bientôt disparaître...",
@@ -553,7 +554,15 @@
                 "nextLevel": "Suivant",
                 "tryAgain": "Réessayer",
                 "soundOn": "Son activé",
-                "soundOff": "Son désactivé"
+                "soundOff": "Son désactivé",
+                "selectLevel": "Sélectionner niveau",
+                "levelDesc": {
+                  "0": "Débutant - 6 poissons, 2 luminescents",
+                  "1": "Facile - 8 poissons, 3 luminescents",
+                  "2": "Moyen - 10 poissons, 4 luminescents",
+                  "3": "Difficile - 12 poissons, 5 luminescents",
+                  "4": "Expert - 15 poissons, 6 luminescents"
+                }
             },
             "metadata": {
                 "title": "Trace de poisson luminescent - Jeu d'entraînement au suivi visuel et à l'attention",
