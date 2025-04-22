@@ -793,21 +793,22 @@
             },
             "gameUI": {
                 "level": "Level",
-                "score": "Punktstand",
-                "bestScore": "Bester",
+                "score": "Punkte",
+                "bestScore": "Beste",
                 "time": "Zeit",
                 "startGame": "Spiel starten",
-                "starting": "Startet...",
-                "playAgain": "Erneut spielen",
+                "starting": "Starten...",
+                "playAgain": "Nochmal spielen",
                 "share": "Teilen",
                 "gameOver": "Spiel vorbei!",
-                "finalScore": "Endpunktstand",
-                "levelsCompleted": "Abgeschlossene Levels",
+                "finalScore": "Endpunktzahl",
+                "levelsCompleted": "Level abgeschlossen",
                 "watchSequence": "Sequenz beobachten...",
                 "repeatSequence": "Sequenz wiederholen",
                 "wellDone": "Gut gemacht!",
-                "personalBest": "Persönlicher Bestwert",
-                "yourTurn": "Ihr Zug..."
+                "personalBest": "Persönliche Bestleistung",
+                "yourTurn": "Du bist dran...",
+                "startLevelLabel": "Mit {count} Blöcken beginnen"
             }
         },
         "reactionTime": {

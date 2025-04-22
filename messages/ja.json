@@ -846,20 +846,21 @@
             "gameUI": {
                 "level": "レベル",
                 "score": "スコア",
-                "bestScore": "最高",
-                "time": "時間",
+                "bestScore": "ベスト",
+                "time": "タイム",
                 "startGame": "ゲーム開始",
                 "starting": "開始中...",
                 "playAgain": "もう一度プレイ",
-                "share": "共有",
-                "gameOver": "ゲームオーバー！",
+                "share": "シェア",
+                "gameOver": "ゲーム終了！",
                 "finalScore": "最終スコア",
-                "levelsCompleted": "完了したレベル",
-                "watchSequence": "シーケンスを観察...",
+                "levelsCompleted": "クリアしたレベル",
+                "watchSequence": "シーケンスを見る...",
                 "repeatSequence": "シーケンスを繰り返す",
-                "wellDone": "よくできました！",
-                "personalBest": "個人最高",
-                "yourTurn": "あなたの番..."
+                "wellDone": "素晴らしい！",
+                "personalBest": "自己ベスト",
+                "yourTurn": "あなたの番...",
+                "startLevelLabel": "{count}個のブロックから開始"
             }
         },
         "reactionTime": {

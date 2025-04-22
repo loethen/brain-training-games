@@ -844,21 +844,22 @@
             },
             "gameUI": {
                 "level": "Nivel",
-                "score": "Puntuación",
+                "score": "Puntaje",
                 "bestScore": "Mejor",
                 "time": "Tiempo",
                 "startGame": "Iniciar juego",
-                "starting": "Comenzando...",
+                "starting": "Iniciando...",
                 "playAgain": "Jugar de nuevo",
                 "share": "Compartir",
                 "gameOver": "¡Juego terminado!",
-                "finalScore": "Puntuación final",
+                "finalScore": "Puntaje final",
                 "levelsCompleted": "Niveles completados",
-                "watchSequence": "Observando secuencia...",
+                "watchSequence": "Observa la secuencia...",
                 "repeatSequence": "Repite la secuencia",
                 "wellDone": "¡Bien hecho!",
                 "personalBest": "Mejor personal",
-                "yourTurn": "Tu turno..."
+                "yourTurn": "Tu turno...",
+                "startLevelLabel": "Comenzar con {count} bloques"
             }
         },
         "reactionTime": {

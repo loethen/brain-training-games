@@ -844,22 +844,23 @@
         }
       },
       "gameUI": {
-        "level": "等级",
-        "score": "分数",
+        "level": "级别",
+        "score": "得分",
         "bestScore": "最佳",
         "time": "时间",
         "startGame": "开始游戏",
-        "starting": "开始中...",
+        "starting": "准备中...",
         "playAgain": "再玩一次",
         "share": "分享",
         "gameOver": "游戏结束！",
         "finalScore": "最终得分",
-        "levelsCompleted": "完成等级",
-        "watchSequence": "观察序列...",
-        "repeatSequence": "重复序列",
+        "levelsCompleted": "已完成关卡",
+        "watchSequence": "观察顺序...",
+        "repeatSequence": "重复顺序",
         "wellDone": "做得好！",
         "personalBest": "个人最佳",
-        "yourTurn": "轮到你了..."
+        "yourTurn": "轮到你了...",
+        "startLevelLabel": "从 {count} 个方块开始"
       }
     },
     "reactionTime": {

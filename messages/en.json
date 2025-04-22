@@ -807,7 +807,8 @@
         "repeatSequence": "Repeat sequence",
         "wellDone": "Well done!",
         "personalBest": "Personal Best",
-        "yourTurn": "Your turn..."
+        "yourTurn": "Your turn...",
+        "startLevelLabel": "Start with {count} blocks"
       }
     },
     "reactionTime": {

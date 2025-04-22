@@ -848,18 +848,19 @@
                 "score": "Score",
                 "bestScore": "Meilleur",
                 "time": "Temps",
-                "startGame": "Démarrer le jeu",
+                "startGame": "Commencer",
                 "starting": "Démarrage...",
                 "playAgain": "Rejouer",
                 "share": "Partager",
-                "gameOver": "Jeu terminé !",
+                "gameOver": "Partie terminée !",
                 "finalScore": "Score final",
                 "levelsCompleted": "Niveaux terminés",
-                "watchSequence": "Observation de la séquence...",
+                "watchSequence": "Observez la séquence...",
                 "repeatSequence": "Répétez la séquence",
                 "wellDone": "Bien joué !",
-                "personalBest": "Meilleur personnel",
-                "yourTurn": "À votre tour..."
+                "personalBest": "Record personnel",
+                "yourTurn": "À votre tour...",
+                "startLevelLabel": "Commencer avec {count} blocs"
             }
         },
         "reactionTime": {
