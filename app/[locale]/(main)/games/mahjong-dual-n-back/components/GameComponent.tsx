@@ -769,8 +769,7 @@ export default function GameComponent() {
                                         >
                                             <div
                                                 className={cn(
-                                                    "bg-white rounded-2xl shadow-[6px_6px_0px_#ddd,12px_14px_0px_#10ab3b] w-[160px] aspect-2/3 flex items-center justify-center relative before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] before:pointer-events-none",
-                                                    index === trialHistory.length - 1 && "ring-3 ring-primary"
+                                                    "bg-white rounded-2xl shadow-[6px_6px_0px_#ddd,12px_14px_0px_#10ab3b] w-[160px] aspect-2/3 flex items-center justify-center relative before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] before:pointer-events-none"
                                                 )}
                                             >
                                                 <Image
