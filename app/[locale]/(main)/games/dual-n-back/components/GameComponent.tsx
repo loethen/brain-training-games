@@ -293,7 +293,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
             setCurrentResponse({ positionMatch: null, audioMatch: null });
             setIsLoading(false);
             startNextTrial();
-            setIntervalDelay(0); // 先设置为0，然后在下一个tick设置为正确的值
+            setIntervalDelay(settings.trialInterval); // 修复：直接设为正常间隔
         }
     }, startDelay);
 
