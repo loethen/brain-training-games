@@ -7,7 +7,7 @@ import { categories } from '../data/categories'
 
 // 获取环境变量
 const BASE_URL = process.env.SITE_URL || 'http://localhost:3000'
-const LOCALES = ['en', 'zh', 'de', 'ja', 'es', 'ko', 'fr'] // 支持的语言列表
+const LOCALES = ['en', 'zh'] // 支持的语言列表
 
 // 获取博客文章的最后修改时间
 function getFileLastModified(filePath: string): Date {

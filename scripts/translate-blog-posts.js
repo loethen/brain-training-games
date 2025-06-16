@@ -71,7 +71,7 @@ async function makeAPIRequest(prompt, retryCount = 0) {
 }
 
 // 支持的语言列表
-const SUPPORTED_LOCALES = ['zh', 'de', 'ja', 'es', 'ko', 'fr'];
+const SUPPORTED_LOCALES = ['zh'];
 
 // 博客文章目录
 const BLOG_DIR = path.join(process.cwd(), 'data', 'blog');
@@ -95,12 +95,7 @@ SUPPORTED_LOCALES.forEach(locale => {
 
 // 语言代码到全名的映射，用于提示
 const LOCALE_NAMES = {
-  'zh': '中文',
-  'de': '德语',
-  'ja': '日语',
-  'es': '西班牙语',
-  'ko': '韩语',
-  'fr': '法语'
+  'zh': '中文'
 };
 
 // 加载翻译记录

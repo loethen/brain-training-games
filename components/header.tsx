@@ -37,11 +37,6 @@ function LanguageSwitcher() {
   const getLanguageDisplay = () => {
     switch(locale) {
       case 'zh': return '中文';
-      case 'de': return 'Deutsch';
-      case 'ja': return '日本語';
-      case 'es': return 'Español';
-      case 'ko': return '한국어';
-      case 'fr': return 'Français';
       default: return 'English';
     }
   };
@@ -61,21 +56,6 @@ function LanguageSwitcher() {
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => handleLocaleChange('zh')}>
           中文
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => handleLocaleChange('de')}>
-          Deutsch
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => handleLocaleChange('ja')}>
-          日本語
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => handleLocaleChange('es')}>
-          Español
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => handleLocaleChange('ko')}>
-          한국어
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => handleLocaleChange('fr')}>
-          Français
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
