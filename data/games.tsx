@@ -1,5 +1,6 @@
 import { GamePreview as SimonGamePreview } from "@/app/[locale]/(main)/games/block-memory-challenge/components/GamePreview";
 import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/games/schulte-table/components/GamePreview";
+import { GamePreview as CountBlocksGamePreview } from "@/app/[locale]/(main)/games/count-blocks/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 
 export type Game = {
@@ -103,6 +104,15 @@ export const games: Game[] = [
             "selective-attention",
             "sustained-attention",
         ],
+    },
+    {
+        id: "count-blocks",
+        title: "Count Blocks",
+        description:
+            "Train your spatial memory and counting skills by remembering how many 3D blocks appear on a grid.",
+        slug: "count-blocks",
+        preview: <CountBlocksGamePreview />,
+        categories: ["working-memory", "visual-tracking", "spatial-memory"],
     },
     // Add more games as you create them
 ];

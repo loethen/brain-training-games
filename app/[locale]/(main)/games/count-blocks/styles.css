@@ -1,0 +1,179 @@
+/* Count Blocks Game Styles */
+:root {
+  --cube-size: 58px; /* 减小2px来适配边框 */
+  --grid-size: 5;
+  --cell-size: 60px; /* 单个格子的大小 */
+}
+
+.count-blocks-scene {
+  width: calc(var(--cell-size) * var(--grid-size));
+  height: calc(var(--cell-size) * var(--grid-size));
+  perspective: 1500px;
+  position: relative;
+  margin: 20px 0;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.iso-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+  grid-template-rows: repeat(var(--grid-size), 1fr);
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(-45deg);
+}
+
+.grid-cell {
+  border: 1px solid #000;
+  background-color: transparent;
+  transition: background-color 0.2s;
+}
+
+.grid-cell:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.cubes-wrapper {
+  pointer-events: none;
+}
+
+.cube {
+  width: 100%; 
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+  pointer-events: auto;
+}
+
+/* 普通状态的方块 */
+.face {
+  position: absolute;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  background: #808080; /* 灰色 */
+  border: 1px solid #000; /* 黑色边框 */
+  box-shadow: none;
+}
+
+/* 顶部面是白色 */
+.top {
+  background: #ffffff !important;
+}
+
+/* 验证状态的方块 */
+.cube.correct .face {
+  background: #4ade80; /* 绿色 */
+}
+
+.cube.correct .top {
+  background: #22c55e !important; /* 稍深的绿色顶部 */
+}
+
+.front  { transform: rotateY(0deg) translateZ(calc(var(--cube-size) / 2)); }
+.back   { transform: rotateY(180deg) translateZ(calc(var(--cube-size) / 2)); }
+.right  { transform: rotateY(90deg) translateZ(calc(var(--cube-size) / 2)); }
+.left   { transform: rotateY(-90deg) translateZ(calc(var(--cube-size) / 2)); }
+.top    { transform: rotateX(90deg) translateZ(calc(var(--cube-size) / 2)); }
+.bottom { transform: rotateX(-90deg) translateZ(calc(var(--cube-size) / 2)); }
+
+/* 游戏预览样式 */
+.preview-scene {
+  width: 200px;
+  height: 200px;
+  perspective: 800px;
+  position: relative;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.preview-grid {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(-45deg);
+}
+
+.preview-cell {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background-color: transparent;
+}
+
+.preview-cube {
+  position: absolute;
+  width: 38px; /* 减小2px来适配边框 */
+  height: 38px;
+  transform-style: preserve-3d;
+}
+
+.preview-face {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  background: #808080;
+  border: 1px solid #000;
+  box-shadow: none;
+}
+
+.preview-face.preview-top {
+  background: #ffffff !important;
+}
+
+.preview-front  { transform: rotateY(0deg) translateZ(19px); }
+.preview-back   { transform: rotateY(180deg) translateZ(19px); }
+.preview-right  { transform: rotateY(90deg) translateZ(19px); }
+.preview-left   { transform: rotateY(-90deg) translateZ(19px); }
+.preview-top    { transform: rotateX(90deg) translateZ(19px); }
+.preview-bottom { transform: rotateX(-90deg) translateZ(19px); }
+
+.cube-1 { 
+  grid-row: 2; 
+  grid-column: 2; 
+  transform: translateZ(19px);
+}
+.cube-2 { 
+  grid-row: 3; 
+  grid-column: 4; 
+  transform: translateZ(19px);
+}
+.cube-3 { 
+  grid-row: 4; 
+  grid-column: 2; 
+  transform: translateZ(57px); /* 38px + 19px */
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  :root {
+    --cube-size: 43px; /* 45px - 2px */
+    --cell-size: 45px;
+  }
+  
+  .count-blocks-scene {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --cube-size: 33px; /* 35px - 2px */
+    --cell-size: 35px;
+  }
+  
+  .count-blocks-scene {
+    transform: scale(0.7);
+  }
+} 
