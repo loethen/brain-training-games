@@ -6,6 +6,15 @@ const handleI18nRouting = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
+
+    // 静态资源类型直接放行
+    const staticExts = [
+      '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.webp',
+      '.mp3', '.wav', '.ogg', '.mp4', '.webm', '.js', '.css', '.txt', '.json'
+    ];
+    if (staticExts.some(ext => pathname.toLowerCase().endsWith(ext))) {
+      return NextResponse.next();
+    }
     
     // 检查路径是否以无效的语言前缀开头
     const pathSegments = pathname.split('/').filter(Boolean);
@@ -21,7 +30,7 @@ export default async function middleware(request: NextRequest) {
             const newPath = '/' + pathSegments.slice(1).join('/');
             const searchParams = request.nextUrl.search;
             
-            return NextResponse.redirect(new URL(newPath + searchParams, request.url));
+            return NextResponse.redirect(new URL(newPath + searchParams, request.url), 301);
         }
     }
     
