@@ -31,9 +31,9 @@ export default function GameComponent() {
     const containerSizeRef = useRef<{ width: number; height: number }>({ width: 400, height: 400 });
 
     // Three.js 颜色常量
-    const CUBE_COLOR = new THREE.Color(0xededed);
+    const CUBE_COLOR = new THREE.Color(0xffffff);
     const SUCCESS_COLOR = new THREE.Color(0x1eba38);
-    const EDGE_COLOR = new THREE.Color(0x434343);
+    const EDGE_COLOR = new THREE.Color(0x000000);
     const GRID_COLOR = new THREE.Color(0x434343);
     const BACKGROUND_COLOR = new THREE.Color(0xffffff);
 
@@ -107,12 +107,21 @@ export default function GameComponent() {
         const gridBorder = new THREE.LineLoop(borderGeometry, borderMaterial);
         scene.add(gridBorder);
 
-        // 6. Lights
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+        // 6. Lights - 模拟左上角真实光照
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // 提高环境光，保持亮度
         scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-        directionalLight.position.set(5, 10, 7.5);
-        scene.add(directionalLight);
+        
+        // 主光源：从左上角照射
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        mainLight.position.set(-10, 15, 8); // 左上角位置
+        mainLight.target.position.set(0, 0, 0); // 照向场景中心
+        scene.add(mainLight);
+        scene.add(mainLight.target);
+        
+        // 补光：轻微的右侧补光，避免阴影过暗
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.2);
+        fillLight.position.set(8, 5, 5); // 右侧较低位置
+        scene.add(fillLight);
 
         // 7. Cubes group
         const cubesGroup = new THREE.Group();
@@ -158,7 +167,7 @@ export default function GameComponent() {
 
         const CUBE_SIZE = 1; // Three.js中使用标准化单位
         const geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);
-        const material = new THREE.MeshBasicMaterial({ color: color });
+        const material = new THREE.MeshLambertMaterial({ color: color });
         const cube = new THREE.Mesh(geometry, material);
 
         // 计算位置
@@ -168,9 +177,13 @@ export default function GameComponent() {
         const z = Math.floor(index / GAME_CONFIG.gridSize) - gridOffset;
         cube.position.set(x, y, z);
         
-        // 添加完美的边框
+        // 添加完美的边框 - 使用更厚的线条和偏移避免Z-fighting
         const edges = new THREE.EdgesGeometry(geometry);
-        const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: EDGE_COLOR }));
+        const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ 
+            color: EDGE_COLOR
+        }));
+        // 轻微向外偏移边框避免Z-fighting
+        line.scale.setScalar(1.001); // 稍微增加偏移让边框更突出
         cube.add(line);
 
         cubesGroupRef.current.add(cube);
@@ -188,20 +201,61 @@ export default function GameComponent() {
         });
     }, [clearBoard, addCube]);
 
-         // 生成关卡
+         // 生成关卡 - 通过数量增加难度，保持良好可见性
     const generateLevel = useCallback(() => {
         clearBoard();
         setCorrectBlockCount(0);
         const heightMap = Array(GAME_CONFIG.gridSize * GAME_CONFIG.gridSize).fill(0);
-        const blocksToPlace = Math.min(level * 2 + 3, GAME_CONFIG.gridSize * GAME_CONFIG.gridSize * 2);
+        
+        // 主要通过数量控制难度：每关增加3-4个方块
+        const blocksToPlace = Math.min(
+            5 + (level - 1) * 3, // 第1关5个，第2关8个，第3关11个...
+            GAME_CONFIG.gridSize * GAME_CONFIG.gridSize * 3 // 总上限
+        );
         
         let blockCount = 0;
-        for(let i = 0; i < blocksToPlace; i++) {
+        const maxAttempts = blocksToPlace * 3; // 防止无限循环
+        let attempts = 0;
+        
+        while (blockCount < blocksToPlace && attempts < maxAttempts) {
             const randomIndex = Math.floor(Math.random() * (GAME_CONFIG.gridSize * GAME_CONFIG.gridSize));
-            if(heightMap[randomIndex] < GAME_CONFIG.maxHeight) {
-                heightMap[randomIndex] = heightMap[randomIndex] + 1;
+            const currentHeight = heightMap[randomIndex];
+            
+            // 保持相对较低的堆叠，优先可见性
+            const maxLocalHeight = 3; // 统一最大堆叠高度为3，保证良好可见性
+            
+            // 简化遮挡检测：只避免极端遮挡情况
+            const row = Math.floor(randomIndex / GAME_CONFIG.gridSize);
+            const col = randomIndex % GAME_CONFIG.gridSize;
+            
+            let hasExtremeBlocking = false;
+            
+            // 只检查直接右侧和右下的极端遮挡
+            const checkPositions = [
+                [row, col + 1],     // 右
+                [row + 1, col + 1]  // 右下
+            ];
+            
+            for (const [checkRow, checkCol] of checkPositions) {
+                if (checkRow >= 0 && checkRow < GAME_CONFIG.gridSize && 
+                    checkCol >= 0 && checkCol < GAME_CONFIG.gridSize) {
+                    const checkIndex = checkRow * GAME_CONFIG.gridSize + checkCol;
+                    if (heightMap[checkIndex] >= currentHeight + 2) {
+                        hasExtremeBlocking = true;
+                        break;
+                    }
+                }
+            }
+            
+            // 如果满足条件，放置方块
+            if (currentHeight < maxLocalHeight && 
+                currentHeight < GAME_CONFIG.maxHeight && 
+                !hasExtremeBlocking) {
+                heightMap[randomIndex] = currentHeight + 1;
                 blockCount++;
             }
+            
+            attempts++;
         }
         
         setCorrectBlockCount(blockCount);
@@ -363,10 +417,7 @@ export default function GameComponent() {
 
                 {/* UI 覆盖层 */}
                 {gameState !== 'observing' && (
-                    <div className={cn(
-                        "absolute inset-0 flex justify-center items-end z-10 rounded-lg text-center",
-                        gameState === 'input' ? 'bg-muted/70' : 'bg-transparent'
-                    )}>
+                    <div className="absolute inset-0 flex justify-center items-end z-10 rounded-lg text-center bg-transparent">
                         <div className="flex flex-col gap-4 items-center">
                             {/* 开始画面 */}
                             {gameState === 'start' && (
@@ -386,13 +437,13 @@ export default function GameComponent() {
 
                             {/* 输入画面 */}
                             {gameState === 'input' && (
-                                <>
+                                <div>
                                     <h2 className="text-2xl sm:text-3xl font-semibold text-foreground m-0">
                                         方塊總數是？
                                     </h2>
                                     <form 
                                         onSubmit={checkAnswer}
-                                        className="flex gap-3 items-center"
+                                        className="flex gap-3 items-center mt-4"
                                     >
                                         <input
                                             type="number"
@@ -410,7 +461,7 @@ export default function GameComponent() {
                                             提交
                                         </Button>
                                     </form>
-                                </>
+                                </div>
                             )}
 
                             {/* 结果画面 */}
