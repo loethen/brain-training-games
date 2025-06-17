@@ -201,61 +201,101 @@ export default function GameComponent() {
         });
     }, [clearBoard, addCube]);
 
-         // 生成关卡 - 通过数量增加难度，保持良好可见性
+         // 生成关卡 - 趣味性组合设计
     const generateLevel = useCallback(() => {
         clearBoard();
         setCorrectBlockCount(0);
         const heightMap = Array(GAME_CONFIG.gridSize * GAME_CONFIG.gridSize).fill(0);
         
-        // 主要通过数量控制难度：每关增加3-4个方块
-        const blocksToPlace = Math.min(
-            5 + (level - 1) * 3, // 第1关5个，第2关8个，第3关11个...
-            GAME_CONFIG.gridSize * GAME_CONFIG.gridSize * 3 // 总上限
-        );
+        // 预设关卡模式，增加趣味性
+        const levelPatterns = [
+            // 前8关：不同组合模式，数量控制在3-8个
+            { blocks: 3, pattern: 'corner' },      // 关卡1：角落模式
+            { blocks: 4, pattern: 'line' },        // 关卡2：直线模式  
+            { blocks: 5, pattern: 'cross' },       // 关卡3：十字模式
+            { blocks: 6, pattern: 'scattered' },   // 关卡4：分散模式
+            { blocks: 5, pattern: 'tower' },       // 关卡5：塔楼模式
+            { blocks: 7, pattern: 'border' },      // 关卡6：边框模式
+            { blocks: 6, pattern: 'cluster' },     // 关卡7：聚集模式
+            { blocks: 8, pattern: 'mixed' },       // 关卡8：混合模式
+        ];
+        
+        let targetBlocks, pattern;
+        
+        if (level <= 8) {
+            // 前8关使用预设模式
+            const levelConfig = levelPatterns[(level - 1) % levelPatterns.length];
+            targetBlocks = levelConfig.blocks;
+            pattern = levelConfig.pattern;
+        } else {
+            // 第9关及以后：大量单层方块挑战
+            targetBlocks = Math.min(20 + (level - 9) * 2, GAME_CONFIG.gridSize * GAME_CONFIG.gridSize);
+            pattern = 'mass_single';
+        }
         
         let blockCount = 0;
-        const maxAttempts = blocksToPlace * 3; // 防止无限循环
-        let attempts = 0;
         
-        while (blockCount < blocksToPlace && attempts < maxAttempts) {
-            const randomIndex = Math.floor(Math.random() * (GAME_CONFIG.gridSize * GAME_CONFIG.gridSize));
-            const currentHeight = heightMap[randomIndex];
-            
-            // 保持相对较低的堆叠，优先可见性
-            const maxLocalHeight = 3; // 统一最大堆叠高度为3，保证良好可见性
-            
-            // 简化遮挡检测：只避免极端遮挡情况
-            const row = Math.floor(randomIndex / GAME_CONFIG.gridSize);
-            const col = randomIndex % GAME_CONFIG.gridSize;
-            
-            let hasExtremeBlocking = false;
-            
-            // 只检查直接右侧和右下的极端遮挡
-            const checkPositions = [
-                [row, col + 1],     // 右
-                [row + 1, col + 1]  // 右下
-            ];
-            
-            for (const [checkRow, checkCol] of checkPositions) {
-                if (checkRow >= 0 && checkRow < GAME_CONFIG.gridSize && 
-                    checkCol >= 0 && checkCol < GAME_CONFIG.gridSize) {
-                    const checkIndex = checkRow * GAME_CONFIG.gridSize + checkCol;
-                    if (heightMap[checkIndex] >= currentHeight + 2) {
-                        hasExtremeBlocking = true;
+        // 根据模式生成方块
+        if (pattern === 'mass_single') {
+            // 大量单层方块，可以反向数（总格子数-空格数）
+            for (let i = 0; i < targetBlocks; i++) {
+                let attempts = 0;
+                while (attempts < 50) {
+                    const randomIndex = Math.floor(Math.random() * (GAME_CONFIG.gridSize * GAME_CONFIG.gridSize));
+                    if (heightMap[randomIndex] === 0) {
+                        heightMap[randomIndex] = 1;
+                        blockCount++;
                         break;
                     }
+                    attempts++;
                 }
             }
+        } else {
+            // 其他模式：通过模式约束生成有趣的组合
+            const maxAttempts = targetBlocks * 5;
+            let attempts = 0;
             
-            // 如果满足条件，放置方块
-            if (currentHeight < maxLocalHeight && 
-                currentHeight < GAME_CONFIG.maxHeight && 
-                !hasExtremeBlocking) {
-                heightMap[randomIndex] = currentHeight + 1;
-                blockCount++;
+            while (blockCount < targetBlocks && attempts < maxAttempts) {
+                const randomIndex = Math.floor(Math.random() * (GAME_CONFIG.gridSize * GAME_CONFIG.gridSize));
+                const currentHeight = heightMap[randomIndex];
+                const row = Math.floor(randomIndex / GAME_CONFIG.gridSize);
+                const col = randomIndex % GAME_CONFIG.gridSize;
+                
+                let shouldPlace = false;
+                const maxHeight = pattern === 'tower' ? 3 : 2; // 塔楼模式允许更高
+                
+                // 根据模式决定放置策略
+                switch (pattern) {
+                    case 'corner':
+                        shouldPlace = (row <= 1 || row >= 3) && (col <= 1 || col >= 3);
+                        break;
+                    case 'line':
+                        shouldPlace = row === 2 || col === 2;
+                        break;
+                    case 'cross':
+                        shouldPlace = (row === 2) || (col === 2);
+                        break;
+                    case 'border':
+                        shouldPlace = row === 0 || row === 4 || col === 0 || col === 4;
+                        break;
+                    case 'cluster':
+                        shouldPlace = (row >= 1 && row <= 3) && (col >= 1 && col <= 3);
+                        break;
+                    case 'tower':
+                        shouldPlace = (row === 2 && col === 2) || Math.random() < 0.3;
+                        break;
+                    default: // scattered, mixed
+                        shouldPlace = Math.random() < 0.6;
+                        break;
+                }
+                
+                if (shouldPlace && currentHeight < maxHeight && currentHeight < GAME_CONFIG.maxHeight) {
+                    heightMap[randomIndex] = currentHeight + 1;
+                    blockCount++;
+                }
+                
+                attempts++;
             }
-            
-            attempts++;
         }
         
         setCorrectBlockCount(blockCount);
