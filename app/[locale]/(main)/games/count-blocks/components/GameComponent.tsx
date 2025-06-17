@@ -5,6 +5,7 @@ import { GAME_CONFIG } from '../config';
 import * as THREE from 'three';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { CheckCircle, XCircle, ArrowRight, RotateCcw } from 'lucide-react';
 import '../styles.css';
 
 type GameState = 'start' | 'observing' | 'input' | 'win' | 'lose';
@@ -30,11 +31,11 @@ export default function GameComponent() {
     const containerSizeRef = useRef<{ width: number; height: number }>({ width: 400, height: 400 });
 
     // Three.js 颜色常量
-    const CUBE_COLOR = new THREE.Color(0xffffff);
-    const SUCCESS_COLOR = new THREE.Color(0x52c41a);
+    const CUBE_COLOR = new THREE.Color(0xededed);
+    const SUCCESS_COLOR = new THREE.Color(0x1eba38);
     const EDGE_COLOR = new THREE.Color(0x434343);
-    const GRID_COLOR = new THREE.Color(0xd9d9d9);
-    const BACKGROUND_COLOR = new THREE.Color(0xf0f2f5);
+    const GRID_COLOR = new THREE.Color(0x434343);
+    const BACKGROUND_COLOR = new THREE.Color(0xffffff);
 
     // Three.js 初始化
     const initThree = useCallback(() => {
@@ -107,7 +108,7 @@ export default function GameComponent() {
         scene.add(gridBorder);
 
         // 6. Lights
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
         scene.add(ambientLight);
         const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
         directionalLight.position.set(5, 10, 7.5);
@@ -157,7 +158,7 @@ export default function GameComponent() {
 
         const CUBE_SIZE = 1; // Three.js中使用标准化单位
         const geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);
-        const material = new THREE.MeshLambertMaterial({ color: color });
+        const material = new THREE.MeshBasicMaterial({ color: color });
         const cube = new THREE.Mesh(geometry, material);
 
         // 计算位置
@@ -334,29 +335,38 @@ export default function GameComponent() {
     }, []);
 
     return (
-        <div className="flex flex-col items-center gap-5 min-h-screen bg-muted/30 text-foreground p-4 sm:p-6">
+        <div className="flex flex-col items-center gap-5 text-foreground p-4 sm:p-6">
             {/* 信息面板 */}
-            <div className="flex justify-between items-center w-full max-w-lg px-4 sm:px-6 py-3 bg-background rounded-lg border shadow-sm">
+            <div className="flex justify-between items-center w-full max-w-lg px-4 sm:px-6 py-3">
                 <span className="text-lg font-medium">
                     關卡: {level}
                 </span>
                 <span className="text-lg font-medium">
                     得分: {score}
                 </span>
-                {timerDisplay && (
-                    <span className="text-lg font-medium text-primary">
-                        {timerDisplay}
-                    </span>
-                )}
             </div>
 
             {/* Three.js 场景容器 */}
-            <div className="responsive-game-container relative bg-background rounded-lg border shadow-sm">
+            <div className="responsive-game-container relative">
                 <div ref={sceneRef} className="count-blocks-canvas-container" />
+                
+                {/* 计时器显示 - 绝对定位在grid上方 */}
+                {timerDisplay && (
+                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
+                        <div className="bg-background/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg">
+                            <span className="text-lg font-medium text-primary">
+                                {timerDisplay}
+                            </span>
+                        </div>
+                    </div>
+                )}
 
                 {/* UI 覆盖层 */}
                 {gameState !== 'observing' && (
-                    <div className="absolute inset-0 flex justify-center items-center bg-muted/70 game-overlay z-10 rounded-lg text-center">
+                    <div className={cn(
+                        "absolute inset-0 flex justify-center items-end z-10 rounded-lg text-center",
+                        gameState === 'input' ? 'bg-muted/70' : 'bg-transparent'
+                    )}>
                         <div className="flex flex-col gap-4 items-center">
                             {/* 开始画面 */}
                             {gameState === 'start' && (
@@ -405,35 +415,49 @@ export default function GameComponent() {
 
                             {/* 结果画面 */}
                             {(gameState === 'win' || gameState === 'lose') && (
-                                <>
-                                    <h2 className={cn(
-                                        "text-2xl sm:text-3xl font-semibold m-0",
+                                <div className="rounded-lg p-4 space-y-3">
+                                    {/* 第一行：图标 + 结果信息 */}
+                                    <div className={cn(
+                                        "flex items-center gap-3 text-xl font-semibold",
                                         gameState === 'win' ? 'text-green-600' : 'text-red-600'
                                     )}>
-                                        {gameState === 'win' ? '答對了！' : '答錯了...'}
-                                    </h2>
-                                    <p className={cn(
-                                        "text-lg",
-                                        gameState === 'win' ? 'text-green-600' : 'text-red-600'
-                                    )}>
-                                        {gameState === 'win' 
-                                            ? `方塊總數確實是 ${correctBlockCount} 個。`
-                                            : `正確答案是 ${correctBlockCount}，您輸入的是 ${userAnswer || 0}。`
-                                        }
-                                    </p>
+                                        {gameState === 'win' ? (
+                                            <CheckCircle className="w-6 h-6" />
+                                        ) : (
+                                            <XCircle className="w-6 h-6" />
+                                        )}
+                                        <span>
+                                            {gameState === 'win' 
+                                                ? `正確答案：${correctBlockCount}`
+                                                : `${correctBlockCount} (您答：${userAnswer || 0})`
+                                            }
+                                        </span>
+                                    </div>
+                                    
+                                    {/* 第二行：按钮 */}
                                     <Button
                                         onClick={nextLevel}
                                         className={cn(
-                                            "game-button",
+                                            "game-button w-full",
                                             gameState === 'win' 
                                                 ? 'bg-green-600 hover:bg-green-700' 
                                                 : 'bg-red-600 hover:bg-red-700'
                                         )}
                                         size="lg"
                                     >
-                                        {gameState === 'win' ? '下一關' : '重試本關'}
+                                        {gameState === 'win' ? (
+                                            <>
+                                                <ArrowRight className="w-4 h-4 mr-2" />
+                                                下一關
+                                            </>
+                                        ) : (
+                                            <>
+                                                <RotateCcw className="w-4 h-4 mr-2" />
+                                                重試
+                                            </>
+                                        )}
                                     </Button>
-                                </>
+                                </div>
                             )}
                         </div>
                     </div>
