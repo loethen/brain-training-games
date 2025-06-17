@@ -208,8 +208,8 @@ export default function GameComponent() {
         const heightMap = Array(GAME_CONFIG.gridSize * GAME_CONFIG.gridSize).fill(0);
         
         // 预设关卡模式，增加趣味性
-        const levelPatterns = [
-            // 前8关：不同组合模式，数量控制在3-8个
+        const levelPatterns: Array<{blocks?: number, blocksRange?: [number, number], pattern: string}> = [
+            // 前8关：基础模式，数量控制在3-8个
             { blocks: 3, pattern: 'corner' },      // 关卡1：角落模式
             { blocks: 4, pattern: 'line' },        // 关卡2：直线模式  
             { blocks: 5, pattern: 'cross' },       // 关卡3：十字模式
@@ -218,26 +218,53 @@ export default function GameComponent() {
             { blocks: 7, pattern: 'border' },      // 关卡6：边框模式
             { blocks: 6, pattern: 'cluster' },     // 关卡7：聚集模式
             { blocks: 8, pattern: 'mixed' },       // 关卡8：混合模式
+            
+            // 第9-12关：高强度挑战模式（数量随机）
+            { blocksRange: [20, 23], pattern: 'dense_fill' },     // 关卡9：密集填充20-23个
+            { blocksRange: [18, 22], pattern: 'few_holes' },      // 关卡10：少数空洞18-22个
+            { blocksRange: [15, 20], pattern: 'layered_dense' },  // 关卡11：分层密集15-20个
+            { blocksRange: [16, 21], pattern: 'complex_mix' },    // 关卡12：复杂混合16-21个
         ];
         
         let targetBlocks, pattern;
         
-        if (level <= 8) {
-            // 前8关使用预设模式
+        if (level <= 12) {
+            // 前12关使用预设模式（包括高强度关卡）
             const levelConfig = levelPatterns[(level - 1) % levelPatterns.length];
-            targetBlocks = levelConfig.blocks;
+            
+            // 处理固定数量或随机范围
+            if (levelConfig.blocks !== undefined) {
+                targetBlocks = levelConfig.blocks;
+            } else if (levelConfig.blocksRange) {
+                const [min, max] = levelConfig.blocksRange;
+                targetBlocks = Math.floor(Math.random() * (max - min + 1)) + min;
+            } else {
+                // 默认值，防止undefined
+                targetBlocks = 5;
+            }
+            
             pattern = levelConfig.pattern;
         } else {
-            // 第9关及以后：无限循环，逐渐增加难度
-            const cyclePosition = (level - 9) % 16; // 16关为一个周期
-            if (cyclePosition < 8) {
-                // 周期前半：重复前8关模式，但块数更多
+            // 第13关及以后：无限循环，逐渐增加难度
+            const cyclePosition = (level - 13) % 20; // 20关为一个周期
+            if (cyclePosition < 12) {
+                // 周期前半：重复前12关模式，但块数更多
                 const levelConfig = levelPatterns[cyclePosition];
-                targetBlocks = levelConfig.blocks + Math.floor((level - 9) / 16) * 2; // 每个周期增加2个
+                
+                // 处理循环模式的数量计算
+                let baseBlocks = 5; // 默认值
+                if (levelConfig.blocks !== undefined) {
+                    baseBlocks = levelConfig.blocks;
+                } else if (levelConfig.blocksRange) {
+                    const [min, max] = levelConfig.blocksRange;
+                    baseBlocks = Math.floor((min + max) / 2); // 使用范围平均值作为基础
+                }
+                
+                targetBlocks = baseBlocks + Math.floor((level - 13) / 20) * 2; // 每个周期增加2个
                 pattern = levelConfig.pattern;
             } else {
-                // 周期后半：大量单层方块挑战
-                targetBlocks = Math.min(20 + Math.floor((level - 9) / 8), GAME_CONFIG.gridSize * GAME_CONFIG.gridSize);
+                // 周期后半：极大量单层方块挑战
+                targetBlocks = Math.min(23 + Math.floor((level - 13) / 10), GAME_CONFIG.gridSize * GAME_CONFIG.gridSize);
                 pattern = 'mass_single';
             }
         }
@@ -245,19 +272,23 @@ export default function GameComponent() {
         let blockCount = 0;
         
         // 根据模式生成方块
-        if (pattern === 'mass_single') {
-            // 大量单层方块，可以反向数（总格子数-空格数）
-            for (let i = 0; i < targetBlocks; i++) {
-                let attempts = 0;
-                while (attempts < 50) {
-                    const randomIndex = Math.floor(Math.random() * (GAME_CONFIG.gridSize * GAME_CONFIG.gridSize));
-                    if (heightMap[randomIndex] === 0) {
-                        heightMap[randomIndex] = 1;
-                        blockCount++;
-                        break;
-                    }
-                    attempts++;
-                }
+        if (pattern === 'mass_single' || pattern === 'dense_fill' || pattern === 'few_holes') {
+            // 大量单层方块：直接随机选择位置填充到目标数量
+            const allPositions = [];
+            for (let i = 0; i < GAME_CONFIG.gridSize * GAME_CONFIG.gridSize; i++) {
+                allPositions.push(i);
+            }
+            
+            // 随机打乱位置数组
+            for (let i = allPositions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allPositions[i], allPositions[j]] = [allPositions[j], allPositions[i]];
+            }
+            
+            // 选择前targetBlocks个位置放置方块
+            for (let i = 0; i < Math.min(targetBlocks, allPositions.length); i++) {
+                heightMap[allPositions[i]] = 1;
+                blockCount++;
             }
         } else {
             // 其他模式：通过模式约束生成有趣的组合
@@ -271,7 +302,11 @@ export default function GameComponent() {
                 const col = randomIndex % GAME_CONFIG.gridSize;
                 
                 let shouldPlace = false;
-                const maxHeight = pattern === 'tower' ? 3 : 2; // 塔楼模式允许更高
+                // 根据模式设置最大高度
+                let maxHeight = 2; // 默认最大高度
+                if (pattern === 'tower') maxHeight = 3;
+                if (pattern === 'layered_dense') maxHeight = 2; // 分层密集允许双层
+                if (pattern === 'complex_mix') maxHeight = 2;
                 
                 // 根据模式决定放置策略
                 switch (pattern) {
@@ -293,6 +328,19 @@ export default function GameComponent() {
                     case 'tower':
                         shouldPlace = (row === 2 && col === 2) || Math.random() < 0.3;
                         break;
+                        
+
+                    case 'layered_dense':
+                        // 分层密集：大部分单层，少数双层
+                        shouldPlace = Math.random() < 0.76; // 76%概率放置（目标18个）
+                        break;
+                    case 'complex_mix':
+                        // 复杂混合：结合多种模式
+                        const isBorder = row === 0 || row === 4 || col === 0 || col === 4;
+                        const isCenter = (row >= 1 && row <= 3) && (col >= 1 && col <= 3);
+                        shouldPlace = (isBorder && Math.random() < 0.7) || (isCenter && Math.random() < 0.8);
+                        break;
+                        
                     default: // scattered, mixed
                         shouldPlace = Math.random() < 0.6;
                         break;
@@ -315,7 +363,7 @@ export default function GameComponent() {
     // 开始定时器
     const startTimer = useCallback(() => {
         // 随机观察时间：500-1000毫秒
-        const randomObserveTime = Math.random() * 500 + 500; // 500-1000ms
+        const randomObserveTime = Math.random() * 200 + 500; // 500-1000ms
         
         // 不显示倒计时，直接等待随机时间后进入输入阶段
         timerInterval.current = setTimeout(() => {
