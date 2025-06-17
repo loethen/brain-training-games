@@ -5,7 +5,7 @@ import { GAME_CONFIG } from '../config';
 import * as THREE from 'three';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle, ArrowRight, RotateCcw } from 'lucide-react';
+import { CheckCircle, XCircle } from 'lucide-react';
 import '../styles.css';
 
 type GameState = 'start' | 'observing' | 'input' | 'win' | 'lose';
@@ -228,9 +228,18 @@ export default function GameComponent() {
             targetBlocks = levelConfig.blocks;
             pattern = levelConfig.pattern;
         } else {
-            // 第9关及以后：大量单层方块挑战
-            targetBlocks = Math.min(20 + (level - 9) * 2, GAME_CONFIG.gridSize * GAME_CONFIG.gridSize);
-            pattern = 'mass_single';
+            // 第9关及以后：无限循环，逐渐增加难度
+            const cyclePosition = (level - 9) % 16; // 16关为一个周期
+            if (cyclePosition < 8) {
+                // 周期前半：重复前8关模式，但块数更多
+                const levelConfig = levelPatterns[cyclePosition];
+                targetBlocks = levelConfig.blocks + Math.floor((level - 9) / 16) * 2; // 每个周期增加2个
+                pattern = levelConfig.pattern;
+            } else {
+                // 周期后半：大量单层方块挑战
+                targetBlocks = Math.min(20 + Math.floor((level - 9) / 8), GAME_CONFIG.gridSize * GAME_CONFIG.gridSize);
+                pattern = 'mass_single';
+            }
         }
         
         let blockCount = 0;
@@ -305,25 +314,18 @@ export default function GameComponent() {
 
     // 开始定时器
     const startTimer = useCallback(() => {
-        let timeLeft = GAME_CONFIG.observeTime;
-        setTimerDisplay(`觀察: ${timeLeft}s`);
+        // 随机观察时间：500-1000毫秒
+        const randomObserveTime = Math.random() * 500 + 500; // 500-1000ms
         
-        timerInterval.current = setInterval(() => {
-            timeLeft--;
-            setTimerDisplay(`觀察: ${timeLeft}s`);
-            if(timeLeft <= 0) {
-                if (timerInterval.current) {
-                    clearInterval(timerInterval.current);
-                }
-                startInputPhase();
-            }
-        }, 1000);
+        // 不显示倒计时，直接等待随机时间后进入输入阶段
+        timerInterval.current = setTimeout(() => {
+            startInputPhase();
+        }, randomObserveTime);
     }, []);
 
     // 开始输入阶段
     const startInputPhase = useCallback(() => {
         setGameState('input');
-        setTimerDisplay('');
         // 隐藏方块
         if (cubesGroupRef.current) {
             cubesGroupRef.current.visible = false;
@@ -347,26 +349,59 @@ export default function GameComponent() {
             setScore(prev => prev + level * 10);
             // 显示绿色方块
             renderCubesFromHeightMap(correctHeightMapRef.current, SUCCESS_COLOR);
+            
+            // 显示方块
+            if (cubesGroupRef.current) {
+                cubesGroupRef.current.visible = true;
+            }
+            
+            // 3秒后自动进入下一关
+            let countdown = 3;
+            setTimerDisplay(`下一關: ${countdown}s`);
+            
+            timerInterval.current = setInterval(() => {
+                countdown--;
+                if (countdown <= 0) {
+                    if (timerInterval.current) {
+                        clearInterval(timerInterval.current);
+                        clearTimeout(timerInterval.current);
+                    }
+                    // 进入下一关
+                    setLevel(prev => prev + 1);
+                    setUserAnswer('');
+                    setTimerDisplay('');
+                    setGameState('observing');
+                    generateLevel();
+                    // 延迟一帧后开始计时，确保关卡生成完成
+                    setTimeout(() => startTimer(), 50);
+                } else {
+                    setTimerDisplay(`下一關: ${countdown}s`);
+                }
+            }, 1000);
+            
         } else {
             setGameState('lose');
             // 显示原色方块
             renderCubesFromHeightMap(correctHeightMapRef.current, CUBE_COLOR);
+            
+            // 显示方块
+            if (cubesGroupRef.current) {
+                cubesGroupRef.current.visible = true;
+            }
+            
+            // 游戏结束，重置所有状态
+            setTimeout(() => {
+                setLevel(1);
+                setScore(0);
+                setUserAnswer('');
+                setTimerDisplay('');
+                setGameState('start');
+                clearBoard();
+            }, 2000); // 2秒后回到开始界面
         }
-        
-        // 显示方块
-        if (cubesGroupRef.current) {
-            cubesGroupRef.current.visible = true;
-        }
-    }, [userAnswer, correctBlockCount, level, renderCubesFromHeightMap]);
+    }, [userAnswer, correctBlockCount, level, renderCubesFromHeightMap, generateLevel, startTimer, clearBoard]);
 
-    // 下一关或重试
-    const nextLevel = useCallback(() => {
-        if (gameState === 'win') {
-            setLevel(prev => prev + 1);
-        }
-        setUserAnswer('');
-        startGame();
-    }, [gameState, startGame]);
+
 
     // 初始化Three.js
     useEffect(() => {
@@ -375,6 +410,7 @@ export default function GameComponent() {
         // 清理函数
         return () => {
             if (timerInterval.current) {
+                clearTimeout(timerInterval.current);
                 clearInterval(timerInterval.current);
             }
             
@@ -506,10 +542,10 @@ export default function GameComponent() {
 
                             {/* 结果画面 */}
                             {(gameState === 'win' || gameState === 'lose') && (
-                                <div className="rounded-lg p-4 space-y-3">
-                                    {/* 第一行：图标 + 结果信息 */}
+                                <div className="rounded-lg p-4">
+                                    {/* 结果信息 */}
                                     <div className={cn(
-                                        "flex items-center gap-3 text-xl font-semibold",
+                                        "flex items-center gap-3 text-xl font-semibold justify-center",
                                         gameState === 'win' ? 'text-green-600' : 'text-red-600'
                                     )}>
                                         {gameState === 'win' ? (
@@ -519,35 +555,11 @@ export default function GameComponent() {
                                         )}
                                         <span>
                                             {gameState === 'win' 
-                                                ? `正確答案：${correctBlockCount}`
-                                                : `${correctBlockCount} (您答：${userAnswer || 0})`
+                                                ? `正確！答案：${correctBlockCount}`
+                                                : `遊戲結束！正確答案：${correctBlockCount}`
                                             }
                                         </span>
                                     </div>
-                                    
-                                    {/* 第二行：按钮 */}
-                                    <Button
-                                        onClick={nextLevel}
-                                        className={cn(
-                                            "game-button w-full",
-                                            gameState === 'win' 
-                                                ? 'bg-green-600 hover:bg-green-700' 
-                                                : 'bg-red-600 hover:bg-red-700'
-                                        )}
-                                        size="lg"
-                                    >
-                                        {gameState === 'win' ? (
-                                            <>
-                                                <ArrowRight className="w-4 h-4 mr-2" />
-                                                下一關
-                                            </>
-                                        ) : (
-                                            <>
-                                                <RotateCcw className="w-4 h-4 mr-2" />
-                                                重試
-                                            </>
-                                        )}
-                                    </Button>
                                 </div>
                             )}
                         </div>
