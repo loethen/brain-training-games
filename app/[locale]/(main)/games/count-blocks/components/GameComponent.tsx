@@ -294,28 +294,22 @@ export default function GameComponent() {
             GAME_CONFIG.gridSize * GAME_CONFIG.gridSize
         ).fill(0);
 
-        // 游戏共13关，预设关卡模式
+        // 游戏共7关，预设关卡模式
         const levelPatterns: Array<{
             blocksRange: [number, number];
             pattern: string;
         }> = [
             { blocksRange: [3, 5], pattern: "corner" }, // 关卡1：角落模式 3-5个
             { blocksRange: [4, 6], pattern: "line" }, // 关卡2：直线模式 4-6个
-            { blocksRange: [4, 7], pattern: "cross" }, // 关卡3：十字模式 4-7个
-            { blocksRange: [5, 8], pattern: "scattered" }, // 关卡4：分散模式 5-8个
-            { blocksRange: [5, 8], pattern: "tower" }, // 关卡5：塔楼模式 5-8个
-            { blocksRange: [6, 9], pattern: "border" }, // 关卡6：边框模式 6-9个
-            { blocksRange: [6, 9], pattern: "cluster" }, // 关卡7：聚集模式 6-9个
-            { blocksRange: [7, 10], pattern: "mixed" }, // 关卡8：混合模式 7-10个
-            { blocksRange: [20, 23], pattern: "dense_fill" }, // 关卡9：密集填充20-23个
-            { blocksRange: [18, 22], pattern: "few_holes" }, // 关卡10：少数空洞18-22个
-            { blocksRange: [15, 20], pattern: "layered_dense" }, // 关卡11：分层密集15-20个
-            { blocksRange: [16, 21], pattern: "complex_mix" }, // 关卡12：复杂混合16-21个
-            { blocksRange: [22, 25], pattern: "final_challenge" }, // 关卡13：终极挑战22-25个
+            { blocksRange: [4, 6], pattern: "cross" }, // 关卡3：十字模式 5-8个
+            { blocksRange: [7, 9], pattern: "scattered" }, // 关卡4：分散模式 7-9个
+            { blocksRange: [3, 5], pattern: "dense_fill" }, 
+            { blocksRange: [20, 23], pattern: "dense_fill" }, // 关卡5：密集填充20-23个
+            { blocksRange: [20, 22], pattern: "few_holes" }, // 关卡6：少数空洞18-22个
         ];
 
-        // 游戏最多13关
-        if (level > 13) {
+        // 游戏最多7关
+        if (level > 7) {
             // 游戏通关，可以显示通关信息或重新开始
             setGameState("win");
             return;
@@ -325,6 +319,8 @@ export default function GameComponent() {
         const [min, max] = levelConfig.blocksRange;
         const targetBlocks = Math.floor(Math.random() * (max - min + 1)) + min;
         const pattern = levelConfig.pattern;
+
+
 
         let totalBlocks = 0; // 总方块数（不管是否可见）
 
@@ -363,125 +359,46 @@ export default function GameComponent() {
                 totalBlocks++;
             }
         } else {
-            // 智能可见性模式：确保每个方块都始终可见
-            const maxAttempts = targetBlocks * 15;
-            let attempts = 0;
-
-            while (totalBlocks < targetBlocks && attempts < maxAttempts) {
-                const randomIndex = Math.floor(
-                    Math.random() *
-                        (GAME_CONFIG.gridSize * GAME_CONFIG.gridSize)
-                );
-                const currentHeight = heightMap[randomIndex];
-                const row = Math.floor(randomIndex / GAME_CONFIG.gridSize);
-                const col = randomIndex % GAME_CONFIG.gridSize;
-
-                let shouldPlace = false;
+            // 智能模式：先收集所有符合条件的位置，然后随机选择
+            const validPositions = [];
+            
+            // 根据模式收集有效位置
+            for (let i = 0; i < GAME_CONFIG.gridSize * GAME_CONFIG.gridSize; i++) {
+                const row = Math.floor(i / GAME_CONFIG.gridSize);
+                const col = i % GAME_CONFIG.gridSize;
+                let isValid = false;
                 
-                // 🎯 绝对可见性策略：确保每个方块都能被摄像机看到
-                let maxHeight = 1; // 默认单层，绝对可见
-                
-                // 只有在"绝对安全区域"才允许多层
-                const isAbsoluteSafeForMultiLayer = (r: number, c: number): boolean => {
-                    // 策略1：边界区域绝对安全（没有前方遮挡者）
-                    const isRightEdge = c === 4; // 最右边列
-                    const isBottomEdge = r === 4; // 最底边行
-                    const isCorner = (r === 4 && c === 4); // 右下角
-                    
-                    // 策略2：非对角线位置相对安全
-                    const hasNoPotentialBlocker = (r === 0 || c === 0); // 左边缘或上边缘
-                    
-                    return isRightEdge || isBottomEdge || isCorner || hasNoPotentialBlocker;
-                };
-                
-                // 根据模式和位置决定最大高度
-                if (pattern === "tower") {
-                    if (row === 2 && col === 2) {
-                        // 中心塔：只有在确保周围没有遮挡者时才允许高塔
-                        maxHeight = 3; // 适度限制，确保可见性
-                    } else if (isAbsoluteSafeForMultiLayer(row, col)) {
-                        maxHeight = 2; // 安全区域允许2层
-                    }
-                    // 其他位置保持单层
-                } else if (pattern === "mixed") {
-                    // 混合模式：只在最安全的位置允许多层
-                    if ((row === 4 && col >= 2) || (col === 4 && row >= 2)) {
-                        maxHeight = 2; // 最边缘位置允许2层
-                    }
-                    // 其他位置保持单层
-                } else {
-                    // 所有其他模式：纯单层，确保100%可见
-                    maxHeight = 1;
-                }
-
-                // 根据模式决定放置策略
                 switch (pattern) {
                     case "corner":
-                        shouldPlace =
-                            (row <= 1 || row >= 3) && (col <= 1 || col >= 3);
+                        isValid = (row <= 1 || row >= 3) && (col <= 1 || col >= 3);
                         break;
                     case "line":
-                        shouldPlace = row === 2 || col === 2;
+                        isValid = row === 2 || col === 2;
                         break;
                     case "cross":
-                        shouldPlace = row === 2 || col === 2;
-                        break;
-                    case "border":
-                        shouldPlace =
-                            row === 0 || row === 4 || col === 0 || col === 4;
-                        break;
-                    case "cluster":
-                        shouldPlace =
-                            row >= 1 && row <= 3 && col >= 1 && col <= 3;
-                        break;
-                    case "tower":
-                        // 塔楼模式：保守的可见性优先策略
-                        if (row === 2 && col === 2) {
-                            shouldPlace = true; // 中心塔（最高）
-                        } else if (isAbsoluteSafeForMultiLayer(row, col)) {
-                            // 安全区域：较高概率
-                            shouldPlace = Math.random() < 0.7;
-                        } else {
-                            // 其他位置：低概率，确保稀疏分布
-                            shouldPlace = Math.random() < 0.3;
-                        }
-                        break;
-                    case "layered_dense":
-                        shouldPlace = Math.random() < 0.8; // 高密度单层
-                        break;
-                    case "complex_mix":
-                        const isBorder =
-                            row === 0 || row === 4 || col === 0 || col === 4;
-                        const isCenter =
-                            row >= 1 && row <= 3 && col >= 1 && col <= 3;
-                        shouldPlace =
-                            (isBorder && Math.random() < 0.7) ||
-                            (isCenter && Math.random() < 0.8);
-                        break;
-                    case "final_challenge":
-                        shouldPlace = Math.random() < 0.9; // 超高密度单层
-                        break;
-                    case "mixed":
-                        // 混合模式：后方密集，前方稀疏
-                        const posteriorWeight = (row + col) / 8; // 0到1之间
-                        shouldPlace = Math.random() < 0.3 + posteriorWeight * 0.4;
+                        // 十字模式：中心十字形状 (和line相同，但逻辑上更清晰)
+                        isValid = row === 2 || col === 2;
                         break;
                     default: // scattered
-                        shouldPlace = Math.random() < 0.6;
+                        isValid = true; // 所有位置都有效
                         break;
                 }
-
-                // 简化的放置逻辑：不需要复杂的可见性检查
-                if (
-                    shouldPlace &&
-                    currentHeight < maxHeight &&
-                    currentHeight < Math.max(GAME_CONFIG.maxHeight, maxHeight)
-                ) {
-                    heightMap[randomIndex] = currentHeight + 1;
-                    totalBlocks++;
+                
+                if (isValid) {
+                    validPositions.push(i);
                 }
-
-                attempts++;
+            }
+            
+            // 随机打乱有效位置
+            for (let i = validPositions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [validPositions[i], validPositions[j]] = [validPositions[j], validPositions[i]];
+            }
+            
+            // 选择前targetBlocks个位置放置方块
+            for (let i = 0; i < Math.min(targetBlocks, validPositions.length); i++) {
+                heightMap[validPositions[i]] = 1;
+                totalBlocks++;
             }
         }
 
@@ -490,20 +407,37 @@ export default function GameComponent() {
         setCorrectBlockCount(visibleBlockCount);
         correctHeightMapRef.current = [...heightMap];
         renderCubesFromHeightMap(correctHeightMapRef.current, CUBE_COLOR);
+        
+        // 第3关特殊处理：将方块组初始位置设为左上角画外
+        if (level === 3 && cubesGroupRef.current && sceneInstanceRef.current) {
+            const cubesGroup = cubesGroupRef.current;
+            const scene = sceneInstanceRef.current;
+            
+            // 设置方块组到左上角画外位置
+            cubesGroup.position.set(-12, 8, 8);
+            
+            // 同时移动网格
+            scene.children.forEach(child => {
+                if (child instanceof THREE.GridHelper) {
+                    child.position.set(-12, 8 - 0.01, 8);
+                } else if (child instanceof THREE.LineLoop) {
+                    child.position.set(-12, 8, 8);
+                }
+            });
+        }
+        
+        // 调试信息：显示实际生成的方块数
+        console.log(`✓ 关卡${level} 生成完成: 模式=${pattern}, 配置=[${min},${max}], 目标=${targetBlocks}, 实际生成=${visibleBlockCount}`);
     }, [level, clearBoard, renderCubesFromHeightMap]);
 
     // 开始定时器
     const startTimer = useCallback(() => {
-        // 基础观察时间：500-1000毫秒
-        let randomObserveTime = Math.random() * 300 + 400; // 300-700ms
+        // 基础观察时间：400-700毫秒
+        let randomObserveTime = Math.random() * 300 + 400; // 400-700ms
 
-        if (level === 8) {
-            randomObserveTime = Math.random() * 500 + 1000; // 500-1000ms
-        }
-
-        // 从11关开始增加6-10秒观察时间
-        if (level >= 11) {
-            const extraTime = Math.random() * 4000 + 6000; // 6000-10000ms
+        // 关卡6和7（高难度密集关卡）增加观察时间
+        if (level >= 6) {
+            const extraTime = Math.random() * 200 + 200; // 200-400ms额外时间
             randomObserveTime += extraTime;
         }
 
@@ -513,14 +447,95 @@ export default function GameComponent() {
         }, randomObserveTime);
     }, [level]);
 
+        // 第3关特殊动画：从摄像机视角的左上角斜着飞到右下角
+    const animateLevel3Exit = useCallback(() => {
+        if (!cubesGroupRef.current || !sceneInstanceRef.current) return;
+        
+        // 获取所有需要动画的对象
+        const cubesGroup = cubesGroupRef.current;
+        const scene = sceneInstanceRef.current;
+        
+        // 找到网格辅助线
+        let gridHelper: THREE.GridHelper | null = null;
+        let gridBorder: THREE.LineLoop | null = null;
+        
+        scene.children.forEach(child => {
+            if (child instanceof THREE.GridHelper) {
+                gridHelper = child;
+            } else if (child instanceof THREE.LineLoop) {
+                gridBorder = child;
+            }
+        });
+        
+        // 动画参数
+        const duration = 3000; // 3秒慢慢飞过，让人眼能看清
+        const startTime = Date.now();
+        
+        // 根据摄像机视角定义位置 (摄像机在(10,10,10)看向(0,0,0))
+        // 左上角：负X，正Z，高Y
+        // 右下角：正X，负Z，低Y
+        const startPosition = { x: -12, y: 8, z: 8 }; // 摄像机视角的左上角
+        const endPosition = { x: 12, y: -8, z: -8 }; // 摄像机视角的右下角
+        
+        // 动画函数
+        const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // 使用平滑的缓入缓出效果
+            const easeInOut = progress < 0.5 
+                ? 2 * progress * progress 
+                : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+            
+            // 计算当前位置 - 直线飞行
+            const currentX = startPosition.x + (endPosition.x - startPosition.x) * easeInOut;
+            const currentY = startPosition.y + (endPosition.y - startPosition.y) * easeInOut;
+            const currentZ = startPosition.z + (endPosition.z - startPosition.z) * easeInOut;
+            
+            // 应用位置变换
+            cubesGroup.position.set(currentX, currentY, currentZ);
+            if (gridHelper) {
+                gridHelper.position.set(currentX, currentY - 0.01, currentZ);
+            }
+            if (gridBorder) {
+                gridBorder.position.set(currentX, currentY, currentZ);
+            }
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                // 动画完成，进入输入阶段
+                setGameState("input");
+                // 重置位置
+                cubesGroup.position.set(0, 0, 0);
+                cubesGroup.visible = false;
+                
+                if (gridHelper) {
+                    gridHelper.position.set(0, -0.01, 0);
+                }
+                if (gridBorder) {
+                    gridBorder.position.set(0, 0, 0);
+                }
+            }
+        };
+        
+        // 开始动画
+        animate();
+    }, []);
+
     // 开始输入阶段
     const startInputPhase = useCallback(() => {
-        setGameState("input");
-        // 隐藏方块
-        if (cubesGroupRef.current) {
-            cubesGroupRef.current.visible = false;
+        // 第3关使用特殊动画效果
+        if (level === 3) {
+            animateLevel3Exit();
+        } else {
+            // 其他关卡直接隐藏
+            setGameState("input");
+            if (cubesGroupRef.current) {
+                cubesGroupRef.current.visible = false;
+            }
         }
-    }, []);
+    }, [level, animateLevel3Exit]);
 
     // 开始游戏
     const startGame = useCallback(() => {
@@ -550,7 +565,7 @@ export default function GameComponent() {
                 }
 
                 // 检查是否通关
-                if (level >= 13) {
+                if (level >= 7) {
                     // 游戏通关
                     setTimerDisplay("🎉 恭喜通關！");
                     return;
@@ -568,13 +583,17 @@ export default function GameComponent() {
                             clearTimeout(timerInterval.current);
                         }
                         // 进入下一关
-                        setLevel((prev) => prev + 1);
-                        setUserAnswer("");
-                        setTimerDisplay("");
-                        setGameState("observing");
-                        generateLevel();
-                        // 延迟一帧后开始计时，确保关卡生成完成
-                        setTimeout(() => startTimer(), 50);
+                        setLevel((prev) => {
+                            const nextLevel = prev + 1;
+                            // 延迟执行避免状态更新冲突
+                            setTimeout(() => {
+                                setUserAnswer("");
+                                setTimerDisplay("");
+                                setGameState("observing");
+                                // generateLevel会在level状态更新后自动调用
+                            }, 10);
+                            return nextLevel;
+                        });
                     } else {
                         setTimerDisplay(`下一關: ${countdown}s`);
                     }
@@ -602,9 +621,6 @@ export default function GameComponent() {
             correctBlockCount,
             level,
             renderCubesFromHeightMap,
-            generateLevel,
-            startTimer,
-            clearBoard,
         ]
     );
 
@@ -616,6 +632,15 @@ export default function GameComponent() {
         generateLevel();
         startTimer();
     }, [generateLevel, startTimer]);
+
+    // 监听关卡变化，自动生成新关卡
+    useEffect(() => {
+        if (gameState === "observing" && level > 1) {
+            // 只有在observing状态且不是第一关时才自动生成
+            generateLevel();
+            setTimeout(() => startTimer(), 50);
+        }
+    }, [level, gameState, generateLevel, startTimer]);
 
     // 初始化Three.js
     useEffect(() => {
