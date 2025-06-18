@@ -209,15 +209,15 @@ export default function GameComponent() {
         
         // 预设关卡模式，增加趣味性
         const levelPatterns: Array<{blocks?: number, blocksRange?: [number, number], pattern: string}> = [
-            // 前8关：基础模式，数量控制在3-8个
-            { blocks: 3, pattern: 'corner' },      // 关卡1：角落模式
-            { blocks: 4, pattern: 'line' },        // 关卡2：直线模式  
-            { blocks: 5, pattern: 'cross' },       // 关卡3：十字模式
-            { blocks: 6, pattern: 'scattered' },   // 关卡4：分散模式
-            { blocks: 5, pattern: 'tower' },       // 关卡5：塔楼模式
-            { blocks: 7, pattern: 'border' },      // 关卡6：边框模式
-            { blocks: 6, pattern: 'cluster' },     // 关卡7：聚集模式
-            { blocks: 8, pattern: 'mixed' },       // 关卡8：混合模式
+            // 前8关：基础模式，数量随机但渐进
+            { blocksRange: [3, 5], pattern: 'corner' },      // 关卡1：角落模式 3-5个
+            { blocksRange: [4, 6], pattern: 'line' },        // 关卡2：直线模式 4-6个
+            { blocksRange: [4, 7], pattern: 'cross' },       // 关卡3：十字模式 4-7个
+            { blocksRange: [5, 8], pattern: 'scattered' },   // 关卡4：分散模式 5-8个
+            { blocksRange: [5, 8], pattern: 'tower' },       // 关卡5：塔楼模式 5-8个
+            { blocksRange: [6, 9], pattern: 'border' },      // 关卡6：边框模式 6-9个
+            { blocksRange: [6, 9], pattern: 'cluster' },     // 关卡7：聚集模式 6-9个
+            { blocksRange: [7, 10], pattern: 'mixed' },      // 关卡8：混合模式 7-10个
             
             // 第9-12关：高强度挑战模式（数量随机）
             { blocksRange: [20, 23], pattern: 'dense_fill' },     // 关卡9：密集填充20-23个
@@ -232,14 +232,12 @@ export default function GameComponent() {
             // 前12关使用预设模式（包括高强度关卡）
             const levelConfig = levelPatterns[(level - 1) % levelPatterns.length];
             
-            // 处理固定数量或随机范围
-            if (levelConfig.blocks !== undefined) {
-                targetBlocks = levelConfig.blocks;
-            } else if (levelConfig.blocksRange) {
+            // 所有关卡都使用随机范围
+            if (levelConfig.blocksRange) {
                 const [min, max] = levelConfig.blocksRange;
                 targetBlocks = Math.floor(Math.random() * (max - min + 1)) + min;
             } else {
-                // 默认值，防止undefined
+                // 默认值，防止undefined（理论上不应该执行到这里）
                 targetBlocks = 5;
             }
             
@@ -251,11 +249,9 @@ export default function GameComponent() {
                 // 周期前半：重复前12关模式，但块数更多
                 const levelConfig = levelPatterns[cyclePosition];
                 
-                // 处理循环模式的数量计算
+                // 处理循环模式的数量计算  
                 let baseBlocks = 5; // 默认值
-                if (levelConfig.blocks !== undefined) {
-                    baseBlocks = levelConfig.blocks;
-                } else if (levelConfig.blocksRange) {
+                if (levelConfig.blocksRange) {
                     const [min, max] = levelConfig.blocksRange;
                     baseBlocks = Math.floor((min + max) / 2); // 使用范围平均值作为基础
                 }
