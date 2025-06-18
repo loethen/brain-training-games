@@ -108,7 +108,7 @@ export default function GameComponent() {
         scene.add(gridBorder);
 
         // 6. Lights - 模拟左上角真实光照
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // 提高环境光，保持亮度
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.9); // 提高环境光，保持亮度
         scene.add(ambientLight);
         
         // 主光源：从左上角照射
@@ -433,17 +433,20 @@ export default function GameComponent() {
                 cubesGroupRef.current.visible = true;
             }
             
-            // 游戏结束，重置所有状态
-            setTimeout(() => {
-                setLevel(1);
-                setScore(0);
-                setUserAnswer('');
-                setTimerDisplay('');
-                setGameState('start');
-                clearBoard();
-            }, 2000); // 2秒后回到开始界面
+            // 不重置游戏状态，只清除用户答案
+            setUserAnswer('');
+            setTimerDisplay('');
         }
     }, [userAnswer, correctBlockCount, level, renderCubesFromHeightMap, generateLevel, startTimer, clearBoard]);
+
+    // 重新尝试当前关卡
+    const retryLevel = useCallback(() => {
+        setUserAnswer('');
+        setTimerDisplay('');
+        setGameState('observing');
+        generateLevel();
+        startTimer();
+    }, [generateLevel, startTimer]);
 
 
 
@@ -600,10 +603,23 @@ export default function GameComponent() {
                                         <span>
                                             {gameState === 'win' 
                                                 ? `正確！答案：${correctBlockCount}`
-                                                : `遊戲結束！正確答案：${correctBlockCount}`
+                                                : `答錯了！正確答案：${correctBlockCount}`
                                             }
                                         </span>
                                     </div>
+                                    
+                                    {/* 重新尝试按钮 */}
+                                    {gameState === 'lose' && (
+                                        <div className="mt-4 flex justify-center">
+                                            <Button
+                                                onClick={retryLevel}
+                                                className="game-button"
+                                                size="lg"
+                                            >
+                                                重新挑戰
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
