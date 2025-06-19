@@ -1,6 +1,6 @@
-/* Count Blocks Game Styles */
+/* Counting Boxes Game Styles */
 
-.count-blocks-canvas-container {
+.counting-boxes-canvas-container {
     width: 100%;
     height: 100%;
     display: flex;
@@ -8,7 +8,7 @@
     justify-content: center;
 }
 
-.count-blocks-canvas-container canvas {
+.counting-boxes-canvas-container canvas {
     max-width: 100%;
     max-height: 100%;
     border-radius: 8px;
@@ -47,7 +47,7 @@
     }
 }
 
-/* === Count Blocks GamePreview 3D 等角网格与立方体 === */
+/* === Counting Boxes GamePreview 3D 等角网格与立方体 === */
 .scene {
   transform-style: preserve-3d;
   transform: rotateX(60deg) rotateZ(-45deg);

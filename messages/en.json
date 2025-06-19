@@ -900,6 +900,74 @@
         "keepPracticing": "Keep Practicing"
       }
     },
+    "countingBoxes": {
+      "title": "Counting Boxes",
+      "subtitle": "3D Training to Enhance Working Memory and Selective Attention",
+      "description": "Train your spatial memory and counting skills by remembering how many 3D boxes appear on a grid.",
+      "metaTitle": "Counting Boxes Game - Working Memory & Selective Attention Training",
+      "metaDescription": "Enhance your working memory and selective attention with 3D cube counting exercises. Free online spatial memory training game with progressive difficulty.",
+      "metaKeywords": "counting boxes game, 3D counting game, spatial memory training, working memory improvement, selective attention training, visual counting exercise, cube counting challenge, brain training boxes, cognitive counting game, free memory game online",
+      "ogTitle": "Counting Boxes - 3D Spatial Memory Training Game",
+      "ogDescription": "Challenge your working memory and selective attention by counting 3D cubes in various patterns. Progressive difficulty for optimal brain training.",
+      "howToPlayIntro": "In this spatial memory challenge, you'll observe 3D cubes appearing on a grid and then count how many you saw:",
+      "howToPlay1": "Watch carefully as 3D boxes appear on the grid for a brief time",
+      "howToPlay2": "Remember the number of boxes you observed",
+      "howToPlay3": "Enter the count when prompted after the boxes disappear", 
+      "howToPlay4": "Progress through increasingly challenging levels with more boxes and complex patterns",
+      "benefits": {
+        "workingMemory": {
+          "title": "Working Memory",
+          "description": "Strengthen your ability to hold and manipulate spatial information in mind while tracking multiple objects across different grid positions."
+        },
+        "visualTracking": {
+          "title": "Visual Tracking",
+          "description": "Improve your ability to track multiple objects simultaneously and maintain focus on spatial arrangements during brief presentations."
+        },
+        "spatialMemory": {
+          "title": "Spatial Memory", 
+          "description": "Enhance your capacity to remember and process spatial relationships, crucial for navigation, mathematics, and technical problem-solving."
+        }
+      },
+      "faq": {
+        "howToPlay": {
+          "question": "How do I play the counting boxes game?",
+          "answer": "Watch as 3D cubes briefly appear on a grid, remember how many you saw, and enter the correct count. The game progressively increases difficulty with more cubes and complex patterns."
+        },
+        "difficulty": {
+          "question": "How does the difficulty change?",
+          "answer": "Early levels feature 3-4 cubes in simple patterns, while advanced levels include up to 23 cubes in complex arrangements. Some levels add animations like fly-in effects to increase the challenge."
+        },
+        "benefits": {
+          "question": "What cognitive benefits does this provide?",
+          "answer": "This game trains working memory, spatial processing, selective attention, and visual tracking - skills that transfer to mathematics, navigation, professional tasks, and everyday spatial reasoning."
+        },
+        "practice": {
+          "question": "How often should I practice?",
+          "answer": "For optimal results, practice 10-15 minutes daily. The progressive difficulty system ensures appropriate challenge levels as your spatial memory skills improve."
+        }
+      },
+      "gameUI": {
+        "level": "Level",
+        "observing": "Observing...", 
+        "howMany": "How many boxes did you see?",
+        "enter": "Enter",
+        "correct": "Correct!",
+        "incorrect": "Incorrect",
+        "actualCount": "Actual count: {count}",
+        "yourAnswer": "Your answer: {answer}",
+        "nextLevel": "Next Level",
+        "startGame": "Start Game",
+        "gameOver": "Game Complete!",
+        "finalStats": "Final Statistics",
+        "accuracy": "Accuracy: {correct}/{total}",
+        "totalTime": "Total Time: {time}",
+        "playAgain": "Play Again",
+        "share": "Share Result",
+        "preparing": "Preparing...",
+        "getReady": "Get Ready...",
+        "timeLeft": "Time Left: {seconds}s"
+      }
+    },
     "babyAnimalMatching": {
       "title": "Baby Animal Matching Game",
       "subtitle": "Test your memory with cute baby animals!",

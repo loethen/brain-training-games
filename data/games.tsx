@@ -1,6 +1,6 @@
 import { GamePreview as SimonGamePreview } from "@/app/[locale]/(main)/games/block-memory-challenge/components/GamePreview";
 import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/games/schulte-table/components/GamePreview";
-import { GamePreview as CountBlocksGamePreview } from "@/app/[locale]/(main)/games/count-blocks/components/GamePreview";
+import { CountingBoxesGamePreview } from "@/app/[locale]/(main)/games/counting-boxes/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 
 export type Game = {
@@ -106,12 +106,12 @@ export const games: Game[] = [
         ],
     },
     {
-        id: "count-blocks",
-        title: "Count Blocks",
+        id: "counting-boxes",
+        title: "Counting Boxes",
         description:
-            "Train your spatial memory and counting skills by remembering how many 3D blocks appear on a grid.",
-        slug: "count-blocks",
-        preview: <CountBlocksGamePreview />,
+            "Train your spatial memory and counting skills by remembering how many 3D boxes appear on a grid.",
+        slug: "counting-boxes",
+        preview: <CountingBoxesGamePreview />,
         categories: ["working-memory", "visual-tracking", "spatial-memory"],
     },
     // Add more games as you create them

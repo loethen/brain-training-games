@@ -668,6 +668,74 @@
         }
       }
     },
+    "countingBoxes": {
+      "title": "数箱子游戏",
+      "subtitle": "提升工作记忆和选择性注意力的3D训练",
+      "description": "通过记住网格上出现的3D立方体数量来训练你的空间记忆和计数技能。",
+      "metaTitle": "数箱子游戏 - 工作记忆和选择性注意力训练",
+      "metaDescription": "通过3D立方体计数训练提升工作记忆和选择性注意力。免费在线空间记忆训练游戏，难度递进，科学有效。",
+      "metaKeywords": "数箱子游戏, 工作记忆训练, 选择性注意力训练, switch游戏网页版, 大人的脑部锻炼, 3D数数游戏, 空间记忆训练, 计数练习游戏, 立方体记忆游戏, 立体记忆游戏, 免费脑力训练, 认知能力提升, 视觉计数练习",
+      "ogTitle": "数箱子游戏 - 3D空间记忆训练",
+      "ogDescription": "通过计数3D立方体的各种模式挑战你的工作记忆和选择性注意力。渐进式难度，优化脑力训练效果。",
+      "howToPlayIntro": "在这个空间记忆挑战中，你需要观察出现在网格上的3D立方体，然后计数你看到的数量：",
+      "howToPlay1": "仔细观察3D立方体在网格上短暂出现",
+      "howToPlay2": "记住你观察到的立方体数量",
+      "howToPlay3": "立方体消失后，在提示时输入计数结果",
+      "howToPlay4": "通过更多立方体和复杂模式的关卡，挑战不断升级",
+      "benefits": {
+        "workingMemory": {
+          "title": "工作记忆",
+          "description": "增强你在脑海中保持和操作空间信息的能力，同时追踪不同网格位置的多个对象。"
+        },
+        "visualTracking": {
+          "title": "视觉追踪",
+          "description": "提高你同时追踪多个对象的能力，在短暂展示期间保持对空间排列的专注。"
+        },
+        "spatialMemory": {
+          "title": "空间记忆",
+          "description": "增强你记忆和处理空间关系的能力，这对导航、数学和技术问题解决至关重要。"
+        }
+      },
+      "faq": {
+        "howToPlay": {
+          "question": "如何玩数箱子游戏？",
+          "answer": "观察3D立方体在网格上短暂出现，记住你看到的数量，然后输入正确的计数。游戏会逐渐增加难度，包含更多立方体和复杂模式。"
+        },
+        "difficulty": {
+          "question": "难度是如何变化的？",
+          "answer": "初级关卡有3-4个立方体的简单模式，而高级关卡包含多达23个立方体的复杂排列。某些关卡还会添加飞入动画等效果来增加挑战性。"
+        },
+        "benefits": {
+          "question": "这个游戏提供什么认知益处？",
+          "answer": "这个游戏训练工作记忆、空间处理、选择性注意力和视觉追踪——这些技能可以转移到数学、导航、专业任务和日常空间推理中。"
+        },
+        "practice": {
+          "question": "我应该多久练习一次？",
+          "answer": "为了获得最佳效果，建议每天练习10-15分钟。渐进式难度系统确保随着你空间记忆技能的提高，提供适当的挑战水平。"
+        }
+      },
+      "gameUI": {
+        "level": "关卡",
+        "observing": "观察中...",
+        "howMany": "你看到了多少个立方体？",
+        "enter": "确认",
+        "correct": "正确！",
+        "incorrect": "错误",
+        "actualCount": "实际数量：{count}",
+        "yourAnswer": "你的答案：{answer}",
+        "nextLevel": "下一关",
+        "startGame": "开始游戏",
+        "gameOver": "游戏完成！",
+        "finalStats": "最终统计",
+        "accuracy": "准确率：{correct}/{total}",
+        "totalTime": "总用时：{time}",
+        "playAgain": "再玩一次",
+        "share": "分享结果",
+        "preparing": "准备中...",
+        "getReady": "准备...",
+        "timeLeft": "剩余时间：{seconds}秒"
+      }
+    },
     "babyAnimalMatching": {
       "title": "宝宝动物配对游戏",
       "subtitle": "用可爱的宝宝动物来测试你的记忆力！",

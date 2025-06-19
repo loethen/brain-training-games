@@ -2,7 +2,7 @@
 import "../styles.css";
 // 完全按用户 HTML 方案实现的静态等角 4x4 网格 + 2 个立体方块
 
-export function GamePreview() {
+export function CountingBoxesGamePreview() {
   return (
     <div className="w-full max-w-xl mx-auto">
       <div className="aspect-square relative rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 p-6 flex items-center justify-center">

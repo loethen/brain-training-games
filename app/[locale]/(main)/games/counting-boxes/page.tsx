@@ -4,14 +4,14 @@ import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Brain, Eye, Target } from 'lucide-react'
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
-import { GamePreview } from './components/GamePreview';
+import { CountingBoxesGamePreview } from './components/GamePreview';
 
 // 将静态元数据改为动态生成函数
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'games.countBlocks' });
+  const t = await getTranslations({ locale, namespace: 'games.countingBoxes' });
   
   return {
     title: t('metaTitle'),
@@ -25,13 +25,13 @@ export async function generateMetadata(
   };
 }
 
-export default function CountBlocksPage() {
-  const t = useTranslations('games.countBlocks');
+export default function CountingBoxesPage() {
+  const t = useTranslations('games.countingBoxes');
   
   return (
       <GamePageTemplate
           gameBackground="bg-[#f5f5f5]"
-          gameId="count-blocks"
+          gameId="counting-boxes"
           title={t("title")}
           subtitle={t("subtitle")}
           gameComponent={<Game />}
@@ -44,7 +44,7 @@ export default function CountBlocksPage() {
                       <li>{t("howToPlay3")}</li>
                       <li>{t("howToPlay4")}</li>
                   </ul>
-                  <GamePreview />
+                  <CountingBoxesGamePreview />
               </>
           }
           benefits={[

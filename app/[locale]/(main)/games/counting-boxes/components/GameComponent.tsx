@@ -724,7 +724,7 @@ export default function GameComponent() {
         <div className="flex flex-col items-center gap-5 text-foreground p-4 sm:p-6">
             {/* Three.js 场景容器 */}
             <div className="responsive-game-container relative">
-                <div ref={sceneRef} className="count-blocks-canvas-container" />
+                <div ref={sceneRef} className="counting-boxes-canvas-container" />
 
                 {/* 计时器显示 - 绝对定位在grid上方 */}
                 {gameState === "result" &&
@@ -754,7 +754,7 @@ export default function GameComponent() {
                             {gameState === "start" && (
                                 <>
                                     <h2 className="text-2xl sm:text-3xl font-semibold text-foreground m-0">
-                                        Count Blocks
+                                        Counting Boxes
                                     </h2>
                                     <Button
                                         onClick={startGame}
