@@ -9,6 +9,7 @@ import { useInterval } from '@/hooks/useInterval';
 import { PatternGenerators } from '../patterns/PatternGenerators';
 import { CheckCircle, XCircle } from 'lucide-react';
 import '../styles.css';
+import confetti from 'canvas-confetti';
 
 type GameState = 'start' | 'observing' | 'input' | 'result' | 'gameOver' | 'animating';
 
@@ -644,6 +645,21 @@ export default function GameComponent() {
         // 其他gameState不再触发generateLevel
     }, [level, gameState, generateLevel, startTimer]);
 
+    // 结算页全对时触发礼花动画
+    useEffect(() => {
+        if (
+            gameState === 'gameOver' &&
+            gameStats.totalLevels > 0 &&
+            gameStats.correctAnswers === gameStats.totalLevels
+        ) {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    }, [gameState, gameStats]);
+
     // 初始化Three.js
     useEffect(() => {
         initThree();
@@ -802,7 +818,7 @@ export default function GameComponent() {
                             {/* 游戏结束统计画面 */}
                             {gameState === "gameOver" && (
                                 <div className="absolute inset-0 flex items-center justify-center z-20">
-                                    <div className="rounded-lg p-6 bg-background/90 backdrop-blur-sm max-w-md w-full">
+                                    <div className="rounded-lg p-6 bg-background/50 backdrop-blur-sm max-w-md w-full">
                                         <h2 className="text-2xl font-bold text-center mb-4">
                                             🎉 遊戲結束！
                                         </h2>
@@ -846,7 +862,7 @@ export default function GameComponent() {
                                                           gameStats.totalLevels
                                                         : 0;
                                                 if (rate === 1)
-                                                    return "完美！你是方塊記憶大師！再來挑戰更高分吧！";
+                                                    return "完美！你是方塊記憶大師！";
                                                 if (rate >= 0.7)
                                                     return "很棒！再多練習幾次會更厲害！";
                                                 if (rate >= 0.4)
