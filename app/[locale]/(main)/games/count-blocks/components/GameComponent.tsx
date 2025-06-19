@@ -103,42 +103,60 @@ const AnimationControllers: Record<string, AnimationController> = {
 
 // 新的关卡配置
 const LEVEL_CONFIGS: LevelConfig[] = [
-    { 
-        blocksRange: [3, 5], 
-        pattern: ["corner"], 
-        observer: [400, 700], 
-        animation: [] 
+    {
+        blocksRange: [5, 8],
+        pattern: ["tower"],
+        observer: [5000, 7000],
+        animation: [],
     },
-    { 
-        blocksRange: [4, 6], 
-        pattern: ["line"], 
-        observer: [400, 700], 
-        animation: [] 
+    {
+        blocksRange: [8, 10],
+        pattern: ["tower"],
+        observer: [5000, 7000],
+        animation: [],
     },
-    { 
-        blocksRange: [4, 6], 
-        pattern: ["cross"], 
-        observer: [400, 700], 
-        animation: ["flyIn"] 
+    {
+        blocksRange: [7, 10],
+        pattern: ["tower"],
+        observer: [5000, 7000],
+        animation: [],
     },
-    { 
-        blocksRange: [7, 9], 
-        pattern: ["scattered"], 
-        observer: [400, 700], 
-        animation: [] 
+    {
+        blocksRange: [3, 5],
+        pattern: ["corner"],
+        observer: [400, 700],
+        animation: [],
     },
-    { 
-        blocksRange: [3, 4], 
-        pattern: ["random_fill"], 
-        observer: [400, 700], 
-        animation: [] 
+    {
+        blocksRange: [4, 6],
+        pattern: ["line"],
+        observer: [400, 700],
+        animation: [],
     },
-    { 
-        blocksRange: [20, 23], 
-        pattern: ["random_fill"], 
-        observer: [600, 900], 
-        animation: [] 
-    }
+    {
+        blocksRange: [4, 6],
+        pattern: ["cross"],
+        observer: [400, 700],
+        animation: ["flyIn"],
+    },
+    {
+        blocksRange: [7, 9],
+        pattern: ["scattered"],
+        observer: [400, 700],
+        animation: [],
+    },
+    {
+        blocksRange: [3, 4],
+        pattern: ["random_fill"],
+        observer: [400, 700],
+        animation: [],
+    },
+    {
+        blocksRange: [20, 23],
+        pattern: ["random_fill"],
+        observer: [600, 900],
+        animation: [],
+    },
 ];
 
 // 工具函数：从数组中随机选择
@@ -207,6 +225,10 @@ export default function GameComponent() {
 
     useTimeout(() => {
         if (gameState === 'result' && level === LEVEL_CONFIGS.length) {
+            setGameStats((prev) => ({
+                ...prev,
+                totalTime: Date.now() - gameStartTime,
+            }));
             setGameState('gameOver');
         }
     }, gameState === 'result' && level === LEVEL_CONFIGS.length ? 1000 : null);
@@ -485,8 +507,8 @@ export default function GameComponent() {
         
         const heightMap = patternGenerator.generate(GAME_CONFIG.gridSize, targetBlocks);
         
-        // 计算实际生成的方块数
-        const actualBlocks = heightMap.reduce((sum: number, height: number) => sum + (height > 0 ? 1 : 0), 0);
+        // 计算实际生成的方块总数（包括堆叠）
+        const actualBlocks = heightMap.reduce((sum: number, height: number) => sum + height, 0);
         setCorrectBlockCount(actualBlocks);
         correctHeightMapRef.current = [...heightMap];
         
@@ -613,8 +635,6 @@ export default function GameComponent() {
             correctBlockCount,
             level,
             renderCubesFromHeightMap,
-            CUBE_COLOR,
-            SUCCESS_COLOR,
         ]
     );
 
