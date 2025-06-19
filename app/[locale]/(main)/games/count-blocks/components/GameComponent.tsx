@@ -3,21 +3,173 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { GAME_CONFIG } from '../config';
 import * as THREE from 'three';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useTimeout } from '@/hooks/useTimeout';
+import { useInterval } from '@/hooks/useInterval';
+import { PatternGenerators } from '../patterns/PatternGenerators';
 import { CheckCircle, XCircle } from 'lucide-react';
 import '../styles.css';
 
-type GameState = 'start' | 'observing' | 'input' | 'win' | 'lose';
+type GameState = 'start' | 'observing' | 'input' | 'result' | 'gameOver';
+
+// 关卡配置接口
+interface LevelConfig {
+    blocksRange: [number, number];
+    pattern: string[];
+    observer: [number, number];
+    animation: string[];
+}
+
+// 游戏结果统计
+interface GameStats {
+    totalLevels: number;
+    correctAnswers: number;
+    totalTime: number;
+    levelResults: { level: number; correct: boolean; userAnswer: number; correctAnswer: number }[];
+}
+
+// 动画控制器接口
+interface AnimationController {
+    name: string;
+    execute: (
+        cubesGroup: THREE.Group,
+        scene: THREE.Scene,
+        onComplete: () => void
+    ) => void;
+}
+
+
+
+// 动画控制器实现
+const AnimationControllers: Record<string, AnimationController> = {
+    flyIn: {
+        name: 'flyIn',
+        execute: (cubesGroup: THREE.Group, scene: THREE.Scene, onComplete: () => void) => {
+            // 从左上角飞到右下角的动画
+            const duration = 3000;
+            const startTime = Date.now();
+            const startPosition = { x: -12, y: 8, z: 8 };
+            const endPosition = { x: 12, y: -8, z: -8 };
+            
+            // 找到网格元素
+            let gridHelper: THREE.GridHelper | null = null;
+            let gridBorder: THREE.LineLoop | null = null;
+            
+            scene.children.forEach(child => {
+                if (child instanceof THREE.GridHelper) {
+                    gridHelper = child;
+                } else if (child instanceof THREE.LineLoop) {
+                    gridBorder = child;
+                }
+            });
+            
+            const animate = () => {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // 匀速运动
+                const currentX = startPosition.x + (endPosition.x - startPosition.x) * progress;
+                const currentY = startPosition.y + (endPosition.y - startPosition.y) * progress;
+                const currentZ = startPosition.z + (endPosition.z - startPosition.z) * progress;
+                
+                cubesGroup.position.set(currentX, currentY, currentZ);
+                if (gridHelper) {
+                    gridHelper.position.set(currentX, currentY - 0.01, currentZ);
+                }
+                if (gridBorder) {
+                    gridBorder.position.set(currentX, currentY, currentZ);
+                }
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    // 重置位置
+                    cubesGroup.position.set(0, 0, 0);
+                    cubesGroup.visible = false;
+                    if (gridHelper) {
+                        gridHelper.position.set(0, -0.01, 0);
+                    }
+                    if (gridBorder) {
+                        gridBorder.position.set(0, 0, 0);
+                    }
+                    onComplete();
+                }
+            };
+            
+            animate();
+        }
+    }
+};
+
+// 新的关卡配置
+const LEVEL_CONFIGS: LevelConfig[] = [
+    { 
+        blocksRange: [3, 5], 
+        pattern: ["corner"], 
+        observer: [400, 700], 
+        animation: [] 
+    },
+    { 
+        blocksRange: [4, 6], 
+        pattern: ["line"], 
+        observer: [400, 700], 
+        animation: [] 
+    },
+    { 
+        blocksRange: [4, 6], 
+        pattern: ["cross"], 
+        observer: [400, 700], 
+        animation: ["flyIn"] 
+    },
+    { 
+        blocksRange: [7, 9], 
+        pattern: ["scattered"], 
+        observer: [400, 700], 
+        animation: [] 
+    },
+    { 
+        blocksRange: [3, 4], 
+        pattern: ["random_fill"], 
+        observer: [400, 700], 
+        animation: [] 
+    },
+    { 
+        blocksRange: [20, 23], 
+        pattern: ["random_fill"], 
+        observer: [600, 900], 
+        animation: [] 
+    }
+];
+
+// 工具函数：从数组中随机选择
+function randomChoice<T>(arr: T[]): T {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// 工具函数：从范围中随机选择数字
+function randomInRange(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 export default function GameComponent() {
     // 游戏状态
-    const [gameState, setGameState] = useState<GameState>("start");
+    const [gameState, setGameState] = useState<GameState>('start');
     const [level, setLevel] = useState(1);
-    const [score, setScore] = useState(0);
     const [correctBlockCount, setCorrectBlockCount] = useState(0);
-    const [timerDisplay, setTimerDisplay] = useState("");
-    const [userAnswer, setUserAnswer] = useState("");
+    const [timerDisplay, setTimerDisplay] = useState('');
+    const [userAnswer, setUserAnswer] = useState('');
+    const [observeTimeLeft, setObserveTimeLeft] = useState<number | null>(null);
+    const [countdown, setCountdown] = useState<number>(0);
+    const [lastResult, setLastResult] = useState<{ correct: boolean } | null>(
+        null
+    );
+    const [gameStats, setGameStats] = useState<GameStats>({
+        totalLevels: 0,
+        correctAnswers: 0,
+        totalTime: 0,
+        levelResults: []
+    });
+    const [gameStartTime, setGameStartTime] = useState<number>(0);
 
     // Refs for Three.js
     const sceneRef = useRef<HTMLDivElement>(null);
@@ -25,13 +177,13 @@ export default function GameComponent() {
     const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
     const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
     const cubesGroupRef = useRef<THREE.Group | null>(null);
-    const timerInterval = useRef<NodeJS.Timeout | null>(null);
     const correctHeightMapRef = useRef<number[]>([]);
     const isInitializedRef = useRef(false);
     const containerSizeRef = useRef<{ width: number; height: number }>({
         width: 400,
         height: 400,
     });
+    const selectedAnimationRef = useRef<string>('default');
 
     // Three.js 颜色常量
     const CUBE_COLOR = new THREE.Color(0xffffff);
@@ -39,6 +191,34 @@ export default function GameComponent() {
     const EDGE_COLOR = new THREE.Color(0x000000);
     const GRID_COLOR = new THREE.Color(0x434343);
     const BACKGROUND_COLOR = new THREE.Color(0xf5f5f5);
+
+    // 使用useTimeout进行观察时间控制
+    useTimeout(() => {
+        if (gameState === 'observing') {
+            startInputPhase();
+        }
+    }, gameState === 'observing' ? observeTimeLeft : null);
+
+    useTimeout(() => {
+        if (gameState === 'result' && level < LEVEL_CONFIGS.length) {
+            goToNextLevel();
+        }
+    }, gameState === 'result' && level < LEVEL_CONFIGS.length ? 3000 : null);
+
+    useTimeout(() => {
+        if (gameState === 'result' && level === LEVEL_CONFIGS.length) {
+            setGameState('gameOver');
+        }
+    }, gameState === 'result' && level === LEVEL_CONFIGS.length ? 1000 : null);
+
+    useInterval(
+        () => {
+            if (countdown > 0) {
+                setCountdown(countdown - 1);
+            }
+        },
+        gameState === 'result' && countdown > 0 ? 1000 : null
+    );
 
     // Three.js 初始化
     const initThree = useCallback(() => {
@@ -280,140 +460,45 @@ export default function GameComponent() {
         [clearBoard, addCube]
     );
 
-    // 生成关卡 - 绝对可见性策略
+    // 新的生成关卡函数 - 使用模块化的模式生成器
     const generateLevel = useCallback(() => {
-        // 🎯 绝对可见性原则：
-        // 1. 默认使用单层方块（高度=1），100%保证可见
-        // 2. 只在"绝对安全区域"允许多层方块
-        // 3. 安全区域定义：边界位置（最右列、最底行、角落、边缘）
-        // 4. 确保每个方块至少有一个面（顶面、侧面、前面）能被摄像机看到
-        
         clearBoard();
         setCorrectBlockCount(0);
-        const heightMap = Array(
-            GAME_CONFIG.gridSize * GAME_CONFIG.gridSize
-        ).fill(0);
 
-        // 游戏共7关，预设关卡模式
-        const levelPatterns: Array<{
-            blocksRange: [number, number];
-            pattern: string;
-        }> = [
-            { blocksRange: [3, 5], pattern: "corner" }, // 关卡1：角落模式 3-5个
-            { blocksRange: [4, 6], pattern: "line" }, // 关卡2：直线模式 4-6个
-            { blocksRange: [4, 6], pattern: "cross" }, // 关卡3：十字模式 5-8个
-            { blocksRange: [7, 9], pattern: "scattered" }, // 关卡4：分散模式 7-9个
-            { blocksRange: [3, 5], pattern: "dense_fill" }, 
-            { blocksRange: [20, 23], pattern: "dense_fill" }, // 关卡5：密集填充20-23个
-            { blocksRange: [20, 22], pattern: "few_holes" }, // 关卡6：少数空洞18-22个
-        ];
-
-        // 游戏最多7关
-        if (level > 7) {
-            // 游戏通关，可以显示通关信息或重新开始
-            setGameState("win");
+        // 获取当前关卡配置
+        if (level > LEVEL_CONFIGS.length) {
             return;
         }
-
-        const levelConfig = levelPatterns[level - 1];
-        const [min, max] = levelConfig.blocksRange;
-        const targetBlocks = Math.floor(Math.random() * (max - min + 1)) + min;
-        const pattern = levelConfig.pattern;
-
-
-
-        let totalBlocks = 0; // 总方块数（不管是否可见）
-
-        // 第一步：根据模式生成完整的heightMap布局
-        if (
-            pattern === "mass_single" ||
-            pattern === "dense_fill" ||
-            pattern === "few_holes"
-        ) {
-            // 单层方块模式：直接生成
-            const allPositions = [];
-            for (
-                let i = 0;
-                i < GAME_CONFIG.gridSize * GAME_CONFIG.gridSize;
-                i++
-            ) {
-                allPositions.push(i);
-            }
-
-            // 随机打乱位置数组
-            for (let i = allPositions.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [allPositions[i], allPositions[j]] = [
-                    allPositions[j],
-                    allPositions[i],
-                ];
-            }
-
-            // 选择前targetBlocks个位置放置方块
-            for (
-                let i = 0;
-                i < Math.min(targetBlocks, allPositions.length);
-                i++
-            ) {
-                heightMap[allPositions[i]] = 1;
-                totalBlocks++;
-            }
-        } else {
-            // 智能模式：先收集所有符合条件的位置，然后随机选择
-            const validPositions = [];
-            
-            // 根据模式收集有效位置
-            for (let i = 0; i < GAME_CONFIG.gridSize * GAME_CONFIG.gridSize; i++) {
-                const row = Math.floor(i / GAME_CONFIG.gridSize);
-                const col = i % GAME_CONFIG.gridSize;
-                let isValid = false;
-                
-                switch (pattern) {
-                    case "corner":
-                        isValid = (row <= 1 || row >= 3) && (col <= 1 || col >= 3);
-                        break;
-                    case "line":
-                        isValid = row === 2 || col === 2;
-                        break;
-                    case "cross":
-                        // 十字模式：中心十字形状 (和line相同，但逻辑上更清晰)
-                        isValid = row === 2 || col === 2;
-                        break;
-                    default: // scattered
-                        isValid = true; // 所有位置都有效
-                        break;
-                }
-                
-                if (isValid) {
-                    validPositions.push(i);
-                }
-            }
-            
-            // 随机打乱有效位置
-            for (let i = validPositions.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [validPositions[i], validPositions[j]] = [validPositions[j], validPositions[i]];
-            }
-            
-            // 选择前targetBlocks个位置放置方块
-            for (let i = 0; i < Math.min(targetBlocks, validPositions.length); i++) {
-                heightMap[validPositions[i]] = 1;
-                totalBlocks++;
-            }
+        const levelConfig = LEVEL_CONFIGS[level - 1];
+        
+        // 随机选择配置参数
+        const targetBlocks = randomInRange(levelConfig.blocksRange[0], levelConfig.blocksRange[1]);
+        const selectedPattern = randomChoice(levelConfig.pattern);
+        const selectedAnimation = levelConfig.animation.length > 0 ? randomChoice(levelConfig.animation) : 'default';
+        
+        // 使用模式生成器生成方块布局
+        const patternGenerator = PatternGenerators[selectedPattern];
+        if (!patternGenerator) {
+            console.error(`Unknown pattern: ${selectedPattern}`);
+            return;
         }
-
-        // 🎉 完美逻辑：所有生成的方块都保证可见！
-        const visibleBlockCount = totalBlocks;
-        setCorrectBlockCount(visibleBlockCount);
+        
+        const heightMap = patternGenerator.generate(GAME_CONFIG.gridSize, targetBlocks);
+        
+        // 计算实际生成的方块数
+        const actualBlocks = heightMap.reduce((sum: number, height: number) => sum + (height > 0 ? 1 : 0), 0);
+        setCorrectBlockCount(actualBlocks);
         correctHeightMapRef.current = [...heightMap];
+        
+        // 渲染方块
         renderCubesFromHeightMap(correctHeightMapRef.current, CUBE_COLOR);
         
-        // 第3关特殊处理：将方块组初始位置设为左上角画外
-        if (level === 3 && cubesGroupRef.current && sceneInstanceRef.current) {
+        // 特殊动画处理：如果是飞入动画，需要初始化位置
+        if (selectedAnimation === "flyIn" && cubesGroupRef.current && sceneInstanceRef.current) {
             const cubesGroup = cubesGroupRef.current;
             const scene = sceneInstanceRef.current;
             
-            // 设置方块组到左上角画外位置
+            // 设置初始位置
             cubesGroup.position.set(-12, 8, 8);
             
             // 同时移动网格
@@ -426,219 +511,126 @@ export default function GameComponent() {
             });
         }
         
-        // 调试信息：显示实际生成的方块数
-        console.log(`✓ 关卡${level} 生成完成: 模式=${pattern}, 配置=[${min},${max}], 目标=${targetBlocks}, 实际生成=${visibleBlockCount}`);
+        // 保存选择的动画类型供后续使用
+        selectedAnimationRef.current = selectedAnimation;
+        
+        console.log(`✓ 关卡${level} 生成完成: 模式=${selectedPattern}, 方块=${actualBlocks}, 动画=${selectedAnimation}`);
     }, [level, clearBoard, renderCubesFromHeightMap]);
 
-    // 开始定时器
+    // 开始定时器 - 使用新的配置化观察时间
     const startTimer = useCallback(() => {
-        // 基础观察时间：400-700毫秒
-        let randomObserveTime = Math.random() * 300 + 400; // 400-700ms
-
-        // 关卡6和7（高难度密集关卡）增加观察时间
-        if (level >= 6) {
-            const extraTime = Math.random() * 200 + 200; // 200-400ms额外时间
-            randomObserveTime += extraTime;
-        }
-
-        // 不显示倒计时，直接等待随机时间后进入输入阶段
-        timerInterval.current = setTimeout(() => {
-            startInputPhase();
-        }, randomObserveTime);
+        if (level > LEVEL_CONFIGS.length) return;
+        
+        const levelConfig = LEVEL_CONFIGS[level - 1];
+        const observeTime = randomInRange(levelConfig.observer[0], levelConfig.observer[1]);
+        
+        setObserveTimeLeft(observeTime);
     }, [level]);
-
-        // 第3关特殊动画：从摄像机视角的左上角斜着飞到右下角
-    const animateLevel3Exit = useCallback(() => {
-        if (!cubesGroupRef.current || !sceneInstanceRef.current) return;
-        
-        // 获取所有需要动画的对象
-        const cubesGroup = cubesGroupRef.current;
-        const scene = sceneInstanceRef.current;
-        
-        // 找到网格辅助线
-        let gridHelper: THREE.GridHelper | null = null;
-        let gridBorder: THREE.LineLoop | null = null;
-        
-        scene.children.forEach(child => {
-            if (child instanceof THREE.GridHelper) {
-                gridHelper = child;
-            } else if (child instanceof THREE.LineLoop) {
-                gridBorder = child;
-            }
-        });
-        
-        // 动画参数
-        const duration = 3000; // 3秒慢慢飞过，让人眼能看清
-        const startTime = Date.now();
-        
-        // 根据摄像机视角定义位置 (摄像机在(10,10,10)看向(0,0,0))
-        // 左上角：负X，正Z，高Y
-        // 右下角：正X，负Z，低Y
-        const startPosition = { x: -12, y: 8, z: 8 }; // 摄像机视角的左上角
-        const endPosition = { x: 12, y: -8, z: -8 }; // 摄像机视角的右下角
-        
-        // 动画函数
-        const animate = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            // 使用平滑的缓入缓出效果
-            const easeInOut = progress < 0.5 
-                ? 2 * progress * progress 
-                : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-            
-            // 计算当前位置 - 直线飞行
-            const currentX = startPosition.x + (endPosition.x - startPosition.x) * easeInOut;
-            const currentY = startPosition.y + (endPosition.y - startPosition.y) * easeInOut;
-            const currentZ = startPosition.z + (endPosition.z - startPosition.z) * easeInOut;
-            
-            // 应用位置变换
-            cubesGroup.position.set(currentX, currentY, currentZ);
-            if (gridHelper) {
-                gridHelper.position.set(currentX, currentY - 0.01, currentZ);
-            }
-            if (gridBorder) {
-                gridBorder.position.set(currentX, currentY, currentZ);
-            }
-            
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                // 动画完成，进入输入阶段
-                setGameState("input");
-                // 重置位置
-                cubesGroup.position.set(0, 0, 0);
-                cubesGroup.visible = false;
-                
-                if (gridHelper) {
-                    gridHelper.position.set(0, -0.01, 0);
-                }
-                if (gridBorder) {
-                    gridBorder.position.set(0, 0, 0);
-                }
-            }
-        };
-        
-        // 开始动画
-        animate();
-    }, []);
 
     // 开始输入阶段
     const startInputPhase = useCallback(() => {
-        // 第3关使用特殊动画效果
-        if (level === 3) {
-            animateLevel3Exit();
+        const selectedAnimation = selectedAnimationRef.current;
+        
+        // 如果有特殊动画，使用动画控制器
+        const animationController = AnimationControllers[selectedAnimation];
+        if (animationController && cubesGroupRef.current && sceneInstanceRef.current) {
+            animationController.execute(cubesGroupRef.current, sceneInstanceRef.current, () => {
+                setGameState("input");
+            });
         } else {
-            // 其他关卡直接隐藏
+            // 默认行为：直接隐藏方块并进入输入阶段
             setGameState("input");
             if (cubesGroupRef.current) {
                 cubesGroupRef.current.visible = false;
             }
         }
-    }, [level, animateLevel3Exit]);
+    }, []);
 
     // 开始游戏
     const startGame = useCallback(() => {
-        setGameState("observing");
+        setGameStartTime(Date.now());
+        setGameStats({
+            totalLevels: 0,
+            correctAnswers: 0,
+            totalTime: 0,
+            levelResults: []
+        });
+        setLevel(1);
+        setUserAnswer('');
+        setGameState('observing');
         generateLevel();
         startTimer();
     }, [generateLevel, startTimer]);
 
-    // 检查答案
+    // 检查答案 - 新机制：答对答错都进入下一关
     const checkAnswer = useCallback(
         (e: React.FormEvent) => {
             e.preventDefault();
             const userAnswerNum = parseInt(userAnswer, 10);
+            const isCorrect = userAnswerNum === correctBlockCount;
 
-            if (userAnswerNum === correctBlockCount) {
-                setGameState("win");
-                setScore((prev) => prev + level * 10);
-                // 显示绿色方块
+            const result = {
+                level,
+                correct: isCorrect,
+                userAnswer: userAnswerNum,
+                correctAnswer: correctBlockCount,
+            };
+
+            // 更新游戏统计
+            setGameStats((prev) => ({
+                ...prev,
+                totalLevels: level,
+                correctAnswers: prev.correctAnswers + (isCorrect ? 1 : 0),
+                levelResults: [...prev.levelResults, result],
+            }));
+
+            // 显示方块
+            if (cubesGroupRef.current) {
+                cubesGroupRef.current.visible = true;
+            }
+
+            // 立即显示结果
+            setLastResult({ correct: isCorrect });
+            if (isCorrect) {
                 renderCubesFromHeightMap(
                     correctHeightMapRef.current,
                     SUCCESS_COLOR
                 );
-
-                // 显示方块
-                if (cubesGroupRef.current) {
-                    cubesGroupRef.current.visible = true;
-                }
-
-                // 检查是否通关
-                if (level >= 7) {
-                    // 游戏通关
-                    setTimerDisplay("🎉 恭喜通關！");
-                    return;
-                }
-
-                // 3秒后自动进入下一关
-                let countdown = 3;
-                setTimerDisplay(`下一關: ${countdown}s`);
-
-                timerInterval.current = setInterval(() => {
-                    countdown--;
-                    if (countdown <= 0) {
-                        if (timerInterval.current) {
-                            clearInterval(timerInterval.current);
-                            clearTimeout(timerInterval.current);
-                        }
-                        // 进入下一关
-                        setLevel((prev) => {
-                            const nextLevel = prev + 1;
-                            // 延迟执行避免状态更新冲突
-                            setTimeout(() => {
-                                setUserAnswer("");
-                                setTimerDisplay("");
-                                setGameState("observing");
-                                // generateLevel会在level状态更新后自动调用
-                            }, 10);
-                            return nextLevel;
-                        });
-                    } else {
-                        setTimerDisplay(`下一關: ${countdown}s`);
-                    }
-                }, 1000);
+                setTimerDisplay(`正確！答案是：${correctBlockCount}`);
             } else {
-                setGameState("lose");
-                // 显示原色方块
                 renderCubesFromHeightMap(
                     correctHeightMapRef.current,
                     CUBE_COLOR
                 );
-
-                // 显示方块
-                if (cubesGroupRef.current) {
-                    cubesGroupRef.current.visible = true;
-                }
-
-                // 不重置游戏状态，只清除用户答案
-                setUserAnswer("");
-                setTimerDisplay("");
+                setTimerDisplay(`答錯了！正確答案：${correctBlockCount}`);
             }
+
+            setGameState("result");
+            setCountdown(3);
         },
         [
             userAnswer,
             correctBlockCount,
             level,
             renderCubesFromHeightMap,
+            CUBE_COLOR,
+            SUCCESS_COLOR,
         ]
     );
 
-    // 重新尝试当前关卡
-    const retryLevel = useCallback(() => {
-        setUserAnswer("");
-        setTimerDisplay("");
-        setGameState("observing");
-        generateLevel();
-        startTimer();
-    }, [generateLevel, startTimer]);
+    const goToNextLevel = useCallback(() => {
+        setLevel((prev) => prev + 1);
+        setUserAnswer('');
+        setTimerDisplay('');
+        setLastResult(null);
+        setGameState('observing');
+    }, [level, gameStartTime]);
 
     // 监听关卡变化，自动生成新关卡
     useEffect(() => {
-        if (gameState === "observing" && level > 1) {
-            // 只有在observing状态且不是第一关时才自动生成
+        if (gameState === 'observing') {
             generateLevel();
-            setTimeout(() => startTimer(), 50);
+            startTimer();
         }
     }, [level, gameState, generateLevel, startTimer]);
 
@@ -648,11 +640,6 @@ export default function GameComponent() {
 
         // 清理函数
         return () => {
-            if (timerInterval.current) {
-                clearTimeout(timerInterval.current);
-                clearInterval(timerInterval.current);
-            }
-
             // 完全清理Three.js资源
             if (rendererRef.current) {
                 rendererRef.current.dispose();
@@ -709,23 +696,24 @@ export default function GameComponent() {
 
     return (
         <div className="flex flex-col items-center gap-5 text-foreground p-4 sm:p-6">
-            {/* 信息面板 */}
-            <div className="flex justify-between items-center w-full max-w-lg px-4 sm:px-6 py-3">
-                <span className="text-lg font-medium">關卡: {level}</span>
-                <span className="text-lg font-medium">得分: {score}</span>
-            </div>
-
             {/* Three.js 场景容器 */}
             <div className="responsive-game-container relative">
                 <div ref={sceneRef} className="count-blocks-canvas-container" />
 
                 {/* 计时器显示 - 绝对定位在grid上方 */}
-                {timerDisplay && (
+                {gameState === 'result' && countdown > 0 && level < LEVEL_CONFIGS.length ? (
                     <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
-                        <div className="bg-background/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg">
-                            <span className="text-lg font-medium text-primary">
-                                {timerDisplay}
-                            </span>
+                        <div className="text-center text-xl font-bold text-foreground shadow rounded-2xl p-3 bg-background/90 backdrop-blur-sm">
+                            {`下一關: ${countdown} 秒`}
+                        </div>
+                    </div>
+                ) : null}
+
+                {/* 提示信息 */}
+                {gameState === 'observing' && (
+                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
+                        <div className="text-center text-xl font-bold text-foreground shadow rounded-2xl p-4 bg-background/90 backdrop-blur-sm">
+                            有多少方塊？
                         </div>
                     </div>
                 )}
@@ -781,42 +769,74 @@ export default function GameComponent() {
                                 </div>
                             )}
 
-                            {/* 结果画面 */}
-                            {(gameState === "win" || gameState === "lose") && (
-                                <div className="rounded-lg p-4">
-                                    {/* 结果信息 */}
-                                    <div
-                                        className={cn(
-                                            "flex items-center gap-3 text-xl font-semibold justify-center",
-                                            gameState === "win"
-                                                ? "text-green-600"
-                                                : "text-red-600"
-                                        )}
-                                    >
-                                        {gameState === "win" ? (
-                                            <CheckCircle className="w-6 h-6" />
-                                        ) : (
-                                            <XCircle className="w-6 h-6" />
-                                        )}
-                                        <span>
-                                            {gameState === "win"
-                                                ? `正確！答案：${correctBlockCount}`
-                                                : `答錯了！正確答案：${correctBlockCount}`}
-                                        </span>
-                                    </div>
+                            {/* 结果显示画面 */}
+                            {gameState === "result" && (
+                                <div className="text-center">
+                                    {lastResult ? (
+                                        <div className="flex items-center justify-center gap-3 mb-4">
+                                            {lastResult.correct ? (
+                                                <CheckCircle className="w-8 h-8 text-green-500" />
+                                            ) : (
+                                                <XCircle className="w-8 h-8 text-red-500" />
+                                            )}
+                                            <span className="text-2xl font-semibold">
+                                                {timerDisplay}
+                                            </span>
+                                        </div>
+                                    ) : null}
+                                </div>
+                            )}
 
-                                    {/* 重新尝试按钮 */}
-                                    {gameState === "lose" && (
-                                        <div className="mt-4 flex justify-center">
+                            {/* 游戏结束统计画面 */}
+                            {gameState === "gameOver" && (
+                                <div className="absolute inset-0 flex items-center justify-center z-20">
+                                    <div className="rounded-lg p-6 bg-background/90 backdrop-blur-sm max-w-md w-full">
+                                        <h2 className="text-2xl font-bold text-center mb-4">🎉 遊戲結束！</h2>
+                                        
+                                        {/* 总体统计 */}
+                                        <div className="space-y-3 mb-6">
+                                            <div className="flex justify-between">
+                                                <span>正確率：</span>
+                                                <span className="font-bold">
+                                                    {gameStats.totalLevels > 0
+                                                        ? `${gameStats.correctAnswers}/${gameStats.totalLevels} (${Math.round(
+                                                              (gameStats.correctAnswers /
+                                                                  gameStats.totalLevels) *
+                                                                  100
+                                                          )}%)`
+                                                        : 'N/A'}
+                                                </span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span>總用時：</span>
+                                                <span className="font-bold">
+                                                    {Math.round(gameStats.totalTime / 1000)}秒
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* 鼓励文案 */}
+                                        <div className="mb-6 text-center text-lg font-semibold">
+                                            {(() => {
+                                                const rate = gameStats.totalLevels > 0 ? gameStats.correctAnswers / gameStats.totalLevels : 0;
+                                                if (rate === 1) return '完美！你是方塊記憶大師！再來挑戰更高分吧！';
+                                                if (rate >= 0.7) return '很棒！再多練習幾次會更厲害！';
+                                                if (rate >= 0.4) return '不錯哦，繼續努力，記憶力會越來越好！';
+                                                return '別灰心，多玩幾次你一定會進步！';
+                                            })()}
+                                        </div>
+
+                                        {/* 重新开始按钮 */}
+                                        <div className="flex justify-center">
                                             <Button
-                                                onClick={retryLevel}
+                                                onClick={startGame}
                                                 className="game-button"
                                                 size="lg"
                                             >
-                                                重新挑戰
+                                                重新開始
                                             </Button>
                                         </div>
-                                    )}
+                                    </div>
                                 </div>
                             )}
                         </div>
