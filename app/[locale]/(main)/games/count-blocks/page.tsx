@@ -4,6 +4,7 @@ import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Brain, Eye, Target } from 'lucide-react'
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { GamePreview } from './components/GamePreview';
 
 // 将静态元数据改为动态生成函数
 export async function generateMetadata(
@@ -43,6 +44,7 @@ export default function CountBlocksPage() {
                       <li>{t("howToPlay3")}</li>
                       <li>{t("howToPlay4")}</li>
                   </ul>
+                  <GamePreview />
               </>
           }
           benefits={[
