@@ -10,7 +10,7 @@ import { PatternGenerators } from '../patterns/PatternGenerators';
 import { CheckCircle, XCircle } from 'lucide-react';
 import '../styles.css';
 
-type GameState = 'start' | 'observing' | 'input' | 'result' | 'gameOver';
+type GameState = 'start' | 'observing' | 'input' | 'result' | 'gameOver' | 'animating';
 
 // 关卡配置接口
 interface LevelConfig {
@@ -104,57 +104,39 @@ const AnimationControllers: Record<string, AnimationController> = {
 // 新的关卡配置
 const LEVEL_CONFIGS: LevelConfig[] = [
     {
-        blocksRange: [5, 8],
-        pattern: ["tower"],
-        observer: [5000, 7000],
-        animation: [],
-    },
-    {
-        blocksRange: [8, 10],
-        pattern: ["tower"],
-        observer: [5000, 7000],
-        animation: [],
-    },
-    {
-        blocksRange: [7, 10],
-        pattern: ["tower"],
-        observer: [5000, 7000],
-        animation: [],
-    },
-    {
-        blocksRange: [3, 5],
+        blocksRange: [3, 4],
         pattern: ["corner"],
-        observer: [400, 700],
+        observer: [800, 1000],
         animation: [],
     },
     {
         blocksRange: [4, 6],
-        pattern: ["line"],
-        observer: [400, 700],
-        animation: [],
+        pattern: ["line", "tower"],
+        observer: [700, 800],
+        animation: ["flyIn", ""],
     },
     {
-        blocksRange: [4, 6],
-        pattern: ["cross"],
-        observer: [400, 700],
-        animation: ["flyIn"],
+        blocksRange: [5, 7],
+        pattern: ["cross", "tower"],
+        observer: [600, 800],
+        animation: ["flyIn", ""],
     },
     {
         blocksRange: [7, 9],
-        pattern: ["scattered"],
-        observer: [400, 700],
-        animation: [],
+        pattern: ["scattered", "tower"],
+        observer: [600, 800],
+        animation: ["flyIn", ""],
     },
     {
-        blocksRange: [3, 4],
+        blocksRange: [2, 4],
         pattern: ["random_fill"],
-        observer: [400, 700],
+        observer: [250, 350],
         animation: [],
     },
     {
         blocksRange: [20, 23],
         pattern: ["random_fill"],
-        observer: [600, 900],
+        observer: [300, 400],
         animation: [],
     },
 ];
@@ -482,6 +464,16 @@ export default function GameComponent() {
         [clearBoard, addCube]
     );
 
+    // 开始定时器 - 使用新的配置化观察时间
+    const startTimer = useCallback(() => {
+        if (level > LEVEL_CONFIGS.length) return;
+        
+        const levelConfig = LEVEL_CONFIGS[level - 1];
+        const observeTime = randomInRange(levelConfig.observer[0], levelConfig.observer[1]);
+        
+        setObserveTimeLeft(observeTime);
+    }, [level]);
+
     // 新的生成关卡函数 - 使用模块化的模式生成器
     const generateLevel = useCallback(() => {
         clearBoard();
@@ -496,7 +488,8 @@ export default function GameComponent() {
         // 随机选择配置参数
         const targetBlocks = randomInRange(levelConfig.blocksRange[0], levelConfig.blocksRange[1]);
         const selectedPattern = randomChoice(levelConfig.pattern);
-        const selectedAnimation = levelConfig.animation.length > 0 ? randomChoice(levelConfig.animation) : 'default';
+        // animation字段支持数组，随机选一个动画
+        const selectedAnimation = levelConfig.animation && levelConfig.animation.length > 0 ? randomChoice(levelConfig.animation) : 'default';
         
         // 使用模式生成器生成方块布局
         const patternGenerator = PatternGenerators[selectedPattern];
@@ -515,15 +508,16 @@ export default function GameComponent() {
         // 渲染方块
         renderCubesFromHeightMap(correctHeightMapRef.current, CUBE_COLOR);
         
-        // 特殊动画处理：如果是飞入动画，需要初始化位置
+        // 保存选择的动画类型供后续使用
+        selectedAnimationRef.current = selectedAnimation;
+
+        // flyIn动画：直接执行动画，动画结束后进入输入阶段，不设置观察时间
         if (selectedAnimation === "flyIn" && cubesGroupRef.current && sceneInstanceRef.current) {
+            setGameState("animating");
             const cubesGroup = cubesGroupRef.current;
             const scene = sceneInstanceRef.current;
-            
             // 设置初始位置
             cubesGroup.position.set(-12, 8, 8);
-            
-            // 同时移动网格
             scene.children.forEach(child => {
                 if (child instanceof THREE.GridHelper) {
                     child.position.set(-12, 8 - 0.01, 8);
@@ -531,23 +525,18 @@ export default function GameComponent() {
                     child.position.set(-12, 8, 8);
                 }
             });
+            AnimationControllers.flyIn.execute(cubesGroup, scene, () => {
+                setGameState("input");
+            });
+            return;
         }
-        
-        // 保存选择的动画类型供后续使用
-        selectedAnimationRef.current = selectedAnimation;
+
+        // 普通流程
+        setGameState('observing');
+        startTimer();
         
         console.log(`✓ 关卡${level} 生成完成: 模式=${selectedPattern}, 方块=${actualBlocks}, 动画=${selectedAnimation}`);
-    }, [level, clearBoard, renderCubesFromHeightMap]);
-
-    // 开始定时器 - 使用新的配置化观察时间
-    const startTimer = useCallback(() => {
-        if (level > LEVEL_CONFIGS.length) return;
-        
-        const levelConfig = LEVEL_CONFIGS[level - 1];
-        const observeTime = randomInRange(levelConfig.observer[0], levelConfig.observer[1]);
-        
-        setObserveTimeLeft(observeTime);
-    }, [level]);
+    }, [level, clearBoard, renderCubesFromHeightMap, startTimer]);
 
     // 开始输入阶段
     const startInputPhase = useCallback(() => {
@@ -652,6 +641,7 @@ export default function GameComponent() {
             generateLevel();
             startTimer();
         }
+        // 其他gameState不再触发generateLevel
     }, [level, gameState, generateLevel, startTimer]);
 
     // 初始化Three.js
@@ -721,18 +711,20 @@ export default function GameComponent() {
                 <div ref={sceneRef} className="count-blocks-canvas-container" />
 
                 {/* 计时器显示 - 绝对定位在grid上方 */}
-                {gameState === 'result' && countdown > 0 && level < LEVEL_CONFIGS.length ? (
-                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
-                        <div className="text-center text-xl font-bold text-foreground shadow rounded-2xl p-3 bg-background/90 backdrop-blur-sm">
+                {gameState === "result" &&
+                countdown > 0 &&
+                level < LEVEL_CONFIGS.length ? (
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
+                        <div className="text-center text-xl font-bold text-foreground shadow rounded-2xl px-6 py-2 bg-background/60 backdrop-blur-sm">
                             {`下一關: ${countdown} 秒`}
                         </div>
                     </div>
                 ) : null}
 
                 {/* 提示信息 */}
-                {gameState === 'observing' && (
-                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
-                        <div className="text-center text-xl font-bold text-foreground shadow rounded-2xl p-4 bg-background/90 backdrop-blur-sm">
+                {gameState === "observing" && (
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
+                        <div className="text-center text-xl font-bold text-foreground shadow rounded-2xl px-6 py-2 bg-background/60 backdrop-blur-sm">
                             有多少方塊？
                         </div>
                     </div>
@@ -811,26 +803,36 @@ export default function GameComponent() {
                             {gameState === "gameOver" && (
                                 <div className="absolute inset-0 flex items-center justify-center z-20">
                                     <div className="rounded-lg p-6 bg-background/90 backdrop-blur-sm max-w-md w-full">
-                                        <h2 className="text-2xl font-bold text-center mb-4">🎉 遊戲結束！</h2>
-                                        
+                                        <h2 className="text-2xl font-bold text-center mb-4">
+                                            🎉 遊戲結束！
+                                        </h2>
+
                                         {/* 总体统计 */}
                                         <div className="space-y-3 mb-6">
                                             <div className="flex justify-between">
                                                 <span>正確率：</span>
                                                 <span className="font-bold">
                                                     {gameStats.totalLevels > 0
-                                                        ? `${gameStats.correctAnswers}/${gameStats.totalLevels} (${Math.round(
+                                                        ? `${
+                                                              gameStats.correctAnswers
+                                                          }/${
+                                                              gameStats.totalLevels
+                                                          } (${Math.round(
                                                               (gameStats.correctAnswers /
                                                                   gameStats.totalLevels) *
                                                                   100
                                                           )}%)`
-                                                        : 'N/A'}
+                                                        : "N/A"}
                                                 </span>
                                             </div>
                                             <div className="flex justify-between">
                                                 <span>總用時：</span>
                                                 <span className="font-bold">
-                                                    {Math.round(gameStats.totalTime / 1000)}秒
+                                                    {Math.round(
+                                                        gameStats.totalTime /
+                                                            1000
+                                                    )}
+                                                    秒
                                                 </span>
                                             </div>
                                         </div>
@@ -838,11 +840,18 @@ export default function GameComponent() {
                                         {/* 鼓励文案 */}
                                         <div className="mb-6 text-center text-lg font-semibold">
                                             {(() => {
-                                                const rate = gameStats.totalLevels > 0 ? gameStats.correctAnswers / gameStats.totalLevels : 0;
-                                                if (rate === 1) return '完美！你是方塊記憶大師！再來挑戰更高分吧！';
-                                                if (rate >= 0.7) return '很棒！再多練習幾次會更厲害！';
-                                                if (rate >= 0.4) return '不錯哦，繼續努力，記憶力會越來越好！';
-                                                return '別灰心，多玩幾次你一定會進步！';
+                                                const rate =
+                                                    gameStats.totalLevels > 0
+                                                        ? gameStats.correctAnswers /
+                                                          gameStats.totalLevels
+                                                        : 0;
+                                                if (rate === 1)
+                                                    return "完美！你是方塊記憶大師！再來挑戰更高分吧！";
+                                                if (rate >= 0.7)
+                                                    return "很棒！再多練習幾次會更厲害！";
+                                                if (rate >= 0.4)
+                                                    return "不錯哦，繼續努力，記憶力會越來越好！";
+                                                return "別灰心，多玩幾次你一定會進步！";
                                             })()}
                                         </div>
 
