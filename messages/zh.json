@@ -225,16 +225,7 @@
       "faq": "常见问题",
       "relatedGames": "相关游戏",
       "trainingCategories": "训练类别",
-      "embedGame": "嵌入此游戏",
       "share": "分享"
-    },
-    "embed": {
-      "embedTitle": "在您的网站上嵌入{gameTitle}",
-      "instructions": "复制下面的代码并粘贴到您网站的HTML中即可嵌入此游戏：",
-      "copied": "已复制",
-      "copyCode": "复制代码",
-      "embedCode": "嵌入代码",
-      "poweredBy": "由"
     },
     "aboutBrainTraining": {
       "title": "关于脑力训练",

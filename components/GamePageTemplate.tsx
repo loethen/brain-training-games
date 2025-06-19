@@ -12,7 +12,6 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import GameCard from '@/components/game-card';
 import { getGame } from '@/data/games';
 import { useTranslations } from 'next-intl';
-import { EmbedButton } from '@/components/EmbedButton';
 import { ShareButton } from '@/components/share-button';
 
 interface FaqItem {
@@ -71,15 +70,10 @@ export function GamePageTemplate({
               {gameComponent}
           </section>
 
-          {/* 分享和嵌入部分 */}
+          {/* 分享部分 */}
           <section className="max-w-6xl mx-auto mb-12">
             <div className="flex space-x-2">
               <ShareButton title={title} />
-              
-              <EmbedButton 
-                gameName={gameId}
-                gameTitle={title}
-              />
             </div>
           </section>
 

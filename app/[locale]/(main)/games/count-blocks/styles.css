@@ -45,4 +45,42 @@
         max-width: 95vw;
         min-width: 280px;
     }
-} 
+}
+
+/* === Count Blocks GamePreview 3D 等角网格与立方体 === */
+.cb-scene {
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(-45deg);
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.cb-cell {
+  background: #f3f4f6; /* Tailwind bg-gray-100 */
+  border: 1px solid #d1d5db; /* Tailwind border-gray-300 */
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.cb-cube {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  transform-style: preserve-3d;
+  /* 让 cube 站在格子上 */
+  transform: translateZ(32px);
+}
+.cb-face {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  background: #3b82f6;
+  border: 1.5px solid #1e293b;
+  opacity: 0.98;
+  box-sizing: border-box;
+}
+.cb-face-front  { transform: rotateY(0deg) translateZ(32px); background: #60a5fa; }
+.cb-face-back   { transform: rotateY(180deg) translateZ(32px); background: #1e3a8a; }
+.cb-face-left   { transform: rotateY(-90deg) translateZ(32px); background: #2563eb; }
+.cb-face-right  { transform: rotateY(90deg) translateZ(32px); background: #2563eb; }
+.cb-face-top    { transform: rotateX(90deg) translateZ(32px); background: #dbeafe; }
+.cb-face-bottom { transform: rotateX(-90deg) translateZ(32px); background: #1e40af; } 
