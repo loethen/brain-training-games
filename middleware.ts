@@ -7,6 +7,11 @@ const handleI18nRouting = createMiddleware(routing);
 export default async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
+    // sitemap.xml 和 robots.txt 直接放行
+    if (pathname === '/sitemap.xml' || pathname === '/robots.txt') {
+        return NextResponse.next();
+    }
+
     // 静态资源类型直接放行
     const staticExts = [
       '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.webp',
@@ -39,9 +44,9 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    // 匹配所有路径除了API、静态资源等
+    // 匹配所有路径除了API、静态资源、sitemap.xml、robots.txt等
     matcher: [
-        // 包含所有页面路径
-        "/((?!api|_next/static|_next/image|favicon.ico).*)",
+        // 包含所有页面路径，但排除 sitemap.xml 和 robots.txt
+        "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
     ],
 };
