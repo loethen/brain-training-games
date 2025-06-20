@@ -37,7 +37,7 @@ export default function AppleStyleGameCard({
                 {/* 标题和描述 */}
                 <Link href={`/games/${game.slug}`}>
                     <div className="mb-2 cursor-pointer">
-                        <h2 className="text-2xl font-bold mb-2 leading-tight text-foreground hover:text-foreground/80 transition-colors duration-200">
+                        <h2 className="text-2xl font-bold mb-2 leading-tight text-foreground hover:text-foreground/80 transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
                             {t(`${camelCaseId}.title`)}
                         </h2>
                         <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 hover:text-foreground/80 transition-colors duration-200">
