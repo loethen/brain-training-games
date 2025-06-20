@@ -15,6 +15,15 @@ export type Game = {
 
 export const games: Game[] = [
     {
+        id: "counting-boxes",
+        title: "Counting Boxes",
+        description:
+            "Train your spatial memory and counting skills by remembering how many 3D boxes appear on a grid.",
+        slug: "counting-boxes",
+        preview: <CountingBoxesGamePreview />,
+        categories: ["working-memory", "visual-tracking", "spatial-memory"],
+    },
+    {
         id: "baby-animal-matching",
         title: "Baby Animal Matching",
         description:
@@ -104,15 +113,6 @@ export const games: Game[] = [
             "selective-attention",
             "sustained-attention",
         ],
-    },
-    {
-        id: "counting-boxes",
-        title: "Counting Boxes",
-        description:
-            "Train your spatial memory and counting skills by remembering how many 3D boxes appear on a grid.",
-        slug: "counting-boxes",
-        preview: <CountingBoxesGamePreview />,
-        categories: ["working-memory", "visual-tracking", "spatial-memory"],
     },
     // Add more games as you create them
 ];

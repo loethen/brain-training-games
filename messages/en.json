@@ -965,7 +965,17 @@
         "share": "Share Result",
         "preparing": "Preparing...",
         "getReady": "Get Ready...",
-        "timeLeft": "Time Left: {seconds}s"
+        "timeLeft": "Time Left: {seconds}s",
+        "nextLevel": "Next Level: {seconds}s",
+        "accuracyLabel": "Accuracy:",
+        "totalTimeLabel": "Total Time:",
+        "seconds": "seconds",
+        "encouragement": {
+          "perfect": "Perfect! You are a box memory master!",
+          "great": "Great! Practice a few more times and you'll be even better!",
+          "good": "Nice! Keep working hard, your memory will get better and better!",
+          "keepTrying": "Don't be discouraged, practice more and you will definitely improve!"
+        }
       }
     },
     "babyAnimalMatching": {

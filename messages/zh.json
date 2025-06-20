@@ -733,7 +733,17 @@
         "share": "分享结果",
         "preparing": "准备中...",
         "getReady": "准备...",
-        "timeLeft": "剩余时间：{seconds}秒"
+        "timeLeft": "剩余时间：{seconds}秒",
+        "nextLevel": "下一关：{seconds}秒",
+        "accuracyLabel": "准确率：",
+        "totalTimeLabel": "总用时：",
+        "seconds": "秒",
+        "encouragement": {
+          "perfect": "完美！你是箱子记忆大师！",
+          "great": "很棒！再多练习几次会更厉害！",
+          "good": "不错哦，继续努力，记忆力会越来越好！",
+          "keepTrying": "别灰心，多玩几次你一定会进步！"
+        }
       }
     },
     "babyAnimalMatching": {

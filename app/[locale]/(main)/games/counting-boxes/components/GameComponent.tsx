@@ -8,6 +8,7 @@ import { useTimeout } from '@/hooks/useTimeout';
 import { useInterval } from '@/hooks/useInterval';
 import { PatternGenerators } from '../patterns/PatternGenerators';
 import { CheckCircle, XCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import '../styles.css';
 import confetti from 'canvas-confetti';
 
@@ -153,6 +154,9 @@ function randomInRange(min: number, max: number): number {
 }
 
 export default function GameComponent() {
+    // 翻译
+    const t = useTranslations('games.countingBoxes.gameUI');
+    
     // 游戏状态
     const [gameState, setGameState] = useState<GameState>('start');
     const [level, setLevel] = useState(1);
@@ -601,21 +605,21 @@ export default function GameComponent() {
                 cubesGroupRef.current.visible = true;
             }
 
-            // 立即显示结果
-            setLastResult({ correct: isCorrect });
-            if (isCorrect) {
-                renderCubesFromHeightMap(
-                    correctHeightMapRef.current,
-                    SUCCESS_COLOR
-                );
-                setTimerDisplay(`正確！答案是：${correctBlockCount}`);
-            } else {
-                renderCubesFromHeightMap(
-                    correctHeightMapRef.current,
-                    CUBE_COLOR
-                );
-                setTimerDisplay(`答錯了！正確答案：${correctBlockCount}`);
-            }
+                            // 立即显示结果
+                setLastResult({ correct: isCorrect });
+                if (isCorrect) {
+                    renderCubesFromHeightMap(
+                        correctHeightMapRef.current,
+                        SUCCESS_COLOR
+                    );
+                    setTimerDisplay(t('correct') + '! ' + t('actualCount', { count: correctBlockCount }));
+                } else {
+                    renderCubesFromHeightMap(
+                        correctHeightMapRef.current,
+                        CUBE_COLOR
+                    );
+                    setTimerDisplay(t('incorrect') + '! ' + t('actualCount', { count: correctBlockCount }));
+                }
 
             setGameState("result");
             setCountdown(3);
@@ -732,7 +736,7 @@ export default function GameComponent() {
                 level < LEVEL_CONFIGS.length ? (
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
                         <div className="text-center text-xl font-bold text-foreground shadow rounded-2xl px-6 py-2 bg-background/60 backdrop-blur-sm">
-                            {`下一關: ${countdown} 秒`}
+                            {t('nextLevel', { seconds: countdown })}
                         </div>
                     </div>
                 ) : null}
@@ -741,7 +745,7 @@ export default function GameComponent() {
                 {gameState === "observing" && (
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
                         <div className="text-center text-xl font-bold text-foreground shadow rounded-2xl px-6 py-2 bg-background/60 backdrop-blur-sm">
-                            有多少方塊？
+                            {t('observing')}
                         </div>
                     </div>
                 )}
@@ -761,7 +765,7 @@ export default function GameComponent() {
                                         className="game-button"
                                         size="lg"
                                     >
-                                        開始遊戲
+                                        {t('startGame')}
                                     </Button>
                                 </>
                             )}
@@ -770,7 +774,7 @@ export default function GameComponent() {
                             {gameState === "input" && (
                                 <div>
                                     <h2 className="text-2xl sm:text-3xl font-semibold text-foreground m-0">
-                                        方塊總數是？
+                                        {t('howMany')}
                                     </h2>
                                     <form
                                         onSubmit={checkAnswer}
@@ -791,7 +795,7 @@ export default function GameComponent() {
                                             variant="outline"
                                             className="game-button"
                                         >
-                                            提交
+                                            {t('enter')}
                                         </Button>
                                     </form>
                                 </div>
@@ -820,13 +824,13 @@ export default function GameComponent() {
                                 <div className="absolute inset-0 flex items-center justify-center z-20">
                                     <div className="rounded-lg p-6 bg-background/50 backdrop-blur-sm max-w-md w-full">
                                         <h2 className="text-2xl font-bold text-center mb-4">
-                                            🎉 遊戲結束！
+                                            🎉 {t('gameOver')}
                                         </h2>
 
                                         {/* 总体统计 */}
                                         <div className="space-y-3 mb-6">
                                             <div className="flex justify-between">
-                                                <span>正確率：</span>
+                                                <span>{t('accuracyLabel')}</span>
                                                 <span className="font-bold">
                                                     {gameStats.totalLevels > 0
                                                         ? `${
@@ -842,13 +846,13 @@ export default function GameComponent() {
                                                 </span>
                                             </div>
                                             <div className="flex justify-between">
-                                                <span>總用時：</span>
+                                                <span>{t('totalTimeLabel')}</span>
                                                 <span className="font-bold">
                                                     {Math.round(
                                                         gameStats.totalTime /
                                                             1000
                                                     )}
-                                                    秒
+                                                    {t('seconds')}
                                                 </span>
                                             </div>
                                         </div>
@@ -862,12 +866,12 @@ export default function GameComponent() {
                                                           gameStats.totalLevels
                                                         : 0;
                                                 if (rate === 1)
-                                                    return "完美！你是方塊記憶大師！";
+                                                    return t('encouragement.perfect');
                                                 if (rate >= 0.7)
-                                                    return "很棒！再多練習幾次會更厲害！";
+                                                    return t('encouragement.great');
                                                 if (rate >= 0.4)
-                                                    return "不錯哦，繼續努力，記憶力會越來越好！";
-                                                return "別灰心，多玩幾次你一定會進步！";
+                                                    return t('encouragement.good');
+                                                return t('encouragement.keepTrying');
                                             })()}
                                         </div>
 
@@ -878,7 +882,7 @@ export default function GameComponent() {
                                                 className="game-button"
                                                 size="lg"
                                             >
-                                                重新開始
+                                                {t('playAgain')}
                                             </Button>
                                         </div>
                                     </div>
