@@ -130,9 +130,9 @@ const LEVEL_CONFIGS: LevelConfig[] = [
         animation: ["flyIn", ""],
     },
     {
-        blocksRange: [2, 4],
+        blocksRange: [3, 4],
         pattern: ["random_fill"],
-        observer: [250, 320],
+        observer: [250, 300],
         animation: [],
     },
     {
