@@ -40,12 +40,12 @@
     min-width: 300px;
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
     .responsive-game-container {
         max-width: 95vw;
         min-width: 280px;
     }
-}
+} */
 
 /* === Counting Boxes GamePreview 3D 等角网格与立方体 === */
 .scene {

@@ -725,7 +725,7 @@ export default function GameComponent() {
     }, []);
 
     return (
-        <div className="flex flex-col items-center gap-5 text-foreground p-4 sm:p-6">
+        <div className="flex flex-col items-center gap-5 text-foreground p-4">
             {/* Three.js 场景容器 */}
             <div className="responsive-game-container relative">
                 <div ref={sceneRef} className="counting-boxes-canvas-container" />
@@ -735,7 +735,7 @@ export default function GameComponent() {
                 countdown > 0 &&
                 level < LEVEL_CONFIGS.length ? (
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
-                        <div className="text-center text-xl font-bold text-foreground shadow rounded-2xl px-6 py-2 bg-background/60 backdrop-blur-sm">
+                        <div className="text-center font-bold text-foreground shadow rounded-2xl px-6 py-2 bg-background/60 backdrop-blur-sm">
                             {t('nextLevel', { seconds: countdown })}
                         </div>
                     </div>
@@ -757,9 +757,6 @@ export default function GameComponent() {
                             {/* 开始画面 */}
                             {gameState === "start" && (
                                 <>
-                                    <h2 className="text-2xl sm:text-3xl font-semibold text-foreground m-0">
-                                        Counting Boxes
-                                    </h2>
                                     <Button
                                         onClick={startGame}
                                         className="game-button"
@@ -773,12 +770,12 @@ export default function GameComponent() {
                             {/* 输入画面 */}
                             {gameState === "input" && (
                                 <div>
-                                    <h2 className="text-2xl sm:text-3xl font-semibold text-foreground m-0">
+                                    <h2 className="text-xl font-semibold text-foreground m-0">
                                         {t('howMany')}
                                     </h2>
                                     <form
                                         onSubmit={checkAnswer}
-                                        className="flex gap-3 items-center mt-4"
+                                        className="flex gap-3 items-center mt-4 justify-center"
                                     >
                                         <input
                                             type="number"

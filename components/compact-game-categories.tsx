@@ -9,6 +9,7 @@ import {
     Target,
     Split,
     Shuffle,
+    Map,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getCategory, type Category } from "@/data/categories";
@@ -23,6 +24,7 @@ const iconMap: Record<string, React.ReactNode> = {
     Target: <Target className="h-3 w-3" />,
     Split: <Split className="h-3 w-3" />,
     Shuffle: <Shuffle className="h-3 w-3" />,
+    Map: <Map className="h-3 w-3" />,
 };
 
 interface CompactGameCategoriesProps {

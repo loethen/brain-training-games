@@ -140,6 +140,25 @@ export const categories: Category[] = [
       "rule switching training",
       "brain flexibility improvement"
     ]
+  },
+  {
+    id: "spatial-memory",
+    name: "Spatial Memory",
+    description: "Games that strengthen your ability to remember and manipulate spatial information. Strong spatial memory helps with navigation, remembering object locations, understanding maps, and visualizing 3D structures. This skill is crucial for activities like parking, finding items, following directions, and excelling in STEM fields that require spatial reasoning.",
+    slug: "spatial-memory",
+    icon: "Map",
+    keywords: [
+      "spatial memory training",
+      "spatial awareness exercises",
+      "visual-spatial memory",
+      "spatial reasoning games",
+      "location memory training",
+      "3D spatial skills",
+      "spatial visualization",
+      "spatial working memory",
+      "navigation skills training",
+      "spatial intelligence games"
+    ]
   }
 ];
 

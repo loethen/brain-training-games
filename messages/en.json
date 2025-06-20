@@ -106,7 +106,8 @@
       "selective-attention": "Selective Attention",
       "divided-attention": "Divided Attention",
       "reaction-time": "Reaction Time",
-      "cognitive-flexibility": "Cognitive Flexibility"
+      "cognitive-flexibility": "Cognitive Flexibility",
+      "spatial-memory": "Spatial Memory"
     },
     "categoryDescriptions": {
       "working-memory": "Games that strengthen your ability to temporarily hold and manipulate information. Strong working memory helps students remember instructions, professionals juggle multiple tasks, and everyone follow conversations better.",
@@ -115,7 +116,8 @@
       "selective-attention": "Games that improve your ability to focus on relevant information while filtering out distractions. Better selective attention helps students study in noisy environments, professionals concentrate in busy offices, and everyone maintain focus despite interruptions.",
       "divided-attention": "Games that develop your ability to effectively split attention between multiple tasks or stimuli. Enhanced divided attention helps parents monitor children while completing household tasks, professionals handle concurrent responsibilities, and drivers safely navigate while being aware of surroundings.",
       "reaction-time": "Games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better, drivers respond quickly to road hazards, and older adults prevent falls.",
-      "cognitive-flexibility": "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively."
+      "cognitive-flexibility": "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively.",
+      "spatial-memory": "Games that strengthen your ability to remember and manipulate spatial information. Strong spatial memory helps with navigation, remembering object locations, understanding maps, and visualizing 3D structures. This skill is crucial for activities like parking, finding items, following directions, and excelling in STEM fields."
     },
     "keywords": {
       "working-memory": {
@@ -201,6 +203,18 @@
         "flexible thinking games": "Flexible thinking games",
         "rule switching training": "Rule switching training",
         "brain flexibility improvement": "Brain flexibility improvement"
+      },
+      "spatial-memory": {
+        "spatial memory training": "Spatial memory training",
+        "spatial awareness exercises": "Spatial awareness exercises",
+        "visual-spatial memory": "Visual-spatial memory",
+        "spatial reasoning games": "Spatial reasoning games",
+        "location memory training": "Location memory training",
+        "3D spatial skills": "3D spatial skills",
+        "spatial visualization": "Spatial visualization",
+        "spatial working memory": "Spatial working memory",
+        "navigation skills training": "Navigation skills training",
+        "spatial intelligence games": "Spatial intelligence games"
       }
     },
     "categoryNotFound": "Category Not Found",
@@ -264,8 +278,8 @@
     "ogDescription": "Explore science-based games to enhance your memory, focus, attention, and other cognitive abilities. Train your brain for free.",
     "schulteTable": {
       "title": "Schulte Table",
-      "subtitle": "Enhance your attention and peripheral vision",
-      "description": "Enhance your attention and peripheral vision",
+      "subtitle": "Supercharge Your Reading Speed and Visual Focus",
+      "description": "Transform your reading and attention abilities with this classic cognitive exercise. Find numbers in sequence while training your peripheral vision and processing speed. Used by speed readers and professionals worldwide to enhance visual performance and concentration.",
       "howToPlay": "Find and click numbers in ascending order (1-25) as quickly as possible. Try to use your peripheral vision instead of scanning each number!",
       "speedStandards": {
         "title": "Speed Standards",
@@ -349,8 +363,8 @@
     },
     "dualNBack": {
       "title": "Dual N-Back",
-      "subtitle": "Train your working memory by remembering visual and auditory stimuli N steps back.",
-      "description": "Train your working memory by remembering visual and auditory stimuli N steps back.",
+      "subtitle": "Elite Working Memory Training for Peak Cognitive Performance",
+      "description": "Master the gold standard of brain training. This scientifically-proven exercise challenges you to track both visual positions and audio letters simultaneously, building the mental muscle that powers learning, focus, and intelligent thinking.",
       "howToPlayIntro": "In this game, you'll be presented with a sequence of stimuli - positions in a grid and letters. Your task is to identify when the current stimulus matches the one from N steps back. Press the position button when the position matches, and the sound button when the letter matches.",
       "howToPlay1": "Watch the grid and listen to the letter",
       "howToPlay2": "Press the position button when the position matches",
@@ -902,8 +916,8 @@
     },
     "countingBoxes": {
       "title": "Counting Boxes",
-      "subtitle": "3D Training to Enhance Working Memory and Selective Attention",
-      "description": "Train your spatial memory and counting skills by remembering how many 3D boxes appear on a grid.",
+      "subtitle": "Master Spatial Memory Through 3D Cube Counting",
+      "description": "Watch 3D cubes appear and disappear, then count them accurately. Train your spatial memory and visual processing skills.",
       "metaTitle": "Counting Boxes Game - Working Memory & Selective Attention Training",
       "metaDescription": "Enhance your working memory and selective attention with 3D cube counting exercises. Free online spatial memory training game with progressive difficulty.",
       "metaKeywords": "counting boxes game, 3D counting game, spatial memory training, working memory improvement, selective attention training, visual counting exercise, cube counting challenge, brain training boxes, cognitive counting game, free memory game online",
@@ -955,7 +969,6 @@
         "incorrect": "Incorrect",
         "actualCount": "Actual count: {count}",
         "yourAnswer": "Your answer: {answer}",
-        "nextLevel": "Next Level",
         "startGame": "Start Game",
         "gameOver": "Game Complete!",
         "finalStats": "Final Statistics",
@@ -980,8 +993,8 @@
     },
     "babyAnimalMatching": {
       "title": "Baby Animal Matching Game",
-      "subtitle": "Test your memory with cute baby animals!",
-      "description": "Find matching baby animal pairs in this fun visual memory game.",
+      "subtitle": "Adorable Memory Training for All Ages",
+      "description": "Match pairs of cute baby animals in this classic memory card game. Improves visual memory and concentration for all ages.",
       "howToPlayIntro": "Find all the matching pairs of baby animals in this memory card game!",
       "howToPlayStep1": "Select your difficulty level to start",
       "howToPlayStep2": "Click on a card to flip it over and reveal a baby animal",

@@ -27,7 +27,7 @@ export default function AppleStyleGameCard({
         <div
             className={cn(
                 "group relative rounded-2xl transition-all duration-300 ease-out",
-                "min-w-[350px] w-[350px] h-[600px] md:min-w-[400px] md:w-[400px]", // Apple风格的响应式尺寸
+                "min-w-[350px] w-[350px] h-[550px] md:min-w-[400px] md:w-[400px]", // Apple风格的响应式尺寸
                 "bg-card border border-border hover:shadow", // 支持dark主题的背景
                 className
             )}

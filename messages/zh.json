@@ -106,7 +106,8 @@
       "selective-attention": "选择性注意力",
       "divided-attention": "分散注意力",
       "reaction-time": "反应时间",
-      "cognitive-flexibility": "认知灵活性"
+      "cognitive-flexibility": "认知灵活性",
+      "spatial-memory": "空间记忆"
     },
     "categoryDescriptions": {
       "working-memory": "增强你暂时保持和操作信息能力的游戏。强大的工作记忆帮助学生记住指令，专业人士同时处理多项任务，以及每个人更好地跟随对话。",
@@ -115,7 +116,8 @@
       "selective-attention": "提高你专注于相关信息同时过滤干扰能力的游戏。更好的选择性注意力帮助学生在嘈杂环境中学习，专业人士在繁忙办公室中集中注意力，以及每个人在干扰中保持专注。",
       "divided-attention": "发展你有效地在多个任务或刺激之间分配注意力能力的游戏。增强的分散注意力帮助父母在完成家务的同时监督孩子，专业人士处理并行责任，以及驾驶员在注意周围环境的同时安全导航。",
       "reaction-time": "锻炼你对视觉或听觉刺激反应速度的游戏。更快的反应时间帮助运动员表现更好，驾驶员快速应对道路危险，以及老年人预防跌倒。",
-      "cognitive-flexibility": "增强你在不同概念之间切换或适应变化规则能力的游戏。更大的认知灵活性帮助学生跨学科应用知识，专业人士适应不断变化的工作要求，以及每个人更有效地应对社交场合。"
+      "cognitive-flexibility": "增强你在不同概念之间切换或适应变化规则能力的游戏。更大的认知灵活性帮助学生跨学科应用知识，专业人士适应不断变化的工作要求，以及每个人更有效地应对社交场合。",
+      "spatial-memory": "增强你记忆和操作空间信息能力的游戏。强大的空间记忆帮助导航、记住物体位置、理解地图和想象3D结构。这项技能对停车、寻找物品、跟随方向以及在STEM领域中取得优异成绩至关重要。"
     },
     "keywords": {
       "working-memory": {
@@ -201,6 +203,18 @@
         "flexible thinking games": "灵活思维游戏",
         "rule switching training": "规则切换训练",
         "brain flexibility improvement": "大脑灵活性提升"
+      },
+      "spatial-memory": {
+        "spatial memory training": "空间记忆训练",
+        "spatial awareness exercises": "空间感知练习",
+        "visual-spatial memory": "视觉空间记忆",
+        "spatial reasoning games": "空间推理游戏",
+        "location memory training": "位置记忆训练",
+        "3D spatial skills": "3D空间技能",
+        "spatial visualization": "空间可视化",
+        "spatial working memory": "空间工作记忆",
+        "navigation skills training": "导航技能训练",
+        "spatial intelligence games": "空间智力游戏"
       }
     },
     "categoryNotFound": "未找到分类",
@@ -264,8 +278,8 @@
     "ogDescription": "探索基于科学的游戏，增强你的记忆力、专注力、注意力和其他认知能力。免费训练你的大脑。",
     "schulteTable": {
       "title": "舒尔特表格",
-      "subtitle": "增强你的注意力和周边视觉",
-      "description": "通过舒尔特表格练习提高你的周边视觉、注意力持续时间和阅读速度。按顺序找出数字，同时训练你的大脑更快地处理视觉信息。",
+      "subtitle": "强化你的阅读速度和视觉专注力",
+      "description": "用这个经典认知练习改变你的阅读和注意力能力。按顺序找出数字的同时训练周边视觉和处理速度。被全世界的速读者和专业人士用来增强视觉表现和专注力。",
       "howToPlay": "尽快按升序（1-25）找出并点击数字。尝试使用周边视觉而不是逐个扫描每个数字！",
       "speedStandards": {
         "title": "速度标准",
@@ -349,8 +363,8 @@
     },
     "dualNBack": {
       "title": "双重N-Back",
-      "subtitle": "高级工作记忆训练，提升认知能力",
-      "description": "通过记忆N步之前的视觉和听觉刺激来训练你的工作记忆。",
+      "subtitle": "精英级工作记忆训练，达到认知巅峰表现",
+      "description": "掌握脑力训练的黄金标准。这个经科学验证的练习挑战你同时追踪视觉位置和音频字母，构建驱动学习、专注和智慧思考的心理肌肉。",
       "howToPlayIntro": "在这个具有挑战性的记忆任务中，你需要记住序列中N步之前的视觉和听觉刺激：",
       "howToPlay1": "观察网格并聆听字母",
       "howToPlay2": "当当前位置与N步之前的位置匹配时，按\"位置\"按钮",
@@ -670,8 +684,8 @@
     },
     "countingBoxes": {
       "title": "数箱子游戏",
-      "subtitle": "提升工作记忆和选择性注意力的3D训练",
-      "description": "通过记住网格上出现的3D立方体数量来训练你的空间记忆和计数技能。",
+      "subtitle": "通过3D立方体计数掌握空间记忆",
+      "description": "观察3D立方体出现和消失，然后准确计数。训练你的空间记忆和视觉处理技能。",
       "metaTitle": "数箱子游戏 - 工作记忆和选择性注意力训练",
       "metaDescription": "通过3D立方体计数训练提升工作记忆和选择性注意力。免费在线空间记忆训练游戏，难度递进，科学有效。",
       "metaKeywords": "数箱子游戏, 工作记忆训练, 选择性注意力训练, switch游戏网页版, 大人的脑部锻炼, 3D数数游戏, 空间记忆训练, 计数练习游戏, 立方体记忆游戏, 立体记忆游戏, 免费脑力训练, 认知能力提升, 视觉计数练习",
@@ -723,7 +737,6 @@
         "incorrect": "错误",
         "actualCount": "实际数量：{count}",
         "yourAnswer": "你的答案：{answer}",
-        "nextLevel": "下一关",
         "startGame": "开始游戏",
         "gameOver": "游戏完成！",
         "finalStats": "最终统计",
@@ -748,8 +761,8 @@
     },
     "babyAnimalMatching": {
       "title": "宝宝动物配对游戏",
-      "subtitle": "用可爱的宝宝动物来测试你的记忆力！",
-      "description": "在这个有趣的视觉记忆游戏中，找出所有匹配的宝宝动物对！",
+      "subtitle": "适合所有年龄的可爱记忆训练",
+      "description": "在这个经典记忆卡牌游戏中匹配可爱的宝宝动物对。提升各个年龄段的视觉记忆和专注力。",
       "howToPlayIntro": "在这个记忆卡牌游戏中，找出所有匹配的宝宝动物对！",
       "howToPlayStep1": "选择难度开始游戏",
       "howToPlayStep2": "点击一张卡牌将其翻开，看到一个宝宝动物",
