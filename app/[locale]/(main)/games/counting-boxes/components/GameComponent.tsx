@@ -132,7 +132,7 @@ const LEVEL_CONFIGS: LevelConfig[] = [
     {
         blocksRange: [2, 4],
         pattern: ["random_fill"],
-        observer: [250, 350],
+        observer: [250, 320],
         animation: [],
     },
     {
@@ -539,8 +539,7 @@ export default function GameComponent() {
         // 普通流程
         setGameState('observing');
         startTimer();
-        
-        console.log(`✓ 关卡${level} 生成完成: 模式=${selectedPattern}, 方块=${actualBlocks}, 动画=${selectedAnimation}`);
+    
     }, [level, clearBoard, renderCubesFromHeightMap, startTimer]);
 
     // 开始输入阶段
