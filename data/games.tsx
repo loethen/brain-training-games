@@ -21,7 +21,7 @@ export const games: Game[] = [
             "Train your spatial memory and counting skills by remembering how many 3D boxes appear on a grid.",
         slug: "counting-boxes",
         preview: <CountingBoxesGamePreview />,
-        categories: ["working-memory", "visual-tracking", "spatial-memory"],
+        categories: ["working-memory", "spatial-memory"],
     },
     {
         id: "baby-animal-matching",

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import GameCard from "@/components/game-card";
+import AppleStyleGameCard from "@/components/apple-style-game-card";
 import { Marquee } from "@/components/magicui/marquee";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
@@ -9,9 +9,8 @@ import { getTranslations } from 'next-intl/server';
 import type { Metadata } from "next";
 import { getGames } from "@/data/games";
 import { getBlogPosts, type BlogPost } from "@/lib/blog";
-import Image from "next/image";
 import { formatDate } from "@/lib/utils";
-import { GamesScrollButtons } from "@/components/games-scroll-buttons";
+import { AppleStyleScrollButtons } from "@/components/apple-style-scroll-buttons";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
@@ -138,8 +137,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </div>
             </section>
 
-            {/* Games Section */}
-            <section className="mb-24 max-w-[1400px] mx-auto">
+            {/* Games Section - Apple Style */}
+            <section className="mb-24 max-w-[1600px] mx-auto">
                 <div className="px-6">
                     <div className="flex justify-between items-center mb-8">
                         <h2 className="text-3xl font-bold">
@@ -153,16 +152,16 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </div>
                 <div className="relative group">
-                    <div className="flex overflow-x-auto gap-6 snap-x snap-mandatory scrollbar-hide px-6" id="games-container">
+                    <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide p-6" id="apple-games-container">
                         {games.map((game) => (
-                            <div key={game.id} className="min-w-[300px] md:min-w-[400px] snap-start">
-                                <GameCard game={game} preview={game.preview} />
+                            <div key={game.id} className="snap-start flex-shrink-0">
+                                <AppleStyleGameCard game={game} preview={game.preview} />
                             </div>
                         ))}
                     </div>
-                    <div className="absolute left-0 top-0 bottom-0 w-12 bg-linear-to-r from-background to-transparent pointer-events-none"></div>
-                    <div className="absolute right-0 top-0 bottom-0 w-12 bg-linear-to-l from-background to-transparent pointer-events-none"></div>
-                    <GamesScrollButtons />
+                </div>
+                <div className="flex justify-end">
+                    <AppleStyleScrollButtons />
                 </div>
             </section>
 
@@ -182,24 +181,20 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     {posts.slice(0, 2).map((post: BlogPost) => (
                         <article key={post.slug} className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow">
                             <Link href={`/blog/${post.slug}`}>
-                                <div className="grid md:grid-cols-[1fr_1.5fr]">
+                                <div className="flex flex-col md:grid md:grid-cols-[1fr_1.5fr] md:h-48">
                                     {post.coverImage && (
-                                        <div className="relative h-48 md:h-full">
-                                            <Image 
-                                                src={post.coverImage}
-                                                alt={post.title}
-                                                fill
-                                                className="object-cover"
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                            />
-                                        </div>
+                                        <div 
+                                            className="h-48 md:h-full bg-cover bg-center bg-no-repeat"
+                                            style={{ backgroundImage: `url(${post.coverImage})` }}
+                                            role="img"
+                                            aria-label={post.title}
+                                        />
                                     )}
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-                                        <div className="text-sm text-muted-foreground mb-3">
+                                    <div className="p-6 flex flex-col justify-center">
+                                        <h3 className="text-xl font-semibold mb-3">{post.title}</h3>
+                                        <div className="text-sm text-muted-foreground">
                                             {formatDate(post.date, locale)}
                                         </div>
-                                        <p className="text-muted-foreground line-clamp-2">{post.excerpt}</p>
                                     </div>
                                 </div>
                             </Link>
