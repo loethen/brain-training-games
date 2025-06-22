@@ -769,7 +769,7 @@ export default function GameComponent() {
                             {/* 输入画面 */}
                             {gameState === "input" && (
                                 <div>
-                                    <h2 className="text-xl font-semibold text-foreground m-0">
+                                    <h2 className="text-xl text-black font-semibold m-0">
                                         {t('howMany')}
                                     </h2>
                                     <form
@@ -801,7 +801,7 @@ export default function GameComponent() {
                             {gameState === "result" && (
                                 <div className="text-center">
                                     {lastResult ? (
-                                        <div className="flex items-center justify-center gap-3 mb-4">
+                                        <div className="flex items-center justify-center gap-3 mb-4 text-black">
                                             {lastResult.correct ? (
                                                 <CheckCircle className="w-8 h-8 text-green-500" />
                                             ) : (
