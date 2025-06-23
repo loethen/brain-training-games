@@ -114,7 +114,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     return (
         <div>
             {/* Hero Section */}
-            <section className="max-w-7xl mx-auto p-6 md:p-12 md:mb-12">
+            <section className="max-w-[1600px] mx-auto rounded-3xl p-6 md:p-12 mt-8 mb-16 bg-gradient-to-br from-[#e0f7fa] to-white dark:from-transparent dark:to-transparent">
                 <div className="flex flex-col md:flex-row items-center gap-8">
                     <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
                         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
@@ -140,7 +140,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             {/* Games Section - Apple Style */}
             <section className="mb-24 max-w-[1600px] mx-auto">
                 <div className="px-6">
-                    <div className="flex justify-between items-center mb-8">
+                    <div className="flex justify-between items-center mb-2">
                         <h2 className="text-3xl font-bold">
                             {t("home.popularGames")}
                         </h2>
@@ -152,10 +152,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </div>
                 <div className="relative group">
-                    <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide p-6" id="apple-games-container">
+                    <div
+                        className="flex overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide p-6"
+                        id="apple-games-container"
+                    >
                         {games.map((game) => (
-                            <div key={game.id} className="snap-start flex-shrink-0">
-                                <AppleStyleGameCard game={game} preview={game.preview} />
+                            <div
+                                key={game.id}
+                                className="snap-start flex-shrink-0"
+                            >
+                                <AppleStyleGameCard
+                                    game={game}
+                                    preview={game.preview}
+                                />
                             </div>
                         ))}
                     </div>
@@ -166,7 +175,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </section>
 
             {/* Latest Blog Posts */}
-            <section className="mb-24 max-w-[1400px] mx-auto px-6">
+            <section className="mb-24 max-w-[1600px] mx-auto px-6">
                 <div className="flex justify-between items-center mb-8">
                     <h2 className="text-3xl font-bold">
                         {t("home.latestPosts")}
@@ -179,19 +188,26 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {posts.slice(0, 2).map((post: BlogPost) => (
-                        <article key={post.slug} className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow">
+                        <article
+                            key={post.slug}
+                            className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow"
+                        >
                             <Link href={`/blog/${post.slug}`}>
                                 <div className="flex flex-col md:grid md:grid-cols-[1fr_1.5fr] md:h-48">
                                     {post.coverImage && (
-                                        <div 
+                                        <div
                                             className="h-48 md:h-full bg-cover bg-center bg-no-repeat"
-                                            style={{ backgroundImage: `url(${post.coverImage})` }}
+                                            style={{
+                                                backgroundImage: `url(${post.coverImage})`,
+                                            }}
                                             role="img"
                                             aria-label={post.title}
                                         />
                                     )}
                                     <div className="p-6 flex flex-col justify-center">
-                                        <h3 className="text-xl font-semibold mb-3">{post.title}</h3>
+                                        <h3 className="text-xl font-semibold mb-3">
+                                            {post.title}
+                                        </h3>
                                         <div className="text-sm text-muted-foreground">
                                             {formatDate(post.date, locale)}
                                         </div>
