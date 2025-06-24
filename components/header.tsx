@@ -80,9 +80,9 @@ export function Header({ onToggleSidebar }: {
               height={32}
               priority={true}
             />
-            <h1 className="font-semibold text-foreground">
+            <span className="font-semibold text-foreground">
                 FreeFocusGames
-            </h1>
+            </span>
           </Link>
           <Button
               variant="ghost"

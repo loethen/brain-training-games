@@ -85,7 +85,7 @@
       }
     },
     "metaTitle": "Free Games for Memory & Concentration",
-    "metaDescription": "Boost focus and memory with fun online challenges. Free brain training games for all ages.",
+    "metaDescription": "Boost focus and memory with fun, science-based online challenges. Free brain training games for kids, adults, and seniors to improve cognitive abilities.",
     "metaKeywords": "memory games, focus games, concentration games, brain training, free online games",
     "ogTitle": "Free Focus & Memory Games - Train Your Brain Online",
     "ogDescription": "Improve your memory and concentration with our free science-based brain games. Perfect for all ages!"
@@ -95,7 +95,7 @@
     "heading": "Game Categories",
     "description": "Browse our collection of brain training games by cognitive skill category. Each category focuses on a different aspect of mental performance.",
     "metaTitle": "Game Categories | Brain Training",
-    "metaDescription": "Browse our brain training games by cognitive skill category. Find games that target specific mental abilities.",
+    "metaDescription": "Browse our brain training games organized by cognitive skill category. Find games targeting memory, attention, reaction time, and spatial skills.",
     "metaKeywords": "brain training categories, cognitive skills, memory games, focus games, attention games, reaction time games, cognitive flexibility",
     "ogTitle": "Brain Training Game Categories",
     "ogDescription": "Explore our categorized collection of brain games designed to enhance specific cognitive abilities.",
@@ -445,7 +445,7 @@
         "keepOneMode": "You must keep at least one mode enabled"
       },
       "metaTitle": "Dual N-Back - Working Memory Training Game",
-      "metaDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Featuring a dual-task nature that challenges your brain to hold multiple pieces of information simultaneously while processing new inputs.",
+      "metaDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Features challenging dual-task training to boost focus.",
       "metaKeywords": "dual n-back training, working memory game, cognitive training, attention control practice, n-back task, memory improvement game, free dual n-back game, brain training game, cognitive speed exercise, attention span improvement",
       "ogTitle": "Dual N-Back - Advanced Working Memory Training",
       "ogDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Featuring a dual-task nature that challenges your brain to hold multiple pieces of information simultaneously while processing new inputs."
@@ -571,7 +571,7 @@
       },
       "metadata": {
         "title": "Glowing Fish Trace - Visual Tracking & Attention Training Game",
-        "description": "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment. Train your attention, working memory, and focus through progressive challenges.",
+        "description": "Improve visual tracking abilities by following glowing fish in a dynamic underwater environment. Train your attention, working memory, and focus through challenging progressions.",
         "keywords": "visual tracking exercise,attention training game,fish tracking game,working memory practice,visual focus training,multiple object tracking,cognitive enhancement game,visual attention exercise",
         "ogTitle": "Glowing Fish Trace - Train Your Visual Tracking Skills",
         "ogDescription": "Follow the glowing fish and remember which ones were highlighted. Enhance your visual attention and working memory through engaging underwater challenges."
@@ -760,7 +760,7 @@
       "description": "Test your visual memory by recalling increasingly complex block sequences.",
       "subtitle": "Train your visual memory and pattern recognition",
       "metaTitle": "Block Memory Challenge - Visual Memory Training Game",
-      "metaDescription": "Enhance your working memory and cognitive flexibility by remembering and repeating increasingly complex visual sequences.",
+      "metaDescription": "Enhance your working memory and cognitive flexibility by remembering and repeating increasingly complex visual sequences. Perfect brain training game.",
       "metaKeywords": "block memory game,visual sequence memory,working memory training,cognitive flexibility exercise,attention span improvement,sequence memorization game,visual pattern recognition,short-term memory practice",
       "ogTitle": "Block Memory Challenge - Train Your Visual Memory",
       "ogDescription": "Remember and repeat increasingly complex visual sequences to enhance your working memory and cognitive flexibility.",
@@ -831,7 +831,7 @@
       "description": "Test your reaction time with this simple online tool that measures how quickly you respond to visual stimuli.",
       "metadata": {
         "title": "Reaction Time Test | Free Visual Stimulus Response Test",
-        "description": "Test your reaction time with our free online tool. Measure how quickly you respond to visual stimuli and track your results.",
+        "description": "Test your reaction time with our free online tool. Measure how quickly you respond to visual stimuli and track your cognitive response speed over time.",
         "keywords": "reaction time test, reaction speed test, visual reaction test, human benchmark alternative, online reflex test, reaction time measurement, response time test, cognitive reaction test, reaction speed game, free reaction timer",
         "ogTitle": "Test Your Reaction Time - Free Online Tool",
         "ogDescription": "Measure how quickly you respond to visual stimuli with our simple reaction time test. Track your baseline response speed."
@@ -1054,7 +1054,7 @@
     "readMore": "Read more",
     "meta": {
       "title": "Blog",
-      "description": "Discover articles and insights about focus, concentration, and cognitive enhancement techniques."
+      "description": "Discover in-depth articles and expert insights about focus, concentration, cognitive enhancement techniques, and brain training strategies for optimal performance."
     },
     "previousPost": "Previous Post",
     "nextPost": "Next Post"
