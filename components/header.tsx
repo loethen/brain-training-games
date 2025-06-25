@@ -75,7 +75,7 @@ export function Header({ onToggleSidebar }: {
           <Link href="/" className="flex items-center">
             <Image 
               src="/logo.png" 
-              alt="freeFocusGames" 
+              alt="logo"
               width={32} 
               height={32}
               priority={true}

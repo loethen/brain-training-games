@@ -35,7 +35,10 @@ export default function AppleStyleGameCard({
             {/* 内容容器 */}
             <div className="relative h-full flex flex-col p-8 text-foreground">
                 {/* 标题和描述 */}
-                <Link href={`/games/${game.slug}`}>
+                <Link 
+                    href={`/games/${game.slug}`}
+                    aria-label={`Read more about ${t(`${camelCaseId}.title`)}`}
+                >
                     <div className="mb-2 cursor-pointer">
                         <h2 className="text-2xl font-bold mb-2 leading-tight text-foreground hover:text-foreground/80 transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
                             {t(`${camelCaseId}.title`)}
@@ -49,7 +52,11 @@ export default function AppleStyleGameCard({
                 {/* 游戏预览区域 */}
                 <div className="flex-1 flex items-center justify-center mb-2 mt-4">
                     {preview && (
-                        <Link href={`/games/${game.slug}`} className="w-full h-full block">
+                        <Link 
+                            href={`/games/${game.slug}`} 
+                            className="w-full h-full block"
+                            aria-label={`Play ${t(`${camelCaseId}.title`)} game preview`}
+                        >
                             <div className="w-full aspect-square overflow-hidden rounded-xl bg-muted/50 border border-border flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity duration-200">
                                 <div className="w-full h-full flex items-center justify-center">
                                     {preview}
