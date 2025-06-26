@@ -734,7 +734,7 @@ export default function GameComponent() {
                 countdown > 0 &&
                 level < LEVEL_CONFIGS.length ? (
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
-                        <div className="text-center font-bold text-foreground shadow rounded-2xl px-6 py-2 bg-background/60 backdrop-blur-sm">
+                        <div className="text-center font-bold text-foreground shadow rounded-2xl px-6 py-2 bg-background/60 backdrop-blur-sm whitespace-nowrap min-w-fit">
                             {t('nextLevel', { seconds: countdown })}
                         </div>
                     </div>
