@@ -1042,6 +1042,135 @@
       "ogDescription": "Match pairs of adorable baby animals in this fun memory game. Perfect for improving concentration and visual memory in children and adults.",
       "twitterTitle": "Baby Animal Matching Game | Train Your Memory",
       "twitterDescription": "Test your memory skills by matching cute baby animal pairs in this free online game."
+    },
+    "freeShortTermMemoryTest": {
+      "title": "Free Short Term Memory Test",
+      "subtitle": "Assess your short-term memory capacity with household item recall",
+      "description": "Test your short-term memory by memorizing and recalling common household items. Get personalized scoring based on your age and gender.",
+      "metadata": {
+        "title": "Free Short Term Memory Test | Verbal Memory Assessment",
+        "description": "Test your short-term memory with our free household item recall test. Get age and gender-adjusted scores compared to the general population.",
+        "keywords": "short term memory test, verbal memory test, word recall test, memory assessment, memory capacity test, cognitive assessment, brain memory test, free memory evaluation",
+        "ogTitle": "Free Short Term Memory Test - Assess Your Verbal Memory",
+        "ogDescription": "Measure your short-term memory capacity with our scientifically-based household item recall test. Get personalized results based on your demographics."
+      },
+      "howToPlay": {
+        "description": "Test your short-term memory by memorizing common household items and recalling them in any order.",
+        "step1": "12 common items are displayed on screen",
+        "step2": "Study and memorize the items at your own pace",
+        "step3": "Click 'I'm Ready' when you want to continue",
+        "step4": "Enter the items you remember in the 12 input boxes (any order)",
+        "step5": "Get your score and personalized comparison results"
+      },
+      "benefits": {
+        "assessment": {
+          "title": "Memory Assessment",
+          "description": "Get an objective measure of your short-term verbal memory capacity using scientifically-based methodology."
+        },
+        "tracking": {
+          "title": "Progress Tracking",
+          "description": "Monitor changes in your memory performance over time and identify patterns in your cognitive abilities."
+        },
+        "comparison": {
+          "title": "Population Comparison",
+          "description": "Compare your performance against age and gender-matched peers to understand your relative memory strength."
+        }
+      },
+      "faq": {
+        "what": {
+          "question": "What does this memory test measure?",
+          "answer": "This test measures your short-term verbal memory capacity - specifically your ability to encode, store, and recall word phrases within a brief time period. It's similar to standardized memory assessments used in cognitive research."
+        },
+        "howLong": {
+          "question": "How long does the test take?",
+          "answer": "The entire test takes about 2-3 minutes. You can study the items at your own pace, then recall them in the input boxes (most people finish within 2-3 minutes)."
+        },
+        "scoring": {
+          "question": "How is the score calculated?",
+          "answer": "Your score is based on the percentage of word phrases correctly recalled. Optional demographic information allows for age and gender-adjusted percentile rankings compared to research populations."
+        },
+        "accuracy": {
+          "question": "How accurate is this test?",
+          "answer": "While this test uses established memory assessment principles, it's designed for educational purposes. For clinical or formal assessments, consult with qualified professionals who use standardized testing protocols."
+        },
+        "improve": {
+          "question": "Can this test help improve my memory?",
+          "answer": "This is primarily an assessment tool, not a training program. However, understanding your baseline can help you track changes over time and identify if memory training or lifestyle changes are beneficial."
+        }
+      },
+      "instruction": {
+        "description": "Test your short-term memory by memorizing and recalling word phrases.",
+        "step1": "12 word phrases will be shown for 20 seconds",
+        "step2": "Memorize as many as you can",
+        "step3": "Type all phrases you remember",
+        "step4": "Get your personalized score"
+      },
+      "startTest": "Start Memory Test",
+      "ready": "I'm Ready - Continue",
+      "memorizeTheseWords": "Memorize These Word Phrases",
+      "studyAtYourPace": "Take your time to study these words carefully",
+      "recall": {
+        "title": "Recall Phase",
+        "gridInstruction": "Fill in the word phrases you remember in any of the boxes below. You don't need to remember the exact order.",
+        "inputLabel": "Enter the phrases you remember:",
+        "placeholder": "Type the word phrases here, separated by commas or new lines..."
+      },
+      "submitRecall": "Submit My Answers",
+      "setup": {
+        "title": "Get Personalized Results",
+        "description": "Provide your age group and gender to receive personalized scoring compared to your demographic group.",
+        "ageGroup": "Age Group",
+        "ageUnder18": "Under 18",
+        "age18to25": "18-25 years",
+        "age26to45": "26-45 years", 
+        "age46to65": "46-65 years",
+        "age65plus": "65+ years",
+        "gender": "Gender",
+        "male": "Male",
+        "female": "Female", 
+        "other": "Other",
+        "skip": "Skip & Show Basic Results",
+        "submit": "Get Personalized Score"
+      },
+      "results": {
+        "title": "Your Memory Test Results",
+        "performance": "Performance Summary",
+        "wordsRecalled": "Words Recalled",
+        "accuracy": "Accuracy Score",
+        "timeSpent": "Time Taken", 
+        "percentile": "Percentile Rank",
+        "correctWords": "Words You Got Right",
+        "missedWords": "Words You Missed",
+        "noMatches": "No matching words found",
+        "excellent": "Excellent performance! You have outstanding memory skills.",
+        "good": "Good performance! Your memory skills are above average.",
+        "keepPracticing": "Keep practicing! Regular training can improve your memory.",
+        "encouragement": "Great effort! Memory is like a muscle - the more you exercise it, the stronger it becomes.",
+        "trainingTip": "Try to practice memory exercises 10-15 minutes daily for best results. Consistency is key to improvement!"
+      },
+      "tryAgain": "Take Test Again",
+      "wordBank": [
+        "camera",
+        "book", 
+        "phone",
+        "laptop",
+        "bottle",
+        "chair",
+        "lamp",
+        "wallet",
+        "mirror",
+        "clock",
+        "knife",
+        "spoon",
+        "plate",
+        "cup",
+        "pillow",
+        "towel",
+        "shoes",
+        "keys",
+        "glasses",
+        "watch"
+      ]
     }
   },
   "buttons": {

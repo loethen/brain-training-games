@@ -21,6 +21,13 @@ export const games: Game[] = [
         categories: ["working-memory", "spatial-memory"],
     },
     {
+        id: "free-short-term-memory-test",
+        title: "Free Short Term Memory Test",
+        slug: "free-short-term-memory-test",
+        preview: <ImagePreview src="/games/free-short-term-memory-test.png" />,
+        categories: ["working-memory"],
+    },
+    {
         id: "baby-animal-matching",
         title: "Baby Animal Matching",
         slug: "baby-animal-matching",
@@ -93,6 +100,7 @@ export const games: Game[] = [
             "sustained-attention",
         ],
     },
+
     // Add more games as you create them
 ];
 
