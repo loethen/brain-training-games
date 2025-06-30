@@ -50,7 +50,11 @@ When people ask "Why is my memory so bad?" the answer often lies in hippocampus 
 
 ## Can You Actually Fix Memory Problems? The Science of Hippocampus Regeneration
 
-**Yes, memory can be restored.** Unlike most brain regions, the hippocampus retains neurogenesis capacity — the ability to grow new neurons throughout life. Research shows:
+**Yes, memory can be restored.** Unlike most brain regions, the hippocampus retains neurogenesis capacity — the ability to grow new neurons throughout life. 
+
+**Before we dive into solutions, assess your current memory capacity:** Take our [Free Short Term Memory Test](/games/free-short-term-memory-test) to establish a baseline. This scientifically-based assessment will help you track your improvement as you implement the strategies below.
+
+Research shows:
 
 - **New neurons form daily**: Healthy adults generate 700+ new hippocampus neurons per day
 - **Recovery is possible**: Even severely damaged hippocampus tissue can regenerate with proper intervention
