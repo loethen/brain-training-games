@@ -991,6 +991,91 @@
         }
       }
     },
+    "stroopEffectTest": {
+      "title": "Stroop Effect Test",
+      "subtitle": "Challenge your brain with color-word conflicts",
+      "description": "Test your cognitive flexibility by identifying colors that conflict with the words. Train your selective attention and conflict resolution skills.",
+      "metadata": {
+        "title": "Stroop Effect Test | Free Cognitive Flexibility Training",
+        "description": "Experience the famous Stroop effect with our free online test. Improve cognitive flexibility and selective attention by identifying colors that conflict with words.",
+        "keywords": "stroop effect test, cognitive flexibility training, selective attention test, color word conflict, brain training, psychology test, stroop task, attention training, cognitive interference test, free online stroop test",
+        "ogTitle": "Stroop Effect Test - Train Your Cognitive Flexibility",
+        "ogDescription": "Challenge your brain with the classic Stroop effect test. Identify colors while ignoring conflicting word meanings."
+      },
+      "howToPlay": {
+        "description": "In this cognitive flexibility test, you'll identify the color of words, not what the words say.",
+        "step1": "Look at the colored word displayed on screen",
+        "step2": "Identify the COLOR of the text, not the meaning of the word",
+        "step3": "Click the correct color button or press the number key (1-6)",
+        "step4": "Complete 20 trials to see your Stroop effect measurement"
+      },
+      "benefits": {
+        "cognitiveFlexibility": {
+          "title": "Cognitive Flexibility",
+          "description": "Enhance your ability to switch between different mental concepts and adapt to changing rules or demands."
+        },
+        "selectiveAttention": {
+          "title": "Selective Attention", 
+          "description": "Improve your ability to focus on relevant information while filtering out conflicting or distracting elements."
+        },
+        "conflictResolution": {
+          "title": "Conflict Resolution",
+          "description": "Train your brain to resolve conflicts between competing information sources and make accurate decisions under interference."
+        }
+      },
+      "faq": {
+        "whatIsStroop": {
+          "question": "What is the Stroop effect?",
+          "answer": "The Stroop effect is a phenomenon where it takes longer to identify the color of a word when the word's meaning conflicts with its color (e.g., the word 'RED' printed in blue). This demonstrates how automatic reading processes can interfere with color identification."
+        },
+        "whyDifficult": {
+          "question": "Why is this test difficult?",
+          "answer": "Reading is such an automatic process that your brain naturally wants to process the word's meaning first. When the word says 'GREEN' but is colored red, your brain has to work harder to ignore the word meaning and focus only on the color."
+        },
+        "howToImprove": {
+          "question": "How can I improve my performance?",
+          "answer": "Practice regularly to strengthen your selective attention skills. Try to develop strategies like focusing on the color immediately without reading the word, or using peripheral vision to see the color without processing the text."
+        },
+        "realWorldApps": {
+          "question": "How does this apply to real life?",
+          "answer": "The cognitive skills trained in the Stroop test transfer to many real-world situations requiring selective attention, such as driving (ignoring distractions), studying (focusing amid noise), or work (concentrating on priorities despite interruptions)."
+        }
+      },
+      "gameUI": {
+        "title": "Stroop Effect Test",
+        "instructions": "Identify the COLOR of the word, not what the word says. Click the matching color button or use number keys 1-6.",
+        "startGame": "Start Test",
+        "getReady": "Get Ready",
+        "identifyColor": "What color is this word?",
+        "round": "Round",
+        "correct": "Correct!",
+        "incorrect": "Incorrect",
+        "reactionTime": "Reaction Time",
+        "gameComplete": "Test Complete!",
+        "yourResults": "Your Results",
+        "accuracy": "Accuracy",
+        "avgReactionTime": "Avg Reaction Time",
+        "stroopEffect": "Stroop Effect",
+        "stroopEffectDescription": "Difference between incongruent and congruent trials",
+        "congruent": "Congruent",
+        "incongruent": "Incongruent",
+        "playAgain": "Take Test Again",
+        "share": "Share Results",
+        "newBestTime": "New Best Time",
+        "bestTime": "Best Time",
+        "shareTitle": "My Stroop Effect Test Results",
+        "shareText": "I completed the Stroop Effect Test",
+        "keyboardShortcut": "Use keyboard shortcuts: 1-6 for colors",
+        "colors": {
+          "red": "RED",
+          "blue": "BLUE", 
+          "green": "GREEN",
+          "yellow": "YELLOW",
+          "purple": "PURPLE",
+          "pink": "PINK"
+        }
+      }
+    },
     "babyAnimalMatching": {
       "title": "Baby Animal Matching Game",
       "subtitle": "Adorable Memory Training for All Ages",

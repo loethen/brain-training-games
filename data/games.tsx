@@ -100,6 +100,17 @@ export const games: Game[] = [
             "sustained-attention",
         ],
     },
+    {
+        id: "stroop-effect-test",
+        title: "Stroop Effect Test",
+        slug: "stroop-effect-test",
+        preview: <ImagePreview src="/games/stroop-effect.png" />,
+        categories: [
+            "selective-attention",
+            "cognitive-flexibility",
+            "reaction-time",
+        ],
+    },
 
     // Add more games as you create them
 ];

@@ -1043,6 +1043,91 @@
         "keepPracticing": "继续练习"
       }
     },
+    "stroopEffectTest": {
+      "title": "斯特鲁普效应测试",
+      "subtitle": "用颜色词汇冲突挑战你的大脑",
+      "description": "通过识别与文字意思冲突的颜色来测试你的认知灵活性。训练你的选择性注意和冲突解决能力。",
+      "metadata": {
+        "title": "斯特鲁普效应测试 | 免费认知灵活性训练",
+        "description": "通过我们的免费在线测试体验著名的斯特鲁普效应。通过识别与文字意思冲突的颜色来提高认知灵活性和选择性注意力。",
+        "keywords": "斯特鲁普效应测试, 认知灵活性训练, 选择性注意力测试, 颜色词汇冲突, 大脑训练, 心理学测试, 斯特鲁普任务, 注意力训练, 认知干扰测试, 免费在线斯特鲁普测试",
+        "ogTitle": "斯特鲁普效应测试 - 训练你的认知灵活性",
+        "ogDescription": "通过经典的斯特鲁普效应测试挑战你的大脑。识别颜色的同时忽略冲突的文字含义。"
+      },
+      "howToPlay": {
+        "description": "在这个认知灵活性测试中，你需要识别文字的颜色，而不是文字的含义。",
+        "step1": "查看屏幕上显示的彩色文字",
+        "step2": "识别文字的颜色，而不是文字的含义",
+        "step3": "点击正确的颜色按钮或按数字键（1-6）",
+        "step4": "完成20个试验以查看你的斯特鲁普效应测量结果"
+      },
+      "benefits": {
+        "cognitiveFlexibility": {
+          "title": "认知灵活性",
+          "description": "增强你在不同心理概念之间切换以及适应变化规则或需求的能力。"
+        },
+        "selectiveAttention": {
+          "title": "选择性注意力",
+          "description": "提高你专注于相关信息并过滤掉冲突或分散注意力元素的能力。"
+        },
+        "conflictResolution": {
+          "title": "冲突解决",
+          "description": "训练你的大脑解决竞争信息源之间的冲突，并在干扰下做出准确决策。"
+        }
+      },
+      "faq": {
+        "whatIsStroop": {
+          "question": "什么是斯特鲁普效应？",
+          "answer": "斯特鲁普效应是一种现象，当文字的含义与其颜色冲突时（例如，用蓝色印刷的\"红色\"一词），识别颜色需要更长时间。这证明了自动阅读过程如何干扰颜色识别。"
+        },
+        "whyDifficult": {
+          "question": "为什么这个测试很困难？",
+          "answer": "阅读是一个如此自动化的过程，你的大脑自然想要首先处理单词的含义。当单词说\"绿色\"但颜色是红色时，你的大脑必须更努力地忽略单词含义，只关注颜色。"
+        },
+        "howToImprove": {
+          "question": "如何提高我的表现？",
+          "answer": "定期练习以加强你的选择性注意力技能。尝试制定策略，比如立即关注颜色而不阅读单词，或使用周边视觉看到颜色而不处理文字。"
+        },
+        "realWorldApps": {
+          "question": "这如何应用于现实生活？",
+          "answer": "斯特鲁普测试中训练的认知技能可以转移到许多需要选择性注意力的现实情况中，如驾驶（忽略干扰）、学习（在噪音中集中注意力）或工作（在干扰中专注于优先事项）。"
+        }
+      },
+      "gameUI": {
+        "title": "斯特鲁普效应测试",
+        "instructions": "识别文字的颜色，而不是文字的含义。点击匹配的颜色按钮或使用数字键1-6。",
+        "startGame": "开始测试",
+        "getReady": "准备就绪",
+        "identifyColor": "这个文字是什么颜色？",
+        "round": "轮次",
+        "correct": "正确！",
+        "incorrect": "错误",
+        "reactionTime": "反应时间",
+        "gameComplete": "测试完成！",
+        "yourResults": "你的结果",
+        "accuracy": "准确率",
+        "avgReactionTime": "平均反应时间",
+        "stroopEffect": "斯特鲁普效应",
+        "stroopEffectDescription": "不一致和一致试验之间的差异",
+        "congruent": "一致",
+        "incongruent": "不一致",
+        "playAgain": "再次测试",
+        "share": "分享结果",
+        "newBestTime": "新的最佳时间",
+        "bestTime": "最佳时间",
+        "shareTitle": "我的斯特鲁普效应测试结果",
+        "shareText": "我完成了斯特鲁普效应测试",
+        "keyboardShortcut": "使用键盘快捷键：1-6代表颜色",
+        "colors": {
+          "red": "红色",
+          "blue": "蓝色",
+          "green": "绿色",
+          "yellow": "黄色",
+          "purple": "紫色",
+          "pink": "粉色"
+        }
+      }
+    },
     "freeShortTermMemoryTest": {
       "title": "免费短期记忆测试",
       "subtitle": "通过常见物品回忆评估您的短期记忆能力",
