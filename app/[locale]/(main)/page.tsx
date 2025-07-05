@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import AppleStyleGameCard from "@/components/apple-style-game-card";
 import { Marquee } from "@/components/magicui/marquee";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
@@ -7,10 +6,9 @@ import { BrainGameIcons } from "@/components/brain-game-icons";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from "next";
-import { getGames } from "@/data/games";
 import { getBlogPosts, type BlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
-import { AppleStyleScrollButtons } from "@/components/apple-style-scroll-buttons";
+import FeaturedGamesCarousel from "@/components/featured-games-carousel";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
@@ -40,7 +38,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     const { locale } = await params;
     const t = await getTranslations({ locale });
     const testimonials = await getTranslations({ locale, namespace: 'home.testimonials' });
-    const games = getGames();
     const posts = await getBlogPosts(locale);
     
     // 第一组评价
@@ -137,41 +134,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </div>
             </section>
 
-            {/* Games Section - Apple Style */}
-            <section className="mb-24 max-w-[1600px] mx-auto">
-                <div className="px-6">
-                    <div className="flex justify-between items-center mb-2">
-                        <h2 className="text-3xl font-bold">
-                            {t("home.popularGames")}
-                        </h2>
-                        <Link href="/games">
-                            <Button variant="ghost">
-                                {t("buttons.viewAll")} →
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
-                <div className="relative group">
-                    <div
-                        className="flex overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-hide p-6"
-                        id="apple-games-container"
-                    >
-                        {games.map((game) => (
-                            <div
-                                key={game.id}
-                                className="snap-start flex-shrink-0"
-                            >
-                                <AppleStyleGameCard
-                                    game={game}
-                                    preview={game.preview}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="flex justify-end">
-                    <AppleStyleScrollButtons />
-                </div>
+            {/* Games Section - Carousel Display */}
+            <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                <FeaturedGamesCarousel />
             </section>
 
             {/* Latest Blog Posts */}

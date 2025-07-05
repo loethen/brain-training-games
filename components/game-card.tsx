@@ -20,7 +20,7 @@ export default function GameCard({ game, preview, className }: GameCardProps) {
     return (
         <div
             className={cn(
-                "group relative overflow-hidden rounded-lg border bg-background transition-all hover:shadow-md",
+                "group relative overflow-hidden rounded-lg border bg-background transition-all hover:shadow-lg",
                 className
             )}
         >

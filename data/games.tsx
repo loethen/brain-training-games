@@ -134,4 +134,60 @@ export function getGamesByCategory(categoryId: string): Game[] {
 export function getGameCategories(gameId: string): string[] {
   const game = getGame(gameId);
   return game ? game.categories : [];
+}
+
+// 获取热门游戏（手动精选的经典游戏）
+export function getFeaturedGames(): Game[] {
+  const featuredGameIds = [
+    'dual-n-back',
+    'schulte-table', 
+    'block-memory-challenge',
+    'larger-number',
+    'reaction-time',
+    'mahjong-dual-n-back',
+    'frog-memory-leap',
+    'fish-trace',
+    'counting-boxes',
+    'free-short-term-memory-test',
+    'baby-animal-matching',
+    'stroop-effect-test'
+  ];
+  
+  return featuredGameIds
+    .map(id => games.find(game => game.id === id))
+    .filter((game): game is Game => game !== undefined);
+}
+
+// 获取最新游戏（手动指定的3个游戏）
+export function getLatestGames(limit: number = 3): Game[] {
+  const latestGameIds = [
+    'stroop-effect-test',  // 最新添加的游戏
+    'counting-boxes',      // 数箱子
+    'free-short-term-memory-test'  // 短期记忆测试
+  ];
+  
+  return latestGameIds
+    .map(id => games.find(game => game.id === id))
+    .filter((game): game is Game => game !== undefined)
+    .slice(0, limit);
+}
+
+// 获取轮播用的热门游戏分页（去除与最新游戏的重复）
+export function getFeaturedGamesForCarousel(gamesPerPage: number = 6): Game[][] {
+  const featuredGames = getFeaturedGames();
+  const latestGames = getLatestGames();
+  const latestGameIds = latestGames.map(game => game.id);
+  
+  // 过滤掉最新游戏中已经存在的游戏，避免重复
+  const filteredFeaturedGames = featuredGames.filter(game => 
+    !latestGameIds.includes(game.id)
+  );
+  
+  const pages: Game[][] = [];
+  
+  for (let i = 0; i < filteredFeaturedGames.length; i += gamesPerPage) {
+    pages.push(filteredFeaturedGames.slice(i, i + gamesPerPage));
+  }
+  
+  return pages;
 } 

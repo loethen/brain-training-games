@@ -55,6 +55,8 @@ export default function GameCategories({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {displayCategories.map((category) => (
                     <Link
+                        title={category.name}
+                        aria-label={category.name}
                         key={category.id}
                         href={`/categories/${category.slug}`}
                         className="block p-6 border rounded-lg hover:bg-muted/50 transition-colors"
@@ -87,12 +89,14 @@ export default function GameCategories({
     }
 
     return (
-        <div className={cn("flex flex-wrap gap-2", className)}>
+        <div className={cn("flex flex-nowrap gap-2 overflow-hidden", className)}>
             {displayCategories.map((category) => (
                 <Link
+                    title={category.name}
+                    aria-label={category.name}
                     key={category.id}
                     href={`/categories/${category.slug}`}
-                    className="px-2 py-1 bg-muted rounded-md hover:bg-muted transition-colors flex items-center gap-1 text-sm mt-2"
+                    className="px-2 py-1 bg-muted rounded-md hover:bg-muted transition-colors flex items-center gap-1 text-xs whitespace-nowrap flex-shrink-0"
                 >
                     {category.icon && iconMap[category.icon]}
                     {t(`categoryNames.${category.id}`, {
