@@ -9,16 +9,58 @@ import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight, TrendingUp, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+// 自定义hook：检测屏幕尺寸
+function useScreenSize() {
+    const [screenSize, setScreenSize] = useState<'sm' | 'xl' | '2xl' | 'base'>('base');
+
+    useEffect(() => {
+        const checkScreenSize = () => {
+            if (window.innerWidth >= 1536) {
+                setScreenSize('2xl'); // 2xl: 4个游戏
+            } else if (window.innerWidth >= 1280) {
+                setScreenSize('xl');  // xl: 3个游戏
+            } else if (window.innerWidth >= 640) {
+                setScreenSize('sm');  // sm: 2个游戏
+            } else {
+                setScreenSize('base'); // base: 1个游戏
+            }
+        };
+
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+
+    return screenSize;
+}
+
 export default function FeaturedGamesCarousel() {
     const t = useTranslations("buttons");
     const homeT = useTranslations("home");
+    const screenSize = useScreenSize();
     const [currentPage, setCurrentPage] = useState(0);
     const [isAutoPlay, setIsAutoPlay] = useState(true);
     const [isHovered, setIsHovered] = useState(false);
     
-    const featuredPages = getFeaturedGamesForCarousel(4); // 每页4个游戏（一行）
+    // 根据屏幕尺寸动态计算每页游戏数量
+    const getGamesPerPage = () => {
+        switch (screenSize) {
+            case '2xl': return 4; // 2xl及以上: 4个游戏
+            case 'xl': return 3;  // xl: 3个游戏
+            case 'sm': return 2;  // sm: 2个游戏
+            default: return 1;    // base: 1个游戏
+        }
+    };
+    
+    const gamesPerPage = getGamesPerPage();
+    const featuredPages = getFeaturedGamesForCarousel(gamesPerPage);
     const latestGames = getLatestGames(3); // 只展示3个最新游戏
     
+    // 屏幕尺寸变化时重置当前页面
+    useEffect(() => {
+        setCurrentPage(0);
+    }, [screenSize]);
+
     // 自动轮播
     useEffect(() => {
         if (!isAutoPlay || featuredPages.length <= 1 || isHovered) return;
@@ -81,7 +123,7 @@ export default function FeaturedGamesCarousel() {
                 
                 {/* 轮播内容 */}
                 <div 
-                    className="relative overflow-hidden"
+                    className="relative overflow-x-hidden pt-2 pb-6"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
@@ -92,9 +134,9 @@ export default function FeaturedGamesCarousel() {
                         {featuredPages.map((page, pageIndex) => (
                             <div
                                 key={pageIndex}
-                                className="w-full flex-shrink-0"
+                                className="w-full flex-shrink-0 px-1"
                             >
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
                                     {page.map((game) => (
                                         <GameCard
                                             key={game.id}
