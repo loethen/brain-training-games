@@ -68,34 +68,37 @@ export function GamePageTemplate({
   
   return (
       <>
-          <Breadcrumbs items={[
-              { label: t('games'), href: "/games" },
-              { label: title },
-          ]} />
+          <Breadcrumbs
+              items={[{ label: t("games"), href: "/games" }, { label: title }]}
+          />
           {/* 游戏标题和描述 */}
           <div className="container mx-auto pt-8">
-            <GameHeader title={title} subtitle={subtitle} />
+              <GameHeader title={title} subtitle={subtitle} />
           </div>
 
           {/* 游戏组件 */}
-          <section className={cn(
-            "mb-4 rounded-xl p-2 md:p-4 border border-border", 
-            gameBackground
-          )}>
+          <section
+              className={cn(
+                  "mb-4 rounded-xl p-2 md:p-4 border border-border",
+                  gameBackground
+              )}
+          >
               {gameComponent}
           </section>
 
           {/* 分享部分 */}
           <section className="max-w-6xl mx-auto mb-12">
-            <div className="flex space-x-2">
-              <ShareButton title={title} />
-            </div>
+              <div className="flex space-x-2">
+                  <ShareButton title={title} />
+              </div>
           </section>
 
           {/* 游戏玩法说明 */}
           <section className="max-w-6xl mx-auto mb-16 space-y-6">
               <div className="p-6 rounded-lg bg-muted/50">
-                  <h3 className="text-xl font-semibold mb-3">🎯 {gameT('howToPlay')}</h3>
+                  <h3 className="text-xl font-semibold mb-3">
+                      🎯 {gameT("howToPlay")}
+                  </h3>
                   <div className="space-y-3 text-lg text-muted-foreground">
                       {howToPlay}
                   </div>
@@ -106,7 +109,7 @@ export function GamePageTemplate({
           {benefits && benefits.length > 0 && (
               <section className="max-w-6xl mx-auto mb-16 py-16">
                   <h2 className="text-3xl font-bold mb-12 text-center">
-                      {gameT('cognitiveBenefits')}
+                      {gameT("cognitiveBenefits")}
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                       {benefits.map((benefit, index) => (
@@ -138,19 +141,23 @@ export function GamePageTemplate({
           {science && (
               <section className="max-w-6xl mx-auto mb-16">
                   <h2 className="text-3xl font-bold mb-12 text-center">
-                      {gameT('scienceBehindGame')}
+                      {gameT("scienceBehindGame")}
                   </h2>
-                  <div className="relative p-8 rounded-xl border border-border bg-muted/20 overflow-hidden">
+                  <div className="relative rounded-xl overflow-hidden bg-black/5 p-2 outline outline-white/15 backdrop-blur-md dark:bg-white/10">
                       {/* 点状背景 */}
-                      <div className="absolute inset-0 opacity-30">
-                          <div className="absolute inset-0" style={{
-                              backgroundImage: 'radial-gradient(circle, hsl(var(--muted-foreground)) 1px, transparent 1px)',
-                              backgroundSize: '20px 20px'
-                          }} />
-                      </div>
-                      
+                      {/* <div className="absolute inset-0 opacity-30">
+                          <div
+                              className="absolute inset-0"
+                              style={{
+                                  backgroundImage:
+                                      "radial-gradient(circle, hsl(var(--muted-foreground)) 1px, transparent 1px)",
+                                  backgroundSize: "20px 20px",
+                              }}
+                          />
+                      </div> */}
+
                       {/* 内容 */}
-                      <div className="relative z-10">
+                      <div className="relative z-10 bg-background p-8 rounded-xl">
                           <div className="mb-6">
                               <h3 className="text-2xl font-semibold mb-4 text-foreground">
                                   {science.title}
@@ -159,49 +166,54 @@ export function GamePageTemplate({
                                   {science.description}
                               </p>
                           </div>
-                          
+
                           {/* Blog文章链接 */}
-                          {science.blogArticleUrl && science.blogArticleTitle && (
-                              <div className="mb-6">
-                                  <a 
-                                      href={science.blogArticleUrl}
-                                      className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-                                  >
-                                      <BookOpen className="w-4 h-4" />
-                                      {gameT('readDetailedArticle')}: {science.blogArticleTitle}
-                                  </a>
-                              </div>
-                          )}
+                          {science.blogArticleUrl &&
+                              science.blogArticleTitle && (
+                                  <div className="mb-6">
+                                      <a
+                                          href={science.blogArticleUrl}
+                                          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                                          title={science.blogArticleTitle}
+                                      >
+                                          <BookOpen className="w-4 h-4" />
+                                          {gameT("readDetailedArticle")}
+                                      </a>
+                                  </div>
+                              )}
 
                           {/* 权威链接 - 更紧凑的设计 */}
-                          {science.authorityLinks && science.authorityLinks.length > 0 && (
-                              <div>
-                                  <h4 className="text-lg font-semibold mb-3 text-foreground">
-                                      {gameT('authorityReferences')}
-                                  </h4>
-                                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                      {science.authorityLinks.map((link, index) => (
-                                          <a
-                                              key={index}
-                                              href={link.url}
-                                              target="_blank"
-                                              rel="noopener noreferrer"
-                                              className="group flex items-center gap-2 p-3 bg-background/60 dark:bg-background/40 rounded-lg border border-border hover:border-primary/50 transition-all duration-200 hover:shadow-sm"
-                                          >
-                                              <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
-                                              <div className="min-w-0 flex-1">
-                                                  <div className="font-medium text-foreground text-sm truncate">
-                                                      {link.title}
-                                                  </div>
-                                                  <div className="text-xs text-muted-foreground line-clamp-2">
-                                                      {link.description}
-                                                  </div>
-                                              </div>
-                                          </a>
-                                      ))}
+                          {science.authorityLinks &&
+                              science.authorityLinks.length > 0 && (
+                                  <div>
+                                      <h4 className="text-lg font-semibold mb-3 text-foreground">
+                                          {gameT("authorityReferences")}
+                                      </h4>
+                                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                          {science.authorityLinks.map(
+                                              (link, index) => (
+                                                  <a
+                                                      key={index}
+                                                      href={link.url}
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      className="group flex items-center gap-2 p-3 bg-background/60 dark:bg-background/40 rounded-lg border border-border hover:border-primary/50 transition-all duration-200 hover:shadow-sm"
+                                                  >
+                                                      <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
+                                                      <div className="min-w-0 flex-1">
+                                                          <div className="font-medium text-foreground text-sm truncate">
+                                                              {link.title}
+                                                          </div>
+                                                          <div className="text-xs text-muted-foreground line-clamp-2">
+                                                              {link.description}
+                                                          </div>
+                                                      </div>
+                                                  </a>
+                                              )
+                                          )}
+                                      </div>
                                   </div>
-                              </div>
-                          )}
+                              )}
                       </div>
                   </div>
               </section>
@@ -211,9 +223,13 @@ export function GamePageTemplate({
           {faq && faq.length > 0 && (
               <section className="max-w-6xl mx-auto mb-16">
                   <h2 className="text-3xl font-bold mb-12 text-center">
-                      {gameT('faq')}
+                      {gameT("faq")}
                   </h2>
-                  <Accordion  type="single" collapsible className="max-w-2xl mx-auto">
+                  <Accordion
+                      type="single"
+                      collapsible
+                      className="max-w-2xl mx-auto"
+                  >
                       {faq.map((item, index) => (
                           <AccordionItem key={index} value={`item-${index}`}>
                               <AccordionTrigger className="text-lg">
@@ -232,17 +248,17 @@ export function GamePageTemplate({
           {relatedGames && relatedGames.length > 0 && (
               <section className="max-w-6xl mx-auto mb-16">
                   <h2 className="text-3xl font-bold mb-12 text-center">
-                      {gameT('relatedGames')}
+                      {gameT("relatedGames")}
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {relatedGames.map((gameId) => {
                           const game = getGame(gameId);
                           if (!game) return null;
-                          
+
                           return (
-                              <GameCard 
-                                  key={gameId} 
-                                  game={game} 
+                              <GameCard
+                                  key={gameId}
+                                  game={game}
                                   preview={game.preview}
                               />
                           );
@@ -255,9 +271,9 @@ export function GamePageTemplate({
           <section className="mt-16 pt-8">
               <div className="text-center">
                   <h2 className="text-3xl font-bold mb-12 text-center">
-                      {gameT('trainingCategories')}
+                      {gameT("trainingCategories")}
                   </h2>
-                  <div className="flex justify-center"> 
+                  <div className="flex justify-center">
                       <GameCategories gameId={gameId} />
                   </div>
               </div>
