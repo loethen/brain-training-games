@@ -2,7 +2,7 @@
 title: "舒尔特表格的科学原理：这个简单练习如何提升视觉注意力和阅读速度"
 date: "2025-07-07"
 excerpt: "探索舒尔特表格背后的神经心理学研究，了解这个经典认知工具如何通过有针对性的周边视觉训练来增强你的视觉注意力、处理速度和阅读能力。"
-coverImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxicmFpbiUyMHNjYW4lMjBuZXVyb3NjaWVuY2V8ZW58MHx8fHwxNzQzMDY3NjM5fDA&ixlib=rb-4.0.3&q=80&w=2000"
+coverImage: "/schulte-table-science-cover.jpg"
 keywords: "舒尔特表格, 视觉注意力训练, 周边视觉练习, 阅读速度提升, 认知评估, 神经心理学工具, 视觉处理速度, 注意力广度训练, 专注力练习, 速读技巧, 视觉扫描技能, 执行功能训练"
 author:
   name: "FreeFocusGames Team"

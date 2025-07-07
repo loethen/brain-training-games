@@ -2,7 +2,7 @@
 title: "The Science Behind N-Back Training: How This Game Actually Boosts Your Working Memory"
 date: "2025-07-02"
 excerpt: "Discover the neuroscience research that reveals how N-back training can enhance your working memory capacity, improve fluid intelligence, and strengthen your brain's cognitive control networks."
-coverImage: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxicmFpbiUyMG5ldXJhbCUyMG5ldHdvcmslMjBjb2duaXRpdmV8ZW58MHx8fHwxNzQzMDY3NjM5fDA&ixlib=rb-4.0.3&q=80&w=2000"
+coverImage: "/dual-n-back-science-cover.jpg"
 keywords: "n-back training, working memory improvement, dual n-back science, cognitive training research, fluid intelligence, brain training effectiveness, working memory capacity, neural plasticity, cognitive control, attention training, Jaeggi study, working memory neural networks, cognitive enhancement, brain plasticity training, executive function improvement"
 author:
   name: "FreeFocusGames Team"

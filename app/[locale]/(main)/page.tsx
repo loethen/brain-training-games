@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/magicui/marquee";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
-import { BrainGameIcons } from "@/components/brain-game-icons";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from "next";
 import { getBlogPosts, type BlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 import FeaturedGamesCarousel from "@/components/featured-games-carousel";
+import Image from "next/image";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
@@ -111,10 +111,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     return (
         <div>
             {/* Hero Section */}
-            <section className="max-w-[1600px] mx-auto rounded-3xl p-6 md:p-12 mt-8 mb-16 bg-gradient-to-br from-[#e0f7fa] to-white dark:from-transparent dark:to-transparent">
+            <section className="max-w-[1600px] mx-auto rounded-3xl p-6 md:p-12 mt-8 mb-16 dark:from-transparent dark:to-transparent">
                 <div className="flex flex-col md:flex-row items-center gap-8">
                     <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-snug">
                             {t("home.title")}
                         </h1>
                         <p className="sm:text-xl lg:text-2xl mb-8">
@@ -129,7 +129,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         </div>
                     </div>
                     <div className="w-full md:w-2/5 flex items-center justify-center py-4">
-                        <BrainGameIcons />
+                        <Image
+                            src="/herocat.png"
+                            alt="Hero Cat"
+                            width={400}
+                            height={400}
+                            style={{ maxWidth: '400px', width: '100%', height: 'auto' }}
+                            priority
+                            className="floating-image"
+                        />
                     </div>
                 </div>
             </section>

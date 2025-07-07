@@ -169,3 +169,13 @@
   margin-left: 1rem;
   margin-bottom: 1rem;
 }
+
+@keyframes floatY {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+  100% { transform: translateY(0); }
+}
+.floating-image {
+  animation: floatY 5s ease-in-out infinite;
+  will-change: transform;
+}

@@ -1,8 +1,8 @@
 ---
 title: "N-Back训练背后的科学：这个游戏如何真正提升你的工作记忆"
-date: "2025-01-20"
+date: "2025-07-02"
 excerpt: "探索神经科学研究如何揭示N-back训练能够增强你的工作记忆容量、提高流体智力，并强化大脑的认知控制网络。"
-coverImage: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxicmFpbiUyMG5ldXJhbCUyMG5ldHdvcmslMjBjb2duaXRpdmV8ZW58MHx8fHwxNzQzMDY3NjM5fDA&ixlib=rb-4.0.3&q=80&w=2000"
+coverImage: "/dual-n-back-science-cover.jpg"
 keywords: "n-back训练, 工作记忆提升, 双重n-back科学, 认知训练研究, 流体智力, 大脑训练有效性, 工作记忆容量, 神经可塑性, 认知控制, 注意力训练, Jaeggi研究, 工作记忆神经网络, 认知增强, 大脑可塑性训练, 执行功能改善"
 author:
   name: "FreeFocusGames Team"

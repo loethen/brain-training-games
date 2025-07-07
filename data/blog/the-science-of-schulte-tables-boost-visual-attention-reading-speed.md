@@ -2,7 +2,7 @@
 title: "The Science of Schulte Tables: How This Simple Exercise Boosts Visual Attention and Reading Speed"
 date: "2025-07-07"
 excerpt: "Discover the neuropsychological research behind Schulte Tables and how this classic cognitive tool can enhance your visual attention, processing speed, and reading abilities through targeted peripheral vision training."
-coverImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxicmFpbiUyMHNjYW4lMjBuZXVyb3NjaWVuY2V8ZW58MHx8fHwxNzQzMDY3NjM5fDA&ixlib=rb-4.0.3&q=80&w=2000"
+coverImage: "/schulte-table-science-cover.jpg"
 keywords: "schulte tables, visual attention training, peripheral vision exercise, reading speed improvement, cognitive assessment, neuropsychological tool, visual processing speed, attention span training, concentration exercises, speed reading techniques, visual scanning skills, executive function training"
 author:
   name: "FreeFocusGames Team"
