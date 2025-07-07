@@ -61,6 +61,29 @@ export default function DualNBackPage() {
           description: t('benefits.attentionControl.description')
         }
       ]}
+      science={{
+        title: t('science.title'),
+        description: t('science.description'),
+        blogArticleUrl: "/blog/the-science-of-working-memory-how-your-brain-processes-information",
+        blogArticleTitle: t('science.blogArticleTitle'),
+        authorityLinks: [
+          {
+            title: "Jaeggi et al. (2008) - PNAS",
+            url: "https://www.pnas.org/content/105/19/6829",
+            description: t('science.authorityLinks.jaeggi')
+          },
+          {
+            title: "Working Memory - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Working_memory",
+            description: t('science.authorityLinks.wikipedia')
+          },
+          {
+            title: "Dual N-Back Task - Cognitive Training Data",
+            url: "https://www.cognitivetrainingdata.org/the-dual-n-back-task/",
+            description: t('science.authorityLinks.cognitiveTraining')
+          }
+        ]
+      }}
       faq={[
         {
           question: t('faq.science.question'),

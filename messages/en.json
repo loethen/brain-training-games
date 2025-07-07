@@ -238,6 +238,9 @@
     "template": {
       "howToPlay": "How to Play",
       "cognitiveBenefits": "Cognitive Benefits",
+      "scienceBehindGame": "The Science Behind the Game",
+      "readDetailedArticle": "Read Detailed Article",
+      "authorityReferences": "Scientific References",
       "faq": "FAQ",
       "relatedGames": "Related Games",
       "trainingCategories": "Training Categories",
@@ -384,6 +387,16 @@
         "attentionControl": {
           "title": "Attention Control",
           "description": "Enhance your focus and ability to filter out distractions while monitoring both visual and auditory mahjong stimuli simultaneously."
+        }
+      },
+      "science": {
+        "title": "Working Memory and Fluid Intelligence Enhancement",
+        "description": "The Dual N-Back task is one of the most researched cognitive training exercises. Studies have shown that regular practice can improve working memory capacity and may enhance fluid intelligence - your ability to reason and solve novel problems. The task challenges your brain's central executive system by requiring simultaneous processing of visual and auditory information streams.",
+        "blogArticleTitle": "The Science of Working Memory: How Your Brain Processes Information",
+        "authorityLinks": {
+          "jaeggi": "Landmark study showing dual n-back training can improve fluid intelligence",
+          "wikipedia": "Comprehensive overview of working memory research and theories",
+          "cognitiveTraining": "Detailed analysis of dual n-back training effectiveness and methodology"
         }
       },
       "faq": {

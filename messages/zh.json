@@ -238,6 +238,9 @@
     "template": {
       "howToPlay": "游戏玩法",
       "cognitiveBenefits": "认知益处",
+      "scienceBehindGame": "游戏背后的科学",
+      "readDetailedArticle": "阅读详细文章",
+      "authorityReferences": "权威参考",
       "faq": "常见问题",
       "relatedGames": "相关游戏",
       "trainingCategories": "训练类别",
@@ -384,6 +387,16 @@
         "attentionControl": {
           "title": "注意力控制",
           "description": "增强你的专注力和过滤干扰的能力，帮助你在日常任务中保持高效。"
+        }
+      },
+      "science": {
+        "title": "工作记忆和流体智力增强",
+        "description": "双重N-Back任务是研究最多的认知训练练习之一。研究表明，定期练习可以提高工作记忆容量，并可能增强流体智力——你推理和解决新问题的能力。该任务通过要求同时处理视觉和听觉信息流来挑战你大脑的中央执行系统。",
+        "blogArticleTitle": "工作记忆的科学：你的大脑如何处理信息",
+        "authorityLinks": {
+          "jaeggi": "显示双重n-back训练可以提高流体智力的里程碑研究",
+          "wikipedia": "工作记忆研究和理论的综合概述",
+          "cognitiveTraining": "双重n-back训练有效性和方法论的详细分析"
         }
       },
       "faq": {

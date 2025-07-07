@@ -13,6 +13,7 @@ import GameCard from '@/components/game-card';
 import { getGame } from '@/data/games';
 import { useTranslations } from 'next-intl';
 import { ShareButton } from '@/components/share-button';
+import { ExternalLink, BookOpen } from 'lucide-react';
 
 interface FaqItem {
   question: string;
@@ -25,6 +26,18 @@ interface BenefitItem {
   description: string;
 }
 
+interface ScienceInfo {
+  title: string;
+  description: string;
+  blogArticleUrl?: string;
+  blogArticleTitle?: string;
+  authorityLinks?: {
+    title: string;
+    url: string;
+    description: string;
+  }[];
+}
+
 interface GamePageTemplateProps {
   gameBackground?: string;
   gameId: string;
@@ -33,6 +46,7 @@ interface GamePageTemplateProps {
   gameComponent: React.ReactNode;
   howToPlay: React.ReactNode;
   benefits?: BenefitItem[];
+  science?: ScienceInfo;
   faq?: FaqItem[];
   relatedGames?: string[];
 }
@@ -45,6 +59,7 @@ export function GamePageTemplate({
   gameComponent,
   howToPlay,
   benefits,
+  science,
   faq,
   relatedGames
 }: GamePageTemplateProps) {
@@ -115,6 +130,79 @@ export function GamePageTemplate({
                               </p>
                           </div>
                       ))}
+                  </div>
+              </section>
+          )}
+
+          {/* 游戏背后的科学 - 可选 */}
+          {science && (
+              <section className="max-w-6xl mx-auto mb-16">
+                  <h2 className="text-3xl font-bold mb-12 text-center">
+                      {gameT('scienceBehindGame')}
+                  </h2>
+                  <div className="relative p-8 rounded-xl border border-border bg-muted/20 overflow-hidden">
+                      {/* 点状背景 */}
+                      <div className="absolute inset-0 opacity-30">
+                          <div className="absolute inset-0" style={{
+                              backgroundImage: 'radial-gradient(circle, hsl(var(--muted-foreground)) 1px, transparent 1px)',
+                              backgroundSize: '20px 20px'
+                          }} />
+                      </div>
+                      
+                      {/* 内容 */}
+                      <div className="relative z-10">
+                          <div className="mb-6">
+                              <h3 className="text-2xl font-semibold mb-4 text-foreground">
+                                  {science.title}
+                              </h3>
+                              <p className="text-lg text-muted-foreground leading-relaxed">
+                                  {science.description}
+                              </p>
+                          </div>
+                          
+                          {/* Blog文章链接 */}
+                          {science.blogArticleUrl && science.blogArticleTitle && (
+                              <div className="mb-6">
+                                  <a 
+                                      href={science.blogArticleUrl}
+                                      className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                                  >
+                                      <BookOpen className="w-4 h-4" />
+                                      {gameT('readDetailedArticle')}: {science.blogArticleTitle}
+                                  </a>
+                              </div>
+                          )}
+
+                          {/* 权威链接 - 更紧凑的设计 */}
+                          {science.authorityLinks && science.authorityLinks.length > 0 && (
+                              <div>
+                                  <h4 className="text-lg font-semibold mb-3 text-foreground">
+                                      {gameT('authorityReferences')}
+                                  </h4>
+                                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                      {science.authorityLinks.map((link, index) => (
+                                          <a
+                                              key={index}
+                                              href={link.url}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              className="group flex items-center gap-2 p-3 bg-background/60 dark:bg-background/40 rounded-lg border border-border hover:border-primary/50 transition-all duration-200 hover:shadow-sm"
+                                          >
+                                              <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
+                                              <div className="min-w-0 flex-1">
+                                                  <div className="font-medium text-foreground text-sm truncate">
+                                                      {link.title}
+                                                  </div>
+                                                  <div className="text-xs text-muted-foreground line-clamp-2">
+                                                      {link.description}
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      ))}
+                                  </div>
+                              </div>
+                          )}
+                      </div>
                   </div>
               </section>
           )}
