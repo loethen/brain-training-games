@@ -42,6 +42,59 @@ export default function FeaturedGamesCarousel() {
     const [isAutoPlay, setIsAutoPlay] = useState(true);
     const [isHovered, setIsHovered] = useState(false);
     
+    // 滑动翻页相关状态
+    const [touchStartX, setTouchStartX] = useState<number | null>(null);
+    const [touching, setTouching] = useState(false);
+
+    // 触摸事件
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setTouchStartX(e.touches[0].clientX);
+        setTouching(true);
+    };
+    const handleTouchMove = () => {
+        if (!touching) return;
+    };
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        if (touchStartX === null) return;
+        const endX = e.changedTouches[0].clientX;
+        const deltaX = endX - touchStartX;
+        if (Math.abs(deltaX) > 50) {
+            if (deltaX < 0) {
+                goToNext();
+            } else {
+                goToPrevious();
+            }
+        }
+        setTouchStartX(null);
+        setTouching(false);
+    };
+    // pointer事件（兼容触摸板）
+    const [pointerStartX, setPointerStartX] = useState<number | null>(null);
+    const [pointering, setPointering] = useState(false);
+    const handlePointerDown = (e: React.PointerEvent) => {
+        if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+            setPointerStartX(e.clientX);
+            setPointering(true);
+        }
+    };
+    const handlePointerMove = () => {
+        if (!pointering) return;
+    };
+    const handlePointerUp = (e: React.PointerEvent) => {
+        if (!pointering || pointerStartX === null) return;
+        const endX = e.clientX;
+        const deltaX = endX - pointerStartX;
+        if (Math.abs(deltaX) > 50) {
+            if (deltaX < 0) {
+                goToNext();
+            } else {
+                goToPrevious();
+            }
+        }
+        setPointerStartX(null);
+        setPointering(false);
+    };
+    
     // 根据屏幕尺寸动态计算每页游戏数量
     const getGamesPerPage = () => {
         switch (screenSize) {
@@ -123,9 +176,15 @@ export default function FeaturedGamesCarousel() {
                 
                 {/* 轮播内容 */}
                 <div 
-                    className="relative overflow-x-hidden pt-2 pb-6"
+                    className="relative overflow-x-hidden pt-2 sm:pb-6"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    onPointerDown={handlePointerDown}
+                    onPointerMove={handlePointerMove}
+                    onPointerUp={handlePointerUp}
                 >
                     <div 
                         className="flex transition-transform duration-500 ease-in-out"

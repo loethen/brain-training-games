@@ -111,10 +111,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     return (
         <div>
             {/* Hero Section */}
-            <section className="max-w-[1600px] mx-auto rounded-3xl p-6 md:p-12 mt-8 mb-16 dark:from-transparent dark:to-transparent">
-                <div className="flex flex-col md:flex-row items-center gap-8">
+            <section className="max-w-[1600px] mx-auto rounded-3xl sm:p-6 md:p-12 mb-16 dark:from-transparent dark:to-transparent">
+                <div className="flex flex-col-reverse md:flex-row items-center gap-8">
                     <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-snug">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6 leading-tight">
                             {t("home.title")}
                         </h1>
                         <p className="sm:text-xl lg:text-2xl mb-8">
@@ -147,12 +147,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </section>
 
             {/* Games Section - Carousel Display */}
-            <section className="mb-24 max-w-[1600px] mx-auto px-6">
+            <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
                 <FeaturedGamesCarousel />
             </section>
 
             {/* Latest Blog Posts */}
-            <section className="mb-24 max-w-[1600px] mx-auto px-6">
+            <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
                 <div className="flex justify-between items-center mb-8">
                     <h2 className="text-3xl font-bold">
                         {t("home.latestPosts")}
@@ -197,7 +197,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </section>
 
             {/* Benefits Section */}
-            <section className="mb-24 max-w-3xl mx-auto px-6">
+            <section className="mb-24 max-w-3xl mx-auto px-0 sm:px-6">
                 <h2 className="text-3xl font-bold text-center mb-8">
                     {t("home.benefitsTitle")}
                 </h2>

@@ -20,7 +20,7 @@ export default function GameCard({ game, preview, className }: GameCardProps) {
     return (
         <div
             className={cn(
-                "group relative overflow-hidden rounded-lg p-2 bg-muted transition-all hover:shadow-lg",
+                "group relative overflow-hidden rounded-lg p-2 bg-secondary transition-all hover:shadow-lg",
                 className
             )}
         >
@@ -32,14 +32,14 @@ export default function GameCard({ game, preview, className }: GameCardProps) {
                     </div>
                 </Link>
             )}
-            <div className="block px-6 py-4">
+            <div className="block p-4">
                 <Link href={`/games/${game.slug}`}>
                     <h2 className="text-xl font-semibold text-primary">
                         {t(`${camelCaseId}.title`)}
                     </h2>
                 </Link>
 
-                <p className="mt-2 text-muted-foreground line-clamp-2">
+                <p className="mt-2 text-sm line-clamp-2">
                     {t(`${camelCaseId}.description`)}
                 </p>
 

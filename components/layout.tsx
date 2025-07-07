@@ -18,7 +18,7 @@ export function Layout({
     const [isMobile, setIsMobile] = useState(initialIsMobile);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia("(min-width: 768px)");
+        const mediaQuery = window.matchMedia("(min-width: 1024px)");
 
         const handleMediaChange = (e: MediaQueryListEvent) => {
             const isDesktop = e.matches;
