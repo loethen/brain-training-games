@@ -134,9 +134,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             alt="Hero Cat"
                             width={400}
                             height={400}
-                            style={{ maxWidth: '400px', width: '100%', height: 'auto' }}
+                            style={{
+                                maxWidth: "400px",
+                                width: "100%",
+                                height: "auto",
+                            }}
                             priority
-                            className="floating-image"
+                            className="floating-image rounded-full overflow-hidden"
                         />
                     </div>
                 </div>
