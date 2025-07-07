@@ -704,7 +704,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                                         )}
                                         <div className="mt-2 text-xs text-muted-foreground">
                                             <p>
-                                                {t('level')} {t('back', { level: settings.selectedNBack })} • {t('trials')} {currentTrial}
+                                                {t('level')} {t('back', { level: settings.selectedNBack })} • {t('trials', { count: settings.trialsPerRound })}
                                             </p>
                                         </div>
                                     </div>
