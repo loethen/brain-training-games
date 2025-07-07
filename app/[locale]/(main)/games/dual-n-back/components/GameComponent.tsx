@@ -172,7 +172,10 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
         }
         
         setSessionLetters(selectedLetters);
-        setStartDelay(GAME_CONFIG.trials.startDelay);
+        setStartDelay(null);
+        setTimeout(() => {
+            setStartDelay(GAME_CONFIG.trials.startDelay);
+        }, 0);
     }, []);
 
     // 修改handleResponse方法
