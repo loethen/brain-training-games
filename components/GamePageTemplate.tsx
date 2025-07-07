@@ -113,7 +113,7 @@ export function GamePageTemplate({
                           <div
                               key={index}
                               className={cn(
-                                  "relative overflow-hidden rounded-xl p-6 border transition-all duration-300",
+                                  "relative overflow-hidden rounded-xl p-6 transition-all duration-300",
                                   "hover:shadow-md hover:border-primary/50 hover:-translate-y-1",
                                   "bg-linear-to-br from-background to-muted/30"
                               )}

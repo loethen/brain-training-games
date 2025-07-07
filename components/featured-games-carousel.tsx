@@ -136,7 +136,7 @@ export default function FeaturedGamesCarousel() {
                                 key={pageIndex}
                                 className="w-full flex-shrink-0 px-1"
                             >
-                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                                     {page.map((game) => (
                                         <GameCard
                                             key={game.id}
@@ -174,7 +174,7 @@ export default function FeaturedGamesCarousel() {
             {latestGames.length > 0 && (
                 <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-2xl font-semibold flex items-center gap-2">
+                        <h3 className="text-2xl font-semibold flex items-center gap-8">
                             <Sparkles className="h-6 w-6 text-blue-500" />
                             {homeT("latestGames")}
                         </h3>

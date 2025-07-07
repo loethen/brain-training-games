@@ -64,7 +64,7 @@ export default function DualNBackPage() {
       science={{
         title: t('science.title'),
         description: t('science.description'),
-        blogArticleUrl: "/blog/the-science-of-working-memory-how-your-brain-processes-information",
+        blogArticleUrl: "/blog/the-science-behind-n-back-training-boost-working-memory",
         blogArticleTitle: t('science.blogArticleTitle'),
         authorityLinks: [
           {

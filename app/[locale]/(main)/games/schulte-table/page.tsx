@@ -108,6 +108,29 @@ export default function SchultePage() {
                   description: benefitsT("readingSpeed.description"),
               },
           ]}
+          science={{
+              title: t('schulteTable.science.title'),
+              description: t('schulteTable.science.description'),
+              blogArticleUrl: "/blog/how-to-improve-focus-and-concentration",
+              blogArticleTitle: t('schulteTable.science.blogArticleTitle'),
+              authorityLinks: [
+                  {
+                      title: "Schulte Tables in Neuropsychology",
+                      url: "https://en.wikipedia.org/wiki/Schulte_table",
+                      description: t('schulteTable.science.authorityLinks.neuropsychology')
+                  },
+                  {
+                      title: "Visual Attention Research - Wikipedia",
+                      url: "https://en.wikipedia.org/wiki/Visual_attention",
+                      description: t('schulteTable.science.authorityLinks.attention')
+                  },
+                  {
+                      title: "Speed Reading and Peripheral Vision",
+                      url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3447823/",
+                      description: t('schulteTable.science.authorityLinks.speedReading')
+                  }
+              ]
+          }}
           faq={[
               {
                   question: faqT("peripheralVision.question"),
