@@ -17,11 +17,6 @@ N-back是一种认知任务，通过要求你记住序列中N步之前的信息�
 
 "双重"版本——被认为是黄金标准——要求你同时跟踪视觉位置和听觉字母。这种双任务性质至关重要，因为它同时挑战多个工作记忆系统，创造了改善所需的认知过载。
 
-<figure>
-<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxicmFpbiUyMHNjYW4lMjBuZXVyb3NjaWVuY2V8ZW58MHx8fHwxNzQzMDY3NjM5fDA&ixlib=rb-4.0.3&q=80&w=2000" alt="显示工作记忆任务期间神经活动的大脑扫描" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>大脑成像研究揭示，N-back训练激活并强化了对工作记忆至关重要的前额叶皮层和顶叶区域。</figcaption>
-</figure>
-
 ## 工作记忆神经网络
 
 要理解N-back训练为什么有效，我们首先需要了解在工作记忆任务期间大脑发生了什么。神经科学研究已经确定了一个特定的大脑区域网络，它们协同工作来维持和操作信息：
@@ -43,11 +38,6 @@ N-back是一种认知任务，通过要求你记住序列中N步之前的信息�
 有趣的是，有效的工作记忆还需要*抑制*默认模式网络——在休息和思维游荡时变得活跃的大脑区域。成功的N-back表现涉及抑制这个网络以维持专注。
 
 ## Jaeggi研究：科学突破
-
-<figure>
-<img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwyfHxyZXNlYXJjaCUyMHNjaWVudGlzdCUyMGxhYm9yYXRvcnl8ZW58MHx8fHwxNzQzMDY3NjM5fDA&ixlib=rb-4.0.3&q=80&w=2000" alt="研究科学家分析大脑训练数据" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>2008年的Jaeggi研究首次提供了令人信服的证据，证明认知训练可以通过工作记忆增强来提高流体智力。</figcaption>
-</figure>
 
 2008年，苏珊娜·雅格及其密歇根大学的同事在《美国国家科学院院刊》(PNAS)上发表了他们的里程碑式研究。他们的发现令人瞩目：
 
@@ -85,11 +75,6 @@ N-back训练不仅锻炼工作记忆存储；它挑战整个执行控制系统�
 - **切换**：在视觉和听觉通道之间交替注意
 
 ## 神经可塑性证据
-
-<figure>
-<img src="https://images.unsplash.com/photo-1559757175-0eb6d70d0ce2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwzfHxuZXVyYWwlMjBuZXR3b3JrJTIwYnJhaW4lMjBwbGFzdGljaXR5fGVufDB8fHx8MTc0MzA2NzYzOXww&ixlib=rb-4.0.3&q=80&w=2000" alt="显示大脑可塑性的神经网络可视化" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>神经可塑性研究表明，密集的认知训练可以物理上重塑大脑结构并加强神经连接。</figcaption>
-</figure>
 
 后续的神经成像研究揭示了N-back训练益处背后的大脑变化：
 
@@ -130,11 +115,6 @@ N-back训练不仅锻炼工作记忆存储；它挑战整个执行控制系统�
 3. **神经变化是真实的**：大脑成像一致显示训练相关的可塑性
 
 ## N-Back训练如何改善你的日常生活
-
-<figure>
-<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwyfHx0ZWFtd29yayUyMGNvbGxhYm9yYXRpb24lMjBvZmZpY2V8ZW58MHx8fHwxNzQzMDY3NjM5fDA&ixlib=rb-4.0.3&q=80&w=2000" alt="团队在办公环境中协作，展示改善的认知表现" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>N-back训练增强的工作记忆转化为在需要复杂思维的学术、专业和日常生活情况中的更好表现。</figcaption>
-</figure>
 
 N-back训练的工作记忆改善转化为现实世界的益处：
 
@@ -179,11 +159,6 @@ N-back训练的工作记忆改善转化为现实世界的益处：
 - **动机**：投入的参与者始终优于仅仅敷衍的人
 
 ## 工作记忆训练的未来
-
-<figure>
-<img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxmdXR1cmUlMjB0ZWNobm9sb2d5JTIwYnJhaW4lMjBpbnRlcmZhY2V8ZW58MHx8fHwxNzQzMDY3NjM5fDA&ixlib=rb-4.0.3&q=80&w=2000" alt="未来主义的脑机接口可视化" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>未来的认知训练可能将N-back协议与神经反馈、VR环境和个性化AI指导相结合，以获得最大效果。</figcaption>
-</figure>
 
 新兴研究正在完善我们对工作记忆训练的理解：
 

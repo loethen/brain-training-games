@@ -111,7 +111,7 @@ export default function SchultePage() {
           science={{
               title: t('schulteTable.science.title'),
               description: t('schulteTable.science.description'),
-              blogArticleUrl: "/blog/how-to-improve-focus-and-concentration",
+              blogArticleUrl: "/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed",
               blogArticleTitle: t('schulteTable.science.blogArticleTitle'),
               authorityLinks: [
                   {
