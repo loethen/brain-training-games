@@ -123,7 +123,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         <div className="mb-4">
                             <Link href="/get-started">
                                 <InteractiveHoverButton>
-                                    Take the 2-Minute Challenge
+                                    {t("home.ctaButton")}
                                 </InteractiveHoverButton>
                             </Link>
                         </div>
