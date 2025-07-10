@@ -1300,6 +1300,13 @@
     "nextPost": "Next Post"
   },
   "getStarted": {
+    "meta": {
+      "title": "Get Started - Find Your Perfect Brain Training Game",
+      "description": "Take our 2-minute cognitive assessment to discover personalized brain training games that match your goals. Start your journey to better focus and memory today.",
+      "keywords": "brain training assessment, cognitive test, personalized brain games, focus training, memory improvement, cognitive test online, free cognitive test, cognitive test example, focus training app, focus training exercises, cogmed working memory training, working memory test, working memory test free",
+      "ogTitle": "Start Your Brain Training Journey - Personalized Assessment",
+      "ogDescription": "Discover the perfect brain training games for you with our quick 2-minute assessment. Improve focus, memory, and cognitive abilities."
+    },
     "title": "Let's find your perfect brain game!",
     "stepTitle": "Step {step} of 3",
     "steps": {
@@ -1385,9 +1392,6 @@
       }
     },
     "buttons": {
-      "previous": "Previous",
-      "next": "Next",
-      "complete": "Complete",
       "startAssessment": "Start Assessment"
     },
     "processingSpeedTest": {

@@ -225,7 +225,7 @@ export default function OnboardingFlow() {
     const stepIndexes = Array.from({ length: totalSteps }, (_, i) => i);
     
     return (
-      <div className="flex items-center justify-center gap-3 mb-8">
+      <div className="flex items-center justify-center mb-8">
         {stepIndexes.map((stepIndex) => (
           <div key={stepIndex} className="flex items-center">
             <div
@@ -399,17 +399,6 @@ export default function OnboardingFlow() {
     } else {
       // 推荐步骤 - 简化版本
       const recommendation = getRecommendation(selectedGoal);
-      const selectedOption = goalOptions.find(g => g.id === selectedGoal);
-      
-      if (!recommendation || !selectedOption) {
-        return (
-          <div>
-            <h2 className="text-2xl font-semibold mb-4">{t('recommendation.title')}</h2>
-            <p>请先完成前面的步骤。</p>
-          </div>
-        );
-      }
-
       const analysisText = generateSimplifiedAnalysis();
 
       return (
@@ -453,13 +442,10 @@ export default function OnboardingFlow() {
     }
   };
 
-  // 判断是否在测试阶段（不显示导航按钮）
-  const isInTestPhase = step > 0 && step <= currentTestTypes.length;
-  // 判断是否在最后一步（推荐阶段）
-  const isInRecommendationPhase = step > currentTestTypes.length;
+
 
   return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
+    <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
       <h1 className="text-3xl font-bold mb-8">{t('title')}</h1>
       
       {/* 步骤进度指示器 */}
@@ -470,26 +456,15 @@ export default function OnboardingFlow() {
           {getStepContent(step)}
         </div>
         
-        {/* 只在非测试阶段和非推荐阶段显示导航按钮 */}
-        {!isInTestPhase && !isInRecommendationPhase && (
-          <div className="flex justify-between">
+        {/* 只在目标选择阶段显示开始测试按钮 */}
+        {step === 0 && (
+          <div className="flex justify-center">
             <button
-              className="px-4 py-2 rounded bg-muted text-foreground disabled:opacity-50"
-              onClick={() => setStep((s) => Math.max(0, s - 1))}
-              disabled={step === 0}
+              className="px-6 py-3 rounded-lg bg-primary text-white font-semibold disabled:opacity-50"
+              onClick={startAssessment}
+              disabled={!selectedGoal}
             >
-              {t('buttons.previous')}
-            </button>
-            <button
-              className="px-4 py-2 rounded bg-primary text-white font-semibold disabled:opacity-50"
-              onClick={() => {
-                if (step === 0) {
-                  startAssessment();
-                }
-              }}
-              disabled={step === 0 && !selectedGoal}
-            >
-              {step === 0 ? t('buttons.startAssessment') : t('buttons.next')}
+              {t('buttons.startAssessment')}
             </button>
           </div>
         )}
