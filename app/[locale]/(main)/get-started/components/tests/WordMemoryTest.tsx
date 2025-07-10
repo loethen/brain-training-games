@@ -2,19 +2,17 @@
 
 import React, { useState, useCallback } from 'react';
 import { Check, Clock, Brain, CheckCircle, XCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface WordMemoryTestProps {
   onComplete: (memoryScore: number, wordsRecalled: number) => void;
 }
 
-// 简化的词汇库
-const WORD_BANK = [
-  '苹果', '汽车', '房子', '音乐', '学校', '手机', '咖啡', '花朵',
-  '月亮', '书籍', '电脑', '游戏', '朋友', '家庭', '工作', '旅行',
-  '食物', '天空', '海洋', '森林', '城市', '动物', '运动', '艺术'
-];
-
 export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
+  const t = useTranslations('getStarted.wordMemoryTest');
+  
+  // 从翻译中获取词汇库
+  const WORD_BANK = t.raw('wordBank') as string[];
   const [testState, setTestState] = useState<'instruction' | 'presentation' | 'recall' | 'completed'>('instruction');
   const [currentWords, setCurrentWords] = useState<string[]>([]);
   const [userInputs, setUserInputs] = useState<string[]>(Array(6).fill(''));
@@ -83,31 +81,31 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
               <Brain className="w-8 h-8 text-blue-600" />
             </div>
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">词汇记忆测试</h3>
-          <p className="text-lg text-gray-600 dark:text-gray-400">测试你的短期记忆能力</p>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('title')}</h3>
+          <p className="text-lg text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
         </div>
 
         {/* 测试说明卡片 */}
         <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-xl p-6 space-y-4">
-          <h4 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4">测试流程</h4>
+          <h4 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4">{t('testFlow')}</h4>
           
           <div className="space-y-3">
             <div className="flex items-center gap-3 text-sm">
               <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">1</div>
-              <span className="text-gray-700 dark:text-gray-300">记住即将出现的 <span className="font-semibold text-blue-600">6个词汇</span></span>
+              <span className="text-gray-700 dark:text-gray-300">{t('step1')}</span>
             </div>
             
             <div className="flex items-center gap-3 text-sm">
               <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">2</div>
               <span className="text-gray-700 dark:text-gray-300">
                 <Clock className="inline w-4 h-4 mr-1" />
-                <span className="font-semibold text-orange-600">8秒</span> 记忆时间
+                {t('step2')}
               </span>
             </div>
             
             <div className="flex items-center gap-3 text-sm">
               <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">3</div>
-              <span className="text-gray-700 dark:text-gray-300">回忆并输入所有词汇</span>
+              <span className="text-gray-700 dark:text-gray-300">{t('step3')}</span>
             </div>
           </div>
         </div>
@@ -117,7 +115,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
           onClick={startTest}
           className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-lg hover:shadow-xl"
         >
-          开始测试
+          {t('startButton')}
         </button>
       </div>
     );
@@ -127,10 +125,10 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
     return (
       <div className="text-center space-y-6">
         <div className="space-y-2">
-          <h3 className="text-xl font-semibold">请记住这些词汇</h3>
+          <h3 className="text-xl font-semibold">{t('rememberWords')}</h3>
           <div className="flex items-center justify-center gap-2 text-orange-600">
             <Clock className="w-4 h-4" />
-            <span className="text-sm font-medium">记忆时间：8秒</span>
+            <span className="text-sm font-medium">{t('memoryTime')}</span>
           </div>
         </div>
         
@@ -146,7 +144,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
         </div>
         
         <div className="text-lg font-semibold text-blue-600 animate-pulse">
-          仔细记住这些词汇...
+          {t('rememberCarefully')}
         </div>
       </div>
     );
@@ -156,11 +154,11 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
     return (
       <div className="text-center space-y-6">
         <div className="space-y-3">
-          <h3 className="text-xl font-semibold">回忆测试</h3>
-          <p className="text-muted-foreground">请输入你刚才看到的词汇</p>
+          <h3 className="text-xl font-semibold">{t('recallTest')}</h3>
+          <p className="text-muted-foreground">{t('enterWords')}</p>
           <div className="bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3">
             <p className="text-sm text-yellow-800 dark:text-yellow-200">
-              💡 提示：不需要按照原来的顺序填写，任意顺序都可以
+              {t('hint')}
             </p>
           </div>
         </div>
@@ -172,7 +170,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
               type="text"
               value={input}
               onChange={(e) => updateUserInput(index, e.target.value)}
-              placeholder={`词汇 ${index + 1}`}
+              placeholder={`${t('wordPlaceholder')} ${index + 1}`}
               className="px-3 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-lg text-center focus:border-blue-500 focus:outline-none transition-colors"
             />
           ))}
@@ -182,7 +180,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
           onClick={submitRecall}
           className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-colors shadow-lg"
         >
-          提交答案
+          {t('submitAnswer')}
         </button>
       </div>
     );
@@ -197,12 +195,12 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
           </div>
         </div>
         
-        <h3 className="text-xl font-semibold">词汇记忆测试完成!</h3>
+        <h3 className="text-xl font-semibold">{t('testComplete')}</h3>
         
         <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-xl p-4 space-y-2">
           <div className="text-2xl font-bold text-green-600">{finalScore}%</div>
-          <p className="text-sm text-gray-600 dark:text-gray-400">正确率</p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">回忆词汇: {wordsRecalled}/6</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{t('accuracy')}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{t('wordsRecalled')}: {wordsRecalled}/6</p>
         </div>
 
         {/* 详细结果展示 */}
@@ -213,7 +211,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
               <div className="flex items-center gap-2 mb-3">
                 <CheckCircle className="w-5 h-5 text-green-600" />
                 <h4 className="text-sm font-semibold text-green-800 dark:text-green-200">
-                  回忆正确的词汇 ({correctWords.length}个)
+                  {t('correctWords')} ({correctWords.length}{t('word')})
                 </h4>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -235,7 +233,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
               <div className="flex items-center gap-2 mb-3">
                 <XCircle className="w-5 h-5 text-red-600" />
                 <h4 className="text-sm font-semibold text-red-800 dark:text-red-200">
-                  遗漏的词汇 ({missedWords.length}个)
+                  {t('missedWords')} ({missedWords.length}{t('word')})
                 </h4>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -256,7 +254,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
           onClick={handleComplete}
           className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-lg"
         >
-          继续下一步
+          {t('continueNext')}
         </button>
       </div>
     );

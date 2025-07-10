@@ -1425,6 +1425,130 @@
       "testComplete": "Reaction Speed Test Complete!",
       "milliseconds": "milliseconds",
       "nextTest": "Next Test"
+    },
+    "memoryTest": {
+      "title": "Sequence Memory Test",
+      "subtitle": "Test your working memory",
+      "instructions": "Watch the sequence of highlighted blocks, then click them in the same order",
+      "startButton": "Start Test",
+      "testFlow": "Test Process",
+      "step1": "Watch 6 blocks light up in sequence",
+      "step2": "Remember block positions in 3×3 grid",
+      "step3": "Click blocks in the same order",
+      "observationPhase": "Observation Phase",
+      "recallPhase": "Recall Phase",
+      "rememberSequence": "Remember the order blocks light up...",
+      "clickInOrder": "Click blocks in order",
+      "progress": "Progress",
+      "testComplete": "Sequence Memory Test Complete!",
+      "memoryAccuracy": "Memory Accuracy",
+      "correctRecall": "Correct recall",
+      "positions": "positions",
+      "excellentMemory": "🎉 Excellent! You have strong working memory",
+      "goodMemory": "👍 Good! Keep practicing to improve more",
+      "keepPracticing": "💪 Keep trying! Working memory can be trained",
+      "continueNext": "Continue Next"
+    },
+    "wordMemoryTest": {
+      "title": "Word Memory Test",
+      "subtitle": "Test your short-term memory",
+      "instructions": "Remember the words that will appear",
+      "startButton": "Start Test",
+      "testFlow": "Test Process",
+      "step1": "Remember the upcoming 6 words",
+      "step2": "8 seconds memory time",
+      "step3": "Recall and enter all words",
+      "memoryTime": "Memory time: 8 seconds",
+      "rememberWords": "Please remember these words",
+      "rememberCarefully": "Carefully remember these words...",
+      "recallTest": "Recall Test",
+      "enterWords": "Please enter the words you just saw",
+      "hint": "💡 Tip: No need to fill in original order, any order is fine",
+      "wordPlaceholder": "Word",
+      "submitAnswer": "Submit Answer",
+      "testComplete": "Word Memory Test Complete!",
+      "accuracy": "Accuracy",
+      "wordsRecalled": "Words recalled",
+      "correctWords": "Correctly recalled words",
+      "word": "word",
+      "words": "words",
+      "missedWords": "Missed words",
+      "continueNext": "Continue Next",
+      "wordBank": [
+        "camera", "book", "phone", "laptop", "bottle", "chair", 
+        "lamp", "wallet", "mirror", "clock", "knife", "spoon",
+        "plate", "cup", "pillow", "towel", "shoes", "keys", 
+        "glasses", "watch", "bicycle", "flower", "music", "school"
+      ]
+    },
+    "stroopTest": {
+      "title": "Cognitive Flexibility Test",
+      "subtitle": "Test your attention control",
+      "instructions": "When you see colored text, click the color of the text, not the meaning of the word",
+      "example": "For example: When you see red-colored 'blue', click 'red'",
+      "startButton": "Start Test",
+      "whatColor": "What color is this text?",
+      "useKeys": "Use number keys 1-4 or click buttons",
+      "testComplete": "Cognitive Flexibility Test Complete!",
+      "accuracy": "Accuracy",
+      "averageReactionTime": "Average Reaction Time",
+      "nextTest": "Next Test",
+      "colors": {
+        "red": "Red",
+        "blue": "Blue", 
+        "green": "Green",
+        "yellow": "Yellow"
+      }
+    },
+    "gameRecommendations": {
+      "testComplete": "Test Complete!",
+      "personalizedRecommendation": "Personalized game recommendation for you",
+      "startTraining": "Start Training",
+      "basedOnResults": "Based on your test results",
+      "recommendStart": "We recommend you start with",
+      "analysisIntro": "Through the tests just now,",
+      "gameNames": {
+        "dualNBack": "Dual N-Back Training",
+        "stroopEffect": "Stroop Effect Test",
+        "largerNumber": "Number Comparison",
+        "frogMemoryLeap": "Frog Memory Leap",
+        "reactionTime": "Reaction Time Training",
+        "schulteTable": "Schulte Grid"
+      },
+      "recommendations": {
+        "dualNBack": "Perfect for challenging your working memory limits",
+        "stroopEffect": "Great for improving cognitive speed and conflict resolution",
+        "largerNumber": "Ideal for basic processing speed training",
+        "frogMemoryLeap": "Fun memory training game to start with",
+        "reactionTime": "Basic reaction training foundation",
+        "schulteTable": "Excellent for visual attention training"
+      }
+    },
+    "testAnalysis": {
+      "testNames": {
+        "reactionSpeed": "reaction speed test",
+        "numberComparison": "number comparison test", 
+        "sequenceMemory": "sequence memory test",
+        "attentionControl": "attention control test",
+        "wordMemory": "word memory test"
+      },
+      "performances": {
+        "reactionFast": "your reaction is very fast",
+        "reactionSlow": "reaction speed has room for improvement",
+        "reactionNormal": "reaction speed is normal",
+        "processingGood": "processing speed is quite good",
+        "processingPoor": "processing speed needs strengthening",
+        "processingAverage": "processing speed is average",
+        "memoryStrong": "memory is very strong",
+        "memoryWeak": "memory needs improvement",
+        "memoryAverage": "memory performance is average",
+        "attentionExcellent": "attention control ability is excellent",
+        "attentionPoor": "attention control needs practice",
+        "attentionAverage": "attention control is average",
+        "wordMemoryStrong": "word memory ability is very strong",
+        "wordMemoryWeak": "word memory needs training",
+        "wordMemoryAverage": "word memory is average"
+      }
     }
   }
 }

@@ -2,20 +2,22 @@
 
 import React, { useState, useCallback } from 'react';
 import { Check, Brain } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface StroopTestProps {
   onComplete: (stroopScore: number, avgReactionTime: number) => void;
 }
 
-// 简化的颜色配置
-const COLORS = [
-  { name: 'red', text: '红色', color: '#ef4444', key: '1' },
-  { name: 'blue', text: '蓝色', color: '#3b82f6', key: '2' },
-  { name: 'green', text: '绿色', color: '#10b981', key: '3' },
-  { name: 'yellow', text: '黄色', color: '#f59e0b', key: '4' }
-];
-
 export default function StroopTest({ onComplete }: StroopTestProps) {
+  const t = useTranslations('getStarted.stroopTest');
+  
+  // 颜色配置
+  const COLORS = [
+    { name: 'red', text: t('colors.red'), color: '#ef4444', key: '1' },
+    { name: 'blue', text: t('colors.blue'), color: '#3b82f6', key: '2' },
+    { name: 'green', text: t('colors.green'), color: '#10b981', key: '3' },
+    { name: 'yellow', text: t('colors.yellow'), color: '#f59e0b', key: '4' }
+  ];
   const [testState, setTestState] = useState<'instruction' | 'playing' | 'completed'>('instruction');
   const [currentRound, setCurrentRound] = useState(0);
   const [currentTrial, setCurrentTrial] = useState<{
@@ -109,17 +111,17 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
         <div className="flex justify-center">
           <Brain className="w-8 h-8 text-purple-500" />
         </div>
-        <h3 className="text-xl font-semibold">认知灵活性测试</h3>
-        <p className="text-muted-foreground">测试你的注意力控制能力</p>
+        <h3 className="text-xl font-semibold">{t('title')}</h3>
+        <p className="text-muted-foreground">{t('subtitle')}</p>
         <div className="text-sm space-y-2">
-          <p>看到彩色文字时，<strong>点击文字的颜色</strong>，而不是文字的意思</p>
-          <p>例如：看到 <span style={{color: '#ef4444'}}>蓝色</span> 时，应该点击&ldquo;红色&rdquo;</p>
+          <p>{t('instructions')}</p>
+          <p>{t('example')}</p>
         </div>
         <button
           onClick={startTest}
           className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-colors"
         >
-          开始测试
+          {t('startButton')}
         </button>
       </div>
     );
@@ -128,10 +130,10 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
   if (testState === 'playing' && currentTrial) {
     return (
       <div className="text-center space-y-6">
-        <h3 className="text-xl font-semibold">认知灵活性测试 ({currentRound + 1}/8)</h3>
+        <h3 className="text-xl font-semibold">{t('title')} ({currentRound + 1}/8)</h3>
         
         <div className="p-8 bg-white dark:bg-gray-800 rounded-xl border">
-          <p className="text-lg mb-6">这个文字是什么颜色？</p>
+          <p className="text-lg mb-6">{t('whatColor')}</p>
           <div 
             className="text-5xl font-bold mb-8"
             style={{ color: currentTrial.color }}
@@ -160,7 +162,7 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
         </div>
         
         <p className="text-sm text-muted-foreground">
-          使用数字键 1-4 或点击按钮
+          {t('useKeys')}
         </p>
       </div>
     );
@@ -172,16 +174,16 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
         <div className="flex justify-center text-green-500">
           <Check size={48} />
         </div>
-        <h3 className="text-xl font-semibold">认知灵活性测试 完成!</h3>
+        <h3 className="text-xl font-semibold">{t('testComplete')}</h3>
         <div className="space-y-2">
-          <p>准确率: {finalScore}%</p>
-          <p>平均反应时间: {avgReactionTime}ms</p>
+          <p>{t('accuracy')}: {finalScore}%</p>
+          <p>{t('averageReactionTime')}: {avgReactionTime}ms</p>
         </div>
         <button
           onClick={handleComplete}
           className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-colors"
         >
-          下一个测试
+          {t('nextTest')}
         </button>
       </div>
     );

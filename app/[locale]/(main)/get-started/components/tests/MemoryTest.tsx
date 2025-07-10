@@ -2,12 +2,14 @@
 
 import React, { useState, useCallback } from 'react';
 import { Check, Brain, Grid3X3, Eye, Hand } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface MemoryTestProps {
   onComplete: (memoryScore: number) => void;
 }
 
 export default function MemoryTest({ onComplete }: MemoryTestProps) {
+  const t = useTranslations('getStarted.memoryTest');
   const [testState, setTestState] = useState<'instruction' | 'playing' | 'completed'>('instruction');
   const [memorySequence, setMemorySequence] = useState<number[]>([]);
   const [userSequence, setUserSequence] = useState<number[]>([]);
@@ -17,7 +19,17 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
 
   const startMemoryTest = useCallback(() => {
     setTestState('playing');
-    const sequence = Array.from({length: 6}, () => Math.floor(Math.random() * 9));
+    
+    // 生成不重复的序列：从0-8中随机选择6个不同的位置
+    const availablePositions = Array.from({length: 9}, (_, i) => i);
+    const sequence = [];
+    
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * availablePositions.length);
+      sequence.push(availablePositions[randomIndex]);
+      availablePositions.splice(randomIndex, 1); // 移除已选择的位置
+    }
+    
     setMemorySequence(sequence);
     setUserSequence([]);
     setShowingSequence(true);
@@ -65,20 +77,20 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
               <Brain className="w-8 h-8 text-purple-600" />
             </div>
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">序列记忆测试</h3>
-          <p className="text-lg text-gray-600 dark:text-gray-400">测试你的工作记忆</p>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('title')}</h3>
+          <p className="text-lg text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
         </div>
 
         {/* 测试说明卡片 */}
         <div className="bg-purple-50 dark:bg-purple-950 border border-purple-200 dark:border-purple-800 rounded-xl p-6 space-y-4">
-          <h4 className="text-lg font-semibold text-purple-900 dark:text-purple-100 mb-4">测试流程</h4>
+          <h4 className="text-lg font-semibold text-purple-900 dark:text-purple-100 mb-4">{t('testFlow')}</h4>
           
           <div className="space-y-3">
                          <div className="flex items-center gap-3 text-sm">
                <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">1</div>
                <span className="text-gray-700 dark:text-gray-300">
                  <Eye className="inline w-4 h-4 mr-1" />
-                 观察 <span className="font-semibold text-purple-600">6个方块</span> 的亮起顺序
+                 {t('step1')}
                </span>
              </div>
             
@@ -86,7 +98,7 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
               <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">2</div>
               <span className="text-gray-700 dark:text-gray-300">
                 <Grid3X3 className="inline w-4 h-4 mr-1" />
-                记住方块在 <span className="font-semibold text-orange-600">3×3网格</span> 中的位置
+                {t('step2')}
               </span>
             </div>
             
@@ -94,7 +106,7 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
               <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">3</div>
               <span className="text-gray-700 dark:text-gray-300">
                 <Hand className="inline w-4 h-4 mr-1" />
-                按照相同顺序点击方块
+                {t('step3')}
               </span>
             </div>
           </div>
@@ -105,7 +117,7 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
           onClick={startMemoryTest}
           className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-colors shadow-lg hover:shadow-xl"
         >
-          开始测试
+          {t('startButton')}
         </button>
       </div>
     );
@@ -116,7 +128,7 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
       <div className="text-center space-y-8">
         {/* 状态指示器 */}
         <div className="space-y-3">
-          <h3 className="text-xl font-semibold">序列记忆测试</h3>
+          <h3 className="text-xl font-semibold">{t('title')}</h3>
           <div className="flex items-center justify-center gap-4">
             <div className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
               showingSequence 
@@ -124,7 +136,7 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-500'
             }`}>
               <Eye className="inline w-4 h-4 mr-1" />
-              观察阶段
+              {t('observationPhase')}
             </div>
             <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
             <div className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
@@ -133,7 +145,7 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-500'
             }`}>
               <Hand className="inline w-4 h-4 mr-1" />
-              回忆阶段
+              {t('recallPhase')}
             </div>
           </div>
         </div>
@@ -165,7 +177,7 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
         <div className="space-y-2">
           {showingSequence ? (
             <div className="space-y-2">
-              <p className="text-lg font-medium text-blue-600 animate-pulse">记住方块亮起的顺序...</p>
+              <p className="text-lg font-medium text-blue-600 animate-pulse">{t('rememberSequence')}</p>
                              <div className="flex justify-center gap-1">
                  {Array.from({length: 6}, (_, i) => (
                    <div
@@ -179,9 +191,9 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
             </div>
           ) : (
             <div className="space-y-2">
-              <p className="text-lg font-medium text-green-600">按照顺序点击方块</p>
+              <p className="text-lg font-medium text-green-600">{t('clickInOrder')}</p>
               <p className="text-sm text-gray-500">
-                进度: {userSequence.length}/{memorySequence.length}
+                {t('progress')}: {userSequence.length}/{memorySequence.length}
               </p>
             </div>
           )}
@@ -199,13 +211,13 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
           </div>
         </div>
         
-        <h3 className="text-xl font-semibold">序列记忆测试完成!</h3>
+        <h3 className="text-xl font-semibold">{t('testComplete')}</h3>
         
         <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-xl p-4 space-y-2">
           <div className="text-2xl font-bold text-green-600">{score}%</div>
-          <p className="text-sm text-gray-600 dark:text-gray-400">记忆准确度</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{t('memoryAccuracy')}</p>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            正确回忆: {Math.round(score / 100 * 6)}/6 个位置
+            {t('correctRecall')}: {Math.round(score / 100 * 6)}/6 {t('positions')}
           </p>
         </div>
 
@@ -213,10 +225,10 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
         <div className="bg-purple-50 dark:bg-purple-950 border border-purple-200 dark:border-purple-800 rounded-xl p-4">
           <p className="text-sm text-purple-800 dark:text-purple-200">
             {score >= 75 ? 
-              "🎉 优秀！你的工作记忆能力很强" : 
+              t('excellentMemory') : 
               score >= 50 ? 
-              "👍 不错！继续练习可以提升更多" : 
-              "💪 继续努力！工作记忆是可以训练的"
+              t('goodMemory') : 
+              t('keepPracticing')
             }
           </p>
         </div>
@@ -225,7 +237,7 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
           onClick={handleComplete}
           className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-colors shadow-lg"
         >
-          继续下一步
+          {t('continueNext')}
         </button>
       </div>
     );

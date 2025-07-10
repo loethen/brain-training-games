@@ -42,6 +42,8 @@ const getTestsForGoal = (goal: string): TestType[] => {
 
 export default function OnboardingFlow() {
   const t = useTranslations('getStarted');
+  const tRecommendations = useTranslations('getStarted.gameRecommendations');
+  const tAnalysis = useTranslations('getStarted.testAnalysis');
   
   const [step, setStep] = useState(0);
   const [selectedGoal, setSelectedGoal] = useState('');
@@ -138,9 +140,9 @@ export default function OnboardingFlow() {
     const results = assessmentResults;
     
     let recommendation = {
-      gameName: "双N-back训练",
+      gameName: tRecommendations('gameNames.dualNBack'),
       gameSlug: "dual-n-back",
-      reason: "基于你的测试表现，这个游戏最适合提升你的认知能力。",
+      reason: tRecommendations('recommendations.dualNBack'),
       benefits: ["提升工作记忆", "增强注意力"]
     };
 
@@ -148,48 +150,48 @@ export default function OnboardingFlow() {
     if (goal === 'focus') {
       if (results.processingSpeed && results.processingSpeed >= 70) {
         recommendation = {
-          gameName: "Stroop效应测试",
+          gameName: tRecommendations('gameNames.stroopEffect'),
           gameSlug: "stroop-effect-test",
-          reason: "你的处理速度不错！",
+          reason: tRecommendations('recommendations.stroopEffect'),
           benefits: ["提升注意力控制", "增强认知灵活性"]
         };
       } else {
         recommendation = {
-          gameName: "数字大小比较",
+          gameName: tRecommendations('gameNames.largerNumber'),
           gameSlug: "larger-number",
-          reason: "建议从基础的处理速度训练开始。",
+          reason: tRecommendations('recommendations.largerNumber'),
           benefits: ["提升反应速度", "增强注意力"]
         };
       }
     } else if (goal === 'memory') {
       if (results.memoryScore && results.memoryScore >= 75) {
         recommendation = {
-          gameName: "双N-back训练",
+          gameName: tRecommendations('gameNames.dualNBack'),
           gameSlug: "dual-n-back",
-          reason: "你的记忆力很好！",
+          reason: tRecommendations('recommendations.dualNBack'),
           benefits: ["挑战工作记忆极限", "提升多任务处理"]
         };
       } else {
         recommendation = {
-          gameName: "青蛙记忆跳跃",
+          gameName: tRecommendations('gameNames.frogMemoryLeap'),
           gameSlug: "frog-memory-leap",
-          reason: "建议从趣味记忆游戏开始训练。",
+          reason: tRecommendations('recommendations.frogMemoryLeap'),
           benefits: ["增强序列记忆", "提升专注力"]
         };
       }
     } else if (goal === 'speed') {
       if (results.reactionTime && results.reactionTime <= 350) {
         recommendation = {
-          gameName: "Stroop效应测试",
+          gameName: tRecommendations('gameNames.stroopEffect'),
           gameSlug: "stroop-effect-test",
-          reason: "你的反应很快！",
+          reason: tRecommendations('recommendations.stroopEffect'),
           benefits: ["挑战认知速度", "提升冲突处理"]
         };
       } else {
         recommendation = {
-          gameName: "反应时间训练",
+          gameName: tRecommendations('gameNames.reactionTime'),
           gameSlug: "reaction-time",
-          reason: "建议从基础反应训练开始。",
+          reason: tRecommendations('recommendations.reactionTime'),
           benefits: ["提升反应速度", "增强敏捷性"]
         };
       }
@@ -197,16 +199,16 @@ export default function OnboardingFlow() {
       if (results.reactionTime && results.processingSpeed) {
         if (results.reactionTime <= 400 && results.processingSpeed >= 60) {
           recommendation = {
-            gameName: "双N-back训练",
+            gameName: tRecommendations('gameNames.dualNBack'),
             gameSlug: "dual-n-back",
-            reason: "你的基础能力不错！",
+            reason: tRecommendations('recommendations.dualNBack'),
             benefits: ["全面提升认知能力", "增强大脑可塑性"]
           };
         } else {
           recommendation = {
-            gameName: "舒尔特方格",
+            gameName: tRecommendations('gameNames.schulteTable'),
             gameSlug: "schulte-table",
-            reason: "建议从注意力基础训练开始。",
+            reason: tRecommendations('recommendations.schulteTable'),
             benefits: ["提升视觉注意力", "增强专注力"]
           };
         }
@@ -214,7 +216,7 @@ export default function OnboardingFlow() {
     }
 
     return recommendation;
-  }, [assessmentResults]);
+  }, [assessmentResults, tRecommendations]);
 
   // 渲染步骤进度条 - 动态根据测试数量显示
   const renderStepIndicator = () => {
@@ -288,62 +290,62 @@ export default function OnboardingFlow() {
     
     // 分析各项测试表现
     if (results.reactionTime) {
-      testNames.push("反应速度测试");
+      testNames.push(tAnalysis('testNames.reactionSpeed'));
       if (results.reactionTime <= 350) {
-        performances.push("你的反应很快");
+        performances.push(tAnalysis('performances.reactionFast'));
       } else if (results.reactionTime > 500) {
-        performances.push("反应速度有提升空间");
+        performances.push(tAnalysis('performances.reactionSlow'));
       } else {
-        performances.push("反应速度表现正常");
+        performances.push(tAnalysis('performances.reactionNormal'));
       }
     }
     
     if (results.processingSpeed) {
-      testNames.push("数字比较测试");
+      testNames.push(tAnalysis('testNames.numberComparison'));
       if (results.processingSpeed >= 70) {
-        performances.push("处理速度很不错");
+        performances.push(tAnalysis('performances.processingGood'));
       } else if (results.processingSpeed < 50) {
-        performances.push("处理速度需要加强");
+        performances.push(tAnalysis('performances.processingPoor'));
       } else {
-        performances.push("处理速度表现一般");
+        performances.push(tAnalysis('performances.processingAverage'));
       }
     }
     
     if (results.memoryScore) {
-      testNames.push("序列记忆测试");
+      testNames.push(tAnalysis('testNames.sequenceMemory'));
       if (results.memoryScore >= 75) {
-        performances.push("记忆力很强");
+        performances.push(tAnalysis('performances.memoryStrong'));
       } else if (results.memoryScore < 50) {
-        performances.push("记忆力有待提升");
+        performances.push(tAnalysis('performances.memoryWeak'));
       } else {
-        performances.push("记忆力表现中等");
+        performances.push(tAnalysis('performances.memoryAverage'));
       }
     }
     
     if (results.stroopScore) {
-      testNames.push("注意力控制测试");
+      testNames.push(tAnalysis('testNames.attentionControl'));
       if (results.stroopScore >= 75) {
-        performances.push("注意力控制能力优秀");
+        performances.push(tAnalysis('performances.attentionExcellent'));
       } else if (results.stroopScore < 60) {
-        performances.push("注意力控制需要练习");
+        performances.push(tAnalysis('performances.attentionPoor'));
       } else {
-        performances.push("注意力控制表现中等");
+        performances.push(tAnalysis('performances.attentionAverage'));
       }
     }
     
     if (results.wordMemoryScore) {
-      testNames.push("词汇记忆测试");
+      testNames.push(tAnalysis('testNames.wordMemory'));
       if (results.wordMemoryScore >= 75) {
-        performances.push("词汇记忆能力很强");
+        performances.push(tAnalysis('performances.wordMemoryStrong'));
       } else if (results.wordMemoryScore < 50) {
-        performances.push("词汇记忆需要训练");
+        performances.push(tAnalysis('performances.wordMemoryWeak'));
       } else {
-        performances.push("词汇记忆表现中等");
+        performances.push(tAnalysis('performances.wordMemoryAverage'));
       }
     }
     
     // 生成口语化的分析
-    let analysisText = "通过刚才的测试，";
+    let analysisText = tRecommendations('analysisIntro');
     if (performances.length >= 2) {
       analysisText += `${performances[0]}，${performances[1]}。`;
     } else if (performances.length === 1) {
@@ -413,8 +415,8 @@ export default function OnboardingFlow() {
       return (
         <div className="space-y-6">
           <div className="text-center">
-            <h2 className="text-2xl font-semibold mb-2">测试完成！</h2>
-            <p className="text-muted-foreground">为你推荐最适合的训练游戏</p>
+            <h2 className="text-2xl font-semibold mb-2">{tRecommendations('testComplete')}</h2>
+            <p className="text-muted-foreground">{tRecommendations('personalizedRecommendation')}</p>
           </div>
 
           {/* 简化的分析和推荐 */}
@@ -429,7 +431,7 @@ export default function OnboardingFlow() {
               
               {/* 推荐游戏 */}
               <div className="space-y-3">
-                <h3 className="text-xl font-semibold">推荐你可以先从</h3>
+                <h3 className="text-xl font-semibold">{tRecommendations('recommendStart')}</h3>
                 <div className="text-3xl font-bold text-blue-600">{recommendation.gameName}</div>
                 <p className="text-gray-600 dark:text-gray-400">{recommendation.reason}</p>
               </div>
@@ -440,11 +442,11 @@ export default function OnboardingFlow() {
           <div className="text-center">
             <Link href={`/games/${recommendation.gameSlug}`}>
               <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl">
-                开始训练
+                {tRecommendations('startTraining')}
                 <ArrowRight size={18} />
               </button>
             </Link>
-            <p className="text-xs text-muted-foreground mt-2">基于你的测试结果定制</p>
+            <p className="text-xs text-muted-foreground mt-2">{tRecommendations('basedOnResults')}</p>
           </div>
         </div>
       );
