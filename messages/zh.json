@@ -1297,5 +1297,134 @@
     },
     "previousPost": "上一篇",
     "nextPost": "下一篇"
+  },
+  "getStarted": {
+    "title": "让我们找到最适合你的脑力游戏！",
+    "stepTitle": "第 {step} 步，共 3 步",
+    "steps": {
+      "goalSetting": "你想改善什么？",
+      "quickAssessment": "快速评估",
+      "recommendation": "为你推荐"
+    },
+    "goalSetting": {
+      "title": "你想先从哪方面开始？",
+      "subtitle": "别担心，没有标准答案！选择你觉得最需要的就好：",
+      "goals": {
+        "focus": {
+          "title": "提升我工作/学习的专注力",
+          "subtitle": "保持专注，减少分心"
+        },
+        "memory": {
+          "title": "增强我日常生活中的记忆力",
+          "subtitle": "更好地记住姓名、任务和细节"
+        },
+        "speed": {
+          "title": "加快我的反应速度",
+          "subtitle": "思考和反应更迅速"
+        },
+        "general": {
+          "title": "我只是想找个好玩的大脑挑战",
+          "subtitle": "纯粹为了乐趣的脑力游戏！"
+        }
+      },
+      "selected": "✓ 已选择：{goal}"
+    },
+    "assessment": {
+      "title": "快速能力评估",
+      "description": "这里将展示3个极简小游戏的占位内容：",
+      "tests": {
+        "focus": "• 专注力测试（如：看到绿色圆形时点击）",
+        "memory": "• 记忆力测试（如：按顺序点击亮起的方块）",
+        "reaction": "• 反应速度测试（如：变绿时点击）"
+      },
+      "placeholder": "（后续将填充具体小游戏）"
+    },
+    "recommendation": {
+      "title": "为你推荐",
+      "description": "这里将展示基于你的选择和测试结果的个性化推荐。",
+      "example": "示例：我们推荐你从 {gameName} 开始你的训练之旅！",
+      "startButton": "立即开始",
+      "placeholder": "（后续将根据实际测试结果动态推荐）",
+      "yourChoice": "你的选择",
+      "weRecommend": "我们为你推荐",
+      "whyThisGame": "为什么推荐这个游戏？",
+      "reasons": {
+        "focus": "最适合训练专注力的入门游戏",
+        "memory": "经典的记忆力训练游戏",
+        "speed": "专业的反应速度测试工具",
+        "general": "最具挑战性的认知训练游戏"
+      },
+      "descriptions": {
+        "focus": "通过视觉搜索训练，快速提升注意力集中度和抗干扰能力，是专注力训练的黄金入门选择。",
+        "memory": "通过记忆和重现序列模式，有效锻炼工作记忆，被广泛用于认知能力提升训练。",
+        "speed": "精确测量你的反应时间，通过持续练习显著提升大脑处理速度和反应敏捷度。",
+        "general": "结合视觉和听觉的双重挑战，全面锻炼大脑多任务处理能力，被认为是最有效的认知训练方法之一。"
+      },
+      "benefits": {
+        "focus": {
+          "1": "快速提升视觉注意力和搜索能力",
+          "2": "显著改善阅读速度和理解力",
+          "3": "增强工作和学习时的专注持续时间"
+        },
+        "memory": {
+          "1": "有效提升短期记忆和工作记忆容量",
+          "2": "改善日常生活中的记忆表现",
+          "3": "为更高级的认知训练打下坚实基础"
+        },
+        "speed": {
+          "1": "准确了解当前反应速度水平",
+          "2": "通过练习显著提升处理速度",
+          "3": "改善运动表现和日常反应能力"
+        },
+        "general": {
+          "1": "全面锻炼多种认知能力",
+          "2": "提升大脑的多任务处理效率",
+          "3": "享受充满挑战的脑力训练乐趣"
+        }
+      }
+    },
+    "buttons": {
+      "previous": "上一步",
+      "next": "下一步",
+      "complete": "完成",
+      "startAssessment": "开始评估"
+    },
+    "processingSpeedTest": {
+      "title": "数字比较测试",
+      "subtitle": "测试你的处理速度",
+      "challengeGoals": "挑战目标：",
+      "timeLimit": "时间限制：10秒",
+      "minComparisons": "至少完成12组比较",
+      "accuracyTarget": "正确率达到90%以上",
+      "instructions": "快速选择较大的数字，在时间内完成尽可能多的比较。",
+      "clickLarger": "点击较大的数字",
+      "completed": "完成",
+      "questionsLabel": "题",
+      "challengeCompleted": "已达成挑战目标！",
+      "stillNeeded": "还需",
+      "targetAccuracy": "目标正确率",
+      "testCompleted": "数字比较测试 完成!",
+      "questionsCompleted": "完成题数",
+      "processingSpeedScore": "处理速度得分",
+      "viewRecommendation": "查看推荐",
+      "points": "分"
+    },
+    "reactionTimeTest": {
+      "title": "反应速度测试",
+      "subtitle": "测试你的反应速度",
+      "instructions": "当屏幕变绿时，立即点击！完成3轮测试。",
+      "startButton": "开始测试",
+      "wait": "等待...",
+      "clickNow": "点击!",
+      "complete": "完成",
+      "round": "轮次",
+      "clickWhenGreen": "当圆圈变绿时立即点击",
+      "clickNow2": "现在点击！",
+      "reactionTime": "反应时间",
+      "averageReactionTime": "平均反应时间",
+      "testComplete": "反应速度测试 完成!",
+      "milliseconds": "毫秒",
+      "nextTest": "下一个测试"
+    }
   }
 } 
