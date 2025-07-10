@@ -34,42 +34,68 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
   }[]>([]);
   const [finalScore, setFinalScore] = useState(0);
   const [avgReactionTime, setAvgReactionTime] = useState(0);
+  const [lastTrial, setLastTrial] = useState<{
+    word: string;
+    color: string;
+  } | null>(null);
 
   const generateTrial = useCallback(() => {
-    // 50%几率生成一致试验（颜色和文字匹配）
-    const isCongruent = Math.random() < 0.5;
-    const wordColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+    let trial;
+    let attempts = 0;
+    const maxAttempts = 20;
     
-    let displayColor;
-    if (isCongruent) {
-      displayColor = wordColor;
-    } else {
-      // 不一致试验：文字和颜色不匹配
-      do {
-        displayColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-      } while (displayColor.name === wordColor.name);
-    }
+    do {
+      // 80%几率生成不一致试验（增加挑战性）
+      const isCongruent = Math.random() < 0.2;
+      const wordColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+      
+      let displayColor;
+      if (isCongruent) {
+        displayColor = wordColor;
+      } else {
+        // 不一致试验：文字和颜色不匹配
+        do {
+          displayColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+        } while (displayColor.name === wordColor.name);
+      }
 
-    return {
-      word: wordColor.text,
-      color: displayColor.color,
-      correctAnswer: displayColor.name,
-      isCongruent
-    };
-  }, []);
+      trial = {
+        word: wordColor.text,
+        color: displayColor.color,
+        correctAnswer: displayColor.name,
+        isCongruent
+      };
+      
+      attempts++;
+    } while (
+      lastTrial && 
+      trial.word === lastTrial.word && 
+      trial.color === lastTrial.color &&
+      attempts < maxAttempts
+    );
 
-  const startTest = useCallback(() => {
-    setTestState('playing');
-    setCurrentRound(0);
-    setResults([]);
-    startRound();
-  }, []);
+    // 更新上一题记录
+    setLastTrial({
+      word: trial.word,
+      color: trial.color
+    });
+
+    return trial;
+  }, [lastTrial]);
 
   const startRound = useCallback(() => {
     const trial = generateTrial();
     setCurrentTrial(trial);
     setTrialStartTime(Date.now());
   }, [generateTrial]);
+
+  const startTest = useCallback(() => {
+    setTestState('playing');
+    setCurrentRound(0);
+    setResults([]);
+    setLastTrial(null); // 重置上一题记录
+    startRound();
+  }, [startRound]);
 
   const handleColorSelect = useCallback((colorName: string) => {
     if (!currentTrial || !trialStartTime) return;
@@ -146,16 +172,9 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
               <button
                 key={color.name}
                 onClick={() => handleColorSelect(color.name)}
-                className="px-4 py-3 border-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
-                style={{ borderColor: color.color }}
+                className="px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 hover:border-gray-400 dark:hover:border-gray-500 transition-all"
               >
-                <div className="flex items-center gap-2">
-                  <div 
-                    className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: color.color }}
-                  />
-                  <span>{color.key}. {color.text}</span>
-                </div>
+                <span className="font-medium">{color.key}. {color.text}</span>
               </button>
             ))}
           </div>
