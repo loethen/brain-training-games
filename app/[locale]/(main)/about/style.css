@@ -1,0 +1,86 @@
+/* Letter Paper Styles */
+.letter-container {
+  position: relative;
+  /* background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%); */
+  /* box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); */
+  border: 1px solid #f1f1f1;
+  border-radius: 1rem;
+  padding: 3rem;
+  margin: 5rem auto;
+  max-width: 48rem;
+}
+
+.dark .letter-container {
+  background: linear-gradient(to bottom, #1a1a1a 0%, #0f0f0f 100%);
+}
+
+/* Handwriting Style */
+.handwriting-text {
+  line-height: 2.2;
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+  /* font-size: 1.125rem; */
+}
+
+/* Video Signature */
+.video-signature {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.video-signature video {
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(229, 231, 235, 0.8);
+}
+
+.dark .video-signature video {
+  border-color: rgba(75, 85, 99, 0.8);
+}
+
+.signature-text {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.dark .signature-text {
+  color: #9ca3af;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .letter-container {
+    padding: 2rem;
+    margin: 0 1rem;
+  }
+  
+  .handwriting-text {
+    font-size: 1rem;
+    line-height: 2;
+  }
+  
+  .video-signature video {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* Letter Content Wrapper */
+.letter-content {
+  position: relative;
+}
+
+/* Title Styling */
+.letter-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.875rem;
+  font-weight: 700;
+} 

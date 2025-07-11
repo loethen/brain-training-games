@@ -12,7 +12,14 @@ export function Footer() {
           <p>{new Date().getFullYear()} © {t('allRightsReserved')} - FreeFocusGames</p>
           
           {/* Legal Links */}
-          <div className="mt-3 flex items-center justify-center space-x-4">
+          <div className="mt-3 flex items-center justify-center space-x-4 flex-wrap">
+            <Link 
+              href="/about" 
+              className="text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
+            >
+              {t('about')}
+            </Link>
+            <span className="text-muted-foreground">•</span>
             <Link 
               href="/privacy-policy" 
               className="text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
