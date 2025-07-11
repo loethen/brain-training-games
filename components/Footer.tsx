@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { XLogo } from './ui/XLogo';
+import { Link } from '@/i18n/navigation';
 
 export function Footer() {
   const t = useTranslations('common');
@@ -9,6 +10,25 @@ export function Footer() {
   return (
       <footer className="text-center text-sm text-muted-foreground mt-12 pb-8">
           <p>{new Date().getFullYear()} © {t('allRightsReserved')} - FreeFocusGames</p>
+          
+          {/* Legal Links */}
+          <div className="mt-3 flex items-center justify-center space-x-4">
+            <Link 
+              href="/privacy-policy" 
+              className="text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
+            >
+              {t('privacyPolicy')}
+            </Link>
+            <span className="text-muted-foreground">•</span>
+            <Link 
+              href="/terms-of-service" 
+              className="text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
+            >
+              {t('termsOfService')}
+            </Link>
+          </div>
+          
+          {/* Social Links */}
           <div className="mt-2 flex items-center justify-center">
             <a 
               href="https://x.com/2also397879" 

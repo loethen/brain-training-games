@@ -9,7 +9,9 @@
     "toggleTheme": "Toggle theme",
     "language": "Language",
     "allRightsReserved": "All rights reserved",
-    "blog": "Blog"
+    "blog": "Blog",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
   },
   "metadata": {
     "title": "Free Focus & Memory Games | Brain Training | FreeFocusGames",
@@ -1553,6 +1555,137 @@
         "wordMemoryStrong": "word memory ability is very strong",
         "wordMemoryWeak": "word memory needs training",
         "wordMemoryAverage": "word memory is average"
+      }
+    }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "metaTitle": "Privacy Policy | FreeFocusGames",
+      "metaDescription": "Learn how FreeFocusGames protects your privacy and handles data collection.",
+      "lastUpdated": "Last Updated:",
+      "overview": {
+        "title": "Overview",
+        "content": "FreeFocusGames is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our website and services."
+      },
+      "dataCollection": {
+        "title": "Information We Collect",
+        "intro": "We collect minimal information to provide and improve our services:",
+        "analytics": "Usage data through Google Analytics (page views, session duration, country/region)",
+        "technical": "Technical information (browser type, device type, IP address)",
+        "cookies": "Cookies and similar technologies for site functionality"
+      },
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "googleAnalytics": {
+          "title": "Google Analytics",
+          "description": "We use Google Analytics to understand how visitors use our site. This helps us improve our games and user experience.",
+          "link": "Google Privacy Policy"
+        },
+        "cloudflare": {
+          "title": "Cloudflare",
+          "description": "We use Cloudflare for content delivery and security. Cloudflare may collect certain technical information to provide these services.",
+          "link": "Cloudflare Privacy Policy"
+        }
+      },
+      "dataUse": {
+        "title": "How We Use Your Information",
+        "improve": "Improve our website and games",
+        "monitor": "Monitor website performance and user experience",
+        "security": "Ensure website security and prevent abuse"
+      },
+      "cookies": {
+        "title": "Cookies",
+        "description": "We use cookies to enhance your browsing experience and analyze site usage. Most cookies are automatically deleted when you close your browser.",
+        "control": "You can control cookie settings through your browser preferences."
+      },
+      "userRights": {
+        "title": "Your Rights",
+        "access": "Request information about data we have collected",
+        "correct": "Request correction of inaccurate information",
+        "delete": "Request deletion of your data",
+        "optOut": "Opt out of analytics tracking"
+      },
+      "contact": {
+        "title": "Contact Us",
+        "description": "If you have questions about this Privacy Policy or our data practices, please contact us.",
+        "email": "Email: contact@freefocusgames.com"
+      },
+      "changes": {
+        "title": "Changes to This Policy",
+        "description": "We may update this Privacy Policy from time to time. We will notify users of any significant changes by posting the new policy on this page."
+      }
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "metaTitle": "Terms of Service | FreeFocusGames",
+      "metaDescription": "Read the terms and conditions for using FreeFocusGames.",
+      "lastUpdated": "Last Updated:",
+      "acceptance": {
+        "title": "Acceptance of Terms",
+        "content": "By accessing and using FreeFocusGames, you accept and agree to be bound by the terms and provision of this agreement."
+      },
+      "description": {
+        "title": "Service Description",
+        "content": "FreeFocusGames is a free online platform providing brain training games designed to improve cognitive abilities including memory, attention, and focus.",
+        "purpose": "Our games are for educational and entertainment purposes and are not intended as medical treatment or professional cognitive assessment."
+      },
+      "usage": {
+        "title": "Acceptable Use",
+        "intro": "You agree to use our service only for lawful purposes and in accordance with these Terms. You agree not to:",
+        "personal": "Use the service for personal, non-commercial purposes only",
+        "lawful": "Comply with all applicable laws and regulations",
+        "noHarm": "Not attempt to harm or disrupt our services",
+        "noInterference": "Not interfere with other users' experience",
+        "noReproduction": "Not reproduce or distribute our content without permission"
+      },
+      "intellectual": {
+        "title": "Intellectual Property",
+        "ownership": "All content, games, designs, and materials on FreeFocusGames are owned by us or our licensors and are protected by intellectual property laws.",
+        "license": "We grant you a limited, non-exclusive, non-transferable license to use our services for personal purposes.",
+        "restrictions": "You may not copy, modify, distribute, or create derivative works based on our content without explicit permission."
+      },
+      "userContent": {
+        "title": "User Content",
+        "description": "Our games do not require you to create accounts or submit personal content. Any feedback or suggestions you provide may be used to improve our services.",
+        "responsibility": "You are responsible for any content you choose to share and must ensure it complies with applicable laws."
+      },
+      "privacy": {
+        "title": "Privacy",
+        "reference": "Your privacy is important to us. Please review our Privacy Policy to understand how we collect and use information."
+      },
+      "disclaimer": {
+        "title": "Disclaimers",
+        "asis": "Our services are provided 'as is' without warranties of any kind, either express or implied.",
+        "warranty": "We do not guarantee that our services will be uninterrupted, error-free, or completely secure.",
+        "accuracy": "While we strive for accuracy, we do not warrant the completeness or reliability of any content."
+      },
+      "limitation": {
+        "title": "Limitation of Liability",
+        "content": "To the fullest extent permitted by law, we shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our services."
+      },
+      "indemnification": {
+        "title": "Indemnification",
+        "content": "You agree to indemnify and hold us harmless from any claims, damages, or expenses arising from your use of our services or violation of these terms."
+      },
+      "termination": {
+        "title": "Termination",
+        "right": "We reserve the right to terminate or suspend access to our services at any time for any reason.",
+        "effect": "Upon termination, your right to use our services will immediately cease."
+      },
+      "governing": {
+        "title": "Governing Law",
+        "law": "These Terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions."
+      },
+      "changes": {
+        "title": "Changes to Terms",
+        "right": "We reserve the right to modify these Terms at any time.",
+        "notification": "We will notify users of significant changes by posting the updated Terms on our website."
+      },
+      "contact": {
+        "title": "Contact Information",
+        "description": "If you have questions about these Terms of Service, please contact us.",
+        "email": "Email: contact@freefocusgames.com"
       }
     }
   }

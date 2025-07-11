@@ -9,7 +9,9 @@
     "toggleTheme": "切换主题",
     "language": "语言",
     "allRightsReserved": "版权所有",
-    "blog": "博客"
+    "blog": "博客",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款"
   },
   "metadata": {
     "title": "免费专注力和记忆力训练游戏 | 脑力训练 | FreeFocusGames",
@@ -1552,6 +1554,137 @@
         "wordMemoryStrong": "词汇记忆能力很强",
         "wordMemoryWeak": "词汇记忆需要训练",
         "wordMemoryAverage": "词汇记忆表现中等"
+      }
+    }
+  },
+  "legal": {
+    "privacy": {
+      "title": "隐私政策",
+      "metaTitle": "隐私政策 | FreeFocusGames",
+      "metaDescription": "了解FreeFocusGames如何保护您的隐私和处理数据收集。",
+      "lastUpdated": "最后更新时间：",
+      "overview": {
+        "title": "概述",
+        "content": "FreeFocusGames致力于保护您的隐私。本隐私政策说明我们如何收集、使用和保护您在使用我们网站和服务时的信息。"
+      },
+      "dataCollection": {
+        "title": "我们收集的信息",
+        "intro": "我们收集最少的信息来提供和改进我们的服务：",
+        "analytics": "通过Google Analytics收集的使用数据（页面浏览量、会话时长、国家/地区）",
+        "technical": "技术信息（浏览器类型、设备类型、IP地址）",
+        "cookies": "用于网站功能的Cookies和类似技术"
+      },
+      "thirdParty": {
+        "title": "第三方服务",
+        "googleAnalytics": {
+          "title": "Google Analytics",
+          "description": "我们使用Google Analytics来了解访问者如何使用我们的网站。这有助于我们改进游戏和用户体验。",
+          "link": "Google隐私政策"
+        },
+        "cloudflare": {
+          "title": "Cloudflare",
+          "description": "我们使用Cloudflare进行内容分发和安全保护。Cloudflare可能会收集某些技术信息来提供这些服务。",
+          "link": "Cloudflare隐私政策"
+        }
+      },
+      "dataUse": {
+        "title": "我们如何使用您的信息",
+        "improve": "改进我们的网站和游戏",
+        "monitor": "监控网站性能和用户体验",
+        "security": "确保网站安全并防止滥用"
+      },
+      "cookies": {
+        "title": "Cookies",
+        "description": "我们使用cookies来增强您的浏览体验并分析网站使用情况。大多数cookies在您关闭浏览器时会自动删除。",
+        "control": "您可以通过浏览器偏好设置控制cookie设置。"
+      },
+      "userRights": {
+        "title": "您的权利",
+        "access": "请求查看我们收集的数据信息",
+        "correct": "请求更正不准确的信息",
+        "delete": "请求删除您的数据",
+        "optOut": "选择退出分析跟踪"
+      },
+      "contact": {
+        "title": "联系我们",
+        "description": "如果您对本隐私政策或我们的数据处理有任何疑问，请联系我们。",
+        "email": "邮箱：contact@freefocusgames.com"
+      },
+      "changes": {
+        "title": "政策变更",
+        "description": "我们可能会不时更新本隐私政策。我们将通过在此页面发布新政策来通知用户任何重大变更。"
+      }
+    },
+    "terms": {
+      "title": "服务条款",
+      "metaTitle": "服务条款 | FreeFocusGames",
+      "metaDescription": "阅读使用FreeFocusGames的条款和条件。",
+      "lastUpdated": "最后更新时间：",
+      "acceptance": {
+        "title": "条款接受",
+        "content": "通过访问和使用FreeFocusGames，您接受并同意受本协议条款和条件的约束。"
+      },
+      "description": {
+        "title": "服务描述",
+        "content": "FreeFocusGames是一个免费的在线平台，提供旨在改善记忆、注意力和专注力等认知能力的脑力训练游戏。",
+        "purpose": "我们的游戏仅用于教育和娱乐目的，不作为医疗治疗或专业认知评估。"
+      },
+      "usage": {
+        "title": "可接受的使用",
+        "intro": "您同意仅为合法目的并依照这些条款使用我们的服务。您同意不：",
+        "personal": "仅将服务用于个人、非商业目的",
+        "lawful": "遵守所有适用的法律法规",
+        "noHarm": "不尝试损害或干扰我们的服务",
+        "noInterference": "不干扰其他用户的体验",
+        "noReproduction": "未经许可不复制或分发我们的内容"
+      },
+      "intellectual": {
+        "title": "知识产权",
+        "ownership": "FreeFocusGames上的所有内容、游戏、设计和材料均由我们或我们的许可方拥有，受知识产权法保护。",
+        "license": "我们授予您有限的、非独占的、不可转让的许可，用于个人目的使用我们的服务。",
+        "restrictions": "未经明确许可，您不得复制、修改、分发或基于我们的内容创建衍生作品。"
+      },
+      "userContent": {
+        "title": "用户内容",
+        "description": "我们的游戏不要求您创建账户或提交个人内容。您提供的任何反馈或建议可能会被用于改进我们的服务。",
+        "responsibility": "您对选择分享的任何内容负责，并必须确保其符合适用法律。"
+      },
+      "privacy": {
+        "title": "隐私",
+        "reference": "您的隐私对我们很重要。请查看我们的隐私政策以了解我们如何收集和使用信息。"
+      },
+      "disclaimer": {
+        "title": "免责声明",
+        "asis": "我们的服务按\"现状\"提供，不提供任何明示或暗示的保证。",
+        "warranty": "我们不保证我们的服务将不间断、无错误或完全安全。",
+        "accuracy": "虽然我们努力确保准确性，但我们不保证任何内容的完整性或可靠性。"
+      },
+      "limitation": {
+        "title": "责任限制",
+        "content": "在法律允许的最大范围内，我们不对因您使用我们的服务而产生的任何间接、偶然、特殊或后果性损害承担责任。"
+      },
+      "indemnification": {
+        "title": "赔偿",
+        "content": "您同意就因您使用我们的服务或违反这些条款而产生的任何索赔、损害或费用为我们提供赔偿并使我们免受损害。"
+      },
+      "termination": {
+        "title": "终止",
+        "right": "我们保留随时因任何原因终止或暂停对我们服务的访问的权利。",
+        "effect": "终止后，您使用我们服务的权利将立即停止。"
+      },
+      "governing": {
+        "title": "适用法律",
+        "law": "这些条款应受适用法律管辖并按其解释，不考虑法律冲突条款。"
+      },
+      "changes": {
+        "title": "条款变更",
+        "right": "我们保留随时修改这些条款的权利。",
+        "notification": "我们将通过在我们的网站上发布更新的条款来通知用户重大变更。"
+      },
+      "contact": {
+        "title": "联系信息",
+        "description": "如果您对这些服务条款有任何疑问，请联系我们。",
+        "email": "邮箱：contact@freefocusgames.com"
       }
     }
   }
