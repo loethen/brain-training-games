@@ -72,3 +72,12 @@ Now, please begin your task.
 ---
 
 By using this structured prompt, you can leverage an LLM to systematically go through the **Vanderbilt Scale for ADHD**, making the initial step of gathering information more organized. Remember, this is a starting point, and professional medical advice is essential for a proper diagnosis.
+
+### Boost Your Focus with These Games
+
+Improving focus is a journey, and brain-training games can be a fun and effective part of it. Here are a few games on our site that are specifically designed to challenge and improve your attention skills:
+
+*   **[Dual N-Back](/games/dual-n-back)**: A classic brain-training task that enhances working memory and divided attention.
+*   **[Schulte Table](/games/schulte-table)**: Perfect for improving visual search, peripheral vision, and attention span.
+*   **[Stroop Effect Test](/games/stroop-effect-test)**: This game challenges your selective attention and cognitive flexibility by forcing you to resolve conflicting information.
+*   **[Reaction Time Test](/games/reaction-time)**: Sharpen your focus and concentration by reacting quickly to visual cues.
