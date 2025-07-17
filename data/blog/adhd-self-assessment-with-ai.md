@@ -2,8 +2,12 @@
 title: "How to Use an AI for a Preliminary ADHD Self-Assessment"
 description: "Learn how to use a large language model with the Vanderbilt ADHD Diagnostic Rating Scale to conduct a preliminary self-assessment for ADHD. This guide provides a detailed prompt to help you get started."
 date: "2025-07-17"
+coverImage: "/adhd-test-llm-cover.jpg"
+author:
+  name: "FreeFocusGames Team"
+  picture: "/authors/team.png"
 tags: ["ADHD", "AI", "Self-Assessment", "Mental Health", "Vanderbilt Scale"]
-keywords: ["vanderbilt adhd rating scale", "vanderbilt scale adhd", "scoring the vanderbilt adhd rating scale", "adhd self-test", "ai mental health"]
+keywords: ["vanderbilt adhd rating scale", "vanderbilt scale adhd", "scoring the vanderbilt adhd rating scale", "adhd self-test", "ai mental health", "adhd rs iv scale", "child adhd self-report scale", "adhd self report scale", "adult adhd self report scale"]
 ---
 
 In the age of artificial intelligence, large language models (LLMs) can be powerful tools for organizing information and even guiding users through complex questionnaires. One such application is conducting a preliminary self-assessment for Attention-Deficit/Hyperactivity Disorder (ADHD) using established diagnostic tools like the **Vanderbilt ADHD Diagnostic Rating Scale**.

@@ -2,8 +2,12 @@
 title: "如何使用AI进行初步的ADHD自我评估"
 description: "了解如何使用大型语言模型结合范德比尔特ADHD诊断量表进行初步的ADHD自我评估。本指南提供中文提示词，助您轻松上手。"
 date: "2025-07-17"
+coverImage: "/adhd-test-llm-cover.jpg"
+author:
+  name: "FreeFocusGames Team"
+  picture: "/authors/team.png"
 tags: ["ADHD", "AI", "自我评估", "心理健康", "范德比尔特量表"]
-keywords: ["范德比尔特ADHD诊断量表", "ADHD自我测试", "AI心理健康"]
+keywords: ["范德比尔特ADHD诊断量表", "ADHD自我测试", "AI心理健康", "ADHD评定量表第四版", "儿童ADHD自评量表", "ADHD自评量表", "成人ADHD自评量表"]
 ---
 
 在人工智能时代，大型语言模型（LLM）可以成为整理信息、甚至引导用户完成复杂问卷的强大工具。其中一个应用就是使用像**范德比尔特ADHD诊断量表**这样成熟的诊断工具，进行注意力缺陷/多动障碍（ADHD）的初步自我评估。
