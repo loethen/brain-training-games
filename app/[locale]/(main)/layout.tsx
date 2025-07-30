@@ -6,6 +6,7 @@ import { Layout } from "@/components/layout";
 import { ThemeProvider } from "next-themes";
 import { headers } from "next/headers";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
@@ -121,11 +122,12 @@ export default async function RootLayout({
                         },
                     })}
                 </script>
-                <script
+                <Script
                     async
                     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
                     crossOrigin="anonymous"
-                ></script>
+                    strategy="afterInteractive"
+                />
             </head>
             <body
                 className={cn(
