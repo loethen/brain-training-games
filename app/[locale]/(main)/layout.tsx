@@ -102,7 +102,7 @@ export default async function RootLayout({
                 <meta name="theme-color" content="#ffffff" />
                 {/* Windows */}
                 <meta name="msapplication-TileColor" content="#ffffff" />
-                
+
                 {/* 结构化数据 */}
                 <script type="application/ld+json">
                     {JSON.stringify({
@@ -121,6 +121,11 @@ export default async function RootLayout({
                         },
                     })}
                 </script>
+                <script
+                    async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
+                    crossorigin="anonymous"
+                ></script>
             </head>
             <body
                 className={cn(
