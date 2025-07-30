@@ -6,7 +6,7 @@ import { Layout } from "@/components/layout";
 import { ThemeProvider } from "next-themes";
 import { headers } from "next/headers";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import Script from "next/script";
+import GoogleAdSense from "@/components/google-adsense";
 import { Toaster } from "@/components/ui/sonner";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
@@ -122,12 +122,6 @@ export default async function RootLayout({
                         },
                     })}
                 </script>
-                <Script
-                    async
-                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
-                    crossOrigin="anonymous"
-                    strategy="afterInteractive"
-                />
             </head>
             <body
                 className={cn(
@@ -141,6 +135,7 @@ export default async function RootLayout({
                         defaultTheme="system"
                         enableSystem
                     >
+                        <GoogleAdSense adClient="ca-pub-2676017781507774" />
                         <Layout initialIsMobile={initialIsMobile}>
                             {children}
                         </Layout>
