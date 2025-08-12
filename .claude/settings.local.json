@@ -4,7 +4,8 @@
       "Bash(rm:*)",
       "Bash(npx next-bundle-analyzer:*)",
       "Bash(npm run build:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }
