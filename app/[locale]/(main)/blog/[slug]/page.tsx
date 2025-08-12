@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         <Breadcrumb 
           items={[
             { label: t('title'), href: `/${locale}/blog` },
-            { label: post.title }
+            { label: t('currentArticle') }
           ]}
           homeLabel={commonT('home')}
           locale={locale}
