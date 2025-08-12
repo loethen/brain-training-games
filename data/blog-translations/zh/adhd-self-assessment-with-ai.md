@@ -1,6 +1,6 @@
 ---
 title: "如何使用AI进行初步的ADHD自我评估"
-description: "了解如何使用大型语言模型结合范德比尔特ADHD诊断量表进行初步的ADHD自我评估。本指南提供中文提示词，助您轻松上手。"
+excerpt: "了解如何使用大型语言模型结合范德比尔特ADHD诊断量表进行初步的ADHD自我评估。本指南提供中文提示词，助您轻松上手。"
 date: "2025-07-17"
 coverImage: "/adhd-test-llm-cover.jpg"
 author:
