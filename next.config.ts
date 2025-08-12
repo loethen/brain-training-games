@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  serverExternalPackages: ['three', 'phaser'],
+  webpack: (config, { isServer }) => {
+    // Exclude heavy libraries from server bundles
+    if (isServer) {
+      config.externals = [...(config.externals || []), 'three', 'phaser'];
+    }
+    return config;
+  },
 };
 
 export default withNextIntl(nextConfig);

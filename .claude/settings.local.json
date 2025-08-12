@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(npx next-bundle-analyzer:*)",
+      "Bash(npm run build:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }

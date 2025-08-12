@@ -1,0 +1,15 @@
+{
+  "functions": {
+    "app/[locale]/games/*/page.tsx": {
+      "maxDuration": 10
+    },
+    "app/[locale]/blog/[slug]/page.tsx": {
+      "maxDuration": 10
+    }
+  },
+  "build": {
+    "env": {
+      "NEXT_PRIVATE_STANDALONE": "true"
+    }
+  }
+}
