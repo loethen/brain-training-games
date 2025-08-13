@@ -1,6 +1,6 @@
 ---
 title: "The Science of the Stroop Effect: How Cognitive Conflict Training Enhances Executive Control"
-date: "2025-08-12"
+date: "2025-08-13"
 excerpt: "Explore the fascinating neuroscience behind the Stroop Effect and discover how this classic psychology test can train your brain's executive control, improve cognitive flexibility, and enhance focus in daily life."
 coverImage: "/games/stroop-effect.png"
 keywords: "stroop effect, cognitive flexibility training, executive control, selective attention, cognitive conflict, neuropsychology test, attention training, brain training psychology, cognitive interference, stroop task training, executive function exercises, cognitive control training, psychology research, neuroscience attention"
