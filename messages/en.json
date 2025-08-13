@@ -1069,6 +1069,16 @@
           "answer": "The cognitive skills trained in the Stroop test transfer to many real-world situations requiring selective attention, such as driving (ignoring distractions), studying (focusing amid noise), or work (concentrating on priorities despite interruptions)."
         }
       },
+      "science": {
+        "title": "Cognitive Conflict and Executive Control Training",
+        "description": "The Stroop Effect Test is a gold-standard neuropsychological assessment tool that measures cognitive flexibility and executive control. Research demonstrates that this task activates the anterior cingulate cortex and dorsolateral prefrontal cortex - brain regions crucial for conflict monitoring and cognitive control. Regular Stroop training strengthens these neural networks, improving selective attention, cognitive flexibility, and resistance to interference - skills essential for academic performance, professional productivity, and daily decision-making.",
+        "blogArticleTitle": "The Science Behind the Stroop Effect: Training Your Brain's Executive Control",
+        "authorityLinks": {
+          "neuropsychology": "Stroop test in clinical neuropsychological assessment and cognitive training",
+          "executiveFunction": "Executive function and cognitive control research in neuroscience",
+          "cognitiveTraining": "Evidence for cognitive training transfer and real-world applications"
+        }
+      },
       "gameUI": {
         "title": "Stroop Effect Test",
         "instructions": "Identify the COLOR of the word, not what the word says. Click the matching color button or use number keys 1-6.",
