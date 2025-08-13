@@ -1,6 +1,6 @@
 ---
 title: "How to Use an AI for a Preliminary ADHD Self-Assessment"
-description: "Learn how to use a large language model with the Vanderbilt ADHD Diagnostic Rating Scale to conduct a preliminary self-assessment for ADHD. This guide provides a detailed prompt to help you get started."
+excerpt: "Learn how to use a large language model with the Vanderbilt ADHD Diagnostic Rating Scale to conduct a preliminary self-assessment for ADHD. This guide provides a detailed prompt to help you get started."
 date: "2025-07-17"
 coverImage: "/adhd-test-llm-cover.jpg"
 author:

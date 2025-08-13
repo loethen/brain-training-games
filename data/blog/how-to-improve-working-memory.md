@@ -2,7 +2,7 @@
 title: "How to Improve Working Memory: 5 Proven Strategies for Better Learning and Life"
 date: "2025-03-28"
 excerpt: "Discover how working memory impacts your daily life and learn 5 research-backed strategies to improve your working memory capacity for better learning, problem-solving, and productivity."
-coverImage: "https://images.unsplash.com/photo-1737505599159-5ffc1dcbc08f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHw0fHxicmFpbiUyMG5ldXJhbCUyMG5ldHdvcmslMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc0MzA2NzYzOXww&ixlib=rb-4.0.3&q=80&w=2000"
+coverImage: "/blog/working-memory-training-cover.png"
 keywords: "improve working memory, training working memory, working memory exercises, cognitive enhancement, working memory capacity, memory improvement techniques, brain training, Peter Doolittle, TED Talk working memory, memory strategies, mental processing, information retention, working memory limits, cognitive skills, memory training, brain exercises, learning efficiency, memory organization, working memory and productivity, mental imagery techniques, working memory practice, brain plasticity, memory support strategies, working memory challenges, memory limitations"
 author:
   name: "FreeFocusGames Team"
@@ -17,10 +17,6 @@ These limitations fundamentally shape our learning abilities, problem-solving sk
 
 ## The Science Behind Working Memory Training
 
-<figure>
-<img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxicmFpbiUyMG5ldXJhbCUyMG5ldHdvcmslMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc0MzA2NzYzOXww&ixlib=rb-4.0.3&q=80&w=2000" alt="Neural network visualization representing brain activity" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>Neuroscience research shows that working memory training creates new neural pathways that enhance information processing efficiency.</figcaption>
-</figure>
 
 Research shows that working memory can be improved through consistent practice and specific techniques. When we actively train our working memory:
 
@@ -43,10 +39,6 @@ When encountering new information, engage with it right away. Repeat key points,
 
 ### 2. Elaborate Through Connections and Imagery
 
-<figure>
-<img src="https://images.unsplash.com/photo-1488229297570-58520851e868?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwzfHxicmFpbiUyMG5ldXJhbCUyMG5ldHdvcmslMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc0MzA2NzYzOXww&ixlib=rb-4.0.3&q=80&w=2000" alt="Complex network of connections representing memory associations" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>Creating mental connections between new and existing information forms intricate neural networks that enhance memory retention.</figcaption>
-</figure>
 
 Connect new information to what you already know. Create mental images that represent abstract concepts. The more connections you build, the easier it becomes to recall information later.
 
@@ -64,10 +56,6 @@ Strategic use of notes, digital tools, and other memory aids can free up valuabl
 
 ### 5. Practice Deliberate Working Memory Training
 
-<figure>
-<img src="https://images.unsplash.com/photo-1606594914767-d6bfbde9a0e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxjaGVzcyUyMG1lbW9yeSUyMHN0cmF0ZWd5fGVufDB8fHx8MTc0MzA2NzY0N3ww&ixlib=rb-4.0.3&q=80&w=2000" alt="Strategic chess game representing memory and cognitive training" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>Strategic games like chess challenge working memory by requiring players to hold multiple possible moves and patterns in mind simultaneously.</figcaption>
-</figure>
 
 Specific exercises designed to challenge your working memory can lead to significant improvements when practiced consistently:
 

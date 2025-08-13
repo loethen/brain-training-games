@@ -2,8 +2,7 @@
 title: 如何提升工作记忆：改善学习和生活的五个有效策略
 date: '2025-03-28'
 excerpt: 了解工作记忆如何影响你的日常生活，并学习5种经研究证实的策略，以提高你的工作记忆容量，从而改善学习、解决问题和提高效率。
-coverImage: >-
-  https://images.unsplash.com/photo-1737505599159-5ffc1dcbc08f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHw0fHxicmFpbiUyMG5ldXJhbCUyMG5ldHdvcmslMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc0MzA2NzYzOXww&ixlib=rb-4.0.3&q=80&w=2000
+coverImage: "/blog/working-memory-training-cover.png"
 keywords: >-
   improve working memory, training working memory, working memory exercises,
   cognitive enhancement, working memory capacity, memory improvement techniques,
@@ -25,10 +24,6 @@ author:
 
 ## 工作记忆训练背后的科学
 
-<figure>
-<img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxicmFpbiUyMG5ldXJhbCUyMG5ldHdvcmslMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc0MzA2NzYzOXww&ixlib=rb-4.0.3&q=80&w=2000" alt="Neural network visualization representing brain activity" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>神经科学研究表明，工作记忆训练会产生新的神经通路，从而提高信息处理效率。</figcaption>
-</figure>
 
 研究表明，通过持续的练习和特定的技巧，可以提高工作记忆。当我们积极训练我们的工作记忆时：
 
@@ -51,10 +46,6 @@ author:
 
 ### 2. 通过连接和图像进行详细阐述
 
-<figure>
-<img src="https://images.unsplash.com/photo-1488229297570-58520851e868?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwzfHxicmFpbiUyMG5ldXJhbCUyMG5ldHdvcmslMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc0MzA2NzYzOXww&ixlib=rb-4.0.3&q=80&w=2000" alt="Complex network of connections representing memory associations" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>在新信息和现有信息之间建立心理联系会形成复杂的神经元网络，从而增强记忆力。</figcaption>
-</figure>
 
 将新信息与你已经知道的知识联系起来。创建代表抽象概念的心理图像。你建立的联系越多，以后就越容易回忆起信息。
 
@@ -72,10 +63,6 @@ author:
 
 ### 5. 练习有意识的工作记忆训练
 
-<figure>
-<img src="https://images.unsplash.com/photo-1606594914767-d6bfbde9a0e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHxjaGVzcyUyMG1lbW9yeSUyMHN0cmF0ZWd5fGVufDB8fHx8MTc0MzA2NzY0N3ww&ixlib=rb-4.0.3&q=80&w=2000" alt="Strategic chess game representing memory and cognitive training" style="width:100%; max-height:600px; object-fit:cover;">
-<figcaption>像国际象棋这样的策略游戏通过要求玩家同时记住多个可能的走法和模式来挑战工作记忆。</figcaption>
-</figure>
 
 专门设计用于挑战你的工作记忆的特定练习，如果坚持练习，可以带来显著的改善：
 
