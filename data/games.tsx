@@ -111,6 +111,17 @@ export const games: Game[] = [
             "reaction-time",
         ],
     },
+    {
+        id: "focus-reaction-test",
+        title: "Focus Reaction Test",
+        slug: "focus-reaction-test",
+        preview: <ImagePreview src="/games/focus-reaction-test.png" />,
+        categories: [
+            "selective-attention",
+            "reaction-time",
+            "cognitive-flexibility",
+        ],
+    },
 
     // Add more games as you create them
 ];
@@ -161,9 +172,9 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
-    'stroop-effect-test',  // 最新添加的游戏
-    'counting-boxes',      // 数箱子
-    'free-short-term-memory-test'  // 短期记忆测试
+    'focus-reaction-test', // 专注反应测试 - 最新添加
+    'stroop-effect-test',  // Stroop效应测试
+    'counting-boxes'       // 数箱子
   ];
   
   return latestGameIds

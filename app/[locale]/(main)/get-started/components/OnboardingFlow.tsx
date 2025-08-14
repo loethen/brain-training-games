@@ -409,7 +409,7 @@ export default function OnboardingFlow() {
           </div>
 
           {/* 简化的分析和推荐 */}
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
+          <div className="bg-muted/50 border border-border rounded-xl p-6">
             <div className="text-center space-y-4">
               {/* 口语化分析 */}
               <div className="bg-white dark:bg-gray-900 rounded-lg p-4 border border-blue-200 dark:border-blue-700">
@@ -430,7 +430,7 @@ export default function OnboardingFlow() {
           {/* 开始训练按钮 */}
           <div className="text-center">
             <Link href={`/games/${recommendation.gameSlug}`}>
-              <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl">
+              <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl">
                 {tRecommendations('startTraining')}
                 <ArrowRight size={18} />
               </button>

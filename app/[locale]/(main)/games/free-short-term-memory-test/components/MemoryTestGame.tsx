@@ -155,7 +155,7 @@ export default function MemoryTestGame() {
         {gameState === 'presentation' && (
             <div className="text-center space-y-8">
               <div className="space-y-3">
-                <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <div className="text-2xl font-bold text-primary">
                   {t('memorizeTheseWords')}
                 </div>
                 <p className="text-muted-foreground max-w-md mx-auto">
@@ -181,7 +181,7 @@ export default function MemoryTestGame() {
                 <Button 
                   onClick={proceedToRecall} 
                   size="lg"
-                  className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   {t('ready')}
                 </Button>

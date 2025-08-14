@@ -33,10 +33,7 @@ export function Footer() {
             >
               {t('termsOfService')}
             </Link>
-          </div>
-          
-          {/* Social Links */}
-          <div className="mt-2 flex items-center justify-center">
+            <span className="text-muted-foreground">•</span>
             <a 
               href="https://x.com/2also397879" 
               target="_blank" 

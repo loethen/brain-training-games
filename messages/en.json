@@ -18,6 +18,226 @@
     "description": "Improve memory, concentration and cognitive skills with free science-based brain games for all ages.",
     "keywords": "free focus games, memory games, brain training games, concentration games, attention improvement games, cognitive games online"
   },
+  "workingMemoryGuide": {
+    "metaTitle": "The Ultimate Guide to Working Memory: Scientific Training and Cognitive Enhancement",
+    "metaDescription": "Dive deep into the neuroscience of working memory, learn scientifically-validated training methods like Dual N-Back, and get a comprehensive plan to improve memory, attention, and fluid intelligence.",
+    "metaKeywords": "working memory, cognitive training, dual n-back, schulte table, improve memory, attention training, neuroplasticity, fluid intelligence, cognitive enhancement, brain training",
+    "ogTitle": "The Ultimate Guide to Working Memory: A Complete Cognitive Enhancement Plan from Science to Practice",
+    "ogDescription": "Explore the secrets of working memory, learn training methods backed by breakthrough research from Jaeggi and others, and systematically boost your cognitive abilities through science-based games and lifestyle optimizations.",
+    "title": "The Ultimate Guide to Working Memory: Scientifically Enhance Your Cognitive Abilities",
+    "subtitle": "Based on the latest neuroscience research, this guide provides a complete plan from theoretical foundations to practical exercises to improve your working memory, helping you enhance performance in study, work, and life.",
+    "ctaStart": "Start Dual N-Back Training",
+    "ctaTry": "Try Schulte Table",
+    "breadcrumbHome": "Home",
+    "breadcrumbCurrent": "Working Memory Guide",
+    "introduction": {
+      "title": "🧠 Fundamentals of Working Memory: The Brain's Workbench",
+      "whatIs": {
+        "title": "What is Working Memory?",
+        "p1": "Working memory is the brain's \"temporary workbench\"—a cognitive system that temporarily stores and manipulates information while performing complex tasks. Unlike long-term memory, working memory has a limited capacity but processes information extremely quickly, forming the core basis of intellectual performance.",
+        "baddeleyModel": {
+          "title": "Baddeley's Model of Working Memory (The Classic Three Components):",
+          "card1": {
+            "title": "Central Executive",
+            "p": "Coordinates attention, controls the flow of information, and manages the other subsystems."
+          },
+          "card2": {
+            "title": "Phonological Loop",
+            "p": "Processes linguistic and auditory information, supporting inner speech and thought."
+          },
+          "card3": {
+            "title": "Visuo-Spatial Sketchpad",
+            "p": "Processes visual and spatial information, supporting mental imagery and manipulation."
+          }
+        }
+      },
+      "neuroscience": {
+        "title": "The Neuroscience Basis",
+        "p1": "Modern neuroimaging studies reveal that working memory relies on the coordinated work of the <strong>prefrontal cortex</strong> and the <strong>parietal cortex</strong>. The prefrontal cortex is responsible for executive control, while the parietal cortex handles information storage, with the two communicating efficiently through neural networks.",
+        "keyAreas": {
+          "title": "Key Brain Regions and Functions:",
+          "li1": "<strong>Dorsolateral Prefrontal Cortex:</strong> Maintains and manipulates information in working memory.",
+          "li2": "<strong>Anterior Cingulate Cortex:</strong> Monitors for conflicts and errors, regulating attention.",
+          "li3": "<strong>Intraparietal Sulcus:</strong> The \"storage buffer\" of working memory.",
+          "li4": "<strong>Default Mode Network:</strong> Needs to be suppressed to maintain a focused state."
+        }
+      },
+      "dailyImpact": {
+        "title": "Impact on Daily Life",
+        "p1": "Working memory capacity directly affects your learning efficiency, work performance, and quality of life. Research shows a high correlation between working memory capacity and the following abilities:",
+        "academic": {
+          "title": "✅ Academic Performance",
+          "li1": "• 25-30% improvement in reading comprehension.",
+          "li2": "• 40% increase in math problem-solving efficiency.",
+          "li3": "• 2-3x longer attention span.",
+          "li4": "• Over 85% accuracy in following complex instructions."
+        },
+        "workplace": {
+          "title": "💼 Workplace Performance",
+          "li1": "• 50% improvement in multitasking ability.",
+          "li2": "• Over 90% accuracy in grasping key points in meetings.",
+          "li3": "• Significant improvement in decision-making quality and speed.",
+          "li4": "• 60% faster learning of new skills."
+        }
+      }
+    },
+    "dnb": {
+      "title": "🎯 Dual N-Back Training: The Scientifically Validated Cognitive Enhancer",
+      "jaeggiStudy": {
+        "title": "The Jaeggi Study: A Breakthrough That Changed Cognitive Science",
+        "p1": "In 2008, cognitive scientist Susanne Jaeggi published a groundbreaking study in PNAS: <strong>Dual N-Back training can increase fluid intelligence</strong>—the first study to prove that a fundamental cognitive ability could be improved through training.",
+        "coreFindings": {
+          "title": "Core Findings of the Jaeggi Study:",
+          "design": {
+            "title": "Study Design:",
+            "li1": "• 35 adult participants",
+            "li2": "• 25 minutes of dual n-back training daily",
+            "li3": "• Training period: 8-19 days",
+            "li4": "• Assessed using Raven's Progressive Matrices"
+          },
+          "results": {
+            "title": "Key Results:",
+            "li1": "• Up to 40% increase in fluid intelligence",
+            "li2": "• The longer the training, the greater the improvement",
+            "li3": "• Effects transferred to untrained reasoning tasks",
+            "li4": "• Effects persisted after training stopped"
+          }
+        }
+      },
+      "mechanism": {
+        "title": "The Mechanism: Why Is It So Effective?",
+        "p1": "The uniqueness of Dual N-Back lies in its ability to simultaneously challenge multiple systems of working memory, creating a state of \"cognitive overload\" that forces the brain to build more efficient neural connections.",
+        "card1": {
+          "title": "Adaptive Difficulty Mechanism",
+          "p": "The training always stays at the edge of your cognitive ability, ensuring the nervous system is continuously challenged.",
+          "details": "Accuracy ≥ 80% → Increase to N+1 difficulty<br/>Accuracy ≤ 50% → Decrease to N-1 difficulty"
+        },
+        "card2": {
+          "title": "Dual-Task Interference",
+          "p": "Simultaneously processing visual positions and auditory letters trains attention allocation and conflict resolution.",
+          "details": "Visual Channel: Spatial position memory + Auditory Channel: Letter sequence memory"
+        },
+        "card3": {
+          "title": "Executive Function Workout",
+          "p": "Comprehensively challenges the three core executive functions: updating, inhibition, and shifting.",
+          "details": "Updating memory content + Inhibiting irrelevant information + Rapid attention shifting"
+        }
+      },
+      "neuroplasticity": {
+        "title": "Neuroplasticity Evidence: Actual Changes in the Brain",
+        "p1": "Subsequent neuroimaging studies have revealed the structural and functional changes in the brain caused by dual n-back training:",
+        "structural": {
+          "title": "🧠 Structural Changes",
+          "li1": "• Increased Gray Matter Density: Significant growth in the thickness of the prefrontal and parietal cortex.",
+          "li2": "• Improved White Matter Integrity: 25% increase in the efficiency of connections between brain regions.",
+          "li3": "• Neural Network Reorganization: More efficient communication within the working memory network."
+        },
+        "functional": {
+          "title": "⚡ Functional Changes",
+          "li1": "• Increased Neural Efficiency: 30% reduction in activation intensity for the same task.",
+          "li2": "• Enhanced Network Coordination: Improved synchronization between the prefrontal and parietal lobes.",
+          "li3": "• Better Interference Suppression: Enhanced ability to suppress the default mode network."
+        }
+      },
+      "protocol": {
+        "title": "The Optimal Training Protocol: Recommendations Based on Research",
+        "boxTitle": "Scientific Training Protocol",
+        "params": {
+          "title": "Training Parameters",
+          "li1": "• 20-25 minutes per session",
+          "li2": "• 4-5 times per week",
+          "li3": "• Continue for 3-8 weeks",
+          "li4": "• Always challenge your highest level"
+        },
+        "expectations": {
+          "title": "Expected Effects",
+          "li1": "• Weeks 1-2: Adaptation to training",
+          "li2": "• Weeks 3-4: Noticeable improvement",
+          "li3": "• Weeks 5-8: Significant enhancement",
+          "li4": "• Long-term: Lasting effects"
+        },
+        "successFactors": {
+          "title": "Success Factors",
+          "li1": "• Focus during training",
+          "li2": "• Avoid distractions",
+          "li3": "• Embrace frustration",
+          "li4": "• Practice consistently"
+        }
+      }
+    },
+    "relatedGames": {
+      "title": "🎮 Start Your Scientific Training Journey",
+      "subtitle": "Based on the research evidence in this guide, these training games are specifically designed to enhance working memory and cognitive abilities.",
+      "tag": "Scientifically Validated",
+      "benefitsTitle": "✅ Training Benefits:",
+      "buttonText": "Start Scientific Training",
+      "dnb": {
+        "description": "Following the Jaeggi research protocol, this Dual N-Back training directly improves fluid intelligence and working memory capacity. 20-25 minutes of daily training leads to significant cognitive improvement within 3-8 weeks.",
+        "benefit1": "40% WM Improvement",
+        "benefit2": "Fluid Intelligence Boost",
+        "benefit3": "Attention Control",
+        "benefit4": "Multitasking Optimized"
+      },
+      "schulte": {
+        "description": "Visual attention training based on the Walter Schulte neuropsychological method. Develops peripheral vision to increase reading speed by 28% and attention span by 47%.",
+        "benefit1": "+28% Reading Speed",
+        "benefit2": "+47% Attention Span",
+        "benefit3": "Extended Focus Time",
+        "benefit4": "Peripheral Vision Dev."
+      },
+      "memoryTest": {
+        "description": "Specialized short-term memory training targeting hippocampal function. Uses progressive memory challenges based on neurogenesis principles to repair and enhance memory formation.",
+        "benefit1": "Memory Formation",
+        "benefit2": "Hippocampus Repair",
+        "benefit3": "Info Retention",
+        "benefit4": "Cognitive Fatigue↓"
+      }
+    },
+    "protocol": {
+      "title": "Scientific Training Recommendations",
+      "duration": {
+        "title": "Optimal Training Duration",
+        "p": "A total of 45-60 minutes daily, divided into 2-3 training blocks to avoid cognitive fatigue."
+      },
+      "progress": {
+        "title": "Expected Progress",
+        "p": "Weeks 1-2: Adaptation period. Weeks 3-4: Noticeable improvement. Weeks 6-8: Significant enhancement."
+      },
+      "principles": {
+        "title": "Training Principles",
+        "p": "Maintain the highest difficulty level that allows for 80% accuracy. Consistency is more important than perfect performance."
+      }
+    },
+    "clusterArticles": {
+      "title": "📖 Deep Dive into the Science: Topic Cluster Articles",
+      "subtitle": "Authoritative guides based on the latest neuroscience research to provide a solid scientific foundation for your cognitive training.",
+      "buttonText": "View More Science Articles →",
+      "article1": {
+        "title": "The Science of Dual N-Back: How to Truly Improve Working Memory",
+        "description": "A deep dive into Jaeggi's 2008 breakthrough study, revealing how dual n-back training enhances fluid intelligence through neuroplasticity, including training protocols, brain change evidence, and effect validation.",
+        "highlights": "Jaeggi PNAS Study,40% Fluid Intelligence Boost,Neuroplasticity Evidence,Optimal Training Protocol",
+        "tag": "Working Memory",
+        "readTime": "15 min read",
+        "difficulty": "Intermediate"
+      },
+      "article2": {
+        "title": "The Science of Schulte Tables: The Neural Basis of Visual Attention Training",
+        "description": "Based on Posner's attention network theory and 50 years of neuropsychological research, this article explains how Schulte Tables increase reading speed by 28% and attention span by 47% through peripheral vision training.",
+        "highlights": "Posner's Network Theory,+28% Reading Speed,Peripheral Vision Dev.,Clinical Applications",
+        "tag": "Visual Attention",
+        "readTime": "12 min read",
+        "difficulty": "Intermediate"
+      },
+      "article3": {
+        "title": "A Guide to Short-Term Memory Repair: Scientific Methods for Hippocampal Regeneration",
+        "description": "Based on the latest neuroscience, this guide systematically introduces the causes of hippocampal damage and repair strategies, including a comprehensive treatment plan of nutritional intervention, lifestyle optimization, and cognitive training.",
+        "highlights": "Hippocampal Neurogenesis,Vitamin D Deficiency Repair,Exercise & BDNF Boost,Intermittent Fasting",
+        "tag": "Memory Repair",
+        "readTime": "18 min read",
+        "difficulty": "Advanced"
+      }
+    }
+  },
   "home": {
     "title": "Feeling foggy and unfocused...?",
     "subtitle": "Boost your mind with fun, 5-minute daily challenges.",
@@ -954,7 +1174,7 @@
       "howToPlayIntro": "In this spatial memory challenge, you'll observe 3D cubes appearing on a grid and then count how many you saw:",
       "howToPlay1": "Watch carefully as 3D boxes appear on the grid for a brief time",
       "howToPlay2": "Remember the number of boxes you observed",
-      "howToPlay3": "Enter the count when prompted after the boxes disappear", 
+      "howToPlay3": "Enter the count when prompted after the boxes disappear",
       "howToPlay4": "Progress through increasingly challenging levels with more boxes and complex patterns",
       "benefits": {
         "workingMemory": {
@@ -966,7 +1186,7 @@
           "description": "Improve your ability to track multiple objects simultaneously and maintain focus on spatial arrangements during brief presentations."
         },
         "spatialMemory": {
-          "title": "Spatial Memory", 
+          "title": "Spatial Memory",
           "description": "Enhance your capacity to remember and process spatial relationships, crucial for navigation, mathematics, and technical problem-solving."
         }
       },
@@ -990,7 +1210,7 @@
       },
       "gameUI": {
         "level": "Level",
-        "observing": "Observing...", 
+        "observing": "Observing...",
         "howMany": "How many boxes did you see?",
         "enter": "Enter",
         "correct": "Correct!",
@@ -1043,7 +1263,7 @@
           "description": "Enhance your ability to switch between different mental concepts and adapt to changing rules or demands."
         },
         "selectiveAttention": {
-          "title": "Selective Attention", 
+          "title": "Selective Attention",
           "description": "Improve your ability to focus on relevant information while filtering out conflicting or distracting elements."
         },
         "conflictResolution": {
@@ -1106,12 +1326,96 @@
         "keyboardShortcut": "Use keyboard shortcuts: 1-6 for colors",
         "colors": {
           "red": "RED",
-          "blue": "BLUE", 
+          "blue": "BLUE",
           "green": "GREEN",
           "yellow": "YELLOW",
           "purple": "PURPLE",
           "pink": "PINK"
         }
+      }
+    },
+    "focusReactionTest": {
+      "title": "Focus Reaction Test",
+      "subtitle": "Train Your Selective Attention and Processing Speed",
+      "description": "Based on the classic Eriksen Flanker Task, this test measures your ability to focus on relevant information while ignoring distractions. Challenge your selective attention and executive control skills.",
+      "metadata": {
+        "title": "Focus Reaction Test | Selective Attention Training",
+        "description": "Test your selective attention and processing speed with our Eriksen Flanker Task-based game. Improve focus by identifying target directions while ignoring distracting flankers.",
+        "keywords": "flanker task, selective attention test, focus training, eriksen flanker, attention training, executive control, processing speed, reaction time, cognitive flexibility, attention span, distraction management, brain training",
+        "ogTitle": "Focus Reaction Test - Train Your Selective Attention",
+        "ogDescription": "Challenge your selective attention with the classic flanker task. Identify target directions while ignoring distracting stimuli."
+      },
+      "howToPlay": {
+        "description": "In this attention training test, you'll identify the direction of the center arrow while ignoring the surrounding distractors.",
+        "step1": "Look at the arrow pattern displayed on screen",
+        "step2": "Focus ONLY on the CENTER arrow's direction",
+        "step3": "Ignore the surrounding arrows (flankers) - they may point in different directions",
+        "step4": "Respond quickly and accurately using arrow keys or clicking the direction buttons"
+      },
+      "benefits": {
+        "selectiveAttention": {
+          "title": "Selective Attention",
+          "description": "Strengthen your ability to focus on relevant information while filtering out distracting stimuli in your environment."
+        },
+        "processingSpeed": {
+          "title": "Processing Speed",
+          "description": "Improve how quickly and accurately your brain can process visual information and make decisions under time pressure."
+        },
+        "executiveControl": {
+          "title": "Executive Control",
+          "description": "Enhance your brain's ability to override automatic responses and maintain goal-directed behavior despite interference."
+        }
+      },
+      "science": {
+        "title": "Selective Attention and Executive Control Training",
+        "description": "The Focus Reaction Test is based on the Eriksen Flanker Task, a well-established paradigm in cognitive psychology for measuring selective attention and executive control. Research shows this task activates the anterior cingulate cortex and prefrontal regions responsible for conflict monitoring and cognitive control. Regular practice strengthens these neural networks, improving focus, attention span, and resistance to distractions in daily life.",
+        "blogArticleTitle": "The Science Behind the Flanker Task: Training Selective Attention and Focus",
+        "authorityLinks": {
+          "eriksenTask": "Classic research on flanker effects and selective attention mechanisms",
+          "selectiveAttention": "Comprehensive overview of selective attention research and applications",
+          "executiveControl": "Neuroscience research on executive control and cognitive flexibility"
+        }
+      },
+      "faq": {
+        "whatIsFlankerTask": {
+          "question": "What is the Flanker Task?",
+          "answer": "The Flanker Task is a cognitive psychology experiment that measures selective attention. Participants identify a target stimulus (center arrow) while ignoring irrelevant flanking stimuli. When flankers conflict with the target, it creates interference that tests your ability to focus."
+        },
+        "whyDifficult": {
+          "question": "Why is this test challenging?",
+          "answer": "The challenge comes from cognitive interference. When surrounding arrows point in the opposite direction of the center arrow, your brain must override the automatic tendency to process all visual information and focus solely on the target."
+        },
+        "howToImprove": {
+          "question": "How can I improve my performance?",
+          "answer": "Focus on the center position and try to narrow your attention. With practice, you can learn to ignore the flankers more effectively. Regular training strengthens your selective attention and reduces interference effects."
+        },
+        "realWorldApplications": {
+          "question": "How does this apply to real life?",
+          "answer": "Selective attention skills transfer to many situations: focusing on a conversation in a noisy room, staying on task with distractions around, driving safely while ignoring irrelevant stimuli, and maintaining concentration during work or study."
+        }
+      },
+      "gameUI": {
+        "title": "Focus Reaction Test",
+        "instructions": "Focus on the CENTER arrow direction. Use arrow keys (← →) or A/D keys to respond quickly and accurately.",
+        "startGame": "Start Test",
+        "getReady": "Get Ready",
+        "focusOnCenter": "Focus on the center arrow",
+        "trial": "Trial",
+        "left": "Left",
+        "right": "Right",
+        "keyboardHelp": "Use keyboard: A/← for left, D/→ for right",
+        "gameComplete": "Test Complete!",
+        "accuracy": "Accuracy",
+        "avgReactionTime": "Avg Reaction Time",
+        "flankerEffect": "Flanker Effect",
+        "totalTrials": "Total Trials",
+        "flankerEffectDescription": "Flanker effect measures the interference from surrounding arrows. Lower values indicate better selective attention.",
+        "bestScore": "Best Score",
+        "newBestScore": "New Best Score!",
+        "playAgain": "Play Again",
+        "share": "Share Results",
+        "shareTitle": "My Focus Reaction Test Results",
+        "shareText": "I scored {accuracy}% accuracy with {avgRT}ms average reaction time and {flankerEffect}ms flanker effect on the Focus Reaction Test!"
       }
     },
     "babyAnimalMatching": {
@@ -1245,12 +1549,12 @@
         "ageGroup": "Age Group",
         "ageUnder18": "Under 18",
         "age18to25": "18-25 years",
-        "age26to45": "26-45 years", 
+        "age26to45": "26-45 years",
         "age46to65": "46-65 years",
         "age65plus": "65+ years",
         "gender": "Gender",
         "male": "Male",
-        "female": "Female", 
+        "female": "Female",
         "other": "Other",
         "skip": "Skip & Show Basic Results",
         "submit": "Get Personalized Score"
@@ -1260,7 +1564,7 @@
         "performance": "Performance Summary",
         "wordsRecalled": "Words Recalled",
         "accuracy": "Accuracy Score",
-        "timeSpent": "Time Taken", 
+        "timeSpent": "Time Taken",
         "percentile": "Percentile Rank",
         "correctWords": "Words You Got Right",
         "missedWords": "Words You Missed",
@@ -1274,7 +1578,7 @@
       "tryAgain": "Take Test Again",
       "wordBank": [
         "camera",
-        "book", 
+        "book",
         "phone",
         "laptop",
         "bottle",
@@ -1493,10 +1797,30 @@
       "missedWords": "Missed words",
       "continueNext": "Continue Next",
       "wordBank": [
-        "camera", "book", "phone", "laptop", "bottle", "chair", 
-        "lamp", "wallet", "mirror", "clock", "knife", "spoon",
-        "plate", "cup", "pillow", "towel", "shoes", "keys", 
-        "glasses", "watch", "bicycle", "flower", "music", "school"
+        "camera",
+        "book",
+        "phone",
+        "laptop",
+        "bottle",
+        "chair",
+        "lamp",
+        "wallet",
+        "mirror",
+        "clock",
+        "knife",
+        "spoon",
+        "plate",
+        "cup",
+        "pillow",
+        "towel",
+        "shoes",
+        "keys",
+        "glasses",
+        "watch",
+        "bicycle",
+        "flower",
+        "music",
+        "school"
       ]
     },
     "stroopTest": {
@@ -1513,7 +1837,7 @@
       "nextTest": "Next Test",
       "colors": {
         "red": "Red",
-        "blue": "Blue", 
+        "blue": "Blue",
         "green": "Green",
         "yellow": "Yellow"
       }
@@ -1545,7 +1869,7 @@
     "testAnalysis": {
       "testNames": {
         "reactionSpeed": "reaction speed test",
-        "numberComparison": "number comparison test", 
+        "numberComparison": "number comparison test",
         "sequenceMemory": "sequence memory test",
         "attentionControl": "attention control test",
         "wordMemory": "word memory test"
@@ -1569,16 +1893,16 @@
       }
     }
   },
-    "about": {
+  "about": {
     "title": "About FreeFocusGames",
     "metaTitle": "About FreeFocusGames | Free Brain Training Games",
     "metaDescription": "FreeFocusGames offers free, science-based brain training games to help improve your memory, attention, and focus. Created by someone who believes everyone deserves access to cognitive training.",
     "content": {
       "paragraph1": "Hi there! I'm the creator of FreeFocusGames. I built this website because I got frustrated with constantly running into paywalls and those outdated, cumbersome website experiences when searching for quality brain training games. I firmly believe everyone should be able to freely access these tools without being blocked by subscription barriers.",
-            "paragraph2": "Every single game here is grounded in cognitive science research - things like working memory training, attention exercises, and processing speed challenges. I've carefully designed them to be both effective and truly enjoyable. Whether you're a student hoping to boost focus, an adult concerned about memory health, or simply a friend curious about brain training, this place is prepared just for you.",
-        "paragraph3": "I hope these games prove helpful and bring you joy. There's no pressure here - just choose whatever games spark your interest and enjoy the process. Even playing for just a few minutes each day is a beneficial mental workout.",
-        "paragraph4": "If you have any feedback or suggestions, I'd be delighted to hear from you.",
-        "paragraph5": "Contact: contact@freefocusgames.com"
+      "paragraph2": "Every single game here is grounded in cognitive science research - things like working memory training, attention exercises, and processing speed challenges. I've carefully designed them to be both effective and truly enjoyable. Whether you're a student hoping to boost focus, an adult concerned about memory health, or simply a friend curious about brain training, this place is prepared just for you.",
+      "paragraph3": "I hope these games prove helpful and bring you joy. There's no pressure here - just choose whatever games spark your interest and enjoy the process. Even playing for just a few minutes each day is a beneficial mental workout.",
+      "paragraph4": "If you have any feedback or suggestions, I'd be delighted to hear from you.",
+      "paragraph5": "Contact: contact@freefocusgames.com"
     }
   },
   "legal": {

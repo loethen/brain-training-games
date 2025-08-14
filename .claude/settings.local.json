@@ -5,8 +5,10 @@
       "Bash(npx next-bundle-analyzer:*)",
       "Bash(npm run build:*)",
       "Bash(find:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(cp:*)"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "acceptEdits"
   }
 }
