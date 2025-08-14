@@ -60,6 +60,12 @@ function generateBaseRoutes(locale: string): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}${localePrefix}/working-memory-guide`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${BASE_URL}${localePrefix}/partnerships`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

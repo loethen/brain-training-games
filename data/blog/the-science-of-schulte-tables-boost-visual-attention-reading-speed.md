@@ -264,6 +264,9 @@ Enhance visual tracking and sustained attention by following multiple moving tar
 ### [Block Memory Challenge](/games/block-memory-challenge)
 Strengthen spatial working memory and visual-spatial processing with progressive sequence training that complements peripheral vision development.
 
+### [The Ultimate Guide to Working Memory](/working-memory-guide)
+Understand how attention and working memory are linked, and explore a complete set of strategies to boost both.
+
 ### [Focus and Concentration Articles](/blog/how-to-improve-focus-and-concentration)
 Explore our comprehensive guide to attention training strategies backed by cognitive neuroscience research.
 

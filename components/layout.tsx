@@ -88,6 +88,12 @@ export function Layout({
                     <NavItem href="/games">{t('games')}</NavItem>
                     <NavItem href="/blog">{t('blog')}</NavItem>
                     <NavItem href="/about">{t('about')}</NavItem>
+
+                    {/* Guides Section */}
+                    <div className="mt-4 pt-4 border-t border-border/50">
+                        <h3 className="px-2 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">{t('guides')}</h3>
+                        <NavItem href="/working-memory-guide">{t('workingMemoryGuide')}</NavItem>
+                    </div>
                 </nav>
             </div>
 
