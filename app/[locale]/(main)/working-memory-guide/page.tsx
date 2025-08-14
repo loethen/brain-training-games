@@ -8,6 +8,10 @@ import { FloatingNavigation } from "./components/FloatingNavigation";
 import GameCard from "@/components/game-card";
 import "./styles.css";
 import { useTranslations } from "next-intl";
+import { BaddeleyModelDiagram } from "./components/BaddeleyModelDiagram";
+import { TrainingEffectChart } from "./components/TrainingEffectChart";
+import { BrainRegionsDiagram } from "./components/BrainRegionsDiagram";
+import { TrainingScheduleTable } from "./components/TrainingScheduleTable";
 
 type TWorkingMemoryT = ReturnType<typeof useTranslations<"workingMemoryGuide">>;
 
@@ -100,6 +104,12 @@ function ContentSections({ t }: { t: TWorkingMemoryT }) {
                         <h4 className="font-semibold mb-4 text-lg">
                             {t("introduction.whatIs.baddeleyModel.title")}
                         </h4>
+                        
+                        {/* Baddeley Model Diagram */}
+                        <div className="mb-8">
+                            <BaddeleyModelDiagram />
+                        </div>
+                        
                         <div className="grid md:grid-cols-3 gap-6">
                             <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 p-4 rounded-lg">
                                 <h5 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">
@@ -184,6 +194,11 @@ function ContentSections({ t }: { t: TWorkingMemoryT }) {
                                 }}
                             />
                         </ul>
+                        
+                        {/* Brain Regions Diagram */}
+                        <div className="mt-8">
+                            <BrainRegionsDiagram />
+                        </div>
                     </div>
                 </div>
                 <div id="introduction-2" className="mb-10">
@@ -322,6 +337,11 @@ function ContentSections({ t }: { t: TWorkingMemoryT }) {
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+                        
+                        {/* Training Effect Chart */}
+                        <div className="mt-8">
+                            <TrainingEffectChart />
                         </div>
                     </div>
                 </div>
@@ -839,6 +859,11 @@ function ContentSections({ t }: { t: TWorkingMemoryT }) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    
+                    {/* Training Schedule Table */}
+                    <div className="mt-12">
+                        <TrainingScheduleTable />
                     </div>
                 </div>
             </section>
