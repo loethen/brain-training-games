@@ -54,7 +54,7 @@ export const GAME_CONFIG = {
 };
 
 // Stimuli patterns for different trial types
-export const STIMULI_PATTERNS = {
+export const STIMULI_PATTERNS: Record<TrialType, Record<Direction, ('left' | 'right' | 'neutral')[]>> = {
   [TrialType.CONGRUENT]: {
     [Direction.LEFT]: ['left', 'left', 'left', 'left', 'left'],
     [Direction.RIGHT]: ['right', 'right', 'right', 'right', 'right']

@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { RotateCcw, Play, ChevronLeft, ChevronRight, Minus, Brain, Share2 } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { ShareModal } from '@/components/ui/ShareModal';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   GameState,
   Trial,
@@ -42,7 +42,7 @@ export default function FocusReactionGame() {
   const [countdown, setCountdown] = useState<number>(GAME_CONFIG.COUNTDOWN_DURATION);
   const [bestScore, setBestScore] = useState<number | null>(null);
   const [trialStartTime, setTrialStartTime] = useState<number | null>(null);
-  const [showingFixation, setShowingFixation] = useState<boolean>(false);
+  
   const [feedbackResult, setFeedbackResult] = useState<{ correct: boolean; visible: boolean }>({ correct: false, visible: false });
   const [isProcessingResponse, setIsProcessingResponse] = useState<boolean>(false);
   const [showShareModal, setShowShareModal] = useState<boolean>(false);
@@ -116,8 +116,7 @@ export default function FocusReactionGame() {
           setGameState(GameState.RESULTS);
         } else {
           setCurrentTrialIndex(prev => prev + 1);
-          // Start next trial
-          setShowingFixation(false);
+          
           setFeedbackResult({ correct: false, visible: false });
           setTrialStartTime(Date.now());
         }
@@ -132,6 +131,11 @@ export default function FocusReactionGame() {
       return () => window.removeEventListener('keydown', handleKeyDown);
     }
   }, [gameState, handleKeyDown]);
+
+  const startTrial = useCallback(() => {
+    setFeedbackResult({ correct: false, visible: false });
+    setTrialStartTime(Date.now());
+  }, []);
 
   const handleResponse = useCallback((response: 'left' | 'right') => {
     if (!trialStartTime || !trials[currentTrialIndex] || isProcessingResponse) return;
@@ -181,13 +185,8 @@ export default function FocusReactionGame() {
         startTrial();
       }
     }, GAME_CONFIG.FEEDBACK_DURATION);
-  }, [trials, currentTrialIndex, results, trialStartTime, isProcessingResponse, bestScore, t]);
+  }, [trials, currentTrialIndex, results, trialStartTime, isProcessingResponse, bestScore, t, startTrial]);
 
-  const startTrial = useCallback(() => {
-    setShowingFixation(false);
-    setFeedbackResult({ correct: false, visible: false });
-    setTrialStartTime(Date.now());
-  }, []);
 
   const startGame = useCallback(() => {
     const newTrials = generateTrials();
@@ -223,7 +222,7 @@ export default function FocusReactionGame() {
     setCurrentTrialIndex(0);
     setResults([]);
     setTrialStartTime(null);
-    setShowingFixation(false);
+    
     setFeedbackResult({ correct: false, visible: false });
     setIsProcessingResponse(false);
     setCountdown(GAME_CONFIG.COUNTDOWN_DURATION);
