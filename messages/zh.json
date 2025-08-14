@@ -28,6 +28,188 @@
     "ogDescription": "探索工作记忆的奥秘，学习Jaeggi等突破性研究支持的训练方法，通过科学游戏和生活方式优化，系统性提升您的认知能力。",
     "breadcrumbHome": "首页",
     "breadcrumbCurrent": "工作记忆指南",
+    "baddeleyDiagram": {
+      "title": "Baddeley工作记忆模型",
+      "centralExecutive": {
+        "name": "中央执行器",
+        "english": "(Central Executive)"
+      },
+      "phonologicalLoop": {
+        "name": "语音循环",
+        "english": "(Phonological Loop)",
+        "description": "(语言信息存储)"
+      },
+      "visuospatialSketchpad": {
+        "name": "视觉空间画板",
+        "english": "(Visuospatial Sketchpad)",
+        "description": "(视觉空间信息)"
+      },
+      "episodicBuffer": {
+        "name": "情节缓冲器",
+        "english": "(Episodic Buffer)",
+        "description": "(整合多种信息)"
+      },
+      "longTermMemory": {
+        "name": "长时记忆 (Long-term Memory)"
+      },
+      "legend": {
+        "title": "模型说明：",
+        "centralExecutive": "控制和协调整个工作记忆系统",
+        "phonologicalLoop": "处理和暂时存储语言信息",
+        "visuospatialSketchpad": "处理视觉和空间信息",
+        "episodicBuffer": "整合来自不同来源的信息，连接长时记忆"
+      }
+    },
+    "trainingChart": {
+      "title": "Dual N-Back训练效果 (Jaeggi et al. 2008)",
+      "xAxisLabel": "训练天数 (Training Days)",
+      "yAxisLabel": "流体智力提升 (Fluid Intelligence Improvement)",
+      "trainingGroup": "训练组 (Training Group)",
+      "controlGroup": "对照组 (Control Group)",
+      "description": {
+        "title": "研究数据说明：",
+        "source": {
+          "label": "研究来源",
+          "text": "Jaeggi et al. (2008) PNAS - 首个证明工作记忆训练可转移的突破性研究"
+        },
+        "training": {
+          "label": "训练内容",
+          "text": "19天Dual N-Back训练，每天约25分钟"
+        },
+        "measure": {
+          "label": "测量指标",
+          "text": "Raven渐进矩阵测试（流体智力标准测试）"
+        },
+        "findings": {
+          "label": "关键发现",
+          "text": "训练组流体智力提升约40%，对照组几乎无变化"
+        }
+      }
+    },
+    "brainDiagram": {
+      "title": "工作记忆相关大脑区域",
+      "subtitle": "Working Memory Brain Networks",
+      "dlpfc": {
+        "name": "背外侧前额叶皮质",
+        "fullName": "背外侧前额叶皮质 (DLPFC)",
+        "description": "工作记忆的核心控制区域"
+      },
+      "acc": {
+        "name": "前扣带皮质",
+        "fullName": "前扣带皮质 (ACC)",
+        "description": "注意力控制和冲突监测"
+      },
+      "ppc": {
+        "name": "后顶叶皮质",
+        "fullName": "后顶叶皮质 (PPC)",
+        "description": "空间注意力和信息整合"
+      },
+      "basalGanglia": {
+        "name": "基底神经节",
+        "description": "认知控制和学习"
+      },
+      "hippocampus": {
+        "name": "海马体",
+        "description": "记忆编码和检索"
+      },
+      "legend": {
+        "title": "大脑区域功能说明：",
+        "connections": "虚线",
+        "connectionsDesc": "区域间的功能连接",
+        "note": "* 基于fMRI和PET研究的工作记忆神经网络，这些区域在dual n-back训练中显示显著激活增强"
+      }
+    },
+    "scheduleTable": {
+      "title": "科学化工作记忆训练计划",
+      "subtitle": "基于Jaeggi et al. (2008) 和Au et al. (2015) 研究的最佳训练方案",
+      "phases": {
+        "beginner": {
+          "level": "初级阶段",
+          "levelEn": "Beginner",
+          "weeks": "第1-2周",
+          "frequency": "每天15-20分钟",
+          "sessions": "连续14天",
+          "nBack": "1-back → 2-back",
+          "focus": "建立基础认知模式",
+          "expectations": "适应训练节奏，准确率>60%"
+        },
+        "intermediate": {
+          "level": "中级阶段",
+          "levelEn": "Intermediate",
+          "weeks": "第3-4周",
+          "frequency": "每天20-25分钟",
+          "sessions": "连续14天",
+          "nBack": "2-back → 3-back",
+          "focus": "提升工作记忆容量",
+          "expectations": "流体智力开始提升，准确率>70%"
+        },
+        "advanced": {
+          "level": "高级阶段",
+          "levelEn": "Advanced",
+          "weeks": "第5-6周",
+          "frequency": "每天25-30分钟",
+          "sessions": "连续14天",
+          "nBack": "3-back → 4-back+",
+          "focus": "巩固训练效果",
+          "expectations": "显著认知提升，准确率>80%"
+        }
+      },
+      "timeline": {
+        "week1": "基础适应",
+        "week2": "技能建立",
+        "week3": "能力提升",
+        "week4": "效果显现",
+        "week5": "深度训练",
+        "week6": "效果巩固"
+      },
+      "timelineTitle": "6周训练时间轴",
+      "labels": {
+        "parameters": "训练参数",
+        "frequency": "频率：",
+        "duration": "持续：",
+        "difficulty": "难度：",
+        "goals": "训练目标",
+        "expected": "预期效果：",
+        "phase": "阶段",
+        "week": "第",
+        "weekSuffix": "周"
+      },
+      "principles": {
+        "title": "训练成功的关键原则",
+        "training": "训练原则",
+        "adaptive": "适应性难度：",
+        "adaptiveDesc": "根据表现自动调整n-back等级",
+        "progressive": "渐进式训练：",
+        "progressiveDesc": "从简单到复杂，循序渐进",
+        "consistency": "持续性：",
+        "consistencyDesc": "每日训练，避免超过1天间隔",
+        "focus": "专注度：",
+        "focusDesc": "训练时保持高度集中注意力"
+      },
+      "monitoring": {
+        "title": "效果监测",
+        "accuracy": "准确率追踪：",
+        "accuracyDesc": "目标维持在60-80%之间",
+        "reaction": "反应时间：",
+        "reactionDesc": "观察反应速度的改善",
+        "level": "n-back等级：",
+        "levelDesc": "记录能达到的最高等级",
+        "subjective": "主观感受：",
+        "subjectiveDesc": "日常生活中注意力的改善"
+      },
+      "warning": {
+        "title": "重要提醒",
+        "intensity": "训练强度控制：",
+        "intensityDesc": "如果准确率持续低于50%，说明难度过高，应降低n-back等级。如果准确率持续高于90%，可适当提高难度。最佳训练效果出现在适中挑战性的任务中。"
+      },
+      "evidence": {
+        "title": "科学依据：",
+        "jaeggi": "19天训练显示流体智力提升40%",
+        "au": "元分析证实训练效果的稳定性",
+        "klingberg": "确定了最佳训练参数和适应性原则",
+        "melby": "强调训练一致性的重要性"
+      }
+    },
     "title": "工作记忆权威指南：科学提升您的认知能力",
     "subtitle": "基于最新神经科学研究，提供从理论基础到实践训练的完整工作记忆提升方案，助您改善学习、工作和生活表现。",
     "introduction": {

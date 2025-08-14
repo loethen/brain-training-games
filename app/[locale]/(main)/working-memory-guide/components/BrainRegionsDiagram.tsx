@@ -1,10 +1,12 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 interface BrainRegionsDiagramProps {
   className?: string;
 }
 
 export function BrainRegionsDiagram({ className = "" }: BrainRegionsDiagramProps) {
+  const t = useTranslations('workingMemoryGuide.brainDiagram');
   return (
     <div className={`w-full max-w-4xl mx-auto ${className}`}>
       <svg viewBox="0 0 800 500" className="w-full h-auto border rounded-lg bg-background">
@@ -114,7 +116,7 @@ export function BrainRegionsDiagram({ className = "" }: BrainRegionsDiagramProps
           <line x1="220" y1="135" x2="100" y2="80" stroke="rgb(75, 85, 99)" strokeWidth="1"/>
           <rect x="20" y="60" width="120" height="40" rx="5" fill="white" stroke="rgb(75, 85, 99)"/>
           <text x="80" y="75" textAnchor="middle" className="fill-foreground text-xs font-semibold">
-            背外侧前额叶皮质
+            {t('dlpfc.name')}
           </text>
           <text x="80" y="90" textAnchor="middle" className="fill-muted-foreground text-xs">
             DLPFC
@@ -126,7 +128,7 @@ export function BrainRegionsDiagram({ className = "" }: BrainRegionsDiagramProps
           <line x1="380" y1="200" x2="380" y2="120" stroke="rgb(75, 85, 99)" strokeWidth="1"/>
           <rect x="320" y="80" width="120" height="40" rx="5" fill="white" stroke="rgb(75, 85, 99)"/>
           <text x="380" y="95" textAnchor="middle" className="fill-foreground text-xs font-semibold">
-            前扣带皮质
+{t('acc.name')}
           </text>
           <text x="380" y="110" textAnchor="middle" className="fill-muted-foreground text-xs">
             ACC
@@ -138,7 +140,7 @@ export function BrainRegionsDiagram({ className = "" }: BrainRegionsDiagramProps
           <line x1="540" y1="130" x2="650" y2="80" stroke="rgb(75, 85, 99)" strokeWidth="1"/>
           <rect x="590" y="60" width="120" height="40" rx="5" fill="white" stroke="rgb(75, 85, 99)"/>
           <text x="650" y="75" textAnchor="middle" className="fill-foreground text-xs font-semibold">
-            后顶叶皮质
+            {t('ppc.name')}
           </text>
           <text x="650" y="90" textAnchor="middle" className="fill-muted-foreground text-xs">
             PPC
@@ -150,7 +152,7 @@ export function BrainRegionsDiagram({ className = "" }: BrainRegionsDiagramProps
           <line x1="350" y1="300" x2="250" y2="380" stroke="rgb(75, 85, 99)" strokeWidth="1"/>
           <rect x="170" y="380" width="100" height="40" rx="5" fill="white" stroke="rgb(75, 85, 99)"/>
           <text x="220" y="395" textAnchor="middle" className="fill-foreground text-xs font-semibold">
-            基底神经节
+            {t('basalGanglia.name')}
           </text>
           <text x="220" y="410" textAnchor="middle" className="fill-muted-foreground text-xs">
             Basal Ganglia
@@ -162,7 +164,7 @@ export function BrainRegionsDiagram({ className = "" }: BrainRegionsDiagramProps
           <line x1="450" y1="325" x2="550" y2="380" stroke="rgb(75, 85, 99)" strokeWidth="1"/>
           <rect x="490" y="380" width="100" height="40" rx="5" fill="white" stroke="rgb(75, 85, 99)"/>
           <text x="540" y="395" textAnchor="middle" className="fill-foreground text-xs font-semibold">
-            海马体
+            {t('hippocampus.name')}
           </text>
           <text x="540" y="410" textAnchor="middle" className="fill-muted-foreground text-xs">
             Hippocampus
@@ -191,7 +193,7 @@ export function BrainRegionsDiagram({ className = "" }: BrainRegionsDiagramProps
           textAnchor="middle"
           className="fill-foreground text-lg font-bold"
         >
-          工作记忆相关大脑区域
+          {t('title')}
         </text>
         <text
           x="400"
@@ -199,45 +201,45 @@ export function BrainRegionsDiagram({ className = "" }: BrainRegionsDiagramProps
           textAnchor="middle"
           className="fill-muted-foreground text-sm"
         >
-          Working Memory Brain Networks
+          {t('subtitle')}
         </text>
       </svg>
       
       {/* Legend */}
       <div className="mt-4 p-4 bg-muted rounded-lg text-sm">
-        <h4 className="font-semibold mb-3">大脑区域功能说明：</h4>
+        <h4 className="font-semibold mb-3">{t('legend.title')}</h4>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-              <span><strong>背外侧前额叶皮质 (DLPFC)</strong>：工作记忆的核心控制区域</span>
+              <span><strong>{t('dlpfc.fullName')}</strong>：{t('dlpfc.description')}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-              <span><strong>前扣带皮质 (ACC)</strong>：注意力控制和冲突监测</span>
+              <span><strong>{t('acc.fullName')}</strong>：{t('acc.description')}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-purple-500 rounded-full"></div>
-              <span><strong>后顶叶皮质 (PPC)</strong>：空间注意力和信息整合</span>
+              <span><strong>{t('ppc.fullName')}</strong>：{t('ppc.description')}</span>
             </div>
           </div>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-amber-500 rounded-full"></div>
-              <span><strong>基底神经节</strong>：认知控制和学习</span>
+              <span><strong>{t('basalGanglia.name')}</strong>：{t('basalGanglia.description')}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-              <span><strong>海马体</strong>：记忆编码和检索</span>
+              <span><strong>{t('hippocampus.name')}</strong>：{t('hippocampus.description')}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-1 bg-gray-400 rounded-full"></div>
-              <span><strong>虚线</strong>：区域间的功能连接</span>
+              <span><strong>{t('legend.connections')}</strong>：{t('legend.connectionsDesc')}</span>
             </div>
           </div>
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          * 基于fMRI和PET研究的工作记忆神经网络，这些区域在dual n-back训练中显示显著激活增强
+          {t('legend.note')}
         </p>
       </div>
     </div>

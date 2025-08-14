@@ -1,10 +1,12 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 interface TrainingEffectChartProps {
   className?: string;
 }
 
 export function TrainingEffectChart({ className = "" }: TrainingEffectChartProps) {
+  const t = useTranslations('workingMemoryGuide.trainingChart');
   // Data based on Jaeggi et al. 2008 PNAS study
   const trainingData = [
     { day: 0, score: 0, improvement: 0 },
@@ -119,7 +121,7 @@ export function TrainingEffectChart({ className = "" }: TrainingEffectChartProps
             textAnchor="middle"
             className="fill-foreground text-sm font-semibold"
           >
-            训练天数 (Training Days)
+{t('xAxisLabel')}
           </text>
         </g>
 
@@ -143,7 +145,7 @@ export function TrainingEffectChart({ className = "" }: TrainingEffectChartProps
             className="fill-foreground text-sm font-semibold"
             transform={`rotate(-90, 20, ${height / 2})`}
           >
-            流体智力提升 (Fluid Intelligence Improvement)
+{t('yAxisLabel')}
           </text>
         </g>
 
@@ -227,7 +229,7 @@ export function TrainingEffectChart({ className = "" }: TrainingEffectChartProps
             y="25"
             className="fill-foreground text-xs"
           >
-            训练组 (Training Group)
+{t('trainingGroup')}
           </text>
           
           {/* Control group legend */}
@@ -251,7 +253,7 @@ export function TrainingEffectChart({ className = "" }: TrainingEffectChartProps
             y="50"
             className="fill-foreground text-xs"
           >
-            对照组 (Control Group)
+{t('controlGroup')}
           </text>
         </g>
 
@@ -262,18 +264,18 @@ export function TrainingEffectChart({ className = "" }: TrainingEffectChartProps
           textAnchor="middle"
           className="fill-foreground text-lg font-bold"
         >
-          Dual N-Back训练效果 (Jaeggi et al. 2008)
+{t('title')}
         </text>
       </svg>
       
       {/* Chart description */}
       <div className="mt-4 p-4 bg-muted rounded-lg text-sm">
-        <h4 className="font-semibold mb-2">研究数据说明：</h4>
+<h4 className="font-semibold mb-2">{t('description.title')}</h4>
         <ul className="space-y-1 text-muted-foreground">
-          <li>• <strong>研究来源</strong>：Jaeggi et al. (2008) PNAS - 首个证明工作记忆训练可转移的突破性研究</li>
-          <li>• <strong>训练内容</strong>：19天Dual N-Back训练，每天约25分钟</li>
-          <li>• <strong>测量指标</strong>：Raven渐进矩阵测试（流体智力标准测试）</li>
-          <li>• <strong>关键发现</strong>：训练组流体智力提升约40%，对照组几乎无变化</li>
+          <li>• <strong>{t('description.source.label')}</strong>：{t('description.source.text')}</li>
+          <li>• <strong>{t('description.training.label')}</strong>：{t('description.training.text')}</li>
+          <li>• <strong>{t('description.measure.label')}</strong>：{t('description.measure.text')}</li>
+          <li>• <strong>{t('description.findings.label')}</strong>：{t('description.findings.text')}</li>
         </ul>
       </div>
     </div>

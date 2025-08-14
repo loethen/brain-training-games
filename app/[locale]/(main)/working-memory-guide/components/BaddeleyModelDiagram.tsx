@@ -1,10 +1,12 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 interface BaddeleyModelDiagramProps {
   className?: string;
 }
 
 export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramProps) {
+  const t = useTranslations('workingMemoryGuide.baddeleyDiagram');
   return (
     <div className={`w-full max-w-4xl mx-auto ${className}`}>
       <svg viewBox="0 0 800 450" className="w-full h-auto border rounded-lg bg-background">
@@ -26,7 +28,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-sm font-semibold"
           >
-            中央执行器
+            {t('centralExecutive.name')}
           </text>
           <text
             x="400"
@@ -34,7 +36,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-xs"
           >
-            Central Executive
+            {t('centralExecutive.english')}
           </text>
         </g>
 
@@ -56,7 +58,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-sm font-semibold"
           >
-            语音循环
+{t('phonologicalLoop.name')}
           </text>
           <text
             x="160"
@@ -64,7 +66,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-xs"
           >
-            Phonological Loop
+            {t('phonologicalLoop.english')}
           </text>
           <text
             x="160"
@@ -72,7 +74,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-xs"
           >
-            (语言信息存储)
+            {t('phonologicalLoop.description')}
           </text>
         </g>
 
@@ -94,7 +96,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-sm font-semibold"
           >
-            视觉空间画板
+{t('visuospatialSketchpad.name')}
           </text>
           <text
             x="640"
@@ -102,7 +104,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-xs"
           >
-            Visuospatial Sketchpad
+            {t('visuospatialSketchpad.english')}
           </text>
           <text
             x="640"
@@ -110,7 +112,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-xs"
           >
-            (视觉空间信息)
+            {t('visuospatialSketchpad.description')}
           </text>
         </g>
 
@@ -132,7 +134,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-sm font-semibold"
           >
-            情节缓冲器
+{t('episodicBuffer.name')}
           </text>
           <text
             x="400"
@@ -140,7 +142,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-xs"
           >
-            Episodic Buffer
+            {t('episodicBuffer.english')}
           </text>
           <text
             x="400"
@@ -148,7 +150,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-xs"
           >
-            (整合多种信息)
+            {t('episodicBuffer.description')}
           </text>
         </g>
 
@@ -169,7 +171,7 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
             textAnchor="middle"
             className="fill-white text-sm font-semibold"
           >
-            长时记忆 (Long-term Memory)
+{t('longTermMemory.name')}
           </text>
         </g>
 
@@ -266,18 +268,18 @@ export function BaddeleyModelDiagram({ className = "" }: BaddeleyModelDiagramPro
           textAnchor="middle"
           className="fill-foreground text-lg font-bold"
         >
-          Baddeley工作记忆模型
+{t('title')}
         </text>
       </svg>
       
       {/* Legend */}
       <div className="mt-4 p-4 bg-muted rounded-lg text-sm">
-        <h4 className="font-semibold mb-2">模型说明：</h4>
+<h4 className="font-semibold mb-2">{t('legend.title')}</h4>
         <ul className="space-y-1 text-muted-foreground">
-          <li>• <strong>中央执行器</strong>：控制和协调整个工作记忆系统</li>
-          <li>• <strong>语音循环</strong>：处理和暂时存储语言信息</li>
-          <li>• <strong>视觉空间画板</strong>：处理视觉和空间信息</li>
-          <li>• <strong>情节缓冲器</strong>：整合来自不同来源的信息，连接长时记忆</li>
+          <li>• <strong>{t('centralExecutive.name')}</strong>：{t('legend.centralExecutive')}</li>
+          <li>• <strong>{t('phonologicalLoop.name')}</strong>：{t('legend.phonologicalLoop')}</li>
+          <li>• <strong>{t('visuospatialSketchpad.name')}</strong>：{t('legend.visuospatialSketchpad')}</li>
+          <li>• <strong>{t('episodicBuffer.name')}</strong>：{t('legend.episodicBuffer')}</li>
         </ul>
       </div>
     </div>

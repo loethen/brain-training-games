@@ -32,6 +32,188 @@
     "ctaTry": "Try Schulte Table",
     "breadcrumbHome": "Home",
     "breadcrumbCurrent": "Working Memory Guide",
+    "baddeleyDiagram": {
+      "title": "Baddeley Working Memory Model",
+      "centralExecutive": {
+        "name": "Central Executive",
+        "english": "中央执行器"
+      },
+      "phonologicalLoop": {
+        "name": "Phonological Loop",
+        "english": "语音循环",
+        "description": "(Language Information Storage)"
+      },
+      "visuospatialSketchpad": {
+        "name": "Visuospatial Sketchpad",
+        "english": "视觉空间画板",
+        "description": "(Visual & Spatial Information)"
+      },
+      "episodicBuffer": {
+        "name": "Episodic Buffer",
+        "english": "情节缓冲器",
+        "description": "(Integrates Multiple Information)"
+      },
+      "longTermMemory": {
+        "name": "Long-term Memory (长时记忆)"
+      },
+      "legend": {
+        "title": "Model Description:",
+        "centralExecutive": "Controls and coordinates the entire working memory system",
+        "phonologicalLoop": "Processes and temporarily stores linguistic information",
+        "visuospatialSketchpad": "Processes visual and spatial information",
+        "episodicBuffer": "Integrates information from different sources, connects to long-term memory"
+      }
+    },
+    "trainingChart": {
+      "title": "Dual N-Back Training Effects (Jaeggi et al. 2008)",
+      "xAxisLabel": "训练天数 (Training Days)",
+      "yAxisLabel": "流体智力提升 (Fluid Intelligence Improvement)",
+      "trainingGroup": "训练组 (Training Group)",
+      "controlGroup": "对照组 (Control Group)",
+      "description": {
+        "title": "Research Data Description:",
+        "source": {
+          "label": "Research Source",
+          "text": "Jaeggi et al. (2008) PNAS - First breakthrough study proving working memory training transfer"
+        },
+        "training": {
+          "label": "Training Content",
+          "text": "19-day Dual N-Back training, approximately 25 minutes per day"
+        },
+        "measure": {
+          "label": "Measurement",
+          "text": "Raven Progressive Matrices (standard fluid intelligence test)"
+        },
+        "findings": {
+          "label": "Key Findings",
+          "text": "Training group improved fluid intelligence by ~40%, control group showed no change"
+        }
+      }
+    },
+    "brainDiagram": {
+      "title": "Working Memory Brain Networks",
+      "subtitle": "工作记忆相关大脑区域",
+      "dlpfc": {
+        "name": "Dorsolateral Prefrontal Cortex",
+        "fullName": "Dorsolateral Prefrontal Cortex (DLPFC)",
+        "description": "Core control region for working memory"
+      },
+      "acc": {
+        "name": "Anterior Cingulate Cortex",
+        "fullName": "Anterior Cingulate Cortex (ACC)",
+        "description": "Attention control and conflict monitoring"
+      },
+      "ppc": {
+        "name": "Posterior Parietal Cortex",
+        "fullName": "Posterior Parietal Cortex (PPC)",
+        "description": "Spatial attention and information integration"
+      },
+      "basalGanglia": {
+        "name": "Basal Ganglia",
+        "description": "Cognitive control and learning"
+      },
+      "hippocampus": {
+        "name": "Hippocampus",
+        "description": "Memory encoding and retrieval"
+      },
+      "legend": {
+        "title": "Brain Region Functions:",
+        "connections": "Dashed lines",
+        "connectionsDesc": "Functional connections between regions",
+        "note": "* Working memory neural networks based on fMRI and PET studies, these regions show significant activation enhancement during dual n-back training"
+      }
+    },
+    "scheduleTable": {
+      "title": "Scientific Working Memory Training Plan",
+      "subtitle": "Optimal training protocol based on Jaeggi et al. (2008) and Au et al. (2015) research",
+      "phases": {
+        "beginner": {
+          "level": "Beginner Phase",
+          "levelEn": "Beginner",
+          "weeks": "Weeks 1-2",
+          "frequency": "15-20 minutes daily",
+          "sessions": "14 consecutive days",
+          "nBack": "1-back → 2-back",
+          "focus": "Build basic cognitive patterns",
+          "expectations": "Adapt to training rhythm, accuracy >60%"
+        },
+        "intermediate": {
+          "level": "Intermediate Phase",
+          "levelEn": "Intermediate",
+          "weeks": "Weeks 3-4",
+          "frequency": "20-25 minutes daily",
+          "sessions": "14 consecutive days",
+          "nBack": "2-back → 3-back",
+          "focus": "Enhance working memory capacity",
+          "expectations": "Fluid intelligence begins to improve, accuracy >70%"
+        },
+        "advanced": {
+          "level": "Advanced Phase",
+          "levelEn": "Advanced",
+          "weeks": "Weeks 5-6",
+          "frequency": "25-30 minutes daily",
+          "sessions": "14 consecutive days",
+          "nBack": "3-back → 4-back+",
+          "focus": "Consolidate training effects",
+          "expectations": "Significant cognitive improvement, accuracy >80%"
+        }
+      },
+      "timeline": {
+        "week1": "Foundation Building",
+        "week2": "Skill Development",
+        "week3": "Capacity Enhancement",
+        "week4": "Effects Emerging",
+        "week5": "Intensive Training",
+        "week6": "Effect Consolidation"
+      },
+      "timelineTitle": "6-Week Training Timeline",
+      "labels": {
+        "parameters": "Training Parameters",
+        "frequency": "Frequency: ",
+        "duration": "Duration: ",
+        "difficulty": "Difficulty: ",
+        "goals": "Training Goals",
+        "expected": "Expected Results: ",
+        "phase": "Phase",
+        "week": "Week ",
+        "weekSuffix": ""
+      },
+      "principles": {
+        "title": "Key Principles for Training Success",
+        "training": "Training Principles",
+        "adaptive": "Adaptive Difficulty: ",
+        "adaptiveDesc": "Automatically adjust n-back level based on performance",
+        "progressive": "Progressive Training: ",
+        "progressiveDesc": "From simple to complex, step by step",
+        "consistency": "Consistency: ",
+        "consistencyDesc": "Daily training, avoid gaps longer than 1 day",
+        "focus": "Focus: ",
+        "focusDesc": "Maintain high concentration during training"
+      },
+      "monitoring": {
+        "title": "Effect Monitoring",
+        "accuracy": "Accuracy Tracking: ",
+        "accuracyDesc": "Target maintaining 60-80% accuracy",
+        "reaction": "Reaction Time: ",
+        "reactionDesc": "Observe improvement in response speed",
+        "level": "N-back Level: ",
+        "levelDesc": "Record the highest level achieved",
+        "subjective": "Subjective Experience: ",
+        "subjectiveDesc": "Improved attention in daily life"
+      },
+      "warning": {
+        "title": "Important Reminder",
+        "intensity": "Training Intensity Control: ",
+        "intensityDesc": "If accuracy consistently falls below 50%, the difficulty is too high and n-back level should be reduced. If accuracy consistently exceeds 90%, difficulty can be appropriately increased. Optimal training effects occur with moderately challenging tasks."
+      },
+      "evidence": {
+        "title": "Scientific Evidence:",
+        "jaeggi": "19-day training showed 40% improvement in fluid intelligence",
+        "au": "Meta-analysis confirmed stability of training effects",
+        "klingberg": "Established optimal training parameters and adaptive principles",
+        "melby": "Emphasized the importance of training consistency"
+      }
+    },
     "introduction": {
       "title": "🧠 Fundamentals of Working Memory: The Brain's Workbench",
       "whatIs": {
