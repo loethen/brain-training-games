@@ -204,6 +204,21 @@
       "principles": {
         "title": "训练原则",
         "p": "保持80%准确率下的最高难度，规律练习比完美表现更重要"
+      },
+      "box": {
+        "title": "科学训练建议",
+        "duration": {
+          "title": "最佳训练时长",
+          "p": "每日总计45-60分钟，分为2-3个训练模块，避免认知疲劳"
+        },
+        "progress": {
+          "title": "进步预期",
+          "p": "第1-2周适应期，第3-4周明显改善，6-8周显著提升"
+        },
+        "principles": {
+          "title": "训练原则",
+          "p": "保持80%准确率下的最高难度，规律练习比完美表现更重要"
+        }
       }
     },
     "clusterArticles": {
@@ -233,6 +248,122 @@
         "tag": "记忆修复",
         "readTime": "18分钟",
         "difficulty": "进阶"
+      }
+    },
+    "schulte": {
+      "title": "👁️ Schulte Table训练：视觉注意力的科学强化",
+      "posnerTheory": {
+        "title": "视觉注意力科学：Posner的三网络理论",
+        "p1": "认知神经科学家Michael Posner发现人类注意力系统包含三个独立但相互协作的网络。Schulte Table训练能够同时强化这三个网络，实现视觉注意力的全面提升。",
+        "card1": {
+          "title": "警觉网络",
+          "p": "维持警觉状态，准备响应刺激",
+          "details": "脑区：蓝斑核、前额叶<br/>功能：持续注意、认知准备"
+        },
+        "card2": {
+          "title": "定向网络",
+          "p": "将注意力导向特定空间位置",
+          "details": "脑区：顶上小叶、额眼区<br/>功能：空间注意、视觉搜索"
+        },
+        "card3": {
+          "title": "执行网络",
+          "p": "解决冲突，控制注意力分配",
+          "details": "脑区：前扣带皮质、前额叶<br/>功能：冲突监控、认知控制"
+        }
+      },
+      "readingSpeed": {
+        "title": "阅读速度提升：实证研究数据",
+        "p1": "多项研究证实Schulte Table训练能显著提升阅读速度，核心机制是扩展有效视觉范围和优化眼动模式。",
+        "russiaStudy": {
+          "title": "📈 俄罗斯研究数据（8周训练）",
+          "visual": {
+            "title": "视觉注意力改善：",
+            "list": "<li>• 视觉注意广度提升 <strong>47%</strong></li><li>• 视觉处理速度提高 <strong>32%</strong></li><li>• 选择性注意精度增强 <strong>28%</strong></li>"
+          },
+          "reading": {
+            "title": "阅读表现提升：",
+            "list": "<li>• 阅读速度平均提升 <strong>28%</strong></li><li>• 理解准确率维持 <strong>95%+</strong></li><li>• 眼动回视次数减少 <strong>40%</strong></li>"
+          }
+        },
+        "psychologyStudy": {
+          "title": "🎓 教育心理学研究（200名中学生）",
+          "p1": "将Schulte Table训练整合到日常课程中的实验结果：",
+          "list": "<li>• 阅读流畅性显著提升，平均提高1.5个年级水平</li><li>• 学术成绩全面改善，各科平均分提高15-20分</li><li>• 注意力持续时间延长，课堂专注度提升60%</li>"
+        }
+      }
+    },
+    "memory": {
+      "title": "🔬 记忆力改善策略：海马体修复与再生",
+      "hippocampus": {
+        "title": "海马体修复：短期记忆问题的根本解决",
+        "p1": "短期记忆问题的核心往往在于海马体功能受损。与其他脑区不同，海马体具有终生神经发生能力——每天产生700+新神经元，为记忆修复提供了科学基础。",
+        "causes": {
+          "title": "海马体损伤的五大原因：",
+          "cause1": {
+            "title": "慢性压力和皮质醇过高",
+            "p": "长期压力使海马体萎缩10-20%，影响75%的慢性压力患者"
+          },
+          "cause2": {
+            "title": "血糖控制不良",
+            "p": "高血糖通过糖化损伤记忆神经元，糖尿病患者记忆衰退风险高40%"
+          },
+          "cause3": {
+            "title": "关键营养素缺乏",
+            "p": "维生素D、B1、锌缺乏直接影响海马体功能和神经发生"
+          },
+          "cause4": {
+            "title": "血氧供应不足",
+            "p": "久坐生活使脑部血氧降低15-25%，影响海马体新陈代谢"
+          }
+        }
+      }
+    },
+    "trainingProtocol": {
+      "title": "📊 综合训练方案：个性化认知增强计划",
+      "personalized": {
+        "title": "个性化训练：基于认知档案的精准方案",
+        "p1": "认知能力存在显著个体差异，有效的训练方案必须考虑基线能力、年龄、目标和时间投入。以下是基于认知科学研究的分层训练协议：",
+        "audience": "适用人群：",
+        "focus": "训练重点：",
+        "effect": "预期效果：",
+        "beginner": {
+          "title": "🌱 初学者方案",
+          "audience": "首次认知训练、注意力困难、记忆力明显下降",
+          "focus": "<li>• Schulte Table (5×5): 每日10分钟</li><li>• Dual 1-Back: 每日15分钟</li><li>• 短期记忆测试: 每周2次</li>",
+          "effect": "4-6周后注意力持续时间延长50%"
+        },
+        "advanced": {
+          "title": "⚡ 进阶方案",
+          "audience": "有训练基础、追求高效提升、职业需求",
+          "focus": "<li>• Dual 2-4 Back: 每日20分钟</li><li>• 多任务Schulte: 每日15分钟</li><li>• 复杂记忆任务: 每日10分钟</li>",
+          "effect": "6-8周工作记忆容量提升30%"
+        },
+        "expert": {
+          "title": "🚀 专家方案",
+          "audience": "高认知需求、竞技训练、研究参与",
+          "focus": "<li>• Dual 4+ Back: 每日25分钟</li><li>• 三重任务训练: 每日20分钟</li><li>• 干扰下训练: 每日15分钟</li>",
+          "effect": "8-12周流体智力测试提升25%"
+        }
+      }
+    },
+    "research": {
+      "title": "📚 科学研究证据：认知训练的循证基础",
+      "milestones": {
+        "title": "核心研究：改变领域的里程碑发现",
+        "design": "研究设计：",
+        "findings": "突破性发现：",
+        "background": "研究背景：",
+        "jaeggi": {
+          "title": "🏆 Jaeggi et al. (2008) - PNAS",
+          "design": "<li>• <strong>样本：</strong>70名健康成年人</li><li>• <strong>干预：</strong>dual n-back训练 8-19天</li><li>• <strong>评估：</strong>Raven推理测试</li><li>• <strong>对照：</strong>严格随机对照设计</li>",
+          "findings": "<li>• 训练时间与智力提升呈线性关系</li><li>• 最大提升幅度达40% (19天组)</li><li>• 首次证明流体智力可训练性</li><li>• 开启认知训练研究新纪元</li>"
+        },
+        "erickson": {
+          "title": "🧠 Erickson et al. (2011) - Nature",
+          "background": "探索运动对老年人海马体体积和记忆功能的影响",
+          "design": "<li>• <strong>样本：</strong>120名60-80岁健康老人</li><li>• <strong>干预：</strong>每周3次有氧步行训练</li><li>• <strong>时长：</strong>持续12个月</li>",
+          "findings": "<li>• 海马体前部体积增加2%</li><li>• 空间记忆能力显著提升</li><li>• BDNF血清水平升高</li><li>• 逆转1-2年的海马体萎缩</li>"
+        }
       }
     }
   },

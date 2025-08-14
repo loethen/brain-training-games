@@ -206,6 +206,21 @@
       "principles": {
         "title": "Training Principles",
         "p": "Maintain the highest difficulty level that allows for 80% accuracy. Consistency is more important than perfect performance."
+      },
+      "box": {
+        "title": "Scientific Training Recommendations",
+        "duration": {
+          "title": "Optimal Training Duration",
+          "p": "A total of 45-60 minutes daily, divided into 2-3 training blocks to avoid cognitive fatigue."
+        },
+        "progress": {
+          "title": "Expected Progress",
+          "p": "Weeks 1-2: Adaptation period. Weeks 3-4: Noticeable improvement. Weeks 6-8: Significant enhancement."
+        },
+        "principles": {
+          "title": "Training Principles",
+          "p": "Maintain the highest difficulty level that allows for 80% accuracy. Consistency is more important than perfect performance."
+        }
       }
     },
     "clusterArticles": {
@@ -235,6 +250,122 @@
         "tag": "Memory Repair",
         "readTime": "18 min read",
         "difficulty": "Advanced"
+      }
+    },
+    "schulte": {
+      "title": "👁️ Schulte Table Training: The Scientific Reinforcement of Visual Attention",
+      "posnerTheory": {
+        "title": "The Science of Visual Attention: Posner's Trinity of Attention Networks",
+        "p1": "Cognitive neuroscientist Michael Posner discovered that the human attention system consists of three independent but collaborative networks. Schulte Table training can simultaneously strengthen all three networks, achieving a comprehensive improvement in visual attention.",
+        "card1": {
+          "title": "Alerting Network",
+          "p": "Maintains a state of alertness, ready to respond to stimuli.",
+          "details": "Brain Regions: Locus Coeruleus, Prefrontal Cortex<br/>Functions: Sustained attention, cognitive readiness"
+        },
+        "card2": {
+          "title": "Orienting Network",
+          "p": "Directs attention to a specific spatial location.",
+          "details": "Brain Regions: Superior Parietal Lobe, Frontal Eye Fields<br/>Functions: Spatial attention, visual search"
+        },
+        "card3": {
+          "title": "Executive Network",
+          "p": "Resolves conflicts and controls the allocation of attention.",
+          "details": "Brain Regions: Anterior Cingulate Cortex, Prefrontal Cortex<br/>Functions: Conflict monitoring, cognitive control"
+        }
+      },
+      "readingSpeed": {
+        "title": "Improving Reading Speed: Empirical Research Data",
+        "p1": "Multiple studies have confirmed that Schulte Table training significantly improves reading speed. The core mechanism is the expansion of the effective visual field and the optimization of eye movement patterns.",
+        "russiaStudy": {
+          "title": "📈 Data from a Russian Study (8-week training)",
+          "visual": {
+            "title": "Visual Attention Improvement:",
+            "list": "<li>• <strong>47%</strong> increase in visual attention span</li><li>• <strong>32%</strong> improvement in visual processing speed</li><li>• <strong>28%</strong> enhancement in selective attention accuracy</li>"
+          },
+          "reading": {
+            "title": "Reading Performance Boost:",
+            "list": "<li>• Average reading speed increased by <strong>28%</strong></li><li>• Comprehension accuracy maintained at <strong>95%+</strong></li><li>• Eye regression count decreased by <strong>40%</strong></li>"
+          }
+        },
+        "psychologyStudy": {
+          "title": "🎓 Educational Psychology Study (200 middle school students)",
+          "p1": "Results from an experiment integrating Schulte Table training into daily curriculum:",
+          "list": "<li>• Significant improvement in reading fluency, averaging a 1.5 grade level increase.</li><li>• Comprehensive improvement in academic performance, with average scores in all subjects increasing by 15-20 points.</li><li>• Extended attention duration, with a 60% improvement in classroom focus.</li>"
+        }
+      }
+    },
+    "memory": {
+      "title": "🔬 Memory Improvement Strategies: Hippocampal Repair and Regeneration",
+      "hippocampus": {
+        "title": "Hippocampal Repair: The Fundamental Solution to Short-Term Memory Problems",
+        "p1": "The core of short-term memory problems often lies in impaired hippocampal function. Unlike other brain regions, the hippocampus is capable of lifelong neurogenesis—producing over 700 new neurons daily, providing a scientific basis for memory repair.",
+        "causes": {
+          "title": "The Five Main Causes of Hippocampal Damage:",
+          "cause1": {
+            "title": "Chronic Stress and High Cortisol",
+            "p": "Long-term stress can cause the hippocampus to shrink by 10-20%, affecting 75% of chronic stress sufferers."
+          },
+          "cause2": {
+            "title": "Poor Blood Sugar Control",
+            "p": "High blood sugar damages memory neurons through glycation, increasing the risk of memory decline in diabetic patients by 40%."
+          },
+          "cause3": {
+            "title": "Key Nutrient Deficiencies",
+            "p": "Deficiencies in Vitamin D, B1, and Zinc directly impact hippocampal function and neurogenesis."
+          },
+          "cause4": {
+            "title": "Insufficient Blood Oxygen Supply",
+            "p": "A sedentary lifestyle can reduce brain oxygen supply by 15-25%, affecting hippocampal metabolism."
+          }
+        }
+      }
+    },
+    "trainingProtocol": {
+      "title": "📊 Comprehensive Training Plan: A Personalized Cognitive Enhancement Program",
+      "personalized": {
+        "title": "Personalized Training: A Precise Plan Based on Your Cognitive Profile",
+        "p1": "Cognitive abilities vary significantly among individuals. An effective training plan must consider baseline ability, age, goals, and time commitment. The following are tiered training protocols based on cognitive science research:",
+        "audience": "Suitable for:",
+        "focus": "Training Focus:",
+        "effect": "Expected Outcome:",
+        "beginner": {
+          "title": "🌱 Beginner Plan",
+          "audience": "First-time cognitive trainers, individuals with attention difficulties, or those with noticeable memory decline.",
+          "focus": "<li>• Schulte Table (5×5): 10 mins/day</li><li>• Dual 1-Back: 15 mins/day</li><li>• Short-Term Memory Test: 2 times/week</li>",
+          "effect": "50% increase in attention span after 4-6 weeks."
+        },
+        "advanced": {
+          "title": "⚡ Advanced Plan",
+          "audience": "Those with training experience, seeking high-efficiency improvement, or with professional demands.",
+          "focus": "<li>• Dual 2-4 Back: 20 mins/day</li><li>• Multi-task Schulte: 15 mins/day</li><li>• Complex Memory Tasks: 10 mins/day</li>",
+          "effect": "30% increase in working memory capacity after 6-8 weeks."
+        },
+        "expert": {
+          "title": "🚀 Expert Plan",
+          "audience": "Individuals with high cognitive demands, competitive trainers, or research participants.",
+          "focus": "<li>• Dual 4+ Back: 25 mins/day</li><li>• Triple-Task Training: 20 mins/day</li><li>• Training under distraction: 15 mins/day</li>",
+          "effect": "25% improvement on fluid intelligence tests after 8-12 weeks."
+        }
+      }
+    },
+    "research": {
+      "title": "📚 Scientific Research Evidence: The Evidentiary Basis for Cognitive Training",
+      "milestones": {
+        "title": "Core Studies: Milestone Discoveries That Changed the Field",
+        "design": "Study Design:",
+        "findings": "Breakthrough Findings:",
+        "background": "Research Background:",
+        "jaeggi": {
+          "title": "🏆 Jaeggi et al. (2008) - PNAS",
+          "design": "<li>• <strong>Sample:</strong> 70 healthy adults</li><li>• <strong>Intervention:</strong> 8-19 days of dual n-back training</li><li>• <strong>Assessment:</strong> Raven's Progressive Matrices</li><li>• <strong>Control:</strong> Rigorous randomized controlled design</li>",
+          "findings": "<li>• Linear relationship between training duration and intelligence improvement.</li><li>• Maximum improvement of 40% (in the 19-day group).</li><li>• First to demonstrate the trainability of fluid intelligence.</li><li>• Opened a new era of cognitive training research.</li>"
+        },
+        "erickson": {
+          "title": "🧠 Erickson et al. (2011) - Nature",
+          "background": "To explore the effects of exercise on hippocampal volume and memory function in older adults.",
+          "design": "<li>• <strong>Sample:</strong> 120 healthy adults aged 60-80</li><li>• <strong>Intervention:</strong> Aerobic walking 3 times a week</li><li>• <strong>Duration:</strong> 12 months</li>",
+          "findings": "<li>• 2% increase in anterior hippocampal volume.</li><li>• Significant improvement in spatial memory.</li><li>• Increased serum levels of BDNF.</li><li>• Reversed 1-2 years of age-related hippocampal atrophy.</li>"
+        }
       }
     }
   },
