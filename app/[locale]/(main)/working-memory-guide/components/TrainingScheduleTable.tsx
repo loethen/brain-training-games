@@ -123,16 +123,6 @@ export function TrainingScheduleTable({ className = "" }: TrainingScheduleTableP
               <div className={`w-4 h-4 rounded-full ${item.color} mb-2`}></div>
               <div className="text-xs font-medium text-center">{t('labels.week')}{item.week}</div>
               <div className="text-xs text-muted-foreground text-center mt-1">{item.activity}</div>
-              {index < timelineData.length - 1 && (
-                <div className="hidden sm:block absolute h-0.5 bg-gray-300 w-full" 
-                     style={{
-                       left: `${(index + 0.5) * (100 / timelineData.length)}%`,
-                       width: `${100 / timelineData.length}%`,
-                       top: '8px',
-                       zIndex: -1
-                     }}
-                />
-              )}
             </div>
           ))}
         </div>
