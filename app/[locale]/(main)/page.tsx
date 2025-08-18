@@ -9,6 +9,8 @@ import { getBlogPosts, type BlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 import FeaturedGamesCarousel from "@/components/featured-games-carousel";
 import Image from "next/image";
+import HomeBannerAd from "@/components/home-banner-ad";
+import Script from "next/script";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
@@ -109,46 +111,63 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     ];
     
     return (
-        <div>
-            {/* Hero Section */}
-            <section className="max-w-[1600px] mx-auto rounded-3xl sm:p-6 md:p-12 mb-16 dark:from-transparent dark:to-transparent">
-                <div className="flex flex-col-reverse md:flex-row items-center gap-8">
-                    <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6 leading-tight">
-                            {t("home.title")}
-                        </h1>
-                        <p className="sm:text-xl lg:text-2xl mb-8">
-                            {t("home.subtitle")}
-                        </p>
-                        <div className="mb-4">
-                            <Link href="/get-started">
-                                <InteractiveHoverButton>
-                                    {t("home.ctaButton")}
-                                </InteractiveHoverButton>
-                            </Link>
+        <>
+            <Script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
+                crossOrigin="anonymous"
+            />
+            
+            <div>
+                {/* Hero Section */}
+                <section className="max-w-[1600px] mx-auto rounded-3xl sm:p-6 md:p-12 mb-16 dark:from-transparent dark:to-transparent">
+                    <div className="flex flex-col-reverse md:flex-row items-center gap-8">
+                        <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6 leading-tight">
+                                {t("home.title")}
+                            </h1>
+                            <p className="sm:text-xl lg:text-2xl mb-8">
+                                {t("home.subtitle")}
+                            </p>
+                            <div className="mb-4">
+                                <Link href="/get-started">
+                                    <InteractiveHoverButton>
+                                        {t("home.ctaButton")}
+                                    </InteractiveHoverButton>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-2/5 flex items-center justify-center py-4">
+                            <Image
+                                src="/herocat.png"
+                                alt="Hero Cat"
+                                width={400}
+                                height={400}
+                                style={{
+                                    maxWidth: "400px",
+                                    width: "100%",
+                                    height: "auto",
+                                }}
+                                priority
+                                className="floating-image rounded-full overflow-hidden"
+                            />
                         </div>
                     </div>
-                    <div className="w-full md:w-2/5 flex items-center justify-center py-4">
-                        <Image
-                            src="/herocat.png"
-                            alt="Hero Cat"
-                            width={400}
-                            height={400}
-                            style={{
-                                maxWidth: "400px",
-                                width: "100%",
-                                height: "auto",
-                            }}
-                            priority
-                            className="floating-image rounded-full overflow-hidden"
-                        />
-                    </div>
-                </div>
-            </section>
+                </section>
+
+                {/* Banner Ad Section */}
+                <section className="max-w-[1600px] mx-auto px-0 sm:px-6 mb-16">
+                    <HomeBannerAd adKey="hero-below" />
+                </section>
 
             {/* Games Section - Carousel Display */}
             <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
                 <FeaturedGamesCarousel />
+            </section>
+
+            {/* Banner Ad Section */}
+            <section className="max-w-[1600px] mx-auto px-0 sm:px-6 mb-16">
+                <HomeBannerAd adKey="before-blog" />
             </section>
 
             {/* Latest Blog Posts */}
@@ -322,6 +341,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background"></div>
                 </div>
             </section>
-        </div>
+            </div>
+        </>
     );
 }

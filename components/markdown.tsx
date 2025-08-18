@@ -7,6 +7,7 @@ import rehypeRaw from 'rehype-raw';
 import type { Components } from 'react-markdown';
 import Image from 'next/image';
 import Link from 'next/link';
+import BlogAd from './blog-ad';
 
 interface MarkdownProps {
   content: string;
@@ -101,15 +102,46 @@ const components: Components = {
 };
 
 export default function Markdown({ content }: MarkdownProps) {
+  // 将内容按段落分割，并在合适位置插入广告
+  const insertAdsInContent = (content: string) => {
+    const paragraphs = content.split('\n\n');
+    const result: string[] = [];
+    
+    paragraphs.forEach((paragraph, index) => {
+      result.push(paragraph);
+      
+      // 在第3段后插入广告标记
+      if (index === 2) {
+        result.push('<!-- AD_PLACEHOLDER -->');
+      }
+    });
+    
+    return result.join('\n\n');
+  };
+
+  const processedContent = insertAdsInContent(content);
+  
+  // 将处理后的内容分割成段落并渲染
+  const renderContentWithAds = () => {
+    const sections = processedContent.split('<!-- AD_PLACEHOLDER -->');
+    
+    return sections.map((section, index) => (
+      <React.Fragment key={index}>
+        <ReactMarkdown 
+          components={components}
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw, rehypeSlug, [rehypePrism, { ignoreMissing: true }]]}
+        >
+          {section.trim()}
+        </ReactMarkdown>
+        {index < sections.length - 1 && <BlogAd />}
+      </React.Fragment>
+    ));
+  };
+
   return (
     <div className="prose-lg max-w-none">
-      <ReactMarkdown 
-        components={components}
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw, rehypeSlug, [rehypePrism, { ignoreMissing: true }]]}
-      >
-        {content}
-      </ReactMarkdown>
+      {renderContentWithAds()}
     </div>
   );
 } 

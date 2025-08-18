@@ -14,6 +14,8 @@ import { getGame } from '@/data/games';
 import { useTranslations } from 'next-intl';
 import { ShareButton } from '@/components/share-button';
 import { ExternalLink, BookOpen } from 'lucide-react';
+import HomeBannerAd from '@/components/home-banner-ad';
+import Script from 'next/script';
 
 interface FaqItem {
   question: string;
@@ -68,6 +70,12 @@ export function GamePageTemplate({
   
   return (
       <>
+          <Script
+              async
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
+              crossOrigin="anonymous"
+          />
+          
           <Breadcrumbs
               items={[{ label: t("games"), href: "/games" }, { label: title }]}
           />
@@ -107,7 +115,13 @@ export function GamePageTemplate({
 
           {/* 认知益处 - 可选 */}
           {benefits && benefits.length > 0 && (
-              <section className="max-w-6xl mx-auto mb-16 py-16">
+              <>
+                  {/* Banner Ad Section - Before Cognitive Benefits */}
+                  <section className="max-w-6xl mx-auto mb-8">
+                      <HomeBannerAd adKey={`game-${gameId}-benefits`} />
+                  </section>
+                  
+                  <section className="max-w-6xl mx-auto mb-16 py-16">
                   <h2 className="text-3xl font-bold mb-12 text-center">
                       {gameT("cognitiveBenefits")}
                   </h2>
@@ -134,7 +148,8 @@ export function GamePageTemplate({
                           </div>
                       ))}
                   </div>
-              </section>
+                  </section>
+              </>
           )}
 
           {/* 游戏背后的科学 - 可选 */}

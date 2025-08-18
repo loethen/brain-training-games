@@ -8,6 +8,8 @@ import Markdown from '@/components/markdown';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { PostNavigation } from '@/components/post-navigation';
 import { ShareButton } from '@/components/share-button';
+import BlogAd from '@/components/blog-ad';
+import Script from 'next/script';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
@@ -49,70 +51,80 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const navigation = await getPostNavigation(slug, locale);
   
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-3xl mx-auto">
-        <Breadcrumb 
-          items={[
-            { label: t('title'), href: `/${locale}/blog` },
-            { label: t('currentArticle') }
-          ]}
-          homeLabel={commonT('home')}
-          locale={locale}
-        />
+    <>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
+        crossOrigin="anonymous"
+      />
+      
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-3xl mx-auto">
+          <Breadcrumb 
+            items={[
+              { label: t('title'), href: `/${locale}/blog` },
+              { label: t('currentArticle') }
+            ]}
+            homeLabel={commonT('home')}
+            locale={locale}
+          />
 
-        <article>
-          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-          
-          <div className="flex items-center mb-6">
-            {post.author.picture && (
-              <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
+          <article>
+            <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+            
+            <div className="flex items-center mb-6">
+              {post.author.picture && (
+                <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
+                  <Image
+                    src={post.author.picture}
+                    alt={post.author.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              <div>
+                <div className="font-medium">{post.author.name}</div>
+                <div className="text-sm text-muted-foreground">
+                  {formatDate(post.date, locale)}
+                </div>
+              </div>
+            </div>
+            
+            {post.coverImage && (
+              <div className="relative h-[300px] md:h-[400px] mb-8 rounded-lg overflow-hidden">
                 <Image
-                  src={post.author.picture}
-                  alt={post.author.name}
+                  src={post.coverImage}
+                  alt={post.title}
                   fill
                   className="object-cover"
+                  priority
                 />
               </div>
             )}
-            <div>
-              <div className="font-medium">{post.author.name}</div>
-              <div className="text-sm text-muted-foreground">
-                {formatDate(post.date, locale)}
-              </div>
+            
+            <div className="mb-8">
+              <ShareButton title={post.title} />
             </div>
-          </div>
-          
-          {post.coverImage && (
-            <div className="relative h-[300px] md:h-[400px] mb-8 rounded-lg overflow-hidden">
-              <Image
-                src={post.coverImage}
-                alt={post.title}
-                fill
-                className="object-cover"
-                priority
-              />
+
+            <div className="prose prose-lg dark:prose-invert max-w-none post-ul-list">
+              <Markdown content={post.content} />
             </div>
-          )}
+
+            <BlogAd />
+          </article>
           
-          <div className="mb-8">
-            <ShareButton title={post.title} />
-          </div>
-          
-          <div className="prose prose-lg dark:prose-invert max-w-none post-ul-list">
-            <Markdown content={post.content} />
-          </div>
-        </article>
-        
-        <PostNavigation
-          previousPost={navigation.previousPost}
-          nextPost={navigation.nextPost}
-          locale={locale}
-          labels={{
-            previousPost: t('previousPost'),
-            nextPost: t('nextPost')
-          }}
-        />
+          <PostNavigation
+            previousPost={navigation.previousPost}
+            nextPost={navigation.nextPost}
+            locale={locale}
+            labels={{
+              previousPost: t('previousPost'),
+              nextPost: t('nextPost')
+            }}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 } 
