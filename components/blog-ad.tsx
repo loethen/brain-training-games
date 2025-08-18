@@ -14,7 +14,7 @@ declare global {
 }
 
 export default function BlogAd({ className = '', adKey = 'default' }: BlogAdProps) {
-  const adRef = useRef<HTMLElement>(null);
+  const adRef = useRef<HTMLModElement>(null);
   const hasLoaded = useRef(false);
 
   useEffect(() => {

@@ -14,7 +14,7 @@ declare global {
 }
 
 export default function HomeBannerAd({ className = '', adKey = 'default' }: HomeBannerAdProps) {
-  const adRef = useRef<HTMLElement>(null);
+  const adRef = useRef<HTMLModElement>(null);
   const hasLoaded = useRef(false);
 
   useEffect(() => {
