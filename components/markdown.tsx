@@ -109,7 +109,7 @@ export default function Markdown({ content }: MarkdownProps) {
     let h2Count = 0;
     let adInserted = false;
     
-    lines.forEach((line, index) => {
+    lines.forEach((line) => {
       // 检查是否是h2标题（markdown格式: ## 标题）
       if (line.trim().startsWith('## ') && !adInserted) {
         h2Count++;
