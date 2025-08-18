@@ -155,11 +155,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </section>
 
-                {/* Banner Ad Section */}
-                <section className="max-w-[1600px] mx-auto px-0 sm:px-6 mb-16">
-                    <HomeBannerAd adKey="hero-below" />
-                </section>
-
             {/* Games Section - Carousel Display */}
             <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
                 <FeaturedGamesCarousel />

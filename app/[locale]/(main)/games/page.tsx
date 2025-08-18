@@ -112,9 +112,21 @@ export default function GamesPage() {
                           {t('trainingPlans.focus.description')}
                       </p>
                       <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                          <li>{t('trainingPlans.focus.item1')}</li>
-                          <li>{t('trainingPlans.focus.item2')}</li>
-                          <li>{t('trainingPlans.focus.item3')}</li>
+                          <li>
+                              <Link href="/games/schulte-table" className="hover:text-primary hover:underline">
+                                  {t('trainingPlans.focus.item1')}
+                              </Link>
+                          </li>
+                          <li>
+                              <Link href="/games/fish-trace" className="hover:text-primary hover:underline">
+                                  {t('trainingPlans.focus.item2')}
+                              </Link>
+                          </li>
+                          <li>
+                              <Link href="/games/larger-number" className="hover:text-primary hover:underline">
+                                  {t('trainingPlans.focus.item3')}
+                              </Link>
+                          </li>
                       </ul>
                   </div>
 
@@ -126,9 +138,21 @@ export default function GamesPage() {
                           {t('trainingPlans.memory.description')}
                       </p>
                       <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                          <li>{t('trainingPlans.memory.item1')}</li>
-                          <li>{t('trainingPlans.memory.item2')}</li>
-                          <li>{t('trainingPlans.memory.item3')}</li>
+                          <li>
+                              <Link href="/games/dual-n-back" className="hover:text-primary hover:underline">
+                                  {t('trainingPlans.memory.item1')}
+                              </Link>
+                          </li>
+                          <li>
+                              <Link href="/games/block-memory-challenge" className="hover:text-primary hover:underline">
+                                  {t('trainingPlans.memory.item2')}
+                              </Link>
+                          </li>
+                          <li>
+                              <Link href="/games/frog-memory-leap" className="hover:text-primary hover:underline">
+                                  {t('trainingPlans.memory.item3')}
+                              </Link>
+                          </li>
                       </ul>
                   </div>
 
@@ -140,9 +164,21 @@ export default function GamesPage() {
                           {t('trainingPlans.flexibility.description')}
                       </p>
                       <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                          <li>{t('trainingPlans.flexibility.item1')}</li>
-                          <li>{t('trainingPlans.flexibility.item2')}</li>
-                          <li>{t('trainingPlans.flexibility.item3')}</li>
+                          <li>
+                              <Link href="/games/mahjong-dual-n-back" className="hover:text-primary hover:underline">
+                                  {t('trainingPlans.flexibility.item1')}
+                              </Link>
+                          </li>
+                          <li>
+                              <Link href="/games/larger-number" className="hover:text-primary hover:underline">
+                                  {t('trainingPlans.flexibility.item2')}
+                              </Link>
+                          </li>
+                          <li>
+                              <Link href="/games/stroop-effect-test" className="hover:text-primary hover:underline">
+                                  {t('trainingPlans.flexibility.item3')}
+                              </Link>
+                          </li>
                       </ul>
                   </div>
               </div>

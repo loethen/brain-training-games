@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               <Markdown content={post.content} />
             </div>
 
-            <BlogAd />
+            <BlogAd adKey="blog-end" />
           </article>
           
           <PostNavigation

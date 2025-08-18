@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface BlogAdProps {
   className?: string;
+  adKey?: string;
 }
 
 declare global {
@@ -12,11 +13,17 @@ declare global {
   }
 }
 
-export default function BlogAd({ className = '' }: BlogAdProps) {
+export default function BlogAd({ className = '', adKey = 'default' }: BlogAdProps) {
+  const adRef = useRef<HTMLElement>(null);
+  const hasLoaded = useRef(false);
+
   useEffect(() => {
+    if (hasLoaded.current || !adRef.current) return;
+    
     try {
       if (typeof window !== 'undefined' && window.adsbygoogle) {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
+        hasLoaded.current = true;
       }
     } catch (error) {
       console.error('AdSense error:', error);
@@ -26,6 +33,7 @@ export default function BlogAd({ className = '' }: BlogAdProps) {
   return (
     <div className={`w-full my-8 ${className}`}>
       <ins 
+        ref={adRef}
         className="adsbygoogle"
         style={{
           display: 'block',
@@ -35,6 +43,7 @@ export default function BlogAd({ className = '' }: BlogAdProps) {
         data-ad-format="fluid"
         data-ad-client="ca-pub-2676017781507774"
         data-ad-slot="8875305437"
+        key={adKey}
       />
     </div>
   );

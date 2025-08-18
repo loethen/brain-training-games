@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { Breadcrumb } from '@/components/breadcrumb';
 import BlogListAd from '@/components/blog-list-ad';
 import Script from 'next/script';
+import React from 'react';
 
 export async function generateMetadata({
     params,
@@ -57,8 +58,8 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
           
           <div className="grid gap-8">
             {posts.map((post, index) => (
-              <>
-                <article key={post.slug} className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow">
+              <React.Fragment key={post.slug}>
+                <article className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow">
                   <Link href={`/${locale}/blog/${post.slug}`}>
                     <div className="grid md:grid-cols-[1fr_2fr]">
                       {post.coverImage && (
@@ -95,7 +96,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                   </Link>
                 </article>
                 {index === 2 && <BlogListAd />}
-              </>
+              </React.Fragment>
             ))}
           </div>
         </div>

@@ -5,6 +5,8 @@ import { Header } from "./header"
 import { useState, useEffect, useCallback } from "react"
 import { Footer } from "./Footer"
 import { useTranslations } from 'next-intl';
+import HomeBannerAd from './home-banner-ad';
+import Script from 'next/script';
 
 export function Layout({
     children,
@@ -63,8 +65,15 @@ export function Layout({
     );
 
     return (
-        <div className="min-h-screen">
-            <Header onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+        <>
+            <Script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
+                crossOrigin="anonymous"
+            />
+            
+            <div className="min-h-screen">
+                <Header onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
             {/* Sidebar */}
             <div
@@ -112,9 +121,16 @@ export function Layout({
                     }`}
                 >
                     {children}
+                    
+                    {/* Footer上方的固定广告 */}
+                    <section className="max-w-[1600px] mx-auto px-0 sm:px-6 mt-16 mb-8">
+                        <HomeBannerAd adKey="before-footer" />
+                    </section>
+                    
                     <Footer />
                 </main>
             </div>
         </div>
+        </>
     );
 } 

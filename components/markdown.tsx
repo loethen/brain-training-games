@@ -102,26 +102,35 @@ const components: Components = {
 };
 
 export default function Markdown({ content }: MarkdownProps) {
-  // 将内容按段落分割，并在合适位置插入广告
+  // 在第2个h2标题上方插入广告
   const insertAdsInContent = (content: string) => {
-    const paragraphs = content.split('\n\n');
+    const lines = content.split('\n');
     const result: string[] = [];
+    let h2Count = 0;
+    let adInserted = false;
     
-    paragraphs.forEach((paragraph, index) => {
-      result.push(paragraph);
-      
-      // 在第3段后插入广告标记
-      if (index === 2) {
-        result.push('<!-- AD_PLACEHOLDER -->');
+    lines.forEach((line, index) => {
+      // 检查是否是h2标题（markdown格式: ## 标题）
+      if (line.trim().startsWith('## ') && !adInserted) {
+        h2Count++;
+        
+        // 在第2个h2标题前插入广告
+        if (h2Count === 2) {
+          result.push('<!-- AD_PLACEHOLDER -->');
+          result.push('');
+          adInserted = true;
+        }
       }
+      
+      result.push(line);
     });
     
-    return result.join('\n\n');
+    return result.join('\n');
   };
 
   const processedContent = insertAdsInContent(content);
   
-  // 将处理后的内容分割成段落并渲染
+  // 将处理后的内容分割并渲染
   const renderContentWithAds = () => {
     const sections = processedContent.split('<!-- AD_PLACEHOLDER -->');
     
@@ -134,7 +143,7 @@ export default function Markdown({ content }: MarkdownProps) {
         >
           {section.trim()}
         </ReactMarkdown>
-        {index < sections.length - 1 && <BlogAd />}
+        {index < sections.length - 1 && <BlogAd adKey={`blog-h2-${index}`} />}
       </React.Fragment>
     ));
   };
