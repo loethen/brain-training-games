@@ -5,7 +5,7 @@ import { formatDate } from '@/lib/utils';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { Breadcrumb } from '@/components/breadcrumb';
-import BlogListAd from '@/components/blog-list-ad';
+import HomeBannerAd from '@/components/home-banner-ad';
 import Script from 'next/script';
 import React from 'react';
 
@@ -95,7 +95,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                     </div>
                   </Link>
                 </article>
-                {index === 2 && <BlogListAd />}
+                {index === 2 && <HomeBannerAd adKey="blog-list" />}
               </React.Fragment>
             ))}
           </div>
