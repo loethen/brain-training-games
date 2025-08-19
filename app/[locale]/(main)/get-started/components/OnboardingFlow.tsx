@@ -4,6 +4,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Check, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { analytics } from '@/lib/analytics';
 
 // 导入测试组件
 import ReactionTimeTest from './tests/ReactionTimeTest';
@@ -89,9 +90,14 @@ export default function OnboardingFlow() {
 
   // 开始评估
   const startAssessment = useCallback(() => {
+    // 追踪开始评估事件
+    analytics.assessment.start({
+      test_type: `assessment_${selectedGoal}`,
+    });
+    
     setCurrentTestIndex(0);
     setStep(prev => prev + 1);
-  }, []);
+  }, [selectedGoal]);
 
   // 进入下一个测试
   const proceedToNextTest = useCallback(() => {
@@ -101,21 +107,33 @@ export default function OnboardingFlow() {
     }
   }, [currentTestIndex, currentTestTypes.length]);
 
+  // 检查是否是最后一个测试并追踪完成事件
+  const handleTestCompleteWithTracking = useCallback(() => {
+    if (currentTestIndex === currentTestTypes.length - 1) {
+      // 追踪评估完成事件
+      analytics.assessment.complete({
+        test_type: `assessment_${selectedGoal}`,
+        recommendations: ['dual-n-back'] // 默认推荐，实际推荐会在渲染时计算
+      });
+    }
+    proceedToNextTest();
+  }, [currentTestIndex, currentTestTypes.length, selectedGoal, proceedToNextTest]);
+
   // 各种测试完成的回调
   const handleReactionTimeComplete = useCallback((avgReactionTime: number) => {
     setAssessmentResults(prev => ({ ...prev, reactionTime: avgReactionTime }));
-    proceedToNextTest();
-  }, [proceedToNextTest]);
+    handleTestCompleteWithTracking();
+  }, [handleTestCompleteWithTracking]);
 
   const handleMemoryComplete = useCallback((score: number) => {
     setAssessmentResults(prev => ({ ...prev, memoryScore: score }));
-    proceedToNextTest();
-  }, [proceedToNextTest]);
+    handleTestCompleteWithTracking();
+  }, [handleTestCompleteWithTracking]);
 
   const handleProcessingSpeedComplete = useCallback((score: number) => {
     setAssessmentResults(prev => ({ ...prev, processingSpeed: score }));
-    proceedToNextTest();
-  }, [proceedToNextTest]);
+    handleTestCompleteWithTracking();
+  }, [handleTestCompleteWithTracking]);
 
   const handleStroopComplete = useCallback((score: number, avgReactionTime: number) => {
     setAssessmentResults(prev => ({ 
@@ -123,8 +141,8 @@ export default function OnboardingFlow() {
       stroopScore: score, 
       stroopReactionTime: avgReactionTime 
     }));
-    proceedToNextTest();
-  }, [proceedToNextTest]);
+    handleTestCompleteWithTracking();
+  }, [handleTestCompleteWithTracking]);
 
   const handleWordMemoryComplete = useCallback((score: number, wordsRecalled: number) => {
     setAssessmentResults(prev => ({ 
@@ -132,8 +150,8 @@ export default function OnboardingFlow() {
       wordMemoryScore: score, 
       wordsRecalled: wordsRecalled 
     }));
-    proceedToNextTest();
-  }, [proceedToNextTest]);
+    handleTestCompleteWithTracking();
+  }, [handleTestCompleteWithTracking]);
 
   // 推荐游戏逻辑
   const getRecommendation = useCallback((goal: string) => {
@@ -430,7 +448,18 @@ export default function OnboardingFlow() {
           {/* 开始训练按钮 */}
           <div className="text-center">
             <Link href={`/games/${recommendation.gameSlug}`}>
-              <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl">
+              <button 
+                className="inline-flex items-center gap-2 px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl"
+                onClick={() => {
+                  // 追踪推荐游戏点击事件
+                  analytics.navigation.recommendation({
+                    from_page: 'get-started',
+                    to_page: `games/${recommendation.gameSlug}`,
+                    source: 'assessment_recommendation',
+                    game_to: recommendation.gameSlug
+                  });
+                }}
+              >
                 {tRecommendations('startTraining')}
                 <ArrowRight size={18} />
               </button>

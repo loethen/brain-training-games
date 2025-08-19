@@ -11,6 +11,7 @@ import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { ShareModal } from "@/components/ui/ShareModal";
 import { useTranslations, useLocale } from "next-intl";
 import GameSettings, { GameSettings as GameSettingsType } from "./GameSettings";
+import { analytics } from "@/lib/analytics";
 
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
@@ -58,8 +59,17 @@ function useGameSettings() {
 
     // 安全更新设置的方法
     const updateSettings = useCallback((newSettings: GameSettingsType) => {
+        // 追踪设置变化（仅在开发环境或重要变化时）
+        if (typeof window !== 'undefined' && newSettings.selectedNBack !== settings.selectedNBack) {
+            analytics.game.settings({
+                game_id: 'dual-n-back',
+                setting_changed: 'difficulty_level',
+                level: newSettings.selectedNBack
+            });
+        }
+        
         setSettings(newSettings);
-    }, []);
+    }, [settings.selectedNBack]);
 
     return { settings, updateSettings };
 }
@@ -95,6 +105,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
     const [startDelay, setStartDelay] = useState<number | null>(null);
     const [intervalDelay, setIntervalDelay] = useState<number | null>(null); // 试验间隔
     const audioRefs = useRef<{ [key: string]: Howl }>({});      // 音频引用缓存
+    const [gameStartTime, setGameStartTime] = useState<number>(0); // 游戏开始时间
 
     // 添加滚动容器的ref
     const gameContainerRef = useRef<HTMLDivElement>(null);
@@ -145,6 +156,18 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
     });
 
     const startGame = useCallback(() => {
+        // 记录游戏开始时间和追踪事件
+        const startTime = Date.now();
+        setGameStartTime(startTime);
+        
+        // 追踪游戏开始事件
+        analytics.game.start({
+            game_id: 'dual-n-back',
+            mode: settings.selectedTypes.join('-'),
+            level: settings.selectedNBack,
+            difficulty: settings.selectedNBack >= 3 ? 'hard' : settings.selectedNBack >= 2 ? 'medium' : 'easy'
+        });
+        
         setIsLoading(true);
         setGameState("idle");
         setCurrentTrial(0);
@@ -176,7 +199,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
         setTimeout(() => {
             setStartDelay(GAME_CONFIG.trials.startDelay);
         }, 0);
-    }, []);
+    }, [settings.selectedTypes, settings.selectedNBack]);
 
     // 修改handleResponse方法
     const handleResponse = useCallback((type: "position" | "audio") => {
@@ -245,18 +268,41 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
     
     // 分享分数
     const shareScore = useCallback(() => {
+        // 计算当前分数和准确率
+        const correctResponses = results.filter(r => 
+            (r.isPositionMatch ? r.isCorrectPositionResponse : r.response.positionMatch !== true) &&
+            (r.isAudioMatch ? r.isCorrectAudioResponse : r.response.audioMatch !== true)
+        );
+        const accuracy = results.length > 0 ? Math.round((correctResponses.length / results.length) * 100) : 0;
+        
+        // 追踪分享事件
+        analytics.social.share({
+            game_id: 'dual-n-back',
+            score: correctResponses.length,
+            accuracy: accuracy
+        });
+        
         setShowShareModal(true);
-    }, []);
+    }, [results]);
     
     // 暂停/继续游戏
     const togglePause = useCallback(() => {
+        const action = isPaused ? 'resume' : 'pause';
+        
+        // 追踪暂停/恢复事件
+        analytics.game.pause({
+            game_id: 'dual-n-back',
+            action: action,
+            level: settings.selectedNBack
+        });
+        
         if (isPaused) {
             setIntervalDelay(settings.trialInterval);
         } else {
             setIntervalDelay(null);
         }
         setIsPaused(prev => !prev);
-    }, [isPaused, settings.trialInterval]);
+    }, [isPaused, settings.trialInterval, settings.selectedNBack]);
 
     // 添加键盘快捷键支持
     useEffect(() => {
@@ -335,6 +381,25 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
         setGameState("complete");
         setIntervalDelay(null);
         
+        // 计算游戏统计数据
+        const gameDuration = gameStartTime > 0 ? Date.now() - gameStartTime : 0;
+        const correctResponses = results.filter(r => 
+            (r.isPositionMatch ? r.isCorrectPositionResponse : r.response.positionMatch !== true) &&
+            (r.isAudioMatch ? r.isCorrectAudioResponse : r.response.audioMatch !== true)
+        );
+        const accuracy = results.length > 0 ? Math.round((correctResponses.length / results.length) * 100) : 0;
+        
+        // 追踪游戏完成事件
+        analytics.game.complete({
+            game_id: 'dual-n-back',
+            mode: settings.selectedTypes.join('-'),
+            level: settings.selectedNBack,
+            score: correctResponses.length,
+            duration_ms: gameDuration,
+            accuracy: accuracy,
+            difficulty: settings.selectedNBack >= 3 ? 'hard' : settings.selectedNBack >= 2 ? 'medium' : 'easy'
+        });
+        
         // 触发胜利动画
         const isPerfectScore = results.every(r => 
             (r.isPositionMatch ? r.isCorrectPositionResponse : r.response.positionMatch !== true) &&
@@ -348,7 +413,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                 origin: { y: 0.6 }
             });
         }
-    }, [results]);
+    }, [results, settings.selectedTypes, settings.selectedNBack, gameStartTime]);
 
     // 修改生成随机试验刺激的函数
     const generateTrial = useCallback((): TrialStimuli => {

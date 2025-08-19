@@ -6,7 +6,8 @@
       "Bash(npm run build:*)",
       "Bash(find:*)",
       "Bash(mv:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(git restore:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
