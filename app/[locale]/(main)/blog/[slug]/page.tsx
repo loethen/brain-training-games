@@ -8,7 +8,6 @@ import Markdown from '@/components/markdown';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { PostNavigation } from '@/components/post-navigation';
 import { ShareButton } from '@/components/share-button';
-import BlogAd from '@/components/blog-ad';
 import Script from 'next/script';
 
 export async function generateMetadata(
