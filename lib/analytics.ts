@@ -35,6 +35,19 @@ export interface NavigationEventData {
   game_to?: string;
 }
 
+// 教程事件数据类型
+export interface TutorialEventData {
+  game_id: string;
+  tutorial_step?: number;
+  total_steps?: number;
+  completion_rate?: number;
+  duration_ms?: number;
+  correct_responses?: number;
+  total_responses?: number;
+  exit_step?: number;
+  source?: string;
+}
+
 // 检查 gtag 是否可用
 const isGtagAvailable = (): boolean => {
   return typeof window !== 'undefined' && typeof window.gtag === 'function';
@@ -148,6 +161,59 @@ export const trackShareResults = (data: GameEventData) => {
   });
 };
 
+// ==================== 教程互动事件 ====================
+
+// 10. 开始教程 (关键事件)
+export const trackTutorialStart = (data: TutorialEventData) => {
+  trackEvent('tutorial_start', {
+    game_id: data.game_id,
+    total_steps: data.total_steps || 5,
+    source: data.source || 'game_page'
+  });
+};
+
+// 11. 教程步骤完成
+export const trackTutorialStep = (data: TutorialEventData) => {
+  trackEvent('tutorial_step_complete', {
+    game_id: data.game_id,
+    tutorial_step: data.tutorial_step || 1,
+    total_steps: data.total_steps || 5,
+    correct_responses: data.correct_responses || 0,
+    total_responses: data.total_responses || 0
+  });
+};
+
+// 12. 教程完成 (关键事件)
+export const trackTutorialComplete = (data: TutorialEventData) => {
+  trackEvent('tutorial_complete', {
+    game_id: data.game_id,
+    completion_rate: 100, // 完成率100%
+    duration_ms: data.duration_ms || 0,
+    correct_responses: data.correct_responses || 0,
+    total_responses: data.total_responses || 0,
+    source: data.source || 'game_page'
+  });
+};
+
+// 13. 教程退出 (重要事件)
+export const trackTutorialExit = (data: TutorialEventData) => {
+  trackEvent('tutorial_exit', {
+    game_id: data.game_id,
+    exit_step: data.exit_step || 1,
+    total_steps: data.total_steps || 5,
+    completion_rate: data.completion_rate || 0,
+    duration_ms: data.duration_ms || 0
+  });
+};
+
+// 14. 教程按钮点击 (from how-to-play section)
+export const trackTutorialButtonClick = (data: TutorialEventData) => {
+  trackEvent('tutorial_button_click', {
+    game_id: data.game_id,
+    source: data.source || 'how_to_play_section'
+  });
+};
+
 // 10. 页面停留时间（用于分析参与度）
 export const trackPageEngagement = (pagePath: string, engagementTime: number) => {
   if (engagementTime > 5000) { // 只追踪停留超过5秒的页面
@@ -191,6 +257,13 @@ export const analytics = {
     complete: trackCompleteGame,
     settings: trackGameSettings,
     pause: trackGamePause
+  },
+  tutorial: {
+    start: trackTutorialStart,
+    step: trackTutorialStep,
+    complete: trackTutorialComplete,
+    exit: trackTutorialExit,
+    buttonClick: trackTutorialButtonClick
   },
   navigation: {
     toAssessment: trackNavigateToAssessment,

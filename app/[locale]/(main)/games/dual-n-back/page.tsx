@@ -4,6 +4,7 @@ import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Brain, Layers, Zap } from 'lucide-react'
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import TutorialButton from './components/TutorialButton';
 
 // 将静态元数据改为动态生成函数
 export async function generateMetadata(
@@ -69,12 +70,7 @@ export default function DualNBackPage() {
                 <p className="text-sm font-medium">{t('gameUI.tutorial.bestLearningMethod')}</p>
                 <p className="text-xs text-muted-foreground">{t('gameUI.tutorial.quickMastery')}</p>
               </div>
-              <button 
-                id="tutorial-trigger-howtoplay"
-                className="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-primary/90 transition-colors"
-              >
-                🎓 {t('gameUI.tutorial.interactiveTutorial')}
-              </button>
+              <TutorialButton />
             </div>
           </div>
           <ul className="list-disc pl-5 mt-2 space-y-1">

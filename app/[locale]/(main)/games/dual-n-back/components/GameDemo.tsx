@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Volume2, Square, CheckCircle, XCircle, Brain, ChevronLeft, ChevronRight } from "lucide-react";
 import { Howl } from "howler";
 import { useTranslations, useLocale } from "next-intl";
+import { analytics } from "@/lib/analytics";
 
 // 互动教程序列：1-back逻辑，与实际游戏一致
 const TUTORIAL_SEQUENCE = [
@@ -66,6 +67,11 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
     const [isWaitingForUser, setIsWaitingForUser] = useState(false);
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
     
+    // 教程追踪数据
+    const [tutorialStartTime, setTutorialStartTime] = useState<number>(0);
+    const [correctResponses, setCorrectResponses] = useState<number>(0);
+    const [totalResponses, setTotalResponses] = useState<number>(0);
+    
     const audioRefs = useRef<{ [key: string]: Howl }>({});
     const currentTutorial = TUTORIAL_SEQUENCE[currentStep];
 
@@ -79,12 +85,24 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
         setUserResponse({ position: false, audio: false });
         setFeedback(null);
         setIsWaitingForUser(false);
+        setTutorialStartTime(0);
+        setCorrectResponses(0);
+        setTotalResponses(0);
     }, []);
 
-    // 当弹窗打开时重置
+    // 当弹窗打开时重置并追踪开始事件
     useEffect(() => {
         if (isOpen) {
             resetTutorial();
+            const startTime = Date.now();
+            setTutorialStartTime(startTime);
+            
+            // 追踪教程开始事件
+            analytics.tutorial.start({
+                game_id: 'dual-n-back',
+                total_steps: TUTORIAL_SEQUENCE.length,
+                source: 'game_page'
+            });
         }
     }, [isOpen, resetTutorial]);
 
@@ -118,6 +136,17 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
 
     // 进入下一步
     const nextStep = useCallback(() => {
+        // 追踪当前步骤完成
+        if (currentStep < TUTORIAL_SEQUENCE.length) {
+            analytics.tutorial.step({
+                game_id: 'dual-n-back',
+                tutorial_step: currentStep + 1,
+                total_steps: TUTORIAL_SEQUENCE.length,
+                correct_responses: correctResponses,
+                total_responses: totalResponses
+            });
+        }
+        
         setUserResponse({ position: false, audio: false });
         setFeedback(null);
         setIsWaitingForUser(false);
@@ -126,10 +155,20 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
             setCurrentStep(prev => prev + 1);
         } else {
             // 教程完成
+            const duration = tutorialStartTime > 0 ? Date.now() - tutorialStartTime : 0;
+            
+            analytics.tutorial.complete({
+                game_id: 'dual-n-back',
+                duration_ms: duration,
+                correct_responses: correctResponses,
+                total_responses: totalResponses,
+                source: 'game_page'
+            });
+            
             onComplete();
             onClose();
         }
-    }, [currentStep, onComplete, onClose]);
+    }, [currentStep, onComplete, onClose, correctResponses, totalResponses, tutorialStartTime]);
 
     // 返回上一步
     const prevStep = useCallback(() => {
@@ -148,6 +187,9 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
         const newResponse = { ...userResponse, [type]: true };
         setUserResponse(newResponse);
 
+        // 更新总响应次数
+        setTotalResponses(prev => prev + 1);
+
         // 检查是否正确
         const isCorrect = currentTutorial.isMatch[type];
         
@@ -161,6 +203,9 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
             }, 1500);
             return;
         }
+
+        // 如果点击正确，更新正确响应次数
+        setCorrectResponses(prev => prev + 1);
 
         // 如果点击正确，检查是否需要点击两个按钮
         const needsBothButtons = currentTutorial.isMatch.position && currentTutorial.isMatch.audio;
@@ -198,8 +243,28 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
         return () => clearTimeout(audioTimer);
     }, [currentStep, currentTutorial, playCurrentAudio]);
 
+    // 处理教程关闭事件
+    const handleClose = useCallback((open: boolean) => {
+        if (!open && isOpen) {
+            // 如果没有完成教程就关闭，追踪退出事件
+            if (currentStep < TUTORIAL_SEQUENCE.length - 1) {
+                const duration = tutorialStartTime > 0 ? Date.now() - tutorialStartTime : 0;
+                const completionRate = currentStep / (TUTORIAL_SEQUENCE.length - 1) * 100;
+                
+                analytics.tutorial.exit({
+                    game_id: 'dual-n-back',
+                    exit_step: currentStep + 1,
+                    total_steps: TUTORIAL_SEQUENCE.length,
+                    completion_rate: completionRate,
+                    duration_ms: duration
+                });
+            }
+            onClose();
+        }
+    }, [isOpen, currentStep, tutorialStartTime, onClose]);
+
     return (
-        <Dialog open={isOpen} onOpenChange={onClose}>
+        <Dialog open={isOpen} onOpenChange={handleClose}>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
