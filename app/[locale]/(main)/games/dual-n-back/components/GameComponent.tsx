@@ -80,7 +80,6 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
     // 如果提供了 t prop，则使用它，否则使用 useTranslations 获取
     const defaultT = useTranslations('games.dualNBack.gameUI');
     const t = propT || defaultT;
-    const locale = useLocale();
     
     const { settings, updateSettings } = useGameSettings();
     
