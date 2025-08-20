@@ -8,7 +8,7 @@ export const GAME_CONFIG = {
         size: 3, // 3x3 grid
     },
     difficulty: {
-        initialLevel: 2, // Start with 1-back
+        initialLevel: 1, // Start with 1-back
         maxLevel: 10, // Maximum n-back level
         targetAccuracy: 80, // Percentage required to advance
     },

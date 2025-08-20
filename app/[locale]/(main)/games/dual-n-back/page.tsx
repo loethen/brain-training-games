@@ -36,6 +36,20 @@ export default function DualNBackPage() {
       howToPlay={
         <>
           <p>{t('howToPlayIntro')}</p>
+          <div className="my-4 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium">{t('gameUI.tutorial.bestLearningMethod')}</p>
+                <p className="text-xs text-muted-foreground">{t('gameUI.tutorial.quickMastery')}</p>
+              </div>
+              <button 
+                id="tutorial-trigger-howtoplay"
+                className="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-primary/90 transition-colors"
+              >
+                🎓 {t('gameUI.tutorial.interactiveTutorial')}
+              </button>
+            </div>
+          </div>
           <ul className="list-disc pl-5 mt-2 space-y-1">
             <li>{t('howToPlay1')}</li>
             <li>{t('howToPlay2')}</li>

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { GAME_CONFIG } from "../config";
 import { cn } from "@/lib/utils";
-import { PlayCircle, Share2, Volume2, Square, PauseCircle } from "lucide-react";
+import { PlayCircle, Share2, Volume2, Square } from "lucide-react";
 import { Howl } from "howler";
 import { useInterval } from "@/hooks/useInterval";
 import { useTimeout } from "@/hooks/useTimeout";
@@ -10,7 +10,9 @@ import confetti from "canvas-confetti";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { ShareModal } from "@/components/ui/ShareModal";
 import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
 import GameSettings, { GameSettings as GameSettingsType } from "./GameSettings";
+import GameDemo from "./GameDemo";
 import { analytics } from "@/lib/analytics";
 
 // 定义游戏状态类型
@@ -78,6 +80,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
     // 如果提供了 t prop，则使用它，否则使用 useTranslations 获取
     const defaultT = useTranslations('games.dualNBack.gameUI');
     const t = propT || defaultT;
+    const locale = useLocale();
     
     const { settings, updateSettings } = useGameSettings();
     
@@ -96,9 +99,9 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
     const [isPositionHighlight, setIsPositionHighlight] = useState(false);
     const [isAudioHighlight, setIsAudioHighlight] = useState(false);
-    const [isPaused, setIsPaused] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [showShareModal, setShowShareModal] = useState(false);
+    const [showTutorial, setShowTutorial] = useState(false);
     
     // 添加一个状态来存储当前游戏会话的字母集
     const [sessionLetters, setSessionLetters] = useState<string[]>([]);
@@ -285,29 +288,11 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
         setShowShareModal(true);
     }, [results]);
     
-    // 暂停/继续游戏
-    const togglePause = useCallback(() => {
-        const action = isPaused ? 'resume' : 'pause';
-        
-        // 追踪暂停/恢复事件
-        analytics.game.pause({
-            game_id: 'dual-n-back',
-            action: action,
-            level: settings.selectedNBack
-        });
-        
-        if (isPaused) {
-            setIntervalDelay(settings.trialInterval);
-        } else {
-            setIntervalDelay(null);
-        }
-        setIsPaused(prev => !prev);
-    }, [isPaused, settings.trialInterval, settings.selectedNBack]);
 
     // 添加键盘快捷键支持
     useEffect(() => {
         const handleKeyPress = (e: KeyboardEvent) => {
-            if (gameState !== "playing" || isPaused) return;
+            if (gameState !== "playing") return;
 
             if (e.key === "a" || e.key === "A") {
                 handleResponse("position");
@@ -318,7 +303,25 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
 
         window.addEventListener("keydown", handleKeyPress);
         return () => window.removeEventListener("keydown", handleKeyPress);
-    }, [gameState, handleResponse, isPaused]);
+    }, [gameState, handleResponse]);
+
+    // 监听外部教程按钮点击
+    useEffect(() => {
+        const handleTutorialClick = () => {
+            setShowTutorial(true);
+        };
+
+        const tutorialButton = document.getElementById('tutorial-trigger-howtoplay');
+        if (tutorialButton) {
+            tutorialButton.addEventListener('click', handleTutorialClick);
+        }
+
+        return () => {
+            if (tutorialButton) {
+                tutorialButton.removeEventListener('click', handleTutorialClick);
+            }
+        };
+    }, []);
 
     // 定时器钩子：控制试验间隔
     useInterval(() => {
@@ -508,19 +511,6 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        {gameState === "playing" && (
-                            <Button
-                                onClick={togglePause}
-                                variant="outline"
-                                size="sm"
-                            >
-                                {isPaused ? (
-                                    <PlayCircle className="h-4 w-4" />
-                                ) : (
-                                    <PauseCircle className="h-4 w-4" />
-                                )}
-                            </Button>
-                        )}
                         <GameSettings 
                             settings={settings}
                             onSettingsChange={updateSettings}
@@ -532,29 +522,52 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                 <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center">
                     {gameState === "idle" ? (
                         <div className="text-center py-8">
-                            <div className="mb-6 p-4 bg-muted/30 rounded-lg">
-                                <h3 className="text-lg font-medium mb-2">
+                            <div className="mb-6">
+                                <h3 className="text-2xl font-bold mb-4 text-primary">
                                     {t('challenge')}
                                 </h3>
-                                <p className="text-muted-foreground">
-                                    {t('trackInfo', { 
-                                        types: settings.selectedTypes.map(type => t(`${type}`)).join(" & "),
-                                        level: settings.selectedNBack
-                                    })}
+                                <p className="text-lg text-muted-foreground mb-6">
+                                    {t('improveMemorySubtitle')}
                                 </p>
                             </div>
-                            <div className="flex justify-center">
+                            
+                            {/* 互动教程按钮 */}
+                            <div className="mb-6">
+                                <Button
+                                    variant="outline"
+                                    size="lg"
+                                    onClick={() => setShowTutorial(true)}
+                                    className="w-full border-2 border-dashed border-primary/30 hover:border-primary/60"
+                                >
+                                    <span className="flex items-center gap-2">
+                                        🎓 {t('tutorial.learnToPlay')}
+                                    </span>
+                                </Button>
+                            </div>
+                            
+                            <div className="space-y-4">
                                 <ShimmerButton
                                     onClick={startGame}
                                     disabled={isLoading}
+                                    className="w-full py-4"
                                 >
-                                    <span className="flex items-center justify-center text-white">
-                                        <PlayCircle className="w-5 h-5 mr-2" />
-                                        {isLoading
-                                            ? t('starting')
-                                            : t('startChallenge')}
+                                    <span className="flex items-center justify-center text-white text-lg">
+                                        <PlayCircle className="w-6 h-6 mr-2" />
+                                        {isLoading ? t('starting') : t('startTraining')}
                                     </span>
                                 </ShimmerButton>
+                                
+                                <div className="text-center">
+                                    <Link href="/get-started" target="_blank">
+                                        <Button
+                                            variant="ghost" 
+                                            className="text-sm text-muted-foreground"
+                                        >
+                                            {t('testMyLevel')}
+                                        </Button>
+                                    </Link>
+                                </div>
+                                
                             </div>
                         </div>
                     ) : gameState === "playing" ? (
@@ -778,22 +791,77 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex justify-center gap-4">
-                                <Button
-                                    onClick={shareScore}
-                                    variant="outline"
-                                    className="flex items-center gap-2"
-                                >
-                                    <Share2 className="w-4 h-4" />
-                                    {t('shareResults')}
-                                </Button>
-                                <Button
-                                    onClick={startGame}
-                                    className="flex items-center gap-2"
-                                >
-                                    <PlayCircle className="w-4 h-4" />
-                                    {t('playAgain')}
-                                </Button>
+                            <div className="space-y-4">
+                                <div className="flex justify-center gap-4">
+                                    <Button
+                                        onClick={shareScore}
+                                        variant="outline"
+                                        className="flex items-center gap-2"
+                                    >
+                                        <Share2 className="w-4 h-4" />
+                                        {t('shareResults')}
+                                    </Button>
+                                    <Button
+                                        onClick={startGame}
+                                        className="flex items-center gap-2"
+                                    >
+                                        <PlayCircle className="w-4 h-4" />
+                                        {t('playAgain')}
+                                    </Button>
+                                </div>
+                                
+                                <div className="p-4 bg-muted/20 rounded-lg">
+                                    <p className="text-sm text-muted-foreground mb-3 text-center">
+                                        {t('continueTraining')}
+                                    </p>
+                                    <div className="flex justify-center gap-2">
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={() => {
+                                                analytics.navigation.recommendation({
+                                                    game_from: 'dual-n-back',
+                                                    game_to: 'schulte-table',
+                                                    from_page: '/games/dual-n-back',
+                                                    to_page: '/games/schulte-table'
+                                                });
+                                                window.location.href = '/games/schulte-table';
+                                            }}
+                                        >
+                                            {t('schulteTable')}
+                                        </Button>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={() => {
+                                                analytics.navigation.recommendation({
+                                                    game_from: 'dual-n-back',
+                                                    game_to: 'stroop-test',
+                                                    from_page: '/games/dual-n-back',
+                                                    to_page: '/games/stroop-test'
+                                                });
+                                                window.location.href = '/games/stroop-test';
+                                            }}
+                                        >
+                                            {t('stroopTest')}
+                                        </Button>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={() => {
+                                                analytics.navigation.recommendation({
+                                                    game_from: 'dual-n-back',
+                                                    game_to: 'all-games',
+                                                    from_page: '/games/dual-n-back',
+                                                    to_page: '/games'
+                                                });
+                                                window.location.href = '/games';
+                                            }}
+                                        >
+                                            {t('allGames')}
+                                        </Button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -805,6 +873,15 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                 onClose={() => setShowShareModal(false)}
                 title={t('challenge')}
                 url={window.location.href}
+            />
+            
+            <GameDemo
+                isOpen={showTutorial}
+                onClose={() => setShowTutorial(false)}
+                onComplete={() => {
+                    // 教程完成后可以添加GA4事件追踪
+                    analytics.engagement.pageTime('/games/dual-n-back/tutorial', 30000);
+                }}
             />
         </div>
     );
