@@ -918,7 +918,7 @@
       "title": "Dual N-Back",
       "subtitle": "Elite Working Memory Training for Peak Cognitive Performance",
       "description": "Master the gold standard of brain training. This scientifically-proven exercise challenges you to track both visual positions and audio letters simultaneously, building the mental muscle that powers learning, focus, and intelligent thinking.",
-      "howToPlayIntro": "In this game, you'll be presented with a sequence of stimuli - positions in a grid and letters. Your task is to identify when the current stimulus matches the one from N steps back. Press the position button when the position matches, and the sound button when the letter matches.",
+      "howToPlayIntro": "Master this scientifically-proven working memory training with our exclusive 30-second interactive tutorial:",
       "howToPlay1": "Watch the grid and listen to the letter",
       "howToPlay2": "Press the position button when the position matches",
       "howToPlay3": "Press the sound button when the letter matches.",
@@ -1041,11 +1041,11 @@
       "gameMessages": {
         "keepOneMode": "You must keep at least one mode enabled"
       },
-      "metaTitle": "Dual N-Back - Working Memory Training Game",
-      "metaDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Features challenging dual-task training to boost focus.",
-      "metaKeywords": "dual n-back training, working memory game, cognitive training, attention control practice, n-back task, memory improvement game, free dual n-back game, brain training game, cognitive speed exercise, attention span improvement",
-      "ogTitle": "Dual N-Back - Advanced Working Memory Training",
-      "ogDescription": "Train your working memory and cognitive skills with the scientifically-backed Dual N-Back cognitive exercise. Featuring a dual-task nature that challenges your brain to hold multiple pieces of information simultaneously while processing new inputs."
+      "metaTitle": "Dual N-Back Training - 30s Interactive Tutorial | Beginner-Friendly Brain Training",
+      "metaDescription": "Master Dual N-Back in 30 seconds with our interactive tutorial! Scientifically-backed working memory training, starting from 1-back level. Beginner-friendly design with step-by-step guidance to boost cognitive skills and focus.",
+      "metaKeywords": "dual n-back tutorial, interactive n-back training, 30 second tutorial, beginner brain training, working memory game, cognitive training tutorial, n-back for beginners, memory training guide, attention training, free brain games, interactive learning",
+      "ogTitle": "Dual N-Back - Interactive Tutorial Makes Brain Training Easy",
+      "ogDescription": "Revolutionary 30-second interactive tutorial makes Dual N-Back accessible to everyone! Learn the scientifically-proven working memory training method step-by-step. Perfect for beginners seeking cognitive enhancement."
     },
     "mahjongDualNBack": {
       "title": "Mahjong Dual N-Back",

@@ -21,6 +21,33 @@ export async function generateMetadata(
       description: t('ogDescription'),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
+    other: {
+      // JSON-LD for enhanced SEO
+      'script:ld+json': JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": t('title'),
+        "description": t('metaDescription'),
+        "url": `https://freefocusgames.com/${locale}/games/dual-n-back`,
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "30-second Interactive Tutorial",
+          "Beginner-Friendly Design", 
+          "Scientifically-Backed Training",
+          "Real-time Feedback",
+          "Progressive Difficulty"
+        ],
+        "educationalUse": "Cognitive Training",
+        "learningResourceType": "Interactive Tutorial",
+        "interactivityType": "active"
+      })
+    }
   };
 }
 
