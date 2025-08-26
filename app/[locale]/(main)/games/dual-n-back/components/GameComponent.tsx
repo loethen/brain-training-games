@@ -530,19 +530,6 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                                 </p>
                             </div>
                             
-                            {/* 互动教程按钮 */}
-                            <div className="mb-6">
-                                <Button
-                                    variant="outline"
-                                    size="lg"
-                                    onClick={() => setShowTutorial(true)}
-                                    className="w-full border-2 border-dashed border-primary/30 hover:border-primary/60"
-                                >
-                                    <span className="flex items-center gap-2">
-                                        🎓 {t('tutorial.learnToPlay')}
-                                    </span>
-                                </Button>
-                            </div>
                             
                             <div className="space-y-4">
                                 <ShimmerButton

@@ -222,7 +222,7 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
 
     // 初始化当前步骤的状态
     useEffect(() => {
-        if (!currentTutorial) return;
+        if (!currentTutorial || !isOpen) return; // 只有弹窗打开时才执行
 
         // 重置状态
         setUserResponse({ position: false, audio: false });
@@ -241,7 +241,7 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
         }, 500);
 
         return () => clearTimeout(audioTimer);
-    }, [currentStep, currentTutorial, playCurrentAudio]);
+    }, [currentStep, currentTutorial, playCurrentAudio, isOpen]); // 添加 isOpen 依赖
 
     // 处理教程关闭事件
     const handleClose = useCallback((open: boolean) => {

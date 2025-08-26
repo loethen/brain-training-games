@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
-import { Brain, Layers, Zap } from 'lucide-react'
+import { Brain, Layers, Zap, Clock } from 'lucide-react'
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import TutorialButton from './components/TutorialButton';
@@ -64,11 +64,16 @@ export default function DualNBackPage() {
       howToPlay={
         <>
           <p>{t('howToPlayIntro')}</p>
-          <div className="my-4 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+          <div className="my-6 p-5 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-orange-400 rounded-r-lg">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium">{t('gameUI.tutorial.bestLearningMethod')}</p>
-                <p className="text-xs text-muted-foreground">{t('gameUI.tutorial.quickMastery')}</p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-orange-600" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-orange-800">{t('gameUI.tutorial.learnToPlay')}</p>
+                  <p className="text-xs text-orange-600">{t('gameUI.tutorial.perfectForBeginners')}</p>
+                </div>
               </div>
               <TutorialButton />
             </div>

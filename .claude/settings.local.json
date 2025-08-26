@@ -7,7 +7,9 @@
       "Bash(find:*)",
       "Bash(mv:*)",
       "Bash(cp:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "WebSearch",
+      "WebSearch"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"

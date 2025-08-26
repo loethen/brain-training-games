@@ -1027,8 +1027,7 @@
           "needBothButtons": "Need to click the other match button 👆",
           "correct": "🎉 Correct! Continue...",
           "incorrect": "❌ Try again!",
-          "bestLearningMethod": "Best Learning Method",
-          "quickMastery": "Quickly master N-Back gameplay through interactive demonstration"
+          "perfectForBeginners": "Perfect for beginners"
         },
         "testMyLevel": "Not sure what level suits you? Test my level first →",
         "startTraining": "Start Training Now",
