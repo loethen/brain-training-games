@@ -2,11 +2,7 @@ import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import AdhdAssessmentFlow from './components/AdhdAssessmentFlow';
 
-interface Props {
-  params: { locale: string };
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'adhdAssessment.metadata' });
 
