@@ -9,7 +9,9 @@
       "Bash(cp:*)",
       "Bash(git restore:*)",
       "WebSearch",
-      "WebSearch"
+      "WebSearch",
+      "Bash(node:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"

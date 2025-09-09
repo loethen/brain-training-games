@@ -14,8 +14,6 @@
     "termsOfService": "服务条款",
     "guides": "科学指南",
     "workingMemoryGuide": "工作记忆指南",
-    "assessmentTests": "认知评估",
-    "cognitiveAssessment": "认知测试",
     "adhdAssessment": "ADHD 测试"
   },
   "metadata": {
@@ -116,17 +114,17 @@
       "gameRecommendations": "推荐的大脑训练游戏",
       "gameRecommendationsSubtitle": "根据您的评估结果，这些游戏可以帮助加强注意力和专注力：",
       "gameNames": {
-        "dual-n-back": "双重N-back工作记忆训练",
-        "stroop-effect-test": "斯特鲁普效应测试",
+        "dual-n-back": "双重N-back工作记忆训练"
+        "stroop-effect-test": "斯特鲁普效应测试"
         "schulte-table": "舒尔特表",
         "larger-number": "数字比较",
         "reaction-time": "反应时间测试"
       },
       "gameDescriptions": {
-        "dual-n-back": "提升工作记忆和执行注意力控制能力",
-        "stroop-effect-test": "提升认知灵活性和干扰抑制能力",
+        "dual-n-back": "提升工作记忆和执行注意力控制能力"
+        "stroop-effect-test": "提升认知灵活性和干扰抑制能力"
         "schulte-table": "提升视觉注意力和专注力",
-        "larger-number": "提升数字处理速度和精准判断能力",
+        "larger-number": "提升数字处理速度和精准判断能力"
         "reaction-time": "提升反应速度和专注力水平"
       },
       "retakeAssessment": "重新评估",
