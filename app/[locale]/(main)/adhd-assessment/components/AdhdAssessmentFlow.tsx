@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { Check, ArrowRight, Info, AlertTriangle } from 'lucide-react';
+import { Check, ArrowRight, Info } from 'lucide-react';
 import Link from 'next/link';
 import { analytics } from '@/lib/analytics';
 
