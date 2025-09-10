@@ -34,8 +34,7 @@
     "title": "成人注意力不足过动症自我评估",
     "subtitle": "基于范德比尔特ADHD评定量表的综合评估",
     "disclaimer": {
-      "title": "重要声明",
-      "content": "此评估仅供参考，不能提供医学诊断。结果不应替代合格医疗专业人员的咨询。"
+      "simple": "这个工具帮你了解注意力状况，不是医学诊断哦"
     },
     "aboutScale": {
       "title": "关于范德比尔特量表",
@@ -131,6 +130,10 @@
       },
       "retakeAssessment": "重新评估",
       "exploreAllGames": "探索所有游戏"
+    },
+    "learnMore": {
+      "text": "想要了解更多关于ADHD评估和范德比尔特量表的科学背景？",
+      "linkText": "阅读我们的综合指南"
     }
   },
   "workingMemoryGuide": {

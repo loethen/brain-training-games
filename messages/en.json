@@ -644,8 +644,7 @@
     "title": "Adult ADHD Self-Assessment",
     "subtitle": "A comprehensive evaluation based on the Vanderbilt ADHD Rating Scale",
     "disclaimer": {
-      "title": "Important Disclaimer",
-      "content": "This assessment is for informational purposes only and does not provide a medical diagnosis. Results should not replace consultation with a qualified healthcare professional."
+      "simple": "This tool helps you understand your attention patterns - not a medical diagnosis"
     },
     "aboutScale": {
       "title": "About the Vanderbilt Scale",
@@ -741,6 +740,10 @@
       },
       "retakeAssessment": "Retake Assessment",
       "exploreAllGames": "Explore All Games"
+    },
+    "learnMore": {
+      "text": "Want to learn more about ADHD assessment and the science behind the Vanderbilt Scale?",
+      "linkText": "Read our comprehensive guide"
     }
   },
   "categories": {
