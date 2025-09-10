@@ -86,49 +86,40 @@ export default function AdultAdhdAssessmentFlow() {
   };
 
   const handleAnswer = (questionId: number, value: number) => {
-    setAnswers(prev => ({ ...prev, [questionId]: value }));
-  };
+    const newAnswers = { ...answers, [questionId]: value };
+    setAnswers(newAnswers);
 
-  const handleNext = () => {
     if (currentQuestion < ASRS_QUESTIONS.length - 1) {
+      // Go to next question
       setCurrentQuestion(prev => prev + 1);
     } else {
-      calculateResults();
+      // Complete assessment and go to results
+      analytics.assessment.complete({
+        test_type: 'adult_adhd_asrs',
+        result: calculatePartAScoreFromAnswers(newAnswers),
+        duration_ms: 0, // Could track this later
+        recommendations: getRecommendedGames(calculatePartAScoreFromAnswers(newAnswers))
+      });
+      setStep('results');
     }
   };
 
-  const handleBack = () => {
-    if (currentQuestion > 0) {
-      setCurrentQuestion(prev => prev - 1);
-    }
-  };
-
-  const calculateResults = () => {
-    // Calculate Part A score (screening) - questions 1-6
-    // ASRS Part A scoring: Q1,2,3: >=2, Q4,5,6: >=3
-    const partAScoring = [2, 2, 2, 3, 3, 3]; // Thresholds for Part A questions
+  // Helper function to calculate Part A score from answers
+  const calculatePartAScoreFromAnswers = (answersObj: typeof answers) => {
+    const partAScoring = [2, 2, 2, 3, 3, 3];
     let partAScore = 0;
     
     for (let i = 1; i <= 6; i++) {
-      const answer = answers[i] || 0;
+      const answer = answersObj[i] || 0;
       const threshold = partAScoring[i - 1];
       if (answer >= threshold) {
         partAScore++;
       }
     }
-
-    // Note: totalScore and riskLevel are calculated in helper functions when needed
-
-    // Track completion
-    analytics.assessment.complete({
-      test_type: 'adult_adhd_asrs',
-      result: partAScore,
-      duration_ms: 0, // Could track this later
-      recommendations: getRecommendedGames(partAScore)
-    });
-
-    setStep('results');
+    
+    return partAScore;
   };
+
 
   const calculatePartAScore = () => {
     const partAScoring = [2, 2, 2, 3, 3, 3];
@@ -156,48 +147,78 @@ export default function AdultAdhdAssessmentFlow() {
     return 'low';
   };
 
+  // Render step indicator
+  const renderStepIndicator = () => {
+    const steps = ['intro', 'info', 'questionnaire', 'results'];
+    const currentStepIndex = steps.indexOf(step);
+
+    return (
+      <div className="flex items-center justify-center mb-8">
+        {steps.map((stepName, index) => (
+          <div key={stepName} className="flex items-center">
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                index < currentStepIndex
+                  ? "bg-green-600 text-white"
+                  : index === currentStepIndex
+                  ? "bg-green-600 text-white"
+                  : "bg-gray-300 text-gray-500"
+              }`}
+            >
+              {index < currentStepIndex ? (
+                <Check size={16} />
+              ) : index === currentStepIndex ? (
+                <div className="w-3 h-3 bg-white rounded-full" />
+              ) : (
+                <div className="w-3 h-3 bg-gray-400 rounded-full" />
+              )}
+            </div>
+            {index < steps.length - 1 && (
+              <div
+                className={`w-12 h-0.5 transition-all ${
+                  index < currentStepIndex ? "bg-green-600" : "bg-gray-300"
+                }`}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   // Render intro step
   const renderIntro = () => (
-    <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+    <div className="space-y-6 text-center max-w-3xl mx-auto">
+      <div className="space-y-4">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           {t('title')}
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           {t('subtitle')}
         </p>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-            {t('aboutScale.title')}
-          </h2>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            {t('aboutScale.content')}
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-4 mb-6">
-          <div className="flex items-start space-x-3">
-            <Check size={16} className="text-green-500 flex-shrink-0 mt-1" />
-            <span className="text-sm text-gray-700 dark:text-gray-300">
-              {t('features.professional')}
-            </span>
-          </div>
-          <div className="flex items-start space-x-3">
-            <Check size={16} className="text-green-500 flex-shrink-0 mt-1" />
-            <span className="text-sm text-gray-700 dark:text-gray-300">
-              {t('features.comprehensive')}
-            </span>
-          </div>
-          <div className="flex items-start space-x-3">
-            <Info size={16} className="text-blue-500 flex-shrink-0 mt-1" />
-            <span className="text-sm text-gray-700 dark:text-gray-300">
-              {t('features.evidence')}
-            </span>
-          </div>
-        </div>
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 text-left">
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
+          {t('aboutScale.title')}
+        </h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          {t('aboutScale.content')}
+        </p>
+        <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+          <li className="flex items-center gap-2">
+            <Info size={16} className="text-blue-500 flex-shrink-0" />
+            {t('features.professional')}
+          </li>
+          <li className="flex items-center gap-2">
+            <Info size={16} className="text-blue-500 flex-shrink-0" />
+            {t('features.comprehensive')}
+          </li>
+          <li className="flex items-center gap-2">
+            <Info size={16} className="text-blue-500 flex-shrink-0" />
+            {t('features.evidence')}
+          </li>
+        </ul>
         <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
             {t('learnMore.text')}
@@ -229,135 +250,106 @@ export default function AdultAdhdAssessmentFlow() {
 
   // Render info collection step
   const renderInfo = () => (
-    <div className="max-w-2xl mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+    <div className="max-w-md mx-auto">
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
           {t('infoStep.title')}
         </h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-6">
+        <p className="text-gray-600 dark:text-gray-400">
           {t('infoStep.subtitle')}
         </p>
-        
-        <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {t('infoStep.subject')}
-            </label>
-            <input
-              type="text"
-              value={assessmentInfo.subject}
-              onChange={(e) => setAssessmentInfo(prev => ({ ...prev, subject: e.target.value }))}
-              placeholder={t('infoStep.subjectPlaceholder')}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {t('infoStep.age')}
-            </label>
-            <input
-              type="text"
-              value={assessmentInfo.age}
-              onChange={(e) => setAssessmentInfo(prev => ({ ...prev, age: e.target.value }))}
-              placeholder={t('infoStep.agePlaceholder')}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            />
-          </div>
+      </div>
+
+      <form onSubmit={(e) => { e.preventDefault(); handleInfoSubmit(assessmentInfo); }} className="space-y-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            {t('infoStep.subject')}
+          </label>
+          <input
+            type="text"
+            required
+            value={assessmentInfo.subject}
+            onChange={(e) => setAssessmentInfo(prev => ({ ...prev, subject: e.target.value }))}
+            placeholder={t('infoStep.subjectPlaceholder')}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          />
         </div>
-        
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            {t('infoStep.age')}
+          </label>
+          <input
+            type="text"
+            required
+            value={assessmentInfo.age}
+            onChange={(e) => setAssessmentInfo(prev => ({ ...prev, age: e.target.value }))}
+            placeholder={t('infoStep.agePlaceholder')}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          />
+        </div>
+
         <button
-          onClick={() => handleInfoSubmit(assessmentInfo)}
-          disabled={!assessmentInfo.subject.trim() || !assessmentInfo.age.trim()}
-          className="w-full mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors"
+          type="submit"
+          className="w-full px-6 py-3 bg-gray-900 hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 text-white dark:text-gray-900 font-semibold rounded-lg transition-colors"
         >
           {t('buttons.continue')}
         </button>
-      </div>
+      </form>
     </div>
   );
 
   // Render questionnaire step
   const renderQuestionnaire = () => {
     const question = ASRS_QUESTIONS[currentQuestion];
-    const isAnswered = answers[question.id] !== undefined;
     
     return (
-      <div className="max-w-3xl mx-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-          <div className="mb-6">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                {t('questionnaire.title')}
-              </span>
-              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                {currentQuestion + 1} / {ASRS_QUESTIONS.length}
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-              <div 
-                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${((currentQuestion + 1) / ASRS_QUESTIONS.length) * 100}%` }}
-              />
-            </div>
+      <div className="max-w-2xl mx-auto">
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+              {t('questionnaire.title')}
+            </h2>
+            <span className="text-sm text-gray-500 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full">
+              {currentQuestion + 1} / {ASRS_QUESTIONS.length}
+            </span>
           </div>
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div 
+              className="bg-green-600 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${((currentQuestion + 1) / ASRS_QUESTIONS.length) * 100}%` }}
+            />
+          </div>
+        </div>
 
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
-              {tQuestions(question.key)}
-            </h3>
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+          <p className="text-lg text-gray-900 dark:text-white mb-6">
+            {tQuestions(question.key)}
+          </p>
 
-            <div className="space-y-3">
-              {[0, 1, 2, 3, 4].map((value) => (
-                <label
-                  key={value}
-                  className={`flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                    answers[question.id] === value
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                      : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name={`question-${question.id}`}
-                    value={value}
-                    checked={answers[question.id] === value}
-                    onChange={() => handleAnswer(question.id, value)}
-                    className="sr-only"
-                  />
-                  <div className={`w-4 h-4 rounded-full border-2 mr-3 ${
-                    answers[question.id] === value
-                      ? 'border-blue-500 bg-blue-500'
-                      : 'border-gray-300 dark:border-gray-600'
-                  }`}>
-                    {answers[question.id] === value && (
-                      <div className="w-2 h-2 bg-white rounded-full mx-auto mt-0.5" />
-                    )}
-                  </div>
-                  <span className="text-gray-700 dark:text-gray-300">
-                    {t(`scale.${['never', 'rarely', 'sometimes', 'often', 'veryOften'][value]}`)}
+          <div className="space-y-3">
+            {[
+              { value: 0, label: t('scale.never') },
+              { value: 1, label: t('scale.rarely') },
+              { value: 2, label: t('scale.sometimes') },
+              { value: 3, label: t('scale.often') },
+              { value: 4, label: t('scale.veryOften') }
+            ].map((option) => (
+              <button
+                key={option.value}
+                onClick={() => handleAnswer(question.id, option.value)}
+                className="w-full text-left p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors group"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-900 dark:text-white group-hover:text-green-800 dark:group-hover:text-green-200">
+                    {option.label}
                   </span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex justify-between">
-            <button
-              onClick={handleBack}
-              disabled={currentQuestion === 0}
-              className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-lg transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              ← 上一题
-            </button>
-            
-            <button
-              onClick={handleNext}
-              disabled={!isAnswered}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors"
-            >
-              {currentQuestion === ASRS_QUESTIONS.length - 1 ? '完成评估' : '下一题 →'}
-            </button>
+                  <span className="text-sm text-gray-500 group-hover:text-green-600 dark:group-hover:text-green-400">
+                    {option.value}
+                  </span>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -372,118 +364,123 @@ export default function AdultAdhdAssessmentFlow() {
     const recommendedGames = getRecommendedGames(partAScore);
 
     return (
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+      <div className="max-w-4xl mx-auto space-y-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
             {tResults('title')}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-8">
+          <p className="text-gray-600 dark:text-gray-400">
             {tResults('subtitle')}
           </p>
+        </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                {tResults('assessmentSummary')}
-              </h3>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{tResults('subject')}:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{assessmentInfo.subject}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{tResults('age')}:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{assessmentInfo.age}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{tResults('totalQuestions')}:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{ASRS_QUESTIONS.length}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{tResults('partAScore')}:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{partAScore}/6</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{tResults('totalScore')}:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{totalScore}</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                {tResults(`riskLevels.${riskLevel}.title`)}
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                {tResults(`riskLevels.${riskLevel}.description`)}
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                {tResults('recommendation')}
-              </p>
-            </div>
+        {/* Assessment Summary */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
+            {tResults('assessmentSummary')}
+          </h3>
+          <div className="space-y-2 text-sm">
+            <p><span className="font-medium">{tResults('subject')}:</span> {assessmentInfo.subject}</p>
+            <p><span className="font-medium">{tResults('age')}:</span> {assessmentInfo.age}</p>
+            <p><span className="font-medium">{tResults('totalQuestions')}:</span> {ASRS_QUESTIONS.length}</p>
+            <p><span className="font-medium">{tResults('partAScore')}:</span> {partAScore}/6</p>
+            <p><span className="font-medium">{tResults('totalScore')}:</span> {totalScore}</p>
           </div>
+        </div>
 
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              {tResults('gameRecommendations')}
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              {tResults('gameRecommendationsSubtitle')}
+        {/* Risk Assessment */}
+        <div className={`border rounded-lg p-6 ${
+          riskLevel === 'high' 
+            ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800' 
+            : riskLevel === 'moderate'
+            ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800'
+            : 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+        }`}>
+          <h3 className="font-semibold mb-3">
+            {tResults(`riskLevels.${riskLevel}.title`)}
+          </h3>
+          <p className="text-sm mb-4">
+            {tResults(`riskLevels.${riskLevel}.description`)}
+          </p>
+          {riskLevel !== 'low' && (
+            <p className="text-sm font-medium">
+              {tResults('recommendation')}
             </p>
-            
-            <div className="grid md:grid-cols-3 gap-4">
-              {recommendedGames.map((gameKey) => (
-                <Link
-                  key={gameKey}
-                  href={`/games/${gameKey}`}
-                  className="block p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-blue-500 hover:shadow-md transition-all"
-                  onClick={() => analytics.navigation.recommendation({
-                    from_page: 'adult_adhd_assessment_results',
-                    to_page: `game_${gameKey}`,
-                    source: 'assessment_recommendation'
-                  })}
-                >
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    {tResults(`gameNames.${gameKey}`)}
-                  </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {tResults(`gameDescriptions.${gameKey}`)}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
+          )}
+        </div>
 
-          <div className="flex gap-4">
-            <button
-              onClick={() => {
-                setStep('intro');
-                setCurrentQuestion(0);
-                setAnswers({});
-                setAssessmentInfo({ subject: '', age: '' });
-              }}
-              className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-lg transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
-            >
-              {tResults('retakeAssessment')}
-            </button>
-            <Link
-              href="/games"
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
-            >
-              {tResults('exploreAllGames')}
-            </Link>
+        {/* Game Recommendations */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
+            {tResults('gameRecommendations')}
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
+            {tResults('gameRecommendationsSubtitle')}
+          </p>
+          <div className="space-y-3">
+            {recommendedGames.map((gameSlug) => (
+              <Link key={gameSlug} href={`/games/${gameSlug}`}>
+                <button 
+                  className="w-full text-left p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors group"
+                  onClick={() => {
+                    analytics.navigation.recommendation({
+                      from_page: 'adult-adhd-assessment',
+                      to_page: `games/${gameSlug}`,
+                      source: 'adult_adhd_assessment_recommendation',
+                      game_to: gameSlug
+                    });
+                  }}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-medium text-gray-900 dark:text-white group-hover:text-green-800 dark:group-hover:text-green-200">
+                      {tResults(`gameNames.${gameSlug}`)}
+                    </span>
+                    <ArrowRight size={16} className="text-gray-400 group-hover:text-green-500" />
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-400">
+                    {tResults(`gameDescriptions.${gameSlug}`)}
+                  </p>
+                </button>
+              </Link>
+            ))}
           </div>
+        </div>
+
+        {/* Action buttons */}
+        <div className="flex justify-center space-x-4">
+          <button
+            onClick={() => {
+              setStep('intro');
+              setCurrentQuestion(0);
+              setAnswers({});
+              setAssessmentInfo({ subject: '', age: '' });
+            }}
+            className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
+          >
+            {tResults('retakeAssessment')}
+          </button>
+          <Link href="/games">
+            <button className="px-6 py-3 bg-gray-900 hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 text-white dark:text-gray-900 font-semibold rounded-lg transition-colors">
+              {tResults('exploreAllGames')}
+            </button>
+          </Link>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen py-8">
-      {step === 'intro' && renderIntro()}
-      {step === 'info' && renderInfo()}
-      {step === 'questionnaire' && renderQuestionnaire()}
-      {step === 'results' && renderResults()}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="container mx-auto px-4">
+        {renderStepIndicator()}
+        
+        <div className="mt-8">
+          {step === 'intro' && renderIntro()}
+          {step === 'info' && renderInfo()}
+          {step === 'questionnaire' && renderQuestionnaire()}
+          {step === 'results' && renderResults()}
+        </div>
+      </div>
     </div>
   );
 }
