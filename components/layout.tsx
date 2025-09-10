@@ -95,6 +95,7 @@ export function Layout({
                         <h3 className="px-2 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">{t('assessmentTests')}</h3>
                         <NavItem href="/get-started">{t('cognitiveAssessment')}</NavItem>
                         <NavItem href="/adhd-assessment">{t('adhdAssessment')}</NavItem>
+                        <NavItem href="/adult-adhd-assessment">{t('adultAdhdAssessment')}</NavItem>
                     </div>
 
                     {/* Guides Section */}

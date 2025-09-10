@@ -1,13 +1,13 @@
 ---
-title: "The Vanderbilt ADHD Rating Scale: A Comprehensive Guide to Assessment and Diagnosis"
-excerpt: "Discover everything you need to know about the Vanderbilt ADHD Diagnostic Rating Scale, from its development history to psychometric properties and clinical applications in ADHD assessment."
+title: "The Vanderbilt ADHD Rating Scale: A Comprehensive Guide to Children's ADHD Assessment and Diagnosis"
+excerpt: "Discover everything you need to know about the Vanderbilt ADHD Diagnostic Rating Scale for children's ADHD assessment, from its development history to clinical applications in pediatric diagnosis."
 date: "2025-09-10"
 coverImage: "/blog/vanderbilt-adhd-scale-cover.png"
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
-tags: ["ADHD", "Assessment", "Vanderbilt Scale", "Mental Health", "Diagnosis", "Psychology"]
-keywords: ["vanderbilt adhd rating scale", "vanderbilt adhd diagnostic rating scale", "vadprs", "vadtrs", "adhd assessment tool", "mark wolraich", "adhd diagnosis", "attention deficit hyperactivity disorder", "vanderbilt scale scoring", "adhd evaluation"]
+tags: ["Children ADHD", "ADHD Assessment", "Vanderbilt Scale", "Mental Health", "ADHD Diagnosis", "Child Psychology", "Pediatric Assessment"]
+keywords: ["children adhd assessment", "vanderbilt adhd rating scale", "child adhd diagnosis", "pediatric adhd evaluation", "vanderbilt adhd diagnostic rating scale", "child attention deficit", "adhd symptoms children", "vadprs children", "school age adhd", "children adhd screening"]
 ---
 
 The **Vanderbilt ADHD Diagnostic Rating Scale (VADRS)** stands as one of the most widely used and clinically validated tools for assessing Attention-Deficit/Hyperactivity Disorder (ADHD) in children and adolescents. Developed by Dr. Mark L. Wolraich at the Oklahoma Health Sciences Center, this comprehensive assessment tool has revolutionized how healthcare professionals diagnose and monitor ADHD symptoms.
@@ -29,9 +29,9 @@ The scale exists in two primary versions:
 - 7 anxiety/depression screening items (clinical version only)
 - 8 functional performance items (clinical version only)
 
-**Note:** Online ADHD assessments typically focus on the 18 core ADHD symptom items, which provide the most direct and reliable evaluation of attention and hyperactivity symptoms.
+**Note:** Online ADHD assessments for children typically focus on the 18 core ADHD symptom items, which provide the most direct and reliable evaluation of attention and hyperactivity symptoms in school-age children.
 
-This multi-informant approach aligns with diagnostic guidelines requiring evidence of ADHD symptoms across multiple settings, making it an invaluable tool for comprehensive assessment.
+This multi-informant approach aligns with diagnostic guidelines requiring evidence of ADHD symptoms across multiple settings, making it an invaluable tool for comprehensive pediatric assessment.
 
 ## Development History and Creator
 
@@ -242,9 +242,9 @@ The original 2003 validation study established evidence-based cutoff scores for 
 
 ### Limitations
 
-**Age Restrictions:**
-- Primarily validated for children ages 6-12 years
-- Limited applicability to adolescents and adults
+**Age Limitations:**
+- Validated specifically for children ages 6-12 years
+- Not recommended for adult ADHD assessment without appropriate adult-validated tools
 
 **Cultural Considerations:**
 - Normative data primarily based on U.S. populations
@@ -336,11 +336,11 @@ As we continue to advance our understanding of ADHD and its complexities, the Va
 
 For families and individuals navigating ADHD assessment, understanding the Vanderbilt scale's role in the diagnostic process can provide valuable insights into the comprehensive, scientific approach that modern healthcare professionals employ in ADHD evaluation.
 
-### Take Your Own ADHD Assessment
+### Children's ADHD Assessment
 
-Ready to evaluate your own attention patterns? Our online ADHD assessment is based on the core 18-item ADHD symptom evaluation from the Vanderbilt scale, focusing specifically on the inattention and hyperactivity/impulsivity symptoms that define ADHD.
+Is your child showing signs of attention difficulties? Our online ADHD assessment is based on the core 18-item ADHD symptom evaluation from the Vanderbilt scale, designed specifically for children aged 6-12 years and focusing on the inattention and hyperactivity/impulsivity symptoms that define ADHD.
 
-**[Take the ADHD Assessment](/adhd-assessment)** - Get personalized insights into your attention patterns and receive tailored cognitive training recommendations.
+**[Take the Children's ADHD Assessment](/adhd-assessment)** - Get insights into your child's attention patterns and receive tailored recommendations for supporting their development.
 
 ### Enhance Your Focus with Evidence-Based Training
 
