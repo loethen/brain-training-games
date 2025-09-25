@@ -5,7 +5,6 @@ import { Header } from "./header"
 import { useState, useEffect, useCallback } from "react"
 import { Footer } from "./Footer"
 import { useTranslations } from 'next-intl';
-import FooterAd from './footer-ad';
 
 export function Layout({
     children,
@@ -121,12 +120,7 @@ export function Layout({
                     }`}
                 >
                     {children}
-                    
-                    {/* Footer上方的固定广告 */}
-                    <section className="max-w-[1600px] mx-auto px-0 sm:px-6 mt-16 mb-8">
-                        <FooterAd />
-                    </section>
-                    
+
                     <Footer />
                 </main>
             </div>
