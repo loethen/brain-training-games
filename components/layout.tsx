@@ -86,22 +86,10 @@ export function Layout({
                     <NavItem href="/">{t('home')}</NavItem>
                     <NavItem href="/categories">{t('categories')}</NavItem>
                     <NavItem href="/games">{t('games')}</NavItem>
+                    <NavItem href="/tests">{t('tests')}</NavItem>
+                    <NavItem href="/guides">{t('guides')}</NavItem>
                     <NavItem href="/blog">{t('blog')}</NavItem>
                     <NavItem href="/about">{t('about')}</NavItem>
-
-                    {/* Assessment Tests Section */}
-                    <div className="mt-4 pt-4 border-t border-border/50">
-                        <h3 className="px-2 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">{t('assessmentTests')}</h3>
-                        <NavItem href="/get-started">{t('cognitiveAssessment')}</NavItem>
-                        <NavItem href="/adhd-assessment">{t('adhdAssessment')}</NavItem>
-                        <NavItem href="/adult-adhd-assessment">{t('adultAdhdAssessment')}</NavItem>
-                    </div>
-
-                    {/* Guides Section */}
-                    <div className="mt-4 pt-4 border-t border-border/50">
-                        <h3 className="px-2 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">{t('guides')}</h3>
-                        <NavItem href="/working-memory-guide">{t('workingMemoryGuide')}</NavItem>
-                    </div>
                 </nav>
             </div>
 

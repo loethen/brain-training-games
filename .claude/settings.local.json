@@ -12,7 +12,8 @@
       "WebSearch",
       "Bash(node:*)",
       "Bash(npm run dev:*)",
-      "WebFetch(domain:pmc.ncbi.nlm.nih.gov)"
+      "WebFetch(domain:pmc.ncbi.nlm.nih.gov)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
