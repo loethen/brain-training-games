@@ -6,7 +6,7 @@ interface GamesLayoutProps {
 
 export default function GamesLayout({ children }: GamesLayoutProps) {
   return (
-    <div className="py-12 max-w-7xl mx-auto">
+    <div className="pb-12 max-w-7xl mx-auto">
       {/* 游戏内容将被注入到这里 */}
       {children}
     </div>

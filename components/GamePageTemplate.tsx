@@ -75,7 +75,14 @@ export function GamePageTemplate({
               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
               crossOrigin="anonymous"
           />
-          
+
+          {/* Banner Ad - Top of Game Page */}
+          <section className="max-w-6xl mx-auto mb-6 pt-4">
+              <div className="rounded-xl bg-gradient-to-r from-muted/30 via-muted/10 to-muted/30 p-4 border border-border/30">
+                  <HomeBannerAd adKey={`game-${gameId}-top`} className="!my-0" />
+              </div>
+          </section>
+
           <Breadcrumbs
               items={[{ label: t("games"), href: "/games" }, { label: title }]}
           />
@@ -115,13 +122,7 @@ export function GamePageTemplate({
 
           {/* 认知益处 - 可选 */}
           {benefits && benefits.length > 0 && (
-              <>
-                  {/* Banner Ad Section - Before Cognitive Benefits */}
-                  <section className="max-w-6xl mx-auto mb-8">
-                      <HomeBannerAd adKey={`game-${gameId}-benefits`} />
-                  </section>
-                  
-                  <section className="max-w-6xl mx-auto mb-16 py-16">
+              <section className="max-w-6xl mx-auto mb-16 py-16">
                   <h2 className="text-3xl font-bold mb-12 text-center">
                       {gameT("cognitiveBenefits")}
                   </h2>
@@ -148,8 +149,7 @@ export function GamePageTemplate({
                           </div>
                       ))}
                   </div>
-                  </section>
-              </>
+              </section>
           )}
 
           {/* 游戏背后的科学 - 可选 */}

@@ -31,12 +31,14 @@ export default function HomeBannerAd({ className = '', adKey = 'default' }: Home
   }, []);
 
   return (
-    <div className={`w-full my-8 ${className}`}>
-      <ins 
+    <div className={`w-full my-8 transition-opacity duration-500 hover:opacity-90 ${className}`}>
+      <ins
         ref={adRef}
-        className="adsbygoogle"
+        className="adsbygoogle block rounded-lg overflow-hidden shadow-sm"
         style={{
-          display: 'block'
+          display: 'block',
+          minHeight: '90px', // 避免布局跳动
+          background: 'rgba(var(--muted-rgb), 0.1)', // 加载时的占位背景
         }}
         data-ad-client="ca-pub-2676017781507774"
         data-ad-slot="8563511916"
