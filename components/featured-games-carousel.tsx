@@ -120,7 +120,7 @@ export default function FeaturedGamesCarousel() {
         
         const interval = setInterval(() => {
             setCurrentPage((prev) => (prev + 1) % featuredPages.length);
-        }, 5000); // 5秒切换一次
+        }, 15000); // 15秒切换一次
         
         return () => clearInterval(interval);
     }, [isAutoPlay, featuredPages.length, isHovered]);
