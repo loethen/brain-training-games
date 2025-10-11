@@ -2178,6 +2178,105 @@
         "glasses",
         "watch"
       ]
+    },
+    "pomodoroTimer": {
+      "title": "Pomodoro Timer",
+      "subtitle": "Boost focus and productivity with structured work sessions",
+      "metaTitle": "Free Pomodoro Timer | Focus & Productivity Tool Online",
+      "metaDescription": "Use our free Pomodoro Timer to improve focus and productivity. 25-minute work sessions with breaks. Track your progress and customize intervals for optimal concentration.",
+      "metaKeywords": "pomodoro timer, free pomodoro timer, focus timer, productivity timer, pomodoro technique, work timer, study timer, concentration tool, time management tool, focus technique",
+      "ogTitle": "Pomodoro Timer - Improve Your Focus and Productivity",
+      "ogDescription": "Free online Pomodoro Timer with customizable intervals. Boost productivity with proven time management technique. Track focus sessions and breaks.",
+      "howToPlay": {
+        "step1": "Click 'Start' to begin a 25-minute focus session",
+        "step2": "Work on your task without interruptions until the timer ends",
+        "step3": "Take a 5-minute short break when the timer completes",
+        "step4": "After 4 focus sessions, take a longer 15-minute break",
+        "defaultSettings": {
+          "title": "Default Settings",
+          "focus": "Focus: 25 minutes",
+          "shortBreak": "Short Break: 5 minutes",
+          "longBreak": "Long Break: 15 minutes",
+          "cycle": "Long break after 4 sessions"
+        }
+      },
+      "benefits": {
+        "focusImprovement": {
+          "title": "Improve Focus",
+          "description": "Train your brain to concentrate deeply for set periods. Regular practice enhances your ability to enter and maintain flow states."
+        },
+        "timeManagement": {
+          "title": "Better Time Management",
+          "description": "Break work into manageable intervals. Gain awareness of how long tasks actually take and improve time estimation skills."
+        },
+        "burnoutPrevention": {
+          "title": "Prevent Burnout",
+          "description": "Scheduled breaks prevent mental fatigue. Regular rest periods help maintain energy levels throughout the day."
+        },
+        "productivityBoost": {
+          "title": "Increase Productivity",
+          "description": "Create urgency with time constraints. The timer effect motivates you to make progress before the session ends."
+        }
+      },
+      "science": {
+        "title": "The Science Behind Pomodoro Technique",
+        "description": "Developed by Francesco Cirillo in the late 1980s, the Pomodoro Technique is based on the principle that frequent breaks improve mental agility. Research shows that sustained attention naturally declines after 20-30 minutes, making timed intervals optimal for maintaining focus and preventing cognitive fatigue.",
+        "authorityLinks": {
+          "technique": "Learn about the original Pomodoro Technique methodology and its development",
+          "timeManagement": "Research on effective time management strategies and productivity",
+          "attention": "Scientific studies on attention span, focus duration, and cognitive performance"
+        }
+      },
+      "faq": {
+        "whatIsPomodoro": {
+          "question": "What is the Pomodoro Technique?",
+          "answer": "The Pomodoro Technique is a time management method that uses a timer to break work into intervals (traditionally 25 minutes) separated by short breaks. Each interval is called a 'pomodoro', named after the tomato-shaped timer Francesco Cirillo used when he developed the technique."
+        },
+        "whyBreaks": {
+          "question": "Why are breaks important?",
+          "answer": "Regular breaks prevent mental fatigue and maintain high levels of focus throughout the day. Research shows that sustained attention declines after extended periods, so breaks help reset your cognitive resources and maintain productivity."
+        },
+        "customize": {
+          "question": "Can I customize the timer duration?",
+          "answer": "Yes! Click the Settings button to adjust focus duration (1-60 minutes), short break (1-30 minutes), long break (1-60 minutes), and how many sessions before a long break. Customize based on your task type and attention capacity."
+        },
+        "bestFor": {
+          "question": "What tasks work best with Pomodoro?",
+          "answer": "The Pomodoro Technique works well for tasks requiring sustained focus: writing, coding, studying, design work, and problem-solving. It's less suitable for tasks requiring extended creative flow or tasks with frequent interruptions."
+        },
+        "howManyPerDay": {
+          "question": "How many pomodoros should I do per day?",
+          "answer": "Most people complete 8-12 pomodoros in a workday (4-6 hours of focused work). Start with a lower number and gradually increase. Quality matters more than quantity - it's better to complete fewer highly focused sessions than many distracted ones."
+        }
+      },
+      "gameUI": {
+        "focus": "Focus",
+        "shortBreak": "Short Break",
+        "longBreak": "Long Break",
+        "start": "Start",
+        "pause": "Pause",
+        "reset": "Reset",
+        "completedSessions": "Completed",
+        "totalFocusTime": "Total Focus",
+        "minutes": "min",
+        "focusComplete": "Focus session complete! Time for a break.",
+        "breakComplete": "Break is over! Ready for another focus session?",
+        "settingsSaved": "Settings saved successfully",
+        "todayLabel": "Today",
+        "sessions": "sessions",
+        "clear": "Clear",
+        "statsCleared": "Today's stats cleared"
+      },
+      "settings": {
+        "title": "Settings",
+        "focusDuration": "Focus Duration (minutes)",
+        "shortBreakDuration": "Short Break (minutes)",
+        "longBreakDuration": "Long Break (minutes)",
+        "sessionsUntilLongBreak": "Sessions Until Long Break",
+        "save": "Save",
+        "cancel": "Cancel",
+        "resetToDefault": "Reset to Default"
+      }
     }
   },
   "buttons": {

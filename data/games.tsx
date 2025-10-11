@@ -1,6 +1,7 @@
 import { GamePreview as SimonGamePreview } from "@/app/[locale]/(main)/games/block-memory-challenge/components/GamePreview";
 import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/games/schulte-table/components/GamePreview";
 import { CountingBoxesGamePreview } from "@/app/[locale]/(main)/games/counting-boxes/components/GamePreview";
+import { GamePreview as PomodoroGamePreview } from "@/app/[locale]/(main)/games/pomodoro-timer/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 
 export type Game = {
@@ -121,6 +122,13 @@ export const games: Game[] = [
             "reaction-time",
             "cognitive-flexibility",
         ],
+    },
+    {
+        id: "pomodoro-timer",
+        title: "Pomodoro Timer",
+        slug: "pomodoro-timer",
+        preview: <PomodoroGamePreview />,
+        categories: ["sustained-attention"],
     },
 
     // Add more games as you create them
