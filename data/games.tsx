@@ -1,7 +1,6 @@
 import { GamePreview as SimonGamePreview } from "@/app/[locale]/(main)/games/block-memory-challenge/components/GamePreview";
 import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/games/schulte-table/components/GamePreview";
 import { CountingBoxesGamePreview } from "@/app/[locale]/(main)/games/counting-boxes/components/GamePreview";
-import { GamePreview as PomodoroGamePreview } from "@/app/[locale]/(main)/games/pomodoro-timer/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 
 export type Game = {
@@ -14,6 +13,13 @@ export type Game = {
 };
 
 export const games: Game[] = [
+    {
+        id: "pomodoro-timer",
+        title: "Pomodoro Timer",
+        slug: "pomodoro-timer",
+        preview: <ImagePreview src="/games/pomodoro.png" />,
+        categories: ["sustained-attention"],
+    },
     {
         id: "counting-boxes",
         title: "Counting Boxes",
@@ -123,13 +129,6 @@ export const games: Game[] = [
             "cognitive-flexibility",
         ],
     },
-    {
-        id: "pomodoro-timer",
-        title: "Pomodoro Timer",
-        slug: "pomodoro-timer",
-        preview: <PomodoroGamePreview />,
-        categories: ["sustained-attention"],
-    },
 
     // Add more games as you create them
 ];
@@ -180,9 +179,9 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
-    'focus-reaction-test', // 专注反应测试 - 最新添加
+    'pomodoro-timer',      // 番茄钟 - 最新添加
+    'focus-reaction-test', // 专注反应测试
     'stroop-effect-test',  // Stroop效应测试
-    'counting-boxes'       // 数箱子
   ];
   
   return latestGameIds

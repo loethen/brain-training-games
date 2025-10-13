@@ -2182,9 +2182,10 @@
     "pomodoroTimer": {
       "title": "Pomodoro Timer",
       "subtitle": "Boost focus and productivity with structured work sessions",
+      "description": "A simple yet powerful tool to boost productivity. Work in focused 25-minute intervals, separated by short breaks, to improve concentration and prevent burnout.",
       "metaTitle": "Free Pomodoro Timer | Focus & Productivity Tool Online",
       "metaDescription": "Use our free Pomodoro Timer to improve focus and productivity. 25-minute work sessions with breaks. Track your progress and customize intervals for optimal concentration.",
-      "metaKeywords": "pomodoro timer, free pomodoro timer, focus timer, productivity timer, pomodoro technique, work timer, study timer, concentration tool, time management tool, focus technique",
+      "metaKeywords": "pomodoro timer online, free pomodoro app, focus timer for studying, productivity work cycle, time management tool, 25-minute timer, study with me timer, pomodoro technique app, work session timer, concentration timer online, pomodoro timer, free pomodoro timer, focus timer, productivity timer, pomodoro technique, work timer, study timer, concentration tool, time management tool, focus technique",
       "ogTitle": "Pomodoro Timer - Improve Your Focus and Productivity",
       "ogDescription": "Free online Pomodoro Timer with customizable intervals. Boost productivity with proven time management technique. Track focus sessions and breaks.",
       "howToPlay": {
@@ -2256,6 +2257,7 @@
         "start": "Start",
         "pause": "Pause",
         "reset": "Reset",
+        "skip": "Skip",
         "completedSessions": "Completed",
         "totalFocusTime": "Total Focus",
         "minutes": "min",
@@ -2273,6 +2275,8 @@
         "shortBreakDuration": "Short Break (minutes)",
         "longBreakDuration": "Long Break (minutes)",
         "sessionsUntilLongBreak": "Sessions Until Long Break",
+        "autoStartBreaks": "Auto-start breaks?",
+        "playSound": "Play sound on completion?",
         "save": "Save",
         "cancel": "Cancel",
         "resetToDefault": "Reset to Default"

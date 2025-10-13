@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from "sonner";
-import { Play, Pause, RotateCcw, Settings, Coffee, Target, Trash2 } from "lucide-react";
+import { Play, Pause, RotateCcw, Settings, Trash2, ArrowRightToLine } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { motion } from "framer-motion";
+import { Howl } from 'howler';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { trackStartGame, trackCompleteGame } from '@/lib/analytics';
 
 enum TimerMode {
@@ -22,6 +24,8 @@ interface PomodoroSettings {
   shortBreakDuration: number;
   longBreakDuration: number;
   sessionsUntilLongBreak: number;
+  autoStartBreaks: boolean;
+  playSound: boolean;
 }
 
 interface TodayStats {
@@ -34,7 +38,9 @@ const DEFAULT_SETTINGS: PomodoroSettings = {
   focusDuration: 25,
   shortBreakDuration: 5,
   longBreakDuration: 15,
-  sessionsUntilLongBreak: 4
+  sessionsUntilLongBreak: 4,
+  autoStartBreaks: true,
+  playSound: true
 };
 
 const getTodayDate = () => new Date().toISOString().split('T')[0];
@@ -142,6 +148,13 @@ export default function PomodoroTimer() {
   const handleTimerComplete = () => {
     setIsRunning(false);
 
+    if (settings.playSound) {
+      const sound = new Howl({
+        src: ['/sounds/ready-tone.mp3']
+      });
+      sound.play();
+    }
+
     if (mode === TimerMode.FOCUS) {
       const newSessionCount = sessionCompletedCount + 1;
       const newTodayStats: TodayStats = {
@@ -163,11 +176,14 @@ export default function PomodoroTimer() {
 
       toast.success(t('focusComplete'));
 
-      // Auto-switch to break based on session count
-      if (newSessionCount % settings.sessionsUntilLongBreak === 0) {
-        switchMode(TimerMode.LONG_BREAK);
-      } else {
-        switchMode(TimerMode.SHORT_BREAK);
+      // Auto-switch to break and auto-start
+      const breakMode = newSessionCount % settings.sessionsUntilLongBreak === 0
+        ? TimerMode.LONG_BREAK
+        : TimerMode.SHORT_BREAK;
+
+      switchMode(breakMode);
+      if (settings.autoStartBreaks) {
+        setIsRunning(true); // Auto-start break
       }
     } else {
       toast.success(t('breakComplete'));
@@ -204,6 +220,19 @@ export default function PomodoroTimer() {
       });
     }
     setIsRunning(!isRunning);
+  };
+
+  const handleSkip = () => {
+    if (mode === TimerMode.FOCUS) {
+      const newSessionCount = sessionCompletedCount + 1;
+      setSessionCompletedCount(newSessionCount);
+      const breakMode = newSessionCount % settings.sessionsUntilLongBreak === 0
+        ? TimerMode.LONG_BREAK
+        : TimerMode.SHORT_BREAK;
+      switchMode(breakMode);
+    } else {
+      switchMode(TimerMode.FOCUS);
+    }
   };
 
   const resetTimer = () => {
@@ -270,47 +299,26 @@ export default function PomodoroTimer() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[600px] p-4 max-w-2xl mx-auto">
-      {/* Mode Selector */}
-      <div className="flex gap-2 mb-8">
-        <Button
-          variant={mode === TimerMode.FOCUS ? "default" : "outline"}
-          onClick={() => switchMode(TimerMode.FOCUS)}
-          disabled={isRunning}
-          size="sm"
-        >
-          <Target className="w-4 h-4 mr-2" />
-          {t('focus')}
-        </Button>
-        <Button
-          variant={mode === TimerMode.SHORT_BREAK ? "default" : "outline"}
-          onClick={() => switchMode(TimerMode.SHORT_BREAK)}
-          disabled={isRunning}
-          size="sm"
-        >
-          <Coffee className="w-4 h-4 mr-2" />
-          {t('shortBreak')}
-        </Button>
-        <Button
-          variant={mode === TimerMode.LONG_BREAK ? "default" : "outline"}
-          onClick={() => switchMode(TimerMode.LONG_BREAK)}
-          disabled={isRunning}
-          size="sm"
-        >
-          <Coffee className="w-4 h-4 mr-2" />
-          {t('longBreak')}
-        </Button>
+    <div className="relative flex flex-col items-center justify-center min-h-[600px] p-4 max-w-2xl mx-auto">
+      {/* Settings Button - Top Right */}
+      <div className="absolute top-4 right-4">
+        <SettingsDialog
+          settings={settings}
+          onSave={saveSettings}
+          isOpen={isSettingsOpen}
+          onOpenChange={setIsSettingsOpen}
+        />
       </div>
 
       {/* Timer Display */}
       <motion.div
-        className="relative w-80 h-80 mb-8"
+        className="relative w-72 h-72 sm:w-96 sm:h-96 mb-8"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
         {/* Progress Circle */}
-        <svg className="w-full h-full transform -rotate-90">
+        <svg className="w-full h-full transform -rotate-90" viewBox="0 0 320 320">
           <circle
             cx="160"
             cy="160"
@@ -320,7 +328,7 @@ export default function PomodoroTimer() {
             fill="none"
             className="text-muted"
           />
-          <circle
+          <motion.circle
             cx="160"
             cy="160"
             r="140"
@@ -328,8 +336,10 @@ export default function PomodoroTimer() {
             strokeWidth="8"
             fill="none"
             strokeDasharray={`${2 * Math.PI * 140}`}
-            strokeDashoffset={`${2 * Math.PI * 140 * (1 - getProgress() / 100)}`}
-            className={`bg-gradient-to-r ${getModeColor()} transition-all duration-1000`}
+            initial={{ strokeDashoffset: 2 * Math.PI * 140 }}
+            animate={{ strokeDashoffset: 2 * Math.PI * 140 * (1 - getProgress() / 100) }}
+            transition={{ duration: 1, ease: "linear" }}
+            className={`bg-gradient-to-r ${getModeColor()}`}
             style={{
               stroke: mode === TimerMode.FOCUS ? 'rgb(239, 68, 68)' :
                       mode === TimerMode.SHORT_BREAK ? 'rgb(34, 197, 94)' :
@@ -340,34 +350,34 @@ export default function PomodoroTimer() {
 
         {/* Center Content */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-7xl font-bold font-mono tabular-nums">
+          <div className="text-5xl sm:text-7xl font-bold font-mono tabular-nums">
             {formatTime(timeLeft)}
           </div>
         </div>
 
         {/* Mode label - positioned absolutely, not affecting layout */}
-        <div className="absolute bottom-16 left-0 right-0 text-center">
-          <div className="text-sm uppercase tracking-wider text-muted-foreground font-medium">
+        <div className="absolute bottom-12 sm:bottom-16 left-0 right-0 text-center">
+          <div className="text-xs sm:text-sm uppercase tracking-wider text-muted-foreground font-medium">
             {t(mode)}
           </div>
         </div>
       </motion.div>
 
       {/* Controls */}
-      <div className="flex gap-3 mb-6">
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 px-4">
         <Button
           size="lg"
           onClick={toggleTimer}
-          className="w-28"
+          className="w-24 sm:w-28"
         >
           {isRunning ? (
             <>
-              <Pause className="w-5 h-5 mr-2" />
+              <Pause className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               {t('pause')}
             </>
           ) : (
             <>
-              <Play className="w-5 h-5 mr-2" />
+              <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               {t('start')}
             </>
           )}
@@ -376,21 +386,25 @@ export default function PomodoroTimer() {
           size="lg"
           variant="outline"
           onClick={resetTimer}
+          className="flex-shrink-0 px-4"
         >
-          <RotateCcw className="w-5 h-5 mr-2" />
-          {t('reset')}
+          <RotateCcw className="w-5 h-5 sm:mr-2" />
+          <span className="hidden sm:inline">{t('reset')}</span>
         </Button>
-        <SettingsDialog
-          settings={settings}
-          onSave={saveSettings}
-          isOpen={isSettingsOpen}
-          onOpenChange={setIsSettingsOpen}
-        />
+        <Button
+          size="lg"
+          variant="outline"
+          onClick={handleSkip}
+          className="flex-shrink-0 px-4"
+        >
+          <ArrowRightToLine className="w-5 h-5 sm:mr-2" />
+          <span className="hidden sm:inline">{t('skip')}</span>
+        </Button>
       </div>
 
       {/* Today's Statistics - Compact */}
-      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-        <span>
+      <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-sm text-muted-foreground px-4">
+        <span className="text-center">
           {t('todayLabel')}: <strong className="text-foreground">{todayStats.completedSessions}</strong> {t('sessions')} · <strong className="text-foreground">{todayStats.totalFocusTime}</strong> {t('minutes')}
         </span>
         <Button
@@ -512,6 +526,22 @@ function SettingsDialog({
                   sessionsUntilLongBreak: Math.min(100, Math.max(0, val))
                 });
               }}
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="autoStartBreaks">{t('autoStartBreaks')}</Label>
+            <Switch
+              id="autoStartBreaks"
+              checked={tempSettings.autoStartBreaks}
+              onCheckedChange={(checked) => setTempSettings({ ...tempSettings, autoStartBreaks: checked })}
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="playSound">{t('playSound')}</Label>
+            <Switch
+              id="playSound"
+              checked={tempSettings.playSound}
+              onCheckedChange={(checked) => setTempSettings({ ...tempSettings, playSound: checked })}
             />
           </div>
         </div>
