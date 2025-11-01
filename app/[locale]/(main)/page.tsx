@@ -10,7 +10,6 @@ import { formatDate } from "@/lib/utils";
 import FeaturedGamesCarousel from "@/components/featured-games-carousel";
 import Image from "next/image";
 import HomeBannerAd from "@/components/home-banner-ad";
-import Script from "next/script";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
@@ -112,12 +111,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     
     return (
         <>
-            <Script
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
-                crossOrigin="anonymous"
-            />
-            
             <div>
                 {/* Hero Section */}
                 <section className="max-w-[1600px] mx-auto rounded-3xl sm:p-6 md:p-12 mb-16 dark:from-transparent dark:to-transparent">

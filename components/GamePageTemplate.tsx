@@ -15,7 +15,6 @@ import { useTranslations } from 'next-intl';
 import { ShareButton } from '@/components/share-button';
 import { ExternalLink, BookOpen } from 'lucide-react';
 import HomeBannerAd from '@/components/home-banner-ad';
-import Script from 'next/script';
 
 interface FaqItem {
   question: string;
@@ -70,12 +69,6 @@ export function GamePageTemplate({
   
   return (
       <>
-          <Script
-              async
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
-              crossOrigin="anonymous"
-          />
-
           {/* Banner Ad - Top of Game Page */}
           <section className="max-w-6xl mx-auto mb-6 pt-4">
               <div className="rounded-xl bg-gradient-to-r from-muted/30 via-muted/10 to-muted/30 p-4 border border-border/30">

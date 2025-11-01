@@ -6,7 +6,6 @@ import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { Breadcrumb } from '@/components/breadcrumb';
 import HomeBannerAd from '@/components/home-banner-ad';
-import Script from 'next/script';
 import React from 'react';
 
 export async function generateMetadata({
@@ -37,12 +36,6 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   
   return (
     <>
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
-        crossOrigin="anonymous"
-      />
-      
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <Breadcrumb 

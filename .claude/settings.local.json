@@ -19,7 +19,8 @@
       "Bash(xargs kill:*)",
       "Bash(cat:*)",
       "Bash(git checkout:*)",
-      "Read(///**)"
+      "Read(///**)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
