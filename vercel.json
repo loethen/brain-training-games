@@ -1,15 +1,13 @@
 {
   "functions": {
-    "app/[locale]/games/*/page.tsx": {
-      "maxDuration": 10
+    "app/[locale]/(main)/games/*/page.tsx": {
+      "maxDuration": 10,
+      "memory": 1024
     },
-    "app/[locale]/blog/[slug]/page.tsx": {
-      "maxDuration": 10
+    "app/[locale]/(main)/blog/[slug]/page.tsx": {
+      "maxDuration": 10,
+      "memory": 512
     }
   },
-  "build": {
-    "env": {
-      "NEXT_PRIVATE_STANDALONE": "true"
-    }
-  }
+  "outputDirectory": ".next"
 }
