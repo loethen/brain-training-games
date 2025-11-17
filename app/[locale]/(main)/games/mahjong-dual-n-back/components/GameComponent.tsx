@@ -697,7 +697,10 @@ export default function GameComponent() {
                                     )}
                                 </Button>
                                 <Button
-                                    onClick={()=>window.location.reload()}
+                                    onClick={() => {
+                                        setGameState("idle");
+                                        resetAllGameState();
+                                    }}
                                     variant="outline"
                                     size="sm"
                                 >
