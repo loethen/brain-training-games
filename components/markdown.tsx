@@ -103,20 +103,27 @@ const components: Components = {
 };
 
 export default function Markdown({ content }: MarkdownProps) {
-  // 在第2个h2标题上方插入广告，并处理GameDemo占位符
+  // 在文章中部插入广告（更符合AdSense政策）
   const insertAdsInContent = (content: string) => {
     const lines = content.split('\n');
+
+    // 只在长文章中显示广告（内容行数 > 100）
+    if (lines.length < 100) {
+      return content;
+    }
+
     const result: string[] = [];
     let h2Count = 0;
     let adInserted = false;
+    const targetH2Position = Math.ceil(lines.filter(l => l.trim().startsWith('## ')).length / 2); // 中间的h2位置
 
     lines.forEach((line) => {
       // 检查是否是h2标题（markdown格式: ## 标题）
       if (line.trim().startsWith('## ') && !adInserted) {
         h2Count++;
 
-        // 在第2个h2标题前插入广告
-        if (h2Count === 2) {
+        // 在文章中部的h2标题前插入广告
+        if (h2Count >= targetH2Position && h2Count > 1) {
           result.push('<!-- AD_PLACEHOLDER -->');
           result.push('');
           adInserted = true;
