@@ -7,7 +7,6 @@ import rehypeRaw from 'rehype-raw';
 import type { Components } from 'react-markdown';
 import Image from 'next/image';
 import Link from 'next/link';
-import BlogAd from './blog-ad';
 import { InteractiveGameDemo } from './interactive-game-demo';
 
 interface MarkdownProps {
@@ -103,67 +102,19 @@ const components: Components = {
 };
 
 export default function Markdown({ content }: MarkdownProps) {
-  // 在第2个h2标题上方插入广告，并处理GameDemo占位符
-  const insertAdsInContent = (content: string) => {
-    const lines = content.split('\n');
-    const result: string[] = [];
-    let h2Count = 0;
-    let adInserted = false;
-
-    lines.forEach((line) => {
-      // 检查是否是h2标题（markdown格式: ## 标题）
-      if (line.trim().startsWith('## ') && !adInserted) {
-        h2Count++;
-
-        // 在第2个h2标题前插入广告
-        if (h2Count === 2) {
-          result.push('<!-- AD_PLACEHOLDER -->');
-          result.push('');
-          adInserted = true;
-        }
-      }
-
-      result.push(line);
-    });
-
-    return result.join('\n');
-  };
-
-  const processedContent = insertAdsInContent(content);
-
-  // 将处理后的内容分割并渲染
-  const renderContentWithAds = () => {
-    // 首先处理GameDemo占位符
-    const sectionsWithGameDemo = processedContent.split('*[Interactive GameDemo component would be embedded here]*');
+  // 处理GameDemo占位符
+  const renderContent = () => {
+    const sectionsWithGameDemo = content.split('*[Interactive GameDemo component would be embedded here]*');
 
     return sectionsWithGameDemo.map((section, index) => (
       <React.Fragment key={index}>
-        {/* 处理广告占位符 */}
-        {section.includes('<!-- AD_PLACEHOLDER -->') ? (
-          (() => {
-            const adSections = section.split('<!-- AD_PLACEHOLDER -->');
-            return adSections.map((adSection, adIndex) => (
-              <React.Fragment key={`ad-${adIndex}`}>
-                <ReactMarkdown
-                  components={components}
-                  remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeRaw, rehypeSlug, [rehypePrism, { ignoreMissing: true }]]}
-                >
-                  {adSection.trim()}
-                </ReactMarkdown>
-                {adIndex < adSections.length - 1 && <BlogAd adKey={`blog-h2-${adIndex}`} />}
-              </React.Fragment>
-            ));
-          })()
-        ) : (
-          <ReactMarkdown
-            components={components}
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw, rehypeSlug, [rehypePrism, { ignoreMissing: true }]]}
-          >
-            {section.trim()}
-          </ReactMarkdown>
-        )}
+        <ReactMarkdown
+          components={components}
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw, rehypeSlug, [rehypePrism, { ignoreMissing: true }]]}
+        >
+          {section.trim()}
+        </ReactMarkdown>
 
         {/* 插入GameDemo组件 */}
         {index < sectionsWithGameDemo.length - 1 && <InteractiveGameDemo />}
@@ -173,7 +124,7 @@ export default function Markdown({ content }: MarkdownProps) {
 
   return (
     <div className="prose-lg max-w-none">
-      {renderContentWithAds()}
+      {renderContent()}
     </div>
   );
 } 

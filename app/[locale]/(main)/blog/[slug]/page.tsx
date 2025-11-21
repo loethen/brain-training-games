@@ -8,7 +8,6 @@ import Markdown from '@/components/markdown';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { PostNavigation } from '@/components/post-navigation';
 import { ShareButton } from '@/components/share-button';
-import Script from 'next/script';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
@@ -50,14 +49,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const navigation = await getPostNavigation(slug, locale);
   
   return (
-    <>
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2676017781507774"
-        crossOrigin="anonymous"
-      />
-      
-      <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
           <Breadcrumb 
             items={[
@@ -122,6 +114,5 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           />
         </div>
       </div>
-    </>
   );
 } 

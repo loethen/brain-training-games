@@ -9,7 +9,6 @@ import { getBlogPosts, type BlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 import FeaturedGamesCarousel from "@/components/featured-games-carousel";
 import Image from "next/image";
-import HomeBannerAd from "@/components/home-banner-ad";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
@@ -147,11 +146,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         </div>
                     </div>
                 </section>
-
-            {/* Banner Ad Section - After Hero */}
-            <section className="max-w-[1600px] mx-auto px-0 sm:px-6 mb-16">
-                <HomeBannerAd adKey="after-hero" />
-            </section>
 
             {/* Games Section - Carousel Display */}
             <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">

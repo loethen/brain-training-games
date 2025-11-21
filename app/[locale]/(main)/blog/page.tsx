@@ -5,8 +5,6 @@ import { formatDate } from '@/lib/utils';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { Breadcrumb } from '@/components/breadcrumb';
-import HomeBannerAd from '@/components/home-banner-ad';
-import React from 'react';
 
 export async function generateMetadata({
     params,
@@ -35,7 +33,6 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   const posts = await getBlogPosts(locale);
   
   return (
-    <>
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <Breadcrumb 
@@ -50,14 +47,13 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
           <p className="text-muted-foreground mb-8">{t('description')}</p>
           
           <div className="grid gap-8">
-            {posts.map((post, index) => (
-              <React.Fragment key={post.slug}>
-                <article className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow">
+            {posts.map((post) => (
+                <article key={post.slug} className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow">
                   <Link href={`/${locale}/blog/${post.slug}`}>
                     <div className="grid md:grid-cols-[1fr_2fr]">
                       {post.coverImage && (
                         <div className="relative h-48 md:h-full">
-                          <Image 
+                          <Image
                             src={post.coverImage}
                             alt={post.title}
                             fill
@@ -88,12 +84,9 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                     </div>
                   </Link>
                 </article>
-                {index === 2 && <HomeBannerAd adKey="blog-list" />}
-              </React.Fragment>
             ))}
           </div>
         </div>
       </div>
-    </>
   );
 } 
