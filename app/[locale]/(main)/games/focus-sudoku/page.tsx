@@ -7,7 +7,7 @@ import { Keypad } from '@/components/sudoku/Keypad';
 import { FocusTimer } from '@/components/sudoku/FocusTimer';
 import { generatePuzzle, Board } from '@/lib/sudoku';
 import { Button } from '@/components/ui/button';
-import { Trophy, AlertCircle, Info } from 'lucide-react';
+import { Trophy, AlertCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { toast } from 'sonner';
 

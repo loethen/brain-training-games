@@ -10,7 +10,7 @@ interface KeypadProps {
     onDeleteClick: () => void;
     onNoteToggle: () => void;
     isNoteMode: boolean;
-    t: any;
+    t: (key: string) => string;
 }
 
 export function Keypad({

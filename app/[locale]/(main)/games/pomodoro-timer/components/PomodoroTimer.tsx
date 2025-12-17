@@ -242,6 +242,7 @@ export default function PomodoroTimer() {
         workerRef.current.postMessage({ type: 'PAUSE' });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRunning]); // Only trigger on running state change. Note: adding timeLeft here would cause loop? No, handled by worker.
   // Actually, if we add timeLeft to dependency, every tick updates it. We don't want to re-send START on every tick.
   // So strictly [isRunning]. 

@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-globals */
-
 // Define the message types
 type WorkerMessage =
     | { type: 'START'; duration: number }
