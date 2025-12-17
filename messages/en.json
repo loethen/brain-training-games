@@ -561,7 +561,7 @@
     }
   },
   "home": {
-    "title": "Feeling foggy and unfocused...?",
+    "title": "Free Focus Games & Brain Training: Boost Your Memory & Attention",
     "subtitle": "Boost your mind with fun, 5-minute daily challenges.",
     "ctaButton": "Start with 2-Min Quiz",
     "popularGames": "Popular Games",
@@ -593,7 +593,7 @@
       "emma": {
         "name": "Emma",
         "username": "@nature_em",
-        "body": "Remember every turn on our mountain hikes - no more getting lost!"
+        "body": "Remember every turn on our mountain hikes - never getting lost again!"
       },
       "sophia": {
         "name": "Sophia",
@@ -631,11 +631,31 @@
         "body": "Now balance game time and study time effortlessly"
       }
     },
-    "metaTitle": "Free Games for Memory & Concentration",
-    "metaDescription": "Boost focus and memory with fun, science-based online challenges. Free brain training games for kids, adults, and seniors to improve cognitive abilities.",
-    "metaKeywords": "memory games, focus games, concentration games, brain training, free online games",
-    "ogTitle": "Free Focus & Memory Games - Train Your Brain Online",
-    "ogDescription": "Improve your memory and concentration with our free science-based brain games. Perfect for all ages!"
+    "metaTitle": "Free Brain Training Games: Improve Focus & Memory Online",
+    "metaDescription": "Improve memory, concentration and cognitive skills with free science-based brain games. 100% free puzzles for ADHD, focus, and mental acuity.",
+    "metaKeywords": "memory games, focus games, concentration games, brain training, free online games, ADHD games, brain teasers",
+    "ogTitle": "Free Brain Training Games - Improve Focus & Memory",
+    "ogDescription": "Boost your memory and concentration with our free science-based brain games. Perfect for all ages!"
+  },
+  "typesOfGames": {
+    "title": "Types of Brain Training Games",
+    "subtitle": "Discover the science behind each category.",
+    "nback": {
+      "title": "N-Back Games",
+      "description": "The gold standard for working memory training. Challenges you to remember sequences of stimuli."
+    },
+    "schulte": {
+      "title": "Schulte Tables",
+      "description": "Grid-based visual search task. Enhances peripheral vision, reading speed, and selective attention."
+    },
+    "stroop": {
+      "title": "Stroop Tests",
+      "description": "Classic psychological test measuring cognitive flexibility and inhibition control."
+    },
+    "memory": {
+      "title": "Short-Term Memory",
+      "description": "Exercises designed to expand your immediate recall capacity and span."
+    }
   },
   "adhdAssessment": {
     "metadata": {
@@ -676,7 +696,7 @@
     },
     "scale": {
       "never": "0 - Never",
-      "occasionally": "1 - Occasionally", 
+      "occasionally": "1 - Occasionally",
       "often": "2 - Often",
       "veryOften": "3 - Very Often"
     },
@@ -789,7 +809,7 @@
     },
     "scale": {
       "never": "0 - Never",
-      "rarely": "1 - Rarely", 
+      "rarely": "1 - Rarely",
       "sometimes": "2 - Sometimes",
       "often": "3 - Often",
       "veryOften": "4 - Very Often"
@@ -879,7 +899,9 @@
       "divided-attention": "Divided Attention",
       "reaction-time": "Reaction Time",
       "cognitive-flexibility": "Cognitive Flexibility",
-      "spatial-memory": "Spatial Memory"
+      "spatial-memory": "Spatial Memory",
+      "adhd-games": "ADHD Games for Adults",
+      "brain-games-for-kids": "Focus Games for Kids"
     },
     "categoryDescriptions": {
       "working-memory": "Games that strengthen your ability to temporarily hold and manipulate information. Strong working memory helps students remember instructions, professionals juggle multiple tasks, and everyone follow conversations better.",
@@ -889,7 +911,9 @@
       "divided-attention": "Games that develop your ability to effectively split attention between multiple tasks or stimuli. Enhanced divided attention helps parents monitor children while completing household tasks, professionals handle concurrent responsibilities, and drivers safely navigate while being aware of surroundings.",
       "reaction-time": "Games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better, drivers respond quickly to road hazards, and older adults prevent falls.",
       "cognitive-flexibility": "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively.",
-      "spatial-memory": "Games that strengthen your ability to remember and manipulate spatial information. Strong spatial memory helps with navigation, remembering object locations, understanding maps, and visualizing 3D structures. This skill is crucial for activities like parking, finding items, following directions, and excelling in STEM fields."
+      "spatial-memory": "Games that strengthen your ability to remember and manipulate spatial information. Strong spatial memory helps with navigation, remembering object locations, understanding maps, and visualizing 3D structures. This skill is crucial for activities like parking, finding items, following directions, and excelling in STEM fields.",
+      "adhd-games": "A curated collection of games scientifically proven to help manage ADHD symptoms. These exercises target working memory, inhibition control, and sustained attention—key executive functions often impaired in ADHD.",
+      "brain-games-for-kids": "Engaging and verifiable brain training games designed specifically for children's cognitive development. These games help improve attention span, follow instructions, and impulse control in a fun, gamified way."
     },
     "keywords": {
       "working-memory": {
@@ -987,6 +1011,30 @@
         "spatial working memory": "Spatial working memory",
         "navigation skills training": "Navigation skills training",
         "spatial intelligence games": "Spatial intelligence games"
+      },
+      "adhd-games": {
+        "ADHD games for adults": "ADHD games for adults",
+        "games for adhd adults": "games for adhd adults",
+        "concentration games for adhd": "Concentration games for ADHD",
+        "adhd brain training": "ADHD brain training",
+        "focus games for adults with adhd": "Focus games for adults with ADHD",
+        "adhd memory games": "ADHD memory games",
+        "executive function training adhd": "Executive function training ADHD",
+        "inhibition control exercises": "Inhibition control exercises",
+        "attention deficit games": "Attention deficit games",
+        "scientific adhd training": "Scientific ADHD training"
+      },
+      "brain-games-for-kids": {
+        "brain games for kids": "Brain games for kids",
+        "focus games for kids": "Focus games for kids",
+        "attention games for children": "Attention games for children",
+        "adhd games for kids": "ADHD games for kids",
+        "concentration exercises for kids": "Concentration exercises for kids",
+        "memory games for children": "Memory games for children",
+        "visual tracking for kids": "Visual tracking for kids",
+        "impulse control games for kids": "Impulse control games for kids",
+        "educational brain games": "Educational brain games",
+        "kids cognitive training": "Kids cognitive training"
       }
     },
     "categoryNotFound": "Category Not Found",
@@ -999,6 +1047,7 @@
   },
   "games": {
     "title": "Games",
+    "play": "Play",
     "heading": "Focus Training Games",
     "description": "Discover our free focus-enhancing games, crafted to sharpen your attention and concentration with fun, targeted challenges.",
     "filters": {
@@ -2280,6 +2329,62 @@
         "save": "Save",
         "cancel": "Cancel",
         "resetToDefault": "Reset to Default"
+      }
+    },
+    "focusSudoku": {
+      "title": "Focus Sudoku",
+      "subtitle": "A distraction-free Sudoku designed to train working memory and logic.",
+      "description": "A distraction-free Sudoku designed to train working memory and logic.",
+      "mistakes": "Mistakes",
+      "hint": "Hint",
+      "newGame": "New Game",
+      "completeGuide": "Complete Guide",
+      "guide": {
+        "goal": "Goal",
+        "goalContent": "Fill every empty square with a number from 1 to 9.",
+        "rules": "3 Rules",
+        "rule1": "Each <strong>Row</strong> (horizontal) must have 1-9 unique.",
+        "rule2": "Each <strong>Column</strong> (vertical) must have 1-9 unique.",
+        "rule3": "Each <strong>3x3 Box</strong> (bold borders) must have 1-9 unique.",
+        "tip": "Tip",
+        "tipContent": "Click a number on the board to see where else it appears. Look for rows or boxes that are almost full!"
+      },
+      "win": {
+        "title": "Clean Focus!",
+        "message": "You solved the {difficulty} puzzle with pure logic.",
+        "playAgain": "Play Again"
+      },
+      "howToPlay": {
+        "objectiveTitle": "The Objective",
+        "objectiveContent": "Fill the 9x9 grid so that each column, each row, and each of the nine 3x3 grids contains all of the digits from 1 to 9.",
+        "rulesTitle": "The Rules",
+        "rule1": "No number can be repeated in any <strong>Row</strong>.",
+        "rule2": "No number can be repeated in any <strong>Column</strong>.",
+        "rule3": "No number can be repeated in any <strong>3x3 Box</strong>.",
+        "tipsTitle": "Beginner Tips",
+        "tip1": "<strong>Start Easy:</strong> Look for blocks, rows, or columns that have the most numbers filled in.",
+        "tip2": "<strong>Scan:</strong> Click a number (like 1) to highlight all 1s on the board. See where a 1 is missing in a box.",
+        "tip3": "<strong>Use Note Mode:</strong> Press 'N' or click the \"Note Mode\" button to toggle note-taking. When active, numbers you type will appear as small pencil marks in the corner of the cell. Use this to mark possible candidates when you're not sure yet. Notes don't count as mistakes!"
+      },
+      "benefits": {
+        "wmTitle": "Working Memory",
+        "wmDesc": "Holding numbers and possibilities in your mind trains short-term memory capacity.",
+        "logicTitle": "Logical Deduction",
+        "logicDesc": "Systematic elimination of possibilities strengthens logical reasoning."
+      },
+      "keypad": {
+        "notesOn": "Notes ON",
+        "notesOff": "Notes OFF",
+        "erase": "Erase"
+      },
+      "toast": {
+        "selectCell": "Please select a cell first",
+        "incorrect": "Incorrect number!"
+      },
+      "difficulty": {
+        "easy": "Easy",
+        "medium": "Medium",
+        "hard": "Hard"
       }
     }
   },

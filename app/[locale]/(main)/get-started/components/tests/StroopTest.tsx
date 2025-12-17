@@ -10,14 +10,14 @@ interface StroopTestProps {
 
 export default function StroopTest({ onComplete }: StroopTestProps) {
   const t = useTranslations('getStarted.stroopTest');
-  
+
   // 颜色配置
-  const COLORS = [
+  const COLORS = React.useMemo(() => [
     { name: 'red', text: t('colors.red'), color: '#ef4444', key: '1' },
     { name: 'blue', text: t('colors.blue'), color: '#3b82f6', key: '2' },
     { name: 'green', text: t('colors.green'), color: '#10b981', key: '3' },
     { name: 'yellow', text: t('colors.yellow'), color: '#f59e0b', key: '4' }
-  ];
+  ], [t]);
   const [testState, setTestState] = useState<'instruction' | 'playing' | 'completed'>('instruction');
   const [currentRound, setCurrentRound] = useState(0);
   const [currentTrial, setCurrentTrial] = useState<{
@@ -43,12 +43,12 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
     let trial;
     let attempts = 0;
     const maxAttempts = 20;
-    
+
     do {
       // 80%几率生成不一致试验（增加挑战性）
       const isCongruent = Math.random() < 0.2;
       const wordColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-      
+
       let displayColor;
       if (isCongruent) {
         displayColor = wordColor;
@@ -65,11 +65,11 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
         correctAnswer: displayColor.name,
         isCongruent
       };
-      
+
       attempts++;
     } while (
-      lastTrial && 
-      trial.word === lastTrial.word && 
+      lastTrial &&
+      trial.word === lastTrial.word &&
       trial.color === lastTrial.color &&
       attempts < maxAttempts
     );
@@ -81,7 +81,7 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
     });
 
     return trial;
-  }, [lastTrial]);
+  }, [lastTrial, COLORS]);
 
   const startRound = useCallback(() => {
     const trial = generateTrial();
@@ -120,7 +120,7 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
       const correctResults = allResults.filter(r => r.correct);
       const accuracy = (correctResults.length / allResults.length) * 100;
       const avgTime = correctResults.reduce((sum, r) => sum + r.reactionTime, 0) / correctResults.length;
-      
+
       setFinalScore(Math.round(accuracy));
       setAvgReactionTime(Math.round(avgTime));
       setTestState('completed');
@@ -157,16 +157,16 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
     return (
       <div className="text-center space-y-6">
         <h3 className="text-xl font-semibold">{t('title')} ({currentRound + 1}/8)</h3>
-        
+
         <div className="p-8 bg-white dark:bg-gray-800 rounded-xl border">
           <p className="text-lg mb-6">{t('whatColor')}</p>
-          <div 
+          <div
             className="text-5xl font-bold mb-8"
             style={{ color: currentTrial.color }}
           >
             {currentTrial.word}
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             {COLORS.map((color) => (
               <button
@@ -179,7 +179,7 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
             ))}
           </div>
         </div>
-        
+
         <p className="text-sm text-muted-foreground">
           {t('useKeys')}
         </p>

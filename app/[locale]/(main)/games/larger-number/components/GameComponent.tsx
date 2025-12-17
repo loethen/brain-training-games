@@ -16,8 +16,8 @@ import confetti from 'canvas-confetti';
 type GameState = 'idle' | 'playing' | 'complete';
 type NumberOption = { value: number; position: 'left' | 'right' };
 type ChallengeResult = {
-  success: boolean;
-  message: string;
+    success: boolean;
+    message: string;
 };
 
 export default function GameComponent() {
@@ -33,7 +33,7 @@ export default function GameComponent() {
     const [challengeResult, setChallengeResult] =
         useState<ChallengeResult | null>(null);
     const [showShareModal, setShowShareModal] = useState(false);
-    
+
     // 难度设置
     const [currentDifficulty, setCurrentDifficulty] = useState<DifficultySettings>({
         ...GAME_CONFIG.initialDifficulty
@@ -66,19 +66,7 @@ export default function GameComponent() {
     }, []);
 
     // 初始化游戏
-    const initializeGame = useCallback(() => {
-        // 记录游戏开始时间
-        startTimeRef.current = Date.now();
-
-        setGameState("playing");
-        setIsLoading(false);
-
-        // 生成初始数字
-        generateNumbers();
-
-        // 启动计时器
-        setTimerDelay(50); // 50毫秒更新一次，使进度条更平滑
-    }, []);
+    /* Moved initializeGame below generateNumbers */
 
     // Start the game
     const startGame = useCallback(() => {
@@ -148,6 +136,24 @@ export default function GameComponent() {
         ]);
     }, [currentDifficulty]);
 
+    // 初始化游戏
+    const initializeGame = useCallback(() => {
+        // 记录游戏开始时间
+        startTimeRef.current = Date.now();
+
+        setGameState("playing");
+        setIsLoading(false);
+
+        // 生成初始数字
+        generateNumbers();
+
+        // 启动计时器
+        setTimerDelay(50); // 50毫秒更新一次，使进度条更平滑
+    }, [generateNumbers]);
+
+    // 初始化游戏
+    /* Moved initializeGame below generateNumbers */
+
     // Evaluate challenge completion
     const evaluateChallenge = useCallback((attempts: number, correctAnswers: number) => {
         const { attempts: targetAttempts, accuracy: targetAccuracy } = currentDifficulty;
@@ -160,16 +166,16 @@ export default function GameComponent() {
             message: success ? t("congratulations") : t("keepGoing"),
         };
     }, [t, currentDifficulty]);
-    
+
     // 增加难度
     const increaseDifficulty = useCallback(() => {
         setCurrentDifficulty(prev => {
             // 应用难度调整
             const { attemptsIncrement, minDifferenceDecrement } = GAME_CONFIG.difficultyAdjustment;
-            
+
             const nextAttempts = prev.attempts + attemptsIncrement;
             const nextAccuracy = GAME_CONFIG.calculateRequiredAccuracy(nextAttempts);
-            
+
             return {
                 ...prev,
                 minDifference: Math.max(1, prev.minDifference - minDifferenceDecrement),
@@ -177,22 +183,22 @@ export default function GameComponent() {
                 accuracy: nextAccuracy
             };
         });
-        
+
         setDifficultyLevel(prev => prev + 1);
     }, []);
-    
+
     // 降低难度
     const decreaseDifficulty = useCallback(() => {
         setCurrentDifficulty(prev => {
             // 反向应用难度调整，但确保不会低于初始难度
             const { attemptsIncrement, minDifferenceDecrement } = GAME_CONFIG.difficultyAdjustment;
             const initialDifficulty = GAME_CONFIG.initialDifficulty;
-            
+
             // 减少尝试次数
             const prevAttempts = Math.max(initialDifficulty.attempts, prev.attempts - attemptsIncrement);
             // 根据新的尝试次数计算准确率
             const prevAccuracy = GAME_CONFIG.calculateRequiredAccuracy(prevAttempts);
-            
+
             return {
                 ...prev,
                 minDifference: Math.min(prev.minDifference + minDifferenceDecrement, initialDifficulty.minDifference),
@@ -200,13 +206,13 @@ export default function GameComponent() {
                 accuracy: prevAccuracy
             };
         });
-        
+
         setDifficultyLevel(prev => Math.max(1, prev - 1));
         setShowDifficultyAdjustment(false);
         // 清除完成的难度级别状态，以便正确显示当前的难度目标
         setCompletedLevelDifficulty(null);
     }, []);
-    
+
     // 保持当前难度
     const keepCurrentDifficulty = useCallback(() => {
         setShowDifficultyAdjustment(false);
@@ -224,8 +230,8 @@ export default function GameComponent() {
         // 如果挑战成功，触发五彩纸屑效果并更新难度
         if (result.success) {
             // 保存当前难度设置，用于显示结果
-            setCompletedLevelDifficulty({...currentDifficulty});
-            
+            setCompletedLevelDifficulty({ ...currentDifficulty });
+
             // 延迟一点时间，确保状态更新后再触发动画
             setTimeout(() => {
                 triggerConfetti();
@@ -233,7 +239,7 @@ export default function GameComponent() {
             }, 300);
         } else {
             // 如果挑战失败，显示难度调整选项
-            setCompletedLevelDifficulty({...currentDifficulty});
+            setCompletedLevelDifficulty({ ...currentDifficulty });
             setShowDifficultyAdjustment(true);
         }
     }, [totalAttempts, correctAnswers, evaluateChallenge, increaseDifficulty, currentDifficulty]);
@@ -310,10 +316,10 @@ export default function GameComponent() {
     const getNextLevelTarget = () => {
         const difficulty = completedLevelDifficulty || currentDifficulty;
         const { attemptsIncrement } = GAME_CONFIG.difficultyAdjustment;
-        
+
         const nextAttempts = difficulty.attempts + attemptsIncrement;
         const nextAccuracy = GAME_CONFIG.calculateRequiredAccuracy(nextAttempts);
-        
+
         return t("nextLevelTarget", {
             attempts: nextAttempts,
             accuracy: nextAccuracy
@@ -354,7 +360,7 @@ export default function GameComponent() {
                             <div className="mb-4 flex justify-center">
                                 {renderDifficultyBadge()}
                             </div>
-                            
+
                             <div className="mb-8 p-4 bg-muted/30 rounded-lg">
                                 <h3>
                                     {t("challenge", {
@@ -406,7 +412,7 @@ export default function GameComponent() {
                             <div className="mb-4 flex justify-center">
                                 {renderDifficultyBadge()}
                             </div>
-                            
+
                             <h2 className="text-xl sm:text-2xl font-bold mb-4">
                                 {t("timeUp")}
                             </h2>
@@ -435,7 +441,7 @@ export default function GameComponent() {
                                         <div className="text-sm text-muted-foreground mt-6">
                                             {getCurrentLevelTarget()}
                                         </div>
-                                        
+
                                         {/* 显示下一关目标 - 仅在成功时显示 */}
                                         {challengeResult.success && (
                                             <div className="mt-4 p-3 bg-primary/10 rounded-lg text-sm">
@@ -456,7 +462,7 @@ export default function GameComponent() {
                                         {t("adjustDifficultyDescription")}
                                     </h3>
                                     <div className="flex flex-col gap-3">
-                                        <Button 
+                                        <Button
                                             onClick={decreaseDifficulty}
                                             className="gap-2"
                                             variant="outline"
@@ -464,7 +470,7 @@ export default function GameComponent() {
                                             <ArrowDown className="w-4 h-4" />
                                             {t("decreaseDifficulty")}
                                         </Button>
-                                        <Button 
+                                        <Button
                                             onClick={keepCurrentDifficulty}
                                         >
                                             {t("keepCurrentDifficulty")}
@@ -480,10 +486,10 @@ export default function GameComponent() {
                                     className="gap-2"
                                 >
                                     <PlayCircle className="w-4 h-4" />
-                                    {isLoading 
-                                        ? t("starting") 
-                                        : challengeResult?.success 
-                                            ? t("continueChallenge") 
+                                    {isLoading
+                                        ? t("starting")
+                                        : challengeResult?.success
+                                            ? t("continueChallenge")
                                             : t("playAgain")}
                                 </Button>
                                 <Button

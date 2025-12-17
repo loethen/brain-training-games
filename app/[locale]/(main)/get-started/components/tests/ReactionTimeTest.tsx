@@ -17,29 +17,31 @@ export default function ReactionTimeTest({ onComplete }: ReactionTimeTestProps) 
   const [reactionStartTime, setReactionStartTime] = useState<number | null>(null);
   const [avgTime, setAvgTime] = useState<number>(0);
 
-  const startReactionTest = useCallback(() => {
-    setTestState('playing');
-    setReactionRound(0);
-    setReactionTimes([]);
-    startReactionRound();
-  }, []);
+  /* Moved startReactionTest below startReactionRound */
 
   const startReactionRound = useCallback(() => {
     setReactionState('waiting');
     const waitTime = 1000 + Math.random() * 2000; // 1-3秒随机等待
-    
+
     setTimeout(() => {
       setReactionState('ready');
       setReactionStartTime(Date.now());
     }, waitTime);
   }, []);
 
+  const startReactionTest = useCallback(() => {
+    setTestState('playing');
+    setReactionRound(0);
+    setReactionTimes([]);
+    startReactionRound();
+  }, [startReactionRound]);
+
   const handleReactionClick = useCallback(() => {
     if (reactionState === 'ready' && reactionStartTime) {
       const reactionTime = Date.now() - reactionStartTime;
       setReactionTimes(prev => [...prev, reactionTime]);
       setReactionState('clicked');
-      
+
       if (reactionRound < 2) { // 3轮测试
         setReactionRound(prev => prev + 1);
         setTimeout(() => startReactionRound(), 1000);
@@ -81,13 +83,12 @@ export default function ReactionTimeTest({ onComplete }: ReactionTimeTestProps) 
       <div className="text-center space-y-6">
         <h3 className="text-xl font-semibold">{t('title')} ({reactionRound + 1}/3)</h3>
         <div
-          className={`w-48 h-48 mx-auto rounded-full cursor-pointer transition-all ${
-            reactionState === 'waiting' 
-              ? 'bg-red-500' 
+          className={`w-48 h-48 mx-auto rounded-full cursor-pointer transition-all ${reactionState === 'waiting'
+              ? 'bg-red-500'
               : reactionState === 'ready'
-              ? 'bg-green-500'
-              : 'bg-gray-300'
-          }`}
+                ? 'bg-green-500'
+                : 'bg-gray-300'
+            }`}
           onClick={handleReactionClick}
         >
           <div className="flex items-center justify-center h-full text-white font-bold text-lg">

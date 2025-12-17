@@ -12,7 +12,7 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
   const t = useTranslations('games.largerNumber.gameUI');
   const tTest = useTranslations('getStarted.processingSpeedTest');
   const [testState, setTestState] = useState<'instruction' | 'playing' | 'completed'>('instruction');
-  const [numbers, setNumbers] = useState<{left: number, right: number}>({left: 0, right: 0});
+  const [numbers, setNumbers] = useState<{ left: number, right: number }>({ left: 0, right: 0 });
   const [speedRound, setSpeedRound] = useState(0);
   const [speedCorrect, setSpeedCorrect] = useState(0);
   const [score, setScore] = useState<number>(0);
@@ -25,8 +25,8 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
     do {
       right = Math.floor(Math.random() * 90) + 10;
     } while (Math.abs(left - right) < 5); // 确保差异至少为5
-    
-    setNumbers({left, right});
+
+    setNumbers({ left, right });
   }, []);
 
   const startSpeedTest = useCallback(() => {
@@ -39,26 +39,16 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
   }, [generateNumbers]);
 
   // 时间倒计时
-  useEffect(() => {
-    if (isGameActive && timeLeft > 0) {
-      const timer = setTimeout(() => {
-        setTimeLeft(prev => prev - 1);
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else if (isGameActive && timeLeft === 0) {
-      // 时间到，结束游戏
-      endGame();
-    }
-  }, [timeLeft, isGameActive]);
+  /* Moved useEffect below endGame */
 
   const endGame = useCallback(() => {
     setIsGameActive(false);
     const totalQuestions = speedRound;
     const accuracy = totalQuestions > 0 ? (speedCorrect / totalQuestions) * 100 : 0;
-    
+
     // 计算处理速度分数
     let processingScore = 0;
-    
+
     if (totalQuestions >= 12 && accuracy >= 90) {
       // 达到基本要求：12题且90%正确率
       processingScore = Math.min(100, 70 + (totalQuestions - 12) * 2 + (accuracy - 90) * 1);
@@ -72,23 +62,36 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
       // 两个条件都不满足
       processingScore = Math.min(50, 20 + totalQuestions * 1.5 + accuracy * 0.3);
     }
-    
+
     setScore(Math.round(processingScore));
     setTestState('completed');
   }, [speedRound, speedCorrect]);
 
+  // 时间倒计时
+  useEffect(() => {
+    if (isGameActive && timeLeft > 0) {
+      const timer = setTimeout(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (isGameActive && timeLeft === 0) {
+      // 时间到，结束游戏
+      endGame();
+    }
+  }, [timeLeft, isGameActive, endGame]);
+
   const handleSpeedChoice = useCallback((choice: 'left' | 'right') => {
     if (!isGameActive) return;
-    
-    const isCorrect = (choice === 'left' && numbers.left > numbers.right) || 
-                     (choice === 'right' && numbers.right > numbers.left);
-    
+
+    const isCorrect = (choice === 'left' && numbers.left > numbers.right) ||
+      (choice === 'right' && numbers.right > numbers.left);
+
     if (isCorrect) {
       setSpeedCorrect(prev => prev + 1);
     }
-    
+
     setSpeedRound(prev => prev + 1);
-    
+
     // 如果时间还没到，继续下一题
     if (timeLeft > 0) {
       generateNumbers();
@@ -130,7 +133,7 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
 
   if (testState === 'playing') {
     const accuracy = speedRound > 0 ? ((speedCorrect / speedRound) * 100).toFixed(1) : '0.0';
-    
+
     return (
       <div className="text-center space-y-6">
         <div className="flex justify-between items-center">
@@ -139,7 +142,7 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
             {timeLeft}s
           </div>
         </div>
-        
+
         <div className="flex justify-center gap-8">
           <button
             onClick={() => handleSpeedChoice('left')}
@@ -156,9 +159,9 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
             {numbers.right}
           </button>
         </div>
-        
+
         <p className="text-sm text-muted-foreground">{tTest('clickLarger')}</p>
-        
+
         <div className="flex justify-center gap-6 text-sm">
           <span>{tTest('completed')}: {speedRound}{tTest('questionsLabel')}</span>
           <span>{t('correct')}: {speedCorrect}{tTest('questionsLabel')}</span>
@@ -166,13 +169,13 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
             {t('accuracy')}: {accuracy}%
           </span>
         </div>
-        
+
         <div className="text-xs text-muted-foreground">
           {speedRound >= 12 && parseFloat(accuracy) >= 90 ? (
             <span className="text-green-600 font-semibold">🎯 {tTest('challengeCompleted')}</span>
           ) : (
             <span>
-              {tTest('stillNeeded')}: {Math.max(0, 12 - speedRound)}{tTest('questionsLabel')} | 
+              {tTest('stillNeeded')}: {Math.max(0, 12 - speedRound)}{tTest('questionsLabel')} |
               {tTest('targetAccuracy')}: 90%
             </span>
           )}
@@ -184,14 +187,14 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
   if (testState === 'completed') {
     const accuracy = speedRound > 0 ? ((speedCorrect / speedRound) * 100).toFixed(1) : '0.0';
     const challengeCompleted = speedRound >= 12 && parseFloat(accuracy) >= 90;
-    
+
     return (
       <div className="text-center space-y-6">
         <div className="flex justify-center text-green-500">
           <Check size={48} />
         </div>
         <h3 className="text-xl font-semibold">{tTest('testCompleted')}</h3>
-        
+
         <div className="bg-gray-50 rounded-lg p-4 space-y-2">
           <div className="flex justify-between">
             <span>{tTest('questionsCompleted')}:</span>
@@ -211,9 +214,9 @@ export default function ProcessingSpeedTest({ onComplete }: ProcessingSpeedTestP
             </div>
           )}
         </div>
-        
+
         <p>{tTest('processingSpeedScore')}: {score}{tTest('points')}</p>
-        
+
         <button
           onClick={handleComplete}
           className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-colors"

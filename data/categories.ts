@@ -159,6 +159,44 @@ export const categories: Category[] = [
       "navigation skills training",
       "spatial intelligence games"
     ]
+  },
+  {
+    id: "adhd-games",
+    name: "Traffic-Boosting Collection: ADHD Games for Adults",
+    description: "A curated collection of games scientifically proven to help manage ADHD symptoms. These exercises target working memory, inhibition control, and sustained attention—key executive functions often impaired in ADHD. Regular practice can help improve daily focus, reduce impulsivity, and enhance cognitive regulation.",
+    slug: "adhd-games",
+    icon: "BrainCircuit",
+    keywords: [
+      "ADHD games for adults",
+      "games for adhd adults",
+      "concentration games for adhd",
+      "adhd brain training",
+      "focus games for adults with adhd",
+      "adhd memory games",
+      "executive function training adhd",
+      "inhibition control exercises",
+      "attention deficit games",
+      "scientific adhd training"
+    ]
+  },
+  {
+    id: "brain-games-for-kids",
+    name: "Traffic-Boosting Collection: Focus Games for Kids",
+    description: "Engaging and verifiable brain training games designed specifically for children's cognitive development. These games help improve attention span, follow instructions, and impulse control in a fun, gamified way. Perfect for supporting school performance and daily behavioral regulation.",
+    slug: "brain-games-for-kids",
+    icon: "Gamepad2",
+    keywords: [
+      "brain games for kids",
+      "focus games for kids",
+      "attention games for children",
+      "adhd games for kids",
+      "concentration exercises for kids",
+      "memory games for children",
+      "visual tracking for kids",
+      "impulse control games for kids",
+      "educational brain games",
+      "kids cognitive training"
+    ]
   }
 ];
 

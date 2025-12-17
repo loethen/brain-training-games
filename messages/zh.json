@@ -24,8 +24,28 @@
   },
   "metadata": {
     "title": "免费专注力和记忆力训练游戏 | 脑力训练 | FreeFocusGames",
-    "description": "通过免费的科学脑力游戏提高记忆力、注意力和认知能力，适合所有年龄段。",
-    "keywords": "免费专注力游戏, 记忆力游戏, 脑力训练游戏, 注意力游戏, 注意力提升游戏, 在线认知游戏"
+    "description": "通过免费的科学脑力游戏提高记忆力、注意力和认知能力，适合所有年龄段。专为提升专注力、记忆力和反应速度而设计。",
+    "keywords": "免费专注力游戏, 记忆力游戏, 脑力训练游戏, 注意力游戏, 注意力提升游戏, 在线认知游戏, ADHD训练, 儿童专注力"
+  },
+  "typesOfGames": {
+    "title": "脑力训练游戏类型",
+    "subtitle": "针对特定认知技能的科学训练",
+    "nback": {
+      "title": "N-Back 游戏",
+      "description": "提升工作记忆和流体智力的黄金标准训练。"
+    },
+    "schulte": {
+      "title": "舒尔特表",
+      "description": "用于提升视觉注意力和外周视觉的经典测试。"
+    },
+    "stroop": {
+      "title": "Stroop 效应",
+      "description": "挑战认知灵活性和冲动控制能力。"
+    },
+    "memory": {
+      "title": "短期记忆",
+      "description": "通过模式匹配和序列回忆来强化记忆保持。"
+    }
   },
   "adhdAssessment": {
     "metadata": {
@@ -179,7 +199,7 @@
     },
     "scale": {
       "never": "0 - 从不",
-      "rarely": "1 - 很少", 
+      "rarely": "1 - 很少",
       "sometimes": "2 - 有时",
       "often": "3 - 经常",
       "veryOften": "4 - 非常经常"
@@ -877,7 +897,9 @@
       "divided-attention": "分散注意力",
       "reaction-time": "反应时间",
       "cognitive-flexibility": "认知灵活性",
-      "spatial-memory": "空间记忆"
+      "spatial-memory": "空间记忆",
+      "adhd-games": "成人ADHD游戏",
+      "brain-games-for-kids": "儿童专注力游戏"
     },
     "categoryDescriptions": {
       "working-memory": "增强你暂时保持和操作信息能力的游戏。强大的工作记忆帮助学生记住指令，专业人士同时处理多项任务，以及每个人更好地跟随对话。",
@@ -887,7 +909,9 @@
       "divided-attention": "发展你有效地在多个任务或刺激之间分配注意力能力的游戏。增强的分散注意力帮助父母在完成家务的同时监督孩子，专业人士处理并行责任，以及驾驶员在注意周围环境的同时安全导航。",
       "reaction-time": "锻炼你对视觉或听觉刺激反应速度的游戏。更快的反应时间帮助运动员表现更好，驾驶员快速应对道路危险，以及老年人预防跌倒。",
       "cognitive-flexibility": "增强你在不同概念之间切换或适应变化规则能力的游戏。更大的认知灵活性帮助学生跨学科应用知识，专业人士适应不断变化的工作要求，以及每个人更有效地应对社交场合。",
-      "spatial-memory": "增强你记忆和操作空间信息能力的游戏。强大的空间记忆帮助导航、记住物体位置、理解地图和想象3D结构。这项技能对停车、寻找物品、跟随方向以及在STEM领域中取得优异成绩至关重要。"
+      "spatial-memory": "增强你记忆和操作空间信息能力的游戏。强大的空间记忆帮助导航、记住物体位置、理解地图和想象3D结构。这项技能对停车、寻找物品、跟随方向以及在STEM领域中取得优异成绩至关重要。",
+      "adhd-games": "经过科学验证的精选游戏集，有助于管理ADHD症状。这些练习针对工作记忆、抑制控制和持续注意力——这些是在ADHD中经常受损的关键执行功能。定期练习有助于提高日常专注力，减少冲动，增强认知调节。",
+      "brain-games-for-kids": "专为儿童认知发展设计的有趣且可验证的脑力训练游戏。这些游戏以趣味化、游戏化的方式帮助提高注意力持续时间、遵循指令和冲动控制。非常适合支持学校表现和日常行为规范。"
     },
     "keywords": {
       "working-memory": {
@@ -985,6 +1009,30 @@
         "spatial working memory": "空间工作记忆",
         "navigation skills training": "导航技能训练",
         "spatial intelligence games": "空间智力游戏"
+      },
+      "adhd-games": {
+        "ADHD games for adults": "成人ADHD游戏",
+        "games for adhd adults": "ADHD成人游戏",
+        "concentration games for adhd": "ADHD专注力游戏",
+        "adhd brain training": "ADHD脑力训练",
+        "focus games for adults with adhd": "成人ADHD专注力游戏",
+        "adhd memory games": "ADHD记忆游戏",
+        "executive function training adhd": "ADHD执行功能训练",
+        "inhibition control exercises": "抑制控制练习",
+        "attention deficit games": "注意力缺陷游戏",
+        "scientific adhd training": "科学ADHD训练"
+      },
+      "brain-games-for-kids": {
+        "brain games for kids": "儿童脑力游戏",
+        "focus games for kids": "儿童专注力游戏",
+        "attention games for children": "儿童注意力游戏",
+        "adhd games for kids": "儿童ADHD游戏",
+        "concentration exercises for kids": "儿童专注力练习",
+        "memory games for children": "儿童记忆游戏",
+        "visual tracking for kids": "儿童视觉追踪",
+        "impulse control games for kids": "儿童冲动控制游戏",
+        "educational brain games": "教育脑力游戏",
+        "kids cognitive training": "儿童认知训练"
       }
     },
     "categoryNotFound": "未找到分类",
@@ -997,6 +1045,7 @@
   },
   "games": {
     "title": "游戏",
+    "play": "开始",
     "heading": "专注力训练游戏",
     "description": "探索我们的免费专注力提升游戏，通过有趣、有针对性的挑战来锻炼你的注意力和集中力。",
     "filters": {
@@ -2278,6 +2327,62 @@
         "save": "保存",
         "cancel": "取消",
         "resetToDefault": "恢复默认"
+      }
+    },
+    "focusSudoku": {
+      "title": "专注数独",
+      "subtitle": "一个无干扰的数独游戏，专为训练工作记忆和逻辑而设计。",
+      "description": "一个无干扰的数独游戏，专为训练工作记忆和逻辑而设计。",
+      "mistakes": "错误",
+      "hint": "提示",
+      "newGame": "新游戏",
+      "completeGuide": "完整指南",
+      "guide": {
+        "goal": "目标",
+        "goalContent": "用1到9填满每个空白方格。",
+        "rules": "3条规则",
+        "rule1": "每<strong>行</strong>（水平）必须包含不重复的1-9。",
+        "rule2": "每<strong>列</strong>（垂直）必须包含不重复的1-9。",
+        "rule3": "每个<strong>3x3方框</strong>（粗边框）必须包含不重复的1-9。",
+        "tip": "提示",
+        "tipContent": "点击棋盘上的一个数字查看它在其他位置的出现情况。寻找快要填满的行或九宫格！"
+      },
+      "win": {
+        "title": "极致专注！",
+        "message": "你用纯粹的逻辑解决了{difficulty}谜题。",
+        "playAgain": "再玩一次"
+      },
+      "howToPlay": {
+        "objectiveTitle": "游戏目标",
+        "objectiveContent": "填充9x9网格，使得每一列、每一行以及九个3x3网格中的每一个都包含从1到9的所有数字。",
+        "rulesTitle": "游戏规则",
+        "rule1": "任何<strong>行</strong>中不能有重复数字。",
+        "rule2": "任何<strong>列</strong>中不能有重复数字。",
+        "rule3": "任何<strong>3x3方框</strong>中不能有重复数字。",
+        "tipsTitle": "新手技巧",
+        "tip1": "<strong>从简单开始：</strong>寻找填入数字最多的宫、行或列。",
+        "tip2": "<strong>扫描：</strong>点击一个数字（如1）高亮棋盘上所有的1。看看哪个宫里缺少1。",
+        "tip3": "<strong>使用笔记模式：</strong>按'N'或点击“笔记模式”按钮切换笔记状态。激活时，你输入的数字将作为小的铅笔标记出现在单元格角落。当你不确定时，用它来标记可能的候选数。笔记不算作错误！"
+      },
+      "benefits": {
+        "wmTitle": "工作记忆",
+        "wmDesc": "在脑海中保持数字和可能性可以训练短期记忆容量。",
+        "logicTitle": "逻辑推理",
+        "logicDesc": "系统性地排除可能性可以增强逻辑推理能力。"
+      },
+      "keypad": {
+        "notesOn": "笔记开启",
+        "notesOff": "笔记关闭",
+        "erase": "擦除"
+      },
+      "toast": {
+        "selectCell": "请先选择一个格子",
+        "incorrect": "数字不正确！"
+      },
+      "difficulty": {
+        "easy": "简单",
+        "medium": "中等",
+        "hard": "困难"
       }
     }
   },

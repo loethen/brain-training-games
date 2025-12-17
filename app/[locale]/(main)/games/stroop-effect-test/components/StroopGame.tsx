@@ -9,18 +9,18 @@ import { Share, RotateCcw, Play } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { ShareModal } from '@/components/ui/ShareModal';
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  COLORS, 
-  GAME_CONFIG, 
-  GameState, 
-  StroopTrial, 
-  GameResult, 
+import {
+  COLORS,
+  GAME_CONFIG,
+  GameState,
+  StroopTrial,
+  GameResult,
   generateTrial
 } from '../config';
 
 export default function StroopGame() {
   const t = useTranslations('games.stroopEffectTest.gameUI');
-  
+
   // Game state
   const [gameState, setGameState] = useState<GameState>(GameState.START);
   const [currentTrial, setCurrentTrial] = useState<StroopTrial | null>(null);
@@ -31,10 +31,10 @@ export default function StroopGame() {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [pageUrl, setPageUrl] = useState('');
   const [bestTime, setBestTime] = useState<number | null>(null);
-  
+
   // Refs
   const gameRef = useRef<HTMLDivElement>(null);
-  
+
   // Load best time from localStorage and set page URL
   useEffect(() => {
     const savedBestTime = localStorage.getItem('stroopBestTime');
@@ -47,42 +47,26 @@ export default function StroopGame() {
   // Calculate statistics
   const getStats = useCallback(() => {
     if (results.length === 0) return null;
-    
+
     const correctResults = results.filter(r => r.isCorrect);
     const accuracy = (correctResults.length / results.length) * 100;
     const avgReactionTime = correctResults.reduce((sum, r) => sum + r.reactionTime, 0) / correctResults.length;
     const congruentResults = correctResults.filter(r => r.trial.isCongruent);
     const incongruentResults = correctResults.filter(r => !r.trial.isCongruent);
-    
+
     return {
       accuracy: Math.round(accuracy),
       avgReactionTime: Math.round(avgReactionTime),
       congruentAvg: congruentResults.length > 0 ? Math.round(congruentResults.reduce((sum, r) => sum + r.reactionTime, 0) / congruentResults.length) : 0,
       incongruentAvg: incongruentResults.length > 0 ? Math.round(incongruentResults.reduce((sum, r) => sum + r.reactionTime, 0) / incongruentResults.length) : 0,
-      stroopEffect: incongruentResults.length > 0 && congruentResults.length > 0 ? 
-        Math.round((incongruentResults.reduce((sum, r) => sum + r.reactionTime, 0) / incongruentResults.length) - 
-        (congruentResults.reduce((sum, r) => sum + r.reactionTime, 0) / congruentResults.length)) : 0
+      stroopEffect: incongruentResults.length > 0 && congruentResults.length > 0 ?
+        Math.round((incongruentResults.reduce((sum, r) => sum + r.reactionTime, 0) / incongruentResults.length) -
+          (congruentResults.reduce((sum, r) => sum + r.reactionTime, 0) / congruentResults.length)) : 0
     };
   }, [results]);
 
   // Start game
-  const startGame = useCallback(() => {
-    setGameState(GameState.COUNTDOWN);
-    setCurrentRound(1);
-    setResults([]);
-    setCountdown(3);
-    
-    const countdownInterval = setInterval(() => {
-      setCountdown(prev => {
-        if (prev <= 1) {
-          clearInterval(countdownInterval);
-          startRound();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-  }, []);
+  /* Moved startGame below startRound */
 
   // Start a new round
   const startRound = useCallback(() => {
@@ -93,38 +77,57 @@ export default function StroopGame() {
 
     const isCongruent = Math.random() < GAME_CONFIG.difficulties.medium.congruentRatio;
     const trial = generateTrial(COLORS, isCongruent);
-    
+
     setCurrentTrial(trial);
     setGameState(GameState.PLAYING);
     setTrialStartTime(Date.now());
   }, [currentRound]);
 
+  // Start game
+  const startGame = useCallback(() => {
+    setGameState(GameState.COUNTDOWN);
+    setCurrentRound(1);
+    setResults([]);
+    setCountdown(3);
+
+    const countdownInterval = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(countdownInterval);
+          startRound();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }, [startRound]);
+
   // Handle color selection
   const handleColorSelect = useCallback((colorName: string) => {
     if (gameState !== GameState.PLAYING || !currentTrial || !trialStartTime) return;
-    
+
     const reactionTime = Date.now() - trialStartTime;
     const isCorrect = colorName === currentTrial.correctAnswer;
-    
+
     const result: GameResult = {
       trial: currentTrial,
       userAnswer: colorName,
       reactionTime,
       isCorrect
     };
-    
+
     setResults(prev => [...prev, result]);
-    
+
     // Show result briefly
     setGameState(GameState.RESULT);
-    
+
     // Update best time if this is a new best
     if (isCorrect && (bestTime === null || reactionTime < bestTime)) {
       setBestTime(reactionTime);
       localStorage.setItem('stroopBestTime', reactionTime.toString());
       toast(t('newBestTime') + `: ${reactionTime}ms`);
     }
-    
+
     // Move to next round after brief delay
     setTimeout(() => {
       setCurrentRound(prev => prev + 1);
@@ -136,7 +139,7 @@ export default function StroopGame() {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (gameState !== GameState.PLAYING) return;
-      
+
       const color = COLORS.find(c => c.keyCode === event.code);
       if (color) {
         handleColorSelect(color.name);
@@ -222,19 +225,19 @@ export default function StroopGame() {
                 {t('round')} {currentRound} / {GAME_CONFIG.rounds}
               </p>
             </div>
-            
+
             <Card className="p-8 bg-white border-2">
               <CardContent className="p-0">
                 <div className="mb-8">
                   <p className="text-lg mb-4">{t('identifyColor')}</p>
-                  <div 
+                  <div
                     className="text-6xl font-bold uppercase tracking-wider"
                     style={{ color: currentTrial.color }}
                   >
                     {t(`colors.${currentTrial.word}`)}
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {COLORS.map((color) => (
                     <Button
@@ -247,7 +250,7 @@ export default function StroopGame() {
                     </Button>
                   ))}
                 </div>
-                
+
                 <p className="text-sm text-muted-foreground mt-4">
                   {t('keyboardShortcut')}
                 </p>
@@ -290,7 +293,7 @@ export default function StroopGame() {
               <h2 className="text-2xl font-bold">{t('gameComplete')}</h2>
               <p className="text-muted-foreground">{t('yourResults')}</p>
             </div>
-            
+
             <Card className="p-6">
               <CardContent className="p-0 space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -303,7 +306,7 @@ export default function StroopGame() {
                     <div className="text-sm text-muted-foreground">{t('avgReactionTime')}</div>
                   </div>
                 </div>
-                
+
                 <div className="border-t pt-4">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-orange-500">{stats.stroopEffect}ms</div>
@@ -313,7 +316,7 @@ export default function StroopGame() {
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="text-center">
                     <div className="font-semibold">{stats.congruentAvg}ms</div>
@@ -326,7 +329,7 @@ export default function StroopGame() {
                 </div>
               </CardContent>
             </Card>
-            
+
             <div className="flex gap-3 justify-center">
               <Button onClick={shareResults} variant="outline" className="flex-1">
                 <Share className="w-4 h-4 mr-2" />

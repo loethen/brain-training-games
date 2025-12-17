@@ -12,26 +12,26 @@ import Image from "next/image";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
-  { params }: { params: Promise<{ locale: string }> }
+    { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'home' });
-  
-  return {
-    // 首页特定标题
-    title: t('metaTitle'),
-    // 首页特定描述
-    description: t('metaDescription'),
-    // 首页特定关键词
-    keywords: t('metaKeywords').split(',').map(keyword => keyword.trim()),
-    // 首页特定 Open Graph 数据
-    openGraph: {
-      title: t('ogTitle'),
-      description: t('ogDescription'),
-    },
-    // 多语言替代版本
-    alternates: generateAlternates(locale),
-  };
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: 'home' });
+
+    return {
+        // 首页特定标题
+        title: t('metaTitle'),
+        // 首页特定描述
+        description: t('metaDescription'),
+        // 首页特定关键词
+        keywords: t('metaKeywords').split(',').map(keyword => keyword.trim()),
+        // 首页特定 Open Graph 数据
+        openGraph: {
+            title: t('ogTitle'),
+            description: t('ogDescription'),
+        },
+        // 多语言替代版本
+        alternates: generateAlternates(locale),
+    };
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
@@ -39,7 +39,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     const t = await getTranslations({ locale });
     const testimonials = await getTranslations({ locale, namespace: 'home.testimonials' });
     const posts = await getBlogPosts(locale);
-    
+
     // 第一组评价
     const firstRowReviews = [
         {
@@ -73,7 +73,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             gradient: "from-sky-400 to-blue-500",
         },
     ];
-    
+
     // 第二组评价
     const secondRowReviews = [
         {
@@ -107,7 +107,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             gradient: "from-amber-400 to-orange-500",
         },
     ];
-    
+
     return (
         <>
             <div>
@@ -147,182 +147,206 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </section>
 
-            {/* Games Section - Carousel Display */}
-            <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
-                <FeaturedGamesCarousel />
-            </section>
+                {/* Games Section - Carousel Display */}
+                <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
+                    <FeaturedGamesCarousel />
+                </section>
 
-            {/* Latest Blog Posts */}
-            <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
-                <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-3xl font-bold">
-                        {t("home.latestPosts")}
+                {/* Types of Brain Training */}
+                <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold mb-4">{t("typesOfGames.title")}</h2>
+                        <p className="text-xl text-muted-foreground">{t("typesOfGames.subtitle")}</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { id: 'nback', icon: '🧠', color: 'bg-indigo-50 text-indigo-700' },
+                            { id: 'schulte', icon: '⚡', color: 'bg-amber-50 text-amber-700' },
+                            { id: 'stroop', icon: '🛑', color: 'bg-red-50 text-red-700' },
+                            { id: 'memory', icon: '🧩', color: 'bg-emerald-50 text-emerald-700' }
+                        ].map(type => (
+                            <div key={type.id} className="p-6 rounded-2xl border bg-card hover:shadow-lg transition-all hover:-translate-y-1">
+                                <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4", type.color)}>
+                                    {type.icon}
+                                </div>
+                                <h3 className="text-xl font-bold mb-2">{t(`typesOfGames.${type.id}.title`)}</h3>
+                                <p className="text-muted-foreground">{t(`typesOfGames.${type.id}.description`)}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Latest Blog Posts */}
+                <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
+                    <div className="flex justify-between items-center mb-8">
+                        <h2 className="text-3xl font-bold">
+                            {t("home.latestPosts")}
+                        </h2>
+                        <Link href="/blog">
+                            <Button variant="ghost">
+                                {t("buttons.viewAll")} →
+                            </Button>
+                        </Link>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {posts.slice(0, 2).map((post: BlogPost) => (
+                            <article
+                                key={post.slug}
+                                className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow"
+                            >
+                                <Link href={`/blog/${post.slug}`}>
+                                    <div className="flex flex-col md:grid md:grid-cols-[1fr_1.5fr] md:h-48">
+                                        {post.coverImage && (
+                                            <div
+                                                className="h-48 md:h-full bg-cover bg-center bg-no-repeat"
+                                                style={{
+                                                    backgroundImage: `url(${post.coverImage})`,
+                                                }}
+                                                role="img"
+                                                aria-label={post.title}
+                                            />
+                                        )}
+                                        <div className="p-6 flex flex-col justify-center">
+                                            <h3 className="text-xl font-semibold mb-3">
+                                                {post.title}
+                                            </h3>
+                                            <div className="text-sm text-muted-foreground">
+                                                {formatDate(post.date, locale)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Benefits Section */}
+                <section className="mb-24 max-w-3xl mx-auto px-0 sm:px-6">
+                    <h2 className="text-3xl font-bold text-center mb-8">
+                        {t("home.benefitsTitle")}
                     </h2>
-                    <Link href="/blog">
-                        <Button variant="ghost">
-                            {t("buttons.viewAll")} →
-                        </Button>
-                    </Link>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {posts.slice(0, 2).map((post: BlogPost) => (
-                        <article
-                            key={post.slug}
-                            className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow"
-                        >
-                            <Link href={`/blog/${post.slug}`}>
-                                <div className="flex flex-col md:grid md:grid-cols-[1fr_1.5fr] md:h-48">
-                                    {post.coverImage && (
-                                        <div
-                                            className="h-48 md:h-full bg-cover bg-center bg-no-repeat"
-                                            style={{
-                                                backgroundImage: `url(${post.coverImage})`,
-                                            }}
-                                            role="img"
-                                            aria-label={post.title}
-                                        />
-                                    )}
-                                    <div className="p-6 flex flex-col justify-center">
-                                        <h3 className="text-xl font-semibold mb-3">
-                                            {post.title}
-                                        </h3>
-                                        <div className="text-sm text-muted-foreground">
-                                            {formatDate(post.date, locale)}
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-                        </article>
-                    ))}
-                </div>
-            </section>
 
-            {/* Benefits Section */}
-            <section className="mb-24 max-w-3xl mx-auto px-0 sm:px-6">
-                <h2 className="text-3xl font-bold text-center mb-8">
-                    {t("home.benefitsTitle")}
-                </h2>
+                    <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
+                        <p>{t("home.benefitsIntro")}</p>
 
-                <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
-                    <p>{t("home.benefitsIntro")}</p>
-
-                    <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
-                        <div className="shrink-0 text-2xl">👨👧</div>
-                        <div>
-                            <h3 className="font-medium mb-2 text-foreground">
-                                {t("home.familyLifeTitle")}
-                            </h3>
-                            <p>{t("home.familyLifeDesc")}</p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
-                        <div className="shrink-0 text-2xl">💼</div>
-                        <div>
-                            <h3 className="font-medium mb-2 text-foreground">
-                                {t("home.workPerformanceTitle")}
-                            </h3>
-                            <p>{t("home.workPerformanceDesc")}</p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
-                        <div className="shrink-0 text-2xl">🎯</div>
-                        <div>
-                            <h3 className="font-medium mb-2 text-foreground">
-                                {t("home.personalGrowthTitle")}
-                            </h3>
-                            <p>{t("home.personalGrowthDesc")}</p>
-                        </div>
-                    </div>
-
-                    <p className="text-center mt-8">
-                        {t("home.dailyPractice")}
-                        <br />
-                        <span className="text-primary font-medium">
-                            {t("home.benefitsConclusion")}
-                        </span>
-                    </p>
-                </div>
-            </section>
-
-            {/* Testimonials Section */}
-            <section className="mb-24 max-w-7xl mx-auto">
-                <h2 className="text-3xl font-bold text-center mb-12">
-                    {t("home.testimonialsTitle")}
-                </h2>
-
-                <div className="relative flex w-full flex-col items-center justify-center overflow-hidden px-6">
-                    <Marquee pauseOnHover className="[--duration:20s] mb-8">
-                        {firstRowReviews.map((review) => (
-                            <div key={review.username} className="mx-4 w-72">
-                                <div
-                                    className={cn(
-                                        "relative h-full cursor-pointer overflow-hidden rounded-xl border p-6",
-                                        "bg-background/80 hover:bg-border/10",
-                                        "border"
-                                    )}
-                                >
-                                    <div className="flex flex-col gap-4">
-                                        <div className="flex items-center gap-2">
-                                            <div
-                                                className={`h-16 w-16 rounded-full bg-linear-to-r ${review.gradient}`}
-                                            />
-                                            <div className="">
-                                                <h3 className="text-lg font-semibold">
-                                                    {review.name}
-                                                </h3>
-                                                <p className="text-sm text-muted-foreground">
-                                                    {review.username}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <blockquote className="mt-2 text-sm">
-                                            {review.body}
-                                        </blockquote>
-                                    </div>
-                                </div>
+                        <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
+                            <div className="shrink-0 text-2xl">👨👧</div>
+                            <div>
+                                <h3 className="font-medium mb-2 text-foreground">
+                                    {t("home.familyLifeTitle")}
+                                </h3>
+                                <p>{t("home.familyLifeDesc")}</p>
                             </div>
-                        ))}
-                    </Marquee>
+                        </div>
 
-                    <Marquee reverse pauseOnHover className="[--duration:20s]">
-                        {secondRowReviews.map((review) => (
-                            <div key={review.username} className="mx-4 w-72">
-                                <div
-                                    className={cn(
-                                        "relative h-full cursor-pointer overflow-hidden rounded-xl border p-6",
-                                        "bg-background/80 hover:bg-border/10",
-                                        "border"
-                                    )}
-                                >
-                                    <div className="flex flex-col gap-4">
-                                        <div className="flex items-center gap-2">
-                                            <div
-                                                className={`h-16 w-16 rounded-full bg-linear-to-r ${review.gradient}`}
-                                            />
-                                            <div className="">
-                                                <h3 className="text-lg font-semibold">
-                                                    {review.name}
-                                                </h3>
-                                                <h4 className="text-sm text-muted-foreground">
-                                                    {review.username}
-                                                </h4>
+                        <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
+                            <div className="shrink-0 text-2xl">💼</div>
+                            <div>
+                                <h3 className="font-medium mb-2 text-foreground">
+                                    {t("home.workPerformanceTitle")}
+                                </h3>
+                                <p>{t("home.workPerformanceDesc")}</p>
+                            </div>
+                        </div>
+
+                        <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
+                            <div className="shrink-0 text-2xl">🎯</div>
+                            <div>
+                                <h3 className="font-medium mb-2 text-foreground">
+                                    {t("home.personalGrowthTitle")}
+                                </h3>
+                                <p>{t("home.personalGrowthDesc")}</p>
+                            </div>
+                        </div>
+
+                        <p className="text-center mt-8">
+                            {t("home.dailyPractice")}
+                            <br />
+                            <span className="text-primary font-medium">
+                                {t("home.benefitsConclusion")}
+                            </span>
+                        </p>
+                    </div>
+                </section>
+
+                {/* Testimonials Section */}
+                <section className="mb-24 max-w-7xl mx-auto">
+                    <h2 className="text-3xl font-bold text-center mb-12">
+                        {t("home.testimonialsTitle")}
+                    </h2>
+
+                    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden px-6">
+                        <Marquee pauseOnHover className="[--duration:20s] mb-8">
+                            {firstRowReviews.map((review) => (
+                                <div key={review.username} className="mx-4 w-72">
+                                    <div
+                                        className={cn(
+                                            "relative h-full cursor-pointer overflow-hidden rounded-xl border p-6",
+                                            "bg-background/80 hover:bg-border/10",
+                                            "border"
+                                        )}
+                                    >
+                                        <div className="flex flex-col gap-4">
+                                            <div className="flex items-center gap-2">
+                                                <div
+                                                    className={`h-16 w-16 rounded-full bg-linear-to-r ${review.gradient}`}
+                                                />
+                                                <div className="">
+                                                    <h3 className="text-lg font-semibold">
+                                                        {review.name}
+                                                    </h3>
+                                                    <p className="text-sm text-muted-foreground">
+                                                        {review.username}
+                                                    </p>
+                                                </div>
                                             </div>
+                                            <blockquote className="mt-2 text-sm">
+                                                {review.body}
+                                            </blockquote>
                                         </div>
-                                        <blockquote className="mt-2 text-sm">
-                                            {review.body}
-                                        </blockquote>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </Marquee>
+                            ))}
+                        </Marquee>
 
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-background"></div>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background"></div>
-                </div>
-            </section>
+                        <Marquee reverse pauseOnHover className="[--duration:20s]">
+                            {secondRowReviews.map((review) => (
+                                <div key={review.username} className="mx-4 w-72">
+                                    <div
+                                        className={cn(
+                                            "relative h-full cursor-pointer overflow-hidden rounded-xl border p-6",
+                                            "bg-background/80 hover:bg-border/10",
+                                            "border"
+                                        )}
+                                    >
+                                        <div className="flex flex-col gap-4">
+                                            <div className="flex items-center gap-2">
+                                                <div
+                                                    className={`h-16 w-16 rounded-full bg-linear-to-r ${review.gradient}`}
+                                                />
+                                                <div className="">
+                                                    <h3 className="text-lg font-semibold">
+                                                        {review.name}
+                                                    </h3>
+                                                    <h4 className="text-sm text-muted-foreground">
+                                                        {review.username}
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <blockquote className="mt-2 text-sm">
+                                                {review.body}
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </Marquee>
+
+                        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-background"></div>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background"></div>
+                    </div>
+                </section>
             </div>
         </>
     );

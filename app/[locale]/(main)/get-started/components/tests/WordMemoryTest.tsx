@@ -10,7 +10,7 @@ interface WordMemoryTestProps {
 
 export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
   const t = useTranslations('getStarted.wordMemoryTest');
-  
+
   // 从翻译中获取词汇库
   const WORD_BANK = t.raw('wordBank') as string[];
   const [testState, setTestState] = useState<'instruction' | 'presentation' | 'recall' | 'completed'>('instruction');
@@ -25,7 +25,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
   const generateWords = useCallback(() => {
     const shuffled = [...WORD_BANK].sort(() => Math.random() - 0.5);
     setCurrentWords(shuffled.slice(0, 6)); // 只显示6个词
-  }, []);
+  }, [WORD_BANK]);
 
   const startTest = useCallback(() => {
     generateWords();
@@ -46,20 +46,20 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
       .map(input => input.trim())
       .filter(word => word.length > 0);
 
-    const correctWordsFound = currentWords.filter(word => 
-      userWords.some(userWord => 
+    const correctWordsFound = currentWords.filter(word =>
+      userWords.some(userWord =>
         userWord === word || word.includes(userWord) || userWord.includes(word)
       )
     );
 
-    const missedWordsFound = currentWords.filter(word => 
-      !userWords.some(userWord => 
+    const missedWordsFound = currentWords.filter(word =>
+      !userWords.some(userWord =>
         userWord === word || word.includes(userWord) || userWord.includes(word)
       )
     );
 
     const score = Math.round((correctWordsFound.length / currentWords.length) * 100);
-    
+
     setFinalScore(score);
     setWordsRecalled(correctWordsFound.length);
     setCorrectWords(correctWordsFound);
@@ -88,13 +88,13 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
         {/* 测试说明卡片 */}
         <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-xl p-6 space-y-4">
           <h4 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4">{t('testFlow')}</h4>
-          
+
           <div className="space-y-3">
             <div className="flex items-center gap-3 text-sm">
               <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">1</div>
               <span className="text-gray-700 dark:text-gray-300">{t('step1')}</span>
             </div>
-            
+
             <div className="flex items-center gap-3 text-sm">
               <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">2</div>
               <span className="text-gray-700 dark:text-gray-300">
@@ -102,7 +102,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
                 {t('step2')}
               </span>
             </div>
-            
+
             <div className="flex items-center gap-3 text-sm">
               <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">3</div>
               <span className="text-gray-700 dark:text-gray-300">{t('step3')}</span>
@@ -131,7 +131,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
             <span className="text-sm font-medium">{t('memoryTime')}</span>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
           {currentWords.map((word, index) => (
             <div
@@ -142,7 +142,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
             </div>
           ))}
         </div>
-        
+
         <div className="text-lg font-semibold text-blue-600 animate-pulse">
           {t('rememberCarefully')}
         </div>
@@ -162,7 +162,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
             </p>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
           {userInputs.map((input, index) => (
             <input
@@ -175,7 +175,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
             />
           ))}
         </div>
-        
+
         <button
           onClick={submitRecall}
           className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-colors shadow-lg"
@@ -194,9 +194,9 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
             <Check className="w-8 h-8 text-green-600" />
           </div>
         </div>
-        
+
         <h3 className="text-xl font-semibold">{t('testComplete')}</h3>
-        
+
         <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-xl p-4 space-y-2">
           <div className="text-2xl font-bold text-green-600">{finalScore}%</div>
           <p className="text-sm text-gray-600 dark:text-gray-400">{t('accuracy')}</p>
@@ -249,7 +249,7 @@ export default function WordMemoryTest({ onComplete }: WordMemoryTestProps) {
             </div>
           )}
         </div>
-        
+
         <button
           onClick={handleComplete}
           className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-lg"

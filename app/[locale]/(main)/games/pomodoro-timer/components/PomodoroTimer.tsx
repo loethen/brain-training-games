@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from "sonner";
 import { Play, Pause, RotateCcw, Settings, Trash2, ArrowRightToLine } from "lucide-react";
 import { useTranslations } from 'next-intl';
@@ -106,46 +106,36 @@ export default function PomodoroTimer() {
     return () => {
       document.title = originalTitleRef.current;
     };
-  }, []);
+  }, []); // Load settings only once
 
-  // Timer logic
-  useEffect(() => {
-    if (isRunning && timeLeft > 0) {
-      intervalRef.current = window.setInterval(() => {
-        setTimeLeft(prev => {
-          if (prev <= 1) {
-            handleTimerComplete();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  /* Moved switchMode above handleTimerComplete */
+  const switchMode = useCallback((newMode: TimerMode) => {
+    setMode(newMode);
+    setIsRunning(false);
+
+    let duration: number;
+    switch (newMode) {
+      case TimerMode.FOCUS:
+        duration = settings.focusDuration;
+        break;
+      case TimerMode.SHORT_BREAK:
+        duration = settings.shortBreakDuration;
+        break;
+      case TimerMode.LONG_BREAK:
+        duration = settings.longBreakDuration;
+        break;
     }
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [isRunning, timeLeft]);
+    setTimeLeft(duration * 60);
+  }, [settings]);
 
-  // Update tab title with countdown
-  useEffect(() => {
-    if (isRunning) {
-      const modeText = mode === TimerMode.FOCUS ? '🎯 Focus' :
-                       mode === TimerMode.SHORT_BREAK ? '☕ Break' :
-                       '☕ Long Break';
-      document.title = `${formatTime(timeLeft)} - ${modeText}`;
-    } else {
-      document.title = originalTitleRef.current;
-    }
-  }, [isRunning, timeLeft, mode]);
-
-  const handleTimerComplete = () => {
+  const handleTimerComplete = useCallback(() => {
     setIsRunning(false);
 
     if (settings.playSound) {
@@ -190,27 +180,48 @@ export default function PomodoroTimer() {
       // Switch to FOCUS mode but don't auto-start, wait for user
       switchMode(TimerMode.FOCUS);
     }
-  };
+  }, [mode, settings, sessionCompletedCount, todayStats, t, switchMode]);
 
-  const switchMode = (newMode: TimerMode) => {
-    setMode(newMode);
-    setIsRunning(false);
-
-    let duration: number;
-    switch (newMode) {
-      case TimerMode.FOCUS:
-        duration = settings.focusDuration;
-        break;
-      case TimerMode.SHORT_BREAK:
-        duration = settings.shortBreakDuration;
-        break;
-      case TimerMode.LONG_BREAK:
-        duration = settings.longBreakDuration;
-        break;
+  // Timer logic
+  useEffect(() => {
+    if (isRunning && timeLeft > 0) {
+      intervalRef.current = window.setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            handleTimerComplete();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     }
 
-    setTimeLeft(duration * 60);
-  };
+    /* Removed handleTimerComplete dependency as it is now defined before */
+    /* Removed handleTimerComplete dependency as it is now defined before */
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isRunning, timeLeft, handleTimerComplete]);
+
+  // Update tab title with countdown
+  useEffect(() => {
+    if (isRunning) {
+      const modeText = mode === TimerMode.FOCUS ? '🎯 Focus' :
+        mode === TimerMode.SHORT_BREAK ? '☕ Break' :
+          '☕ Long Break';
+      document.title = `${formatTime(timeLeft)} - ${modeText}`;
+    } else {
+      document.title = originalTitleRef.current;
+    }
+  }, [isRunning, timeLeft, mode]);
+
+  /* Moved switchMode and handleTimerComplete up */
 
   const toggleTimer = () => {
     if (!isRunning) {
@@ -265,11 +276,7 @@ export default function PomodoroTimer() {
     toast.success(t('settingsSaved'));
   };
 
-  const formatTime = (seconds: number): string => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
+  /* Moved formatTime up */
 
   const getProgress = (): number => {
     let totalSeconds: number;
@@ -342,8 +349,8 @@ export default function PomodoroTimer() {
             className={`bg-gradient-to-r ${getModeColor()}`}
             style={{
               stroke: mode === TimerMode.FOCUS ? 'rgb(239, 68, 68)' :
-                      mode === TimerMode.SHORT_BREAK ? 'rgb(34, 197, 94)' :
-                      'rgb(59, 130, 246)'
+                mode === TimerMode.SHORT_BREAK ? 'rgb(34, 197, 94)' :
+                  'rgb(59, 130, 246)'
             }}
           />
         </svg>
