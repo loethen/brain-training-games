@@ -51,6 +51,7 @@ export default function PomodoroTimer() {
   // Settings
   const [settings, setSettings] = useState<PomodoroSettings>(DEFAULT_SETTINGS);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [showPermissionDialog, setShowPermissionDialog] = useState(false);
 
   // Timer state
   const [mode, setMode] = useState<TimerMode>(TimerMode.FOCUS);
@@ -67,7 +68,7 @@ export default function PomodoroTimer() {
     totalFocusTime: 0
   });
 
-  const intervalRef = useRef<number | null>(null);
+  // const intervalRef = useRef<number | null>(null); // Removed interval ref
   const originalTitleRef = useRef<string>('');
 
   // Load saved data and settings
@@ -145,6 +146,26 @@ export default function PomodoroTimer() {
       sound.play();
     }
 
+    // Send Browser Notification
+    if ('Notification' in window && Notification.permission === 'granted') {
+      try {
+        const n = new Notification(t(mode === TimerMode.FOCUS ? 'focusComplete' : 'breakComplete'), {
+          body: t(mode === TimerMode.FOCUS ? 'focusCompleteBody' : 'breakCompleteBody'),
+          silent: false,
+          requireInteraction: true, // Keep notification until user clicks it
+          tag: 'pomodoro-timer' // Replace older notifications from this app
+        });
+        n.onclick = () => {
+          window.focus();
+          n.close();
+        };
+      } catch (e) {
+        console.error('Notification failed:', e);
+      }
+    } else {
+      // Permission not granted or not supported, do nothing silently
+    }
+
     if (mode === TimerMode.FOCUS) {
       const newSessionCount = sessionCompletedCount + 1;
       const newTodayStats: TodayStats = {
@@ -182,32 +203,55 @@ export default function PomodoroTimer() {
     }
   }, [mode, settings, sessionCompletedCount, todayStats, t, switchMode]);
 
-  // Timer logic
-  useEffect(() => {
-    if (isRunning && timeLeft > 0) {
-      intervalRef.current = window.setInterval(() => {
-        setTimeLeft(prev => {
-          if (prev <= 1) {
-            handleTimerComplete();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    }
+  // Web Worker Ref
+  const workerRef = useRef<Worker | null>(null);
 
-    /* Removed handleTimerComplete dependency as it is now defined before */
-    /* Removed handleTimerComplete dependency as it is now defined before */
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+  // Initialize Web Worker
+  useEffect(() => {
+    workerRef.current = new Worker(new URL('./pomodoro.worker.ts', import.meta.url));
+
+    workerRef.current.onmessage = (event) => {
+      const { type, timeLeft } = event.data;
+      if (type === 'TICK') {
+        setTimeLeft(timeLeft);
+      } else if (type === 'COMPLETE') {
+        handleTimerComplete();
       }
     };
-  }, [isRunning, timeLeft, handleTimerComplete]);
+
+    return () => {
+      workerRef.current?.terminate();
+    };
+  }, [handleTimerComplete]); // handleTimerComplete is stable due to useCallback
+
+  // Request Notification Permission on mount or interaction
+
+
+  // Timer logic - controlled by worker now
+  useEffect(() => {
+    if (workerRef.current) {
+      if (isRunning) {
+        // If starting from a paused state (timeLeft < full duration), pass current timeLeft
+        // The worker needs to know if it's a "resume" or "start fresh". 
+        // My worker implementation takes 'duration' on START.
+        // If I just paused, timeLeft is say 100. If I start again, I want to resume from 100.
+        // My worker logic: "if duration provided, set timeLeft = duration".
+        // So if I pass timeLeft, it resumes correctly.
+        workerRef.current.postMessage({ type: 'START', duration: timeLeft });
+      } else {
+        workerRef.current.postMessage({ type: 'PAUSE' });
+      }
+    }
+  }, [isRunning]); // Only trigger on running state change. Note: adding timeLeft here would cause loop? No, handled by worker.
+  // Actually, if we add timeLeft to dependency, every tick updates it. We don't want to re-send START on every tick.
+  // So strictly [isRunning]. 
+  // Wait, if I change modes, timeLeft changes. I need to sync that to worker too?
+  // yes, when mode changes, I setTimeLeft, but isRunning becomes false.
+  // So worker receives PAUSE.
+  // Then when I click start, isRunning=true, and we send START with the NEW timeLeft. 
+  // Correct.
+
+  /* Removed old interval logic */
 
   // Update tab title with countdown
   useEffect(() => {
@@ -221,16 +265,45 @@ export default function PomodoroTimer() {
     }
   }, [isRunning, timeLeft, mode]);
 
+  /* Removed global useEffect for notification permission */
+
   /* Moved switchMode and handleTimerComplete up */
 
-  const toggleTimer = () => {
+  const toggleTimer = async () => {
     if (!isRunning) {
+      if ('Notification' in window && Notification.permission === 'default') {
+        setShowPermissionDialog(true);
+        return;
+      }
+
       trackStartGame({
         game_id: 'pomodoro-timer',
         mode: mode
       });
     }
     setIsRunning(!isRunning);
+  };
+
+  const handlePermissionAllow = async () => {
+    setShowPermissionDialog(false);
+    if ('Notification' in window) {
+      await Notification.requestPermission();
+    }
+    // Start timer regardless of decision
+    startGame();
+  };
+
+  const handlePermissionCancel = () => {
+    setShowPermissionDialog(false);
+    startGame();
+  };
+
+  const startGame = () => {
+    trackStartGame({
+      game_id: 'pomodoro-timer',
+      mode: mode
+    });
+    setIsRunning(true);
   };
 
   const handleSkip = () => {
@@ -248,7 +321,16 @@ export default function PomodoroTimer() {
 
   const resetTimer = () => {
     setIsRunning(false);
-    switchMode(mode);
+    // Reset local state first
+    let duration: number;
+    switch (mode) {
+      case TimerMode.FOCUS: duration = settings.focusDuration; break;
+      case TimerMode.SHORT_BREAK: duration = settings.shortBreakDuration; break;
+      case TimerMode.LONG_BREAK: duration = settings.longBreakDuration; break;
+    }
+    setTimeLeft(duration * 60);
+    // Worker reset
+    workerRef.current?.postMessage({ type: 'RESET', duration: duration * 60 });
   };
 
   const clearTodayStats = () => {
@@ -424,7 +506,15 @@ export default function PomodoroTimer() {
           {t('clear')}
         </Button>
       </div>
-    </div>
+
+
+      <PermissionDialog
+        isOpen={showPermissionDialog}
+        onOpenChange={setShowPermissionDialog}
+        onAllow={handlePermissionAllow}
+        onCancel={handlePermissionCancel}
+      />
+    </div >
   );
 }
 
@@ -551,6 +641,12 @@ function SettingsDialog({
               onCheckedChange={(checked) => setTempSettings({ ...tempSettings, playSound: checked })}
             />
           </div>
+          <div className="flex items-center justify-between">
+            <Label>{t('notificationPermissionTitle')}</Label>
+            <div className="flex justify-end">
+              <NotificationPermissionButton />
+            </div>
+          </div>
         </div>
         <div className="flex justify-between gap-2">
           <Button variant="outline" onClick={handleResetToDefault}>
@@ -564,6 +660,82 @@ function SettingsDialog({
               {t('save')}
             </Button>
           </div>
+        </div>
+      </DialogContent>
+    </Dialog >
+  );
+}
+
+function NotificationPermissionButton() {
+  const t = useTranslations('games.pomodoroTimer.settings');
+  const [mounted, setMounted] = useState(false);
+  const [permission, setPermission] = useState<NotificationPermission>('default');
+
+  useEffect(() => {
+    setMounted(true);
+    if ('Notification' in window) {
+      setPermission(Notification.permission);
+    }
+  }, []);
+
+  if (!mounted || typeof window === 'undefined' || !('Notification' in window)) {
+    return null;
+  }
+
+  if (permission === 'granted') {
+    return (
+      <Button type="button" variant="outline" className="text-green-600 border-green-200 bg-green-50" disabled>
+        ✓ {t('notificationsEnabled')}
+      </Button>
+    );
+  } else if (permission === 'denied') {
+    return (
+      <Button type="button" variant="outline" onClick={() => {
+        toast.error(t('notificationPermissionDenied'));
+      }}>
+        {t('enableNotifications')}
+      </Button>
+    );
+  } else {
+    return (
+      <Button type="button" variant="secondary" onClick={() => {
+        toast(t('notificationPermissionRequest'));
+        Notification.requestPermission().then(p => setPermission(p));
+      }}>
+        {t('enableNotifications')}
+      </Button>
+    );
+  }
+}
+
+function PermissionDialog({
+  isOpen,
+  onOpenChange,
+  onAllow,
+  onCancel
+}: {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  onAllow: () => void;
+  onCancel: () => void;
+}) {
+  const t = useTranslations('games.pomodoroTimer.settings');
+  return (
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t('permissionDialogTitle')}</DialogTitle>
+        </DialogHeader>
+        <div className="py-4">
+          <p>{t('permissionDialogBody')}</p>
+        </div>
+        <div className="flex justify-end gap-2">
+          <Button variant="outline" onClick={onCancel}>
+            {t('maybeLater')}
+          </Button>
+          <Button onClick={onAllow}>
+            {t('allow')}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

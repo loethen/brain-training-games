@@ -2309,7 +2309,9 @@
         "totalFocusTime": "总专注时间",
         "minutes": "分钟",
         "focusComplete": "专注时段完成!该休息了。",
+        "focusCompleteBody": "干得好！休息一下，然后继续加油。",
         "breakComplete": "休息结束!准备好下一个专注时段了吗?",
+        "breakCompleteBody": "是时候重新开始专注了。加油！",
         "settingsSaved": "设置保存成功",
         "todayLabel": "今日",
         "sessions": "个番茄",
@@ -2326,7 +2328,16 @@
         "playSound": "完成时播放提示音?",
         "save": "保存",
         "cancel": "取消",
-        "resetToDefault": "恢复默认"
+        "resetToDefault": "恢复默认",
+        "enableNotifications": "启用通知",
+        "notificationsEnabled": "通知已启用",
+        "notificationPermissionTitle": "通知权限",
+        "notificationPermissionRequest": "请启用通知，以便在计时结束时提醒您。",
+        "notificationPermissionDenied": "通知已被禁用。请在系统或浏览器设置中启用它们。",
+        "permissionDialogTitle": "启用通知？",
+        "permissionDialogBody": "即使您切换到其他标签页，也能在计时结束时收到提醒。",
+        "allow": "允许",
+        "maybeLater": "以后再说"
       }
     },
     "focusSudoku": {

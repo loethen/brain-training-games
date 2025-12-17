@@ -2311,7 +2311,9 @@
         "totalFocusTime": "Total Focus",
         "minutes": "min",
         "focusComplete": "Focus session complete! Time for a break.",
+        "focusCompleteBody": "Good job! Take a short break, then get back to it.",
         "breakComplete": "Break is over! Ready for another focus session?",
+        "breakCompleteBody": "Time to focus again. Let's do this!",
         "settingsSaved": "Settings saved successfully",
         "todayLabel": "Today",
         "sessions": "sessions",
@@ -2328,7 +2330,16 @@
         "playSound": "Play sound on completion?",
         "save": "Save",
         "cancel": "Cancel",
-        "resetToDefault": "Reset to Default"
+        "resetToDefault": "Reset to Default",
+        "enableNotifications": "Enable Notifications",
+        "notificationsEnabled": "Notifications Enabled",
+        "notificationPermissionTitle": "Notification Permission",
+        "notificationPermissionRequest": "Please enable notifications so we can alert you when the timer ends.",
+        "notificationPermissionDenied": "Notifications are blocked. Please enable them in your system or browser settings.",
+        "permissionDialogTitle": "Enable Notifications?",
+        "permissionDialogBody": "Get notified when your timer ends, even if you are in another tab.",
+        "allow": "Allow",
+        "maybeLater": "Maybe Later"
       }
     },
     "focusSudoku": {
