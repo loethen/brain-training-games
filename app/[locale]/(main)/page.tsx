@@ -270,6 +270,30 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </section>
 
+
+                {/* Science Behind Section */}
+                <section className="mb-24 max-w-4xl mx-auto px-6 text-center">
+                    <div className="bg-muted/30 dark:bg-muted/10 p-8 sm:p-12 rounded-3xl border border-border">
+                        <span className="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-foreground uppercase bg-muted rounded-full">
+                            {t("home.scienceBehind.tag")}
+                        </span>
+                        <h2 className="text-3xl font-bold mb-4 text-foreground">
+                            {t("home.scienceBehind.title")}
+                        </h2>
+                        <p className="text-xl font-medium text-foreground mb-4">
+                            {t("home.scienceBehind.subtitle")}
+                        </p>
+                        <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
+                            {t("home.scienceBehind.description")}
+                        </p>
+                        <Link href="/working-memory-guide">
+                            <InteractiveHoverButton className="w-full sm:w-auto">
+                                {t("home.scienceBehind.cta")}
+                            </InteractiveHoverButton>
+                        </Link>
+                    </div>
+                </section>
+
                 {/* Testimonials Section */}
                 <section className="mb-24 max-w-7xl mx-auto">
                     <h2 className="text-3xl font-bold text-center mb-12">

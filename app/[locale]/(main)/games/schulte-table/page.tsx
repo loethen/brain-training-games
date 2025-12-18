@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { SchulteGame } from './components/SchulteGame'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Eye, Brain, BookOpen } from 'lucide-react'
@@ -32,6 +33,7 @@ export async function generateMetadata(
 
 export default function SchultePage() {
     const t = useTranslations('games');
+    const tCommon = useTranslations('common');
     const benefitsT = useTranslations('games.schulteTable.benefits');
     const faqT = useTranslations('games.schulteTable.faq');
     const standardsT = useTranslations('games.schulteTable.speedStandards');
@@ -48,6 +50,14 @@ export default function SchultePage() {
             }
             howToPlay={
                 <>
+                    <Link href="/working-memory-guide" className="block mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors group">
+                        <div className="flex items-center gap-3">
+                            <BookOpen className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                            <span className="text-sm font-medium text-primary">
+                                {tCommon('learnMoreAboutWorkingMemory')}
+                            </span>
+                        </div>
+                    </Link>
                     <p>{t("schulteTable.howToPlay")}</p>
 
                     <div className="mt-4 p-4 bg-muted/50 rounded-lg">

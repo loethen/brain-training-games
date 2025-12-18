@@ -1,10 +1,11 @@
 import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
-import { Brain, Layers, Zap, Clock } from 'lucide-react'
+import { Brain, Layers, Zap, Clock, BookOpen } from 'lucide-react'
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import TutorialButton from './components/TutorialButton';
+import Link from 'next/link'
 
 // 将静态元数据改为动态生成函数
 export async function generateMetadata(
@@ -12,7 +13,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'games.dualNBack' });
-  
+
   return {
     title: t('metaTitle'),
     description: t('metaDescription'),
@@ -39,7 +40,7 @@ export async function generateMetadata(
         },
         "featureList": [
           "30-second Interactive Tutorial",
-          "Beginner-Friendly Design", 
+          "Beginner-Friendly Design",
           "Scientifically-Backed Training",
           "Real-time Feedback",
           "Progressive Difficulty"
@@ -54,7 +55,8 @@ export async function generateMetadata(
 
 export default function DualNBackPage() {
   const t = useTranslations('games.dualNBack');
-  
+  const tCommon = useTranslations('common');
+
   return (
     <GamePageTemplate
       gameId="dual-n-back"
@@ -63,6 +65,14 @@ export default function DualNBackPage() {
       gameComponent={<Game />}
       howToPlay={
         <>
+          <Link href="/working-memory-guide" className="block mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors group">
+            <div className="flex items-center gap-3">
+              <BookOpen className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+              <span className="text-sm font-medium text-primary">
+                {tCommon('learnMoreAboutWorkingMemory')}
+              </span>
+            </div>
+          </Link>
           <p>{t('howToPlayIntro')}</p>
           <div className="my-6 p-5 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-orange-400 rounded-r-lg">
             <div className="flex items-center justify-between">

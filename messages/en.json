@@ -20,7 +20,8 @@
     "adhdAssessment": "Children's ADHD",
     "adultAdhdAssessment": "Adult ADHD",
     "startTest": "Start Test",
-    "readGuide": "Read Guide"
+    "readGuide": "Read Guide",
+    "learnMoreAboutWorkingMemory": "Learn how this game improves working memory in our comprehensive guide."
   },
   "metadata": {
     "title": "Free Focus & Memory Games | Brain Training | FreeFocusGames",
@@ -225,20 +226,19 @@
       "title": "🧠 Fundamentals of Working Memory: The Brain's Workbench",
       "whatIs": {
         "title": "What is Working Memory?",
-        "p1": "Working memory is the brain's \"temporary workbench\"—a cognitive system that temporarily stores and manipulates information while performing complex tasks. Unlike long-term memory, working memory has a limited capacity but processes information extremely quickly, forming the core basis of intellectual performance.",
-        "baddeleyModel": {
-          "title": "Baddeley's Model of Working Memory (The Classic Three Components):",
-          "card1": {
-            "title": "Central Executive",
-            "p": "Coordinates attention, controls the flow of information, and manages the other subsystems."
+        "p1": "Imagine a **'Mental Workbench'** inside your brain. When you actively hold and combine information on this workbench (like mentally calculating 24 + 58, or remembering a new name while conversing), that is your Working Memory in action.",
+        "analogy": {
+          "workbench": {
+            "title": "The Mental Workbench",
+            "p": "Just like a real workbench, this is where you temporarily place and assemble information."
           },
-          "card2": {
-            "title": "Phonological Loop",
-            "p": "Processes linguistic and auditory information, supporting inner speech and thought."
+          "limited": {
+            "title": "Limited Space",
+            "p": "This workbench is small. It can typically only hold 3-4 'items' at once. If you add too much, something falls off (you forget)."
           },
-          "card3": {
-            "title": "Visuo-Spatial Sketchpad",
-            "p": "Processes visual and spatial information, supporting mental imagery and manipulation."
+          "processing": {
+            "title": "clear-on-reset",
+            "p": "Items on this workbench are for 'immediate use'. Once a task is done or you get distracted, the workbench often clears to make room for the next task."
           }
         }
       },
@@ -635,7 +635,14 @@
     "metaDescription": "Improve memory, concentration and cognitive skills with free science-based brain games. 100% free puzzles for ADHD, focus, and mental acuity.",
     "metaKeywords": "memory games, focus games, concentration games, brain training, free online games, ADHD games, brain teasers",
     "ogTitle": "Free Brain Training Games - Improve Focus & Memory",
-    "ogDescription": "Boost your memory and concentration with our free science-based brain games. Perfect for all ages!"
+    "ogDescription": "Boost your memory and concentration with our free science-based brain games. Perfect for all ages!",
+    "scienceBehind": {
+      "title": "Science Behind the Fun",
+      "subtitle": "Our games are based on cutting-edge neuroscience research.",
+      "description": "Discover how targeted cognitive training enhances neuroplasticity, working memory, and attention span.",
+      "cta": "Read the Ultimate Guide to Working Memory",
+      "tag": "Neuroscience"
+    }
   },
   "typesOfGames": {
     "title": "Types of Brain Training Games",
