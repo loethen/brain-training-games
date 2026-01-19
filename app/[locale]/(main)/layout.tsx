@@ -15,62 +15,62 @@ import { getTranslations, getMessages } from 'next-intl/server';
 
 // 定义默认元数据，可以被页面级元数据覆盖
 export async function generateMetadata(
-  { params }: { params: Promise<{ locale: string }> }
+    { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
-  // 确保 params 是已解析的对象
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-  
-  // 获取当前URL的基本部分（不包含locale）
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003";
-  
-  return {
-    // 网站级别的默认元数据
-    metadataBase: new URL(baseUrl),
-    // 默认标题模板，页面可以提供具体标题
-    title: {
-      template: '%s | FreeFocusGames',
-      default: t('title'),
-    },
-    // 默认描述，页面可以提供更具体的描述
-    description: t('description'),
-    // 通用关键词，页面可以添加特定关键词
-    keywords: t('keywords').split(',').map(keyword => keyword.trim()),
-    // 默认 Open Graph 配置
-    openGraph: {
-        images: "/og/oglogo.png",
-        siteName: "FreeFocusGames",
-        type: "website",
-    },
-    // 默认 Twitter 配置
-    twitter: {
-      card: 'summary_large_image',
-    },
-    // 多语言替代版本
-    alternates: generateAlternates(locale),
-    // 其他通用配置
-    robots: {
-      index: true,
-      follow: true,
-    },
-    authors: [{ name: 'FreeFocusGames Team' }],
-    applicationName: 'Focus Games',
-    appleWebApp: {
-      capable: true,
-      title: 'Focus Games',
-      statusBarStyle: 'default',
-    },
-  };
+    // 确保 params 是已解析的对象
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: 'metadata' });
+
+    // 获取当前URL的基本部分（不包含locale）
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003";
+
+    return {
+        // 网站级别的默认元数据
+        metadataBase: new URL(baseUrl),
+        // 默认标题模板，页面可以提供具体标题
+        title: {
+            template: '%s | FreeFocusGames',
+            default: t('title'),
+        },
+        // 默认描述，页面可以提供更具体的描述
+        description: t('description'),
+        // 通用关键词，页面可以添加特定关键词
+        keywords: t('keywords').split(',').map(keyword => keyword.trim()),
+        // 默认 Open Graph 配置
+        openGraph: {
+            images: "/og/oglogo.png",
+            siteName: "FreeFocusGames",
+            type: "website",
+        },
+        // 默认 Twitter 配置
+        twitter: {
+            card: 'summary_large_image',
+        },
+        // 多语言替代版本
+        alternates: generateAlternates(locale),
+        // 其他通用配置
+        robots: {
+            index: true,
+            follow: true,
+        },
+        authors: [{ name: 'FreeFocusGames Team' }],
+        applicationName: 'Focus Games',
+        appleWebApp: {
+            capable: true,
+            title: 'Focus Games',
+            statusBarStyle: 'default',
+        },
+    };
 }
 
 // 单独的 viewport 配置
 export const generateViewport = (): Viewport => {
-  return {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  };
+    return {
+        width: 'device-width',
+        initialScale: 1,
+        maximumScale: 1,
+        userScalable: false,
+    };
 };
 
 export default async function RootLayout({
@@ -85,7 +85,7 @@ export default async function RootLayout({
     const initialIsMobile = /Mobile|Android|webOS|iPhone|iPad|iPod/i.test(
         userAgent
     );
-    
+
     // 确保 params 是已解析的对象
     const resolvedParams = await params;
     const { locale } = resolvedParams;
@@ -135,7 +135,7 @@ export default async function RootLayout({
                         defaultTheme="system"
                         enableSystem
                     >
-                        <GoogleAdSense adClient="ca-pub-2676017781507774" />
+                        <GoogleAdSense adClient={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ''} />
                         <Layout initialIsMobile={initialIsMobile}>
                             {children}
                         </Layout>
