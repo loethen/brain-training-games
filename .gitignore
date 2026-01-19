@@ -44,7 +44,6 @@ next-env.d.ts
 .claude
 
 # Private Scripts & Documentation
-scripts/translate-blog-posts.js
-scripts/*.js
+scripts/
 *.py
 GA4_ANALYTICS_GUIDE.md
