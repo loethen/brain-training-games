@@ -64,18 +64,14 @@ To run this project locally for development or educational purposes:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/dual-n-back-training-code.git
+git clone https://github.com/loethen/brain-training-games.git
 
 # 2. Install dependencies
 npm install
 # or
 yarn install
 
-# 3. Set up environment variables
-cp .env.local.example .env.local
-# (You can leave the variables empty for basic functionality)
-
-# 4. Run the development server
+# 3. Run the development server
 npm run dev
 ```
 
