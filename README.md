@@ -1,15 +1,15 @@
-# Free Focus Games: Scientific Brain Training Platform
+# Open Source Focus Games Collection
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL_3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fwww.freefocusgames.com)](https://www.freefocusgames.com)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 
-> **Open Source Cognitive Training Implementation**
+> **Modern Implementation of Scientific Cognitive Training**
 >
-> A modern, scientific brain training platform built with Next.js 15, TypeScript, and Tailwind CSS. Featuring implementations of validated cognitive tasks like Dual N-Back, Stroop Test, and Schulte Tables.
+> A curated collection of focus and memory training games. This project is built from the ground up using Next.js 15, TypeScript, and Tailwind CSS, providing transparent and verifiable implementations of classic psychological paradigms.
 
-## 👉 [Play the Game Online (Best Experience)](https://www.freefocusgames.com) 👈
+## 👉 [Play the Collection Online](https://www.freefocusgames.com) 👈
 
 Experience the full-featured, optimized version of these games on our official website.
 
