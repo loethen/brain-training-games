@@ -39,7 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# IDE/Editor local settings
 .cursor
+.claude
 
 # Private Scripts & Documentation
 scripts/translate-blog-posts.js

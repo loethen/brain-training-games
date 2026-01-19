@@ -41,13 +41,13 @@ A grid of randomly distributed numbers used for speed reading development and pe
 A neuropsychological test demonstrating the reaction time delay between congruent and incongruent stimuli. Measures cognitive flexibility and executive function.
 *   **Keywords**: *Selective Attention, Cognitive Flexibility, Executive Function, Inhibition Control*
 
-### 4. [Mahjong Dual N-Back](/app/[locale]/(main)/games/mahjong-dual-n-back)
-A unique variation of the classic N-Back task using Mahjong tiles, designed to be more visually engaging while maintaining cognitive load.
+### 4. [Reaction Time Test](/app/[locale]/(main)/games/reaction-time)
+A millisecond-precision test to measure your reaction speed. Click as fast as you can when the screen changes color. Widely used in sports science and cognitive research.
+*   **Keywords**: *Reaction Time, Reflex Test, Speed Test, Response Time, Human Benchmark*
 
 ### 5. Other Cognitive Tasks
-*   **Reaction Time Test**: Millisecond-precision reaction speed measurement.
 *   **Pomodoro Timer**: Focus timer based on the Pomodoro Technique.
-*   **Space Memory**: Memorize and recall locations of sequential items.
+*   **Block Memory Challenge**: Spatial working memory exercise.
 
 ## 🛠️ Tech Stack
 
