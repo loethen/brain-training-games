@@ -1,0 +1,28 @@
+{
+  "tests": {
+    "metaTitle": "Free Cognitive Assessment Tests | ADHD Testing | Working Memory Evaluation | FreeFocusGames",
+    "metaDescription": "Take free quick cognitive assessment tests: ADHD evaluations for children and adults, working memory tests, attention assessments. Get personalized brain training recommendations based on scientific results.",
+    "metaKeywords": "cognitive assessment test, free ADHD test, working memory assessment, attention test, cognitive evaluation, brain assessment, ADHD screening children, adult ADHD test, cognitive abilities test, mental performance evaluation, focus assessment, concentration test, executive function test, cognitive screening online, brain function assessment",
+    "title": "Assessment Tests",
+    "subtitle": "Discover your cognitive strengths and areas for improvement with our scientifically-designed assessment tests.",
+    "cognitive": {
+      "title": "Cognitive Assessment",
+      "description": "Quick evaluation of your working memory, attention, and cognitive abilities. Get personalized game recommendations based on your results.",
+      "duration": "2 minutes"
+    },
+    "adhd": {
+      "title": "Children's ADHD Assessment",
+      "description": "Screening questionnaire designed to help identify ADHD symptoms in children aged 6-17. Based on clinical diagnostic criteria.",
+      "duration": "5-10 minutes"
+    },
+    "adultAdhd": {
+      "title": "Adult ADHD Assessment",
+      "description": "Comprehensive screening for ADHD symptoms in adults. Helps identify attention and executive function challenges in daily life.",
+      "duration": "5-10 minutes"
+    },
+    "whyTest": {
+      "title": "Why Take These Tests?",
+      "description": "Our assessment tests are designed by cognitive scientists to provide accurate insights into your mental abilities. Use the results to choose the most effective brain training games for your needs and track your cognitive improvement over time."
+    }
+  }
+}

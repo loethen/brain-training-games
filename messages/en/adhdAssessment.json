@@ -1,0 +1,115 @@
+{
+  "adhdAssessment": {
+    "metadata": {
+      "title": "Children's ADHD Assessment | Free Vanderbilt Scale Test | FreeFocusGames",
+      "description": "Professional children's ADHD assessment using the validated Vanderbilt Scale for ages 6-12. Get personalized brain training recommendations based on your child's results.",
+      "keywords": "children ADHD assessment, child ADHD test, Vanderbilt ADHD scale children, pediatric ADHD evaluation, ADHD symptoms children, school age attention problems",
+      "ogTitle": "Children's ADHD Assessment - Vanderbilt Scale Test",
+      "ogDescription": "Professional children's ADHD assessment with personalized brain training recommendations. Based on the validated Vanderbilt ADHD Rating Scale for ages 6-12."
+    },
+    "title": "Children's ADHD Assessment",
+    "subtitle": "A comprehensive evaluation for children ages 6-12 based on the Vanderbilt ADHD Rating Scale",
+    "disclaimer": {
+      "simple": "This tool helps you understand your attention patterns - not a medical diagnosis"
+    },
+    "aboutScale": {
+      "title": "About the Vanderbilt Scale",
+      "content": "The Vanderbilt ADHD Rating Scale is a widely-used, evidence-based assessment tool that evaluates attention, hyperactivity, and impulsivity symptoms across multiple domains."
+    },
+    "features": {
+      "professional": "Based on clinically validated assessment tools",
+      "comprehensive": "Evaluates both inattention and hyperactivity symptoms",
+      "evidence": "Provides objective, structured evaluation"
+    },
+    "buttons": {
+      "startAssessment": "Begin Assessment",
+      "continue": "Continue"
+    },
+    "infoStep": {
+      "title": "Assessment Information",
+      "subtitle": "Please provide basic information for this assessment",
+      "subject": "Who is this assessment for?",
+      "subjectPlaceholder": "e.g., myself, my child, my spouse",
+      "age": "What is their age?",
+      "agePlaceholder": "e.g., 25, 8 years old"
+    },
+    "questionnaire": {
+      "title": "ADHD Symptom Assessment"
+    },
+    "scale": {
+      "never": "0 - Never",
+      "occasionally": "1 - Occasionally",
+      "often": "2 - Often",
+      "veryOften": "3 - Very Often"
+    },
+    "questions": {
+      "question1": "Fails to give close attention to details or makes careless mistakes in work, school, or other activities",
+      "question2": "Has difficulty sustaining attention in tasks or play activities",
+      "question3": "Does not seem to listen when spoken to directly",
+      "question4": "Does not follow through on instructions and fails to finish work, chores, or duties",
+      "question5": "Has difficulty organizing tasks and activities",
+      "question6": "Avoids, dislikes, or is reluctant to engage in tasks that require sustained mental effort",
+      "question7": "Loses things necessary for tasks or activities (e.g., tools, papers, keys, wallet)",
+      "question8": "Is easily distracted by external stimuli or unrelated thoughts",
+      "question9": "Is forgetful in daily activities",
+      "question10": "Fidgets with hands or feet or squirms in seat",
+      "question11": "Leaves seat in situations where remaining seated is expected",
+      "question12": "Runs about or climbs excessively in inappropriate situations",
+      "question13": "Has difficulty playing or engaging in leisure activities quietly",
+      "question14": "Is 'on the go' or often acts as if 'driven by a motor'",
+      "question15": "Talks excessively",
+      "question16": "Blurts out answers before questions have been completed",
+      "question17": "Has difficulty waiting their turn",
+      "question18": "Interrupts or intrudes on others (e.g., butts into conversations or games)"
+    },
+    "results": {
+      "title": "Assessment Results",
+      "subtitle": "Based on your responses to the Vanderbilt ADHD Rating Scale",
+      "assessmentSummary": "Assessment Summary",
+      "subject": "Subject",
+      "age": "Age",
+      "totalQuestions": "Total Questions Answered",
+      "inattentionResults": "Inattention Symptoms",
+      "hyperactivityResults": "Hyperactivity/Impulsivity Symptoms",
+      "symptomsCount": "Significant Symptoms",
+      "totalScore": "Total Score",
+      "recommendation": "Consider consulting with a healthcare professional for further evaluation.",
+      "riskLevels": {
+        "low": {
+          "title": "Low Risk for ADHD",
+          "description": "Your responses suggest a low likelihood of ADHD symptoms. This indicates good attention regulation and impulse control in most situations."
+        },
+        "moderate": {
+          "title": "Moderate Risk for ADHD",
+          "description": "Your responses indicate some attention or hyperactivity concerns that may benefit from further evaluation or targeted strategies."
+        },
+        "high": {
+          "title": "High Risk for ADHD",
+          "description": "Your responses suggest significant attention and/or hyperactivity symptoms that warrant professional evaluation. Many of these symptoms appear to occur frequently."
+        }
+      },
+      "gameRecommendations": "Recommended Brain Training Games",
+      "gameRecommendationsSubtitle": "Based on your assessment results, these games can help strengthen attention and focus:",
+      "gameNames": {
+        "dual-n-back": "Dual N-Back Training",
+        "stroop-effect-test": "Stroop Effect Test",
+        "schulte-table": "Schulte Table",
+        "larger-number": "Number Comparison",
+        "reaction-time": "Reaction Time Test"
+      },
+      "gameDescriptions": {
+        "dual-n-back": "Enhance working memory and executive attention control",
+        "stroop-effect-test": "Improve cognitive flexibility and inhibition control",
+        "schulte-table": "Boost visual attention and concentration",
+        "larger-number": "Sharpen processing speed and attention to detail",
+        "reaction-time": "Develop response inhibition and focus"
+      },
+      "retakeAssessment": "Retake Assessment",
+      "exploreAllGames": "Explore All Games"
+    },
+    "learnMore": {
+      "text": "Want to learn more about ADHD assessment and the science behind the Vanderbilt Scale?",
+      "linkText": "Read our comprehensive guide"
+    }
+  }
+}

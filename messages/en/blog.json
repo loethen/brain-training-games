@@ -1,0 +1,19 @@
+{
+  "blog": {
+    "title": "Blog",
+    "description": "Discover the latest insights about focus, concentration techniques and updates from our team.",
+    "readMore": "Read more",
+    "currentArticle": "Current Article",
+    "meta": {
+      "title": "Blog",
+      "description": "Discover in-depth articles and expert insights about focus, concentration, cognitive enhancement techniques, and brain training strategies for optimal performance."
+    },
+    "previousPost": "Previous Post",
+    "nextPost": "Next Post",
+    "interactiveDemo": {
+      "title": "Interactive Dual N-Back Tutorial",
+      "description": "Experience the game mechanics firsthand with our step-by-step interactive tutorial. This hands-on approach is the fastest way to understand how dual n-back works.",
+      "buttonText": "Start Interactive Tutorial"
+    }
+  }
+}

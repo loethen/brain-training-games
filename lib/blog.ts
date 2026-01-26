@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export interface BlogAuthor {
   name: string;
@@ -23,33 +24,65 @@ export interface PostNavigation {
   nextPost: BlogPost | null;
 }
 
+// D1 row type
+interface D1BlogPost {
+  id: number;
+  slug: string;
+  locale: string;
+  title: string;
+  excerpt: string | null;
+  content: string;
+  cover_image_url: string | null;
+  keywords: string | null;
+  author_name: string;
+  author_picture: string | null;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// Transform D1 row to BlogPost interface
+function transformD1ToBlogPost(row: D1BlogPost): BlogPost {
+  return {
+    slug: row.slug,
+    title: row.title,
+    date: row.published_at || row.created_at,
+    excerpt: row.excerpt || '',
+    coverImage: row.cover_image_url || undefined,
+    keywords: row.keywords || '',
+    author: {
+      name: row.author_name,
+      picture: row.author_picture || undefined,
+    },
+    content: row.content,
+  };
+}
+
+// File system fallback for local development
 const BLOG_DIR = path.join(process.cwd(), 'data', 'blog');
 const TRANSLATED_BLOG_DIR = path.join(process.cwd(), 'data', 'blog-translations');
 
-// 获取特定语言的博客目录
 function getBlogDirForLocale(locale: string): string {
   if (locale === 'en') {
     return BLOG_DIR;
   }
-  
+
   const translatedDir = path.join(TRANSLATED_BLOG_DIR, locale);
-  
-  // 如果翻译目录不存在，回退到英文目录
+
   if (!fs.existsSync(translatedDir)) {
     return BLOG_DIR;
   }
-  
+
   return translatedDir;
 }
 
-export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
+function getBlogPostsFromFileSystem(locale: string): BlogPost[] {
   const blogDir = getBlogDirForLocale(locale);
-  
-  // 确保博客目录存在
+
   if (!fs.existsSync(blogDir)) {
     return [];
   }
-  
+
   const files = fs.readdirSync(blogDir);
   const posts = files
     .filter((file) => file.endsWith('.md'))
@@ -58,7 +91,7 @@ export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
       const slug = file.replace(/\.md$/, '');
       const fileContent = fs.readFileSync(filePath, 'utf8');
       const { data, content } = matter(fileContent);
-      
+
       return {
         slug,
         title: data.title,
@@ -74,33 +107,30 @@ export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  
+
   return posts;
 }
 
-export async function getBlogPost(slug: string, locale: string = 'en'): Promise<BlogPost | null> {
+function getBlogPostFromFileSystem(slug: string, locale: string): BlogPost | null {
   const blogDir = getBlogDirForLocale(locale);
-  
-  // 确保博客目录存在
+
   if (!fs.existsSync(blogDir)) {
     return null;
   }
-  
+
   const filePath = path.join(blogDir, `${slug}.md`);
-  
-  // 如果翻译的文件不存在，尝试使用英文文件
+
   if (!fs.existsSync(filePath) && locale !== 'en') {
-    return getBlogPost(slug, 'en');
+    return getBlogPostFromFileSystem(slug, 'en');
   }
-  
-  // 如果文件仍然不存在，返回 null
+
   if (!fs.existsSync(filePath)) {
     return null;
   }
-  
+
   const fileContent = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContent);
-  
+
   return {
     slug,
     title: data.title,
@@ -116,24 +146,88 @@ export async function getBlogPost(slug: string, locale: string = 'en'): Promise<
   };
 }
 
+// Main functions - try D1 first, fallback to file system
+export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
+  try {
+    const { env } = await getCloudflareContext();
+
+    if (env?.DB) {
+      const result = await env.DB.prepare(
+        `SELECT * FROM blog_posts WHERE locale = ? ORDER BY published_at DESC`
+      ).bind(locale).all<D1BlogPost>();
+
+      if (result.results && result.results.length > 0) {
+        return result.results.map(transformD1ToBlogPost);
+      }
+
+      // If no results for this locale, try English
+      if (locale !== 'en') {
+        const enResult = await env.DB.prepare(
+          `SELECT * FROM blog_posts WHERE locale = 'en' ORDER BY published_at DESC`
+        ).all<D1BlogPost>();
+
+        if (enResult.results) {
+          return enResult.results.map(transformD1ToBlogPost);
+        }
+      }
+    }
+  } catch (error) {
+    console.log('D1 not available, falling back to file system:', error);
+  }
+
+  // Fallback to file system
+  return getBlogPostsFromFileSystem(locale);
+}
+
+export async function getBlogPost(slug: string, locale: string = 'en'): Promise<BlogPost | null> {
+  try {
+    const { env } = await getCloudflareContext();
+
+    if (env?.DB) {
+      const result = await env.DB.prepare(
+        `SELECT * FROM blog_posts WHERE slug = ? AND locale = ?`
+      ).bind(slug, locale).first<D1BlogPost>();
+
+      if (result) {
+        return transformD1ToBlogPost(result);
+      }
+
+      // If no result for this locale, try English
+      if (locale !== 'en') {
+        const enResult = await env.DB.prepare(
+          `SELECT * FROM blog_posts WHERE slug = ? AND locale = 'en'`
+        ).bind(slug).first<D1BlogPost>();
+
+        if (enResult) {
+          return transformD1ToBlogPost(enResult);
+        }
+      }
+    }
+  } catch (error) {
+    console.log('D1 not available, falling back to file system:', error);
+  }
+
+  // Fallback to file system
+  return getBlogPostFromFileSystem(slug, locale);
+}
+
 export async function getPostNavigation(slug: string, locale: string = 'en'): Promise<PostNavigation> {
   const posts = await getBlogPosts(locale);
   const currentIndex = posts.findIndex(post => post.slug === slug);
-  
-  // 如果找不到当前文章，或者只有一篇文章
+
   if (currentIndex === -1 || posts.length <= 1) {
     return {
       previousPost: null,
       nextPost: null
     };
   }
-  
-  // 注意排序是按日期降序的，所以下一篇（较新的）在数组中的索引更小
+
+  // Sort is by date descending, so next (newer) has smaller index
   const previousPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
   const nextPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
-  
+
   return {
     previousPost,
     nextPost
   };
-} 
+}

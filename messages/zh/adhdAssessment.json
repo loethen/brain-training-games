@@ -1,0 +1,115 @@
+{
+  "adhdAssessment": {
+    "metadata": {
+      "title": "儿童注意力不足过动症测试 | 免费范德比尔特量表 | FreeFocusGames",
+      "description": "使用经过验证的范德比尔特量表进行专业的6-12岁儿童ADHD评估，根据结果获得个性化的大脑训练建议。",
+      "keywords": "儿童注意力不足过动症, 儿童ADHD测试, 范德比尔特ADHD量表儿童, 儿科ADHD评估, 儿童ADHD症状, 学龄儿童注意力问题",
+      "ogTitle": "儿童注意力不足过动症评估 - 范德比尔特量表测试",
+      "ogDescription": "基于经过验证的范德比尔特ADHD评定量表的专业儿童ADHD评估，适用于6-12岁，提供个性化大脑训练建议。"
+    },
+    "title": "儿童注意力不足过动症评估",
+    "subtitle": "基于范德比尔特ADHD评定量表的6-12岁儿童综合评估",
+    "disclaimer": {
+      "simple": "这个工具帮你了解注意力状况，不是医学诊断哦"
+    },
+    "aboutScale": {
+      "title": "关于范德比尔特量表",
+      "content": "范德比尔特ADHD评定量表是一个广泛使用、基于证据的评估工具，用于评估多个领域的注意力、多动症和冲动症状。"
+    },
+    "features": {
+      "professional": "基于临床验证的评估工具",
+      "comprehensive": "评估注意力不集中和多动症状",
+      "evidence": "提供客观、结构化评估"
+    },
+    "buttons": {
+      "startAssessment": "开始评估",
+      "continue": "继续"
+    },
+    "infoStep": {
+      "title": "评估信息",
+      "subtitle": "请提供此次评估的基本信息",
+      "subject": "此评估针对谁？",
+      "subjectPlaceholder": "例如：我自己、我的孩子、我的配偶",
+      "age": "年龄是多少？",
+      "agePlaceholder": "例如：25岁、8岁"
+    },
+    "questionnaire": {
+      "title": "ADHD症状评估"
+    },
+    "scale": {
+      "never": "0 - 从不",
+      "occasionally": "1 - 偶尔",
+      "often": "2 - 经常",
+      "veryOften": "3 - 非常频繁"
+    },
+    "questions": {
+      "question1": "在工作、学校或其他活动中不注意细节或犯粗心错误",
+      "question2": "在任务或游戏活动中难以维持注意力",
+      "question3": "别人直接说话时似乎没有在听",
+      "question4": "不按指示执行，无法完成工作、家务或职责",
+      "question5": "在组织任务和活动方面有困难",
+      "question6": "避免、不喜欢或不愿参与需要持续脑力努力的任务",
+      "question7": "丢失任务或活动必需的物品（如工具、文件、钥匙、钱包）",
+      "question8": "容易被外部刺激或无关想法分心",
+      "question9": "在日常活动中健忘",
+      "question10": "手脚不停地动或在座位上扭动",
+      "question11": "在应该保持坐着的情况下离开座位",
+      "question12": "在不适当的情况下过度跑动或攀爬",
+      "question13": "难以安静地玩耍或从事休闲活动",
+      "question14": "总是'忙个不停'或经常表现得像'被马达驱动'",
+      "question15": "说话过多",
+      "question16": "在问题还没说完就抢答",
+      "question17": "难以等待轮到自己",
+      "question18": "打断或侵扰他人（如插嘴谈话或游戏）"
+    },
+    "results": {
+      "title": "评估结果",
+      "subtitle": "基于您对范德比尔特ADHD评定量表的回答",
+      "assessmentSummary": "评估总结",
+      "subject": "评估对象",
+      "age": "年龄",
+      "totalQuestions": "回答题目总数",
+      "inattentionResults": "注意力不集中症状",
+      "hyperactivityResults": "多动/冲动症状",
+      "symptomsCount": "显著症状数",
+      "totalScore": "总分",
+      "recommendation": "建议咨询医疗专业人员进行进一步评估。",
+      "riskLevels": {
+        "low": {
+          "title": "ADHD风险较低",
+          "description": "您的回答表明ADHD症状的可能性较低。这表明在大多数情况下具有良好的注意力调节和冲动控制能力。"
+        },
+        "moderate": {
+          "title": "ADHD风险中等",
+          "description": "您的回答表明存在一些注意力或多动方面的担忧，可能需要进一步评估或针对性策略。"
+        },
+        "high": {
+          "title": "ADHD风险较高",
+          "description": "您的回答表明存在显著的注意力和/或多动症状，建议进行专业评估。许多这些症状似乎经常出现。"
+        }
+      },
+      "gameRecommendations": "推荐的大脑训练游戏",
+      "gameRecommendationsSubtitle": "根据您的评估结果，这些游戏可以帮助加强注意力和专注力：",
+      "gameNames": {
+        "dual-n-back": "双重N-back工作记忆训练",
+        "stroop-effect-test": "斯特鲁普效应测试",
+        "schulte-table": "舒尔特表",
+        "larger-number": "数字比较",
+        "reaction-time": "反应时间测试"
+      },
+      "gameDescriptions": {
+        "dual-n-back": "提升工作记忆和执行注意力控制能力",
+        "stroop-effect-test": "提升认知灵活性和干扰抑制能力",
+        "schulte-table": "提升视觉注意力和专注力",
+        "larger-number": "提升数字处理速度和精准判断能力",
+        "reaction-time": "提升反应速度和专注力水平"
+      },
+      "retakeAssessment": "重新评估",
+      "exploreAllGames": "探索所有游戏"
+    },
+    "learnMore": {
+      "text": "想要了解更多关于ADHD评估和范德比尔特量表的科学背景？",
+      "linkText": "阅读我们的综合指南"
+    }
+  }
+}

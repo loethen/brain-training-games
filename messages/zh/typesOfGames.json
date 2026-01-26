@@ -1,0 +1,22 @@
+{
+  "typesOfGames": {
+    "title": "脑力训练游戏类型",
+    "subtitle": "针对特定认知技能的科学训练",
+    "nback": {
+      "title": "N-Back 游戏",
+      "description": "提升工作记忆和流体智力的黄金标准训练。"
+    },
+    "schulte": {
+      "title": "舒尔特表",
+      "description": "用于提升视觉注意力和外周视觉的经典测试。"
+    },
+    "stroop": {
+      "title": "Stroop 效应",
+      "description": "挑战认知灵活性和冲动控制能力。"
+    },
+    "memory": {
+      "title": "短期记忆",
+      "description": "通过模式匹配和序列回忆来强化记忆保持。"
+    }
+  }
+}

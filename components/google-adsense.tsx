@@ -10,6 +10,11 @@ declare global {
 
 export default function GoogleAdSense({ adClient }: { adClient: string }) {
   useEffect(() => {
+    // Skip AdSense in development - it doesn't work on localhost
+    if (process.env.NODE_ENV === 'development') {
+      return
+    }
+
     try {
       // 防止重复加载脚本 - 检查脚本是否已加载
       if (!window.adsbygoogle) {

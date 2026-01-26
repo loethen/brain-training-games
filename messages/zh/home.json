@@ -1,0 +1,86 @@
+{
+  "home": {
+    "title": "是否受够了注意力总被手机打断，感觉思维也越来越慢？",
+    "subtitle": "每天只要5分钟，用好玩的脑力游戏，轻松提升专注力和记忆力",
+    "ctaButton": "从2分钟测试开始",
+    "popularGames": "热门游戏",
+    "featuredGames": "热门训练",
+    "latestGames": "最新加入",
+    "latestPosts": "最新文章",
+    "benefitsTitle": "专注力：你的秘密超能力",
+    "benefitsIntro": "想象一下：你的孩子无需不断提醒就能专心完成任务，你轻松掌握会议重点，最终沉浸在那本你一直想读的书中。这就是训练专注力的力量。",
+    "familyLifeTitle": "家庭生活",
+    "familyLifeDesc": "帮助孩子更快完成作业，减少分心。在家庭时光中保持全神贯注，不受心理杂念干扰。",
+    "workPerformanceTitle": "工作表现",
+    "workPerformanceDesc": "告别会议中的走神。更快进入心流状态，以清晰的思维处理复杂任务。",
+    "personalGrowthTitle": "个人成长",
+    "personalGrowthDesc": "无论是学习新技能还是追求爱好，强大的专注力都能帮助你以两倍的速度取得进步。",
+    "dailyPractice": "每天只需10分钟 - 就像为你的大脑进行力量训练。",
+    "benefitsConclusion": "更敏锐的专注力，更美好的生活。",
+    "testimonialsTitle": "真实用户，真实效果",
+    "testimonials": {
+      "sarah": {
+        "name": "莎拉",
+        "username": "@sarah_writes",
+        "body": "经过3年的拖延，终于完成了我的小说初稿！"
+      },
+      "mike": {
+        "name": "迈克",
+        "username": "@chef_mike",
+        "body": "现在可以不分心地按照复杂的烘焙食谱操作了"
+      },
+      "emma": {
+        "name": "艾玛",
+        "username": "@nature_em",
+        "body": "记住我们山间徒步的每一个转弯 - 再也不会迷路了！"
+      },
+      "sophia": {
+        "name": "索菲亚",
+        "username": "@math_mom",
+        "body": "我儿子的数学成绩在3个月内提高了2个等级！"
+      },
+      "liam": {
+        "name": "利亚姆",
+        "username": "@adhd_dad",
+        "body": "每天15分钟帮助我女儿能够安静地完成家庭作业"
+      },
+      "tom": {
+        "name": "汤姆",
+        "username": "@movie_tom",
+        "body": "现在能够捕捉电影中的情节转折 - 不再感到困惑！"
+      },
+      "lisa": {
+        "name": "丽莎",
+        "username": "@organized_lisa",
+        "body": "在杂乱的房间里立即找到钥匙 - 救星！"
+      },
+      "david": {
+        "name": "大卫",
+        "username": "@dad_athlete",
+        "body": "再也不会错过孩子的足球进球了"
+      },
+      "olivia": {
+        "name": "奥利维亚",
+        "username": "@homeschool_olivia",
+        "body": "通过专注练习，学习时间减少了40%"
+      },
+      "ethan": {
+        "name": "伊森",
+        "username": "@gaming_dad",
+        "body": "现在可以轻松平衡游戏时间和学习时间"
+      }
+    },
+    "metaTitle": "免费记忆力和专注力训练游戏",
+    "metaDescription": "通过有趣的、基于科学的在线挑战提升专注力和记忆力。适合儿童、成人和老年人的免费脑力训练游戏，提高认知能力。",
+    "metaKeywords": "记忆力游戏, 专注力游戏, 注意力游戏, 脑力训练, 免费在线游戏",
+    "ogTitle": "免费脑力训练游戏 - 提升专注力和记忆力",
+    "ogDescription": "通过我们免费的科学脑力游戏提升您的记忆力和专注力。适合所有年龄段！",
+    "scienceBehind": {
+      "title": "趣味背后的科学",
+      "subtitle": "我们的游戏基于前沿神经科学研究。",
+      "description": "探索针对性认知训练如何增强神经可塑性、工作记忆和注意力持续时间。",
+      "cta": "阅读工作记忆权威指南",
+      "tag": "神经科学"
+    }
+  }
+}

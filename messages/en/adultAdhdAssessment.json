@@ -1,0 +1,114 @@
+{
+  "adultAdhdAssessment": {
+    "metadata": {
+      "title": "Adult ADHD Self-Assessment | Free ASRS Test | FreeFocusGames",
+      "description": "Take our professional adult ADHD self-assessment using the WHO Adult ADHD Self-Report Scale (ASRS-v1.1). Get personalized brain training recommendations based on your results.",
+      "keywords": "adult ADHD assessment, adult ADHD test, ASRS ADHD scale, WHO adult ADHD, adult attention deficit, ADHD self assessment adult, adult ADHD screening",
+      "ogTitle": "Adult ADHD Self-Assessment - WHO ASRS Test",
+      "ogDescription": "Professional adult ADHD self-assessment with personalized brain training recommendations. Based on the WHO Adult ADHD Self-Report Scale."
+    },
+    "title": "Adult ADHD Self-Assessment",
+    "subtitle": "A scientifically validated evaluation based on the WHO Adult ADHD Self-Report Scale (ASRS-v1.1)",
+    "disclaimer": {
+      "simple": "This tool helps you understand your attention patterns - not a medical diagnosis"
+    },
+    "aboutScale": {
+      "title": "About the ASRS Scale",
+      "content": "The WHO Adult ADHD Self-Report Scale (ASRS-v1.1) is a widely-used, evidence-based assessment tool developed by the World Health Organization in collaboration with Harvard Medical School researchers."
+    },
+    "features": {
+      "professional": "Based on WHO-validated assessment tools for adults",
+      "comprehensive": "Evaluates both inattention and hyperactivity symptoms in adults",
+      "evidence": "Provides objective, structured evaluation with 90% sensitivity"
+    },
+    "buttons": {
+      "startAssessment": "Begin Assessment",
+      "continue": "Continue"
+    },
+    "infoStep": {
+      "title": "Assessment Information",
+      "subtitle": "Please provide basic information for this assessment",
+      "subject": "Who is this assessment for?",
+      "subjectPlaceholder": "e.g., myself, my partner, family member",
+      "age": "What is their age?",
+      "agePlaceholder": "e.g., 25, 30, 45"
+    },
+    "questionnaire": {
+      "title": "Adult ADHD Symptom Assessment"
+    },
+    "scale": {
+      "never": "0 - Never",
+      "rarely": "1 - Rarely",
+      "sometimes": "2 - Sometimes",
+      "often": "3 - Often",
+      "veryOften": "4 - Very Often"
+    },
+    "questions": {
+      "question1": "How often do you have trouble wrapping up the final details of a project, once the challenging parts have been done?",
+      "question2": "How often do you have difficulty getting things in order when you have to do a task that requires organization?",
+      "question3": "How often do you have problems remembering appointments or obligations?",
+      "question4": "When you have a task that requires a lot of thought, how often do you avoid or delay getting started?",
+      "question5": "How often do you fidget or squirm with your hands or feet when you have to sit down for a long time?",
+      "question6": "How often do you feel overly active and compelled to do things, like you were driven by a motor?",
+      "question7": "How often do you make careless mistakes when you have to work on a boring or difficult project?",
+      "question8": "How often do you have difficulty keeping your attention when you are doing boring or repetitive work?",
+      "question9": "How often do you have difficulty concentrating on what people say to you, even when they are speaking to you directly?",
+      "question10": "How often do you misplace or have difficulty finding things at home or at work?",
+      "question11": "How often are you distracted by activity or noise around you?",
+      "question12": "How often do you leave your seat in meetings or other situations where you are expected to remain seated?",
+      "question13": "How often do you feel restless or fidgety?",
+      "question14": "How often do you have difficulty unwinding and relaxing when you have time to yourself?",
+      "question15": "How often do you find yourself talking too much when you are in social situations?",
+      "question16": "When you're in a conversation, how often do you find yourself finishing the sentences of the people you are talking to, before they can finish them themselves?",
+      "question17": "How often do you have difficulty waiting your turn in situations when turn taking is required?",
+      "question18": "How often do you interrupt others when they are busy?"
+    },
+    "results": {
+      "title": "Assessment Results",
+      "subtitle": "Based on your responses to the WHO Adult ADHD Self-Report Scale (ASRS-v1.1)",
+      "assessmentSummary": "Assessment Summary",
+      "subject": "Subject",
+      "age": "Age",
+      "totalQuestions": "Total Questions Answered",
+      "partAScore": "Part A Score (Screening)",
+      "totalScore": "Total Score",
+      "recommendation": "Consider consulting with a healthcare professional for further evaluation.",
+      "riskLevels": {
+        "low": {
+          "title": "Low Likelihood of Adult ADHD",
+          "description": "Your responses suggest a low likelihood of adult ADHD symptoms. This indicates good attention regulation and impulse control in most adult situations."
+        },
+        "moderate": {
+          "title": "Moderate Likelihood of Adult ADHD",
+          "description": "Your responses indicate some attention or hyperactivity concerns that may benefit from further evaluation or targeted strategies for adult ADHD management."
+        },
+        "high": {
+          "title": "High Likelihood of Adult ADHD",
+          "description": "Your responses suggest significant attention and/or hyperactivity symptoms that warrant professional evaluation. Many of these symptoms appear to occur frequently in your adult life."
+        }
+      },
+      "gameRecommendations": "Recommended Brain Training Games",
+      "gameRecommendationsSubtitle": "Based on your assessment results, these games can help strengthen attention and focus in adults:",
+      "gameNames": {
+        "dual-n-back": "Dual N-Back Training",
+        "stroop-effect-test": "Stroop Effect Test",
+        "schulte-table": "Schulte Table",
+        "larger-number": "Number Comparison",
+        "reaction-time": "Reaction Time Test"
+      },
+      "gameDescriptions": {
+        "dual-n-back": "Enhance working memory and executive attention control",
+        "stroop-effect-test": "Improve cognitive flexibility and inhibition control",
+        "schulte-table": "Boost visual attention and concentration",
+        "larger-number": "Sharpen processing speed and attention to detail",
+        "reaction-time": "Develop response inhibition and focus"
+      },
+      "retakeAssessment": "Retake Assessment",
+      "exploreAllGames": "Explore All Games"
+    },
+    "learnMore": {
+      "text": "Want to learn more about adult ADHD assessment and the science behind the ASRS scale?",
+      "linkText": "Read our comprehensive guide"
+    }
+  }
+}

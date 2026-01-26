@@ -1,0 +1,19 @@
+{
+  "blog": {
+    "title": "博客",
+    "description": "发现关于专注力、集中注意力技巧和我们团队的最新动态。",
+    "readMore": "阅读更多",
+    "currentArticle": "当前文章",
+    "meta": {
+      "title": "博客",
+      "description": "探索关于专注力、集中力、认知增强技术和脑力训练策略的深度文章和专家见解，帮助您实现最佳心理表现。"
+    },
+    "previousPost": "上一篇",
+    "nextPost": "下一篇",
+    "interactiveDemo": {
+      "title": "交互式双重N-Back教程",
+      "description": "通过我们循序渐进的交互式教程亲身体验游戏机制。这种实操方法是理解双重n-back工作原理的最快方式。",
+      "buttonText": "开始交互式教程"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "adultAdhdAssessment": {
+    "metadata": {
+      "title": "成人注意力不足过动症测试 | 免费WHO ASRS量表 | FreeFocusGames",
+      "description": "使用WHO成人注意力不足过动症自我报告量表(ASRS-v1.1)进行专业评估，根据结果获得个性化的大脑训练建议。",
+      "keywords": "成人注意力不足过动症, 成人ADHD测试, ASRS注意力量表, WHO成人ADHD, 成人注意力缺失, ADHD成人自我评估, 成人ADHD筛查",
+      "ogTitle": "成人注意力不足过动症自我评估 - WHO ASRS测试",
+      "ogDescription": "基于WHO成人ADHD自我报告量表的专业成人注意力不足过动症评估，提供个性化大脑训练建议。"
+    },
+    "title": "成人注意力不足过动症自我评估",
+    "subtitle": "基于WHO成人ADHD自我报告量表(ASRS-v1.1)的科学验证评估",
+    "disclaimer": {
+      "simple": "这个工具帮你了解注意力状况，不是医学诊断哦"
+    },
+    "aboutScale": {
+      "title": "关于ASRS量表",
+      "content": "WHO成人ADHD自我报告量表(ASRS-v1.1)是世界卫生组织与哈佛医学院研究人员合作开发的广泛使用、基于证据的评估工具。"
+    },
+    "features": {
+      "professional": "基于WHO验证的成人评估工具",
+      "comprehensive": "评估成人的注意力不集中和多动症状",
+      "evidence": "提供90%敏感性的客观、结构化评估"
+    },
+    "buttons": {
+      "startAssessment": "开始评估",
+      "continue": "继续"
+    },
+    "infoStep": {
+      "title": "评估信息",
+      "subtitle": "请为此评估提供基本信息",
+      "subject": "此评估针对谁？",
+      "subjectPlaceholder": "例如：我自己、我的伴侣、家人",
+      "age": "他们的年龄是？",
+      "agePlaceholder": "例如：25岁、30岁、45岁"
+    },
+    "questionnaire": {
+      "title": "成人注意力不足过动症症状评估"
+    },
+    "scale": {
+      "never": "0 - 从不",
+      "rarely": "1 - 很少",
+      "sometimes": "2 - 有时",
+      "often": "3 - 经常",
+      "veryOften": "4 - 非常经常"
+    },
+    "questions": {
+      "question1": "当项目中有挑战性的部分完成后，您多久会在完成最后细节方面遇到困难？",
+      "question2": "当您需要做需要组织安排的任务时，多久会在理顺事物方面有困难？",
+      "question3": "您多久会忘记约会或义务？",
+      "question4": "当您有需要大量思考的任务时，多久会避免或拖延开始？",
+      "question5": "当您需要长时间坐着时，多久会坐立不安或扭动手脚？",
+      "question6": "您多久会感到过度活跃和被迫要做事情，就像被马达驱动一样？",
+      "question7": "当您必须做无聊或困难的项目时，多久会犯粗心的错误？",
+      "question8": "当您做无聊或重复的工作时，多久会难以保持注意力？",
+      "question9": "即使别人直接对您说话，您多久会难以专注于他们说的话？",
+      "question10": "您多久会在家里或工作中丢失东西或难以找到东西？",
+      "question11": "您多久会被周围的活动或噪音分散注意力？",
+      "question12": "在会议或其他应该保持坐着的情况下，您多久会离开座位？",
+      "question13": "您多久会感到不安或坐立不安？",
+      "question14": "当您有时间放松时，多久会难以放松和休息？",
+      "question15": "在社交场合中，您多久会发现自己话太多？",
+      "question16": "在对话中，您多久会在对方说完之前就替他们说完句子？",
+      "question17": "在需要轮流的情况下，您多久会难以等待轮到自己？",
+      "question18": "当别人忙碌时，您多久会打断他们？"
+    },
+    "results": {
+      "title": "评估结果",
+      "subtitle": "基于您对WHO成人ADHD自我报告量表(ASRS-v1.1)的回应",
+      "assessmentSummary": "评估摘要",
+      "subject": "受试者",
+      "age": "年龄",
+      "totalQuestions": "回答的总问题数",
+      "partAScore": "A部分得分（筛查）",
+      "totalScore": "总分",
+      "recommendation": "建议咨询医疗专业人员进行进一步评估。",
+      "riskLevels": {
+        "low": {
+          "title": "成人注意力不足过动症可能性低",
+          "description": "您的回应表明成人注意力不足过动症症状的可能性较低。这表明在大多数成人情况下有良好的注意力调节和冲动控制。"
+        },
+        "moderate": {
+          "title": "成人注意力不足过动症可能性中等",
+          "description": "您的回应表明一些注意力或多动问题，可能需要进一步评估或针对成人ADHD管理的目标策略。"
+        },
+        "high": {
+          "title": "成人注意力不足过动症可能性高",
+          "description": "您的回应表明显著的注意力和/或多动症状，值得专业评估。这些症状在您的成人生活中似乎经常出现。"
+        }
+      },
+      "gameRecommendations": "推荐的大脑训练游戏",
+      "gameRecommendationsSubtitle": "基于您的评估结果，这些游戏可以帮助成人加强注意力和专注力：",
+      "gameNames": {
+        "dual-n-back": "双N-Back训练",
+        "stroop-effect-test": "Stroop效应测试",
+        "schulte-table": "舒尔特表",
+        "larger-number": "数字比较",
+        "reaction-time": "反应时间测试"
+      },
+      "gameDescriptions": {
+        "dual-n-back": "增强工作记忆和执行注意力控制",
+        "stroop-effect-test": "改善认知灵活性和抑制控制",
+        "schulte-table": "提升视觉注意力和专注力",
+        "larger-number": "提高处理速度和注意细节",
+        "reaction-time": "发展反应抑制和专注力"
+      },
+      "retakeAssessment": "重新评估",
+      "exploreAllGames": "探索所有游戏"
+    },
+    "learnMore": {
+      "text": "想要了解更多关于成人注意力不足过动症评估和ASRS量表的科学背景？",
+      "linkText": "阅读我们的综合指南"
+    }
+  }
+}

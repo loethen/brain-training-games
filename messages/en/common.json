@@ -1,0 +1,26 @@
+{
+  "common": {
+    "home": "Home",
+    "games": "Games",
+    "about": "About",
+    "contact": "Contact",
+    "categories": "Categories",
+    "toggleSidebar": "Toggle sidebar",
+    "toggleTheme": "Toggle theme",
+    "language": "Language",
+    "allRightsReserved": "All rights reserved",
+    "blog": "Blog",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "guides": "Guides",
+    "tests": "Tests",
+    "workingMemoryGuide": "Working Memory",
+    "assessmentTests": "Assessment Tests",
+    "cognitiveAssessment": "Cognitive Test",
+    "adhdAssessment": "Children's ADHD",
+    "adultAdhdAssessment": "Adult ADHD",
+    "startTest": "Start Test",
+    "readGuide": "Read Guide",
+    "learnMoreAboutWorkingMemory": "Learn how this game improves working memory in our comprehensive guide."
+  }
+}

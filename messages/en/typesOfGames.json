@@ -1,0 +1,22 @@
+{
+  "typesOfGames": {
+    "title": "Types of Brain Training Games",
+    "subtitle": "Discover the science behind each category.",
+    "nback": {
+      "title": "N-Back Games",
+      "description": "The gold standard for working memory training. Challenges you to remember sequences of stimuli."
+    },
+    "schulte": {
+      "title": "Schulte Tables",
+      "description": "Grid-based visual search task. Enhances peripheral vision, reading speed, and selective attention."
+    },
+    "stroop": {
+      "title": "Stroop Tests",
+      "description": "Classic psychological test measuring cognitive flexibility and inhibition control."
+    },
+    "memory": {
+      "title": "Short-Term Memory",
+      "description": "Exercises designed to expand your immediate recall capacity and span."
+    }
+  }
+}
