@@ -23,7 +23,9 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+          npx opennextjs-cloudflare build
         env:
           NEXT_PUBLIC_SITE_URL: "https://freefocusgames.com"
 
