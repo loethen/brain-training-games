@@ -48,5 +48,8 @@ scripts/
 *.py
 GA4_ANALYTICS_GUIDE.md
 
+# OpenNext
+.open-next/
+
 # Cloudflare
 .wrangler/
