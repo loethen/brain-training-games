@@ -47,3 +47,6 @@ next-env.d.ts
 scripts/
 *.py
 GA4_ANALYTICS_GUIDE.md
+
+# Cloudflare
+.wrangler/

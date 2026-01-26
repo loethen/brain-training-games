@@ -24,7 +24,11 @@ export async function POST(request: NextRequest) {
             const { env } = await getCloudflareContext();
             adminPassword = (env as unknown as Record<string, string>)?.ADMIN_PASSWORD;
         } catch {
-            // Fallback to process.env for local development
+            // Ignore error
+        }
+
+        // Fallback to process.env for local development if not found in context
+        if (!adminPassword) {
             adminPassword = process.env.ADMIN_PASSWORD;
         }
 

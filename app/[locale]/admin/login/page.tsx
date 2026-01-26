@@ -39,8 +39,8 @@ export default function AdminLoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 p-4">
-            <Card className="w-full max-w-md">
+        <div className="min-h-screen flex items-center justify-center bg-background p-4">
+            <Card className="w-full max-w-md border shadow-sm">
                 <CardHeader className="text-center">
                     <div className="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                         <Lock className="w-6 h-6 text-primary" />

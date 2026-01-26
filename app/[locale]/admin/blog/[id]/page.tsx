@@ -15,7 +15,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { ArrowLeft, Save, Loader2 } from 'lucide-react';
+import { ArrowLeft, Save, Loader2, Globe } from 'lucide-react';
 
 interface BlogPost {
     id: number;
@@ -36,6 +36,7 @@ export default function BlogEditorPage({ params }: { params: Promise<{ id: strin
 
     const [loading, setLoading] = useState(!isNew);
     const [saving, setSaving] = useState(false);
+    const [translating, setTranslating] = useState(false);
     const [post, setPost] = useState<Partial<BlogPost>>({
         slug: '',
         locale: 'en',
@@ -104,20 +105,77 @@ export default function BlogEditorPage({ params }: { params: Promise<{ id: strin
         }
     };
 
+    const handleTranslate = async () => {
+        if (!post.content) {
+            alert('Please enter some content first');
+            return;
+        }
+
+        if (!confirm(`This will overwrite the current content with a ${post.locale === 'en' ? 'Chinese' : 'English'} translation. Continue?`)) {
+            return;
+        }
+
+        setTranslating(true);
+        try {
+            const targetLocale = post.locale === 'en' ? 'zh' : 'en';
+
+            const response = await fetch('/api/admin/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: post.title,
+                    excerpt: post.excerpt,
+                    content: post.content,
+                    keywords: post.keywords,
+                    author_name: post.author_name,
+                    targetLocale
+                }),
+            });
+
+            if (response.ok) {
+                const data = await response.json() as {
+                    title: string;
+                    excerpt: string;
+                    content: string;
+                    keywords: string;
+                    author_name: string;
+                };
+
+                setPost(prev => ({
+                    ...prev,
+                    ...data,
+                    locale: targetLocale
+                }));
+
+                // Also update the slug to be translation-friendly if needed? 
+                // Alternatively, user can just edit the slug manually.
+                // alert('Translation complete! Please review and update the Slug if needed.');
+            } else {
+                const data = await response.json() as { error?: string };
+                alert(data.error || 'Translation failed');
+            }
+        } catch (error) {
+            console.error('Translation error:', error);
+            alert('Translation failed');
+        } finally {
+            setTranslating(false);
+        }
+    };
+
     const updateField = (field: string, value: string) => {
         setPost(prev => ({ ...prev, [field]: value }));
     };
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
+            <div className="min-h-screen flex items-center justify-center bg-background">
                 <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-6">
+        <div className="min-h-screen bg-background p-6">
             <div className="max-w-4xl mx-auto">
                 <Card>
                     <CardHeader>
@@ -133,19 +191,38 @@ export default function BlogEditorPage({ params }: { params: Promise<{ id: strin
                                     {isNew ? 'Create a new blog article' : `Editing: ${post.slug}`}
                                 </CardDescription>
                             </div>
-                            <Button onClick={handleSave} disabled={saving}>
-                                {saving ? (
-                                    <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                        Saving...
-                                    </>
-                                ) : (
-                                    <>
-                                        <Save className="w-4 h-4 mr-2" />
-                                        Save
-                                    </>
-                                )}
-                            </Button>
+                            <div className="flex gap-2">
+                                <Button
+                                    onClick={handleTranslate}
+                                    disabled={translating || saving}
+                                    variant="secondary"
+                                >
+                                    {translating ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                            Translating...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Globe className="w-4 h-4 mr-2" />
+                                            Translate to {post.locale === 'en' ? 'Chinese' : 'English'}
+                                        </>
+                                    )}
+                                </Button>
+                                <Button onClick={handleSave} disabled={saving || translating}>
+                                    {saving ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                            Saving...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Save className="w-4 h-4 mr-2" />
+                                            Save
+                                        </>
+                                    )}
+                                </Button>
+                            </div>
                         </div>
                     </CardHeader>
                     <CardContent className="space-y-6">
