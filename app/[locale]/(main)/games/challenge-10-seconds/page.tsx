@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
-import { Timer, Zap, Brain, Focus } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { generateAlternates } from '@/lib/utils'

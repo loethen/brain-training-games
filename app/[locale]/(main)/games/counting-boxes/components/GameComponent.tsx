@@ -52,11 +52,11 @@ const AnimationControllers: Record<string, AnimationController> = {
             const startTime = Date.now();
             const startPosition = { x: -12, y: 8, z: 8 };
             const endPosition = { x: 12, y: -8, z: -8 };
-            
+
             // 找到网格元素
             let gridHelper: THREE.GridHelper | null = null;
             let gridBorder: THREE.LineLoop | null = null;
-            
+
             scene.children.forEach(child => {
                 if (child instanceof THREE.GridHelper) {
                     gridHelper = child;
@@ -64,16 +64,16 @@ const AnimationControllers: Record<string, AnimationController> = {
                     gridBorder = child;
                 }
             });
-            
+
             const animate = () => {
                 const elapsed = Date.now() - startTime;
                 const progress = Math.min(elapsed / duration, 1);
-                
+
                 // 匀速运动
                 const currentX = startPosition.x + (endPosition.x - startPosition.x) * progress;
                 const currentY = startPosition.y + (endPosition.y - startPosition.y) * progress;
                 const currentZ = startPosition.z + (endPosition.z - startPosition.z) * progress;
-                
+
                 cubesGroup.position.set(currentX, currentY, currentZ);
                 if (gridHelper) {
                     gridHelper.position.set(currentX, currentY - 0.01, currentZ);
@@ -81,7 +81,7 @@ const AnimationControllers: Record<string, AnimationController> = {
                 if (gridBorder) {
                     gridBorder.position.set(currentX, currentY, currentZ);
                 }
-                
+
                 if (progress < 1) {
                     requestAnimationFrame(animate);
                 } else {
@@ -97,7 +97,7 @@ const AnimationControllers: Record<string, AnimationController> = {
                     onComplete();
                 }
             };
-            
+
             animate();
         }
     }
@@ -156,7 +156,7 @@ function randomInRange(min: number, max: number): number {
 export default function GameComponent() {
     // 翻译
     const t = useTranslations('games.countingBoxes.gameUI');
-    
+
     // 游戏状态
     const [gameState, setGameState] = useState<GameState>('start');
     const [level, setLevel] = useState(1);
@@ -373,7 +373,7 @@ export default function GameComponent() {
                 cubesGroupRef.current.remove(cubesGroupRef.current.children[0]);
             }
         }
-    }, []);
+    }, [cubesGroupRef]);
 
     // 添加单个方块
     const addCube = useCallback(
@@ -451,7 +451,7 @@ export default function GameComponent() {
 
             cubesGroupRef.current.add(cube);
         },
-        []
+        [SUCCESS_COLOR, EDGE_COLOR]
     );
 
     // 根据高度图渲染方块
@@ -472,10 +472,10 @@ export default function GameComponent() {
     // 开始定时器 - 使用新的配置化观察时间
     const startTimer = useCallback(() => {
         if (level > LEVEL_CONFIGS.length) return;
-        
+
         const levelConfig = LEVEL_CONFIGS[level - 1];
         const observeTime = randomInRange(levelConfig.observer[0], levelConfig.observer[1]);
-        
+
         setObserveTimeLeft(observeTime);
     }, [level]);
 
@@ -489,30 +489,30 @@ export default function GameComponent() {
             return;
         }
         const levelConfig = LEVEL_CONFIGS[level - 1];
-        
+
         // 随机选择配置参数
         const targetBlocks = randomInRange(levelConfig.blocksRange[0], levelConfig.blocksRange[1]);
         const selectedPattern = randomChoice(levelConfig.pattern);
         // animation字段支持数组，随机选一个动画
         const selectedAnimation = levelConfig.animation && levelConfig.animation.length > 0 ? randomChoice(levelConfig.animation) : 'default';
-        
+
         // 使用模式生成器生成方块布局
         const patternGenerator = PatternGenerators[selectedPattern];
         if (!patternGenerator) {
             console.error(`Unknown pattern: ${selectedPattern}`);
             return;
         }
-        
+
         const heightMap = patternGenerator.generate(GAME_CONFIG.gridSize, targetBlocks);
-        
+
         // 计算实际生成的方块总数（包括堆叠）
         const actualBlocks = heightMap.reduce((sum: number, height: number) => sum + height, 0);
         setCorrectBlockCount(actualBlocks);
         correctHeightMapRef.current = [...heightMap];
-        
+
         // 渲染方块
         renderCubesFromHeightMap(correctHeightMapRef.current, CUBE_COLOR);
-        
+
         // 保存选择的动画类型供后续使用
         selectedAnimationRef.current = selectedAnimation;
 
@@ -539,13 +539,13 @@ export default function GameComponent() {
         // 普通流程
         setGameState('observing');
         startTimer();
-    
-    }, [level, clearBoard, renderCubesFromHeightMap, startTimer]);
+
+    }, [level, clearBoard, renderCubesFromHeightMap, startTimer, CUBE_COLOR]);
 
     // 开始输入阶段
     const startInputPhase = useCallback(() => {
         const selectedAnimation = selectedAnimationRef.current;
-        
+
         // 如果有特殊动画，使用动画控制器
         const animationController = AnimationControllers[selectedAnimation];
         if (animationController && cubesGroupRef.current && sceneInstanceRef.current) {
@@ -604,21 +604,21 @@ export default function GameComponent() {
                 cubesGroupRef.current.visible = true;
             }
 
-                            // 立即显示结果
-                setLastResult({ correct: isCorrect });
-                if (isCorrect) {
-                    renderCubesFromHeightMap(
-                        correctHeightMapRef.current,
-                        SUCCESS_COLOR
-                    );
-                    setTimerDisplay(t('correct') + '! ' + t('actualCount', { count: correctBlockCount }));
-                } else {
-                    renderCubesFromHeightMap(
-                        correctHeightMapRef.current,
-                        CUBE_COLOR
-                    );
-                    setTimerDisplay(t('incorrect') + '! ' + t('actualCount', { count: correctBlockCount }));
-                }
+            // 立即显示结果
+            setLastResult({ correct: isCorrect });
+            if (isCorrect) {
+                renderCubesFromHeightMap(
+                    correctHeightMapRef.current,
+                    SUCCESS_COLOR
+                );
+                setTimerDisplay(t('correct') + '! ' + t('actualCount', { count: correctBlockCount }));
+            } else {
+                renderCubesFromHeightMap(
+                    correctHeightMapRef.current,
+                    CUBE_COLOR
+                );
+                setTimerDisplay(t('incorrect') + '! ' + t('actualCount', { count: correctBlockCount }));
+            }
 
             setGameState("result");
             setCountdown(3);
@@ -628,6 +628,9 @@ export default function GameComponent() {
             correctBlockCount,
             level,
             renderCubesFromHeightMap,
+            CUBE_COLOR,
+            SUCCESS_COLOR,
+            t
         ]
     );
 
@@ -667,34 +670,43 @@ export default function GameComponent() {
     useEffect(() => {
         initThree();
 
+        // 复制 current ref 到 variable 中
+        const currentRenderer = rendererRef.current;
+        const currentSceneInstance = sceneInstanceRef.current;
+        const currentCubesGroup = cubesGroupRef.current;
+        const currentScene = sceneRef.current;
+
         // 清理函数
         return () => {
             // 完全清理Three.js资源
-            if (rendererRef.current) {
-                rendererRef.current.dispose();
+            if (currentRenderer) {
+                currentRenderer.dispose();
+                // Avoid assigning to readonly ref current property in cleanup if strict mode. 
+                // However here we are resetting refs.
+                // Best practice: don't nullify refs in cleanup if not necessary, but here it helps with HMR
                 rendererRef.current = null;
             }
 
-            if (sceneInstanceRef.current) {
-                sceneInstanceRef.current.clear();
+            if (currentSceneInstance) {
+                currentSceneInstance.clear();
                 sceneInstanceRef.current = null;
             }
 
-            if (cubesGroupRef.current) {
+            if (currentCubesGroup) {
                 cubesGroupRef.current = null;
             }
 
             // 清理DOM元素
-            if (sceneRef.current) {
-                while (sceneRef.current.firstChild) {
-                    sceneRef.current.removeChild(sceneRef.current.firstChild);
+            if (currentScene) {
+                while (currentScene.firstChild) {
+                    currentScene.removeChild(currentScene.firstChild);
                 }
             }
 
             // 重置初始化标志
             isInitializedRef.current = false;
         };
-    }, []);
+    }, [initThree]);
 
     // 处理窗口大小变化
     useEffect(() => {
@@ -731,8 +743,8 @@ export default function GameComponent() {
 
                 {/* 计时器显示 - 绝对定位在grid上方 */}
                 {gameState === "result" &&
-                countdown > 0 &&
-                level < LEVEL_CONFIGS.length ? (
+                    countdown > 0 &&
+                    level < LEVEL_CONFIGS.length ? (
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
                         <div className="text-center font-bold text-foreground shadow rounded-2xl px-6 py-2 bg-background/60 backdrop-blur-sm whitespace-nowrap min-w-fit">
                             {t('nextLevel', { seconds: countdown })}
@@ -829,15 +841,13 @@ export default function GameComponent() {
                                                 <span>{t('accuracyLabel')}</span>
                                                 <span className="font-bold">
                                                     {gameStats.totalLevels > 0
-                                                        ? `${
-                                                              gameStats.correctAnswers
-                                                          }/${
-                                                              gameStats.totalLevels
-                                                          } (${Math.round(
-                                                              (gameStats.correctAnswers /
-                                                                  gameStats.totalLevels) *
-                                                                  100
-                                                          )}%)`
+                                                        ? `${gameStats.correctAnswers
+                                                        }/${gameStats.totalLevels
+                                                        } (${Math.round(
+                                                            (gameStats.correctAnswers /
+                                                                gameStats.totalLevels) *
+                                                            100
+                                                        )}%)`
                                                         : "N/A"}
                                                 </span>
                                             </div>
@@ -846,7 +856,7 @@ export default function GameComponent() {
                                                 <span className="font-bold">
                                                     {Math.round(
                                                         gameStats.totalTime /
-                                                            1000
+                                                        1000
                                                     )}
                                                     {t('seconds')}
                                                 </span>
@@ -859,7 +869,7 @@ export default function GameComponent() {
                                                 const rate =
                                                     gameStats.totalLevels > 0
                                                         ? gameStats.correctAnswers /
-                                                          gameStats.totalLevels
+                                                        gameStats.totalLevels
                                                         : 0;
                                                 if (rate === 1)
                                                     return t('encouragement.perfect');
