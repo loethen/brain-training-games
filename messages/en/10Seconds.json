@@ -1,0 +1,73 @@
+{
+    "games": {
+        "challenge10Seconds": {
+            "title": "10 Seconds Challenge",
+            "subtitle": "Can you stop exactly at 10.0000s?",
+            "description": "A simple yet addictive time perception game. The goal is to stop the timer exactly at 10.0000 seconds. It requires rhythm and anticipation.",
+            "metadata": {
+                "title": "10 Seconds Challenge | Time Perception Test | FreeFocusGames",
+                "description": "Challenge your internal clock! Try to stop the timer exactly at 10.0000 seconds. A test of time perception, rhythm, and anticipation. Can you hit the perfect 10?",
+                "keywords": "10s challenge, 10 seconds game, stopwatch game, time perception test, internal clock test, reaction time",
+                "ogTitle": "10 Seconds Challenge - Can you hit 10.0000s?",
+                "ogDescription": "Test your internal clock. Try to stop the timer exactly at 10.0000 seconds."
+            },
+            "howToPlay": {
+                "description": "The rules are simple, but perfection is hard:",
+                "step1": "Click 'Start' to begin the timer.",
+                "step2": "Watch the numbers (or close your eyes and count).",
+                "step3": "Click 'Stop' exactly when you think it's 10.0000 seconds.",
+                "step4": "Check your result. Within 0.01s is considered excellent!",
+                "win": "PERFECT! Exactly 10.0000s!",
+                "lose": "Close! Try again.",
+                "nearMiss": "So close! Just a tiny bit off!"
+            },
+            "benefits": {
+                "perception": {
+                    "title": "Time Perception",
+                    "description": "Trains your brain's 'internal clock'. Elite athletes and musicians often possess superior time perception."
+                },
+                "anticipation": {
+                    "title": "Anticipation & Rhythm",
+                    "description": "Since reaction takes time, to stop exactly at 10s, you must act pre-emptively. This trains prediction mechanisms."
+                },
+                "focus": {
+                    "title": "Momentary Focus",
+                    "description": "In the final moment approaching 10s, you must block out all distractions and focus entirely on your finger's action."
+                }
+            },
+            "science": {
+                "title": "The Science of Time Perception",
+                "description": "Why is it so hard to stop exactly at 10.0000? It relates to our brain's 'Internal Clock', device latency, and anticipatory control. Read our detailed analysis to learn why you keep missing by milliseconds.",
+                "blogArticleTitle": "Read: The Science Behind 10 Seconds Challenge"
+            },
+            "faq": {
+                "trick": {
+                    "question": "Any tips?",
+                    "answer": "Many find that closing their eyes and counting internally is more accurate than watching the numbers, as visual flow can be distracting."
+                },
+                "impossible": {
+                    "question": "Is 10.0000 really possible?",
+                    "answer": "Yes. It's hard, but possible with rhythm and a bit of luck. About 1 in 1000 attempts hits perfection."
+                },
+                "latency": {
+                    "question": "Does device latency matter?",
+                    "answer": "Yes. That's why this game also tests 'anticipation'. You need to press slightly early to account for your device's input lag."
+                }
+            },
+            "gameUI": {
+                "start": "Start Timer",
+                "stop": "STOP!",
+                "retry": "Try Again",
+                "result": "Result",
+                "diff": "Difference",
+                "rank": {
+                    "perfect": "GODLIKE (0.000s)",
+                    "excellent": "Master (<0.01s)",
+                    "great": "Great (<0.05s)",
+                    "good": "Good (<0.1s)",
+                    "normal": "Keep Trying"
+                }
+            }
+        }
+    }
+}

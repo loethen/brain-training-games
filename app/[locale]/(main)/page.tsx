@@ -9,6 +9,7 @@ import { getBlogPosts, type BlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 import FeaturedGamesCarousel from "@/components/featured-games-carousel";
 import Image from "next/image";
+import { games } from "@/data/games";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
@@ -146,6 +147,38 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         </div>
                     </div>
                 </section>
+
+                {/* Spring Festival Special */}
+                {games.filter(g => g.categories.includes('spring-festival')).length > 0 && (
+                    <section className="mb-16 max-w-[1600px] mx-auto px-6">
+                        <div className="flex items-center gap-2 mb-6">
+                            <span className="text-3xl">🧧</span>
+                            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-red-600 to-orange-500 dark:from-red-400 dark:to-orange-400">
+                                {t("home.springFestivalSpecial")}
+                            </h2>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            {games.filter(g => g.categories.includes('spring-festival')).map(game => (
+                                <Link key={game.id} href={`/games/${game.slug}`} className="group block">
+                                    <div className="relative aspect-video rounded-xl overflow-hidden border-2 border-red-200 dark:border-red-900 shadow-sm transition-all hover:shadow-lg hover:scale-[1.02] bg-red-50/50 dark:bg-red-950/20">
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            {game.preview}
+                                        </div>
+                                        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-sm animate-pulse">
+                                            HOT
+                                        </div>
+                                    </div>
+                                    <h3 className="mt-3 font-bold text-lg group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                                        {/* Custom title override for Chinese locale */}
+                                        {(locale === 'zh' && game.slug === 'challenge-10-seconds')
+                                            ? "10秒挑战练习--下一个免单的就是你"
+                                            : game.title}
+                                    </h3>
+                                </Link>
+                            ))}
+                        </div>
+                    </section>
+                )}
 
                 {/* Games Section - Carousel Display */}
                 <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">

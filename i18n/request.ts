@@ -21,6 +21,7 @@ const I18N_MODULES = [
     'tests',
     'guides',
     'cpsTest',
+    '10Seconds',
 ] as const;
 
 function deepMerge(target: any, source: any) {

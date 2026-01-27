@@ -32,7 +32,14 @@ export const games: Game[] = [
     title: "Free Short Term Memory Test",
     slug: "free-short-term-memory-test",
     preview: <ImagePreview src="/games/free-short-term-memory-test.png" />,
-    categories: ["working-memory", "adhd-games"],
+    categories: ["working-memory", "auditory-processing"],
+  },
+  {
+    id: "challenge10Seconds",
+    title: "Challenge 10 Seconds",
+    slug: "challenge-10-seconds",
+    preview: <ImagePreview src="/games/challenge-10-seconds.png" />,
+    categories: ["focus-games", "reaction-time", "spring-festival"],
   },
   {
     id: "baby-animal-matching",

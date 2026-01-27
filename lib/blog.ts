@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export interface BlogAuthor {
   name: string;
@@ -22,40 +21,6 @@ export interface BlogPost {
 export interface PostNavigation {
   previousPost: BlogPost | null;
   nextPost: BlogPost | null;
-}
-
-// D1 row type
-interface D1BlogPost {
-  id: number;
-  slug: string;
-  locale: string;
-  title: string;
-  excerpt: string | null;
-  content: string;
-  cover_image_url: string | null;
-  keywords: string | null;
-  author_name: string;
-  author_picture: string | null;
-  published_at: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
-// Transform D1 row to BlogPost interface
-function transformD1ToBlogPost(row: D1BlogPost): BlogPost {
-  return {
-    slug: row.slug,
-    title: row.title,
-    date: row.published_at || row.created_at,
-    excerpt: row.excerpt || '',
-    coverImage: row.cover_image_url || undefined,
-    keywords: row.keywords || '',
-    author: {
-      name: row.author_name,
-      picture: row.author_picture || undefined,
-    },
-    content: row.content,
-  };
 }
 
 // File system fallback for local development
@@ -146,69 +111,23 @@ function getBlogPostFromFileSystem(slug: string, locale: string): BlogPost | nul
   };
 }
 
-// Main functions - try D1 first, fallback to file system
+// Main functions - file system only
 export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
   try {
-    const { env } = await getCloudflareContext();
-
-    if (env?.DB) {
-      const result = await env.DB.prepare(
-        `SELECT * FROM blog_posts WHERE locale = ? ORDER BY published_at DESC`
-      ).bind(locale).all<D1BlogPost>();
-
-      if (result.results && result.results.length > 0) {
-        return result.results.map(transformD1ToBlogPost);
-      }
-
-      // If no results for this locale, try English
-      if (locale !== 'en') {
-        const enResult = await env.DB.prepare(
-          `SELECT * FROM blog_posts WHERE locale = 'en' ORDER BY published_at DESC`
-        ).all<D1BlogPost>();
-
-        if (enResult.results) {
-          return enResult.results.map(transformD1ToBlogPost);
-        }
-      }
-    }
+    return getBlogPostsFromFileSystem(locale);
   } catch (error) {
-    console.log('D1 not available, falling back to file system:', error);
+    console.error('Error reading blog posts from file system:', error);
+    return [];
   }
-
-  // Fallback to file system
-  return getBlogPostsFromFileSystem(locale);
 }
 
 export async function getBlogPost(slug: string, locale: string = 'en'): Promise<BlogPost | null> {
   try {
-    const { env } = await getCloudflareContext();
-
-    if (env?.DB) {
-      const result = await env.DB.prepare(
-        `SELECT * FROM blog_posts WHERE slug = ? AND locale = ?`
-      ).bind(slug, locale).first<D1BlogPost>();
-
-      if (result) {
-        return transformD1ToBlogPost(result);
-      }
-
-      // If no result for this locale, try English
-      if (locale !== 'en') {
-        const enResult = await env.DB.prepare(
-          `SELECT * FROM blog_posts WHERE slug = ? AND locale = 'en'`
-        ).bind(slug).first<D1BlogPost>();
-
-        if (enResult) {
-          return transformD1ToBlogPost(enResult);
-        }
-      }
-    }
+    return getBlogPostFromFileSystem(slug, locale);
   } catch (error) {
-    console.log('D1 not available, falling back to file system:', error);
+    console.error('Error reading blog post from file system:', error);
+    return null;
   }
-
-  // Fallback to file system
-  return getBlogPostFromFileSystem(slug, locale);
 }
 
 export async function getPostNavigation(slug: string, locale: string = 'en'): Promise<PostNavigation> {
