@@ -13,6 +13,11 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { getTranslations, getMessages } from 'next-intl/server';
 
+// Generate static params for all locales
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
+
 // 定义默认元数据，可以被页面级元数据覆盖
 export async function generateMetadata(
     { params }: { params: Promise<{ locale: string }> }
