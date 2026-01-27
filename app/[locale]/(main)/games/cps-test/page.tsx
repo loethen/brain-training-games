@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
-import { MousePointer2, Trophy, Zap, Clock } from 'lucide-react'
+import { MousePointer2, Zap, Clock } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { generateAlternates } from '@/lib/utils'

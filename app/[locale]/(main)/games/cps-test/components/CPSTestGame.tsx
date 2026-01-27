@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { toast } from "sonner";
 import { Share, MousePointer2 } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { ShareModal } from '@/components/ui/ShareModal';
@@ -29,7 +28,6 @@ export default function CPSTestGame() {
     const [startTime, setStartTime] = useState<number>(0);
     const [timeLeft, setTimeLeft] = useState<number>(5);
     const [clicks, setClicks] = useState<number>(0);
-    const [clickHistory, setClickHistory] = useState<ClickData[]>([]);
     const [ripples, setRipples] = useState<{ id: number, x: number, y: number }[]>([]);
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
     const [pageUrl, setPageUrl] = useState('');
@@ -46,20 +44,11 @@ export default function CPSTestGame() {
 
     const getDuration = (m: TimeMode) => parseInt(m.replace('s', ''));
 
-    const resetGame = () => {
-        setGameState('READY');
-        setClicks(0);
-        setTimeLeft(getDuration(mode));
-        setClickHistory([]);
-        if (timerRef.current) clearInterval(timerRef.current);
-    };
-
     const handleModeChange = (newMode: TimeMode) => {
         setMode(newMode);
         setGameState('READY');
         setClicks(0);
         setTimeLeft(getDuration(newMode));
-        setClickHistory([]);
         if (timerRef.current) clearInterval(timerRef.current);
     };
 
@@ -137,7 +126,6 @@ export default function CPSTestGame() {
         }
     };
 
-    const cps = clicks / getDuration(mode);
 
     const getRank = (cps: number) => {
         if (cps < 5) return { key: 'turtle', color: 'text-green-400' };
