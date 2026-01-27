@@ -1,21 +1,13 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+// Blog data access layer
+// Uses pre-generated JSON data for Cloudflare edge runtime compatibility
+
+import { blogData, BlogPost } from '@/data/generated';
+
+export type { BlogPost } from '@/data/generated';
 
 export interface BlogAuthor {
   name: string;
   picture?: string;
-}
-
-export interface BlogPost {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  coverImage?: string;
-  keywords?: string;
-  author: BlogAuthor;
-  content: string;
 }
 
 export interface PostNavigation {
@@ -23,113 +15,28 @@ export interface PostNavigation {
   nextPost: BlogPost | null;
 }
 
-// File system fallback for local development
-const BLOG_DIR = path.join(process.cwd(), 'data', 'blog');
-const TRANSLATED_BLOG_DIR = path.join(process.cwd(), 'data', 'blog-translations');
-
-function getBlogDirForLocale(locale: string): string {
-  if (locale === 'en') {
-    return BLOG_DIR;
-  }
-
-  const translatedDir = path.join(TRANSLATED_BLOG_DIR, locale);
-
-  if (!fs.existsSync(translatedDir)) {
-    return BLOG_DIR;
-  }
-
-  return translatedDir;
-}
-
-function getBlogPostsFromFileSystem(locale: string): BlogPost[] {
-  const blogDir = getBlogDirForLocale(locale);
-
-  if (!fs.existsSync(blogDir)) {
-    return [];
-  }
-
-  const files = fs.readdirSync(blogDir);
-  const posts = files
-    .filter((file) => file.endsWith('.md'))
-    .map((file) => {
-      const filePath = path.join(blogDir, file);
-      const slug = file.replace(/\.md$/, '');
-      const fileContent = fs.readFileSync(filePath, 'utf8');
-      const { data, content } = matter(fileContent);
-
-      return {
-        slug,
-        title: data.title,
-        date: data.date,
-        excerpt: data.excerpt || '',
-        coverImage: data.coverImage,
-        keywords: data.keywords || '',
-        author: {
-          name: data.author?.name || 'Anonymous',
-          picture: data.author?.picture,
-        },
-        content,
-      };
-    })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
+// Get all blog posts for a locale
+export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
+  // Try requested locale, fall back to English
+  const posts = blogData[locale] || blogData['en'] || [];
   return posts;
 }
 
-function getBlogPostFromFileSystem(slug: string, locale: string): BlogPost | null {
-  const blogDir = getBlogDirForLocale(locale);
-
-  if (!fs.existsSync(blogDir)) {
-    return null;
-  }
-
-  const filePath = path.join(blogDir, `${slug}.md`);
-
-  if (!fs.existsSync(filePath) && locale !== 'en') {
-    return getBlogPostFromFileSystem(slug, 'en');
-  }
-
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  const { data, content } = matter(fileContent);
-
-  return {
-    slug,
-    title: data.title,
-    date: data.date,
-    excerpt: data.excerpt || '',
-    coverImage: data.coverImage,
-    keywords: data.keywords || '',
-    author: {
-      name: data.author?.name || 'Anonymous',
-      picture: data.author?.picture,
-    },
-    content,
-  };
-}
-
-// Main functions - file system only
-export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
-  try {
-    return getBlogPostsFromFileSystem(locale);
-  } catch (error) {
-    console.error('Error reading blog posts from file system:', error);
-    return [];
-  }
-}
-
+// Get a single blog post by slug
 export async function getBlogPost(slug: string, locale: string = 'en'): Promise<BlogPost | null> {
-  try {
-    return getBlogPostFromFileSystem(slug, locale);
-  } catch (error) {
-    console.error('Error reading blog post from file system:', error);
-    return null;
+  const posts = await getBlogPosts(locale);
+  let post = posts.find(p => p.slug === slug) || null;
+
+  // Fall back to English if not found in requested locale
+  if (!post && locale !== 'en') {
+    const enPosts = blogData['en'] || [];
+    post = enPosts.find(p => p.slug === slug) || null;
   }
+
+  return post;
 }
 
+// Get navigation (previous/next) for a blog post
 export async function getPostNavigation(slug: string, locale: string = 'en'): Promise<PostNavigation> {
   const posts = await getBlogPosts(locale);
   const currentIndex = posts.findIndex(post => post.slug === slug);
