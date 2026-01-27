@@ -22,7 +22,7 @@ enum GameStates {
 
 export default function ReactionTimeGame() {
   const t = useTranslations('games.reactionTime.gameUI');
-  
+
   // State management
   const [gameState, setGameState] = useState<GameStates>(GameStates.START);
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -35,17 +35,17 @@ export default function ReactionTimeGame() {
 
   // Refs for accessibility
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // References for timeout management
   const timeoutRef = useRef<number | null>(null);
-  
+
   // Load best time from localStorage and set page URL
   useEffect(() => {
     const savedBestTime = localStorage.getItem('reactionBestTime');
     if (savedBestTime) {
       setBestTime(parseInt(savedBestTime));
     }
-    
+
     // Set page URL safely after component mounts in browser
     setPageUrl(window.location.href);
   }, []);
@@ -54,6 +54,14 @@ export default function ReactionTimeGame() {
     if (results.length === 0) return 0;
     const sum = results.reduce((acc, curr) => acc + curr, 0);
     return Math.round(sum / results.length);
+  };
+
+  const getReflexAnalysisKey = (ms: number) => {
+    if (ms < 200) return 'godlike';
+    if (ms < 250) return 'excellent';
+    if (ms < 300) return 'good';
+    if (ms < 400) return 'average';
+    return 'slow';
   };
 
   const clearTimeout = () => {
@@ -77,10 +85,10 @@ export default function ReactionTimeGame() {
   const startGame = () => {
     clearTimeout();
     setGameState(GameStates.WAITING);
-    
+
     // Set random wait time
     const randomWaitTime = Math.floor(Math.random() * (MAX_WAIT_TIME - MIN_WAIT_TIME)) + MIN_WAIT_TIME;
-    
+
     // Change to READY state after random wait time
     timeoutRef.current = window.setTimeout(() => {
       setGameState(GameStates.READY);
@@ -106,22 +114,22 @@ export default function ReactionTimeGame() {
     // If ready, record reaction time
     if (gameState === GameStates.READY) {
       const now = Date.now();
-      
+
       if (startTime) {
         const time = now - startTime;
         setReactionTime(time);
-        
+
         // Update best time if better
         if (bestTime === null || time < bestTime) {
           setBestTime(time);
           localStorage.setItem('reactionBestTime', time.toString());
           toast(t('newBestTime') + `: ${time} ${t('milliseconds')}`);
-        } 
-        
+        }
+
         // Add to results
         const newResults = [...results, time];
         setResults(newResults);
-        
+
         // Check if reached max rounds
         if (round >= MAX_ROUNDS) {
           setGameState(GameStates.SUMMARY);
@@ -218,10 +226,10 @@ export default function ReactionTimeGame() {
                   <p className="text-2xl md:text-3xl font-bold text-white">{t('startButton')}</p>
                 </div>
               )}
-              
+
               {gameState === GameStates.WAITING && (
                 <div className="flex items-center justify-center h-full">
-                  <motion.p 
+                  <motion.p
                     className="text-3xl md:text-4xl font-bold text-white"
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ repeat: Infinity, duration: 2 }}
@@ -230,10 +238,10 @@ export default function ReactionTimeGame() {
                   </motion.p>
                 </div>
               )}
-              
+
               {gameState === GameStates.READY && (
                 <div className="flex items-center justify-center h-full">
-                  <motion.p 
+                  <motion.p
                     className="text-3xl md:text-4xl font-bold text-white"
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ repeat: Infinity, duration: 0.5 }}
@@ -242,13 +250,13 @@ export default function ReactionTimeGame() {
                   </motion.p>
                 </div>
               )}
-              
+
               {gameState === GameStates.RESULT && (
                 <div className="flex flex-col items-center justify-center h-full">
                   {reactionTime === null ? (
-                    <motion.p 
+                    <motion.p
                       className="text-xl md:text-2xl font-bold text-red-500"
-                      animate={{ 
+                      animate={{
                         x: [0, -5, 5, -5, 5, 0],
                         transition: { duration: 0.5 }
                       }}
@@ -257,7 +265,7 @@ export default function ReactionTimeGame() {
                     </motion.p>
                   ) : (
                     <>
-                      <motion.p 
+                      <motion.p
                         className="text-4xl md:text-5xl font-bold text-white"
                         initial={{ scale: 1.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -271,7 +279,7 @@ export default function ReactionTimeGame() {
                   )}
                 </div>
               )}
-              
+
               {gameState === GameStates.SUMMARY && (
                 <div className="flex flex-col items-center justify-center h-full gap-4">
                   <div className="text-center">
@@ -279,13 +287,21 @@ export default function ReactionTimeGame() {
                     <p className="text-2xl md:text-3xl font-bold text-white">{Math.min(...results)}</p>
                     <p className="text-xs text-gray-400">{t('milliseconds')}</p>
                   </div>
-                  
+
                   <div className="text-center">
                     <p className="text-sm md:text-base font-medium text-gray-300">{t('averageTime')}</p>
                     <p className="text-xl md:text-2xl font-bold text-white">{getAverageTime(results)}</p>
                     <p className="text-xs text-gray-400">{t('milliseconds')}</p>
                   </div>
-                  
+
+                  {/* Reflex Analysis Section */}
+                  <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm mt-1 max-w-[80%]">
+                    <p className="text-xs text-blue-200 uppercase tracking-wider mb-1">{t('reflexAnalysis.title')}</p>
+                    <p className="text-sm md:text-base font-bold text-yellow-300">
+                      {t(`reflexAnalysis.${getReflexAnalysisKey(getAverageTime(results))}`)}
+                    </p>
+                  </div>
+
                   <div className="flex gap-2 mt-2">
                     <Button onClick={resetGame} size="sm" variant="secondary" className="text-xs">
                       {t('playAgain')}
@@ -300,7 +316,7 @@ export default function ReactionTimeGame() {
             </div>
           </div>
         </div>
-        
+
         {/* Previous best time display (only shown on start screen) */}
         {gameState === GameStates.START && bestTime && (
           <div className="flex justify-center items-center space-x-1 text-gray-600 dark:text-gray-400 text-sm">
@@ -309,8 +325,8 @@ export default function ReactionTimeGame() {
           </div>
         )}
       </div>
-      
-      <ShareModal 
+
+      <ShareModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
         title={t('shareTitle')}

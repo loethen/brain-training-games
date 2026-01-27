@@ -53,3 +53,7 @@ GA4_ANALYTICS_GUIDE.md
 
 # Cloudflare
 .wrangler/
+
+.agent/
+
+.agents/
