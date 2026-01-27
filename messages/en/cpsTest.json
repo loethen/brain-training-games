@@ -27,35 +27,35 @@
                 }
             },
             "benefits": {
-                "gaming": {
-                    "title": "Gaming Performance",
-                    "description": "High CPS is crucial for combos and rapid fire in Minecraft (PvP), FPS, and MOBA games."
+                "focus": {
+                    "title": "Sustained Attention",
+                    "description": "Maintaining a high click rate requires extreme mental concentration. Maintaining consistency for 10s or 30s is an excellent workout for sustained attention."
                 },
-                "consistency": {
-                    "title": "Consistency Training",
-                    "description": "Maintaining a steady click rate is a sign of a pro player."
+                "neural": {
+                    "title": "Neural-Motor Connection",
+                    "description": "Strengthens the signal transmission between brain and fingers. Rapid reaction is a result of the brain sending fast command signals and efficient neural pathways."
                 },
-                "finger": {
-                    "title": "Finger Agility",
-                    "description": "Regular practice enhances finger muscle strength and endurance."
+                "flow": {
+                    "title": "Flow State & Relief",
+                    "description": "Rhythmic high-speed clicking can help induce a 'flow state', clearing the mind of clutter. It acts as a unique stress reliever and brain reset."
                 }
             },
             "faq": {
-                "what": {
-                    "question": "What is a good CPS score?",
-                    "answer": "Average CPS is around 6-7. Above 8 is excellent, and pro players or jitter clickers can reach 10+."
+                "focus": {
+                    "question": "Is this just about hand speed?",
+                    "answer": "Not entirely. To reach limits (like 10+ CPS) and stay consistent, your brain must be highly focused to control micro-movements. Any momentary distraction drops your speed, making this a test of high-intensity short-term focus."
+                },
+                "warmup": {
+                    "question": "Is this a good brain warmup?",
+                    "answer": "Yes. Short bursts of clicking (like the 5s mode) quickly activate the nervous system and wake up the cerebral cortex, helping you transition from a groggy state to a ready-to-work state."
                 },
                 "improve": {
-                    "question": "How to improve CPS?",
-                    "answer": "Try techniques like Butterfly Clicking or Jitter Clicking. Relax your wrist to avoid stiffness."
+                    "question": "How to improve my score?",
+                    "answer": "Besides clicking techniques, the key is breathing and relaxing your arm muscles. Tension leads to stiffness. Learning 'relaxed focus' is key to high performance—a great mindfulness practice in itself."
                 },
-                "record": {
-                    "question": "What is the world record?",
-                    "answer": "Records vary by time, but for 1s tests, some top records exceed 20 clicks."
-                },
-                "safe": {
-                    "question": "Can high speed clicking cause injury?",
-                    "answer": "Yes, prolonged high-speed clicking can cause strain or RSI. Practice moderately and rest if you feel pain."
+                "health": {
+                    "question": "Can high-speed clicking cause injury?",
+                    "answer": "Yes, prolonged repetition can cause fatigue. Please practice moderately (we recommend sets under 30s) and stop immediately if you feel pain. This is designed for burst training, not endurance marathons."
                 }
             },
             "gameUI": {

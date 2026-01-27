@@ -55,37 +55,37 @@ export default function CPSTestPage() {
             }
             benefits={[
                 {
-                    icon: <Zap className="w-10 h-10" />,
-                    title: t('benefits.gaming.title'),
-                    description: t('benefits.gaming.description'),
+                    icon: <Clock className="w-10 h-10" />,
+                    title: t('benefits.focus.title'),
+                    description: t('benefits.focus.description'),
                 },
                 {
-                    icon: <Clock className="w-10 h-10" />,
-                    title: t('benefits.consistency.title'),
-                    description: t('benefits.consistency.description'),
+                    icon: <Zap className="w-10 h-10" />,
+                    title: t('benefits.neural.title'),
+                    description: t('benefits.neural.description'),
                 },
                 {
                     icon: <MousePointer2 className="w-10 h-10" />,
-                    title: t('benefits.finger.title'),
-                    description: t('benefits.finger.description'),
+                    title: t('benefits.flow.title'),
+                    description: t('benefits.flow.description'),
                 },
             ]}
             faq={[
                 {
-                    question: t('faq.what.question'),
-                    answer: t('faq.what.answer'),
+                    question: t('faq.focus.question'),
+                    answer: t('faq.focus.answer'),
+                },
+                {
+                    question: t('faq.warmup.question'),
+                    answer: t('faq.warmup.answer'),
                 },
                 {
                     question: t('faq.improve.question'),
                     answer: t('faq.improve.answer'),
                 },
                 {
-                    question: t('faq.record.question'),
-                    answer: t('faq.record.answer'),
-                },
-                {
-                    question: t('faq.safe.question'),
-                    answer: t('faq.safe.answer'),
+                    question: t('faq.health.question'),
+                    answer: t('faq.health.answer'),
                 },
             ]}
         />
