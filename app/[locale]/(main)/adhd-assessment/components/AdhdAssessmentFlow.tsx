@@ -57,6 +57,32 @@ export default function AdhdAssessmentFlow() {
   const currentQuestion = ADHD_QUESTIONS[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === ADHD_QUESTIONS.length - 1;
 
+  // Calculate scores and get recommendations
+  const getRecommendedGames = useCallback((finalAnswers: AdhdAnswers) => {
+    const inattentionScore = ADHD_QUESTIONS
+      .filter(q => q.category === 'inattention')
+      .reduce((sum, q) => sum + (finalAnswers[q.id] || 0), 0);
+
+    const hyperactivityScore = ADHD_QUESTIONS
+      .filter(q => q.category === 'hyperactivity')
+      .reduce((sum, q) => sum + (finalAnswers[q.id] || 0), 0);
+
+    const recommendations = [];
+
+    // Recommend games based on scores
+    if (inattentionScore >= 12) { // High inattention
+      recommendations.push('dual-n-back', 'stroop-effect-test');
+    } else if (inattentionScore >= 8) {
+      recommendations.push('schulte-table', 'larger-number');
+    }
+
+    if (hyperactivityScore >= 12) { // High hyperactivity/impulsivity
+      recommendations.push('reaction-time', 'stroop-effect-test');
+    }
+
+    return recommendations.length > 0 ? recommendations : ['dual-n-back'];
+  }, []);
+
   // Start assessment
   const handleStartAssessment = useCallback(() => {
     analytics.assessment.start({
@@ -89,33 +115,8 @@ export default function AdhdAssessmentFlow() {
       // Go to next question
       setCurrentQuestionIndex(prev => prev + 1);
     }
-  }, [answers, currentQuestion, isLastQuestion]);
+  }, [answers, currentQuestion, isLastQuestion, getRecommendedGames]);
 
-  // Calculate scores and get recommendations
-  const getRecommendedGames = useCallback((finalAnswers: AdhdAnswers) => {
-    const inattentionScore = ADHD_QUESTIONS
-      .filter(q => q.category === 'inattention')
-      .reduce((sum, q) => sum + (finalAnswers[q.id] || 0), 0);
-    
-    const hyperactivityScore = ADHD_QUESTIONS
-      .filter(q => q.category === 'hyperactivity')
-      .reduce((sum, q) => sum + (finalAnswers[q.id] || 0), 0);
-
-    const recommendations = [];
-    
-    // Recommend games based on scores
-    if (inattentionScore >= 12) { // High inattention
-      recommendations.push('dual-n-back', 'stroop-effect-test');
-    } else if (inattentionScore >= 8) {
-      recommendations.push('schulte-table', 'larger-number');
-    }
-    
-    if (hyperactivityScore >= 12) { // High hyperactivity/impulsivity
-      recommendations.push('reaction-time', 'stroop-effect-test');
-    }
-
-    return recommendations.length > 0 ? recommendations : ['dual-n-back'];
-  }, []);
 
   const calculateResults = useCallback(() => {
     const inattentionQuestions = ADHD_QUESTIONS.filter(q => q.category === 'inattention');
@@ -139,7 +140,7 @@ export default function AdhdAssessmentFlow() {
 
   const getResultsInterpretation = useCallback(() => {
     const results = calculateResults();
-    
+
     let riskLevel: 'low' | 'moderate' | 'high' = 'low';
     let recommendations: string[] = [];
 
@@ -168,13 +169,12 @@ export default function AdhdAssessmentFlow() {
         {steps.map((stepName, index) => (
           <div key={stepName} className="flex items-center">
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                index < currentStepIndex
-                  ? "bg-green-600 text-white"
-                  : index === currentStepIndex
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${index < currentStepIndex
+                ? "bg-green-600 text-white"
+                : index === currentStepIndex
                   ? "bg-green-600 text-white"
                   : "bg-gray-300 text-gray-500"
-              }`}
+                }`}
             >
               {index < currentStepIndex ? (
                 <Check size={16} />
@@ -186,9 +186,8 @@ export default function AdhdAssessmentFlow() {
             </div>
             {index < steps.length - 1 && (
               <div
-                className={`w-12 h-0.5 transition-all ${
-                  index < currentStepIndex ? "bg-green-600" : "bg-gray-300"
-                }`}
+                className={`w-12 h-0.5 transition-all ${index < currentStepIndex ? "bg-green-600" : "bg-gray-300"
+                  }`}
               />
             )}
           </div>
@@ -235,7 +234,7 @@ export default function AdhdAssessmentFlow() {
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
             {t('learnMore.text')}
           </p>
-          <Link 
+          <Link
             href="/blog/vanderbilt-adhd-rating-scale-comprehensive-guide"
             className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
           >
@@ -324,7 +323,7 @@ export default function AdhdAssessmentFlow() {
           </span>
         </div>
         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-          <div 
+          <div
             className="bg-green-600 h-2 rounded-full transition-all duration-300"
             style={{ width: `${((currentQuestionIndex + 1) / ADHD_QUESTIONS.length) * 100}%` }}
           />
@@ -366,7 +365,7 @@ export default function AdhdAssessmentFlow() {
   // Render results step
   const renderResults = () => {
     const results = getResultsInterpretation();
-    
+
     return (
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="text-center">
@@ -426,13 +425,12 @@ export default function AdhdAssessmentFlow() {
         </div>
 
         {/* Risk Assessment */}
-        <div className={`border rounded-lg p-6 ${
-          results.riskLevel === 'high' 
-            ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800' 
-            : results.riskLevel === 'moderate'
+        <div className={`border rounded-lg p-6 ${results.riskLevel === 'high'
+          ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+          : results.riskLevel === 'moderate'
             ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800'
             : 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
-        }`}>
+          }`}>
           <h3 className="font-semibold mb-3">
             {tResults(`riskLevels.${results.riskLevel}.title`)}
           </h3>
@@ -457,7 +455,7 @@ export default function AdhdAssessmentFlow() {
           <div className="space-y-3">
             {results.recommendations.map((gameSlug) => (
               <Link key={gameSlug} href={`/games/${gameSlug}`}>
-                <button 
+                <button
                   className="w-full text-left p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors group"
                   onClick={() => {
                     analytics.navigation.recommendation({
@@ -510,7 +508,7 @@ export default function AdhdAssessmentFlow() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
       <div className="container mx-auto px-4">
         {renderStepIndicator()}
-        
+
         <div className="mt-8">
           {step === 'intro' && renderIntro()}
           {step === 'info' && renderInfo()}

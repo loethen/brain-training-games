@@ -10,11 +10,6 @@ import { Button } from "@/components/ui/button";
 type GameState = 'IDLE' | 'READY' | 'RUNNING' | 'FINISHED';
 type TimeMode = '1s' | '3s' | '5s' | '10s' | '30s' | '60s';
 
-interface ClickData {
-    time: number;
-    clicks: number;
-    cps: number;
-}
 
 export default function CPSTestGame() {
     const t = useTranslations('games.cpsTest.gameUI');

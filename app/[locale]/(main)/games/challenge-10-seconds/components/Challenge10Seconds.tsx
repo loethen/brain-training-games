@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { Timer, Trophy, RotateCcw, Share2 } from "lucide-react";
+import { Trophy, RotateCcw, Share2 } from "lucide-react";
 import { ShareModal } from '@/components/ui/ShareModal';
 import { toast } from "sonner"; // Assuming sonner is used for toasts
 import { SevenSegmentDigit, SevenSegmentDot } from './SevenSegmentDisplay';

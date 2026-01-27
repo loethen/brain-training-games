@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { GAME_CONFIG } from '../config';
 import * as THREE from 'three';
 import { Button } from '@/components/ui/button';
@@ -190,12 +190,12 @@ export default function GameComponent() {
     });
     const selectedAnimationRef = useRef<string>('default');
 
-    // Three.js 颜色常量
-    const CUBE_COLOR = new THREE.Color(0xffffff);
-    const SUCCESS_COLOR = new THREE.Color(0x1eba38);
-    const EDGE_COLOR = new THREE.Color(0x000000);
-    const GRID_COLOR = new THREE.Color(0x434343);
-    const BACKGROUND_COLOR = new THREE.Color(0xf5f5f5);
+    // Three.js 颜色常量 - wrapped in useMemo to prevent re-creation on render
+    const CUBE_COLOR = useMemo(() => new THREE.Color(0xffffff), []);
+    const SUCCESS_COLOR = useMemo(() => new THREE.Color(0x1eba38), []);
+    const EDGE_COLOR = useMemo(() => new THREE.Color(0x000000), []);
+    const GRID_COLOR = useMemo(() => new THREE.Color(0x434343), []);
+    const BACKGROUND_COLOR = useMemo(() => new THREE.Color(0xf5f5f5), []);
 
     // 使用useTimeout进行观察时间控制
     useTimeout(() => {
@@ -364,7 +364,7 @@ export default function GameComponent() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [BACKGROUND_COLOR, EDGE_COLOR, GRID_COLOR]);
 
     // 清空方块
     const clearBoard = useCallback(() => {
@@ -373,7 +373,7 @@ export default function GameComponent() {
                 cubesGroupRef.current.remove(cubesGroupRef.current.children[0]);
             }
         }
-    }, [cubesGroupRef]);
+    }, [cubesGroupRef]); // cubesGroupRef is a ref, stable, but linter might want checking. Ref content mutation doesn't trigger re-render.
 
     // 添加单个方块
     const addCube = useCallback(
@@ -640,7 +640,7 @@ export default function GameComponent() {
         setTimerDisplay('');
         setLastResult(null);
         setGameState('observing');
-    }, [level, gameStartTime]);
+    }, []);
 
     // 监听关卡变化，自动生成新关卡
     useEffect(() => {
@@ -649,7 +649,7 @@ export default function GameComponent() {
             startTimer();
         }
         // 其他gameState不再触发generateLevel
-    }, [level, gameState, generateLevel, startTimer]);
+    }, [gameState, generateLevel, startTimer]);
 
     // 结算页全对时触发礼花动画
     useEffect(() => {

@@ -11,7 +11,6 @@ export default function Game() {
         <NextIntlClientProvider
             locale={locale}
             messages={
-                // @ts-expect-error
                 messages.games.challenge10Seconds
             }
         >
