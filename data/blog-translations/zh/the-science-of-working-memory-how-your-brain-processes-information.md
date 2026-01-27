@@ -1,7 +1,7 @@
 ---
 title: 工作记忆的科学：学习时大脑如何处理信息
 date: '2025-04-14'
-excerpt: 了解你的大脑如何通过工作记忆处理视觉和语言信息，从而构建有意义的心理模型。同时，学习优化学习体验的策略，让学习更高效。
+excerpt: "深入大脑的信息处理中心，探索工作记忆的科学奥秘。了解前额叶皮层如何协调语音环路和视觉空间画板，将瞬时信息转化为长期知识。本文结合认知心理学理论，为您提供优化信息编码和提取的实用策略，助您构建更高效的思维模型，掌握深度学习的秘诀。"
 coverImage: >-
   https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxtZWRpdGF0aW9uJTIwbWluZGZ1bG5lc3MlMjBmb2N1cyUyMGJyYWluJTIwdHJhaW5pbmd8ZW58MHx8fHwxNzQ0NjI0MzAwfDA&ixlib=rb-4.0.3&q=80&w=2000
 keywords: >-

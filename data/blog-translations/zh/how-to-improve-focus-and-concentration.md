@@ -1,7 +1,7 @@
 ---
 title: 如何提高专注力和注意力：提升效率的实用技巧
 date: '2025-03-26'
-excerpt: 探索在充满干扰的世界中提高注意力和专注力的实用方法——从简单的练习到正念习惯，从而提高效率。
+excerpt: "在这个信息碎片化的时代，专注力已成为稀缺资源。本文汇总了心理学家推荐的注意力提升技巧，从番茄工作法、环境优化到深度的正念冥想练习。无论是在嘈杂的办公室还是家中，这套系统性的专注力训练方案都能帮助您屏蔽干扰，快速进入心流状态，倍增工作与学习效率。"
 coverImage: >-
   https://images.unsplash.com/photo-1670105750992-1b21f802259f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxmb2N1cyUyMGNvbmNlbnRyYXRpb24lMjBwcm9kdWN0aXZpdHl8ZW58MHx8fHwxNzQyOTc2MDA4fDA&ixlib=rb-4.0.3&q=80&w=2000
 keywords: >-

@@ -1,7 +1,7 @@
 ---
 title: 看吉姆·奎克的记忆视频如何改变了我提升记忆力的方式
 date: '2025-04-06'
-excerpt: 了解吉姆·奎克的记忆技巧和身体记忆宫殿法如何将一个自称"健忘的人"转变为一个对自己的记忆能力充满信心的人。
+excerpt: "从'健忘大师'到'记忆超人'，吉姆·奎克(Jim Kwik)的方法真的有效吗？本文通过第一人称视角，实测并解析他的核心记忆术，特别是'身体记忆宫殿法'。看看这些简单的联想与可视化技巧，如何帮助普通人快速记住演讲稿、人名和复杂概念，彻底重塑对大脑潜能的信心。"
 coverImage: >-
   https://images.unsplash.com/photo-1535231540604-72e8fbaf8cdb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwzfHxtZW1vcnklMjB0cmFuc2Zvcm1hdGlvbiUyMGJyYWluJTIwcHV6emxlJTIwc29sdmVkfGVufDB8fHx8MTc0Mzk1MzU2MXww&ixlib=rb-4.0.3&q=80&w=2000
 keywords: >-

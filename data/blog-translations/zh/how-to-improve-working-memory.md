@@ -1,7 +1,7 @@
 ---
 title: 如何提升工作记忆：改善学习和生活的五个有效策略
 date: '2025-03-28'
-excerpt: 了解工作记忆如何影响你的日常生活，并学习5种经研究证实的策略，以提高你的工作记忆容量，从而改善学习、解决问题和提高效率。
+excerpt: "工作记忆是您大脑的'认知工作台'，直接决定了学习效率和问题解决能力。本文深入剖析其运作机制，并提供5种经科学验证的提升策略——包括N-Back训练、正念冥想和特定的有氧运动。立即行动，扩充您的认知容量，在复杂任务中游刃有余，提升职场与学业表现。"
 coverImage: "/blog/working-memory-training-cover.png"
 keywords: >-
   improve working memory, training working memory, working memory exercises,

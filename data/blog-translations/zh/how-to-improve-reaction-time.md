@@ -1,7 +1,7 @@
 ---
 title: 提升游戏反应速度的终极指南 (2025)
 date: '2025-03-24'
-excerpt: 了解 2025 年提升游戏反应速度的有效方法——硬件升级、睡眠技巧、咖啡因妙招等等。现在就提升你的技能吧！
+excerpt: "想要在竞技游戏或日常生活中拥有闪电般的反应速度？探索2025年最新科学有效的提升方法！从优化神经传导的营养策略、提升反应力的专项眼动训练，到降低输入延迟的硬件配置技巧，我们为您提供全方位的反应时间提升指南，助您突破生理极限，快人一步。"
 coverImage: >-
   https://images.unsplash.com/photo-1607294846590-fd005d7973e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxnYW1lciUyMGZvY3VzZWR8ZW58MHx8fHwxNzQyODAyMzg4fDA&ixlib=rb-4.0.3&q=80&w=1080
 keywords: >-

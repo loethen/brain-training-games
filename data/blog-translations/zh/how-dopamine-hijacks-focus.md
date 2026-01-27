@@ -1,7 +1,7 @@
 ---
 title: 多巴胺是如何“劫持”你的注意力的？让我们揭开真相！
 date: '2025-03-25'
-excerpt: 了解多巴胺如何影响你的专注力，为什么人很容易分心，并学习重新掌控注意力的实用策略。
+excerpt: "揭开多巴胺劫持大脑的真相！深入了解这种神经递质如何操纵您的欲望与专注力，导致社交媒体成瘾和注意力分散。本文将分享基于神经科学的实用策略，包括多巴胺断舍离和行为重塑技巧，助您摆脱数字干扰，重新通过健康的习惯掌控生活与工作效率。"
 coverImage: >-
   https://images.unsplash.com/photo-1617791160536-598cf32026fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxicmFpbiUyMGRvcGFtaW5lJTIwbmV1cm9zY2llbmNlJTIwZm9jdXN8ZW58MHx8fHwxNzQyODg2MzQzfDA&ixlib=rb-4.0.3&q=80&w=2000
 keywords: >-
