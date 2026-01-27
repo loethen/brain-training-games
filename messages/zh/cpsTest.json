@@ -1,0 +1,91 @@
+{
+    "games": {
+        "cpsTest": {
+            "title": "CPS测试 (鼠标点击速度测试)",
+            "subtitle": "测试您的鼠标点击速度 (CPS)",
+            "description": "想知道您的手速有多快？使用这个在线CPS测试工具，在1秒、5秒或10秒内挑战您的极限点击速度。",
+            "metadata": {
+                "title": "CPS测试 | 鼠标点击速度测试 | 连点器测试 | FreeFocusGames",
+                "description": "免费在线CPS测试(Clicks Per Second)。支持1秒、3秒、5秒、10秒等多种模式。测试您的鼠标点击速度，查看您在游戏玩家中的段位。无需下载，即点即测！",
+                "keywords": "CPS测试, 点击速度测试, 鼠标手速测试, 连点测试, jitter click test, 1秒CPS测试, 鼠标点击测试, 点击速度训练",
+                "ogTitle": "CPS测试 - 鼠标点击速度挑战",
+                "ogDescription": "来挑战您的手速极限！在线CPS测试，看看您每秒能点击多少次。"
+            },
+            "howToPlay": {
+                "description": "CPS测试（Clicks Per Second）用于测量您在给定时间内点击鼠标的速度。玩法非常简单：",
+                "step1": "选择测试持续时间（例如1秒、5秒、10秒）。",
+                "step2": "准备好后，尽可能快地点击灰色测试区域。",
+                "step3": "第一次点击时计时器会立即启动。",
+                "step4": "测试结束后，您将看到您的CPS分数和评级。",
+                "modes": {
+                    "1s": "1秒 (爆发力)",
+                    "3s": "3秒 (常规)",
+                    "5s": "5秒 (标准)",
+                    "10s": "10秒 (耐力)",
+                    "30s": "30秒 (马拉松)",
+                    "60s": "60秒 (地狱模式)"
+                }
+            },
+            "benefits": {
+                "gaming": {
+                    "title": "提升游戏表现",
+                    "description": "在Minecraft (PvP)、FPS和MOBA游戏中，高CPS对于连招和快速射击至关重要。"
+                },
+                "consistency": {
+                    "title": "训练稳定性",
+                    "description": "不仅仅是速度，长时间保持稳定的点击频率是高手的标志。"
+                },
+                "finger": {
+                    "title": "手指灵活性",
+                    "description": "定期练习可以增强手指肌肉的爆发力和耐力。"
+                }
+            },
+            "faq": {
+                "what": {
+                    "question": "什么是优秀的CPS分数？",
+                    "answer": "普通用户的CPS通常在6-7左右。超过8属于优秀，而职业玩家或擅长“抖动点击”(Jitter Click)的玩家可以达到10以上甚至更高。"
+                },
+                "improve": {
+                    "question": "如何提高我的CPS？",
+                    "answer": "尝试不同的点击技巧，如“蝴蝶点击”(Butterfly Clicking)或“抖动点击”(Jitter Clicking)。使用专业的游戏鼠标也有帮助。最重要的是放松手腕，避免肌肉僵硬。"
+                },
+                "record": {
+                    "question": "世界纪录是多少？",
+                    "answer": "CPS的世界纪录因测试时间和规则而异，但在1秒测试中，一些顶尖记录甚至超过了20次点击（通常使用了特殊的点击技巧）。"
+                },
+                "safe": {
+                    "question": "高强度点击会导致损伤吗？",
+                    "answer": "是的，长时间重复的高速点击可能导致手部疲劳甚至重复性劳损(RSI)。请务必适度练习，并在感到不适时立即停止休息。"
+                }
+            },
+            "gameUI": {
+                "start": "点击开始测试",
+                "clickHere": "点我！",
+                "clickToStart": "点击区域开始计时",
+                "timeLeft": "剩余时间",
+                "clicks": "点击次数",
+                "score": "您的CPS",
+                "time": "时间",
+                "mode": "模式",
+                "resultTitle": "测试完成！",
+                "playAgain": "再试一次",
+                "share": "分享成绩",
+                "rank": {
+                    "title": "您的段位",
+                    "turtle": "🐢 乌龟 (还需努力)",
+                    "rabbit": "🐇 兔子 (正常水平)",
+                    "cheetah": "🐆 猎豹 (手速惊人)",
+                    "eagle": "🦅 雄鹰 (电竞潜力)",
+                    "godlike": "⚡️ 触手怪 (非人类)"
+                }
+            },
+            "statistics": {
+                "worldRecord": "世界纪录 (1秒)",
+                "average": "平均水平",
+                "proGamer": "职业玩家",
+                "modes": "游戏模式",
+                "types": "6 种"
+            }
+        }
+    }
+}

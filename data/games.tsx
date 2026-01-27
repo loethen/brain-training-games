@@ -146,6 +146,17 @@ export const games: Game[] = [
     ],
   },
 
+  {
+    id: "cps-test",
+    title: "CPS Test",
+    slug: "cps-test",
+    preview: <ImagePreview src="/games/cps-test.png" />,
+    categories: [
+      "reaction-time",
+      "brain-games-for-kids",
+    ],
+  },
+
   // Add more games as you create them
 ];
 
@@ -195,9 +206,9 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
-    'focus-sudoku',        // 专注数独 - 最新添加
-    'pomodoro-timer',      // 番茄钟
-    'focus-reaction-test', // 专注反应测试
+    'cps-test',            // CPS Test - Newest
+    'focus-sudoku',        // Focus Sudoku
+    'pomodoro-timer',      // Pomodoro Timer
   ];
 
   return latestGameIds

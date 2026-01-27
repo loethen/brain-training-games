@@ -1,0 +1,91 @@
+{
+    "games": {
+        "cpsTest": {
+            "title": "CPS Test (Click Speed Test)",
+            "subtitle": "Test Your Clicking Speed (CPS)",
+            "description": "Curious how fast you can click? Use this online CPS test to challenge your clicking speed in 1s, 5s, or 10s modes.",
+            "metadata": {
+                "title": "CPS Test | Click Speed Test | FreeFocusGames",
+                "description": "Free online CPS Test (Clicks Per Second). Test your mouse clicking speed in 1s, 3s, 5s, 10s modes. Check your ranking among gamers. No download needed!",
+                "keywords": "CPS Test, click speed test, mouse speed test, jitter click test, 1 second cps test",
+                "ogTitle": "CPS Test - Challenge Your Click Speed",
+                "ogDescription": "Challenge your clicking limit! Online CPS test to see how many times you can click per second."
+            },
+            "howToPlay": {
+                "description": "CPS Test measures how fast you can click in a given time. It's simple:",
+                "step1": "Select duration (e.g., 1s, 5s, 10s).",
+                "step2": "Get ready and click the gray area as fast as you can.",
+                "step3": "Timer starts on first click.",
+                "step4": "See your CPS score and rank after the test.",
+                "modes": {
+                    "1s": "1s (Burst)",
+                    "3s": "3s (Regular)",
+                    "5s": "5s (Standard)",
+                    "10s": "10s (Endurance)",
+                    "30s": "30s (Marathon)",
+                    "60s": "60s (Hardcore)"
+                }
+            },
+            "benefits": {
+                "gaming": {
+                    "title": "Gaming Performance",
+                    "description": "High CPS is crucial for combos and rapid fire in Minecraft (PvP), FPS, and MOBA games."
+                },
+                "consistency": {
+                    "title": "Consistency Training",
+                    "description": "Maintaining a steady click rate is a sign of a pro player."
+                },
+                "finger": {
+                    "title": "Finger Agility",
+                    "description": "Regular practice enhances finger muscle strength and endurance."
+                }
+            },
+            "faq": {
+                "what": {
+                    "question": "What is a good CPS score?",
+                    "answer": "Average CPS is around 6-7. Above 8 is excellent, and pro players or jitter clickers can reach 10+."
+                },
+                "improve": {
+                    "question": "How to improve CPS?",
+                    "answer": "Try techniques like Butterfly Clicking or Jitter Clicking. Relax your wrist to avoid stiffness."
+                },
+                "record": {
+                    "question": "What is the world record?",
+                    "answer": "Records vary by time, but for 1s tests, some top records exceed 20 clicks."
+                },
+                "safe": {
+                    "question": "Can high speed clicking cause injury?",
+                    "answer": "Yes, prolonged high-speed clicking can cause strain or RSI. Practice moderately and rest if you feel pain."
+                }
+            },
+            "gameUI": {
+                "start": "Click to Start",
+                "clickHere": "Click Here!",
+                "clickToStart": "Click area to start",
+                "timeLeft": "Time Left",
+                "clicks": "Clicks",
+                "score": "Your CPS",
+                "time": "Time",
+                "mode": "Mode",
+                "resultTitle": "Test Complete!",
+                "playAgain": "Try Again",
+                "share": "Share Result",
+                "rank": {
+                    "title": "Your Rank",
+                    "turtle": "🐢 Turtle (Keep trying)",
+                    "rabbit": "🐇 Rabbit (Normal)",
+                    "cheetah": "🐆 Cheetah (Fast)",
+                    "eagle": "🦅 Eagle (Pro potential)",
+                    "godlike": "⚡️ Godlike (Inhuman)"
+                },
+                "statistics": {
+                    "worldRecord": "World Record (1s)",
+                    "average": "Average",
+                    "proGamer": "Pro Gamer",
+                    "modes": "Modes",
+                    "types": "6 Types"
+                }
+            }
+        }
+    }
+}
