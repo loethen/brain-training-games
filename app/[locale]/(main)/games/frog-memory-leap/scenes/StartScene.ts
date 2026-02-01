@@ -12,23 +12,23 @@ export class StartScene extends Scene {
     preload() {
         this.load.image("pond", GAME_CONFIG.assets.pond);
         this.load.image("start_btn", GAME_CONFIG.assets.startBtn);
-        
+
         this.canFullscreen = this.scale.fullscreen.available;
-        this.isMobile = this.sys.game.device.os.iPhone || 
-                        this.sys.game.device.os.android || 
-                        this.sys.game.device.os.iPad;
+        this.isMobile = this.sys.game.device.os.iPhone ||
+            this.sys.game.device.os.android ||
+            this.sys.game.device.os.iPad;
     }
 
     create() {
         const width = this.scale.width;
         const height = this.scale.height;
-        
-        this.add.image(width/2, height/2, "pond").setScale(0.6);
+
+        this.add.image(width / 2, height / 2, "pond").setScale(0.6);
 
         // 添加开始按钮
-        const btn = this.add.image(width/2, height/2, "start_btn")
+        const btn = this.add.image(width / 2, height / 2, "start_btn")
             .setScale(0.6);
-        
+
         const transition = (cb: () => void) => {
             this.tweens.add({
                 targets: [btn],
@@ -47,7 +47,7 @@ export class StartScene extends Scene {
             if (this.canFullscreen && this.isMobile) {
                 this.scale.startFullscreen();
             }
-            
+
             transition(() => {
                 this.startGame();
             });
@@ -63,11 +63,8 @@ export class StartScene extends Scene {
             jumpSequence: Utils.Array.Shuffle([...Array(GAME_CONFIG.lilyPad.count).keys()])
         };
 
-        this.scene.transition({
-            target: 'FrogScene',
-            duration: 1000,
-            data: config
-        });
+        // 使用 scene.start 替代 scene.transition，避免过渡期间的渲染问题
+        this.scene.start('FrogScene', config);
     }
 
     init(data: { nextLevel?: number; score?: number; level?: number }) {

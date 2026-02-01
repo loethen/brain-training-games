@@ -30,25 +30,25 @@ export class FrogScene extends Scene {
 
     init(config: { level?: number; score?: number; numLilyPads?: number; numJumps?: number; jumpSequence?: number[] }) {
         this.translate = this.game.registry.get('t') || ((key: string) => key);
-        
+
         // Stop all running tweens to prevent memory leaks
         this.tweens.killAll();
-        
+
         // Clear any existing timers or delayed calls
         this.time.removeAllEvents();
-        
+
         // Clean up existing objects before creating new ones
         this.cleanupCurrentLevel();
-        
+
         this.level = config.level || 1;
         this.score = config.score || 0;
-        
+
         this.numJumps = Math.min(
-            GAME_CONFIG.difficulty.initial.numJumps + 
+            GAME_CONFIG.difficulty.initial.numJumps +
             (this.level - 1) * GAME_CONFIG.difficulty.increment.numJumps,
             GAME_CONFIG.difficulty.maxJumps
         );
-        
+
         this.numLilyPads = Math.max(
             config.numLilyPads || GAME_CONFIG.lilyPad.count,
             this.numJumps + 2
@@ -56,7 +56,7 @@ export class FrogScene extends Scene {
 
         // We'll initialize jumpSequence later after we know how many lily pads we actually have
         this.jumpSequence = config.jumpSequence || [];
-            
+
         this.currentJumpIndex = 0;
         this.streakMultiplier = 1;
         this.playerSequence = [];
@@ -78,21 +78,33 @@ export class FrogScene extends Scene {
     }
 
     create() {
+        console.log('[FrogScene] create() called, messageBg exists:', !!this.messageBg, 'messageText exists:', !!this.messageText);
+        // 显式清理旧的 messageBg 和 messageText
+        if (this.messageBg) {
+            this.messageBg.clear();
+            this.messageBg.destroy();
+            this.messageBg = null as unknown as Phaser.GameObjects.Graphics;
+        }
+        if (this.messageText) {
+            this.messageText.destroy();
+            this.messageText = null as unknown as Phaser.GameObjects.Text;
+        }
+
         // Clear existing graphics before creating new ones
         this.children.removeAll(true);
-        
+
         // Create the main elements
         this.add.image(400, 300, 'pond').setScale(0.6);
         this.createMessage();
         this.createLilyPads();
         this.createFrog();
         this.createAnimations();
-        
+
         // Add a slight delay before starting the level
         this.time.delayedCall(100, () => {
             this.setupAutoJump();
         });
-        
+
         this.setText(this.translate('watch'));
     }
 
@@ -110,13 +122,13 @@ export class FrogScene extends Scene {
         // Use however many positions we got (up to numLilyPads)
         const usablePositions = positions.slice(0, this.numLilyPads);
         const actualNumPads = usablePositions.length;
-        
+
         // Create all lily pads using the positions we have
         for (let i = 0; i < actualNumPads; i++) {
             const { x, y } = usablePositions[i];
             this.createSingleLilyPad(x, y, i);
         }
-        
+
         // Now that we know how many lily pads we have, generate the jump sequence
         if (this.jumpSequence.length !== this.numJumps + 1) {
             this.generateJumpSequence(actualNumPads);
@@ -125,9 +137,9 @@ export class FrogScene extends Scene {
 
     // Helper method to create a single lily pad
     private createSingleLilyPad(x: number, y: number, index: number) {
-        const shadow = this.add.graphics({ 
-            x: x + GAME_CONFIG.lilyPad.shadow.offset.x, 
-            y: y + GAME_CONFIG.lilyPad.shadow.offset.y 
+        const shadow = this.add.graphics({
+            x: x + GAME_CONFIG.lilyPad.shadow.offset.x,
+            y: y + GAME_CONFIG.lilyPad.shadow.offset.y
         });
         shadow.fillStyle(0x000000, GAME_CONFIG.lilyPad.shadow.alpha);
         shadow.fillCircle(0, 0, GAME_CONFIG.lilyPad.shadow.radius);
@@ -136,89 +148,89 @@ export class FrogScene extends Scene {
             .setScale(GAME_CONFIG.lilyPad.scale) as LilyPad;
         lilyPad.setInteractive();
         lilyPad.on('pointerdown', () => this.handleLilyPadClick(index));
-        
+
         this.lilyPads.push(lilyPad);
         this.createRippleForLilyPad(lilyPad);
     }
 
     // Poisson Disk Sampling algorithm
     private generatePoissonDiskPoints(
-        xMin: number, 
-        xMax: number, 
-        yMin: number, 
-        yMax: number, 
-        minDistance: number, 
+        xMin: number,
+        xMax: number,
+        yMin: number,
+        yMax: number,
+        minDistance: number,
         maxAttempts: number = 30
-    ): Array<{x: number, y: number}> {
+    ): Array<{ x: number, y: number }> {
         const width = xMax - xMin;
         const height = yMax - yMin;
-        
+
         // Calculate cell size for grid acceleration
         const cellSize = minDistance / Math.sqrt(2);
-        
+
         // Calculate grid dimensions
         const gridWidth = Math.ceil(width / cellSize);
         const gridHeight = Math.ceil(height / cellSize);
-        
+
         // Initialize grid to store points
         const grid: Array<number | null> = new Array(gridWidth * gridHeight).fill(null);
-        
+
         // List to store active points for sampling
-        const active: Array<{x: number, y: number}> = [];
-        
+        const active: Array<{ x: number, y: number }> = [];
+
         // List to store all sample points
-        const points: Array<{x: number, y: number}> = [];
-        
+        const points: Array<{ x: number, y: number }> = [];
+
         // Start with a random point
         const firstPoint = {
             x: xMin + Math.random() * width,
             y: yMin + Math.random() * height
         };
-        
+
         // Insert first point into the data structures
         active.push(firstPoint);
         points.push(firstPoint);
-        
+
         const gridIndex = (x: number, y: number): number => {
             return Math.floor((x - xMin) / cellSize) + Math.floor((y - yMin) / cellSize) * gridWidth;
         };
-        
+
         grid[gridIndex(firstPoint.x, firstPoint.y)] = 0;
-        
+
         // Main sampling loop
         while (active.length > 0) {
             // Pick a random active point
             const randomIndex = Math.floor(Math.random() * active.length);
             const point = active[randomIndex];
             let found = false;
-            
+
             // Try to find a new point around the chosen point
             for (let i = 0; i < maxAttempts; i++) {
                 // Generate a random point within annulus
                 const angle = Math.random() * Math.PI * 2;
                 const radius = minDistance + Math.random() * minDistance;
-                
+
                 const newX = point.x + radius * Math.cos(angle);
                 const newY = point.y + radius * Math.sin(angle);
-                
+
                 // Check if the new point is in bounds
                 if (newX >= xMin && newX < xMax && newY >= yMin && newY < yMax) {
                     // Check if the new point is far enough from other points
                     const newGridX = Math.floor((newX - xMin) / cellSize);
                     const newGridY = Math.floor((newY - yMin) / cellSize);
-                    
+
                     let isValid = true;
-                    
+
                     // Check neighboring cells in the grid for existing points
                     for (let nx = Math.max(0, newGridX - 2); nx <= Math.min(gridWidth - 1, newGridX + 2); nx++) {
                         for (let ny = Math.max(0, newGridY - 2); ny <= Math.min(gridHeight - 1, newGridY + 2); ny++) {
                             const neighborIndex = nx + ny * gridWidth;
                             const neighborPointIndex = grid[neighborIndex];
-                            
+
                             if (neighborPointIndex !== null) {
                                 const neighborPoint = points[neighborPointIndex];
                                 const dist = PhaserMath.Distance.Between(newX, newY, neighborPoint.x, neighborPoint.y);
-                                
+
                                 if (dist < minDistance) {
                                     isValid = false;
                                     break;
@@ -227,43 +239,43 @@ export class FrogScene extends Scene {
                         }
                         if (!isValid) break;
                     }
-                    
+
                     // If valid, add the new point
                     if (isValid) {
                         const newPoint = { x: newX, y: newY };
                         const idx = points.length;
-                        
+
                         points.push(newPoint);
                         active.push(newPoint);
                         grid[gridIndex(newX, newY)] = idx;
-                        
+
                         found = true;
                         break;
                     }
                 }
             }
-            
+
             // If no point was found after maxAttempts, remove current point from active list
             if (!found) {
                 active.splice(randomIndex, 1);
             }
         }
-        
+
         return points;
     }
 
     createRippleForLilyPad(lilyPad: LilyPad) {
         const rippleGraphics = this.add.graphics();
-        
+
         // 只保留内层涟漪效果
         const rippleData = { alpha: 1, radius: GAME_CONFIG.lilyPad.ripple.radius.from };
-        
+
         const rippleTween = this.tweens.add({
             targets: rippleData,
             alpha: { from: 1, to: 0 },
-            radius: { 
-                from: GAME_CONFIG.lilyPad.ripple.radius.from, 
-                to: GAME_CONFIG.lilyPad.ripple.radius.to 
+            radius: {
+                from: GAME_CONFIG.lilyPad.ripple.radius.from,
+                to: GAME_CONFIG.lilyPad.ripple.radius.to
             },
             ease: 'Sine.easeOut',
             duration: GAME_CONFIG.lilyPad.ripple.duration,
@@ -271,12 +283,12 @@ export class FrogScene extends Scene {
             repeat: -1,
             onUpdate: () => {
                 rippleGraphics.clear();
-                
+
                 if (rippleData.alpha > 0) {
                     // 内圈涟漪
                     rippleGraphics.lineStyle(
-                        GAME_CONFIG.lilyPad.ripple.lineWidth, 
-                        GAME_CONFIG.lilyPad.ripple.color, 
+                        GAME_CONFIG.lilyPad.ripple.lineWidth,
+                        GAME_CONFIG.lilyPad.ripple.color,
                         rippleData.alpha
                     );
                     rippleGraphics.strokeCircle(lilyPad.x, lilyPad.y, rippleData.radius);
@@ -319,52 +331,63 @@ export class FrogScene extends Scene {
     }
 
     createMessage() {
+        console.log('[FrogScene] createMessage() called');
         const messageY = GAME_CONFIG.ui.message.y;
-        
+
+        // 如果已存在旧的 messageBg，先销毁它
+        if (this.messageBg) {
+            this.messageBg.clear();
+            this.messageBg.destroy();
+        }
+        if (this.messageText) {
+            this.messageText.destroy();
+        }
+
         this.messageBg = this.add.graphics();
-        this.messageBg.fillStyle(GAME_CONFIG.ui.message.background.color, GAME_CONFIG.ui.message.background.alpha);
-        this.messageBg.lineStyle(
-            GAME_CONFIG.ui.message.background.borderWidth, 
-            GAME_CONFIG.ui.message.background.borderColor
-        );
-        
+        // 确保新创建的 graphics 对象是干净的
+        this.messageBg.clear();
+
         this.messageText = this.add.text(
             this.scale.width / 2,
             messageY,
             '',
             GAME_CONFIG.ui.message.style
         ).setOrigin(0.5, 0.5);
-        
+
         this.messageText.setStroke('#000000', 2);
         this.messageText.setShadow(1, 1, '#000000', 2, true, true);
-        
-        this.messageBg.setDepth(this.messageText.depth - 1);
+
+        // 设置较高的深度，确保消息显示在最上层
+        // messageText 深度为 100，messageBg 深度为 99（在文字下面，但在其他元素上面）
+        this.messageText.setDepth(100);
+        this.messageBg.setDepth(99);
     }
 
     setText(message: string) {
+        console.log('[FrogScene] setText() called with:', message);
         this.messageText.setColor('#FFFFFF');
         this.messageText.setText(message);
-        
+
         const padding = GAME_CONFIG.ui.message.style.padding;
         const textWidth = this.messageText.width;
         const textHeight = this.messageText.height;
         const cornerRadius = GAME_CONFIG.ui.message.background.cornerRadius;
         const messageY = GAME_CONFIG.ui.message.y;
-        
+
         this.messageBg.clear();
         this.messageBg.fillStyle(GAME_CONFIG.ui.message.background.color, GAME_CONFIG.ui.message.background.alpha);
         this.messageBg.lineStyle(
-            GAME_CONFIG.ui.message.background.borderWidth, 
+            GAME_CONFIG.ui.message.background.borderWidth,
             GAME_CONFIG.ui.message.background.borderColor
         );
         this.messageBg.fillRoundedRect(
-            this.scale.width/2 - textWidth/2 - padding.x,
-            messageY - textHeight/2 - padding.y,
+            this.scale.width / 2 - textWidth / 2 - padding.x,
+            messageY - textHeight / 2 - padding.y,
             textWidth + padding.x * 2,
             textHeight + padding.y * 2,
             cornerRadius
         );
-        
+
         this.tweens.killTweensOf(this.messageText);
         this.messageText.setScale(0.85);
         this.tweens.add({
@@ -378,7 +401,7 @@ export class FrogScene extends Scene {
     setupAutoJump() {
         const jumpDelay = Math.max(
             GAME_CONFIG.difficulty.maxSpeed,
-            GAME_CONFIG.difficulty.initial.jumpDelay * 
+            GAME_CONFIG.difficulty.initial.jumpDelay *
             Math.pow(GAME_CONFIG.difficulty.increment.speedup, this.level - 1)
         );
 
@@ -422,7 +445,7 @@ export class FrogScene extends Scene {
                     nextPad.rippleTween?.restart();
                 },
             });
-            
+
             this.currentJumpIndex++;
 
             if (this.currentJumpIndex === this.numJumps) {
@@ -441,33 +464,33 @@ export class FrogScene extends Scene {
         this.playerSequence = [];
         this.currentJumpIndex = 1;
         this.startTime = Date.now();
-        
+
         this.lilyPads.forEach(pad => pad.rippleTween?.pause());
-        
+
         const startPad = this.lilyPads[this.jumpSequence[0]];
         this.frog.setPosition(startPad.x, startPad.y);
         this.frog.setTexture('frog', GAME_CONFIG.frog.frames.idle);
         this.frog.angle = 0;
-        
+
         startPad.rippleTween?.restart();
-        
+
         this.setText(this.translate('repeat'));
     }
 
     handleLilyPadClick(padIndex: number) {
         if (this.gameState !== 'playing') return;
-        
+
         const correctPadIndex = this.jumpSequence[this.currentJumpIndex];
-        
+
         if (padIndex === correctPadIndex) {
             const currentPad = this.lilyPads[this.jumpSequence[this.currentJumpIndex - 1]];
             currentPad.rippleTween?.pause();
 
             const targetPad = this.lilyPads[padIndex];
             this.createCorrectGlow(targetPad);
-            
+
             this.playerSequence.push(padIndex);
-            
+
             const angle = PhaserMath.Angle.Between(
                 this.frog.x,
                 this.frog.y,
@@ -488,9 +511,9 @@ export class FrogScene extends Scene {
                 onComplete: () => {
                     this.frog.setTexture('frog', GAME_CONFIG.frog.frames.idle);
                     targetPad.rippleTween?.restart();
-                    
+
                     this.currentJumpIndex++;
-                    
+
                     if (this.currentJumpIndex > this.numJumps) {
                         this.handleSuccess();
                     }
@@ -503,23 +526,23 @@ export class FrogScene extends Scene {
 
     createCorrectGlow(lilyPad: LilyPad) {
         const ripple = this.add.graphics();
-        
+
         this.tweens.add({
             targets: { radius: GAME_CONFIG.lilyPad.ripple.radius.from, alpha: 1 },
             alpha: { from: 1, to: 0 },
-            radius: { 
-                from: GAME_CONFIG.lilyPad.ripple.radius.from, 
-                to: GAME_CONFIG.lilyPad.ripple.radius.to 
+            radius: {
+                from: GAME_CONFIG.lilyPad.ripple.radius.from,
+                to: GAME_CONFIG.lilyPad.ripple.radius.to
             },
             ease: 'Sine.easeOut',
             duration: 500,
             onUpdate: (tween, target) => {
                 const currentRadius = target.radius;
                 const currentAlpha = target.alpha;
-                
+
                 ripple.clear();
                 ripple.lineStyle(
-                    GAME_CONFIG.lilyPad.ripple.lineWidth, 
+                    GAME_CONFIG.lilyPad.ripple.lineWidth,
                     0x00ff00,
                     currentAlpha
                 );
@@ -542,19 +565,19 @@ export class FrogScene extends Scene {
         this.tweens.add({
             targets: { radius: GAME_CONFIG.lilyPad.ripple.radius.from, alpha: 1 },
             alpha: { from: 1, to: 0 },
-            radius: { 
-                from: GAME_CONFIG.lilyPad.ripple.radius.from, 
-                to: GAME_CONFIG.lilyPad.ripple.radius.to 
+            radius: {
+                from: GAME_CONFIG.lilyPad.ripple.radius.from,
+                to: GAME_CONFIG.lilyPad.ripple.radius.to
             },
             ease: 'Sine.easeOut',
             duration: 500,
             onUpdate: (tween, target) => {
                 const currentRadius = target.radius;
                 const currentAlpha = target.alpha;
-                
+
                 ripple.clear();
                 ripple.lineStyle(
-                    GAME_CONFIG.lilyPad.ripple.lineWidth, 
+                    GAME_CONFIG.lilyPad.ripple.lineWidth,
                     0xff0000,
                     currentAlpha
                 );
@@ -577,14 +600,14 @@ export class FrogScene extends Scene {
                             align: 'center'
                         }
                     ).setOrigin(0.5);
-                    
+
                     this.tweens.add({
                         targets: scoreText,
                         scale: { from: 0.8, to: 1 },
                         duration: 300,
                         ease: 'Back.easeOut'
                     });
-                    
+
                     this.createRetryButton();
                 });
             }
@@ -593,25 +616,25 @@ export class FrogScene extends Scene {
 
     createRetryButton() {
         const buttonContainer = this.add.container(this.scale.width / 2, this.scale.height / 2 + 100);
-        
+
         const buttonBg = this.add.graphics();
-        
+
         buttonBg.fillStyle(0xFFD700);
-        
+
         buttonBg.fillRoundedRect(-120, -25, 240, 50, 25);
-        
+
         const shadow = this.add.graphics();
         shadow.fillStyle(0xFFA500, 0.5);
         shadow.fillRoundedRect(-120, 0, 240, 25, { tl: 0, tr: 0, bl: 25, br: 25 });
-        
+
         const highlight = this.add.graphics();
         highlight.fillStyle(0xFFFFFF, 0.3);
         highlight.fillRoundedRect(-115, -22, 230, 15, 20);
-        
+
         const border = this.add.graphics();
         border.lineStyle(3, 0x000000, 0.3);
         border.strokeRoundedRect(-120, -25, 240, 50, 25);
-        
+
         const buttonText = this.add.text(0, 0, this.translate('tryAgain'), {
             fontSize: '28px',
             fontFamily: 'Arial Black',
@@ -620,12 +643,12 @@ export class FrogScene extends Scene {
             stroke: '#000000',
             strokeThickness: 4,
         }).setOrigin(0.5);
-        
+
         buttonContainer.add([buttonBg, shadow, highlight, border, buttonText]);
-        
+
         buttonContainer.setSize(240, 50);
         buttonContainer.setInteractive({ useHandCursor: true });
-        
+
         buttonContainer.on('pointerover', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -635,7 +658,7 @@ export class FrogScene extends Scene {
             });
             buttonBg.clear().fillStyle(0xFFE44D).fillRoundedRect(-120, -25, 240, 50, 25);
         });
-        
+
         buttonContainer.on('pointerout', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -645,7 +668,7 @@ export class FrogScene extends Scene {
             });
             buttonBg.clear().fillStyle(0xFFD700).fillRoundedRect(-120, -25, 240, 50, 25);
         });
-        
+
         buttonContainer.on('pointerdown', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -655,10 +678,10 @@ export class FrogScene extends Scene {
             });
             buttonBg.clear().fillStyle(0xFFA500).fillRoundedRect(-120, -25, 240, 50, 25);
         });
-        
+
         buttonContainer.on('pointerup', () => {
             buttonContainer.disableInteractive();
-            
+
             this.tweens.add({
                 targets: buttonContainer,
                 scaleX: 1.1,
@@ -667,17 +690,17 @@ export class FrogScene extends Scene {
                 duration: 200,
                 onComplete: () => {
                     this.cameras.main.fadeOut(300);
-                    
+
                     this.cameras.main.once('camerafadeoutcomplete', () => {
                         this.cleanupCurrentLevel();
-                        
+
                         this.init({
                             level: this.level,
                             score: this.score
                         });
-                        
+
                         this.create();
-                        
+
                         this.cameras.main.fadeIn(300);
                     });
                 }
@@ -689,27 +712,27 @@ export class FrogScene extends Scene {
         this.gameState = 'complete';
         const levelScore = this.calculateScore();
         this.score += levelScore;
-        
+
         this.createSuccessConfetti();
-        
+
         const nextJumps = Math.min(
-            GAME_CONFIG.difficulty.initial.numJumps + 
+            GAME_CONFIG.difficulty.initial.numJumps +
             this.level * GAME_CONFIG.difficulty.increment.numJumps,
             GAME_CONFIG.difficulty.maxJumps
         );
-        
-        if (nextJumps === GAME_CONFIG.difficulty.maxJumps && 
+
+        if (nextJumps === GAME_CONFIG.difficulty.maxJumps &&
             this.numJumps === GAME_CONFIG.difficulty.maxJumps) {
             this.setText(this.translate('maxLevel', { score: this.score.toString() }));
             this.time.delayedCall(1500, () => {
                 this.createRetryFromStartButton();
             });
         } else {
-            this.setText(this.translate('success', { 
-                score: this.score.toString(), 
-                level: this.level.toString() 
+            this.setText(this.translate('success', {
+                score: this.score.toString(),
+                level: this.level.toString()
             }));
-            
+
             this.time.delayedCall(1500, () => {
                 const scoreText = this.add.text(
                     this.scale.width / 2,
@@ -725,14 +748,14 @@ export class FrogScene extends Scene {
                         align: 'center'
                     }
                 ).setOrigin(0.5);
-                
+
                 this.tweens.add({
                     targets: scoreText,
                     scale: { from: 0.8, to: 1 },
                     duration: 300,
                     ease: 'Back.easeOut'
                 });
-                
+
                 this.createNextLevelButton();
             });
         }
@@ -740,25 +763,25 @@ export class FrogScene extends Scene {
 
     createNextLevelButton() {
         const buttonContainer = this.add.container(this.scale.width / 2, this.scale.height / 2 + 100);
-        
+
         const buttonBg = this.add.graphics();
-        
+
         buttonBg.fillStyle(0xFFD700);
-        
+
         buttonBg.fillRoundedRect(-120, -30, 240, 60, 30);
-        
+
         const shadow = this.add.graphics();
         shadow.fillStyle(0xFFA500, 0.5);
         shadow.fillRoundedRect(-120, 0, 240, 30, { tl: 0, tr: 0, bl: 30, br: 30 });
-        
+
         const highlight = this.add.graphics();
         highlight.fillStyle(0xFFFFFF, 0.3);
         highlight.fillRoundedRect(-115, -27, 230, 20, 25);
-        
+
         const border = this.add.graphics();
         border.lineStyle(3, 0x000000, 0.3);
         border.strokeRoundedRect(-120, -30, 240, 60, 30);
-        
+
         const buttonText = this.add.text(0, 0, this.translate('nextLevel'), {
             fontSize: '32px',
             fontFamily: 'Arial Black',
@@ -767,12 +790,12 @@ export class FrogScene extends Scene {
             stroke: '#000000',
             strokeThickness: 4,
         }).setOrigin(0.5);
-        
+
         buttonContainer.add([buttonBg, shadow, highlight, border, buttonText]);
-        
+
         buttonContainer.setSize(240, 60);
         buttonContainer.setInteractive({ useHandCursor: true });
-        
+
         buttonContainer.on('pointerover', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -782,7 +805,7 @@ export class FrogScene extends Scene {
             });
             buttonBg.clear().fillStyle(0xFFE44D).fillRoundedRect(-120, -30, 240, 60, 30);
         });
-        
+
         buttonContainer.on('pointerout', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -792,7 +815,7 @@ export class FrogScene extends Scene {
             });
             buttonBg.clear().fillStyle(0xFFD700).fillRoundedRect(-120, -30, 240, 60, 30);
         });
-        
+
         buttonContainer.on('pointerdown', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -802,10 +825,10 @@ export class FrogScene extends Scene {
             });
             buttonBg.clear().fillStyle(0xFFA500).fillRoundedRect(-120, -30, 240, 60, 30);
         });
-        
+
         buttonContainer.on('pointerup', () => {
             buttonContainer.disableInteractive();
-            
+
             this.tweens.add({
                 targets: buttonContainer,
                 scaleX: 1.1,
@@ -814,20 +837,20 @@ export class FrogScene extends Scene {
                 duration: 200,
                 onComplete: () => {
                     this.cameras.main.fadeOut(300);
-                    
+
                     this.cameras.main.once('camerafadeoutcomplete', () => {
                         const nextLevel = this.level + 1;
                         const currentScore = this.score;
-                        
+
                         this.cleanupCurrentLevel();
-                        
+
                         this.init({
                             level: nextLevel,
                             score: currentScore
                         });
-                        
+
                         this.create();
-                        
+
                         this.cameras.main.fadeIn(300);
                     });
                 }
@@ -837,25 +860,25 @@ export class FrogScene extends Scene {
 
     createRetryFromStartButton() {
         const buttonContainer = this.add.container(this.scale.width / 2, this.scale.height / 2 + 100);
-        
+
         const buttonBg = this.add.graphics();
-        
+
         buttonBg.fillStyle(0xFFD700);
-        
+
         buttonBg.fillRoundedRect(-120, -25, 240, 50, 25);
-        
+
         const shadow = this.add.graphics();
         shadow.fillStyle(0xFFA500, 0.5);
         shadow.fillRoundedRect(-120, 0, 240, 25, { tl: 0, tr: 0, bl: 25, br: 25 });
-        
+
         const highlight = this.add.graphics();
         highlight.fillStyle(0xFFFFFF, 0.3);
         highlight.fillRoundedRect(-115, -22, 230, 15, 20);
-        
+
         const border = this.add.graphics();
         border.lineStyle(3, 0x000000, 0.3);
         border.strokeRoundedRect(-120, -25, 240, 50, 25);
-        
+
         const buttonText = this.add.text(0, 0, this.translate('playAgain'), {
             fontSize: '28px',
             fontFamily: 'Arial Black',
@@ -864,12 +887,12 @@ export class FrogScene extends Scene {
             stroke: '#000000',
             strokeThickness: 4,
         }).setOrigin(0.5);
-        
+
         buttonContainer.add([buttonBg, shadow, highlight, border, buttonText]);
-        
+
         buttonContainer.setSize(240, 50);
         buttonContainer.setInteractive({ useHandCursor: true });
-        
+
         buttonContainer.on('pointerover', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -879,7 +902,7 @@ export class FrogScene extends Scene {
             });
             buttonBg.clear().fillStyle(0xFFE44D).fillRoundedRect(-120, -25, 240, 50, 25);
         });
-        
+
         buttonContainer.on('pointerout', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -889,7 +912,7 @@ export class FrogScene extends Scene {
             });
             buttonBg.clear().fillStyle(0xFFD700).fillRoundedRect(-120, -25, 240, 50, 25);
         });
-        
+
         buttonContainer.on('pointerdown', () => {
             this.tweens.add({
                 targets: buttonContainer,
@@ -899,10 +922,10 @@ export class FrogScene extends Scene {
             });
             buttonBg.clear().fillStyle(0xFFA500).fillRoundedRect(-120, -25, 240, 50, 25);
         });
-        
+
         buttonContainer.on('pointerup', () => {
             buttonContainer.disableInteractive();
-            
+
             this.tweens.add({
                 targets: buttonContainer,
                 scaleX: 1.1,
@@ -911,17 +934,17 @@ export class FrogScene extends Scene {
                 duration: 200,
                 onComplete: () => {
                     this.cameras.main.fadeOut(300);
-                    
+
                     this.cameras.main.once('camerafadeoutcomplete', () => {
                         this.cleanupCurrentLevel();
-                        
+
                         this.init({
                             level: 1,
                             score: 0
                         });
-                        
+
                         this.create();
-                        
+
                         this.cameras.main.fadeIn(300);
                     });
                 }
@@ -941,7 +964,7 @@ export class FrogScene extends Scene {
                 strokeThickness: 3,
             }
         ).setOrigin(0.5);
-        
+
         this.tweens.add({
             targets: finalScoreText,
             scale: { from: 0.8, to: 1 },
@@ -952,14 +975,14 @@ export class FrogScene extends Scene {
 
     calculateScore() {
         let levelScore = GAME_CONFIG.scoring.base * this.streakMultiplier;
-        
+
         const timeElapsed = Date.now() - this.startTime;
         if (timeElapsed < GAME_CONFIG.scoring.timeBonus.threshold) {
             levelScore += GAME_CONFIG.scoring.timeBonus.points;
         }
-        
+
         this.streakMultiplier += GAME_CONFIG.scoring.streak.multiplier;
-        
+
         return Math.floor(levelScore);
     }
 
@@ -967,7 +990,7 @@ export class FrogScene extends Scene {
         // 确保涟漪效果正确显示
         this.lilyPads.forEach(lilyPad => {
             const isCurrentPad = this.frog.x === lilyPad.x && this.frog.y === lilyPad.y;
-            
+
             if (isCurrentPad && lilyPad.rippleTween?.paused) {
                 lilyPad.rippleTween.restart();
             } else if (!isCurrentPad && !lilyPad.rippleTween?.paused) {
@@ -988,18 +1011,18 @@ export class FrogScene extends Scene {
         this.frog?.destroy();
         this.messageText?.destroy();
         this.messageBg?.destroy();
-        
+
         this.time.removeAllEvents();
-        
+
         this.tweens.killAll();
-        
+
         this.add.particles().destroy();
     }
 
     private createSuccessConfetti() {
         const centerX = this.scale.width / 2;
         const centerY = this.scale.height / 2;
-        
+
         const burst = this.add.particles(0, 0, 'confetti', {
             x: centerX,
             y: centerY - 150,
@@ -1034,12 +1057,12 @@ export class FrogScene extends Scene {
             pad.destroy();
         });
         this.lilyPads = [];
-        
+
         this.frog?.destroy();
-        
+
         this.children.list
-            .filter(child => 
-                child !== this.messageText && 
+            .filter(child =>
+                child !== this.messageText &&
                 child !== this.messageBg
             )
             .forEach(child => {
@@ -1057,33 +1080,33 @@ export class FrogScene extends Scene {
         if (this.jumpSequence.length > 0) {
             return;
         }
-        
+
         // If we don't have enough pads, we'll need to repeat some
         this.jumpSequence = [];
-        
+
         // Always start from a random first pad
         const firstPadIndex = Math.floor(Math.random() * actualNumPads);
         this.jumpSequence.push(firstPadIndex);
-        
+
         // Generate the remaining jumps, allowing for repeats if necessary
         for (let i = 0; i < this.numJumps; i++) {
             let nextPadIndex;
             let attempts = 0;
             const maxAttempts = 10; // Prevent infinite loops
-            
+
             do {
                 // Pick a random pad index
                 nextPadIndex = Math.floor(Math.random() * actualNumPads);
                 attempts++;
-                
+
                 // Try to avoid the immediately previous pad if possible
                 // But allow it if we've made too many attempts or have very few pads
             } while (
-                nextPadIndex === this.jumpSequence[this.jumpSequence.length - 1] && 
-                attempts < maxAttempts && 
+                nextPadIndex === this.jumpSequence[this.jumpSequence.length - 1] &&
+                attempts < maxAttempts &&
                 actualNumPads > 2
             );
-            
+
             this.jumpSequence.push(nextPadIndex);
         }
     }

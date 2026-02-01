@@ -8,6 +8,8 @@ initOpenNextCloudflareForDev();
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  // 关闭 React Strict Mode，防止开发模式下 Phaser 等游戏引擎被双重初始化
+  reactStrictMode: false,
   // 这里可以添加将来需要的配置选项
   images: {
     unoptimized: true,

@@ -9,6 +9,12 @@ export default function GameComponent() {
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const t = useTranslations('games.frogMemoryLeap.gameUI');
+    const tRef = useRef(t);
+
+    // 保持 tRef 与最新的 t 同步
+    useEffect(() => {
+        tRef.current = t;
+    }, [t]);
 
     useEffect(() => {
         if (gameRef.current) return;
@@ -46,13 +52,13 @@ export default function GameComponent() {
                     scene: [StartScene, FrogScene],
                     callbacks: {
                         preBoot: (game: { registry: { set: (key: string, value: unknown) => void } }) => {
-                            // 传递翻译函数给游戏
+                            // 传递翻译函数给游戏（使用 ref 以获取最新的翻译函数）
                             game.registry.set('t', (key: string, params?: Record<string, string | number>) => {
                                 try {
                                     if (params) {
-                                        return t(key, params);
+                                        return tRef.current(key, params);
                                     }
-                                    return t(key);
+                                    return tRef.current(key);
                                 } catch (error) {
                                     console.warn(`Translation error for ${key}:`, error);
                                     return key; // 出错时返回键名
@@ -84,15 +90,15 @@ export default function GameComponent() {
             gameRef.current?.destroy(true);
             gameRef.current = null;
         };
-    }, [t]);
+    }, []); // 移除 t 依赖，游戏只初始化一次
 
     return (
-        <div 
-            ref={gameContainerRef} 
-            className={`w-full h-full ${isFullscreen ? 'flex items-center justify-center bg-black' : ''}`}
+        <div
+            ref={gameContainerRef}
+            className={`w-full h-full relative ${isFullscreen ? 'flex items-center justify-center bg-black' : ''}`}
         >
             {isLoading && (
-                <div className="flex items-center justify-center h-64">
+                <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-10">
                     <div className="text-lg">Loading game...</div>
                 </div>
             )}
