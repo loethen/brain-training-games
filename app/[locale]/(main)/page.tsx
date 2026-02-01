@@ -3,7 +3,7 @@ import { Marquee } from "@/components/magicui/marquee";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from "next";
 import { getBlogPosts, type BlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
@@ -16,6 +16,7 @@ export async function generateMetadata(
     { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
     const { locale } = await params;
+    setRequestLocale(locale);
     const t = await getTranslations({ locale, namespace: 'home' });
 
     return {
@@ -37,6 +38,7 @@ export async function generateMetadata(
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
+    setRequestLocale(locale);
     const t = await getTranslations({ locale });
     const testimonials = await getTranslations({ locale, namespace: 'home.testimonials' });
     const posts = await getBlogPosts(locale);

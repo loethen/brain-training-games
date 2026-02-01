@@ -109,6 +109,13 @@ export default async function RootLayout({
                 {/* Windows */}
                 <meta name="msapplication-TileColor" content="#ffffff" />
 
+                {/* Polyfill for esbuild's keepNames/minification artifact in injected scripts */}
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `window.__name = window.__name || function(f){return f;};`,
+                    }}
+                />
+
                 {/* 结构化数据 */}
                 <script type="application/ld+json">
                     {JSON.stringify({
