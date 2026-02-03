@@ -4,7 +4,7 @@ import "../globals.css";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Layout } from "@/components/layout";
 import { ThemeProvider } from "next-themes";
-import { headers } from "next/headers";
+// import { headers } from "next/headers";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import GoogleAdSense from "@/components/google-adsense";
 import { Toaster } from "@/components/ui/sonner";
@@ -85,12 +85,6 @@ export default async function RootLayout({
     children: React.ReactNode;
     params: Promise<{ locale: string }>;
 }) {
-    const headersList = await headers();
-    const userAgent = headersList.get("user-agent") || "";
-    const initialIsMobile = /Mobile|Android|webOS|iPhone|iPad|iPod/i.test(
-        userAgent
-    );
-
     // 确保 params 是已解析的对象
     const resolvedParams = await params;
     const { locale } = resolvedParams;
@@ -148,7 +142,7 @@ export default async function RootLayout({
                         enableSystem
                     >
                         <GoogleAdSense adClient={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ''} />
-                        <Layout initialIsMobile={initialIsMobile}>
+                        <Layout>
                             {children}
                         </Layout>
                         <Toaster />

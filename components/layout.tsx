@@ -8,14 +8,14 @@ import { useTranslations } from 'next-intl';
 
 export function Layout({
     children,
-    initialIsMobile,
 }: {
     children: React.ReactNode;
-    initialIsMobile: boolean;
 }) {
     const t = useTranslations('common');
-    const [isSidebarOpen, setIsSidebarOpen] = useState(!initialIsMobile);
-    const [isMobile, setIsMobile] = useState(initialIsMobile);
+    // Default to desktop view (sidebar open) for SSG consistency
+    // This might cause a hydration mismatch on mobile which useEffect will fix
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -23,13 +23,13 @@ export function Layout({
         const handleMediaChange = (e: MediaQueryListEvent) => {
             const isDesktop = e.matches;
             setIsSidebarOpen(isDesktop);
-            setIsMobile(!isDesktop); // 直接取反即可
+            setIsMobile(!isDesktop);
         };
 
-        // 初始化状态
-        const initialIsDesktop = mediaQuery.matches;
-        setIsSidebarOpen(initialIsDesktop);
-        setIsMobile(!initialIsDesktop);
+        // Initialize state based on actual client window
+        const isDesktop = mediaQuery.matches;
+        setIsSidebarOpen(isDesktop);
+        setIsMobile(!isDesktop);
 
         mediaQuery.addEventListener("change", handleMediaChange);
         return () =>
@@ -64,7 +64,7 @@ export function Layout({
 
     return (
         <div className="min-h-screen">
-                <Header onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+            <Header onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
             {/* Sidebar */}
             <div
@@ -75,11 +75,10 @@ export function Layout({
           transform transition-all duration-300 ease-in-out
           shadow-lg md:shadow-none
           bg-background/50 backdrop-blur-lg z-30 md:bg-transparent
-          ${
-              isSidebarOpen
-                  ? "translate-x-0 opacity-100"
-                  : "-translate-x-full opacity-0 pointer-events-none"
-          }
+          ${isSidebarOpen
+                        ? "translate-x-0 opacity-100"
+                        : "-translate-x-full opacity-0 pointer-events-none"
+                    }
         `}
             >
                 <nav className="w-full space-y-1 pl-4 text-sm">
@@ -96,16 +95,14 @@ export function Layout({
             {/* Main content */}
             <div className="flex">
                 <aside
-                    className={`transition-all duration-300 ease-in-out ${
-                        isSidebarOpen ? (isMobile ? "w-0" : "w-[180px]") : "w-0"
-                    }`}
+                    className={`transition-all duration-300 ease-in-out ${isSidebarOpen ? (isMobile ? "w-0" : "w-[180px]") : "w-0"
+                        }`}
                 />
                 <main
-                    className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-background ${
-                        isSidebarOpen && !isMobile
+                    className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-background ${isSidebarOpen && !isMobile
                             ? "md:w-[calc(100%-180px)]"
                             : "w-full"
-                    }`}
+                        }`}
                 >
                     {children}
 
