@@ -9,6 +9,12 @@ import { GamePreview } from "./components/GamePreview"
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
+import { routing } from '@/i18n/routing';
+
+// Generate static params for all locales
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
 
 // 将静态元数据改为动态生成函数
 export async function generateMetadata(

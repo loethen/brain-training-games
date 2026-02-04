@@ -6,6 +6,12 @@ import { Brain, TrendingUp, Users, BookOpen } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { generateAlternates } from '@/lib/utils'
+import { routing } from '@/i18n/routing'
+
+// Generate static params for all locales
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;

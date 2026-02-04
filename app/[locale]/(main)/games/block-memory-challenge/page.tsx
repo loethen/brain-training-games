@@ -7,25 +7,31 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/
 import { GamePreview } from "./components/GamePreview"
 import { useTranslations } from 'next-intl'
 import { getTranslations } from "next-intl/server";
+import { routing } from '@/i18n/routing';
+
+// Generate static params for all locales
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({
-  params
+    params
 }: {
-  params: Promise<{ locale: string }>
+    params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "games.blockMemoryChallenge" });
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: "games.blockMemoryChallenge" });
 
-  return {
-    title: t("metaTitle") || t("title"),
-    description: t("metaDescription") || t("description"),
-    keywords: t("metaKeywords").split(",").map(keyword => keyword.trim()),
-    openGraph: {
-        title: t("ogTitle") || `${t("title")} - ${t("subtitle")}`,
-        description: t("ogDescription") || t("description"),
-        images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
-    },
-  }
+    return {
+        title: t("metaTitle") || t("title"),
+        description: t("metaDescription") || t("description"),
+        keywords: t("metaKeywords").split(",").map(keyword => keyword.trim()),
+        openGraph: {
+            title: t("ogTitle") || `${t("title")} - ${t("subtitle")}`,
+            description: t("ogDescription") || t("description"),
+            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+        },
+    }
 }
 
 export default function BlockMemoryPage() {

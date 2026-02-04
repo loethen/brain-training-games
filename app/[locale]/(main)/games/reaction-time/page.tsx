@@ -5,11 +5,17 @@ import { Zap, BrainCircuit, Gauge } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { generateAlternates } from '@/lib/utils'
+import { routing } from '@/i18n/routing'
+
+// Generate static params for all locales
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'games.reactionTime' });
-    
+
     return {
         title: t('metadata.title'),
         description: t('metadata.description'),
@@ -24,70 +30,70 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default function ReactionTimePage() {
-  const t = useTranslations('games.reactionTime');
-  
-  return (
-      <GamePageTemplate
-          gameId="reaction-time"
-          title={t('title')}
-          subtitle={t('subtitle')}
-          gameComponent={<Game />}
-          howToPlay={
-              <>
-                  <p>
-                      {t('howToPlay.description')}
-                  </p>
-                  <ul className="list-disc pl-5 mt-2 space-y-1">
-                      <li>
-                          {t('howToPlay.step1')}
-                      </li>
-                      <li>
-                          {t('howToPlay.step2')}
-                      </li>
-                      <li>
-                          {t('howToPlay.step3')}
-                      </li>
-                      <li>
-                          {t('howToPlay.step4')}
-                      </li>
-                  </ul>
-              </>
-          }
-          benefits={[
-              {
-                  icon: <Zap className="w-10 h-10" />,
-                  title: t('benefits.measure.title'),
-                  description: t('benefits.measure.description'),
-              },
-              {
-                  icon: <BrainCircuit className="w-10 h-10" />,
-                  title: t('benefits.baseline.title'),
-                  description: t('benefits.baseline.description'),
-              },
-              {
-                  icon: <Gauge className="w-10 h-10" />,
-                  title: t('benefits.consistency.title'),
-                  description: t('benefits.consistency.description'),
-              },
-          ]}
-          faq={[
-              {
-                  question: t('faq.what.question'),
-                  answer: t('faq.what.answer'),
-              },
-              {
-                  question: t('faq.limitations.question'),
-                  answer: t('faq.limitations.answer'),
-              },
-              {
-                  question: t('faq.factors.question'),
-                  answer: t('faq.factors.answer'),
-              },
-              {
-                  question: t('faq.significance.question'),
-                  answer: t('faq.significance.answer'),
-              },
-          ]}
-      />
-  );
+    const t = useTranslations('games.reactionTime');
+
+    return (
+        <GamePageTemplate
+            gameId="reaction-time"
+            title={t('title')}
+            subtitle={t('subtitle')}
+            gameComponent={<Game />}
+            howToPlay={
+                <>
+                    <p>
+                        {t('howToPlay.description')}
+                    </p>
+                    <ul className="list-disc pl-5 mt-2 space-y-1">
+                        <li>
+                            {t('howToPlay.step1')}
+                        </li>
+                        <li>
+                            {t('howToPlay.step2')}
+                        </li>
+                        <li>
+                            {t('howToPlay.step3')}
+                        </li>
+                        <li>
+                            {t('howToPlay.step4')}
+                        </li>
+                    </ul>
+                </>
+            }
+            benefits={[
+                {
+                    icon: <Zap className="w-10 h-10" />,
+                    title: t('benefits.measure.title'),
+                    description: t('benefits.measure.description'),
+                },
+                {
+                    icon: <BrainCircuit className="w-10 h-10" />,
+                    title: t('benefits.baseline.title'),
+                    description: t('benefits.baseline.description'),
+                },
+                {
+                    icon: <Gauge className="w-10 h-10" />,
+                    title: t('benefits.consistency.title'),
+                    description: t('benefits.consistency.description'),
+                },
+            ]}
+            faq={[
+                {
+                    question: t('faq.what.question'),
+                    answer: t('faq.what.answer'),
+                },
+                {
+                    question: t('faq.limitations.question'),
+                    answer: t('faq.limitations.answer'),
+                },
+                {
+                    question: t('faq.factors.question'),
+                    answer: t('faq.factors.answer'),
+                },
+                {
+                    question: t('faq.significance.question'),
+                    answer: t('faq.significance.answer'),
+                },
+            ]}
+        />
+    );
 } 

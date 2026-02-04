@@ -5,6 +5,12 @@ import { Zap, Target, Calculator } from 'lucide-react'
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
+import { routing } from '@/i18n/routing';
+
+// Generate static params for all locales
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 // 将静态元数据改为动态生成函数
 export async function generateMetadata(
@@ -12,7 +18,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'games' });
-  
+
   return {
     title: t('largerNumber.metaTitle'),
     description: t('largerNumber.metaDescription'),
@@ -29,7 +35,7 @@ export async function generateMetadata(
 
 export default function LargerNumberPage() {
   const t = useTranslations('games.largerNumber');
-  
+
   return (
     <GamePageTemplate
       gameId="larger-number"

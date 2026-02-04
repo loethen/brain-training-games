@@ -4,26 +4,32 @@ import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Brain, Eye, Lightbulb } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { routing } from '@/i18n/routing'
+
+// Generate static params for all locales
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-    const { locale } = await params;
-    const t = await getTranslations({ locale, namespace: 'games.frogMemoryLeap' });
-    
-    return {
-        title: t('metadata.title'),
-        description: t('metadata.description'),
-        keywords: t('metadata.keywords'),
-        openGraph: {
-            title: t('metadata.ogTitle'),
-            description: t('metadata.ogDescription'),
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
-        },
-    };
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'games.frogMemoryLeap' });
+
+  return {
+    title: t('metadata.title'),
+    description: t('metadata.description'),
+    keywords: t('metadata.keywords'),
+    openGraph: {
+      title: t('metadata.ogTitle'),
+      description: t('metadata.ogDescription'),
+      images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+    },
+  };
 }
 
 export default function FrogMemoryLeapPage() {
   const t = useTranslations('games.frogMemoryLeap');
-  
+
   return (
     <GamePageTemplate
       gameId="frog-memory-leap"

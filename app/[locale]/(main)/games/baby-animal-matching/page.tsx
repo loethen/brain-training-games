@@ -4,6 +4,7 @@ import { GamePageTemplate } from '@/components/GamePageTemplate';
 import { Brain, Eye, Search } from 'lucide-react'; // Example icons
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server'; // Import server-side translator
+import { routing } from '@/i18n/routing';
 
 // Define types for placeholders
 interface Benefit {
@@ -14,6 +15,11 @@ interface Benefit {
 interface FAQItem {
     question: string;
     answer: string;
+}
+
+// Generate static params for all locales
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
 }
 
 // Enhanced metadata generation for better SEO
@@ -96,16 +102,16 @@ export default function BabyAnimalMatchingPageContainer() {
                 </>
             }
             // Map directly from the constructed arrays
-            benefits={benefits.map((b) => ({ 
-                icon: b.icon, 
+            benefits={benefits.map((b) => ({
+                icon: b.icon,
                 title: b.title,
                 description: b.description
             }))}
-            faq={faq.map((f) => ({ 
+            faq={faq.map((f) => ({
                 question: f.question,
                 answer: f.answer
             }))}
-            relatedGames={["schulte-table", "block-memory-challenge", "reaction-time"]} 
+            relatedGames={["schulte-table", "block-memory-challenge", "reaction-time"]}
         />
     );
 } 

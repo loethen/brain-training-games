@@ -6,6 +6,12 @@ import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import TutorialButton from './components/TutorialButton';
 import Link from 'next/link'
+import { routing } from '@/i18n/routing'
+
+// Generate static params for all locales
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 // 将静态元数据改为动态生成函数
 export async function generateMetadata(
