@@ -7,7 +7,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from "next";
 import { getBlogPosts, type BlogPost } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
-import FeaturedGamesCarousel from "@/components/featured-games-carousel";
+import FeaturedBentoGrid from "@/components/featured-bento-grid";
+import LatestGames from "@/components/latest-games";
 import Image from "next/image";
 import { games } from "@/data/games";
 
@@ -182,9 +183,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </section>
                 )}
 
-                {/* Games Section - Carousel Display */}
-                <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
-                    <FeaturedGamesCarousel />
+                {/* Games Section - Bento Grid Display */}
+                <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                    <FeaturedBentoGrid />
+                    <div className="mt-24">
+                        <LatestGames />
+                    </div>
                 </section>
 
                 {/* Types of Brain Training */}

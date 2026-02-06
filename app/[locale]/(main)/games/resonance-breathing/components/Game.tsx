@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import LotusFlower from './LotusFlower';
 import { useTranslations } from 'next-intl';
-import { Play, Pause, Settings, RotateCcw } from 'lucide-react';
+import { Play, Pause, Settings, RotateCcw, Volume2, VolumeX } from 'lucide-react';
 
 type BreathingPhase = 'idle' | 'inhale' | 'exhale';
 
@@ -21,6 +21,37 @@ export default function Game() {
     const [cycleCount, setCycleCount] = useState(0);
     const [elapsedTime, setElapsedTime] = useState(0);
     const [showSettings, setShowSettings] = useState(true);
+    const [isMusicEnabled, setIsMusicEnabled] = useState(false);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    // Initialize Audio
+    useEffect(() => {
+        audioRef.current = new Audio('/sounds/homecoming-tranquilium-main-version-25793-03-28.mp3');
+        audioRef.current.loop = true;
+        audioRef.current.volume = 0.5;
+
+        return () => {
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current = null;
+            }
+        };
+    }, []);
+
+    // Handle Music Playback
+    useEffect(() => {
+        if (!audioRef.current) return;
+
+        if (isMusicEnabled) {
+            audioRef.current.play().catch(error => {
+                console.error("Audio playback failed:", error);
+                // Reset state if autoplay is blocked
+                setIsMusicEnabled(false);
+            });
+        } else {
+            audioRef.current.pause();
+        }
+    }, [isMusicEnabled]);
 
     const [settings, setSettings] = useState<GameSettings>({
         inhaleDuration: 4,
@@ -146,6 +177,18 @@ export default function Game() {
                     title={t('ui.reset')}
                 >
                     <RotateCcw className="w-5 h-5" />
+                </button>
+
+                <button
+                    onClick={() => setIsMusicEnabled(!isMusicEnabled)}
+                    className={`p-3 rounded-full transition-all ${isMusicEnabled ? 'text-black bg-gray-100' : 'text-gray-400 hover:text-black hover:bg-gray-100'}`}
+                    title={isMusicEnabled ? t('ui.soundOff') : t('ui.soundOn')}
+                >
+                    {isMusicEnabled ? (
+                        <Volume2 className="w-5 h-5" />
+                    ) : (
+                        <VolumeX className="w-5 h-5" />
+                    )}
                 </button>
 
                 <button

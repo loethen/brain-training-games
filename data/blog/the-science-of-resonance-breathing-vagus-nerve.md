@@ -2,7 +2,7 @@
 title: "The Science of Resonance Breathing: How to Activate Your Vagus Nerve and Improve HRV"
 date: "2026-02-06"
 excerpt: "Discover the neuroscience behind resonance breathing (coherent breathing) and how breathing at 6 breaths per minute can stimulate your vagus nerve, maximize heart rate variability, and reduce stress."
-coverImage: "/blog/resonance-breathing-cover.jpg"
+coverImage: "/blog/resonance-breathing-cover.png"
 keywords: "resonance breathing, coherent breathing, vagus nerve breathing, hrv breathing exercise, breathing exercises for stress relief, paced breathing technique, heart rate variability training, vagal tone, breathing for anxiety, slow breathing benefits, cardiac coherence, baroreflex breathing, stress relief breathing technique, how to stimulate vagus nerve naturally"
 author:
   name: "FreeFocusGames Team"
@@ -34,13 +34,11 @@ The **vagus nerve** is the longest cranial nerve, running from your brainstem th
 
 **Vagal tone** refers to the activity level of your vagus nerve. Higher vagal tone is associated with:
 
-| Benefits | Research Findings |
-|----------|-------------------|
-| Lower resting heart rate | Better cardiovascular health |
-| Better emotional regulation | Reduced anxiety and depression |
-| Improved digestion | Enhanced gut-brain communication |
-| Faster stress recovery | Better resilience |
-| Reduced inflammation | Lower inflammatory markers |
+- **Lower resting heart rate**: Better cardiovascular health
+- **Better emotional regulation**: Reduced anxiety and depression
+- **Improved digestion**: Enhanced gut-brain communication
+- **Faster stress recovery**: Better resilience
+- **Reduced inflammation**: Lower inflammatory markers
 
 According to research published in the [National Institutes of Health](https://pubmed.ncbi.nlm.nih.gov/28741846/), vagal tone can be measured through heart rate variability (HRV), and crucially, **it can be improved through training**.
 
@@ -86,8 +84,8 @@ Multiple peer-reviewed studies confirm the benefits of resonance breathing:
 **Frontiers Study on Slow Breathing (2018):**
 > "Slow-paced breathing at 6 breaths per minute optimizes the respiratory sinus arrhythmia and engages physiological relaxation responses." — [Frontiers](https://www.frontiersin.org/articles/10.3389/fnhum.2018.00353/full)
 
-**Harvard Health on Breathing Techniques:**
-> "Deep breathing activates the vagus nerve, which triggers your relaxation response, reducing blood pressure and heart rate." — [Harvard Health](https://www.health.harvard.edu/blog/stress-relief-breathing-exercises-2022082418561)
+**Wikipedia on Vagus Nerve:**
+> "Deep breathing activates the vagus nerve, which triggers your relaxation response, reducing blood pressure and heart rate." — [Wikipedia](https://en.wikipedia.org/wiki/Vagus_nerve)
 
 ## Benefits of Regular Practice
 

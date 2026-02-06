@@ -21,21 +21,21 @@
                 "tip": "Breathe through your nose and let your belly expand on inhale. This activates diaphragmatic breathing for deeper relaxation."
             },
             "benefits": {
-                "vagusNerve": {
-                    "title": "Vagus Nerve Activation",
-                    "description": "Stimulates the vagus nerve, your body's main relaxation pathway. Higher vagal tone is linked to better stress resilience, mood, and overall health."
+                "anxiety": {
+                    "title": "Reduced Anxiety & Stress",
+                    "description": "Activates the parasympathetic nervous system, lowering cortisol levels. Regular practice promotes a calmer emotional state and better sleep quality."
                 },
-                "hrv": {
-                    "title": "Improved HRV",
-                    "description": "Increases Heart Rate Variability (HRV), a key biomarker of cardiovascular health and stress adaptation. Athletes and high performers optimize HRV for peak performance."
+                "focus": {
+                    "title": "Improved Focus & Clarity",
+                    "description": "Regulates the autonomic nervous system to reduce mental chatter, improve concentration, and enhance decision-making under pressure."
                 },
-                "stress": {
-                    "title": "Stress Reduction",
-                    "description": "Activates the parasympathetic nervous system, lowering cortisol levels and reducing anxiety. Regular practice builds long-term stress resilience."
+                "cardiovascular": {
+                    "title": "Better Cardiovascular Health",
+                    "description": "Improving HRV through breathing exercises can naturally lower blood pressure and improve blood vessel function."
                 },
-                "calm": {
-                    "title": "Instant Calm",
-                    "description": "Creates an immediate sense of calm by synchronizing your heart rate with your breath. Perfect for pre-meeting nerves, sleep preparation, or daily relaxation."
+                "recovery": {
+                    "title": "Enhanced Athletic Recovery",
+                    "description": "speeds up recovery between workouts and prevents overtraining by optimizing physiological readiness."
                 }
             },
             "science": {
@@ -45,7 +45,7 @@
                 "authorityLinks": {
                     "nih": "Peer-reviewed research on HRV biofeedback and slow breathing interventions.",
                     "frontiers": "Comprehensive study on slow-paced breathing and psychological well-being.",
-                    "harvard": "Harvard Health's guide to breathing exercises for stress relief."
+                    "wikipedia": "Wikipedia article on the Vagus Nerve and its functions."
                 }
             },
             "faq": {
@@ -80,7 +80,9 @@
                 "breathingRate": "Current rate: {rate} breaths/min (optimal: ~6/min)",
                 "inhale": "Inhale",
                 "exhale": "Exhale",
-                "ready": "Ready"
+                "ready": "Ready",
+                "soundOn": "Sound On",
+                "soundOff": "Sound Off"
             }
         }
     }

@@ -84,24 +84,24 @@ export default function ResonanceBreathingPage() {
             }
             benefits={[
                 {
-                    icon: <Heart className="w-10 h-10" />,
-                    title: t('benefits.vagusNerve.title'),
-                    description: t('benefits.vagusNerve.description')
-                },
-                {
-                    icon: <Activity className="w-10 h-10" />,
-                    title: t('benefits.hrv.title'),
-                    description: t('benefits.hrv.description')
+                    icon: <Wind className="w-10 h-10" />,
+                    title: t('benefits.anxiety.title'),
+                    description: t('benefits.anxiety.description')
                 },
                 {
                     icon: <Brain className="w-10 h-10" />,
-                    title: t('benefits.stress.title'),
-                    description: t('benefits.stress.description')
+                    title: t('benefits.focus.title'),
+                    description: t('benefits.focus.description')
                 },
                 {
-                    icon: <Wind className="w-10 h-10" />,
-                    title: t('benefits.calm.title'),
-                    description: t('benefits.calm.description')
+                    icon: <Heart className="w-10 h-10" />,
+                    title: t('benefits.cardiovascular.title'),
+                    description: t('benefits.cardiovascular.description')
+                },
+                {
+                    icon: <Activity className="w-10 h-10" />,
+                    title: t('benefits.recovery.title'),
+                    description: t('benefits.recovery.description')
                 }
             ]}
             science={{
@@ -121,9 +121,9 @@ export default function ResonanceBreathingPage() {
                         description: t('science.authorityLinks.frontiers')
                     },
                     {
-                        title: "Harvard Health: Vagus Nerve",
-                        url: "https://www.health.harvard.edu/blog/stress-relief-breathing-exercises-2022082418561",
-                        description: t('science.authorityLinks.harvard')
+                        title: "Wikipedia: Vagus Nerve",
+                        url: "https://en.wikipedia.org/wiki/Vagus_nerve",
+                        description: t('science.authorityLinks.wikipedia')
                     }
                 ]
             }}

@@ -34,13 +34,11 @@ author:
 
 **迷走神经张力** 指的是迷走神经的活跃水平。较高的迷走神经张力与以下益处相关：
 
-| 益处 | 研究发现 |
-|---|---|
-| 较低的静息心率 | 更好的心血管健康 |
-| 更好的情绪调节 | 减少焦虑和抑郁 |
-| 改善消化 | 增强肠脑沟通 |
-| 更快的压力恢复 | 更好的心理韧性 |
-| 减少炎症 | 较低的炎症标志物 |
+- **较低的静息心率**：更好的心血管健康
+- **更好的情绪调节**：减少焦虑和抑郁
+- **改善消化**：增强肠脑沟通
+- **更快的压力恢复**：更好的心理韧性
+- **减少炎症**：较低的炎症标志物
 
 根据发表在 [美国国立卫生研究院 (NIH)](https://pubmed.ncbi.nlm.nih.gov/28741846/) 的研究，迷走神经张力可以通过心率变异性 (HRV) 来测量，关键是，**它可以通过训练得到改善**。
 
@@ -186,7 +184,7 @@ author:
 
 3. Zaccaro, A., et al. (2018). How Breath-Control Can Change Your Life: A Systematic Review. *Frontiers in Human Neuroscience*. [链接](https://www.frontiersin.org/articles/10.3389/fnhum.2018.00353/full)
 
-4. Harvard Health Publishing. (2022). Relaxation techniques: Breath control helps quench the stress response. [链接](https://www.health.harvard.edu/blog/stress-relief-breathing-exercises-2022082418561)
+4. Wikipedia. Vagus Nerve. [链接](https://en.wikipedia.org/wiki/Vagus_nerve)
 
 5. Thayer, J. F., & Lane, R. D. (2009). Claude Bernard and the heart–brain connection. *Neuroscience & Biobehavioral Reviews*. [链接](https://pubmed.ncbi.nlm.nih.gov/18571730/)
 
