@@ -1,7 +1,9 @@
 import { GamePreview as SimonGamePreview } from "@/app/[locale]/(main)/games/block-memory-challenge/components/GamePreview";
 import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/games/schulte-table/components/GamePreview";
 import { CountingBoxesGamePreview } from "@/app/[locale]/(main)/games/counting-boxes/components/GamePreview";
+import { GamePreview as ResonanceBreathingPreview } from "@/app/[locale]/(main)/games/resonance-breathing/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
+
 
 export type Game = {
   id: string;
@@ -13,6 +15,13 @@ export type Game = {
 };
 
 export const games: Game[] = [
+  {
+    id: "resonance-breathing",
+    title: "Resonance Breathing",
+    slug: "resonance-breathing",
+    preview: <ResonanceBreathingPreview />,
+    categories: ["sustained-attention", "relaxation"],
+  },
   {
     id: "pomodoro-timer",
     title: "Pomodoro Timer",

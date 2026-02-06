@@ -22,6 +22,7 @@ const I18N_MODULES = [
     'guides',
     'cpsTest',
     '10Seconds',
+    'ResonanceBreathing',
 ] as const;
 
 function deepMerge(target: any, source: any) {

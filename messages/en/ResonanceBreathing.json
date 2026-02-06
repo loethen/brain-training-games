@@ -1,0 +1,87 @@
+{
+    "games": {
+        "resonanceBreathing": {
+            "title": "Resonance Breathing",
+            "subtitle": "Activate Your Vagus Nerve with 6 Breaths Per Minute",
+            "description": "Practice coherent breathing at the scientifically optimal rate of 6 breaths per minute. This lotus-guided breathing exercise helps stimulate your vagus nerve, improve heart rate variability (HRV), and activate your body's relaxation response.",
+            "metadata": {
+                "title": "Resonance Breathing Exercise | Vagus Nerve Stimulation | HRV Training | FreeFocusGames",
+                "description": "Free resonance breathing exercise to activate your vagus nerve and improve HRV. Practice coherent breathing at 6 breaths per minute with our beautiful lotus animation guide.",
+                "keywords": "resonance breathing, coherent breathing, hrv breathing exercise, vagus nerve breathing, breathing exercise for anxiety, paced breathing technique, cardiac coherence breathing, slow breathing 6 breaths per minute, breathing exercises for stress relief at home, vagus nerve stimulation breathing, deep breathing for anxiety, relaxation breathing technique, stress relief breathing, calming breathing exercise",
+                "ogTitle": "Resonance Breathing - Activate Your Vagus Nerve",
+                "ogDescription": "Practice coherent breathing at 6 breaths/min to improve HRV and reduce stress."
+            },
+            "howToPlay": {
+                "intro": "Follow the lotus flower animation to guide your breathing at the optimal resonance frequency:",
+                "step1": "Click 'Start' to begin the breathing session.",
+                "step2": "INHALE slowly as the lotus petals open and expand.",
+                "step3": "EXHALE gently as the lotus petals close and contract.",
+                "step4": "Continue for 5-10 minutes for maximum benefits.",
+                "tipTitle": "Pro Tip",
+                "tip": "Breathe through your nose and let your belly expand on inhale. This activates diaphragmatic breathing for deeper relaxation."
+            },
+            "benefits": {
+                "vagusNerve": {
+                    "title": "Vagus Nerve Activation",
+                    "description": "Stimulates the vagus nerve, your body's main relaxation pathway. Higher vagal tone is linked to better stress resilience, mood, and overall health."
+                },
+                "hrv": {
+                    "title": "Improved HRV",
+                    "description": "Increases Heart Rate Variability (HRV), a key biomarker of cardiovascular health and stress adaptation. Athletes and high performers optimize HRV for peak performance."
+                },
+                "stress": {
+                    "title": "Stress Reduction",
+                    "description": "Activates the parasympathetic nervous system, lowering cortisol levels and reducing anxiety. Regular practice builds long-term stress resilience."
+                },
+                "calm": {
+                    "title": "Instant Calm",
+                    "description": "Creates an immediate sense of calm by synchronizing your heart rate with your breath. Perfect for pre-meeting nerves, sleep preparation, or daily relaxation."
+                }
+            },
+            "science": {
+                "title": "The Science of Resonance Breathing",
+                "description": "Resonance breathing (also called coherent breathing) at approximately 6 breaths per minute creates a unique physiological state where your heart rate, blood pressure, and breathing synchronize. This phenomenon, called baroreflex resonance, maximizes heart rate variability and vagal tone. Multiple NIH-published studies confirm that regular practice reduces anxiety, improves focus, and enhances cardiovascular health.",
+                "blogArticleTitle": "Read: The Complete Science Behind Resonance Breathing",
+                "authorityLinks": {
+                    "nih": "Peer-reviewed research on HRV biofeedback and slow breathing interventions.",
+                    "frontiers": "Comprehensive study on slow-paced breathing and psychological well-being.",
+                    "harvard": "Harvard Health's guide to breathing exercises for stress relief."
+                }
+            },
+            "faq": {
+                "whatIs": {
+                    "question": "What is resonance breathing?",
+                    "answer": "Resonance breathing (also called coherent breathing) is a slow-paced breathing technique at approximately 6 breaths per minute. This specific rate creates 'baroreflex resonance' - a state where your heart rate, blood pressure, and breathing synchronize, maximizing heart rate variability and activating your vagus nerve."
+                },
+                "howLong": {
+                    "question": "How long should I practice?",
+                    "answer": "Start with 5 minutes and gradually increase to 10-20 minutes. Even 5 minutes of practice can produce measurable improvements in HRV and stress levels. For lasting benefits, aim for daily practice."
+                },
+                "optimal": {
+                    "question": "Why 6 breaths per minute?",
+                    "answer": "Research shows that breathing at approximately 0.1 Hz (about 6 breaths per minute) coincides with the natural resonance frequency of the cardiovascular system. This rate maximizes the amplitude of heart rate oscillations and creates the strongest vagal stimulation."
+                },
+                "benefits": {
+                    "question": "What benefits can I expect?",
+                    "answer": "Regular practice can lead to: reduced anxiety and stress, improved focus and mental clarity, better sleep quality, lower blood pressure, enhanced athletic recovery, and increased emotional regulation. Many users notice immediate calming effects within the first session."
+                }
+            },
+            "ui": {
+                "start": "Start Breathing",
+                "pause": "Pause",
+                "reset": "Reset",
+                "settings": "Settings",
+                "cycles": "Cycles",
+                "elapsed": "Elapsed",
+                "target": "Target",
+                "inhaleDuration": "Inhale Duration",
+                "exhaleDuration": "Exhale Duration",
+                "sessionDuration": "Session Duration",
+                "breathingRate": "Current rate: {rate} breaths/min (optimal: ~6/min)",
+                "inhale": "Inhale",
+                "exhale": "Exhale",
+                "ready": "Ready"
+            }
+        }
+    }
+}

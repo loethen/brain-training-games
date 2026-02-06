@@ -18,7 +18,8 @@
       "cognitive-flexibility": "Cognitive Flexibility",
       "spatial-memory": "Spatial Memory",
       "adhd-games": "ADHD Games for Adults",
-      "brain-games-for-kids": "Focus Games for Kids"
+      "brain-games-for-kids": "Focus Games for Kids",
+      "relaxation": "Relaxation"
     },
     "categoryDescriptions": {
       "working-memory": "Games that strengthen your ability to temporarily hold and manipulate information. Strong working memory helps students remember instructions, professionals juggle multiple tasks, and everyone follow conversations better.",
@@ -30,7 +31,8 @@
       "cognitive-flexibility": "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively.",
       "spatial-memory": "Games that strengthen your ability to remember and manipulate spatial information. Strong spatial memory helps with navigation, remembering object locations, understanding maps, and visualizing 3D structures. This skill is crucial for activities like parking, finding items, following directions, and excelling in STEM fields.",
       "adhd-games": "A curated collection of games scientifically proven to help manage ADHD symptoms. These exercises target working memory, inhibition control, and sustained attention—key executive functions often impaired in ADHD.",
-      "brain-games-for-kids": "Engaging and verifiable brain training games designed specifically for children's cognitive development. These games help improve attention span, follow instructions, and impulse control in a fun, gamified way."
+      "brain-games-for-kids": "Engaging and verifiable brain training games designed specifically for children's cognitive development. These games help improve attention span, follow instructions, and impulse control in a fun, gamified way.",
+      "relaxation": "Games that promote relaxation and stress reduction through guided breathing and mindfulness exercises. These practices stimulate the vagus nerve, improve heart rate variability (HRV), and help the body shift into a calm, restorative state."
     },
     "keywords": {
       "working-memory": {
@@ -152,6 +154,18 @@
         "impulse control games for kids": "Impulse control games for kids",
         "educational brain games": "Educational brain games",
         "kids cognitive training": "Kids cognitive training"
+      },
+      "relaxation": {
+        "relaxation games": "Relaxation games",
+        "breathing exercises": "Breathing exercises",
+        "stress relief games": "Stress relief games",
+        "mindfulness games": "Mindfulness games",
+        "anxiety relief games": "Anxiety relief games",
+        "calming games": "Calming games",
+        "meditation games": "Meditation games",
+        "deep breathing training": "Deep breathing training",
+        "hrv biofeedback": "HRV biofeedback",
+        "vagus nerve stimulation": "Vagus nerve stimulation"
       }
     },
     "categoryNotFound": "Category Not Found",

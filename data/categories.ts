@@ -197,6 +197,25 @@ export const categories: Category[] = [
       "educational brain games",
       "kids cognitive training"
     ]
+  },
+  {
+    id: "relaxation",
+    name: "Relaxation & Stress Relief",
+    description: "Games and exercises designed to reduce stress, promote relaxation, and improve emotional regulation. These techniques help activate the parasympathetic nervous system, lower cortisol levels, and improve heart rate variability (HRV). Perfect for daily stress management, sleep preparation, and building long-term resilience.",
+    slug: "relaxation",
+    icon: "Wind",
+    keywords: [
+      "relaxation exercises",
+      "stress relief games",
+      "breathing exercises",
+      "vagus nerve stimulation",
+      "hrv training",
+      "resonance breathing",
+      "coherent breathing",
+      "calm down techniques",
+      "anxiety relief exercises",
+      "mindfulness games"
+    ]
   }
 ];
 

@@ -18,7 +18,8 @@
       "cognitive-flexibility": "认知灵活性",
       "spatial-memory": "空间记忆",
       "adhd-games": "成人ADHD游戏",
-      "brain-games-for-kids": "儿童专注力游戏"
+      "brain-games-for-kids": "儿童专注力游戏",
+      "relaxation": "放松减压"
     },
     "categoryDescriptions": {
       "working-memory": "增强你暂时保持和操作信息能力的游戏。强大的工作记忆帮助学生记住指令，专业人士同时处理多项任务，以及每个人更好地跟随对话。",
@@ -30,7 +31,8 @@
       "cognitive-flexibility": "增强你在不同概念之间切换或适应变化规则能力的游戏。更大的认知灵活性帮助学生跨学科应用知识，专业人士适应不断变化的工作要求，以及每个人更有效地应对社交场合。",
       "spatial-memory": "增强你记忆和操作空间信息能力的游戏。强大的空间记忆帮助导航、记住物体位置、理解地图和想象3D结构。这项技能对停车、寻找物品、跟随方向以及在STEM领域中取得优异成绩至关重要。",
       "adhd-games": "经过科学验证的精选游戏集，有助于管理ADHD症状。这些练习针对工作记忆、抑制控制和持续注意力——这些是在ADHD中经常受损的关键执行功能。定期练习有助于提高日常专注力，减少冲动，增强认知调节。",
-      "brain-games-for-kids": "专为儿童认知发展设计的有趣且可验证的脑力训练游戏。这些游戏以趣味化、游戏化的方式帮助提高注意力持续时间、遵循指令和冲动控制。非常适合支持学校表现和日常行为规范。"
+      "brain-games-for-kids": "专为儿童认知发展设计的有趣且可验证的脑力训练游戏。这些游戏以趣味化、游戏化的方式帮助提高注意力持续时间、遵循指令和冲动控制。非常适合支持学校表现和日常行为规范。",
+      "relaxation": "通过引导呼吸和正念练习促进放松和减压的游戏。这些练习刺激迷走神经，改善心率变异性（HRV），并帮助身体进入平静、恢复的状态。"
     },
     "keywords": {
       "working-memory": {
@@ -152,6 +154,18 @@
         "impulse control games for kids": "儿童冲动控制游戏",
         "educational brain games": "教育脑力游戏",
         "kids cognitive training": "儿童认知训练"
+      },
+      "relaxation": {
+        "relaxation games": "放松游戏",
+        "breathing exercises": "呼吸练习",
+        "stress relief games": "减压游戏",
+        "mindfulness games": "正念游戏",
+        "anxiety relief games": "缓解焦虑游戏",
+        "calming games": "平静游戏",
+        "meditation games": "冥想游戏",
+        "deep breathing training": "深呼吸训练",
+        "hrv biofeedback": "心率变异性反馈",
+        "vagus nerve stimulation": "迷走神经刺激"
       }
     },
     "categoryNotFound": "未找到分类",
