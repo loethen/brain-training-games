@@ -11,6 +11,7 @@ import FeaturedBentoGrid from "@/components/featured-bento-grid";
 import LatestGames from "@/components/latest-games";
 import Image from "next/image";
 import { games } from "@/data/games";
+import { Wind, Gamepad2, ArrowRight, Play } from "lucide-react";
 
 // 为首页定义特定的元数据
 export async function generateMetadata(
@@ -151,45 +152,121 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </section>
 
-                {/* Spring Festival Special */}
+                {/* Games Section - Featured Bento Grid */}
+                <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                    <FeaturedBentoGrid />
+                </section>
+
+                {/* Breathing Zone - Bento Layout */}
+                <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                    <div className="flex items-center gap-2 mb-8">
+                        <Wind className="h-6 w-6 text-teal-500" />
+                        <h2 className="text-2xl font-semibold">
+                            {t("home.breathingZone")}
+                        </h2>
+                    </div>
+                    {(() => {
+                        const breathingGames = games.filter(g => g.categories.includes('relaxation'));
+                        const mainGame = breathingGames.find(g => g.id === 'box-breathing') || breathingGames[0];
+                        const sideGames = breathingGames.filter(g => g.id !== mainGame?.id);
+                        if (!mainGame) return null;
+                        const getIdKey = (id: string) => id.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase()).replace(/-/g, '');
+                        return (
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                {/* Main Featured Breathing Game */}
+                                <div className="lg:col-span-2 relative group overflow-hidden rounded-3xl bg-gray-50 dark:bg-zinc-900 border border-border transition-all hover:shadow-xl">
+                                    <div className="flex flex-col-reverse md:flex-row h-full">
+                                        <div className="flex-1 p-8 flex flex-col justify-center gap-4 z-10 relative bg-white/50 dark:bg-black/20 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none">
+                                            <div>
+                                                <h3 className="text-3xl md:text-4xl font-bold mb-3">
+                                                    {t(`games.${getIdKey(mainGame.id)}.title`)}
+                                                </h3>
+                                                <p className="text-muted-foreground text-lg line-clamp-3">
+                                                    {t(`games.${getIdKey(mainGame.id)}.homeDescription`)}
+                                                </p>
+                                            </div>
+                                            <Link href={`/games/${mainGame.slug}`}>
+                                                <Button size="lg" className="rounded-full px-8 h-12 text-base shadow-lg hover:translate-y-[-2px] transition-transform w-full md:w-auto">
+                                                    <Play className="mr-2 h-5 w-5" fill="currentColor" />
+                                                    {t("buttons.start")}
+                                                </Button>
+                                            </Link>
+                                        </div>
+                                        <div className="flex-1 min-h-[250px] md:min-h-[300px] flex items-center justify-center relative">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl transform scale-75 opacity-50" />
+                                            <div className="relative z-0">
+                                                {mainGame.preview}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Side Breathing Cards */}
+                                <div className="grid grid-rows-2 gap-6 h-full">
+                                    {sideGames.map(game => (
+                                        <Link
+                                            key={game.id}
+                                            href={`/games/${game.slug}`}
+                                            className="relative group overflow-hidden rounded-3xl bg-secondary/30 border border-border hover:bg-secondary/50 transition-colors min-h-[180px]"
+                                        >
+                                            <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                                                <div className="flex justify-between items-start">
+                                                    <div className="w-12 h-12 rounded-2xl bg-background shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                        <Wind className="h-6 w-6 text-teal-500" />
+                                                    </div>
+                                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0">
+                                                        <div className="bg-background rounded-full p-2 shadow-sm">
+                                                            <ArrowRight className="h-4 w-4" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-lg mb-1 line-clamp-1">
+                                                        {t(`games.${getIdKey(game.id)}.title`)}
+                                                    </h4>
+                                                    <p className="text-sm text-muted-foreground line-clamp-2">
+                                                        {t(`games.${getIdKey(game.id)}.description`)}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    })()}
+                </section>
+
+                {/* Latest Games */}
+                <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                    <LatestGames />
+                </section>
+
+                {/* For Fun */}
                 {games.filter(g => g.categories.includes('spring-festival')).length > 0 && (
-                    <section className="mb-16 max-w-[1600px] mx-auto px-6">
-                        <div className="flex items-center gap-2 mb-6">
-                            <span className="text-3xl">🧧</span>
-                            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-red-600 to-orange-500 dark:from-red-400 dark:to-orange-400">
-                                {t("home.springFestivalSpecial")}
+                    <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                        <div className="flex items-center gap-2 mb-8">
+                            <Gamepad2 className="h-6 w-6" />
+                            <h2 className="text-2xl font-semibold">
+                                {t("home.forFun")}
                             </h2>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {games.filter(g => g.categories.includes('spring-festival')).map(game => (
                                 <Link key={game.id} href={`/games/${game.slug}`} className="group block">
-                                    <div className="relative aspect-video rounded-xl overflow-hidden border-2 border-red-200 dark:border-red-900 shadow-sm transition-all hover:shadow-lg hover:scale-[1.02] bg-red-50/50 dark:bg-red-950/20">
+                                    <div className="relative aspect-video rounded-xl overflow-hidden border border-purple-200 dark:border-purple-900 shadow-sm transition-all hover:shadow-lg hover:scale-[1.02] bg-purple-50/50 dark:bg-purple-950/20">
                                         <div className="w-full h-full flex items-center justify-center">
                                             {game.preview}
                                         </div>
-                                        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-sm animate-pulse">
-                                            HOT
-                                        </div>
                                     </div>
-                                    <h3 className="mt-3 font-bold text-lg group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
-                                        {/* Custom title override for Chinese locale */}
-                                        {(locale === 'zh' && game.slug === 'challenge-10-seconds')
-                                            ? "10秒挑战练习--下一个免单的就是你"
-                                            : game.title}
+                                    <h3 className="mt-3 font-bold text-lg group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                                        {game.title}
                                     </h3>
                                 </Link>
                             ))}
                         </div>
                     </section>
                 )}
-
-                {/* Games Section - Bento Grid Display */}
-                <section className="mb-24 max-w-[1600px] mx-auto px-6">
-                    <FeaturedBentoGrid />
-                    <div className="mt-24">
-                        <LatestGames />
-                    </div>
-                </section>
 
                 {/* Types of Brain Training */}
                 <section className="mb-24 max-w-[1600px] mx-auto px-6">

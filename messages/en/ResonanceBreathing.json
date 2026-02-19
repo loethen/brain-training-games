@@ -3,20 +3,20 @@
         "resonanceBreathing": {
             "title": "Resonance Breathing",
             "subtitle": "Activate Your Vagus Nerve with 6 Breaths Per Minute",
-            "description": "Practice coherent breathing at the scientifically optimal rate of 6 breaths per minute. This lotus-guided breathing exercise helps stimulate your vagus nerve, improve heart rate variability (HRV), and activate your body's relaxation response.",
+            "description": "Practice coherent breathing at the scientifically optimal rate of 6 breaths per minute. This lotus-guided breathing exercise helps stimulate your vagus nerve, improve heart rate variability (HRV), and activate your body's relaxation response. Also features Box Breathing and 4-7-8 breathing modes.",
             "metadata": {
-                "title": "Resonance Breathing Exercise | Vagus Nerve Stimulation | HRV Training | FreeFocusGames",
-                "description": "Free resonance breathing exercise to activate your vagus nerve and improve HRV. Practice coherent breathing at 6 breaths per minute with our beautiful lotus animation guide.",
-                "keywords": "resonance breathing, coherent breathing, hrv breathing exercise, vagus nerve breathing, breathing exercise for anxiety, paced breathing technique, cardiac coherence breathing, slow breathing 6 breaths per minute, breathing exercises for stress relief at home, vagus nerve stimulation breathing, deep breathing for anxiety, relaxation breathing technique, stress relief breathing, calming breathing exercise",
-                "ogTitle": "Resonance Breathing - Activate Your Vagus Nerve",
-                "ogDescription": "Practice coherent breathing at 6 breaths/min to improve HRV and reduce stress."
+                "title": "Breathing Exercise | Resonance Breathing | Box Breathing | 4-7-8 Breathing | FreeFocusGames",
+                "description": "Free breathing exercises: Resonance Breathing for HRV, Box Breathing (4-4-4-4) for focus, and 4-7-8 Breathing for sleep. Beautiful lotus animation guide with multiple breathing patterns.",
+                "keywords": "resonance breathing, coherent breathing, hrv breathing exercise, vagus nerve breathing, breathing exercise for anxiety, paced breathing technique, cardiac coherence breathing, slow breathing 6 breaths per minute, box breathing, box breathing exercise, 4-7-8 breathing, breathing exercise for sleep, navy seal breathing, deep breathing for anxiety, relaxation breathing technique, stress relief breathing, calming breathing exercise, guided breathing exercise",
+                "ogTitle": "Resonance Breathing Exercise - Activate Your Vagus Nerve",
+                "ogDescription": "Practice coherent breathing at 6 breaths/min to improve HRV and reduce stress. Includes Box Breathing and 4-7-8 modes."
             },
             "howToPlay": {
-                "intro": "Follow the lotus flower animation to guide your breathing at the optimal resonance frequency:",
-                "step1": "Click 'Start' to begin the breathing session.",
-                "step2": "INHALE slowly as the lotus petals open and expand.",
-                "step3": "EXHALE gently as the lotus petals close and contract.",
-                "step4": "Continue for 5-10 minutes for maximum benefits.",
+                "intro": "Follow the lotus flower animation to guide your breathing. Choose from multiple breathing patterns:",
+                "step1": "Select a breathing mode: Resonance, Box Breathing, or 4-7-8.",
+                "step2": "Click 'Start' to begin. INHALE as the lotus petals open.",
+                "step3": "HOLD your breath when the lotus pauses (for Box and 4-7-8 modes).",
+                "step4": "EXHALE gently as the lotus petals close. Continue for 5-10 minutes.",
                 "tipTitle": "Pro Tip",
                 "tip": "Breathe through your nose and let your belly expand on inhale. This activates diaphragmatic breathing for deeper relaxation."
             },
@@ -64,6 +64,14 @@
                 "benefits": {
                     "question": "What benefits can I expect?",
                     "answer": "Regular practice can lead to: reduced anxiety and stress, improved focus and mental clarity, better sleep quality, lower blood pressure, enhanced athletic recovery, and increased emotional regulation. Many users notice immediate calming effects within the first session."
+                },
+                "boxBreathing": {
+                    "question": "What is Box Breathing?",
+                    "answer": "Box Breathing (also called square breathing or tactical breathing) follows a 4-4-4-4 pattern: inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, hold for 4 seconds. It's used by Navy SEALs and first responders to maintain calm under extreme stress. You can try it using the Box mode in our breathing tool."
+                },
+                "breathing478": {
+                    "question": "What is 4-7-8 Breathing?",
+                    "answer": "The 4-7-8 breathing technique was developed by Dr. Andrew Weil. You inhale for 4 seconds, hold for 7 seconds, and exhale for 8 seconds. It's particularly effective as a natural sleep aid and for reducing anxiety. Try it instantly with our 4-7-8 mode."
                 }
             },
             "ui": {
@@ -75,14 +83,21 @@
                 "elapsed": "Elapsed",
                 "target": "Target",
                 "inhaleDuration": "Inhale Duration",
+                "holdInDuration": "Hold In Duration",
                 "exhaleDuration": "Exhale Duration",
+                "holdOutDuration": "Hold Out Duration",
                 "sessionDuration": "Session Duration",
-                "breathingRate": "Current rate: {rate} breaths/min (optimal: ~6/min)",
+                "breathingRate": "Current rate: {rate} breaths/min",
                 "inhale": "Inhale",
+                "hold": "Hold",
                 "exhale": "Exhale",
                 "ready": "Ready",
                 "soundOn": "Sound On",
-                "soundOff": "Sound Off"
+                "soundOff": "Sound Off",
+                "modeResonance": "Resonance",
+                "modeBox": "Box Breathing",
+                "mode478": "4-7-8",
+                "modeCustom": "Custom"
             }
         }
     }

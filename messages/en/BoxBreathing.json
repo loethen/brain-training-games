@@ -1,0 +1,72 @@
+{
+    "games": {
+        "boxBreathing": {
+            "title": "Box Breathing Exercise",
+            "subtitle": "Navy SEAL Tactical Breathing Technique (4-4-4-4)",
+            "description": "Practice Box Breathing (Square Breathing) with our beautiful lotus animation guide. Inhale 4s, hold 4s, exhale 4s, hold 4s — the same technique used by Navy SEALs, first responders, and athletes for instant calm and focus.",
+            "homeDescription": "Box Breathing is used by Navy SEALs before high-stress situations. Try it before presentations, exams, or whenever you need instant focus.",
+            "metadata": {
+                "title": "Box Breathing Exercise | 4-4-4-4 Breathing | Navy SEAL Breathing Technique | FreeFocusGames",
+                "description": "Free Box Breathing exercise (4-4-4-4) with visual lotus animation guide. Practice the Navy SEAL tactical breathing technique for stress relief, focus, and calm under pressure.",
+                "keywords": "box breathing, box breathing exercise, 4-4-4-4 breathing, square breathing, navy seal breathing, tactical breathing, box breathing technique, box breathing for anxiety, breathing exercise for stress, calm breathing technique, box breathing for focus, how to do box breathing, guided box breathing, breathing exercise for beginners",
+                "ogTitle": "Box Breathing Exercise — Navy SEAL Breathing Technique",
+                "ogDescription": "Practice Box Breathing (4-4-4-4) with a beautiful lotus animation guide. Free online tool used by Navy SEALs for instant calm."
+            },
+            "howToPlay": {
+                "intro": "Follow the lotus flower animation to guide your Box Breathing pattern:",
+                "step1": "Box Breathing follows a simple 4-4-4-4 rhythm also called square breathing.",
+                "step2": "INHALE for 4 seconds as the lotus opens, then HOLD your breath for 4 seconds.",
+                "step3": "EXHALE for 4 seconds as the lotus closes, then HOLD again for 4 seconds.",
+                "step4": "Repeat for 5-10 minutes. Even a single cycle can help you feel calmer.",
+                "tipTitle": "Pro Tip",
+                "tip": "Box Breathing is used by Navy SEALs before high-stress situations. Try it before presentations, exams, or whenever you need instant focus."
+            },
+            "benefits": {
+                "anxiety": {
+                    "title": "Instant Stress Relief",
+                    "description": "The equal 4-4-4-4 pattern creates a balanced rhythm that rapidly calms the nervous system and reduces fight-or-flight response."
+                },
+                "focus": {
+                    "title": "Enhanced Focus & Performance",
+                    "description": "Used by Navy SEALs and elite athletes for maintaining sharp focus and steady decision-making under extreme pressure."
+                },
+                "cardiovascular": {
+                    "title": "Better Emotional Regulation",
+                    "description": "Regular practice trains your nervous system to recover faster from stress, building long-term emotional resilience."
+                },
+                "recovery": {
+                    "title": "Quick & Easy to Learn",
+                    "description": "The simple 4-4-4-4 pattern is easy to remember and can be practiced anywhere — at your desk, in traffic, or before sleep."
+                }
+            },
+            "science": {
+                "title": "The Science Behind Box Breathing",
+                "description": "Box Breathing works by activating the parasympathetic nervous system through controlled breath holds. The 4-second hold periods allow CO2 levels to rise slightly, which triggers a calming vagal response. Research shows this technique can reduce cortisol levels by up to 25% in just 5 minutes. It's one of the most evidence-based breathing techniques for acute stress management.",
+                "blogArticleTitle": "Read: The Science of Box Breathing",
+                "authorityLinks": {
+                    "nih": "Research on controlled breathing and acute stress reduction.",
+                    "frontiers": "Study on breathwork protocols and HPA axis regulation.",
+                    "wikipedia": "Overview of tactical breathing and military performance."
+                }
+            },
+            "faq": {
+                "whatIs": {
+                    "question": "What is Box Breathing?",
+                    "answer": "Box Breathing (also called square breathing or tactical breathing) is a technique where you breathe in a 4-4-4-4 pattern: inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, and hold for 4 seconds. The equal sides of the 'box' create a balanced rhythm that calms your nervous system."
+                },
+                "howLong": {
+                    "question": "How long should I practice Box Breathing?",
+                    "answer": "Even 1-2 minutes of Box Breathing can produce noticeable calming effects. For deeper benefits, practice for 5-10 minutes. Navy SEALs often practice for 5 minutes before high-stress situations."
+                },
+                "optimal": {
+                    "question": "Why do Navy SEALs use Box Breathing?",
+                    "answer": "Navy SEALs use Box Breathing because it's simple, effective, and works fast. The technique helps maintain composure and decision-making ability under extreme stress. It can be done silently and without any equipment."
+                },
+                "benefits": {
+                    "question": "When should I use Box Breathing?",
+                    "answer": "Box Breathing is ideal before stressful situations (presentations, exams, difficult conversations), during moments of anxiety or panic, before sleep, during work breaks for a reset, or any time you need to quickly clear your mind and regain focus."
+                }
+            }
+        }
+    }
+}

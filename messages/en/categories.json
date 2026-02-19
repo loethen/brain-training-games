@@ -156,16 +156,16 @@
         "kids cognitive training": "Kids cognitive training"
       },
       "relaxation": {
-        "relaxation games": "Relaxation games",
-        "breathing exercises": "Breathing exercises",
+        "relaxation exercises": "Relaxation exercises",
         "stress relief games": "Stress relief games",
-        "mindfulness games": "Mindfulness games",
-        "anxiety relief games": "Anxiety relief games",
-        "calming games": "Calming games",
-        "meditation games": "Meditation games",
-        "deep breathing training": "Deep breathing training",
-        "hrv biofeedback": "HRV biofeedback",
-        "vagus nerve stimulation": "Vagus nerve stimulation"
+        "breathing exercises": "Breathing exercises",
+        "vagus nerve stimulation": "Vagus nerve stimulation",
+        "hrv training": "HRV training",
+        "resonance breathing": "Resonance breathing",
+        "coherent breathing": "Coherent breathing",
+        "calm down techniques": "Calm down techniques",
+        "anxiety relief exercises": "Anxiety relief exercises",
+        "mindfulness games": "Mindfulness games"
       }
     },
     "categoryNotFound": "Category Not Found",

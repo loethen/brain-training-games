@@ -23,6 +23,20 @@ export const games: Game[] = [
     categories: ["sustained-attention", "relaxation"],
   },
   {
+    id: "box-breathing",
+    title: "Box Breathing",
+    slug: "box-breathing",
+    preview: <ResonanceBreathingPreview />,
+    categories: ["relaxation", "sustained-attention"],
+  },
+  {
+    id: "478-breathing",
+    title: "4-7-8 Breathing",
+    slug: "478-breathing",
+    preview: <ResonanceBreathingPreview />,
+    categories: ["relaxation"],
+  },
+  {
     id: "pomodoro-timer",
     title: "Pomodoro Timer",
     slug: "pomodoro-timer",

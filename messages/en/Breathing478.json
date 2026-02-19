@@ -1,0 +1,71 @@
+{
+    "games": {
+        "478Breathing": {
+            "title": "4-7-8 Breathing Exercise",
+            "subtitle": "Dr. Weil's Natural Sleep & Relaxation Technique",
+            "description": "Practice the 4-7-8 breathing technique with our lotus animation guide. Inhale for 4 seconds, hold for 7 seconds, exhale for 8 seconds. A powerful natural method for falling asleep faster, reducing anxiety, and calming your nervous system.",
+            "metadata": {
+                "title": "4-7-8 Breathing Exercise | Breathing for Sleep | Anxiety Relief Breathing | FreeFocusGames",
+                "description": "Free 4-7-8 breathing exercise with visual lotus guide. Dr. Weil's breathing technique for better sleep, anxiety relief, and natural relaxation. Inhale 4, hold 7, exhale 8.",
+                "keywords": "4-7-8 breathing, 478 breathing, 4 7 8 breathing technique, breathing exercise for sleep, breathing for insomnia, how to fall asleep fast breathing, dr weil breathing, relaxing breathing exercise, anxiety breathing technique, deep breathing for sleep, 4-7-8 breathing method, sleep breathing exercise, calming breathing for anxiety, natural sleep aid breathing",
+                "ogTitle": "4-7-8 Breathing Exercise — Natural Sleep Aid",
+                "ogDescription": "Practice the 4-7-8 breathing technique with a lotus animation guide. Fall asleep faster, reduce anxiety naturally."
+            },
+            "howToPlay": {
+                "intro": "Follow the lotus flower animation to guide your 4-7-8 breathing pattern:",
+                "step1": "The 4-7-8 pattern: INHALE 4 seconds, HOLD 7 seconds, EXHALE 8 seconds.",
+                "step2": "INHALE through your nose for 4 seconds as the lotus opens.",
+                "step3": "HOLD your breath for 7 seconds as the lotus pauses fully open.",
+                "step4": "EXHALE slowly for 8 seconds as the lotus closes. Repeat for 4-8 cycles.",
+                "tipTitle": "Pro Tip",
+                "tip": "Practice 4-7-8 breathing in bed before sleep. The long exhale activates your parasympathetic nervous system, making it one of the most effective natural sleep aids."
+            },
+            "benefits": {
+                "anxiety": {
+                    "title": "Fall Asleep Faster",
+                    "description": "The extended exhale and long hold shift your nervous system into 'rest and digest' mode, making it significantly easier to fall asleep naturally."
+                },
+                "focus": {
+                    "title": "Deep Anxiety Relief",
+                    "description": "The 7-second hold creates a pause that helps break anxiety loops and racing thoughts, promoting a deep sense of calm."
+                },
+                "cardiovascular": {
+                    "title": "Blood Pressure Reduction",
+                    "description": "Studies show the 4-7-8 pattern can lower blood pressure and heart rate within minutes, promoting cardiovascular health."
+                },
+                "recovery": {
+                    "title": "Anywhere, Anytime",
+                    "description": "No equipment needed. Practice in bed, at your desk, on public transport, or anywhere you need a moment of calm."
+                }
+            },
+            "science": {
+                "title": "The Science Behind 4-7-8 Breathing",
+                "description": "Developed by Dr. Andrew Weil, the 4-7-8 technique leverages the power of extended exhalation to activate the parasympathetic nervous system. The prolonged exhale (8 seconds) stimulates the vagus nerve more strongly than the inhale, creating a net calming effect. The 7-second hold allows oxygen to saturate the bloodstream more fully while increasing CO2 tolerance. Clinical studies show it can reduce the time to fall asleep by up to 50%.",
+                "blogArticleTitle": "Read: The Science of 4-7-8 Breathing",
+                "authorityLinks": {
+                    "nih": "Research on extended exhalation breathing and parasympathetic activation.",
+                    "frontiers": "Study on 4-7-8 breathing protocol and sleep onset latency.",
+                    "wikipedia": "Overview of Dr. Andrew Weil's integrative medicine practices."
+                }
+            },
+            "faq": {
+                "whatIs": {
+                    "question": "What is 4-7-8 breathing?",
+                    "answer": "4-7-8 breathing is a technique developed by Dr. Andrew Weil. You inhale through your nose for 4 seconds, hold your breath for 7 seconds, and exhale through your mouth for 8 seconds. The extended exhale triggers a deep relaxation response."
+                },
+                "howLong": {
+                    "question": "How many cycles of 4-7-8 breathing should I do?",
+                    "answer": "Dr. Weil recommends starting with 4 cycles and working up to 8 cycles. A single cycle takes about 19 seconds, so 4 cycles take about 76 seconds. Even this short practice can produce significant calming effects."
+                },
+                "optimal": {
+                    "question": "Can 4-7-8 breathing help me sleep?",
+                    "answer": "Yes! 4-7-8 breathing is one of the most effective natural sleep aids. The long exhale activates the parasympathetic nervous system, slowing your heart rate and preparing your body for sleep. Many people fall asleep within 2-3 rounds of practice."
+                },
+                "benefits": {
+                    "question": "How is 4-7-8 breathing different from Box Breathing?",
+                    "answer": "Box Breathing uses equal 4-4-4-4 timing and is best for alertness and focus under stress. 4-7-8 breathing uses asymmetric timing with a longer hold and exhale, making it better for relaxation and sleep. Both are on this site — try both to see which works for you."
+                }
+            }
+        }
+    }
+}

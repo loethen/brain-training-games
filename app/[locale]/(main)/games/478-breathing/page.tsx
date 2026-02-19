@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import Game from './components/Game'
+import Game from '../resonance-breathing/components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Heart, Activity, Brain, Wind } from 'lucide-react'
 import { getTranslations } from 'next-intl/server';
@@ -15,7 +15,7 @@ export async function generateMetadata(
     { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
     const { locale } = await params;
-    const t = await getTranslations({ locale, namespace: 'games.resonanceBreathing' });
+    const t = await getTranslations({ locale, namespace: 'games.478Breathing' });
 
     return {
         title: t('metadata.title'),
@@ -32,7 +32,7 @@ export async function generateMetadata(
                 "@type": "WebApplication",
                 "name": t('title'),
                 "description": t('metadata.description'),
-                "url": `https://freefocusgames.com/${locale}/games/resonance-breathing`,
+                "url": `https://freefocusgames.com/${locale}/games/478-breathing`,
                 "applicationCategory": "HealthApplication",
                 "operatingSystem": "Web Browser",
                 "offers": {
@@ -41,34 +41,31 @@ export async function generateMetadata(
                     "priceCurrency": "USD"
                 },
                 "featureList": [
-                    "Guided Resonance Breathing (6 breaths/min)",
-                    "Box Breathing (4-4-4-4)",
                     "4-7-8 Breathing Technique",
-                    "Vagus Nerve Stimulation",
-                    "HRV Improvement",
-                    "Stress Relief",
-                    "Customizable Breathing Pace",
-                    "Navy SEAL Tactical Breathing"
+                    "Natural Sleep Aid",
+                    "Dr. Weil Breathing Method",
+                    "Anxiety Relief Breathing",
+                    "Visual Lotus Animation Guide"
                 ],
-                "healthCondition": "Anxiety, Stress, Insomnia",
+                "healthCondition": "Insomnia, Anxiety, Stress",
                 "audience": {
                     "@type": "PeopleAudience",
-                    "healthCondition": "Stress Management"
+                    "healthCondition": "Sleep Disorders, Anxiety"
                 }
             })
         }
     };
 }
 
-export default function ResonanceBreathingPage() {
-    const t = useTranslations('games.resonanceBreathing');
+export default function Breathing478Page() {
+    const t = useTranslations('games.478Breathing');
 
     return (
         <GamePageTemplate
-            gameId="resonance-breathing"
+            gameId="478-breathing"
             title={t('title')}
             subtitle={t('subtitle')}
-            gameComponent={<Game defaultMode="resonance" />}
+            gameComponent={<Game defaultMode="478" />}
             howToPlay={
                 <>
                     <p>{t('howToPlay.intro')}</p>
@@ -78,8 +75,8 @@ export default function ResonanceBreathingPage() {
                         <li>{t('howToPlay.step3')}</li>
                         <li>{t('howToPlay.step4')}</li>
                     </ul>
-                    <div className="mt-4 p-4 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-lg">
-                        <p className="text-sm text-emerald-800">
+                    <div className="mt-4 p-4 bg-indigo-50 border-l-4 border-indigo-500 rounded-r-lg">
+                        <p className="text-sm text-indigo-800">
                             <strong>{t('howToPlay.tipTitle')}:</strong> {t('howToPlay.tip')}
                         </p>
                     </div>
@@ -110,22 +107,22 @@ export default function ResonanceBreathingPage() {
             science={{
                 title: t('science.title'),
                 description: t('science.description'),
-                blogArticleUrl: "/blog/the-science-of-resonance-breathing-vagus-nerve",
+                blogArticleUrl: "/blog/the-science-of-478-breathing-sleep-anxiety-relief",
                 blogArticleTitle: t('science.blogArticleTitle'),
                 authorityLinks: [
                     {
-                        title: "NIH: HRV Biofeedback Study",
+                        title: "NIH: Extended Exhalation Research",
                         url: "https://pubmed.ncbi.nlm.nih.gov/28741846/",
                         description: t('science.authorityLinks.nih')
                     },
                     {
-                        title: "Frontiers: Slow-Paced Breathing",
+                        title: "Frontiers: 4-7-8 Protocol Study",
                         url: "https://www.frontiersin.org/articles/10.3389/fnhum.2018.00353/full",
                         description: t('science.authorityLinks.frontiers')
                     },
                     {
-                        title: "Wikipedia: Vagus Nerve",
-                        url: "https://en.wikipedia.org/wiki/Vagus_nerve",
+                        title: "Wikipedia: Integrative Medicine",
+                        url: "https://en.wikipedia.org/wiki/Andrew_Weil",
                         description: t('science.authorityLinks.wikipedia')
                     }
                 ]
@@ -146,17 +143,9 @@ export default function ResonanceBreathingPage() {
                 {
                     question: t('faq.benefits.question'),
                     answer: t('faq.benefits.answer')
-                },
-                {
-                    question: t('faq.boxBreathing.question'),
-                    answer: t('faq.boxBreathing.answer')
-                },
-                {
-                    question: t('faq.breathing478.question'),
-                    answer: t('faq.breathing478.answer')
                 }
             ]}
-            relatedGames={["box-breathing", "478-breathing", "pomodoro-timer"]}
+            relatedGames={["resonance-breathing", "box-breathing", "pomodoro-timer"]}
         />
     );
 }

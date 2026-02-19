@@ -156,16 +156,16 @@
         "kids cognitive training": "儿童认知训练"
       },
       "relaxation": {
-        "relaxation games": "放松游戏",
-        "breathing exercises": "呼吸练习",
+        "relaxation exercises": "放松练习",
         "stress relief games": "减压游戏",
-        "mindfulness games": "正念游戏",
-        "anxiety relief games": "缓解焦虑游戏",
-        "calming games": "平静游戏",
-        "meditation games": "冥想游戏",
-        "deep breathing training": "深呼吸训练",
-        "hrv biofeedback": "心率变异性反馈",
-        "vagus nerve stimulation": "迷走神经刺激"
+        "breathing exercises": "呼吸练习",
+        "vagus nerve stimulation": "迷走神经刺激",
+        "hrv training": "心率变异性训练",
+        "resonance breathing": "共振呼吸",
+        "coherent breathing": "谐振呼吸",
+        "calm down techniques": "平静技巧",
+        "anxiety relief exercises": "缓解焦虑练习",
+        "mindfulness games": "正念游戏"
       }
     },
     "categoryNotFound": "未找到分类",

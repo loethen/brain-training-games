@@ -3,15 +3,19 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
+export type BreathingPhase = 'idle' | 'inhale' | 'holdIn' | 'exhale' | 'holdOut';
+
 interface LotusFlowerProps {
-    phase: 'inhale' | 'exhale' | 'idle';
+    phase: BreathingPhase;
     duration: number;
 }
 
 export default function LotusFlower({ phase, duration }: LotusFlowerProps) {
     const isInhale = phase === 'inhale';
     const isExhale = phase === 'exhale';
-    const isActive = isInhale || isExhale;
+    const isHoldIn = phase === 'holdIn';
+    const isHoldOut = phase === 'holdOut';
+    const isActive = phase !== 'idle';
     const t = useTranslations('games.resonanceBreathing.ui');
 
     // 7 petals configuration
@@ -32,6 +36,39 @@ export default function LotusFlower({ phase, duration }: LotusFlowerProps) {
     // Petal dimensions
     const petalWidth = 80;
     const petalHeight = 220;
+
+    // Determine petal rotation based on phase
+    const getTargetRotation = (petal: typeof petals[0]) => {
+        if (isInhale) return petal.openAngle;       // Opening
+        if (isHoldIn) return petal.openAngle;        // Stay open
+        if (isExhale) return 0;                       // Closing
+        if (isHoldOut) return 0;                      // Stay closed
+        return 0;                                     // idle
+    };
+
+    // Determine animation properties based on phase
+    const getTransition = (petal: typeof petals[0]) => {
+        if (isHoldIn || isHoldOut) {
+            // During hold: no movement animation, just a subtle pulse
+            return {
+                duration: 0.3,
+                ease: 'easeOut',
+            };
+        }
+        return {
+            duration: duration,
+            ease: isInhale ? 'easeOut' : 'easeIn',
+            delay: isInhale ? Math.abs(petal.openAngle) * 0.002 : 0,
+        };
+    };
+
+    // Phase display text
+    const getPhaseText = () => {
+        if (isInhale) return t('inhale');
+        if (isHoldIn || isHoldOut) return t('hold');
+        if (isExhale) return t('exhale');
+        return t('ready');
+    };
 
     return (
         <div className="relative w-80 h-72 md:w-96 md:h-[22rem] flex items-end justify-center">
@@ -57,24 +94,31 @@ export default function LotusFlower({ phase, duration }: LotusFlowerProps) {
                         <motion.g
                             key={petal.id}
                             animate={{
-                                rotate: isInhale ? petal.openAngle : 0,
+                                rotate: getTargetRotation(petal),
                                 scaleX: petal.scale,
-                                scaleY: petal.scale
+                                scaleY: (isHoldIn || isHoldOut)
+                                    ? petal.scale  // subtle pulse handled by opacity
+                                    : petal.scale,
                             }}
-                            transition={{
-                                duration: duration,
-                                ease: isInhale ? 'easeOut' : 'easeIn',
-                                delay: isInhale ? Math.abs(petal.openAngle) * 0.002 : 0
-                            }}
+                            transition={getTransition(petal)}
                         >
                             <g>
                                 {/* Visible Petal - Cubic Bezier for rounder shape */}
-                                <path
+                                <motion.path
                                     d={`M0 0 
                      C-${petalWidth} -${petalHeight * 0.4}, -${petalWidth} -${petalHeight * 0.8}, 0 -${petalHeight}
                      C${petalWidth} -${petalHeight * 0.8}, ${petalWidth} -${petalHeight * 0.4}, 0 0`}
                                     fill={petal.color}
-                                    opacity={petal.opacity}
+                                    animate={{
+                                        opacity: (isHoldIn || isHoldOut)
+                                            ? [petal.opacity, petal.opacity * 0.85, petal.opacity]
+                                            : petal.opacity,
+                                    }}
+                                    transition={
+                                        (isHoldIn || isHoldOut)
+                                            ? { duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
+                                            : { duration: 0.3 }
+                                    }
                                 />
 
                                 {/* Inner detail line */}
@@ -107,7 +151,7 @@ export default function LotusFlower({ phase, duration }: LotusFlowerProps) {
                 animate={{ opacity: isActive ? 1 : 0.4 }}
             >
                 <span className="text-black">
-                    {isInhale ? t('inhale') : isExhale ? t('exhale') : t('ready')}
+                    {getPhaseText()}
                 </span>
             </motion.div>
         </div>
