@@ -6,7 +6,7 @@ import { games } from '../data/games'
 import { categories } from '../data/categories'
 
 // 获取环境变量
-const BASE_URL = process.env.SITE_URL || 'http://localhost:3000'
+const BASE_URL = process.env.SITE_URL || 'https://www.freefocusgames.com'
 const LOCALES = ['en', 'zh'] // 支持的语言列表
 
 // 获取博客文章的最后修改时间
@@ -144,7 +144,7 @@ function generateBlogRoutes(locale: string): MetadataRoute.Sitemap {
     const content = fs.readFileSync(filePath, 'utf8')
     const { data: frontmatter } = matter(content)
     const slug = file.replace(/\.md$/, '')
-    
+
     routes.push({
       url: `${BASE_URL}${localePrefix}/blog/${slug}`,
       lastModified: frontmatter.date ? new Date(frontmatter.date) : getFileLastModified(filePath),
@@ -159,7 +159,7 @@ function generateBlogRoutes(locale: string): MetadataRoute.Sitemap {
 // 静态生成sitemap
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes: MetadataRoute.Sitemap = []
-  
+
   for (const locale of LOCALES) {
     routes.push(
       ...generateBaseRoutes(locale),
