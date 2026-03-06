@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useFishEngine, GamePhase } from '../hooks/useFishEngine';
+import { useFishEngine, getLevelParams, GamePhase, Difficulty } from '../hooks/useFishEngine';
 import { SunfishSVG } from './SunfishSVG';
 import { Settings } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -12,16 +12,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 interface GameSettings {
-    fishCount: number;
-    targetCount: number;
-    speed: number;
+    difficulty: Difficulty;
+    startLevel: number;
 }
 
 const DEFAULT_SETTINGS: GameSettings = {
-    fishCount: 6,
-    targetCount: 2,
-    speed: 1.0,
+    difficulty: 'medium',
+    startLevel: 1,
 };
+
+const SETTINGS_KEY = 'fishTraceSettings';
+const BEST_SCORE_KEY = 'fishTraceBestScore';
 
 export default function GameComponent() {
     const t = useTranslations('games.fishTrace');
@@ -31,26 +32,42 @@ export default function GameComponent() {
     const [settings, setSettings] = useState<GameSettings>(DEFAULT_SETTINGS);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-    // Load settings from localStorage
+    // Level + Score
+    const [level, setLevel] = useState(1);
+    const [score, setScore] = useState(0);
+    const [bestScore, setBestScore] = useState(0);
+    const [roundPoints, setRoundPoints] = useState<number | null>(null); // for +N animation
+    const [roundResult, setRoundResult] = useState<{ isPerfect: boolean; correct: number; total: number } | null>(null);
+
+    // Game phase
+    const [phase, setPhase] = useState<GamePhase>('idle');
+    const [message, setMessage] = useState('');
+
+    // Progress bar
+    const [progressTotal, setProgressTotal] = useState(0);
+    const [progressStartTime, setProgressStartTime] = useState(0);
+    const [progressElapsed, setProgressElapsed] = useState(0);
+
+    // Force render trigger (for fish selection updates)
+    const [, forceRender] = useState(0);
+
+    // Load best score & settings
     useEffect(() => {
-        const savedSettings = localStorage.getItem('fishTraceSettings');
+        const saved = localStorage.getItem(BEST_SCORE_KEY);
+        if (saved) setBestScore(parseInt(saved, 10) || 0);
+
+        const savedSettings = localStorage.getItem(SETTINGS_KEY);
         if (savedSettings) {
-            setSettings(JSON.parse(savedSettings));
+            try {
+                const parsed = JSON.parse(savedSettings);
+                setSettings(parsed);
+                setLevel(parsed.startLevel || 1);
+            } catch { /* ignore */ }
         }
     }, []);
 
-    const saveSettings = (newSettings: GameSettings) => {
-        setSettings(newSettings);
-        localStorage.setItem('fishTraceSettings', JSON.stringify(newSettings));
-        setIsSettingsOpen(false);
-    };
-
-    // High Level Game State
-    const [phase, setPhase] = useState<GamePhase>('idle');
-    const [score, setScore] = useState(0);
-
-    // UI Messages
-    const [message, setMessage] = useState('');
+    // Current level params driven by difficulty
+    const levelParams = getLevelParams(level, settings.difficulty);
 
     const {
         fishesRef,
@@ -59,19 +76,34 @@ export default function GameComponent() {
         stopMovement,
         toggleSelection,
         markResults,
-        renderTrigger
+        calculateScore,
     } = useFishEngine({
         containerWidth: containerRef.current?.clientWidth || 800,
         containerHeight: containerRef.current?.clientHeight || 600,
-        fishCount: settings.fishCount,
-        targetCount: settings.targetCount,
-        speedMultiplier: settings.speed
+        fishCount: levelParams.fishCount,
+        targetCount: levelParams.targetCount,
+        speedMultiplier: levelParams.speed
     });
 
-    // Refs for animating physics DOM elements outside React's render cycle
+    // Refs for animating DOM elements at 60fps
     const fishNodeRefs = useRef<{ [id: number]: HTMLDivElement | null }>({});
 
-    // The Sync Loop: copy ref coordinates to DOM nodes at 60fps and calculate rotation
+    // Progress bar animation loop
+    useEffect(() => {
+        if (progressTotal <= 0) return;
+        let frameId: number;
+        const tick = () => {
+            const elapsed = Date.now() - progressStartTime;
+            setProgressElapsed(Math.min(elapsed, progressTotal));
+            if (elapsed < progressTotal) {
+                frameId = requestAnimationFrame(tick);
+            }
+        };
+        frameId = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(frameId);
+    }, [progressTotal, progressStartTime]);
+
+    // Sync Loop: copy ref coordinates to DOM nodes at 60fps
     useEffect(() => {
         let frameId: number;
         const renderLoop = () => {
@@ -94,82 +126,142 @@ export default function GameComponent() {
         return () => cancelAnimationFrame(frameId);
     }, [phase, fishesRef]);
 
-    const startGame = () => {
-        setPhase('watching');
-        setMessage(t('start') || "记住发光的鱼！");
+    const saveSettings = (newSettings: GameSettings) => {
+        setSettings(newSettings);
+        setLevel(newSettings.startLevel);
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(newSettings));
+        setIsSettingsOpen(false);
+    };
 
-        // Wait for next tick so containerRef is sized before init (if it was hidden)
+    const startGame = useCallback(() => {
+        setPhase('watching');
+        setMessage(t('start'));
+        setRoundPoints(null);
+        setRoundResult(null);
+
+        const { glowDuration, trackDuration } = getLevelParams(level, settings.difficulty);
+
+        // Start progress bar for glow phase
+        setProgressTotal(glowDuration);
+        setProgressStartTime(Date.now());
+        setProgressElapsed(0);
+
         setTimeout(() => {
             initFishes();
             startMovement();
-
-            const glowDur = 3000;
+            forceRender(p => p + 1);
 
             setTimeout(() => {
-                setMessage(t('glowEnding') || "光芒即将消失...");
-            }, glowDur - 1000);
+                setMessage(t('glowEnding'));
+            }, glowDuration - 1000);
 
-            // Step 2: Tracking phase
+            // Tracking phase
             setTimeout(() => {
                 setPhase('tracking');
-                setMessage(t('tracking') || "仔细追踪它们！");
+                setMessage(t('tracking'));
+                // Progress bar for tracking
+                setProgressTotal(trackDuration);
+                setProgressStartTime(Date.now());
+                setProgressElapsed(0);
 
-                // Step 3: Selection phase
-                const trackDur = 5000;
+                // Selection phase
                 setTimeout(() => {
                     stopMovement();
                     setPhase('selecting');
-                    setMessage(t('selection') || "点击选出刚才发光的鱼！");
-                }, trackDur);
+                    setMessage(t('selection'));
+                    setProgressTotal(0);
+                    forceRender(p => p + 1);
+                }, trackDuration);
 
-            }, glowDur);
-
+            }, glowDuration);
         }, 100);
-    };
+    }, [t, level, settings.difficulty, initFishes, startMovement, stopMovement]);
 
     const handleFishClick = (id: number) => {
         if (phase !== 'selecting') return;
         toggleSelection(id);
+        forceRender(p => p + 1);
     };
 
     const confirmSelection = () => {
         setPhase('completed');
         markResults();
+        setProgressTotal(0);
 
-        // Check win/loss
-        const fishes = Object.values(fishesRef.current);
-        const correctSelections = fishes.filter(f => f.isTarget && f.isSelected).length;
-        const wrongSelections = fishes.filter(f => !f.isTarget && f.isSelected).length;
-        const missedTargets = fishes.filter(f => f.isTarget && !f.isSelected).length;
+        const result = calculateScore(level);
+        setRoundResult({ isPerfect: result.isPerfect, correct: result.correct, total: result.total });
+        setRoundPoints(result.points);
 
-        if (wrongSelections === 0 && missedTargets === 0) {
-            setMessage('');
-            setScore(s => s + 100);
+        const newScore = score + result.points;
+        setScore(newScore);
+
+        // Update best score
+        if (newScore > bestScore) {
+            setBestScore(newScore);
+            localStorage.setItem(BEST_SCORE_KEY, String(newScore));
+        }
+
+        if (result.isPerfect) {
+            setMessage(t('perfect'));
+        } else if (result.correct > 0) {
+            setMessage(t('partial'));
         } else {
-            setMessage('');
-            setScore(0);
+            setMessage(t('gameOver'));
+        }
+
+        forceRender(p => p + 1);
+
+        // Auto-advance if perfect
+        if (result.isPerfect) {
+            setTimeout(() => {
+                setLevel(l => l + 1);
+                setTimeout(() => startGame(), 300);
+            }, 2000);
         }
     };
 
-    // Render Fish Nodes
+    // Reset game completely
+    const resetGame = () => {
+        setLevel(1);
+        setScore(0);
+        setPhase('idle');
+        setMessage('');
+        setRoundPoints(null);
+        setRoundResult(null);
+        setProgressTotal(0);
+    };
+
     const fishes = Object.values(fishesRef.current);
+
+    // Progress bar percentage
+    const progressPct = progressTotal > 0 ? Math.max(0, 1 - progressElapsed / progressTotal) : 0;
 
     return (
         <div className="w-full h-full flex flex-col font-mono bg-white dark:bg-zinc-950 rounded-xl overflow-hidden">
 
             {/* Top HUD */}
-            <div className="flex justify-between items-center px-6 py-4 bg-transparent shrink-0 z-20">
-                <div className="font-bold text-xl tracking-wide uppercase text-zinc-800 dark:text-zinc-200">
-                    {phase === 'idle' ? (t('title') || '发光小鱼') : (
-                        phase === 'completed' ? (
-                            score > 0 ? t('success') : `${t('scorePrefix') || 'Score:'} ${score}`
-                        ) : message
-                    )}
-                </div>
-                <div className="flex gap-4 items-center">
+            <div className="flex justify-between items-center px-6 py-3 bg-transparent shrink-0 z-20">
+                <div className="flex items-center gap-3">
                     {phase !== 'idle' && (
-                        <div className="bg-transparent text-foreground px-4 py-1.5 rounded-full uppercase text-sm tracking-widest font-bold">
-                            {t('scorePrefix') || 'Score:'} {score}
+                        <span className="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                            {t('level')} {level}
+                        </span>
+                    )}
+                    <div className="font-bold text-lg tracking-wide text-zinc-800 dark:text-zinc-200">
+                        {phase === 'idle' ? t('title') : message}
+                    </div>
+                </div>
+                <div className="flex gap-3 items-center">
+                    {phase !== 'idle' && (
+                        <div className="flex gap-3 text-sm font-bold tracking-wider">
+                            <span className="text-zinc-600 dark:text-zinc-400">
+                                {t('scorePrefix')} {score}
+                            </span>
+                            {bestScore > 0 && (
+                                <span className="text-zinc-400 dark:text-zinc-600">
+                                    {t('bestScore')} {bestScore}
+                                </span>
+                            )}
                         </div>
                     )}
                     {phase === 'idle' && (
@@ -178,17 +270,91 @@ export default function GameComponent() {
                             onSave={saveSettings}
                             isOpen={isSettingsOpen}
                             onOpenChange={setIsSettingsOpen}
+                            t={t}
                         />
                     )}
                 </div>
             </div>
 
-            {/* Play Area Container */}
+            {/* Play Area */}
             <div
                 className="relative flex-1 w-full min-h-0 overflow-hidden bg-[url('/games/assets/sea/sea_bg.png')] bg-cover bg-center"
                 ref={containerRef}
             >
-                {/* Play Area (Fishes) */}
+                {/* Score Popup Animation */}
+                <AnimatePresence>
+                    {roundPoints !== null && roundPoints > 0 && (
+                        <motion.div
+                            key={`score-popup-${Date.now()}`}
+                            initial={{ opacity: 1, y: 0, scale: 1 }}
+                            animate={{ opacity: 0, y: -80, scale: 1.6 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 1.2, ease: 'easeOut' }}
+                            className="absolute top-1/3 left-1/2 -translate-x-1/2 z-30 pointer-events-none"
+                        >
+                            <span className="text-4xl font-black text-green-400 drop-shadow-lg">
+                                +{roundPoints}
+                            </span>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Level Announce */}
+                <AnimatePresence>
+                    {phase === 'watching' && (
+                        <motion.div
+                            key={`level-announce-${level}`}
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 1.5 }}
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
+                            className="absolute top-1/4 left-1/2 -translate-x-1/2 z-30 pointer-events-none"
+                        >
+                            <span className="text-3xl font-black tracking-widest uppercase text-white/80 drop-shadow-xl">
+                                {t('round', { level })}
+                            </span>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Idle Decorative Fishes */}
+                {phase === 'idle' && (
+                    <div className="absolute inset-0 z-5 overflow-hidden pointer-events-none">
+                        {[0, 1, 2].map(i => (
+                            <motion.div
+                                key={`deco-fish-${i}`}
+                                className="absolute"
+                                initial={{
+                                    x: -80,
+                                    y: 100 + i * 120,
+                                }}
+                                animate={{
+                                    x: [
+                                        -80,
+                                        (containerRef.current?.clientWidth || 800) + 80
+                                    ],
+                                }}
+                                transition={{
+                                    duration: 12 + i * 4,
+                                    repeat: Infinity,
+                                    ease: 'linear',
+                                    delay: i * 3,
+                                }}
+                            >
+                                <SunfishSVG
+                                    isGlowing={false}
+                                    isSelected={false}
+                                    isTarget={false}
+                                    isChecking={false}
+                                    isWrongSelection={false}
+                                    size={40 + i * 10}
+                                />
+                            </motion.div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Game Fishes */}
                 <div className="absolute inset-0 z-10 w-full h-full overflow-hidden">
                     {phase !== 'idle' && fishes.map(fish => {
                         const isGlowing = phase === 'watching' && fish.isTarget;
@@ -219,10 +385,35 @@ export default function GameComponent() {
                         );
                     })}
                 </div>
+
+                {/* Phase transition overlay */}
+                <AnimatePresence>
+                    {(phase === 'tracking') && (
+                        <motion.div
+                            key="dimmer"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="absolute inset-0 z-5 pointer-events-none bg-black/10"
+                        />
+                    )}
+                </AnimatePresence>
             </div>
 
+            {/* Progress Bar */}
+            {progressTotal > 0 && (
+                <div className="w-full h-0.5 bg-zinc-200 dark:bg-zinc-800 shrink-0 overflow-hidden">
+                    <motion.div
+                        className="h-full rounded-r-full bg-cyan-400"
+                        style={{ width: `${progressPct * 100}%` }}
+                        transition={{ duration: 0.05 }}
+                    />
+                </div>
+            )}
+
             {/* Bottom Controls */}
-            <div className="h-28 shrink-0 flex items-center justify-center bg-transparent relative z-20">
+            <div className="h-24 shrink-0 flex items-center justify-center bg-transparent relative z-20">
                 <AnimatePresence mode="popLayout">
                     {phase === 'idle' && (
                         <motion.div
@@ -232,13 +423,18 @@ export default function GameComponent() {
                             exit={{ opacity: 0, scale: 0.95 }}
                             className="flex items-center justify-center"
                         >
-                            <Button
-                                size="lg"
-                                onClick={() => startGame()}
-                                className="w-56 h-14 text-2xl font-bold uppercase tracking-widest rounded-xl shadow-md"
+                            <motion.div
+                                animate={{ scale: [1, 1.04, 1] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                             >
-                                {t('startBtn') || 'START'}
-                            </Button>
+                                <Button
+                                    size="lg"
+                                    onClick={() => startGame()}
+                                    className="w-56 h-14 text-2xl font-bold uppercase tracking-widest rounded-xl shadow-md"
+                                >
+                                    {t('startBtn')}
+                                </Button>
+                            </motion.div>
                         </motion.div>
                     )}
 
@@ -255,7 +451,7 @@ export default function GameComponent() {
                                 onClick={confirmSelection}
                                 className="font-bold py-6 px-12 text-lg uppercase tracking-widest rounded-xl shadow-md"
                             >
-                                {t('confirmSelection') || '确定选择'}
+                                {t('confirmSelection')}
                             </Button>
                         </motion.div>
                     )}
@@ -265,26 +461,22 @@ export default function GameComponent() {
                             key="result-menu"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="flex justify-center"
+                            className="flex flex-col items-center gap-2"
                         >
-                            <Button
-                                size="lg"
-                                onClick={() => startGame()}
-                                className="font-bold py-6 px-12 text-lg uppercase tracking-widest rounded-xl shadow-md hover:scale-105 transition-transform"
-                            >
-                                {t('tryAgain') || '再试一次'}
-                            </Button>
-                        </motion.div>
-                    )}
-
-                    {phase !== 'idle' && phase !== 'selecting' && phase !== 'completed' && (
-                        <motion.div
-                            key="placeholder"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="text-zinc-500 dark:text-zinc-400 font-medium tracking-wide text-lg"
-                        >
-                            {message}
+                            {roundResult && (
+                                <div className="text-sm font-medium text-zinc-500 dark:text-zinc-400 tracking-wide">
+                                    {roundResult.correct}/{roundResult.total} {t('scorePrefix')} {roundPoints !== null ? `+${roundPoints}` : ''}
+                                </div>
+                            )}
+                            {!roundResult?.isPerfect && (
+                                <Button
+                                    size="lg"
+                                    onClick={() => startGame()}
+                                    className="font-bold py-5 px-10 text-lg uppercase tracking-widest rounded-xl shadow-md hover:scale-105 transition-transform"
+                                >
+                                    {t('tryAgain')}
+                                </Button>
+                            )}
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -297,12 +489,14 @@ function GameSettingsDialog({
     settings,
     onSave,
     isOpen,
-    onOpenChange
+    onOpenChange,
+    t
 }: {
     settings: GameSettings;
     onSave: (settings: GameSettings) => void;
     isOpen: boolean;
     onOpenChange: (open: boolean) => void;
+    t: ReturnType<typeof useTranslations>;
 }) {
     const [tempSettings, setTempSettings] = useState(settings);
 
@@ -310,91 +504,70 @@ function GameSettingsDialog({
         setTempSettings(settings);
     }, [settings, isOpen]);
 
-    const handleSave = () => {
-        onSave(tempSettings);
-    };
-
-    const handleResetToDefault = () => {
-        setTempSettings(DEFAULT_SETTINGS);
+    const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
+    const difficultyLabels: Record<Difficulty, string> = {
+        easy: t('difficultyEasy'),
+        medium: t('difficultyMedium'),
+        hard: t('difficultyHard'),
     };
 
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogTrigger asChild>
-                <Button variant="outline" size="icon" className="w-12 h-12 shadow-sm rounded-full">
-                    <Settings className="w-6 h-6" />
+                <Button variant="outline" size="icon" className="w-10 h-10 shadow-sm rounded-full">
+                    <Settings className="w-5 h-5" />
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md font-mono rounded-xl">
+            <DialogContent className="sm:max-w-sm font-mono rounded-xl">
                 <DialogHeader>
-                    <DialogTitle className="uppercase font-bold tracking-widest">Settings</DialogTitle>
+                    <DialogTitle className="uppercase font-bold tracking-widest">{t('settings')}</DialogTitle>
                 </DialogHeader>
-                <div className="space-y-4 py-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="fishCount" className="uppercase font-bold tracking-wider">Total Fishes</Label>
-                        <Input
-                            id="fishCount"
-                            type="number"
-                            min="3"
-                            max="50"
-                            value={tempSettings.fishCount}
-                            onChange={(e) => {
-                                const val = parseInt(e.target.value) || 0;
-                                setTempSettings({
-                                    ...tempSettings,
-                                    fishCount: Math.min(50, Math.max(3, val))
-                                });
-                            }}
-                        />
+                <div className="space-y-5 py-4">
+                    {/* Difficulty */}
+                    <div className="space-y-2.5">
+                        <Label className="uppercase font-bold tracking-wider text-sm">{t('difficultyLabel')}</Label>
+                        <div className="flex gap-2">
+                            {difficulties.map(d => (
+                                <button
+                                    key={d}
+                                    onClick={() => setTempSettings({ ...tempSettings, difficulty: d })}
+                                    className={`flex-1 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${tempSettings.difficulty === d
+                                        ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-md scale-105'
+                                        : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                                        }`}
+                                >
+                                    {difficultyLabels[d]}
+                                </button>
+                            ))}
+                        </div>
                     </div>
+
+                    {/* Start Level */}
                     <div className="space-y-2">
-                        <Label htmlFor="targetCount" className="uppercase font-bold tracking-wider">Target Fishes</Label>
+                        <Label htmlFor="startLevel" className="uppercase font-bold tracking-wider text-sm">{t('startLevel')}</Label>
                         <Input
-                            id="targetCount"
+                            id="startLevel"
                             type="number"
                             min="1"
-                            max={Math.max(1, tempSettings.fishCount - 1)}
-                            value={tempSettings.targetCount}
+                            max="20"
+                            value={tempSettings.startLevel}
                             onChange={(e) => {
-                                const val = parseInt(e.target.value) || 0;
+                                const val = parseInt(e.target.value) || 1;
                                 setTempSettings({
                                     ...tempSettings,
-                                    targetCount: Math.min(Math.max(1, tempSettings.fishCount - 1), Math.max(1, val))
-                                });
-                            }}
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="speed" className="uppercase font-bold tracking-wider">Speed Multiplier</Label>
-                        <Input
-                            id="speed"
-                            type="number"
-                            min="0.5"
-                            max="5.0"
-                            step="0.5"
-                            value={tempSettings.speed}
-                            onChange={(e) => {
-                                const val = parseFloat(e.target.value) || 1;
-                                setTempSettings({
-                                    ...tempSettings,
-                                    speed: Math.min(5.0, Math.max(0.5, val))
+                                    startLevel: Math.min(20, Math.max(1, val))
                                 });
                             }}
                         />
                     </div>
                 </div>
-                <div className="flex justify-between gap-2 mt-4">
-                    <Button variant="outline" onClick={handleResetToDefault} className="uppercase font-bold text-sm tracking-wider">
-                        Reset
+                <div className="flex justify-end gap-2 mt-2">
+                    <Button variant="ghost" onClick={() => onOpenChange(false)} className="uppercase font-bold text-sm tracking-wider">
+                        {t('cancel')}
                     </Button>
-                    <div className="flex gap-2">
-                        <Button variant="ghost" onClick={() => onOpenChange(false)} className="uppercase font-bold text-sm tracking-wider">
-                            Cancel
-                        </Button>
-                        <Button onClick={handleSave} className="uppercase font-bold text-sm tracking-wider">
-                            Save
-                        </Button>
-                    </div>
+                    <Button onClick={() => onSave(tempSettings)} className="uppercase font-bold text-sm tracking-wider">
+                        {t('save')}
+                    </Button>
                 </div>
             </DialogContent>
         </Dialog>

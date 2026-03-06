@@ -74,9 +74,9 @@ export const SunfishSVG = memo(({
                 filter,
                 transition: 'filter 0.3s ease',
             }}
-            className="relative flex items-center justify-center will-change-transform"
+            className={`relative flex items-center justify-center will-change-transform ${isSelected ? 'fish-bounce' : ''}`}
         >
-            {/* Simple smooth CSS swimming animation for the tail */}
+            {/* Simple smooth CSS swimming animation for the tail + click bounce */}
             <style jsx>{`
                 @keyframes swim-tail {
                     0%, 100% { transform: scaleX(1); }
@@ -94,10 +94,17 @@ export const SunfishSVG = memo(({
                     0%, 100% { transform: scaleY(1) scaleX(1); }
                     50% { transform: scaleY(0.96) scaleX(0.98); }
                 }
+                @keyframes click-bounce {
+                    0% { transform: scale(1); }
+                    30% { transform: scale(1.18); }
+                    60% { transform: scale(0.95); }
+                    100% { transform: scale(1); }
+                }
                 .tail { transform-origin: 25px 50px; animation: swim-tail 0.8s infinite ease-in-out; }
                 .fin-top { transform-origin: 52px 30px; animation: swim-fin-top 0.8s infinite ease-in-out; }
                 .fin-bottom { transform-origin: 55px 70px; animation: swim-fin-bottom 0.8s infinite ease-in-out; }
                 .fish-body { transform-origin: 55px 50px; animation: swim-body 0.8s infinite ease-in-out; }
+                .fish-bounce { animation: click-bounce 0.35s ease-out; }
             `}</style>
 
             <svg viewBox="0 0 100 100" className="w-full h-full block transition-all duration-300">
