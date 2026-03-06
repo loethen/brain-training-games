@@ -465,7 +465,15 @@
         "highScore": "最高分: {score}",
         "tryAgain": "再试一次",
         "nextLevel": "下一关",
-        "success": "完美！得分: {score}\n关卡 {level} 完成！🎉"
+        "success": "完美！得分: {score}\n关卡 {level} 完成！🎉",
+        "settings": "设置",
+        "difficultyLabel": "难度",
+        "difficultyEasy": "简单",
+        "difficultyMedium": "中等",
+        "difficultyHard": "困难",
+        "startLevel": "起始关卡",
+        "cancel": "取消",
+        "save": "保存"
       },
       "metadata": {
         "title": "青蛙记忆跳跃 - 顺序记忆训练游戏",

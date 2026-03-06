@@ -19,8 +19,6 @@ export const SunfishSVG = memo(({
     isChecking,
     isWrongSelection,
     size = 60,
-    rotation = 0,
-    flipY = false
 }: SunfishSVGProps) => {
 
     // Determine the base color and effects based on status

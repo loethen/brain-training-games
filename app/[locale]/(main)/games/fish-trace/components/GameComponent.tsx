@@ -88,6 +88,23 @@ export default function GameComponent() {
     // Refs for animating DOM elements at 60fps
     const fishNodeRefs = useRef<{ [id: number]: HTMLDivElement | null }>({});
 
+    // Container size for responsive fish scaling
+    const [cWidth, setCWidth] = useState(800);
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const ro = new ResizeObserver(entries => {
+            for (const entry of entries) setCWidth(entry.contentRect.width);
+        });
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, []);
+
+    // Scale fish size based on container width (800px = desktop baseline)
+    const fishScale = Math.max(0.6, Math.min(1, cWidth / 800));
+    const fishSize = Math.round(60 * fishScale);
+    const fishOffset = fishSize / 2;
+
     // Progress bar animation loop
     useEffect(() => {
         if (progressTotal <= 0) return;
@@ -104,16 +121,20 @@ export default function GameComponent() {
     }, [progressTotal, progressStartTime]);
 
     // Sync Loop: copy ref coordinates to DOM nodes at 60fps
+    const fishOffsetRef = useRef(fishOffset);
+    fishOffsetRef.current = fishOffset;
+
     useEffect(() => {
         let frameId: number;
         const renderLoop = () => {
             if (phase === 'watching' || phase === 'tracking') {
                 const fishes = fishesRef.current;
+                const offset = fishOffsetRef.current;
                 Object.values(fishes).forEach(fish => {
                     const node = fishNodeRefs.current[fish.id];
                     if (node) {
                         const flipX = fish.vx < 0 ? -1 : 1;
-                        node.style.transform = `translate(${fish.x - 30}px, ${fish.y - 30}px) scaleX(${flipX})`;
+                        node.style.transform = `translate(${fish.x - offset}px, ${fish.y - offset}px) scaleX(${flipX})`;
                     }
                 });
             }
@@ -218,17 +239,6 @@ export default function GameComponent() {
                 setTimeout(() => startGame(), 300);
             }, 2000);
         }
-    };
-
-    // Reset game completely
-    const resetGame = () => {
-        setLevel(1);
-        setScore(0);
-        setPhase('idle');
-        setMessage('');
-        setRoundPoints(null);
-        setRoundResult(null);
-        setProgressTotal(0);
     };
 
     const fishes = Object.values(fishesRef.current);
@@ -368,7 +378,7 @@ export default function GameComponent() {
                                 className="absolute top-0 left-0 cursor-pointer"
                                 style={{
                                     transform: phase === 'selecting' || phase === 'completed'
-                                        ? `translate(${fish.x - 30}px, ${fish.y - 30}px) scaleX(${flipX})`
+                                        ? `translate(${fish.x - fishOffset}px, ${fish.y - fishOffset}px) scaleX(${flipX})`
                                         : undefined,
                                     transition: phase === 'selecting' || phase === 'completed' ? 'transform 0.5s ease' : 'none',
                                     willChange: 'transform'
@@ -380,6 +390,7 @@ export default function GameComponent() {
                                     isTarget={fish.isTarget}
                                     isChecking={fish.isChecking}
                                     isWrongSelection={fish.isWrongSelection}
+                                    size={fishSize}
                                 />
                             </div>
                         );

@@ -82,6 +82,7 @@ export default function FrogMemoryLeapPage() {
           answer: t('faq.learningDifficulties.answer')
         }
       ]}
+      relatedGames={["fish-trace", "block-memory-challenge", "dual-n-back"]}
     />
   );
 } 

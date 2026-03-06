@@ -465,7 +465,15 @@
         "highScore": "High Score: {score}",
         "tryAgain": "Try Again",
         "nextLevel": "Next Level",
-        "success": "Perfect! Score: {score}\nLevel {level} completed! 🎉"
+        "success": "Perfect! Score: {score}\nLevel {level} completed! 🎉",
+        "settings": "Settings",
+        "difficultyLabel": "Difficulty",
+        "difficultyEasy": "Easy",
+        "difficultyMedium": "Medium",
+        "difficultyHard": "Hard",
+        "startLevel": "Start Level",
+        "cancel": "Cancel",
+        "save": "Save"
       },
       "metadata": {
         "title": "Frog Memory Leap - Sequential Memory Training Game",

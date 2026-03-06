@@ -92,6 +92,7 @@ export default function FishTracePage() {
                     answer: t('faq.readingDifficulties.answer'),
                 },
             ]}
+            relatedGames={["frog-memory-leap", "schulte-table", "block-memory-challenge"]}
         />
     );
 } 

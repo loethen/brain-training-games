@@ -6,20 +6,40 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LilyPadSVG } from './LilyPadSVG';
 import { FrogSVG } from './FrogSVG';
 import { Button } from '@/components/ui/button';
+import { Settings } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import {
     GamePhase,
     PadPosition,
+    Difficulty,
     getLevelParams,
     pickPadPositions,
     generateJumpSequence,
     calculateScore,
 } from '../hooks/useFrogEngine';
 
+interface GameSettings {
+    difficulty: Difficulty;
+    startLevel: number;
+}
+
+const DEFAULT_SETTINGS: GameSettings = {
+    difficulty: 'medium',
+    startLevel: 1,
+};
+
 const BEST_SCORE_KEY = 'frogMemoryBestScore';
+const SETTINGS_KEY = 'frogMemorySettings';
 
 export default function GameComponent() {
     const t = useTranslations('games.frogMemoryLeap.gameUI');
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Settings
+    const [settings, setSettings] = useState<GameSettings>(DEFAULT_SETTINGS);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     // Game state
     const [phase, setPhase] = useState<GamePhase>('idle');
@@ -54,11 +74,48 @@ export default function GameComponent() {
     const [progressStart, setProgressStart] = useState(0);
     const [progressElapsed, setProgressElapsed] = useState(0);
 
-    // Load best score
+    // Load best score & settings
     useEffect(() => {
         const saved = localStorage.getItem(BEST_SCORE_KEY);
         if (saved) setBestScore(parseInt(saved, 10) || 0);
+
+        const savedSettings = localStorage.getItem(SETTINGS_KEY);
+        if (savedSettings) {
+            try {
+                const parsed = JSON.parse(savedSettings);
+                setSettings(parsed);
+                setLevel(parsed.startLevel || 1);
+            } catch { /* ignore */ }
+        }
     }, []);
+
+    const saveSettings = (newSettings: GameSettings) => {
+        setSettings(newSettings);
+        setLevel(newSettings.startLevel);
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(newSettings));
+        setIsSettingsOpen(false);
+    };
+
+    // Container size for responsive scaling
+    const [containerWidth, setContainerWidth] = useState(600);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const ro = new ResizeObserver(entries => {
+            for (const entry of entries) {
+                setContainerWidth(entry.contentRect.width);
+            }
+        });
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, []);
+
+    // Scale game elements based on container width (600px = desktop baseline)
+    const scale = Math.max(0.6, Math.min(1, containerWidth / 600));
+    const lilyPadSize = Math.round(75 * scale);
+    const frogSize = Math.round(50 * scale);
+    const idleFrogSize = Math.round(80 * scale);
 
     // Progress bar tick
     useEffect(() => {
@@ -112,7 +169,7 @@ export default function GameComponent() {
 
     // ── Start a new round ──
     const startRound = useCallback((lvl: number) => {
-        const params = getLevelParams(lvl);
+        const params = getLevelParams(lvl, settings.difficulty);
         const pads = pickPadPositions(params.padCount);
         const seq = generateJumpSequence(pads, params.jumpCount);
 
@@ -141,7 +198,8 @@ export default function GameComponent() {
             setMessage(t('watch'));
             playDemo(seq, params.jumpDelay, pads);
         }, 1500);
-    }, [t]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [t, settings.difficulty]);
 
     // ── Play demo sequence ──
     const playDemo = (seq: number[], delay: number, pads: PadPosition[]) => {
@@ -254,37 +312,46 @@ export default function GameComponent() {
 
     const frogPos = getFrogPosition();
     const progressPct = progressTotal > 0 ? Math.max(0, 1 - progressElapsed / progressTotal) : 0;
-    const params = getLevelParams(level);
+    const params = getLevelParams(level, settings.difficulty);
 
     return (
         <div className="w-full h-full flex flex-col font-mono bg-white dark:bg-zinc-950 rounded-xl overflow-hidden">
 
             {/* Top HUD */}
-            <div className="flex justify-between items-center px-6 py-3 bg-transparent shrink-0 z-20">
-                <div className="flex items-center gap-3">
-                    {phase !== 'idle' && (
-                        <span className="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                            {t('level', { level: level.toString() })}
-                        </span>
-                    )}
-                    <div className="font-bold text-lg tracking-wide text-zinc-800 dark:text-zinc-200">
-                        {phase === 'idle' ? t('start') : message}
-                    </div>
-                </div>
-                <div className="flex gap-3 items-center">
-                    {phase !== 'idle' && (
-                        <div className="flex gap-3 text-sm font-bold tracking-wider">
-                            <span className="text-zinc-600 dark:text-zinc-400">
-                                {t('score', { score: score.toString() })}
+            <div className="flex flex-col gap-1 px-3 py-2 md:px-6 md:py-3 bg-transparent shrink-0 z-20">
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2 min-w-0">
+                        {phase !== 'idle' && (
+                            <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase px-2 py-0.5 md:px-2.5 md:py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+                                {t('level', { level: level.toString() })}
                             </span>
-                            {bestScore > 0 && (
-                                <span className="text-zinc-400 dark:text-zinc-600">
-                                    {t('highScore', { score: bestScore.toString() })}
-                                </span>
-                            )}
+                        )}
+                        <div className="font-bold text-sm md:text-lg tracking-wide text-zinc-800 dark:text-zinc-200 truncate">
+                            {phase === 'idle' ? t('start') : message}
                         </div>
+                    </div>
+                    {phase === 'idle' && (
+                        <GameSettingsDialog
+                            settings={settings}
+                            onSave={saveSettings}
+                            isOpen={isSettingsOpen}
+                            onOpenChange={setIsSettingsOpen}
+                            t={t}
+                        />
                     )}
                 </div>
+                {phase !== 'idle' && (
+                    <div className="flex gap-3 text-xs md:text-sm font-bold tracking-wider">
+                        <span className="text-zinc-600 dark:text-zinc-400">
+                            {t('score', { score: score.toString() })}
+                        </span>
+                        {bestScore > 0 && (
+                            <span className="text-zinc-400 dark:text-zinc-600">
+                                {t('highScore', { score: bestScore.toString() })}
+                            </span>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Play Area */}
@@ -341,7 +408,7 @@ export default function GameComponent() {
                         }}
                     >
                         <LilyPadSVG
-                            size={75}
+                            size={lilyPadSize}
                             isActive={frogPadId === pad.id}
                             isHighlighted={highlightedPadId === pad.id}
                             isCorrect={correctPads.has(pad.id)}
@@ -364,7 +431,7 @@ export default function GameComponent() {
                             transform: 'translate(-50%, -65%)',
                         }}
                     >
-                        <FrogSVG size={50} isJumping={isJumping} rotation={frogRotation} />
+                        <FrogSVG size={frogSize} isJumping={isJumping} rotation={frogRotation} />
                     </motion.div>
                 )}
 
@@ -375,7 +442,7 @@ export default function GameComponent() {
                             animate={{ y: [0, -8, 0] }}
                             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                         >
-                            <FrogSVG size={80} />
+                            <FrogSVG size={idleFrogSize} />
                         </motion.div>
                     </div>
                 )}
@@ -408,7 +475,7 @@ export default function GameComponent() {
                             >
                                 <Button
                                     size="lg"
-                                    onClick={() => startRound(1)}
+                                    onClick={() => startRound(settings.startLevel)}
                                     className="w-56 h-14 text-2xl font-bold uppercase tracking-widest rounded-xl shadow-md"
                                 >
                                     {t('start')}
@@ -468,5 +535,94 @@ export default function GameComponent() {
                 </AnimatePresence>
             </div>
         </div>
+    );
+}
+
+function GameSettingsDialog({
+    settings,
+    onSave,
+    isOpen,
+    onOpenChange,
+    t
+}: {
+    settings: GameSettings;
+    onSave: (settings: GameSettings) => void;
+    isOpen: boolean;
+    onOpenChange: (open: boolean) => void;
+    t: ReturnType<typeof useTranslations>;
+}) {
+    const [tempSettings, setTempSettings] = useState(settings);
+
+    useEffect(() => {
+        setTempSettings(settings);
+    }, [settings, isOpen]);
+
+    const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
+    const difficultyLabels: Record<Difficulty, string> = {
+        easy: t('difficultyEasy'),
+        medium: t('difficultyMedium'),
+        hard: t('difficultyHard'),
+    };
+
+    return (
+        <Dialog open={isOpen} onOpenChange={onOpenChange}>
+            <DialogTrigger asChild>
+                <Button variant="outline" size="icon" className="w-10 h-10 shadow-sm rounded-full">
+                    <Settings className="w-5 h-5" />
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-sm font-mono rounded-xl">
+                <DialogHeader>
+                    <DialogTitle className="uppercase font-bold tracking-widest">{t('settings')}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-5 py-4">
+                    {/* Difficulty */}
+                    <div className="space-y-2.5">
+                        <Label className="uppercase font-bold tracking-wider text-sm">{t('difficultyLabel')}</Label>
+                        <div className="flex gap-2">
+                            {difficulties.map(d => (
+                                <button
+                                    key={d}
+                                    onClick={() => setTempSettings({ ...tempSettings, difficulty: d })}
+                                    className={`flex-1 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${tempSettings.difficulty === d
+                                        ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-md scale-105'
+                                        : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                                        }`}
+                                >
+                                    {difficultyLabels[d]}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Start Level */}
+                    <div className="space-y-2">
+                        <Label htmlFor="startLevel" className="uppercase font-bold tracking-wider text-sm">{t('startLevel')}</Label>
+                        <Input
+                            id="startLevel"
+                            type="number"
+                            min="1"
+                            max="20"
+                            value={tempSettings.startLevel}
+                            onChange={(e) => {
+                                const val = parseInt(e.target.value) || 1;
+                                setTempSettings({
+                                    ...tempSettings,
+                                    startLevel: Math.min(20, Math.max(1, val))
+                                });
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className="flex justify-end gap-2 mt-2">
+                    <Button variant="ghost" onClick={() => onOpenChange(false)} className="uppercase font-bold text-sm tracking-wider">
+                        {t('cancel')}
+                    </Button>
+                    <Button onClick={() => onSave(tempSettings)} className="uppercase font-bold text-sm tracking-wider">
+                        {t('save')}
+                    </Button>
+                </div>
+            </DialogContent>
+        </Dialog>
     );
 }
