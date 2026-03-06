@@ -179,3 +179,9 @@
   animation: floatY 5s ease-in-out infinite;
   will-change: transform;
 }
+
+/* Prevent Google Auto Ads from breaking specific layouts or covering elements */
+.no-ads-inside ins.adsbygoogle,
+.no-ads-inside .google-auto-placed {
+  display: none !important;
+}

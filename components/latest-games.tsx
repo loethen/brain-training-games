@@ -15,7 +15,7 @@ export default function LatestGames() {
     if (latestGames.length === 0) return null;
 
     return (
-        <section className="space-y-6">
+        <section className="space-y-6 no-ads-inside">
             <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-semibold flex items-center gap-2">
                     <Sparkles className="h-6 w-6 text-blue-500" />

@@ -172,7 +172,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         if (!mainGame) return null;
                         const getIdKey = (id: string) => id.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase()).replace(/-/g, '');
                         return (
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 no-ads-inside">
                                 {/* Main Featured Breathing Game */}
                                 <div className="lg:col-span-2 relative group overflow-hidden rounded-3xl bg-gray-50 dark:bg-zinc-900 border border-border transition-all hover:shadow-xl">
                                     <div className="flex flex-col-reverse md:flex-row h-full">

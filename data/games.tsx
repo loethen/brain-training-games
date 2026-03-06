@@ -236,9 +236,9 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
-    'cps-test',            // CPS Test - Newest
-    'focus-sudoku',        // Focus Sudoku
-    'pomodoro-timer',      // Pomodoro Timer
+    'cps-test',          // CPS Test - Newest
+    'fish-trace',        // Fish Trace
+    'pomodoro-timer',    // Pomodoro Timer
   ];
 
   return latestGameIds

@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 
 // Select specific games for the bento grid
 const FEATURED_GAME_ID = 'resonance-breathing';
-// Added more games: 'reaction-time', 'stroop-effect-test', 'larger-number'
-const SECONDARY_GAME_IDS = ['schulte-table', 'dual-n-back', 'reaction-time', 'stroop-effect-test', 'larger-number'];
+// Added more games: 'reaction-time', 'stroop-effect-test', 'frog-memory-leap'
+const SECONDARY_GAME_IDS = ['schulte-table', 'dual-n-back', 'reaction-time', 'stroop-effect-test', 'frog-memory-leap'];
 
 // Helper icons - mapped by ID for specific ones, default for others
 const GAME_ICONS: Record<string, string> = {
@@ -18,7 +18,7 @@ const GAME_ICONS: Record<string, string> = {
     'dual-n-back': '🧠',
     'reaction-time': '⏱️',
     'stroop-effect-test': '🎨',
-    'larger-number': '🔢'
+    'frog-memory-leap': '🐸'
 };
 
 export default function FeaturedBentoGrid() {
@@ -37,12 +37,17 @@ export default function FeaturedBentoGrid() {
     const bottomGames = secondaryGames.slice(2, 5);
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-8 no-ads-inside">
             <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-semibold flex items-center gap-2">
                     <TrendingUp className="h-6 w-6 text-orange-500" />
                     {t("featuredGames")}
                 </h3>
+                <Link href="/games">
+                    <Button variant="ghost" className="gap-2">
+                        {buttonsT("viewAll")} <ArrowRight className="h-4 w-4" />
+                    </Button>
+                </Link>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
