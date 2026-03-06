@@ -78,11 +78,11 @@
       },
       "watchDemo": "Watch Demo",
       "demo": "Demo",
-      "metaTitle": "Schulte Table - Peripheral Vision & Attention Training Game",
-      "metaDescription": "Improve your peripheral vision, attention span, and reading speed with the Schulte Table exercise. Find numbers in sequence while training your brain to process visual information faster.",
-      "metaKeywords": "schulte table exercise, peripheral vision training, visual attention game, speed reading practice, number sequence game, visual processing training, attention span improvement, cognitive speed exercise",
-      "ogTitle": "Schulte Table - Train Your Peripheral Vision & Attention",
-      "ogDescription": "Challenge yourself to find numbers in sequence while developing faster visual processing. Scientifically proven to enhance reading speed and attention.",
+      "metaTitle": "Schulte Table Online: Speed Reading & Peripheral Vision Test",
+      "metaDescription": "Boost your reading speed and attention span with the free Schulte Table (Schulte Grid) test. A powerful peripheral vision training exercise used by speed readers, athletes, and those seeking ADHD focus improvement.",
+      "metaKeywords": "schulte table online, schulte grid test free, speed reading training games, peripheral vision test, adhd attention span exercises, expand visual field, cognitive speed test, fast reading practice",
+      "ogTitle": "Schulte Table Online: Speed Reading & Peripheral Vision Test",
+      "ogDescription": "Boost your reading speed and attention span with the free Schulte Table (Schulte Grid) test. A powerful peripheral vision training exercise used by speed readers, athletes, and those seeking ADHD focus improvement.",
       "science": {
         "title": "Visual Attention and Processing Speed Enhancement",
         "description": "The Schulte Table is a well-established neuropsychological tool used to assess and train visual attention, processing speed, and executive function. Research shows that regular practice strengthens neural networks responsible for visual scanning, selective attention, and information processing speed - skills crucial for reading, driving, and academic performance.",
@@ -275,11 +275,11 @@
       "gameMessages": {
         "keepOneMode": "You must keep at least one mode enabled"
       },
-      "metaTitle": "Dual N-Back Training - 30s Interactive Tutorial | Beginner-Friendly Brain Training",
-      "metaDescription": "Master Dual N-Back in 30 seconds with our interactive tutorial! Scientifically-backed working memory training, starting from 1-back level. Beginner-friendly design with step-by-step guidance to boost cognitive skills and focus.",
-      "metaKeywords": "dual n-back tutorial, interactive n-back training, 30 second tutorial, beginner brain training, working memory game, cognitive training tutorial, n-back for beginners, memory training guide, attention training, free brain games, interactive learning",
-      "ogTitle": "Dual N-Back - Interactive Tutorial Makes Brain Training Easy",
-      "ogDescription": "Revolutionary 30-second interactive tutorial makes Dual N-Back accessible to everyone! Learn the scientifically-proven working memory training method step-by-step. Perfect for beginners seeking cognitive enhancement."
+      "metaTitle": "Dual N-Back Training: Improve Working Memory & Fluid Intelligence",
+      "metaDescription": "Train your brain with the scientifically proven Dual N-Back task. Increase your working memory capacity, boost fluid intelligence (IQ), and enhance core cognitive performance with this free 30s interactive tutorial.",
+      "metaKeywords": "dual n-back task online, jaeggi n back training, improve fluid intelligence, working memory span test, increase iq free games, brain training scientifically proven, executive function exercises",
+      "ogTitle": "Dual N-Back Training: Improve Working Memory & Fluid Intelligence",
+      "ogDescription": "Train your brain with the scientifically proven Dual N-Back task. Increase your working memory capacity, boost fluid intelligence (IQ), and enhance core cognitive performance with this free 30s interactive tutorial."
     },
     "mahjongDualNBack": {
       "title": "Mahjong Dual N-Back",
@@ -368,11 +368,11 @@
         "playAgain": "Play Again",
         "share": "Share"
       },
-      "metaTitle": "Mahjong Dual N-Back - Working Memory Training Game",
-      "metaDescription": "Sharpen your mind with our free Mahjong Dual N-Back game, a fun twist on classic memory training. Combining the strategy of Mahjong tiles with science-backed Dual N-Back challenges, this online tool boosts working memory, focus, and cognitive skills. Perfect for Mahjong fans, students, and brain training enthusiasts, it offers dynamic levels and real-time feedback to enhance mental agility. Play now and master your memory with a Mahjong flair!",
-      "metaKeywords": "mahjong n-back training, mahjong memory game, working memory exercise, fluid intelligence game, cognitive training with mahjong, brain training game, attention control practice, n-back task with mahjong tiles, memory improvement game, traditional mahjong brain training, free mahjong n-back game",
-      "ogTitle": "Mahjong Dual N-Back - Advanced Working Memory Training",
-      "ogDescription": "Train your working memory and cognitive skills with the scientifically-backed Mahjong Dual N-Back cognitive exercise featuring traditional mahjong tiles."
+      "metaTitle": "Mahjong Dual N-Back: Advanced Visual Memory Board Game",
+      "metaDescription": "Experience the classic Dual N-back cognitive task with traditional Mahjong tiles. Train your spatial working memory and visual pattern recognition with this aesthetic and challenging brain game.",
+      "metaKeywords": "mahjong dual n-back, tile matching memory game, visual spatial working memory, traditional mahjong brain training, advanced memory span test, cognitive flexibility games",
+      "ogTitle": "Mahjong Dual N-Back: Advanced Visual Memory Board Game",
+      "ogDescription": "Experience the classic Dual N-back cognitive task with traditional Mahjong tiles. Train your spatial working memory and visual pattern recognition with this aesthetic and challenging brain game."
     },
     "fishTrace": {
       "title": "Glowing Fish Trace",
@@ -563,11 +563,11 @@
           "answer": "Absolutely. Processing speed can decline with age, and regular training can help maintain or improve this cognitive function. This game provides a quick, engaging way to exercise these neural pathways."
         }
       },
-      "metaTitle": "Larger Number Game | Online Cognitive Training",
-      "metaDescription": "Improve your numerical processing speed and decision-making with this fast-paced number comparison game. Train your brain to quickly identify larger numbers.",
-      "metaKeywords": "number comparison game, number size judgment game, quick number recognition game, larger number selection game, math thinking training game, reaction speed number game, math brain training, children number comparison game, fast math decision game, cognitive speed training game, attention number training, math processing speed game, numerical processing training, decision speed exercise, cognitive speed game, number magnitude comparison, reaction time training, educational math game, brain training game, cognitive development, math games for kids, math games for adults, number sense training, quantity comparison, mental math practice, numerical cognition, educational games, arithmetic game, math skills improvement",
-      "ogTitle": "Larger Number Challenge - Train Your Numerical Processing Speed",
-      "ogDescription": "Quickly identify which number is larger in this fast-paced brain training game. Improve your decision-making speed and numerical processing.",
+      "metaTitle": "Larger Number Challenge: Processing Speed & Math Brain Game",
+      "metaDescription": "Train your processing speed and numerical cognition with this fast-paced math game. Quickly identify the larger number to improve decision-making speed and mental math abilities.",
+      "metaKeywords": "number comparison test, numerical cognition exercises, processing speed test online, fast math games for adults, adhd speed training, quick decision making practice, mental math speed test",
+      "ogTitle": "Larger Number Challenge: Processing Speed & Math Brain Game",
+      "ogDescription": "Train your processing speed and numerical cognition with this fast-paced math game. Quickly identify the larger number to improve decision-making speed and mental math abilities.",
       "gameUI": {
         "challenge": "Complete {attempts} attempts with {accuracy}% accuracy to succeed",
         "starting": "Starting...",
@@ -599,11 +599,11 @@
       "title": "Block Memory Challenge",
       "description": "Test your visual memory by recalling increasingly complex block sequences.",
       "subtitle": "Train your visual memory and pattern recognition",
-      "metaTitle": "Block Memory Challenge - Visual Memory Training Game",
-      "metaDescription": "Enhance your working memory and cognitive flexibility by remembering and repeating increasingly complex visual sequences. Perfect brain training game.",
-      "metaKeywords": "block memory game,visual sequence memory,working memory training,cognitive flexibility exercise,attention span improvement,sequence memorization game,visual pattern recognition,short-term memory practice",
-      "ogTitle": "Block Memory Challenge - Train Your Visual Memory",
-      "ogDescription": "Remember and repeat increasingly complex visual sequences to enhance your working memory and cognitive flexibility.",
+      "metaTitle": "Block Memory Challenge: Visual Sequence & Working Memory Game",
+      "metaDescription": "Test your visual memory capacity by recalling increasingly complex block sequences. This brain-training challenge helps improve short-term memory, pattern recognition, and cognitive plasticity.",
+      "metaKeywords": "visual memory sequence test online, spatial recall training games, working memory improvement, pattern recognition test, brain plasticity exercises, short-term memory practice",
+      "ogTitle": "Block Memory Challenge: Visual Sequence & Working Memory Game",
+      "ogDescription": "Test your visual memory capacity by recalling increasingly complex block sequences. This brain-training challenge helps improve short-term memory, pattern recognition, and cognitive plasticity.",
       "howToPlay": {
         "intro": "Memorize and recreate flashing block sequences in this challenging memory game:",
         "step1": "Blocks will light up one by one in a specific sequence",
@@ -670,11 +670,11 @@
       "subtitle": "Measure your response speed to visual stimuli",
       "description": "Test your reaction time with this simple online tool that measures how quickly you respond to visual stimuli.",
       "metadata": {
-        "title": "Reaction Time Test | Free Visual Stimulus Response Test",
-        "description": "Test your reaction time with our free online tool. Measure how quickly you respond to visual stimuli and track your cognitive response speed over time.",
-        "keywords": "reaction time test, reaction speed test, visual reaction test, human benchmark alternative, online reflex test, reaction time measurement, response time test, cognitive reaction test, reaction speed game, free reaction timer",
-        "ogTitle": "Test Your Reaction Time - Free Online Tool",
-        "ogDescription": "Measure how quickly you respond to visual stimuli with our simple reaction time test. Track your baseline response speed."
+        "title": "Visual Reaction Time Test: Check Your Reflexes Online",
+        "description": "Measure your reaction time to visual stimuli in milliseconds. Compare your reflexes against the human benchmark average. Are you as fast as an esports pro?",
+        "keywords": "human benchmark reaction time test, click speed reflex test, average reaction time visual, esports reflex training online, visual stimuli response time, test my reflexes",
+        "ogTitle": "Visual Reaction Time Test: Check Your Reflexes Online",
+        "ogDescription": "Measure your reaction time to visual stimuli in milliseconds. Compare your reflexes against the human benchmark average. Are you as fast as an esports pro?"
       },
       "howToPlay": {
         "description": "This is a simple reaction time test that measures how quickly you respond to visual changes.",
@@ -758,11 +758,11 @@
       "title": "Counting Boxes",
       "subtitle": "Master Spatial Memory Through 3D Cube Counting",
       "description": "Watch 3D cubes appear and disappear, then count them accurately. Train your spatial memory and visual processing skills.",
-      "metaTitle": "Counting Boxes Game - Working Memory & Selective Attention Training",
-      "metaDescription": "Enhance your working memory and selective attention with 3D cube counting exercises. Free online spatial memory training game with progressive difficulty.",
-      "metaKeywords": "counting boxes game, 3D counting game, spatial memory training, working memory improvement, selective attention training, visual counting exercise, cube counting challenge, brain training boxes, cognitive counting game, free memory game online",
-      "ogTitle": "Counting Boxes - 3D Spatial Memory Training Game",
-      "ogDescription": "Challenge your working memory and selective attention by counting 3D cubes in various patterns. Progressive difficulty for optimal brain training.",
+      "metaTitle": "Counting Boxes: 3D Spatial Memory & Mensa IQ Prep Game",
+      "metaDescription": "Challenge your spatial reasoning and visual working memory by counting 3D cubes. A perfect cognitive training tool for geometry skills, architectural visualization, and Mensa spatial test preparation.",
+      "metaKeywords": "3d cube counting test, spatial reasoning game online, mensa test prep exercises, visual spatial working memory, mental rotation practice, geometry brain games, architectural visualization test",
+      "ogTitle": "Counting Boxes: 3D Spatial Memory & Mensa IQ Prep Game",
+      "ogDescription": "Challenge your spatial reasoning and visual working memory by counting 3D cubes. A perfect cognitive training tool for geometry skills, architectural visualization, and Mensa spatial test preparation.",
       "howToPlayIntro": "In this spatial memory challenge, you'll observe 3D cubes appearing on a grid and then count how many you saw:",
       "howToPlay1": "Watch carefully as 3D boxes appear on the grid for a brief time",
       "howToPlay2": "Remember the number of boxes you observed",
@@ -836,11 +836,11 @@
       "subtitle": "Challenge your brain with color-word conflicts",
       "description": "Test your cognitive flexibility by identifying colors that conflict with the words. Train your selective attention and conflict resolution skills.",
       "metadata": {
-        "title": "Stroop Effect Test | Free Cognitive Flexibility Training",
-        "description": "Experience the famous Stroop effect with our free online test. Improve cognitive flexibility and selective attention by identifying colors that conflict with words.",
-        "keywords": "stroop effect test, cognitive flexibility training, selective attention test, color word conflict, brain training, psychology test, stroop task, attention training, cognitive interference test, free online stroop test",
-        "ogTitle": "Stroop Effect Test - Train Your Cognitive Flexibility",
-        "ogDescription": "Challenge your brain with the classic Stroop effect test. Identify colors while ignoring conflicting word meanings."
+        "title": "Stroop Effect Test: Cognitive Flexibility & Brain Age Game",
+        "description": "Experience the famous Stroop Effect test online. Challenge your cognitive flexibility and processing speed by resolving color-word interference. A great exercise for brain anti-aging and executive function.",
+        "keywords": "stroop effect test online free, color word interference game, cognitive flexibility training, brain age test online, executive function exercises, psychology brain games, mental agility test",
+        "ogTitle": "Stroop Effect Test: Cognitive Flexibility & Brain Age Game",
+        "ogDescription": "Experience the famous Stroop Effect test online. Challenge your cognitive flexibility and processing speed by resolving color-word interference. A great exercise for brain anti-aging and executive function."
       },
       "howToPlay": {
         "description": "In this cognitive flexibility test, you'll identify the color of words, not what the words say.",
@@ -1054,11 +1054,11 @@
         "shareTitle": "Check out my Baby Animal Matching score!",
         "shareText": "I matched all the baby animals in {moves} moves and {time} seconds on {difficulty} difficulty!"
       },
-      "metaTitle": "Baby Animal Matching Game | Memory Training for Kids & Adults",
-      "metaDescription": "Play our free Baby Animal Matching Game online! Improve memory, focus and visual recognition skills with cute animal pairs. Fun brain training for all ages.",
-      "metaKeywords": "baby animal matching game,memory game,matching game,kids memory game,animal matching game,brain training game,concentration game,focus training game",
-      "ogTitle": "Baby Animal Matching Game - Test Your Memory With Cute Animals",
-      "ogDescription": "Match pairs of adorable baby animals in this fun memory game. Perfect for improving concentration and visual memory in children and adults.",
+      "metaTitle": "Baby Animal Matching Game: Memory Training for Kids & Seniors",
+      "metaDescription": "Play this classic flipped card memory game featuring adorable baby animals. A perfect concentration and visual memory exercise to boost brain health for toddlers, kids, and seniors.",
+      "metaKeywords": "toddler memory matching games, concentration board game online, brain training for seniors, visual memory match, dementia prevention games, child cognitive development, picture matching flip game",
+      "ogTitle": "Baby Animal Matching Game: Memory Training for Kids & Seniors",
+      "ogDescription": "Play this classic flipped card memory game featuring adorable baby animals. A perfect concentration and visual memory exercise to boost brain health for toddlers, kids, and seniors.",
       "twitterTitle": "Baby Animal Matching Game | Train Your Memory",
       "twitterDescription": "Test your memory skills by matching cute baby animal pairs in this free online game."
     },
@@ -1067,11 +1067,11 @@
       "subtitle": "Assess your short-term memory capacity with household item recall",
       "description": "Test your short-term memory by memorizing and recalling common household items. Get personalized scoring based on your age and gender.",
       "metadata": {
-        "title": "Free Short Term Memory Test | Verbal Memory Assessment",
-        "description": "Test your short-term memory with our free household item recall test. Get age and gender-adjusted scores compared to the general population.",
-        "keywords": "short term memory test, verbal memory test, word recall test, memory assessment, memory capacity test, cognitive assessment, brain memory test, free memory evaluation, short term memory loss quiz, short term memory test online",
-        "ogTitle": "Free Short Term Memory Test - Assess Your Verbal Memory",
-        "ogDescription": "Measure your short-term memory capacity with our scientifically-based household item recall test. Get personalized results based on your demographics."
+        "title": "Free Short-Term Memory Test: Verbal Recall & Brain Assessment",
+        "description": "Assess your short-term verbal memory with this household item recall test. Get an age and gender-adjusted cognitive health score to identify memory weaknesses and strengths.",
+        "keywords": "short term memory loss quiz, word recall test online, verbal memory assessment free, memory capacity test, alzheimers early sign test, cognitive assessment tools, check my memory online",
+        "ogTitle": "Free Short-Term Memory Test: Verbal Recall & Brain Assessment",
+        "ogDescription": "Assess your short-term verbal memory with this household item recall test. Get an age and gender-adjusted cognitive health score to identify memory weaknesses and strengths."
       },
       "howToPlay": {
         "description": "Test your short-term memory by memorizing common household items and recalling them in any order.",
@@ -1195,11 +1195,11 @@
       "title": "Pomodoro Timer",
       "subtitle": "Boost focus and productivity with structured work sessions",
       "description": "A simple yet powerful tool to boost productivity. Work in focused 25-minute intervals, separated by short breaks, to improve concentration and prevent burnout.",
-      "metaTitle": "Free Pomodoro Timer | Focus & Productivity Tool Online",
-      "metaDescription": "Use our free Pomodoro Timer to improve focus and productivity. 25-minute work sessions with breaks. Track your progress and customize intervals for optimal concentration.",
-      "metaKeywords": "pomodoro timer online, free pomodoro app, focus timer for studying, productivity work cycle, time management tool, 25-minute timer, study with me timer, pomodoro technique app, work session timer, concentration timer online, pomodoro timer, free pomodoro timer, focus timer, productivity timer, pomodoro technique, work timer, study timer, concentration tool, time management tool, focus technique",
-      "ogTitle": "Pomodoro Timer - Improve Your Focus and Productivity",
-      "ogDescription": "Free online Pomodoro Timer with customizable intervals. Boost productivity with proven time management technique. Track focus sessions and breaks.",
+      "metaTitle": "Free Pomodoro Timer: Productivity & ADHD Focus App Online",
+      "metaDescription": "Boost your productivity with our free Pomodoro Technique timer. Work in deep focus 25-minute intervals, perfect for studying, remote work, or managing ADHD time blindness.",
+      "metaKeywords": "pomodoro timer online free, tomato timer app, adhd focus timer website, study timer 25 minutes, time blindness management, deep work productivity tool, pomodoro technique stopwatch",
+      "ogTitle": "Free Pomodoro Timer: Productivity & ADHD Focus App Online",
+      "ogDescription": "Boost your productivity with our free Pomodoro Technique timer. Work in deep focus 25-minute intervals, perfect for studying, remote work, or managing ADHD time blindness.",
       "howToPlay": {
         "step1": "Click 'Start' to begin a 25-minute focus session",
         "step2": "Work on your task without interruptions until the timer ends",
