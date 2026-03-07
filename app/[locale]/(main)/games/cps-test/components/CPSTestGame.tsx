@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { ShareModal } from '@/components/ui/ShareModal';
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 
 type GameState = 'IDLE' | 'READY' | 'RUNNING' | 'FINISHED';
 type TimeMode = '1s' | '3s' | '5s' | '10s' | '30s' | '60s';
@@ -36,6 +37,13 @@ export default function CPSTestGame() {
             if (timerRef.current) clearInterval(timerRef.current);
         };
     }, []);
+
+    useEffect(() => {
+        if (gameState === 'FINISHED') {
+            submitScoreToLeaderboard("cps-test", parseFloat((clicks / getDuration(mode)).toFixed(2)));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [gameState]);
 
     const getDuration = (m: TimeMode) => parseInt(m.replace('s', ''));
 
@@ -209,43 +217,45 @@ export default function CPSTestGame() {
 
             {/* Results Section */}
             {gameState === 'FINISHED' && (
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="w-full bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700"
-                >
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                            <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">{t('score')}</p>
-                            <p className="text-5xl font-bold text-blue-600 dark:text-blue-400 mt-2">
-                                {(clicks / getDuration(mode)).toFixed(2)}
-                            </p>
+                <>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="w-full bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700"
+                    >
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                            <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">{t('score')}</p>
+                                <p className="text-5xl font-bold text-blue-600 dark:text-blue-400 mt-2">
+                                    {(clicks / getDuration(mode)).toFixed(2)}
+                                </p>
+                            </div>
+
+                            <div className="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
+                                <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">{t('clicks')}</p>
+                                <p className="text-4xl font-bold text-gray-800 dark:text-white mt-2">{clicks}</p>
+                                <p className="text-sm text-gray-500 mt-1">{t('time')}: {mode}</p>
+                            </div>
+
+                            <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">{tRank('title')}</p>
+                                <p className={`text-2xl font-bold mt-2 ${getRank(clicks / getDuration(mode)).color}`}>
+                                    {tRank(getRank(clicks / getDuration(mode)).key)}
+                                </p>
+                            </div>
                         </div>
 
-                        <div className="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
-                            <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">{t('clicks')}</p>
-                            <p className="text-4xl font-bold text-gray-800 dark:text-white mt-2">{clicks}</p>
-                            <p className="text-sm text-gray-500 mt-1">{t('time')}: {mode}</p>
+                        <div className="flex justify-center gap-4 mt-8">
+                            <Button onClick={() => handleModeChange(mode)} size="lg">
+                                {t('playAgain')}
+                            </Button>
+                            <Button onClick={() => setIsShareModalOpen(true)} variant="outline" size="lg" className="gap-2">
+                                <Share className="w-4 h-4" />
+                                {t('share')}
+                            </Button>
                         </div>
-
-                        <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                            <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">{tRank('title')}</p>
-                            <p className={`text-2xl font-bold mt-2 ${getRank(clicks / getDuration(mode)).color}`}>
-                                {tRank(getRank(clicks / getDuration(mode)).key)}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex justify-center gap-4 mt-8">
-                        <Button onClick={() => handleModeChange(mode)} size="lg">
-                            {t('playAgain')}
-                        </Button>
-                        <Button onClick={() => setIsShareModalOpen(true)} variant="outline" size="lg" className="gap-2">
-                            <Share className="w-4 h-4" />
-                            {t('share')}
-                        </Button>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </>
             )}
 
             {/* Social Proof / Stats */}

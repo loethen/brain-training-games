@@ -94,6 +94,8 @@ export default function CPSTestPage() {
                     answer: t('faq.health.answer'),
                 },
             ]}
+            hasLeaderboard={true}
+            leaderboardFormatterType="cps"
         />
     );
 }

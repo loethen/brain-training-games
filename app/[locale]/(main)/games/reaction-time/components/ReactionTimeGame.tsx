@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { ShareModal } from '@/components/ui/ShareModal';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 
 const MIN_WAIT_TIME = 2000;
 const MAX_WAIT_TIME = 6000;
@@ -49,6 +50,13 @@ export default function ReactionTimeGame() {
     // Set page URL safely after component mounts in browser
     setPageUrl(window.location.href);
   }, []);
+
+  useEffect(() => {
+    if (gameState === GameStates.SUMMARY) {
+      submitScoreToLeaderboard("reaction-time", getAverageTime(results));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState]);
 
   const getAverageTime = (results: number[]) => {
     if (results.length === 0) return 0;

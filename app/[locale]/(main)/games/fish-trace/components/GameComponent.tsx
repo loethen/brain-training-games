@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 
 interface GameSettings {
     difficulty: Difficulty;
@@ -65,6 +66,13 @@ export default function GameComponent() {
             } catch { /* ignore */ }
         }
     }, []);
+
+    useEffect(() => {
+        if (phase === 'completed' && roundResult && !roundResult.isPerfect) {
+            submitScoreToLeaderboard("fish-trace", score);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [phase, roundResult]);
 
     // Current level params driven by difficulty
     const levelParams = getLevelParams(level, settings.difficulty);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import LotusFlower, { BreathingPhase } from './LotusFlower';
 import { useTranslations } from 'next-intl';
 import { Play, Pause, Settings, RotateCcw, Volume2, VolumeX } from 'lucide-react';
@@ -76,7 +76,7 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
     }, [isMusicEnabled]);
 
     // Get current phase duration
-    const getPhaseDuration = (p: BreathingPhase): number => {
+    const getPhaseDuration = useCallback((p: BreathingPhase): number => {
         switch (p) {
             case 'inhale': return settings.inhale;
             case 'holdIn': return settings.holdIn;
@@ -84,10 +84,10 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
             case 'holdOut': return settings.holdOut;
             default: return 0;
         }
-    };
+    }, [settings.inhale, settings.holdIn, settings.exhale, settings.holdOut]);
 
     // Determine the next phase, skipping phases with 0 duration
-    const getNextPhase = (current: BreathingPhase): BreathingPhase => {
+    const getNextPhase = useCallback((current: BreathingPhase): BreathingPhase => {
         const sequence: BreathingPhase[] = ['inhale', 'holdIn', 'exhale', 'holdOut'];
         const currentIdx = sequence.indexOf(current);
 
@@ -99,7 +99,7 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
             }
         }
         return 'inhale'; // fallback
-    };
+    }, [getPhaseDuration]);
 
     const currentPhaseDuration = getPhaseDuration(phase);
 
@@ -132,7 +132,7 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
         }, duration * 1000);
 
         return () => clearTimeout(timer);
-    }, [isRunning, phase, settings.inhale, settings.holdIn, settings.exhale, settings.holdOut]);
+    }, [isRunning, phase, getNextPhase, getPhaseDuration]);
 
     // Elapsed time tracker
     useEffect(() => {

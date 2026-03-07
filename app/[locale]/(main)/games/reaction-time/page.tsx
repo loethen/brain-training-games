@@ -94,6 +94,8 @@ export default function ReactionTimePage() {
                     answer: t('faq.significance.answer'),
                 },
             ]}
+            hasLeaderboard={true}
+            leaderboardFormatterType="ms"
         />
     );
 } 

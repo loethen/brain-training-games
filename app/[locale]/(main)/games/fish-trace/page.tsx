@@ -93,6 +93,8 @@ export default function FishTracePage() {
                 },
             ]}
             relatedGames={["frog-memory-leap", "schulte-table", "block-memory-challenge"]}
+            hasLeaderboard={true}
+            leaderboardFormatterType="pts"
         />
     );
 } 

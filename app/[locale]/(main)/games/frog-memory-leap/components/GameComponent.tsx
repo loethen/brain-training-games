@@ -10,6 +10,7 @@ import { Settings } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 import {
     GamePhase,
     PadPosition,
@@ -88,6 +89,13 @@ export default function GameComponent() {
             } catch { /* ignore */ }
         }
     }, []);
+
+    useEffect(() => {
+        if (phase === 'fail') {
+            submitScoreToLeaderboard("frog-memory-leap", level);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [phase]);
 
     const saveSettings = (newSettings: GameSettings) => {
         setSettings(newSettings);
