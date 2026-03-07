@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useFishEngine, getLevelParams, GamePhase, Difficulty } from '../hooks/useFishEngine';
+import { useFishEngine, getLevelParams, GamePhase } from '../hooks/useFishEngine';
 import { SunfishSVG } from './SunfishSVG';
 import { Settings } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -13,12 +13,10 @@ import { Button } from "@/components/ui/button";
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 
 interface GameSettings {
-    difficulty: Difficulty;
     startLevel: number;
 }
 
 const DEFAULT_SETTINGS: GameSettings = {
-    difficulty: 'medium',
     startLevel: 1,
 };
 
@@ -74,8 +72,8 @@ export default function GameComponent() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [phase, roundResult]);
 
-    // Current level params driven by difficulty
-    const levelParams = getLevelParams(level, settings.difficulty);
+    // Current level params
+    const levelParams = getLevelParams(level);
 
     const {
         fishesRef,
@@ -168,7 +166,7 @@ export default function GameComponent() {
         setRoundPoints(null);
         setRoundResult(null);
 
-        const { glowDuration, trackDuration } = getLevelParams(level, settings.difficulty);
+        const { glowDuration, trackDuration } = getLevelParams(level);
 
         // Start progress bar for glow phase
         setProgressTotal(glowDuration);
@@ -204,7 +202,7 @@ export default function GameComponent() {
 
             }, glowDuration);
         }, 100);
-    }, [t, level, settings.difficulty, initFishes, startMovement, stopMovement]);
+    }, [t, level, initFishes, startMovement, stopMovement]);
 
     const handleFishClick = (id: number) => {
         if (phase !== 'selecting') return;
@@ -523,13 +521,6 @@ function GameSettingsDialog({
         setTempSettings(settings);
     }, [settings, isOpen]);
 
-    const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
-    const difficultyLabels: Record<Difficulty, string> = {
-        easy: t('difficultyEasy'),
-        medium: t('difficultyMedium'),
-        hard: t('difficultyHard'),
-    };
-
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogTrigger asChild>
@@ -542,26 +533,6 @@ function GameSettingsDialog({
                     <DialogTitle className="uppercase font-bold tracking-widest">{t('settings')}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-5 py-4">
-                    {/* Difficulty */}
-                    <div className="space-y-2.5">
-                        <Label className="uppercase font-bold tracking-wider text-sm">{t('difficultyLabel')}</Label>
-                        <div className="flex gap-2">
-                            {difficulties.map(d => (
-                                <button
-                                    key={d}
-                                    onClick={() => setTempSettings({ ...tempSettings, difficulty: d })}
-                                    className={`flex-1 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${tempSettings.difficulty === d
-                                        ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-md scale-105'
-                                        : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
-                                        }`}
-                                >
-                                    {difficultyLabels[d]}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Start Level */}
                     <div className="space-y-2">
                         <Label htmlFor="startLevel" className="uppercase font-bold tracking-wider text-sm">{t('startLevel')}</Label>
                         <Input

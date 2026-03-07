@@ -29,14 +29,15 @@ export function LeaderboardDisplay({
     const [mySessionDetail, setMySessionDetail] = useState<{ playerName: string; score: number } | null>(null);
 
     const formatScore = useCallback((s: number) => {
+        const rounded = Math.round(s);
         switch (formatterType) {
-            case 'ms': return `${s} ms`;
-            case 'cps': return `${s} CPS`;
-            case 'pts': return `${s} pts`;
-            case 'levels': return `Level ${s}`;
-            default: return s.toString();
+            case 'ms': return `${rounded} ${t('unitMs')}`;
+            case 'cps': return `${Number(s.toFixed(1))} ${t('unitCps')}`;
+            case 'pts': return `${rounded} ${t('unitPts')}`;
+            case 'levels': return t('unitLevel', { score: rounded.toString() });
+            default: return rounded.toString();
         }
-    }, [formatterType]);
+    }, [formatterType, t]);
 
     const fetchLeaderboard = useCallback(async () => {
         try {

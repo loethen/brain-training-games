@@ -11,11 +11,7 @@ export type GamePhase = 'idle' | 'watching' | 'playing' | 'success' | 'fail';
 /** Difficulty preset multipliers */
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
-const DIFFICULTY_MULTIPLIERS: Record<Difficulty, number> = {
-    easy: 0.7,
-    medium: 1.0,
-    hard: 1.4,
-};
+
 
 export interface PadPosition {
     id: number;
@@ -45,17 +41,16 @@ export interface LevelParams {
 }
 
 /**
- * Get level parameters, scaled by difficulty.
+ * Get level parameters.
  * Pads: 4 at level 1, +1 every 2 levels, max 10
  * Jumps: 2 at level 1, +1 per level, max 9
  * Speed: 1200ms at level 1, ×0.94 per level, min 500ms
  */
-export function getLevelParams(level: number, difficulty: Difficulty = 'medium'): LevelParams {
-    const m = DIFFICULTY_MULTIPLIERS[difficulty];
+export function getLevelParams(level: number): LevelParams {
     return {
-        padCount: Math.min(Math.round((4 + Math.floor((level - 1) / 2)) * m), 10),
-        jumpCount: Math.min(Math.round((1 + level) * m), 9),
-        jumpDelay: Math.max(Math.round(1200 * Math.pow(0.94, level - 1) / m), 500),
+        padCount: Math.min(4 + Math.floor((level - 1) / 2), 10),
+        jumpCount: Math.min(1 + level, 9),
+        jumpDelay: Math.max(Math.round(1200 * Math.pow(0.94, level - 1)), 500),
     };
 }
 

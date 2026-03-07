@@ -30,10 +30,10 @@ export const SunfishSVG = memo(({
     let strokeWidth = "2.5";
 
     if (isGlowing && !isChecking) {
-        // Initially glowing to memorize - bright Neon Cyan
-        strokeColor = '#00E5FF';
+        // Initially glowing to memorize - bright White (fish is yellow, so white contrasts well)
+        strokeColor = '#FFFFFF';
         strokeWidth = "5";
-        filter = 'drop-shadow(0 0 8px #00E5FF) drop-shadow(0 0 16px #00E5FF)';
+        filter = 'drop-shadow(0 0 8px rgba(255,255,255,0.9)) drop-shadow(0 0 16px rgba(255,255,255,0.7))';
     } else if (isChecking) {
         if (isTarget && isSelected) {
             // Correctly selected! Bright Neon Green glow

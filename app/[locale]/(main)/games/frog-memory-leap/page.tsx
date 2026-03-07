@@ -84,7 +84,7 @@ export default function FrogMemoryLeapPage() {
       ]}
       relatedGames={["fish-trace", "block-memory-challenge", "dual-n-back"]}
       hasLeaderboard={true}
-      leaderboardFormatterType="levels"
+      leaderboardFormatterType="pts"
     />
   );
 } 

@@ -14,24 +14,14 @@ export interface Fish {
     isWrongSelection: boolean;
 }
 
-/** Difficulty preset multipliers */
-export type Difficulty = 'easy' | 'medium' | 'hard';
-
-const DIFFICULTY_MULTIPLIERS: Record<Difficulty, number> = {
-    easy: 0.7,
-    medium: 1.0,
-    hard: 1.4,
-};
-
-/** Compute difficulty parameters from a level number and difficulty preset */
-export function getLevelParams(level: number, difficulty: Difficulty = 'medium') {
-    const m = DIFFICULTY_MULTIPLIERS[difficulty];
+/** Compute difficulty parameters from a level number */
+export function getLevelParams(level: number) {
     return {
-        fishCount: Math.min(Math.round((4 + level) * m), 20),              // 5,6,7…grows by 1 per level
-        targetCount: Math.min(Math.max(1, Math.round((1 + Math.floor(level / 3)) * m)), 6), // grows every 3 levels
-        speed: Math.min((0.8 + level * 0.1) * m, 3.0),                    // gentler speed ramp
-        glowDuration: Math.max(Math.round((3500 - level * 100) / m), 1200),  // slower shrink
-        trackDuration: Math.max(Math.round((5500 - level * 150) / m), 2000), // slower shrink
+        fishCount: Math.min(4 + level, 20),                              // 5,6,7…grows by 1 per level
+        targetCount: Math.min(Math.max(1, 1 + Math.floor(level / 3)), 6), // grows every 3 levels
+        speed: Math.min(0.8 + level * 0.1, 3.0),                         // gentler speed ramp
+        glowDuration: 3500,                                               // fixed observation time
+        trackDuration: Math.min(3000 + level * 500, 10000),               // longer = harder (more time to lose track)
     };
 }
 

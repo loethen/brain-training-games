@@ -32,7 +32,11 @@
       "player": "玩家",
       "score": "得分",
       "date": "日期",
-      "you": "你！"
+      "you": "你！",
+      "unitPts": "分",
+      "unitMs": "毫秒",
+      "unitCps": "CPS",
+      "unitLevel": "第{score}关"
     }
   }
 }

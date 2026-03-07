@@ -14,7 +14,6 @@ import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 import {
     GamePhase,
     PadPosition,
-    Difficulty,
     getLevelParams,
     pickPadPositions,
     generateJumpSequence,
@@ -22,12 +21,10 @@ import {
 } from '../hooks/useFrogEngine';
 
 interface GameSettings {
-    difficulty: Difficulty;
     startLevel: number;
 }
 
 const DEFAULT_SETTINGS: GameSettings = {
-    difficulty: 'medium',
     startLevel: 1,
 };
 
@@ -67,6 +64,7 @@ export default function GameComponent() {
     // Frog position (pad ID)
     const [frogPadId, setFrogPadId] = useState<number | null>(null);
     const [isJumping, setIsJumping] = useState(false);
+    const [jumpDuration, setJumpDuration] = useState(900);
     const [frogRotation, setFrogRotation] = useState(0); // degrees, 0 = sprite default
     const prevPadIdRef = useRef<number | null>(null);
 
@@ -92,7 +90,7 @@ export default function GameComponent() {
 
     useEffect(() => {
         if (phase === 'fail') {
-            submitScoreToLeaderboard("frog-memory-leap", level);
+            submitScoreToLeaderboard("frog-memory-leap", score);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [phase]);
@@ -163,6 +161,30 @@ export default function GameComponent() {
         return rotation;
     }, []);
 
+    /** Calculate Euclidean distance (in % units) between two pads */
+    const calcDistance = useCallback((fromId: number, toId: number, pads: PadPosition[]) => {
+        const from = pads.find(p => p.id === fromId);
+        const to = pads.find(p => p.id === toId);
+        if (!from || !to) return 30; // fallback medium distance
+        const dx = to.px - from.px;
+        const dy = to.py - from.py;
+        return Math.sqrt(dx * dx + dy * dy);
+    }, []);
+
+    /**
+     * Map distance to jump duration.
+     * Short hops (~10% units) → 400ms, long leaps (~80% units) → 1200ms.
+     * Linearly interpolated and clamped.
+     */
+    const calcJumpDuration = useCallback((distance: number) => {
+        const MIN_DIST = 10;
+        const MAX_DIST = 80;
+        const MIN_DUR = 400;
+        const MAX_DUR = 1200;
+        const t = Math.max(0, Math.min(1, (distance - MIN_DIST) / (MAX_DIST - MIN_DIST)));
+        return Math.round(MIN_DUR + t * (MAX_DUR - MIN_DUR));
+    }, []);
+
     /** Trigger a jump: set rotation, then simultaneously start position + sprite animation */
     const triggerJump = useCallback((targetPadId: number, pads: PadPosition[], duration = 900) => {
         const fromId = prevPadIdRef.current;
@@ -170,6 +192,7 @@ export default function GameComponent() {
             setFrogRotation(calcRotation(fromId, targetPadId, pads));
         }
         setFrogPadId(targetPadId);
+        setJumpDuration(duration);
         setIsJumping(true);
         prevPadIdRef.current = targetPadId;
         setTimeout(() => setIsJumping(false), duration);
@@ -177,7 +200,7 @@ export default function GameComponent() {
 
     // ── Start a new round ──
     const startRound = useCallback((lvl: number) => {
-        const params = getLevelParams(lvl, settings.difficulty);
+        const params = getLevelParams(lvl);
         const pads = pickPadPositions(params.padCount);
         const seq = generateJumpSequence(pads, params.jumpCount);
 
@@ -195,8 +218,20 @@ export default function GameComponent() {
         setPhase('watching');
         setMessage(t('level', { level: lvl.toString() }));
 
-        // Total demo time for progress bar
-        const totalDemoTime = params.jumpCount * params.jumpDelay + 1500;
+        // Pre-compute per-jump durations based on distance
+        const jumpDurations: number[] = [];
+        for (let i = 1; i < seq.length; i++) {
+            const dist = Math.sqrt(
+                Math.pow((pads.find(p => p.id === seq[i])?.px ?? 0) - (pads.find(p => p.id === seq[i - 1])?.px ?? 0), 2) +
+                Math.pow((pads.find(p => p.id === seq[i])?.py ?? 0) - (pads.find(p => p.id === seq[i - 1])?.py ?? 0), 2)
+            );
+            // Duration: 400ms–1200ms based on distance
+            const t = Math.max(0, Math.min(1, (dist - 10) / 70));
+            jumpDurations.push(Math.round(400 + t * 800));
+        }
+        // Each demo step: jump duration + small pause (200ms)
+        const PAUSE_BETWEEN = 200;
+        const totalDemoTime = jumpDurations.reduce((sum, d) => sum + d + PAUSE_BETWEEN, 0) + 1500;
         setProgressTotal(totalDemoTime);
         setProgressStart(Date.now());
         setProgressElapsed(0);
@@ -204,30 +239,33 @@ export default function GameComponent() {
         // After a brief pause, start demo
         setTimeout(() => {
             setMessage(t('watch'));
-            playDemo(seq, params.jumpDelay, pads);
+            playDemo(seq, pads, jumpDurations);
         }, 1500);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [t, settings.difficulty]);
+    }, [t]);
 
     // ── Play demo sequence ──
-    const playDemo = (seq: number[], delay: number, pads: PadPosition[]) => {
+    const playDemo = (seq: number[], pads: PadPosition[], durations: number[]) => {
         // Start from i=1 since frog is already placed at seq[0]
         let i = 1;
         // Highlight the starting pad briefly
         setHighlightedPadId(seq[0]);
-        setTimeout(() => setHighlightedPadId(null), delay * 0.5);
+        setTimeout(() => setHighlightedPadId(null), 400);
+        const PAUSE_BETWEEN = 200;
 
         const step = () => {
             if (i < seq.length) {
+                const dur = durations[i - 1];
                 // Jump to the next pad — rotation + sprite + position all together
-                triggerJump(seq[i], pads, Math.min(delay * 0.85, 900));
+                triggerJump(seq[i], pads, dur);
                 setHighlightedPadId(seq[i]);
 
-                // Clear highlight after a beat
-                setTimeout(() => setHighlightedPadId(null), delay * 0.6);
+                // Clear highlight shortly after landing
+                setTimeout(() => setHighlightedPadId(null), dur * 0.7);
 
                 i++;
-                setTimeout(step, delay);
+                // Next step after jump completes + small pause
+                setTimeout(step, dur + PAUSE_BETWEEN);
             } else {
                 // Demo done → player turn
                 setTimeout(() => {
@@ -241,7 +279,8 @@ export default function GameComponent() {
                 }, 500);
             }
         };
-        setTimeout(step, delay);
+        const firstDur = durations[0] || 600;
+        setTimeout(step, firstDur + PAUSE_BETWEEN);
     };
 
     // ── Handle player click on pad ──
@@ -251,8 +290,10 @@ export default function GameComponent() {
         const expected = jumpSeq[playerIndex];
 
         if (padId === expected) {
-            // Correct! Jump to the pad with rotation + sprite animation
-            triggerJump(padId, activePads, 900);
+            // Correct! Jump to the pad with distance-based duration
+            const dist = calcDistance(prevPadIdRef.current ?? padId, padId, activePads);
+            const dur = calcJumpDuration(dist);
+            triggerJump(padId, activePads, dur);
             setCorrectPads(prev => new Set(prev).add(padId));
 
             const nextIdx = playerIndex + 1;
@@ -320,36 +361,23 @@ export default function GameComponent() {
 
     const frogPos = getFrogPosition();
     const progressPct = progressTotal > 0 ? Math.max(0, 1 - progressElapsed / progressTotal) : 0;
-    const params = getLevelParams(level, settings.difficulty);
+    const params = getLevelParams(level);
 
     return (
         <div className="w-full h-full flex flex-col font-mono bg-white dark:bg-zinc-950 rounded-xl overflow-hidden">
 
             {/* Top HUD */}
-            <div className="flex flex-col gap-1 px-3 py-2 md:px-6 md:py-3 bg-transparent shrink-0 z-20">
-                <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2 min-w-0">
-                        {phase !== 'idle' && (
-                            <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase px-2 py-0.5 md:px-2.5 md:py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
-                                {t('level', { level: level.toString() })}
-                            </span>
-                        )}
-                        <div className="font-bold text-sm md:text-lg tracking-wide text-zinc-800 dark:text-zinc-200 truncate">
-                            {phase === 'idle' ? t('start') : message}
-                        </div>
-                    </div>
-                    {phase === 'idle' && (
-                        <GameSettingsDialog
-                            settings={settings}
-                            onSave={saveSettings}
-                            isOpen={isSettingsOpen}
-                            onOpenChange={setIsSettingsOpen}
-                            t={t}
-                        />
-                    )}
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2 md:px-6 md:py-3 bg-transparent shrink-0 z-20">
+                {phase !== 'idle' && (
+                    <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase px-2 py-0.5 md:px-2.5 md:py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+                        {t('level', { level: level.toString() })}
+                    </span>
+                )}
+                <div className="font-bold text-sm md:text-lg tracking-wide text-zinc-800 dark:text-zinc-200 truncate">
+                    {phase === 'idle' ? t('start') : message}
                 </div>
                 {phase !== 'idle' && (
-                    <div className="flex gap-3 text-xs md:text-sm font-bold tracking-wider">
+                    <div className="flex gap-3 text-xs md:text-sm font-bold tracking-wider md:ml-auto">
                         <span className="text-zinc-600 dark:text-zinc-400">
                             {t('score', { score: score.toString() })}
                         </span>
@@ -358,6 +386,17 @@ export default function GameComponent() {
                                 {t('highScore', { score: bestScore.toString() })}
                             </span>
                         )}
+                    </div>
+                )}
+                {phase === 'idle' && (
+                    <div className="ml-auto">
+                        <GameSettingsDialog
+                            settings={settings}
+                            onSave={saveSettings}
+                            isOpen={isSettingsOpen}
+                            onOpenChange={setIsSettingsOpen}
+                            t={t}
+                        />
                     </div>
                 )}
             </div>
@@ -434,12 +473,16 @@ export default function GameComponent() {
                             left: `${frogPos.px}%`,
                             top: `${frogPos.py}%`,
                         }}
-                        transition={{ type: 'spring', stiffness: 80, damping: 16, mass: 1 }}
+                        transition={{
+                            type: 'tween',
+                            duration: jumpDuration / 1000,
+                            ease: [0.25, 0.1, 0.25, 1],
+                        }}
                         style={{
                             transform: 'translate(-50%, -65%)',
                         }}
                     >
-                        <FrogSVG size={frogSize} isJumping={isJumping} rotation={frogRotation} />
+                        <FrogSVG size={frogSize} isJumping={isJumping} jumpDuration={jumpDuration} rotation={frogRotation} />
                     </motion.div>
                 )}
 
@@ -565,13 +608,6 @@ function GameSettingsDialog({
         setTempSettings(settings);
     }, [settings, isOpen]);
 
-    const difficulties: Difficulty[] = ['easy', 'medium', 'hard'];
-    const difficultyLabels: Record<Difficulty, string> = {
-        easy: t('difficultyEasy'),
-        medium: t('difficultyMedium'),
-        hard: t('difficultyHard'),
-    };
-
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogTrigger asChild>
@@ -584,26 +620,6 @@ function GameSettingsDialog({
                     <DialogTitle className="uppercase font-bold tracking-widest">{t('settings')}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-5 py-4">
-                    {/* Difficulty */}
-                    <div className="space-y-2.5">
-                        <Label className="uppercase font-bold tracking-wider text-sm">{t('difficultyLabel')}</Label>
-                        <div className="flex gap-2">
-                            {difficulties.map(d => (
-                                <button
-                                    key={d}
-                                    onClick={() => setTempSettings({ ...tempSettings, difficulty: d })}
-                                    className={`flex-1 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider transition-all ${tempSettings.difficulty === d
-                                        ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-md scale-105'
-                                        : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
-                                        }`}
-                                >
-                                    {difficultyLabels[d]}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Start Level */}
                     <div className="space-y-2">
                         <Label htmlFor="startLevel" className="uppercase font-bold tracking-wider text-sm">{t('startLevel')}</Label>
                         <Input

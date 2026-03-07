@@ -2,6 +2,7 @@ import { GamePreview as SimonGamePreview } from "@/app/[locale]/(main)/games/blo
 import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/games/schulte-table/components/GamePreview";
 import { CountingBoxesGamePreview } from "@/app/[locale]/(main)/games/counting-boxes/components/GamePreview";
 import { GamePreview as ResonanceBreathingPreview } from "@/app/[locale]/(main)/games/resonance-breathing/GamePreview";
+import { GamePreview as FishTraceGamePreview } from "@/app/[locale]/(main)/games/fish-trace/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 
 
@@ -84,7 +85,7 @@ export const games: Game[] = [
     id: "fish-trace",
     title: "Glowing Fish Trace",
     slug: "fish-trace",
-    preview: <ImagePreview src="/games/fish-trace.png" />,
+    preview: <FishTraceGamePreview />,
     categories: ["visual-tracking", "sustained-attention", "brain-games-for-kids", "adhd-games"],
   },
   {

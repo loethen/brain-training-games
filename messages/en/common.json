@@ -32,7 +32,11 @@
       "player": "Player",
       "score": "Score",
       "date": "Date",
-      "you": "You!"
+      "you": "You!",
+      "unitPts": "pts",
+      "unitMs": "ms",
+      "unitCps": "CPS",
+      "unitLevel": "Level {score}"
     }
   }
 }

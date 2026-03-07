@@ -7,6 +7,8 @@ interface FrogSVGProps {
     isJumping?: boolean;
     /** Rotation in degrees — 0 = sprite default heading (~205° CW from north). */
     rotation?: number;
+    /** Total jump duration in ms — sprite animation timing scales to match. */
+    jumpDuration?: number;
     className?: string;
 }
 
@@ -33,16 +35,24 @@ const FRAMES = {
     land: { x: 1, y: 613, w: 222, h: 229 }, // frame_0004 - landing
 };
 
-// Jump animation keyframes: frame name + duration to hold (ms)
-// Total: 120 + 500 + 200 = 820ms — synced with slower spring animation
-const JUMP_SEQUENCE: { frame: keyof typeof FRAMES; hold: number }[] = [
-    { frame: 'crouch', hold: 120 },  // crouch before takeoff
-    { frame: 'stretch', hold: 500 },  // in-air stretch (covers most of the flight)
-    { frame: 'land', hold: 200 },  // landing
-    { frame: 'sit', hold: 0 },  // back to idle
-];
+// Largest frame dimensions — used as uniform bounding box so frog never shrinks
+const MAX_FRAME_W = 240;
+const MAX_FRAME_H = 313;
 
-export function FrogSVG({ size = 50, isJumping = false, rotation = 0, className = '' }: FrogSVGProps) {
+/**
+ * Build jump animation keyframes scaled to the given total duration.
+ * Proportions: crouch 15%, stretch 55%, land 25%, sit 5% (=100%)
+ */
+function buildJumpSequence(totalMs: number): { frame: keyof typeof FRAMES; hold: number }[] {
+    return [
+        { frame: 'crouch', hold: Math.round(totalMs * 0.15) },
+        { frame: 'stretch', hold: Math.round(totalMs * 0.55) },
+        { frame: 'land', hold: Math.round(totalMs * 0.25) },
+        { frame: 'sit', hold: 0 },
+    ];
+}
+
+export function FrogSVG({ size = 50, isJumping = false, rotation = 0, jumpDuration = 900, className = '' }: FrogSVGProps) {
     const [currentFrame, setCurrentFrame] = useState<keyof typeof FRAMES>('sit');
     const animRef = useRef<NodeJS.Timeout[]>([]);
     const prevJumping = useRef(false);
@@ -54,8 +64,9 @@ export function FrogSVG({ size = 50, isJumping = false, rotation = 0, className 
             animRef.current.forEach(clearTimeout);
             animRef.current = [];
 
+            const sequence = buildJumpSequence(jumpDuration);
             let elapsed = 0;
-            JUMP_SEQUENCE.forEach(({ frame, hold }) => {
+            sequence.forEach(({ frame, hold }) => {
                 const timer = setTimeout(() => {
                     setCurrentFrame(frame);
                 }, elapsed);
@@ -76,14 +87,21 @@ export function FrogSVG({ size = 50, isJumping = false, rotation = 0, className 
         return () => {
             animRef.current.forEach(clearTimeout);
         };
-    }, [isJumping]);
+    }, [isJumping, jumpDuration]);
 
     const frame = FRAMES[currentFrame];
 
-    // Scale sprite to fit within `size`, maintaining aspect ratio
-    const aspect = frame.w / frame.h;
-    const displayW = aspect >= 1 ? size : size * aspect;
-    const displayH = aspect >= 1 ? size / aspect : size;
+    // Use the largest frame as a uniform bounding box so the frog never shrinks
+    // Scale the uniform box to fit within `size`
+    const uniformAspect = MAX_FRAME_W / MAX_FRAME_H;
+    const boxW = uniformAspect >= 1 ? size : size * uniformAspect;
+    const boxH = uniformAspect >= 1 ? size / uniformAspect : size;
+
+    // Scale factor: how much to scale the current frame to fit proportionally
+    // within the uniform bounding box
+    const frameScale = Math.min(boxW / frame.w, boxH / frame.h);
+    const displayW = frame.w * frameScale;
+    const displayH = frame.h * frameScale;
 
     // Background-size scales the entire sheet so the frame area maps to displayW/displayH
     const bgW = (SHEET_W / frame.w) * displayW;
@@ -97,8 +115,8 @@ export function FrogSVG({ size = 50, isJumping = false, rotation = 0, className 
         <div
             className={className}
             style={{
-                width: size,
-                height: size,
+                width: boxW,
+                height: boxH,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',

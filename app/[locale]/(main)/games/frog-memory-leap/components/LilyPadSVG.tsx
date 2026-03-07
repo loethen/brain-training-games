@@ -25,7 +25,7 @@ export function LilyPadSVG({
     if (isHighlighted) glowFilter = 'drop-shadow(0 0 12px rgba(255, 215, 0, 0.8))';
     if (isCorrect) glowFilter = 'drop-shadow(0 0 10px rgba(34, 197, 94, 0.8))';
     if (isWrong) glowFilter = 'drop-shadow(0 0 10px rgba(239, 68, 68, 0.8))';
-    if (isActive) glowFilter = 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))';
+    if (isActive) glowFilter = 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.85))';
 
     return (
         <div
@@ -42,14 +42,15 @@ export function LilyPadSVG({
                 <div className="absolute inset-0 pointer-events-none">
                     <style jsx>{`
                         @keyframes ripple-ring {
-                            0% { transform: scale(0.8); opacity: 0.6; }
+                            0% { transform: scale(0.8); opacity: 0.8; }
                             100% { transform: scale(1.8); opacity: 0; }
                         }
                     `}</style>
                     <div
-                        className="absolute rounded-full border-2 border-white/40"
+                        className="absolute rounded-full"
                         style={{
                             top: '10%', left: '10%', width: '80%', height: '80%',
+                            border: '2px solid rgba(255,255,255,0.7)',
                             animation: 'ripple-ring 1.5s ease-out infinite',
                         }}
                     />

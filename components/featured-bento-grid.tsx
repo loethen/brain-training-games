@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 
 // Select specific games for the bento grid
-const FEATURED_GAME_ID = 'resonance-breathing';
+const FEATURED_GAME_ID = 'fish-trace';
 // Added more games: 'reaction-time', 'stroop-effect-test', 'frog-memory-leap'
 const SECONDARY_GAME_IDS = ['schulte-table', 'dual-n-back', 'reaction-time', 'stroop-effect-test', 'frog-memory-leap'];
 
@@ -85,7 +85,7 @@ export default function FeaturedBentoGrid() {
                             {/* Decorative background glow */}
                             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl transform scale-75 opacity-50" />
 
-                            <div className="relative z-0 transform group-hover:scale-110 transition-transform duration-700 ease-in-out">
+                            <div className="relative z-0 w-full h-full p-4 md:p-8 transform group-hover:scale-[1.02] transition-transform duration-700 ease-in-out">
                                 {featuredGame.preview}
                             </div>
                         </div>
