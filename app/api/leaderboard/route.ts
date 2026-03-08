@@ -223,8 +223,6 @@ function validateScore(
     }
 }
 
-export const runtime = "edge";
-
 export async function GET(req: NextRequest) {
     try {
         const { searchParams } = new URL(req.url);
