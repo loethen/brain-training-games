@@ -193,7 +193,7 @@ export function PatternRecallGame() {
                 mode: RANKED_LEADERBOARD_MODE,
             })
         }
-    }, [lastCompletedLevel, playMode, score, sessionStartTime])
+    }, [lastCompletedLevel, playMode, sessionStartTime])
 
     const handleBlockClick = useCallback((blockId: number) => {
         if (gameState !== "guessing") {

@@ -11,7 +11,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { getTranslations, getMessages } from 'next-intl/server';
+import { getTranslations, getMessages, setRequestLocale } from 'next-intl/server';
+
+export const revalidate = 86400;
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -90,9 +92,9 @@ export default async function RootLayout({
     const { locale } = resolvedParams;
 
     if (!hasLocale(routing.locales, locale)) notFound();
+    setRequestLocale(locale);
 
-    // 直接获取消息，而不是重新导入
-    const messages = await getMessages();
+    const messages = await getMessages({ locale });
 
     return (
         <html lang={locale} suppressHydrationWarning>

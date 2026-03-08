@@ -2,7 +2,7 @@ import { getBlogPosts, getBlogPost, getPostNavigation } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { formatDate, generateAlternates } from '@/lib/utils';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import Markdown from '@/components/markdown';
 import { Breadcrumb } from '@/components/breadcrumb';
@@ -25,6 +25,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
 ): Promise<Metadata> {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const post = await getBlogPost(slug, locale);
 
   if (!post) {
@@ -49,6 +50,7 @@ export async function generateMetadata(
 
 export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'blog' });
   const commonT = await getTranslations({ locale, namespace: 'common' });

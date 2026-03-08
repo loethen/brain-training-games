@@ -1,103 +1,91 @@
 import { MetadataRoute } from 'next'
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 import { games } from '../data/games'
 import { categories } from '../data/categories'
+import { blogData } from '@/data/generated'
+import { CONTENT_LAST_UPDATED_DATE, SITE_BASE_URL } from '@/lib/site-constants'
 
-// 获取环境变量
-const BASE_URL = process.env.SITE_URL || 'https://www.freefocusgames.com'
 const LOCALES = ['en', 'zh'] // 支持的语言列表
-
-// 获取博客文章的最后修改时间
-function getFileLastModified(filePath: string): Date {
-  try {
-    const stats = fs.statSync(filePath)
-    return stats.mtime
-  } catch {
-    return new Date()
-  }
-}
+export const revalidate = 86400
 
 // 生成基本页面路由
 function generateBaseRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
   return [
     {
-      url: `${BASE_URL}${localePrefix}`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
-      url: `${BASE_URL}${localePrefix}/games`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/games`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}${localePrefix}/categories`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/categories`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}${localePrefix}/blog`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/blog`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}${localePrefix}/about`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/about`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: `${BASE_URL}${localePrefix}/tests`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/tests`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}${localePrefix}/guides`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/guides`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}${localePrefix}/get-started`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/get-started`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}${localePrefix}/working-memory-guide`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/working-memory-guide`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}${localePrefix}/adhd-assessment`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/adhd-assessment`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}${localePrefix}/partnerships`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/partnerships`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
-      url: `${BASE_URL}${localePrefix}/privacy-policy`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/privacy-policy`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'yearly',
       priority: 0.4,
     },
     {
-      url: `${BASE_URL}${localePrefix}/terms-of-service`,
-      lastModified: new Date(),
+      url: `${SITE_BASE_URL}${localePrefix}/terms-of-service`,
+      lastModified: CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'yearly',
       priority: 0.4,
     }
@@ -108,8 +96,8 @@ function generateBaseRoutes(locale: string): MetadataRoute.Sitemap {
 function generateGameRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
   return games.map(game => ({
-    url: `${BASE_URL}${localePrefix}/games/${game.slug}`,
-    lastModified: new Date(),
+    url: `${SITE_BASE_URL}${localePrefix}/games/${game.slug}`,
+    lastModified: CONTENT_LAST_UPDATED_DATE,
     changeFrequency: 'weekly',
     priority: 0.8,
   }))
@@ -119,8 +107,8 @@ function generateGameRoutes(locale: string): MetadataRoute.Sitemap {
 function generateCategoryRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
   return categories.map(category => ({
-    url: `${BASE_URL}${localePrefix}/categories/${category.slug}`,
-    lastModified: new Date(),
+    url: `${SITE_BASE_URL}${localePrefix}/categories/${category.slug}`,
+    lastModified: CONTENT_LAST_UPDATED_DATE,
     changeFrequency: 'weekly',
     priority: 0.7,
   }))
@@ -129,31 +117,14 @@ function generateCategoryRoutes(locale: string): MetadataRoute.Sitemap {
 // 生成博客文章路由
 function generateBlogRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
-  const routes: MetadataRoute.Sitemap = []
-  const blogDir = path.join(process.cwd(), locale === 'en' ? 'data/blog' : `data/blog-translations/${locale}`)
+  const posts = blogData[locale] || blogData.en || []
 
-  if (!fs.existsSync(blogDir)) {
-    return routes
-  }
-
-  const blogFiles = fs.readdirSync(blogDir)
-    .filter(file => file.endsWith('.md'))
-
-  for (const file of blogFiles) {
-    const filePath = path.join(blogDir, file)
-    const content = fs.readFileSync(filePath, 'utf8')
-    const { data: frontmatter } = matter(content)
-    const slug = file.replace(/\.md$/, '')
-
-    routes.push({
-      url: `${BASE_URL}${localePrefix}/blog/${slug}`,
-      lastModified: frontmatter.date ? new Date(frontmatter.date) : getFileLastModified(filePath),
+  return posts.map((post) => ({
+      url: `${SITE_BASE_URL}${localePrefix}/blog/${post.slug}`,
+      lastModified: post.date ? new Date(post.date) : CONTENT_LAST_UPDATED_DATE,
       changeFrequency: 'monthly',
       priority: 0.6,
-    })
-  }
-
-  return routes
+    }))
 }
 
 // 静态生成sitemap

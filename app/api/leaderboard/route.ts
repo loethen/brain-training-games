@@ -2,45 +2,176 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import {
     DEFAULT_LEADERBOARD_MODE,
-    LEADERBOARD_GAME_CONFIG,
-    type LeaderboardSortConfig,
 } from "@/lib/leaderboard-config";
+import {
+    createEmptySnapshot,
+    getLeaderboardSnapshotKey,
+    isHigherScoreBetter,
+    updateSnapshotWithScore,
+    type LeaderboardSnapshot,
+} from "@/lib/leaderboard-snapshots";
 
 const ADJECTIVES = ["Focus", "Speedy", "Clever", "Brave", "Swift", "Ninja", "Pro", "Epic", "Turbo", "Cool", "Zen", "Mind"];
 const NOUNS = ["Fox", "Owl", "Cat", "Wolf", "Brain", "Hero", "Master", "Star", "Eagle", "Panda", "Tiger", "Bear"];
 
-interface LeaderboardMetadata {
-    mistakes?: number;
-    completionTimeMs?: number;
-}
+type D1PreparedStatement = {
+    bind: (...values: unknown[]) => {
+        all: () => Promise<{ results: Record<string, unknown>[] }>;
+        first: () => Promise<Record<string, unknown> | null>;
+        run: () => Promise<unknown>;
+    };
+};
 
-async function getDatabase() {
+type D1DatabaseBinding = {
+    prepare: (query: string) => D1PreparedStatement;
+};
+
+async function getCloudflareBindings() {
     const { env } = await getCloudflareContext({ async: true });
-    const db = (env as unknown as Record<string, unknown>)?.DB;
+    const bindings = env as unknown as Record<string, unknown>;
+    const db = bindings?.DB;
+    const bucket = bindings?.ASSETS_BUCKET;
 
     if (!db) {
         throw new Error("Cloudflare D1 binding 'DB' is not available.");
     }
 
-    return db as {
-        prepare: (query: string) => {
-            bind: (...values: unknown[]) => {
-                all: () => Promise<{ results: Record<string, unknown>[] }>;
-                first: () => Promise<Record<string, unknown> | null>;
-                run: () => Promise<unknown>;
-            };
-        };
+    return {
+        db: db as D1DatabaseBinding,
+        bucket: bucket as R2Bucket | undefined,
     };
 }
 
-function getSortConfig(gameId: string): LeaderboardSortConfig {
-    return LEADERBOARD_GAME_CONFIG[gameId] || { primary: "DESC" };
+function parseSnapshot(snapshotText: string | null) {
+    if (!snapshotText) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(snapshotText) as LeaderboardSnapshot;
+    } catch {
+        return null;
+    }
 }
 
-function getOrderByClause(sortConfig: LeaderboardSortConfig) {
-    const orderParts = [`score ${sortConfig.primary}`];
-    orderParts.push("created_at ASC");
-    return orderParts.join(", ");
+async function readSnapshot(bucket: R2Bucket | undefined, gameId: string, mode: string) {
+    if (!bucket) {
+        return null;
+    }
+
+    const object = await bucket.get(getLeaderboardSnapshotKey(gameId, mode));
+    const text = object ? await object.text() : null;
+    return parseSnapshot(text);
+}
+
+async function writeSnapshot(bucket: R2Bucket | undefined, snapshot: LeaderboardSnapshot) {
+    if (!bucket) {
+        return;
+    }
+
+    await bucket.put(
+        getLeaderboardSnapshotKey(snapshot.gameId, snapshot.mode),
+        JSON.stringify(snapshot),
+        {
+            httpMetadata: {
+                contentType: "application/json",
+                cacheControl: "public, max-age=120, s-maxage=120, stale-while-revalidate=600",
+            },
+        }
+    );
+}
+
+function getAverageScore(snapshot: LeaderboardSnapshot) {
+    if (snapshot.totalPlayers === 0) {
+        return 0;
+    }
+
+    return snapshot.scoreSum / snapshot.totalPlayers;
+}
+
+function toNumber(value: unknown, fallback = 0) {
+    if (typeof value === "number" && Number.isFinite(value)) {
+        return value;
+    }
+
+    if (typeof value === "string") {
+        const parsed = Number(value);
+        if (Number.isFinite(parsed)) {
+            return parsed;
+        }
+    }
+
+    return fallback;
+}
+
+async function rebuildSnapshotFromDatabase(
+    db: D1DatabaseBinding,
+    gameId: string,
+    mode: string
+) {
+    const scoreOrder = isHigherScoreBetter(gameId) ? "DESC" : "ASC";
+
+    const [topRows, aggregateRow] = await Promise.all([
+        db.prepare(
+            `WITH ranked_scores AS (
+                SELECT
+                    COALESCE(player_id, player_name) AS player_key,
+                    COALESCE(player_id, player_name) AS player_id,
+                    player_name,
+                    score,
+                    created_at,
+                    ROW_NUMBER() OVER (
+                        PARTITION BY COALESCE(player_id, player_name)
+                        ORDER BY score ${scoreOrder}, datetime(created_at) ASC
+                    ) AS player_rank
+                FROM leaderboard
+                WHERE game_id = ?
+                  AND mode = ?
+            )
+            SELECT
+                player_id AS playerId,
+                player_name AS playerName,
+                score,
+                created_at AS createdAt
+            FROM ranked_scores
+            WHERE player_rank = 1
+            ORDER BY score ${scoreOrder}, datetime(created_at) ASC
+            LIMIT 20`
+        ).bind(gameId, mode).all(),
+        db.prepare(
+            `WITH ranked_scores AS (
+                SELECT
+                    score,
+                    ROW_NUMBER() OVER (
+                        PARTITION BY COALESCE(player_id, player_name)
+                        ORDER BY score ${scoreOrder}, datetime(created_at) ASC
+                    ) AS player_rank
+                FROM leaderboard
+                WHERE game_id = ?
+                  AND mode = ?
+            )
+            SELECT
+                COUNT(*) AS totalPlayers,
+                COALESCE(SUM(score), 0) AS scoreSum
+            FROM ranked_scores
+            WHERE player_rank = 1`
+        ).bind(gameId, mode).first(),
+    ]);
+
+    return {
+        version: 1 as const,
+        gameId,
+        mode,
+        updatedAt: new Date().toISOString(),
+        totalPlayers: toNumber(aggregateRow?.totalPlayers),
+        scoreSum: toNumber(aggregateRow?.scoreSum),
+        entries: topRows.results.map((row) => ({
+            playerId: String(row.playerId ?? ""),
+            playerName: String(row.playerName ?? "Anonymous"),
+            score: toNumber(row.score),
+            createdAt: String(row.createdAt ?? new Date().toISOString()),
+        })),
+    };
 }
 
 function isValidMode(mode: string) {
@@ -104,57 +235,30 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: "Missing or invalid parameters" }, { status: 400 });
         }
 
-        const sortConfig = getSortConfig(gameId);
-        const orderByClause = getOrderByClause(sortConfig);
-        const db = await getDatabase();
+        const { db, bucket } = await getCloudflareBindings();
+        let snapshot = await readSnapshot(bucket, gameId, mode);
 
-        const top20Result = await db.prepare(
-            `WITH ranked_scores AS (
-                SELECT
-                    COALESCE(player_id, player_name) AS player_key,
-                    player_name,
-                    score,
-                    created_at,
-                    ROW_NUMBER() OVER (
-                        PARTITION BY COALESCE(player_id, player_name)
-                        ORDER BY ${orderByClause}
-                    ) AS player_rank
-                FROM leaderboard
-                WHERE game_id = ? AND mode = ?
-            )
-            SELECT
-                player_name AS playerName,
-                score,
-                created_at AS createdAt
-            FROM ranked_scores
-            WHERE player_rank = 1
-            ORDER BY ${orderByClause}
-            LIMIT 20`
-        ).bind(gameId, mode).all();
+        if (!snapshot) {
+            snapshot = await rebuildSnapshotFromDatabase(db, gameId, mode);
+            await writeSnapshot(bucket, snapshot);
+        }
 
-        const statsResult = await db.prepare(
-            `WITH ranked_scores AS (
-                SELECT
-                    COALESCE(player_id, player_name) AS player_key,
-                    score,
-                    created_at,
-                    ROW_NUMBER() OVER (
-                        PARTITION BY COALESCE(player_id, player_name)
-                        ORDER BY ${orderByClause}
-                    ) AS player_rank
-                FROM leaderboard
-                WHERE game_id = ? AND mode = ?
-            )
-            SELECT AVG(score) AS averageScore, COUNT(*) AS totalPlayers
-            FROM ranked_scores
-            WHERE player_rank = 1`
-        ).bind(gameId, mode).first();
-
-        return NextResponse.json({
-            top20: top20Result.results,
-            averageScore: statsResult?.averageScore || 0,
-            totalPlayers: statsResult?.totalPlayers || 0,
-        });
+        return NextResponse.json(
+            {
+                top20: snapshot.entries.map((entry) => ({
+                    playerName: entry.playerName,
+                    score: entry.score,
+                    createdAt: entry.createdAt,
+                })),
+                averageScore: getAverageScore(snapshot),
+                totalPlayers: snapshot.totalPlayers,
+            },
+            {
+                headers: {
+                    "Cache-Control": "public, max-age=60, s-maxage=60, stale-while-revalidate=300",
+                },
+            }
+        );
     } catch (error) {
         console.error("Leaderboard GET Error:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
@@ -185,8 +289,27 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: validationError }, { status: 400 });
         }
 
-        const db = await getDatabase();
+        const { db, bucket } = await getCloudflareBindings();
         const playerName = await generateStableName(playerId);
+        const nowIso = new Date().toISOString();
+
+        const existingBest = await db.prepare(
+            `SELECT score
+             FROM leaderboard
+             WHERE game_id = ?
+               AND mode = ?
+               AND COALESCE(player_id, player_name) = ?
+             ORDER BY score ${gameId === "reaction-time" || gameId === "schulte-table" ? "ASC" : "DESC"}
+             LIMIT 1`
+        ).bind(gameId, mode, playerId).first();
+
+        const previousBestScore =
+            existingBest && typeof existingBest.score === "number"
+                ? existingBest.score
+                : existingBest && existingBest.score !== undefined
+                    ? Number(existingBest.score)
+                    : null;
+        const isFirstPlayer = previousBestScore === null;
 
         const recentSubmissions = await db.prepare(
             `SELECT COUNT(id) AS submissionCount
@@ -225,6 +348,29 @@ export async function POST(req: NextRequest) {
                 score
             ) VALUES (?, ?, ?, ?, ?)`
         ).bind(gameId, playerId, playerName, mode, score).run();
+
+        try {
+            const currentSnapshot = (await readSnapshot(bucket, gameId, mode)) ?? createEmptySnapshot(gameId, mode);
+            const nextSnapshot = updateSnapshotWithScore(
+                currentSnapshot,
+                {
+                    playerId,
+                    playerName,
+                    score,
+                    createdAt: nowIso,
+                },
+                {
+                    isFirstPlayer,
+                    previousBestScore,
+                }
+            );
+
+            if (nextSnapshot !== currentSnapshot) {
+                await writeSnapshot(bucket, nextSnapshot);
+            }
+        } catch (snapshotError) {
+            console.error("Leaderboard snapshot update failed:", snapshotError);
+        }
 
         return NextResponse.json({ success: true, playerName });
     } catch (error) {

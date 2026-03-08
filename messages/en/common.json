@@ -29,6 +29,7 @@
       "averageScore": "Average Score",
       "totalPlayers": "Total Players",
       "loading": "Loading leaderboard...",
+      "loadPrompt": "Leaderboard will load when this section comes into view.",
       "empty": "No scores recorded yet. Be the first!",
       "submittedTitle": "Score submitted. Your anonymous alias is",
       "submittedBody": "You scored {score} (average: {average}).",

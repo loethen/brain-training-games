@@ -13,6 +13,7 @@ import { useTranslations } from "next-intl";
 import { TrainingEffectChart } from "./components/TrainingEffectChart";
 import { BrainRegionsDiagram } from "./components/BrainRegionsDiagram";
 import { TrainingScheduleTable } from "./components/TrainingScheduleTable";
+import { CONTENT_LAST_UPDATED_ISO } from "@/lib/site-constants";
 
 type TWorkingMemoryT = ReturnType<typeof useTranslations<"workingMemoryGuide">>;
 
@@ -40,7 +41,7 @@ export async function generateMetadata(
                 "description": t('metaDescription'),
                 "image": "https://freefocusgames.com/og/oglogo.png",
                 "datePublished": "2024-01-01",
-                "dateModified": new Date().toISOString(),
+                "dateModified": CONTENT_LAST_UPDATED_ISO,
                 "author": {
                     "@type": "Organization",
                     "name": "Free Focus Games Team"

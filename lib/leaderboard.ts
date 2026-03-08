@@ -2,7 +2,6 @@ const PLAYER_ID_KEY = "freefocusgames.leaderboard.player-id";
 
 export interface LeaderboardSubmissionOptions {
     mode?: string;
-    metadata?: Record<string, unknown>;
 }
 
 function getLeaderboardPlayerId() {
@@ -32,7 +31,6 @@ export async function submitScoreToLeaderboard(
                 playerId,
                 score,
                 mode: options.mode,
-                metadata: options.metadata,
             }),
         });
 
@@ -44,7 +42,6 @@ export async function submitScoreToLeaderboard(
                     playerName: data.playerName,
                     score,
                     mode: options.mode,
-                    metadata: options.metadata ?? null,
                 }
             });
             window.dispatchEvent(event);

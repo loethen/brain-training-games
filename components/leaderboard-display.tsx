@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { Trophy, Users, TrendingUp, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { DEFAULT_LEADERBOARD_MODE } from "@/lib/leaderboard-config";
+import { getPublicLeaderboardUrl } from "@/lib/leaderboard-public";
 
 export type FormatterType = 'ms' | 'cps' | 'pts' | 'levels' | 'schulte' | 'default';
 
@@ -28,8 +29,10 @@ export function LeaderboardDisplay({
     const [top20, setTop20] = useState<LeaderboardRecord[]>([]);
     const [averageScore, setAverageScore] = useState<number>(0);
     const [totalPlayers, setTotalPlayers] = useState<number>(0);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
     const [mySessionDetail, setMySessionDetail] = useState<{ playerName: string; score: number } | null>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
     const formatScore = useCallback((s: number) => {
         const rounded = Math.round(s);
@@ -43,11 +46,35 @@ export function LeaderboardDisplay({
         }
     }, [formatterType, t]);
 
-    const fetchLeaderboard = useCallback(async () => {
+    const fetchLeaderboard = useCallback(async (forceFresh = false) => {
         try {
             setLoading(true);
             const params = new URLSearchParams({ gameId, mode });
-            const res = await fetch(`/api/leaderboard?${params.toString()}`);
+            if (forceFresh) {
+                params.set("_", Date.now().toString());
+            }
+            const requestInit: RequestInit = {
+                cache: forceFresh ? "no-store" : "default",
+            };
+            const publicUrl = getPublicLeaderboardUrl(gameId, mode);
+            const publicRequestUrl = publicUrl
+                ? `${publicUrl}${forceFresh ? `?${params.toString()}` : ""}`
+                : null;
+
+            let res: Response | null = null;
+
+            if (publicRequestUrl) {
+                try {
+                    res = await fetch(publicRequestUrl, requestInit);
+                } catch {
+                    res = null;
+                }
+            }
+
+            if (!res || !res.ok) {
+                res = await fetch(`/api/leaderboard?${params.toString()}`, requestInit);
+            }
+
             if (res.ok) {
                 const data = (await res.json()) as { top20: LeaderboardRecord[]; averageScore: number; totalPlayers: number };
                 setTop20(data.top20);
@@ -62,8 +89,30 @@ export function LeaderboardDisplay({
     }, [gameId, mode]);
 
     useEffect(() => {
-        fetchLeaderboard();
-    }, [fetchLeaderboard]);
+        if (hasEnteredViewport) {
+            void fetchLeaderboard();
+        }
+    }, [fetchLeaderboard, hasEnteredViewport]);
+
+    useEffect(() => {
+        const node = containerRef.current;
+        if (!node || hasEnteredViewport) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setHasEnteredViewport(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: "300px 0px" }
+        );
+
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, [hasEnteredViewport]);
 
     useEffect(() => {
         const handleUpdate = (e: Event) => {
@@ -73,7 +122,8 @@ export function LeaderboardDisplay({
                     playerName: customEvent.detail.playerName,
                     score: customEvent.detail.score
                 });
-                fetchLeaderboard();
+                setHasEnteredViewport(true);
+                void fetchLeaderboard(true);
             }
         };
 
@@ -81,16 +131,28 @@ export function LeaderboardDisplay({
         return () => window.removeEventListener('leaderboardUpdated', handleUpdate);
     }, [gameId, fetchLeaderboard, mode]);
 
+    if (!hasEnteredViewport) {
+        return (
+            <div ref={containerRef} className="w-full bg-background border rounded-xl overflow-hidden shadow-sm">
+                <div className="flex justify-center p-8 text-muted-foreground">
+                    {t('loadPrompt')}
+                </div>
+            </div>
+        );
+    }
+
     if (loading) {
         return (
-            <div className="flex justify-center p-8 text-muted-foreground animate-pulse">
-                {t('loading')}
+            <div ref={containerRef} className="w-full bg-background border rounded-xl overflow-hidden shadow-sm">
+                <div className="flex justify-center p-8 text-muted-foreground animate-pulse">
+                    {t('loading')}
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="w-full bg-background border rounded-xl overflow-hidden shadow-sm">
+        <div ref={containerRef} className="w-full bg-background border rounded-xl overflow-hidden shadow-sm">
             {/* Header Stats */}
             <div className="bg-muted p-4 md:p-6 border-b flex flex-col md:flex-row gap-4 items-center justify-between">
                 <div className="flex items-center gap-2">

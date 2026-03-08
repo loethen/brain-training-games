@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Link as LinkIcon, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { CONTENT_LAST_UPDATED_EN } from '@/lib/site-constants';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -113,7 +114,7 @@ export default function PartnershipsPage() {
       <div className="mt-10 p-5 bg-blue-50 rounded-lg">
         <h2 className="text-xl font-semibold mb-3">About Our Backlinks</h2>
         <p>
-          This page was last updated on {new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}. 
+          This page was last updated on {CONTENT_LAST_UPDATED_EN}. 
           We regularly update this list to include new resources and partnerships. The links above represent websites that have 
           featured our content or services. We appreciate their support in helping us reach a wider audience.
         </p>

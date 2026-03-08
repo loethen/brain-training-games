@@ -3,6 +3,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
+import { CONTENT_LAST_UPDATED_EN } from '@/lib/site-constants';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -32,7 +33,7 @@ export default function TermsOfServicePage() {
         <h1 className="text-3xl font-bold mb-6">{t('title')}</h1>
         <div className="prose prose-gray dark:prose-invert max-w-none">
           <p className="text-lg text-muted-foreground mb-8">
-            <strong>{t('lastUpdated')}</strong> {new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}
+            <strong>{t('lastUpdated')}</strong> {CONTENT_LAST_UPDATED_EN}
           </p>
           
           <section className="mb-8">

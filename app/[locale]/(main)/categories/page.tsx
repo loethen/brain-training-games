@@ -1,14 +1,15 @@
 import { Metadata } from "next";
 import GameCategories from "@/components/game-categories";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { generateAlternates } from "@/lib/utils";
 
 // 使用动态生成元数据替代静态元数据
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'categories' });
   
   return {
@@ -19,11 +20,18 @@ export async function generateMetadata(
       title: t('ogTitle'),
       description: t('ogDescription'),
     },
+    alternates: generateAlternates(locale, 'categories'),
   };
 }
 
-export default function CategoriesPage() {
-  const t = useTranslations('categories');
+export default async function CategoriesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: 'categories' });
   
   return (
       <div className="container mx-auto py-8">

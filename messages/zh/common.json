@@ -29,6 +29,7 @@
       "averageScore": "平均得分",
       "totalPlayers": "总玩家数",
       "loading": "正在加载排行榜...",
+      "loadPrompt": "滚动到这里时再加载排行榜。",
       "empty": "还没有成绩，来做第一个上榜的人。",
       "submittedTitle": "成绩已提交。你的匿名代号是",
       "submittedBody": "你的成绩是 {score}（平均值：{average}）。",
