@@ -10,6 +10,7 @@ import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
 import { routing } from '@/i18n/routing';
+import { RANKED_LEADERBOARD_MODE } from '@/lib/leaderboard-config';
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -38,11 +39,71 @@ export async function generateMetadata(
 }
 
 export default function SchultePage() {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://freefocusgames.com";
     const t = useTranslations('games');
     const tCommon = useTranslations('common');
     const benefitsT = useTranslations('games.schulteTable.benefits');
     const faqT = useTranslations('games.schulteTable.faq');
     const standardsT = useTranslations('games.schulteTable.speedStandards');
+    const faq = [
+        {
+            question: faqT("peripheralVision.question"),
+            answer: faqT("peripheralVision.answer"),
+        },
+        {
+            question: faqT("howItWorks.question"),
+            answer: faqT("howItWorks.answer"),
+        },
+        {
+            question: faqT("bestPractice.question"),
+            answer: faqT("bestPractice.answer"),
+        },
+        {
+            question: faqT("readingHelp.question"),
+            answer: faqT("readingHelp.answer"),
+        },
+        {
+            question: faqT("research.question"),
+            answer: faqT("research.answer"),
+        },
+    ];
+    const structuredData = [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": t("schulteTable.title"),
+            "description": t("schulteTable.metaDescription"),
+            "url": `${baseUrl}/games/schulte-table`,
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "featureList": [
+                "5x5 Schulte Table training",
+                "Adjusted-time leaderboard with mistake penalties",
+                "Peripheral vision practice",
+                "Speed reading support"
+            ],
+            "educationalUse": "Attention Training",
+            "learningResourceType": "Interactive Game",
+            "interactivityType": "active"
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faq.map((item) => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.answer
+                }
+            }))
+        }
+    ];
 
     return (
         <GamePageTemplate
@@ -107,6 +168,7 @@ export default function SchultePage() {
                     </Dialog>
                 </>
             }
+            leaderboardIntro={<p>{t("schulteTable.gameUI.leaderboardDescription")}</p>}
             benefits={[
                 {
                     icon: <Eye className="w-10 h-10" />,
@@ -147,31 +209,13 @@ export default function SchultePage() {
                     }
                 ]
             }}
-            faq={[
-                {
-                    question: faqT("peripheralVision.question"),
-                    answer: faqT("peripheralVision.answer"),
-                },
-                {
-                    question: faqT("howItWorks.question"),
-                    answer: faqT("howItWorks.answer"),
-                },
-                {
-                    question: faqT("bestPractice.question"),
-                    answer: faqT("bestPractice.answer"),
-                },
-                {
-                    question: faqT("readingHelp.question"),
-                    answer: faqT("readingHelp.answer"),
-                },
-                {
-                    question: faqT("research.question"),
-                    answer: faqT("research.answer"),
-                },
-            ]}
+            faq={faq}
             relatedGames={["fish-trace", "block-memory-challenge"]}
+            hasLeaderboard={true}
+            leaderboardFormatterType="schulte"
+            leaderboardMode={RANKED_LEADERBOARD_MODE}
+            structuredData={structuredData}
         />
     );
 }
-
 

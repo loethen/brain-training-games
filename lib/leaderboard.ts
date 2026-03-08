@@ -1,30 +1,51 @@
-// Obscured salt for basic anti-tampering
-const SALT = "fFg$9dL2!pQx";
+const PLAYER_ID_KEY = "freefocusgames.leaderboard.player-id";
 
-async function generateSignature(gameId: string, score: number, timestamp: number): Promise<string> {
-    const message = `${gameId}:${score}:${timestamp}:${SALT}`;
-    const encoder = new TextEncoder();
-    const data = encoder.encode(message);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+export interface LeaderboardSubmissionOptions {
+    mode?: string;
+    metadata?: Record<string, unknown>;
 }
 
-export async function submitScoreToLeaderboard(gameId: string, score: number) {
+function getLeaderboardPlayerId() {
+    const existingId = localStorage.getItem(PLAYER_ID_KEY);
+    if (existingId) {
+        return existingId;
+    }
+
+    const newId = crypto.randomUUID().replace(/-/g, "");
+    localStorage.setItem(PLAYER_ID_KEY, newId);
+    return newId;
+}
+
+export async function submitScoreToLeaderboard(
+    gameId: string,
+    score: number,
+    options: LeaderboardSubmissionOptions = {}
+) {
     try {
-        const timestamp = Date.now();
-        const signature = await generateSignature(gameId, score, timestamp);
+        const playerId = getLeaderboardPlayerId();
 
         const res = await fetch("/api/leaderboard", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ gameId, score, timestamp, signature }),
+            body: JSON.stringify({
+                gameId,
+                playerId,
+                score,
+                mode: options.mode,
+                metadata: options.metadata,
+            }),
         });
 
         if (res.ok) {
             const data = await res.json() as { playerName: string };
             const event = new CustomEvent('leaderboardUpdated', {
-                detail: { gameId, playerName: data.playerName, score }
+                detail: {
+                    gameId,
+                    playerName: data.playerName,
+                    score,
+                    mode: options.mode,
+                    metadata: options.metadata ?? null,
+                }
             });
             window.dispatchEvent(event);
         } else {

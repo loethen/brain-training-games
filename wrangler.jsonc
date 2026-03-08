@@ -14,7 +14,8 @@
 		{
 			"binding": "DB",
 			"database_name": "freefocusgames-db",
-			"database_id": "d5203814-38d1-4e6b-8a06-1ca3e2e1c7a0"
+			"database_id": "d5203814-38d1-4e6b-8a06-1ca3e2e1c7a0",
+			"migrations_dir": "drizzle"
 		}
 	],
 	"r2_buckets": [

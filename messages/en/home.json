@@ -1,7 +1,13 @@
 {
   "home": {
-    "title": "Free Focus Games & Brain Training: Boost Your Memory & Attention",
-    "subtitle": "Boost your mind with fun, 5-minute daily challenges.",
+    "title": "Free Brain Training & Focus Games: Boost Attention the Fun Way",
+    "subtitle": "Science-backed cognitive training for all ages. Just 5 minutes a day to improve working memory and brain performance.",
+    "heroImageAlt": "Free Focus Games Platform - Play brain training games to improve concentration and memory",
+    "heroFeatures": [
+      "✓ No Download Required",
+      "✓ 100% Free to Play",
+      "✓ For Kids & Adult ADHD"
+    ],
     "ctaButton": "Start with 2-Min Quiz",
     "popularGames": "Popular Games",
     "featuredGames": "Popular Training",

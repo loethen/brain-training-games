@@ -3,12 +3,14 @@
 import { useEffect, useState, useCallback } from "react";
 import { Trophy, Users, TrendingUp, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { DEFAULT_LEADERBOARD_MODE } from "@/lib/leaderboard-config";
 
-export type FormatterType = 'ms' | 'cps' | 'pts' | 'levels' | 'default';
+export type FormatterType = 'ms' | 'cps' | 'pts' | 'levels' | 'schulte' | 'default';
 
 export interface LeaderboardDisplayProps {
     gameId: string;
     formatterType?: FormatterType;
+    mode?: string;
 }
 
 type LeaderboardRecord = {
@@ -20,6 +22,7 @@ type LeaderboardRecord = {
 export function LeaderboardDisplay({
     gameId,
     formatterType = 'default',
+    mode = DEFAULT_LEADERBOARD_MODE,
 }: LeaderboardDisplayProps) {
     const t = useTranslations('common.leaderboard');
     const [top20, setTop20] = useState<LeaderboardRecord[]>([]);
@@ -35,13 +38,16 @@ export function LeaderboardDisplay({
             case 'cps': return `${Number(s.toFixed(1))} ${t('unitCps')}`;
             case 'pts': return `${rounded} ${t('unitPts')}`;
             case 'levels': return t('unitLevel', { score: rounded.toString() });
+            case 'schulte': return `${(s / 1000).toFixed(1)} ${t('unitSec')}`;
             default: return rounded.toString();
         }
     }, [formatterType, t]);
 
     const fetchLeaderboard = useCallback(async () => {
         try {
-            const res = await fetch(`/api/leaderboard?gameId=${gameId}`);
+            setLoading(true);
+            const params = new URLSearchParams({ gameId, mode });
+            const res = await fetch(`/api/leaderboard?${params.toString()}`);
             if (res.ok) {
                 const data = (await res.json()) as { top20: LeaderboardRecord[]; averageScore: number; totalPlayers: number };
                 setTop20(data.top20);
@@ -53,7 +59,7 @@ export function LeaderboardDisplay({
         } finally {
             setLoading(false);
         }
-    }, [gameId]);
+    }, [gameId, mode]);
 
     useEffect(() => {
         fetchLeaderboard();
@@ -61,8 +67,8 @@ export function LeaderboardDisplay({
 
     useEffect(() => {
         const handleUpdate = (e: Event) => {
-            const customEvent = e as CustomEvent<{ gameId: string, playerName: string, score: number }>;
-            if (customEvent.detail && customEvent.detail.gameId === gameId) {
+            const customEvent = e as CustomEvent<{ gameId: string, playerName: string, score: number, mode?: string }>;
+            if (customEvent.detail && customEvent.detail.gameId === gameId && (customEvent.detail.mode || DEFAULT_LEADERBOARD_MODE) === mode) {
                 setMySessionDetail({
                     playerName: customEvent.detail.playerName,
                     score: customEvent.detail.score
@@ -73,12 +79,12 @@ export function LeaderboardDisplay({
 
         window.addEventListener('leaderboardUpdated', handleUpdate);
         return () => window.removeEventListener('leaderboardUpdated', handleUpdate);
-    }, [gameId, fetchLeaderboard]);
+    }, [gameId, fetchLeaderboard, mode]);
 
     if (loading) {
         return (
             <div className="flex justify-center p-8 text-muted-foreground animate-pulse">
-                Loading Leaderboard...
+                {t('loading')}
             </div>
         );
     }
@@ -121,10 +127,13 @@ export function LeaderboardDisplay({
                     <Sparkles className="w-5 h-5 text-emerald-600" />
                     <div>
                         <p className="text-sm text-emerald-800 dark:text-emerald-300 font-medium">
-                            Score Submitted! Your anonymous alias is <strong className="font-bold text-emerald-900 dark:text-emerald-100">{mySessionDetail.playerName}</strong>.
+                            {t('submittedTitle')} <strong className="font-bold text-emerald-900 dark:text-emerald-100">{mySessionDetail.playerName}</strong>.
                         </p>
                         <p className="text-xs text-emerald-700 dark:text-emerald-400 mt-0.5">
-                            You scored {formatScore(mySessionDetail.score)} ({t('averageScore')}: {formatScore(averageScore)}).
+                            {t('submittedBody', {
+                                score: formatScore(mySessionDetail.score),
+                                average: formatScore(averageScore),
+                            })}
                         </p>
                     </div>
                 </div>
@@ -134,7 +143,7 @@ export function LeaderboardDisplay({
             <div className="max-h-[400px] overflow-y-auto">
                 {top20.length === 0 ? (
                     <div className="p-8 text-center text-muted-foreground">
-                        No scores recorded yet. Be the first!
+                        {t('empty')}
                     </div>
                 ) : (
                     <table className="w-full text-sm">
@@ -163,7 +172,7 @@ export function LeaderboardDisplay({
                                             {isMe && <span className="text-[10px] uppercase bg-primary text-primary-foreground px-1.5 py-0.5 rounded-sm font-bold">{t('you')}</span>}
                                         </td>
                                         <td className="p-4 text-right font-mono font-bold">
-                                            {formatScore(record.score)}
+                                            <div>{formatScore(record.score)}</div>
                                         </td>
                                     </tr>
                                 );

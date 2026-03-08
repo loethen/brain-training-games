@@ -10,6 +10,7 @@
     },
     "template": {
       "howToPlay": "How to Play",
+      "leaderboard": "Leaderboard",
       "cognitiveBenefits": "Cognitive Benefits",
       "scienceBehindGame": "The Science Behind the Game",
       "readDetailedArticle": "Read Detailed Article",
@@ -133,6 +134,8 @@
         "best": "Best",
         "time": "Time",
         "bestTime": "Best Time",
+        "rankedTime": "Ranked Time",
+        "bestRankedTime": "Best Ranked Time",
         "mistakes": "Mistakes",
         "findNumber": "Find number",
         "findNumbersInSequence": "Find numbers in sequence...",
@@ -146,7 +149,8 @@
         "gameStopped": "Game Paused",
         "timeElapsed": "Time Elapsed",
         "resumeGame": "Resume Game",
-        "stop": "Pause"
+        "stop": "Pause",
+        "leaderboardDescription": "The leaderboard ranks your adjusted time: completion time plus a small penalty for each mistake."
       }
     },
     "dualNBack": {
@@ -627,6 +631,16 @@
           "description": "Strengthen your ability to identify and remember visual patterns, a key skill for learning and problem-solving."
         }
       },
+      "science": {
+        "title": "Visual Working Memory and Pattern Recall",
+        "description": "Block sequence recall tasks are widely used to train visual working memory, sequence retention, and pattern encoding. Regular practice challenges the brain to hold more items in mind, update them quickly, and resist interference from distractions.",
+        "blogArticleTitle": "How to Improve Working Memory",
+        "authorityLinks": {
+          "workingMemory": "A science-backed guide to how working memory supports learning and focus",
+          "shortTermMemory": "Practical strategies for improving short-term memory through training",
+          "visualMemory": "Background on visuospatial working memory and pattern recall research"
+        }
+      },
       "faq": {
         "dailyLife": {
           "question": "How does visual pattern memory help in daily life?",
@@ -649,6 +663,8 @@
         "level": "Level",
         "score": "Score",
         "bestScore": "Best",
+        "bestRankedLevel": "Best Ranked Level",
+        "bestPracticeScore": "Best Practice Score",
         "time": "Time",
         "startGame": "Start Game",
         "starting": "Starting...",
@@ -662,7 +678,17 @@
         "wellDone": "Well done!",
         "personalBest": "Personal Best",
         "yourTurn": "Your turn...",
-        "startLevelLabel": "Start with {count} blocks"
+        "startLevelLabel": "Start with a {count}-step sequence",
+        "rankedMode": "Ranked",
+        "practiceMode": "Practice",
+        "rankedDescription": "Fixed start level. Leaderboard tracks the highest completed level.",
+        "practiceDescription": "Choose any starting sequence length. Practice runs stay local and do not affect the leaderboard.",
+        "leaderboardDescription": "The ranked leaderboard compares the highest completed level only, so every player starts from the same difficulty.",
+        "rankedResult": "Ranked Result",
+        "highestLevelReached": "Highest Level Reached",
+        "noLevelCompleted": "No level completed yet",
+        "practiceScoresStayLocal": "Practice scores stay on this device and are not submitted to the leaderboard.",
+        "totalPoints": "Total Points"
       }
     },
     "reactionTime": {
@@ -743,6 +769,15 @@
           "fast": "Fast - Above Average",
           "average": "Average Response",
           "needsPractice": "Keep Practicing"
+        },
+        "reflexAnalysis": {
+          "title": "Reaction Time Analysis",
+          "description": "How does your performance compare?",
+          "godlike": "Godlike! - Esports Pro Level",
+          "excellent": "Excellent! - Way Above Average",
+          "good": "Good - Above Average",
+          "average": "Average Response Time",
+          "slow": "Slow - Keep Practicing"
         }
       },
       "ratings": {

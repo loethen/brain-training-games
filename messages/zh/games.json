@@ -10,6 +10,7 @@
     },
     "template": {
       "howToPlay": "游戏玩法",
+      "leaderboard": "排行榜",
       "cognitiveBenefits": "认知益处",
       "scienceBehindGame": "游戏背后的科学",
       "readDetailedArticle": "阅读详细文章",
@@ -133,6 +134,8 @@
         "best": "最佳",
         "time": "时间",
         "bestTime": "最佳时间",
+        "rankedTime": "排位时间",
+        "bestRankedTime": "最佳排位时间",
         "mistakes": "错误次数",
         "findNumber": "查找数字",
         "findNumbersInSequence": "按顺序查找数字...",
@@ -146,7 +149,8 @@
         "gameStopped": "游戏已暂停",
         "timeElapsed": "已用时间",
         "resumeGame": "继续游戏",
-        "stop": "暂停"
+        "stop": "暂停",
+        "leaderboardDescription": "排行榜按排位时间排序：完成时间再加上每次点错的惩罚时间。"
       }
     },
     "dualNBack": {
@@ -840,6 +844,16 @@
           "description": "增强你识别和记忆视觉模式的能力，这是学习和解决问题的关键技能。"
         }
       },
+      "science": {
+        "title": "视觉工作记忆与序列回忆",
+        "description": "方块序列回忆任务常用于训练视觉工作记忆、顺序保持和模式编码能力。持续练习会迫使大脑在更短时间内保留更多信息、快速更新顺序，并减少干扰对回忆的影响。",
+        "blogArticleTitle": "如何提升工作记忆",
+        "authorityLinks": {
+          "workingMemory": "从科学角度解释工作记忆如何支持学习与专注",
+          "shortTermMemory": "通过训练改善短期记忆的实用方法",
+          "visualMemory": "关于视觉空间工作记忆和模式回忆研究的背景资料"
+        }
+      },
       "faq": {
         "dailyLife": {
           "question": "视觉模式记忆如何帮助日常生活？",
@@ -862,6 +876,8 @@
         "level": "级别",
         "score": "得分",
         "bestScore": "最佳",
+        "bestRankedLevel": "最佳排位关卡",
+        "bestPracticeScore": "最佳练习分数",
         "time": "时间",
         "startGame": "开始游戏",
         "starting": "准备中...",
@@ -875,7 +891,17 @@
         "wellDone": "做得好！",
         "personalBest": "个人最佳",
         "yourTurn": "轮到你了...",
-        "startLevelLabel": "从 {count} 个方块开始"
+        "startLevelLabel": "从 {count} 步序列开始",
+        "rankedMode": "排位",
+        "practiceMode": "练习",
+        "rankedDescription": "固定起始难度。排行榜只比较你完成的最高关卡。",
+        "practiceDescription": "你可以自由选择起始序列长度。练习成绩只保存在本地，不影响排行榜。",
+        "leaderboardDescription": "排位榜只比较完成的最高关卡，所有玩家都从同样的难度开始。",
+        "rankedResult": "排位结果",
+        "highestLevelReached": "最高完成关卡",
+        "noLevelCompleted": "还没有完成任何关卡",
+        "practiceScoresStayLocal": "练习模式的成绩只保存在当前设备，不会提交到排行榜。",
+        "totalPoints": "总分"
       }
     },
     "reactionTime": {
@@ -956,6 +982,15 @@
           "fast": "快 - 高于平均水平",
           "average": "平均水平",
           "needsPractice": "继续练习"
+        },
+        "reflexAnalysis": {
+          "title": "反应时间分析",
+          "description": "你的表现处于什么水平？",
+          "godlike": "超神！- 电竞职业水平",
+          "excellent": "优秀！- 远超常人",
+          "good": "良好 - 高于平均水平",
+          "average": "一般 - 正常反应速度",
+          "slow": "较慢 - 需要多加练习"
         }
       },
       "ratings": {

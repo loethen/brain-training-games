@@ -10,12 +10,17 @@ import { useTranslations } from 'next-intl'
 import { useTimeout } from '@/hooks/useTimeout'
 import { useInterval } from '@/hooks/useInterval'
 import confetti from 'canvas-confetti'
+import { submitScoreToLeaderboard } from '@/lib/leaderboard'
+import { RANKED_LEADERBOARD_MODE } from '@/lib/leaderboard-config'
 
 interface Cell {
   number: number
   isError: boolean
   isCorrect: boolean
 }
+
+const BEST_TIME_KEY = 'schulteGridBestTime'
+const MISTAKE_PENALTY_MS = 2000
 
 export function SchulteGame() {
   const t = useTranslations('games.schulteTable.gameUI')
@@ -30,96 +35,92 @@ export function SchulteGame() {
   const [showShareModal, setShowShareModal] = useState(false)
   const [mistakes, setMistakes] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
-  
-  // 状态控制标志
   const [startInitiated, setStartInitiated] = useState(false)
   const [cellToAnimate, setCellToAnimate] = useState<number | null>(null)
   const [animateError, setAnimateError] = useState<number | null>(null)
-  
-  // 游戏区域的引用，用于滚动
   const gameGridRef = useRef<HTMLDivElement>(null)
 
-  // 加载最高分和初始化网格
   useEffect(() => {
-    const savedBestTime = localStorage.getItem('schulteGridBestTime')
+    const savedBestTime = localStorage.getItem(BEST_TIME_KEY)
+
     if (savedBestTime) {
       setBestTime(parseFloat(savedBestTime))
     }
-    initializeGrid() // 页面加载时就初始化网格
+
+    initializeGrid()
   }, [])
 
-  // 游戏进行中的计时器（使用useInterval替代setInterval）
   useInterval(() => {
     if (gameState === 'playing') {
       const elapsed = (Date.now() - startTime) / 1000
       setCurrentTime(elapsed)
     }
   }, gameState === 'playing' ? 100 : null)
-  
-  // 游戏开始倒计时 
+
   useTimeout(() => {
-    if (startInitiated) {
-      setIsLoading(false)
-      setStartTime(Date.now())
-      setGameState('playing')
-      initializeGrid()
-      setStartInitiated(false)
+    if (!startInitiated) {
+      return
     }
+
+    setIsLoading(false)
+    setStartTime(Date.now())
+    setGameState('playing')
+    initializeGrid()
+    setStartInitiated(false)
   }, startInitiated ? 1000 : null)
-  
-  // 单元格正确点击动画
+
   useTimeout(() => {
-    if (cellToAnimate !== null) {
-      setGrid(grid => grid.map(c => ({ ...c, isCorrect: false })))
-      
-      if (currentNumber >= 25) {
-        handleSuccess()
-      } else {
-        setCurrentNumber(prev => prev + 1)
-      }
-      
-      setCellToAnimate(null)
+    if (cellToAnimate === null) {
+      return
     }
+
+    setGrid((currentGrid) => currentGrid.map((cell) => ({ ...cell, isCorrect: false })))
+
+    if (currentNumber >= 25) {
+      void handleSuccess()
+    } else {
+      setCurrentNumber((prev) => prev + 1)
+    }
+
+    setCellToAnimate(null)
   }, cellToAnimate !== null ? 150 : null)
-  
-  // 单元格错误点击动画
+
   useTimeout(() => {
-    if (animateError !== null) {
-      setGrid(grid => grid.map(c => ({ ...c, isError: false })))
-      setAnimateError(null)
+    if (animateError === null) {
+      return
     }
+
+    setGrid((currentGrid) => currentGrid.map((cell) => ({ ...cell, isError: false })))
+    setAnimateError(null)
   }, animateError !== null ? 300 : null)
 
   const updateBestTime = useCallback((newTime: number) => {
     if (newTime < bestTime || bestTime === 0) {
       setBestTime(newTime)
-      localStorage.setItem('schulteGridBestTime', newTime.toString())
+      localStorage.setItem(BEST_TIME_KEY, newTime.toString())
     }
   }, [bestTime])
 
-  // 简化后的开始游戏函数，只在这里处理滚动
   const startGame = useCallback(() => {
-    // 直接滚动到游戏区域，但为了确保DOM已更新，使用setTimeout
     if (gameGridRef.current) {
       setTimeout(() => {
-        gameGridRef.current?.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
-        });
-      }, 50);  // 短延迟确保DOM更新但不影响用户体验
+        gameGridRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      }, 50)
     }
-    
+
     setIsLoading(true)
     setGameState('idle')
     setShowResults(false)
     setMistakes(0)
     setCurrentTime(0)
+    setGameTime(0)
     setStartInitiated(true)
   }, [])
-  
-  // 恢复游戏功能，与开始游戏不同，不需要滚动
+
   const resumeGame = useCallback(() => {
-    // 调整开始时间以保持游戏时间的连续性
     const now = Date.now()
     const adjustedStartTime = now - gameTime * 1000
     setStartTime(adjustedStartTime)
@@ -128,8 +129,6 @@ export function SchulteGame() {
 
   const stopGame = useCallback(() => {
     setGameState('stopped')
-    
-    // 记录停止时的游戏时间
     const endTime = Date.now()
     const timeElapsed = (endTime - startTime) / 1000
     setGameTime(timeElapsed)
@@ -137,8 +136,8 @@ export function SchulteGame() {
 
   const initializeGrid = () => {
     const numbers = Array.from({ length: 25 }, (_, i) => i + 1)
-    const shuffled = numbers.sort(() => Math.random() - 0.5)
-    setGrid(shuffled.map(number => ({
+    const shuffled = [...numbers].sort(() => Math.random() - 0.5)
+    setGrid(shuffled.map((number) => ({
       number,
       isError: false,
       isCorrect: false
@@ -146,64 +145,59 @@ export function SchulteGame() {
     setCurrentNumber(1)
   }
 
-  // 触发五彩纸屑效果
   const triggerConfetti = () => {
     confetti({
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
-    });
-  };
+    })
+  }
 
-  const handleSuccess = useCallback(() => {
+  const handleSuccess = useCallback(async () => {
     const endTime = Date.now()
-    const timeElapsed = (endTime - startTime) / 1000
-    setGameTime(timeElapsed)
-    
-    updateBestTime(timeElapsed)
-    
+    const completionTimeMs = endTime - startTime
+    const adjustedTimeMs = completionTimeMs + mistakes * MISTAKE_PENALTY_MS
+    const adjustedTimeSeconds = adjustedTimeMs / 1000
+
+    setGameTime(adjustedTimeSeconds)
+
+    updateBestTime(adjustedTimeSeconds)
+
     setGameState('complete')
     setShowResults(true)
+    triggerConfetti()
 
-    // Trigger confetti on success
-    triggerConfetti(); 
-
-  }, [startTime, updateBestTime])
+    await submitScoreToLeaderboard("schulte-table", adjustedTimeMs, {
+      mode: RANKED_LEADERBOARD_MODE,
+    })
+  }, [mistakes, startTime, updateBestTime])
 
   const handleCellClick = useCallback((cell: Cell) => {
-    if (gameState !== 'playing') return
+    if (gameState !== 'playing') {
+      return
+    }
 
     if (cell.number === currentNumber) {
-      // 正确点击
-      setGrid(grid => grid.map(c => 
-        c.number === cell.number 
-          ? { ...c, isCorrect: true }
-          : c
+      setGrid((currentGrid) => currentGrid.map((currentCell) =>
+        currentCell.number === cell.number
+          ? { ...currentCell, isCorrect: true }
+          : currentCell
       ))
-
-      // 设置要动画的单元格
       setCellToAnimate(cell.number)
-    } else {
-      // 错误点击
-      setMistakes(prev => prev + 1)
-      setGrid(grid => grid.map(c => 
-        c.number === cell.number 
-          ? { ...c, isError: true }
-          : c
-      ))
-
-      // 设置错误动画
-      setAnimateError(cell.number)
+      return
     }
-  }, [gameState, currentNumber])
 
-  const handleShareClick = () => {
-    setShowShareModal(true)
-  }
+    setMistakes((prev) => prev + 1)
+    setGrid((currentGrid) => currentGrid.map((currentCell) =>
+      currentCell.number === cell.number
+        ? { ...currentCell, isError: true }
+        : currentCell
+    ))
+    setAnimateError(cell.number)
+  }, [currentNumber, gameState])
 
   return (
     <div className="space-y-8 max-w-lg mx-auto">
-      {/* Game Status */}
       {gameState !== 'idle' && (
         <div className="flex justify-between items-center">
           <div className="flex gap-4 items-center">
@@ -220,9 +214,8 @@ export function SchulteGame() {
         </div>
       )}
 
-      {/* Game Grid */}
       <div className="relative" ref={gameGridRef}>
-        <div 
+        <div
           className="grid mx-auto max-w-lg"
           style={{
             gridTemplateColumns: `repeat(${Math.sqrt(grid.length)}, 1fr)`,
@@ -246,17 +239,16 @@ export function SchulteGame() {
           ))}
         </div>
 
-        {/* Start Button Overlay */}
         {gameState === 'idle' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-muted/90 backdrop-blur-xs">
             {bestTime > 0 && (
               <div className="flex items-center gap-1 text-muted-foreground mb-2">
                 <Trophy className="w-4 h-4" />
-                <span>{t('best')}: {bestTime.toFixed(1)}s</span>
+                <span>{t('bestTime')}: {bestTime.toFixed(1)}s</span>
               </div>
             )}
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               onClick={startGame}
               className="gap-2"
               disabled={isLoading}
@@ -271,7 +263,6 @@ export function SchulteGame() {
           </div>
         )}
 
-        {/* Results Overlay */}
         {showResults && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-xs">
             <div className="bg-background p-6 rounded-xl shadow-lg space-y-4">
@@ -285,7 +276,7 @@ export function SchulteGame() {
                 </p>
                 <p className="flex justify-between gap-4">
                   <span>{t('bestTime')}:</span>
-                  <span className="font-bold">{bestTime.toFixed(1)}s</span>
+                  <span className="font-bold">{bestTime > 0 ? `${bestTime.toFixed(1)}s` : '-'}</span>
                 </p>
                 <p className="flex justify-between gap-4">
                   <span>{t('mistakes')}:</span>
@@ -296,9 +287,9 @@ export function SchulteGame() {
                 <Button onClick={startGame}>
                   {t('playAgain')}
                 </Button>
-                <Button 
+                <Button
                   variant="outline"
-                  onClick={handleShareClick}
+                  onClick={() => setShowShareModal(true)}
                 >
                   {t('share')}
                 </Button>
@@ -306,16 +297,15 @@ export function SchulteGame() {
             </div>
           </div>
         )}
-        
-        {/* 停止游戏覆盖层 */}
+
         {gameState === 'stopped' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-muted/90 backdrop-blur-xs">
             <div className="text-center space-y-4">
               <h3 className="text-xl font-medium">{t('gameStopped')}</h3>
               <p className="text-sm text-muted-foreground">{t('timeElapsed')}: {gameTime.toFixed(1)}s</p>
-              
+
               <div className="flex flex-col sm:flex-row gap-2 justify-center mt-4">
-                <Button 
+                <Button
                   onClick={resumeGame}
                   className="gap-2"
                   variant="default"
@@ -323,8 +313,8 @@ export function SchulteGame() {
                   <PlayCircle className="w-5 h-5" />
                   {t('resumeGame')}
                 </Button>
-                
-                <Button 
+
+                <Button
                   onClick={startGame}
                   className="gap-2"
                   variant="outline"
@@ -338,7 +328,6 @@ export function SchulteGame() {
         )}
       </div>
 
-      {/* Game Control Buttons - 只在游戏进行中显示 */}
       {gameState === 'playing' && (
         <div className="flex justify-center gap-2">
           <Button
@@ -362,11 +351,10 @@ export function SchulteGame() {
         </div>
       )}
 
-      {/* Share Modal */}
-      <ShareModal 
+      <ShareModal
         isOpen={showShareModal}
         onClose={() => setShowShareModal(false)}
       />
     </div>
   )
-} 
+}

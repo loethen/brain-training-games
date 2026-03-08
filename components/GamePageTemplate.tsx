@@ -52,6 +52,9 @@ interface GamePageTemplateProps {
     relatedGames?: string[];
     hasLeaderboard?: boolean;
     leaderboardFormatterType?: FormatterType;
+    leaderboardMode?: string;
+    leaderboardIntro?: React.ReactNode;
+    structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 export function GamePageTemplate({
@@ -66,13 +69,28 @@ export function GamePageTemplate({
     faq,
     relatedGames,
     hasLeaderboard,
-    leaderboardFormatterType
+    leaderboardFormatterType,
+    leaderboardMode,
+    leaderboardIntro,
+    structuredData
 }: GamePageTemplateProps) {
     const t = useTranslations('common');
     const gameT = useTranslations('games.template');
+    const structuredDataItems = Array.isArray(structuredData)
+        ? structuredData
+        : structuredData
+            ? [structuredData]
+            : [];
 
     return (
         <>
+            {structuredDataItems.map((item, index) => (
+                <script
+                    key={`${gameId}-structured-data-${index}`}
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }}
+                />
+            ))}
             <Breadcrumbs
                 items={[{ label: t("games"), href: "/games" }, { label: title }]}
             />
@@ -101,9 +119,9 @@ export function GamePageTemplate({
             {/* 游戏玩法说明 */}
             <section className="max-w-6xl mx-auto mb-16 space-y-6">
                 <div className="p-6 rounded-lg bg-muted/50">
-                    <h3 className="text-xl font-semibold mb-3">
+                    <h2 className="text-xl font-semibold mb-3">
                         🎯 {gameT("howToPlay")}
-                    </h3>
+                    </h2>
                     <div className="space-y-3 text-lg text-muted-foreground">
                         {howToPlay}
                     </div>
@@ -113,10 +131,21 @@ export function GamePageTemplate({
             {/* Leaderboard - Option */}
             {hasLeaderboard && (
                 <section className="max-w-6xl mx-auto mb-16 space-y-6">
+                    <div className="space-y-2">
+                        <h2 className="text-3xl font-bold text-center">
+                            {gameT("leaderboard")}
+                        </h2>
+                        {leaderboardIntro && (
+                            <div className="max-w-3xl mx-auto text-center text-muted-foreground">
+                                {leaderboardIntro}
+                            </div>
+                        )}
+                    </div>
                     <div className="rounded-lg">
                         <LeaderboardDisplay
                             gameId={gameId}
                             formatterType={leaderboardFormatterType}
+                            mode={leaderboardMode}
                         />
                     </div>
                 </section>

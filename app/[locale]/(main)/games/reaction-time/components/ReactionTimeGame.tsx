@@ -219,7 +219,7 @@ export default function ReactionTimeGame() {
         {/* Game board */}
         <div className="relative w-full">
           <div
-            className={`${bgStyle.className} w-full h-64 md:h-80 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] cursor-pointer flex items-center justify-center relative select-none`}
+            className={`${bgStyle.className} w-full h-80 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] cursor-pointer flex items-center justify-center relative select-none`}
             onClick={handleClick}
             tabIndex={0}
             ref={containerRef}
@@ -303,7 +303,7 @@ export default function ReactionTimeGame() {
                   </div>
 
                   {/* Reflex Analysis Section */}
-                  <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm mt-1 max-w-[80%]">
+                  <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm mt-1">
                     <p className="text-xs text-blue-200 uppercase tracking-wider mb-1">{t('reflexAnalysis.title')}</p>
                     <p className="text-sm md:text-base font-bold text-yellow-300">
                       {t(`reflexAnalysis.${getReflexAnalysisKey(getAverageTime(results))}`)}

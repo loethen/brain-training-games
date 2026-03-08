@@ -45,6 +45,20 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     const testimonials = await getTranslations({ locale, namespace: 'home.testimonials' });
     const posts = await getBlogPosts(locale);
 
+    // Schema Markup for SEO
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Free Focus Games",
+        "url": "https://freefocusgames.com",
+        "description": t("home.metaDescription"),
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://freefocusgames.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    };
+
     // 第一组评价
     const firstRowReviews = [
         {
@@ -115,6 +129,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <div>
                 {/* Hero Section */}
                 <section className="max-w-[1600px] mx-auto rounded-3xl sm:p-6 md:p-12 mb-16 dark:from-transparent dark:to-transparent">
@@ -133,11 +151,20 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                     </InteractiveHoverButton>
                                 </Link>
                             </div>
+
+                            {/* SEO Feature Badges */}
+                            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mt-4 text-sm text-muted-foreground font-medium">
+                                {(t.raw("home.heroFeatures") as string[] || []).map((feature: string, index: number) => (
+                                    <span key={index} className="flex items-center">
+                                        {feature}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                         <div className="w-full md:w-2/5 flex items-center justify-center py-4">
                             <Image
                                 src="/herocat.png"
-                                alt="Hero Cat"
+                                alt={t("home.heroImageAlt")}
                                 width={400}
                                 height={400}
                                 style={{
