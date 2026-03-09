@@ -101,7 +101,7 @@ export default function GuidesPage() {
                       </span>
                     </div>
 
-                    <Link href={guide.href}>
+                    <Link href={guide.href} prefetch={false}>
                       <Button size="lg" className="bg-gradient-to-r from-primary to-primary/80 group">
                         {common('readGuide')}
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

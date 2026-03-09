@@ -6,6 +6,9 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from "@/i18n/routing";
 
+export const dynamic = "force-static";
+export const revalidate = 86400;
+
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
     categories.map((category) => ({

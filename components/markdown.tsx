@@ -2,7 +2,6 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
-import rehypePrism from 'rehype-prism-plus';
 import rehypeRaw from 'rehype-raw';
 import type { Components } from 'react-markdown';
 import Image from 'next/image';
@@ -111,7 +110,7 @@ export default function Markdown({ content }: MarkdownProps) {
         <ReactMarkdown
           components={components}
           remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw, rehypeSlug, [rehypePrism, { ignoreMissing: true }]]}
+          rehypePlugins={[rehypeRaw, rehypeSlug]}
         >
           {section.trim()}
         </ReactMarkdown>

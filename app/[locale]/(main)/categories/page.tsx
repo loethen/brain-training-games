@@ -4,6 +4,9 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generateAlternates } from "@/lib/utils";
 
+export const dynamic = "force-static";
+export const revalidate = 86400;
+
 // 使用动态生成元数据替代静态元数据
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }

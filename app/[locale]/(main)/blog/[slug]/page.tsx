@@ -10,6 +10,9 @@ import { PostNavigation } from '@/components/post-navigation';
 import { ShareButton } from '@/components/share-button';
 import { routing } from '@/i18n/routing';
 
+export const dynamic = "force-static";
+export const revalidate = 86400;
+
 export async function generateStaticParams() {
   const params = [];
   for (const locale of routing.locales) {

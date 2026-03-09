@@ -236,6 +236,7 @@ export default function AdhdAssessmentFlow() {
           </p>
           <Link
             href="/blog/vanderbilt-adhd-rating-scale-comprehensive-guide"
+            prefetch={false}
             className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
           >
             {t('learnMore.linkText')}

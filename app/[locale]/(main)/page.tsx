@@ -13,6 +13,9 @@ import Image from "next/image";
 import { games } from "@/data/games";
 import { Wind, Gamepad2, ArrowRight, Play } from "lucide-react";
 
+export const dynamic = "force-static";
+export const revalidate = 86400;
+
 // 为首页定义特定的元数据
 export async function generateMetadata(
     { params }: { params: Promise<{ locale: string }> }
@@ -337,7 +340,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                 key={post.slug}
                                 className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow"
                             >
-                                <Link href={`/blog/${post.slug}`}>
+                                <Link href={`/blog/${post.slug}`} prefetch={false}>
                                     <div className="flex flex-col md:grid md:grid-cols-[1fr_1.5fr] md:h-48">
                                         {post.coverImage && (
                                             <div
@@ -429,7 +432,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
                             {t("home.scienceBehind.description")}
                         </p>
-                        <Link href="/working-memory-guide">
+                        <Link href="/working-memory-guide" prefetch={false}>
                             <InteractiveHoverButton className="w-full sm:w-auto">
                                 {t("home.scienceBehind.cta")}
                             </InteractiveHoverButton>

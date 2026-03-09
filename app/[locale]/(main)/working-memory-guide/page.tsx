@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from "next";
 import { generateAlternates } from "@/lib/utils";
 import { Game, games } from "@/data/games";
@@ -14,13 +14,22 @@ import { TrainingEffectChart } from "./components/TrainingEffectChart";
 import { BrainRegionsDiagram } from "./components/BrainRegionsDiagram";
 import { TrainingScheduleTable } from "./components/TrainingScheduleTable";
 import { CONTENT_LAST_UPDATED_ISO } from "@/lib/site-constants";
+import { routing } from "@/i18n/routing";
 
 type TWorkingMemoryT = ReturnType<typeof useTranslations<"workingMemoryGuide">>;
+
+export const dynamic = "force-static";
+export const revalidate = 86400;
+
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata(
     { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
     const { locale } = await params;
+    setRequestLocale(locale);
     const t = await getTranslations({ locale, namespace: 'workingMemoryGuide' });
 
     return {
@@ -61,6 +70,7 @@ export async function generateMetadata(
 
 export default async function WorkingMemoryGuide({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
+    setRequestLocale(locale);
     const t = await getTranslations({ locale, namespace: 'workingMemoryGuide' });
 
     const relatedGames = games.filter(game =>
@@ -738,7 +748,7 @@ function ClusterArticlesSection({ t }: { t: TWorkingMemoryT }) {
 
             <div className="grid md:grid-cols-1 gap-6">
                 {articles.map((article, index) => (
-                    <Link key={article.slug} href={`/blog/${article.slug}`}>
+                    <Link key={article.slug} href={`/blog/${article.slug}`} prefetch={false}>
                         <article className="group bg-card border rounded-lg p-6 hover:shadow-md transition-all duration-300 hover:-translate-y-1">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">
