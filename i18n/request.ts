@@ -19,9 +19,31 @@ const I18N_MODULES = [
     'legal',
     'tests',
     'guides',
+    'cpsTest',
+    '10Seconds',
+    'ResonanceBreathing',
+    'BoxBreathing',
+    'Breathing478',
 ] as const;
 
 const messageCache = new Map<string, Record<string, unknown>>();
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+    return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function deepMerge(target: Record<string, unknown>, source: Record<string, unknown>) {
+    for (const [key, sourceValue] of Object.entries(source)) {
+        const targetValue = target[key];
+
+        if (isPlainObject(targetValue) && isPlainObject(sourceValue)) {
+            deepMerge(targetValue, sourceValue);
+            continue;
+        }
+
+        target[key] = sourceValue;
+    }
+}
 
 async function loadMessages(locale: string) {
     const cachedMessages = messageCache.get(locale);
@@ -42,7 +64,7 @@ async function loadMessages(locale: string) {
 
     const messages = modules.reduce<Record<string, unknown>>((accumulator, moduleMessages) => {
         if (moduleMessages) {
-            Object.assign(accumulator, moduleMessages);
+            deepMerge(accumulator, moduleMessages);
         }
         return accumulator;
     }, {});
