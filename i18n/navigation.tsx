@@ -1,4 +1,4 @@
-import { createElement, type ComponentProps } from "react";
+import type { ComponentProps } from "react";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "./routing";
 
@@ -15,7 +15,7 @@ const {
 type LinkProps = ComponentProps<typeof BaseLink>;
 
 export function Link(props: LinkProps) {
-    return createElement(BaseLink, { prefetch: false, ...props });
+    return <BaseLink prefetch={false} {...props} />;
 }
 
 export { redirect, usePathname, useRouter, getPathname };
