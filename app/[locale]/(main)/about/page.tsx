@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
+import { use } from 'react';
 import './style.css';
 
 
@@ -19,7 +20,9 @@ export async function generateMetadata(
   };
 }
 
-export default function AboutPage() {
+export default function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
+  setRequestLocale(locale);
   const t = useTranslations('about');
   
   return (

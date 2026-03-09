@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 import { Brain, Clock, Target } from 'lucide-react';
+import { use } from 'react';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -26,7 +27,9 @@ export async function generateMetadata(
   };
 }
 
-export default function TestsPage() {
+export default function TestsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
+  setRequestLocale(locale);
   const t = useTranslations('tests');
   const common = useTranslations('common');
 
