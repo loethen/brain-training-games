@@ -109,6 +109,8 @@ export default function LotusFlower({ phase, duration }: LotusFlowerProps) {
                      C-${petalWidth} -${petalHeight * 0.4}, -${petalWidth} -${petalHeight * 0.8}, 0 -${petalHeight}
                      C${petalWidth} -${petalHeight * 0.8}, ${petalWidth} -${petalHeight * 0.4}, 0 0`}
                                     fill={petal.color}
+                                    initial={{ opacity: petal.opacity }}
+                                    style={{ opacity: petal.opacity }}
                                     animate={{
                                         opacity: (isHoldIn || isHoldOut)
                                             ? [petal.opacity, petal.opacity * 0.85, petal.opacity]

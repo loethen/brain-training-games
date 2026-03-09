@@ -1,13 +1,18 @@
 import React from 'react';
+import { setRequestLocale } from 'next-intl/server';
 
 export const dynamic = "force-static";
 export const revalidate = 86400;
 
 interface GamesLayoutProps {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }
 
-export default function GamesLayout({ children }: GamesLayoutProps) {
+export default async function GamesLayout({ children, params }: GamesLayoutProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <div className="pb-12 max-w-7xl mx-auto">
       {/* 游戏内容将被注入到这里 */}

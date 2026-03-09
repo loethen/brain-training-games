@@ -2,8 +2,9 @@ import { Metadata } from 'next'
 import Game from '../resonance-breathing/components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Heart, Activity, Brain, Wind } from 'lucide-react'
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { use } from 'react';
 import { routing } from '@/i18n/routing'
 
 // Generate static params for all locales
@@ -57,7 +58,9 @@ export async function generateMetadata(
     };
 }
 
-export default function BoxBreathingPage() {
+export default function BoxBreathingPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = use(params);
+    setRequestLocale(locale);
     const t = useTranslations('games.boxBreathing');
 
     return (

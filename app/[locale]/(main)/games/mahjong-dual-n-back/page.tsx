@@ -3,7 +3,8 @@ import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Brain, Layers, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { use } from 'react'
 import { routing } from '@/i18n/routing'
 
 // Generate static params for all locales
@@ -29,7 +30,9 @@ export async function generateMetadata(
     };
 }
 
-export default function MahjongDualNBackPage() {
+export default function MahjongDualNBackPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = use(params);
+    setRequestLocale(locale);
     const t = useTranslations('games.mahjongDualNBack');
 
     return (

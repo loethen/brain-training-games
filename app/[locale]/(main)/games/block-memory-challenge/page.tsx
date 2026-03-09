@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { GamePreview } from "./components/GamePreview"
 import { useTranslations } from 'next-intl'
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { use } from "react";
 import { routing } from '@/i18n/routing';
 import { generateAlternates } from "@/lib/utils";
 import { RANKED_LEADERBOARD_MODE } from "@/lib/leaderboard-config";
@@ -38,7 +39,9 @@ export async function generateMetadata({
     }
 }
 
-export default function BlockMemoryPage() {
+export default function BlockMemoryPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = use(params);
+    setRequestLocale(locale);
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://freefocusgames.com";
     const t = useTranslations("games.blockMemoryChallenge");
     const tCommon = useTranslations("common");

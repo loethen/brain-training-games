@@ -3,7 +3,8 @@ import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Eye, Focus, Target } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { use } from 'react'
 import { routing } from '@/i18n/routing'
 
 // Generate static params for all locales
@@ -27,7 +28,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     };
 }
 
-export default function FishTracePage() {
+export default function FishTracePage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = use(params);
+    setRequestLocale(locale);
     const t = useTranslations('games.fishTrace');
 
     return (

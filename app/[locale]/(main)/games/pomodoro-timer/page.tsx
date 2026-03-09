@@ -2,8 +2,9 @@ import { Metadata } from 'next'
 import PomodoroTimer from './components/PomodoroTimer'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Brain, Coffee, BarChart3, Clock } from 'lucide-react'
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { use } from 'react';
 import { generateAlternates } from '@/lib/utils';
 import { routing } from '@/i18n/routing';
 
@@ -31,7 +32,9 @@ export async function generateMetadata(
     };
 }
 
-export default function PomodoroTimerPage() {
+export default function PomodoroTimerPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = use(params);
+    setRequestLocale(locale);
     const t = useTranslations('games');
     const benefitsT = useTranslations('games.pomodoroTimer.benefits');
     const faqT = useTranslations('games.pomodoroTimer.faq');
@@ -133,5 +136,4 @@ export default function PomodoroTimerPage() {
         />
     );
 }
-
 

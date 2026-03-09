@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { GamePageTemplate } from '@/components/GamePageTemplate';
 import FocusSudokuClient from './components/FocusSudokuClient';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 
 // Generate static params for all locales
@@ -29,6 +29,7 @@ export async function generateMetadata(
 // Server component wrapper that imports client component
 export default async function FocusSudokuPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
+    setRequestLocale(locale);
     const t = await getTranslations({ locale, namespace: 'games.focusSudoku' });
 
     const howToPlayContent = (

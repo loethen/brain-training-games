@@ -2,7 +2,8 @@ import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { useTranslations } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
 import { routing } from '@/i18n/routing'
 
@@ -28,7 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     };
 }
 
-export default function Challenge10SecondsPage() {
+export default function Challenge10SecondsPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = use(params);
+    setRequestLocale(locale);
     const t = useTranslations('games.challenge10Seconds');
 
     return (

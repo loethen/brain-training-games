@@ -3,7 +3,8 @@ import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Target, Zap, Brain } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
 import { routing } from '@/i18n/routing'
 
@@ -29,7 +30,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     };
 }
 
-export default function FocusReactionTestPage() {
+export default function FocusReactionTestPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = use(params);
+    setRequestLocale(locale);
     const t = useTranslations('games.focusReactionTest');
 
     return (

@@ -2,8 +2,9 @@ import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Zap, Target, Calculator } from 'lucide-react'
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { use } from 'react';
 import { generateAlternates } from '@/lib/utils';
 import { routing } from '@/i18n/routing';
 
@@ -33,7 +34,9 @@ export async function generateMetadata(
   };
 }
 
-export default function LargerNumberPage() {
+export default function LargerNumberPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
+  setRequestLocale(locale);
   const t = useTranslations('games.largerNumber');
 
   return (

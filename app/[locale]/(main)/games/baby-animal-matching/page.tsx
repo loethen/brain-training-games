@@ -3,7 +3,8 @@ import BabyAnimalMatchingGame from "./components/Game";
 import { GamePageTemplate } from '@/components/GamePageTemplate';
 import { Brain, Eye, Search } from 'lucide-react'; // Example icons
 import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server'; // Import server-side translator
+import { getTranslations, setRequestLocale } from 'next-intl/server'; // Import server-side translator
+import { use } from 'react';
 import { routing } from '@/i18n/routing';
 
 // Define types for placeholders
@@ -54,7 +55,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     };
 }
 
-export default function BabyAnimalMatchingPageContainer() {
+export default function BabyAnimalMatchingPageContainer({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = use(params);
+    setRequestLocale(locale);
     // Initialize translations for the 'games.babyAnimalMatching' namespace
     const t = useTranslations('games.babyAnimalMatching');
 

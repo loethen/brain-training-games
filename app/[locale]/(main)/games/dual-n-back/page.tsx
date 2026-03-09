@@ -2,8 +2,9 @@ import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Brain, Layers, Zap, Clock, BookOpen } from 'lucide-react'
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { use } from 'react';
 import TutorialButton from './components/TutorialButton';
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
@@ -59,7 +60,9 @@ export async function generateMetadata(
   };
 }
 
-export default function DualNBackPage() {
+export default function DualNBackPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
+  setRequestLocale(locale);
   const t = useTranslations('games.dualNBack');
   const tCommon = useTranslations('common');
 
