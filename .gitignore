@@ -47,6 +47,7 @@ next-env.d.ts
 scripts/
 *.py
 GA4_ANALYTICS_GUIDE.md
+/reports/seo/
 
 # OpenNext
 .open-next/
@@ -57,3 +58,4 @@ GA4_ANALYTICS_GUIDE.md
 .agent/
 
 .agents/
+build-scripts/
