@@ -1287,7 +1287,7 @@
         "practiceMode": "练习",
         "rankedDescription": "固定起始难度。排行榜只比较你完成的最高关卡。",
         "practiceDescription": "你可以自由选择起始序列长度。练习成绩只保存在本地，不影响排行榜。",
-        "leaderboardDescription": "排位榜只比较完成的最高关卡，所有玩家都从同样的难度开始。",
+        "leaderboardDescription": "排行榜只比较总分。你可以自己选择起始阶数，起点越高，每关分值也越高。",
         "rankedResult": "排位结果",
         "highestLevelReached": "最高完成关卡",
         "noLevelCompleted": "还没有完成任何关卡",

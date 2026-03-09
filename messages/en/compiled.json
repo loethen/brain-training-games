@@ -1074,7 +1074,7 @@
         "practiceMode": "Practice",
         "rankedDescription": "Fixed start level. Leaderboard tracks the highest completed level.",
         "practiceDescription": "Choose any starting sequence length. Practice runs stay local and do not affect the leaderboard.",
-        "leaderboardDescription": "The ranked leaderboard compares the highest completed level only, so every player starts from the same difficulty.",
+        "leaderboardDescription": "The leaderboard compares total score. You can choose your starting level, and higher levels are worth more points.",
         "rankedResult": "Ranked Result",
         "highestLevelReached": "Highest Level Reached",
         "noLevelCompleted": "No level completed yet",

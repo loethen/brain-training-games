@@ -11,7 +11,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { routing } from '@/i18n/routing';
 import { generateAlternates } from "@/lib/utils";
-import { RANKED_LEADERBOARD_MODE } from "@/lib/leaderboard-config";
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -84,10 +83,10 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
                 "priceCurrency": "USD"
             },
             "featureList": [
-                "Ranked mode with a fixed starting level",
-                "Practice mode with adjustable sequence length",
-                "Visual working memory training",
-                "Anonymous leaderboard"
+                "Single-mode score attack gameplay",
+                "Adjustable starting sequence length",
+                "Score-based leaderboard",
+                "Visual working memory training"
             ],
             "educationalUse": "Working Memory Training",
             "learningResourceType": "Interactive Game",
@@ -185,8 +184,7 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
             faq={faq}
             relatedGames={["frog-memory-leap", "schulte-table"]}
             hasLeaderboard={true}
-            leaderboardFormatterType="levels"
-            leaderboardMode={RANKED_LEADERBOARD_MODE}
+            leaderboardFormatterType="pts"
             structuredData={structuredData}
         />
     );

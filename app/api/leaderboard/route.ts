@@ -209,8 +209,8 @@ function validateScore(
         case "fish-trace":
             return score > 50000 ? "Score rejected" : null;
         case "block-memory-challenge":
-            if (!Number.isInteger(score) || score < 1 || score > 100) {
-                return "Score rejected (Invalid ranked level)";
+            if (!Number.isInteger(score) || score < 1 || score > 50000) {
+                return "Score rejected (Invalid score)";
             }
             return null;
         case "schulte-table":
