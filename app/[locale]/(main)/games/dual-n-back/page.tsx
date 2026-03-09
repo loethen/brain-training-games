@@ -5,7 +5,7 @@ import { Brain, Layers, Zap, Clock, BookOpen } from 'lucide-react'
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import TutorialButton from './components/TutorialButton';
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 
 // Generate static params for all locales

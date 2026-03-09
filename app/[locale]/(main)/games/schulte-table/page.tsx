@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { SchulteGame } from './components/SchulteGame'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Eye, Brain, BookOpen } from 'lucide-react'

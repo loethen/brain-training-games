@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { PatternRecallGame } from "./components/PatternRecallGame";
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Grid, Brain, Eye } from 'lucide-react'

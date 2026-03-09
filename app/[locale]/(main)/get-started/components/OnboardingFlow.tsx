@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Check, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { analytics } from '@/lib/analytics';
 
 // 导入测试组件

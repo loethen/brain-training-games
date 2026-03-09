@@ -5,7 +5,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeRaw from 'rehype-raw';
 import type { Components } from 'react-markdown';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { InteractiveGameDemo } from './interactive-game-demo';
 
 interface MarkdownProps {

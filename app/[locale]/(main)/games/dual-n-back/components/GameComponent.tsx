@@ -10,7 +10,7 @@ import confetti from "canvas-confetti";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { ShareModal } from "@/components/ui/ShareModal";
 import { useTranslations, useLocale } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import GameSettings, { GameSettings as GameSettingsType } from "./GameSettings";
 import GameDemo from "./GameDemo";
 import { analytics } from "@/lib/analytics";

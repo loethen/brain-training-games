@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { Check, ArrowRight, Info } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { analytics } from '@/lib/analytics';
 
 // WHO Adult ADHD Self-Report Scale (ASRS-v1.1) questions
