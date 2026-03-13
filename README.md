@@ -77,20 +77,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## SEO Keyword Mining
-
-The repo includes a minimal Google Search Console keyword mining script for weekly SEO review.
-
-1. Add `GSC_SITE_URL`, `GSC_CLIENT_ID`, `GSC_CLIENT_SECRET`, and `GSC_REFRESH_TOKEN` to `.env.local`.
-2. Run `npm run seo:gsc`.
-3. Review the generated files in `reports/seo/`.
-
-Optional flags:
-
-```bash
-npm run seo:gsc -- --country=usa --device=mobile --limit=1000
-```
-
 ## 📄 License
 
 This project is licensed under the **AGPL-3.0 License** - see the [LICENSE](LICENSE) file for details.
