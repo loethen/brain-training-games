@@ -42,6 +42,7 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
         { id: 'adhdGames', href: '/categories/adhd-games' },
         { id: 'workingMemory', href: '/categories/working-memory' },
         { id: 'reactionTime', href: '/games/reaction-time' },
+        { id: 'pomodoroTimer', href: '/games/pomodoro-timer' },
         { id: 'schulteTable', href: '/games/schulte-table' },
         { id: 'adultAdhdAssessment', href: '/adult-adhd-assessment' },
         { id: 'workingMemoryGuide', href: '/working-memory-guide' },

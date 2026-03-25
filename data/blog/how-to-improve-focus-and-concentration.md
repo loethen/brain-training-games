@@ -61,7 +61,7 @@ Read a short passage, close the book, and recount it in detail. Begin with simpl
 
 Try these bonus tricks to keep distractions at bay:
 
-- **Pomodoro Technique**: Work for 25 minutes, then break for 5. It keeps you fresh and focused.
+- **Pomodoro Technique**: Work for 25 minutes, then break for 5. If you want a simple setup, try our [Pomodoro Timer](/games/pomodoro-timer) for short focus blocks.
 - **Mindfulness Moments**: Spend 10 minutes breathing deeply. It trains your brain to ignore noise.
 - **One Task at a Time**: Multitasking kills focus—stick to one thing until it's done.
 - **Clear Your Space**: Silence notifications and tidy up. A clean setup boosts concentration.

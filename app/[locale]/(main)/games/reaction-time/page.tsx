@@ -97,6 +97,13 @@ export default function ReactionTimePage({ params }: { params: Promise<{ locale:
                     answer: t('faq.significance.answer'),
                 },
             ]}
+            science={{
+                title: t('science.title'),
+                description: t('science.description'),
+                blogArticleUrl: '/blog/how-to-improve-reaction-time',
+                blogArticleTitle: t('science.blogArticleTitle'),
+            }}
+            relatedGames={['schulte-table', 'stroop-effect-test', 'larger-number']}
             hasLeaderboard={true}
             leaderboardFormatterType="ms"
         />

@@ -1,40 +1,40 @@
 {
   "adultAdhdAssessment": {
     "metadata": {
-      "title": "成人注意力不足过动症测试 | 免费WHO ASRS量表 | FreeFocusGames",
-      "description": "使用WHO成人注意力不足过动症自我报告量表(ASRS-v1.1)进行专业评估，根据结果获得个性化的大脑训练建议。",
-      "keywords": "成人注意力不足过动症, 成人ADHD测试, ASRS注意力量表, WHO成人ADHD, 成人注意力缺失, ADHD成人自我评估, 成人ADHD筛查",
-      "ogTitle": "成人注意力不足过动症自我评估 - WHO ASRS测试",
-      "ogDescription": "基于WHO成人ADHD自我报告量表的专业成人注意力不足过动症评估，提供个性化大脑训练建议。"
+      "title": "成人 ADHD 自我报告量表（ASRS v1.1）测试 | 免费筛查",
+      "description": "免费在线完成成人 ADHD 自我报告量表（ASRS v1.1）筛查。查看 Part A 筛查分数、总分，并了解成人 ADHD ASRS 结果可能意味着什么。",
+      "keywords": "成人 adhd 自我报告量表, adhd 自我报告量表, asrs v1 1, 成人 adhd 评估, asrs 评分, asrs 结果解释, 成人 adhd 筛查测试",
+      "ogTitle": "成人 ADHD 自我报告量表（ASRS v1.1）测试",
+      "ogDescription": "免费在线完成成人 ADHD 自我报告量表（ASRS v1.1）筛查，并查看 Part A 筛查分数、总分和下一步建议。"
     },
-    "title": "成人注意力不足过动症自我评估",
-    "subtitle": "基于WHO成人ADHD自我报告量表(ASRS-v1.1)的科学验证评估",
+    "title": "成人 ADHD 自我报告量表（ASRS）测试",
+    "subtitle": "免费完成成人 ADHD ASRS 筛查，查看 Part A 分数和总分，并了解这些结果可能意味着什么",
     "disclaimer": {
-      "simple": "这个工具帮你了解注意力状况，不是医学诊断哦"
+      "simple": "这个 ASRS 筛查工具可以帮助你了解症状模式，但不能替代医学诊断"
     },
     "aboutScale": {
-      "title": "关于ASRS量表",
-      "content": "WHO成人ADHD自我报告量表(ASRS-v1.1)是世界卫生组织与哈佛医学院研究人员合作开发的广泛使用、基于证据的评估工具。"
+      "title": "关于成人 ADHD 自我报告量表（ASRS）",
+      "content": "WHO 成人 ADHD 自我报告量表（ASRS-v1.1）是一个被广泛使用的成人 ADHD 症状筛查问卷。这个页面会带你完成 ASRS 条目、查看 Part A 筛查分数和总分，并在结果提示较高时给出更合理的下一步建议。"
     },
     "features": {
-      "professional": "基于WHO验证的成人评估工具",
-      "comprehensive": "评估成人的注意力不集中和多动症状",
-      "evidence": "提供90%敏感性的客观、结构化评估"
+      "professional": "使用 WHO 成人 ADHD 自我报告量表（ASRS-v1.1）",
+      "comprehensive": "覆盖成人的注意力不集中和多动症状",
+      "evidence": "显示 Part A 筛查结果、总分和下一步建议"
     },
     "buttons": {
-      "startAssessment": "开始评估",
+      "startAssessment": "开始 ASRS 筛查",
       "continue": "继续"
     },
     "infoStep": {
-      "title": "评估信息",
-      "subtitle": "请为此评估提供基本信息",
+      "title": "成人 ADHD ASRS 筛查",
+      "subtitle": "先填写少量信息，然后回答成人 ADHD 自我报告量表问题。",
       "subject": "此评估针对谁？",
       "subjectPlaceholder": "例如：我自己、我的伴侣、家人",
       "age": "他们的年龄是？",
       "agePlaceholder": "例如：25岁、30岁、45岁"
     },
     "questionnaire": {
-      "title": "成人注意力不足过动症症状评估"
+      "title": "成人 ADHD 自我报告量表问题"
     },
     "scale": {
       "never": "0 - 从不",
@@ -64,15 +64,15 @@
       "question18": "当别人忙碌时，您多久会打断他们？"
     },
     "results": {
-      "title": "评估结果",
-      "subtitle": "基于您对WHO成人ADHD自我报告量表(ASRS-v1.1)的回应",
+      "title": "ASRS 结果",
+      "subtitle": "这些结果总结了您在成人 ADHD 自我报告量表（ASRS-v1.1）中的 Part A 筛查分数和总分。",
       "assessmentSummary": "评估摘要",
       "subject": "受试者",
       "age": "年龄",
       "totalQuestions": "回答的总问题数",
       "partAScore": "A部分得分（筛查）",
       "totalScore": "总分",
-      "recommendation": "建议咨询医疗专业人员进行进一步评估。",
+      "recommendation": "如果筛查分数偏高，或这些症状已经影响到日常生活，建议与合格的医疗专业人员进一步讨论。",
       "riskLevels": {
         "low": {
           "title": "成人注意力不足过动症可能性低",
@@ -107,8 +107,8 @@
       "exploreAllGames": "探索所有游戏"
     },
     "learnMore": {
-      "text": "想要了解更多关于成人注意力不足过动症评估和ASRS量表的科学背景？",
-      "linkText": "阅读我们的综合指南"
+      "text": "想进一步了解 ASRS 评分、结果解释和筛查逻辑？",
+      "linkText": "阅读 ASRS 评分指南"
     }
   }
 }

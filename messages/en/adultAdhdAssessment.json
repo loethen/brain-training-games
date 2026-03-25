@@ -1,40 +1,40 @@
 {
   "adultAdhdAssessment": {
     "metadata": {
-      "title": "Adult ADHD Self-Assessment | Free ASRS Test | FreeFocusGames",
-      "description": "Take our professional adult ADHD self-assessment using the WHO Adult ADHD Self-Report Scale (ASRS-v1.1). Get personalized brain training recommendations based on your results.",
-      "keywords": "adult ADHD assessment, adult ADHD test, ASRS ADHD scale, WHO adult ADHD, adult attention deficit, ADHD self assessment adult, adult ADHD screening",
-      "ogTitle": "Adult ADHD Self-Assessment - WHO ASRS Test",
-      "ogDescription": "Professional adult ADHD self-assessment with personalized brain training recommendations. Based on the WHO Adult ADHD Self-Report Scale."
+      "title": "Adult ADHD Self-Report Scale (ASRS v1.1) Test | Free Screener",
+      "description": "Take a free Adult ADHD Self-Report Scale (ASRS v1.1) screener online. Review your Part A screening score, total score, and guidance on what adult ADHD ASRS results may mean.",
+      "keywords": "adult adhd self report scale, adhd self report scale, adult adhd self report scale asrs, asrs v1 1, adult adhd assessment, asrs scoring, asrs score interpretation, adult adhd screening test",
+      "ogTitle": "Adult ADHD Self-Report Scale (ASRS v1.1) Test",
+      "ogDescription": "Take a free Adult ADHD Self-Report Scale (ASRS v1.1) screener online and review your Part A screening score, total score, and next-step guidance."
     },
-    "title": "Adult ADHD Self-Assessment",
-    "subtitle": "A scientifically validated evaluation based on the WHO Adult ADHD Self-Report Scale (ASRS-v1.1)",
+    "title": "Adult ADHD Self-Report Scale (ASRS) Test",
+    "subtitle": "Take a free adult ADHD ASRS screener, review your Part A and total scores, and learn what the results may mean",
     "disclaimer": {
-      "simple": "This tool helps you understand your attention patterns - not a medical diagnosis"
+      "simple": "This ASRS screener can help you understand symptom patterns, but it is not a medical diagnosis"
     },
     "aboutScale": {
-      "title": "About the ASRS Scale",
-      "content": "The WHO Adult ADHD Self-Report Scale (ASRS-v1.1) is a widely-used, evidence-based assessment tool developed by the World Health Organization in collaboration with Harvard Medical School researchers."
+      "title": "About the Adult ADHD Self-Report Scale (ASRS)",
+      "content": "The WHO Adult ADHD Self-Report Scale (ASRS-v1.1) is a widely used screening questionnaire for adult ADHD symptoms. This page helps you complete the ASRS items, review your Part A screener score and total score, and understand sensible next steps if your answers suggest concern."
     },
     "features": {
-      "professional": "Based on WHO-validated assessment tools for adults",
-      "comprehensive": "Evaluates both inattention and hyperactivity symptoms in adults",
-      "evidence": "Provides objective, structured evaluation with 90% sensitivity"
+      "professional": "Uses the WHO Adult ADHD Self-Report Scale (ASRS-v1.1) for adults",
+      "comprehensive": "Covers both inattention and hyperactivity symptoms in adults",
+      "evidence": "Shows your Part A screener result, total score, and next-step guidance"
     },
     "buttons": {
-      "startAssessment": "Begin Assessment",
+      "startAssessment": "Start the ASRS Screener",
       "continue": "Continue"
     },
     "infoStep": {
-      "title": "Assessment Information",
-      "subtitle": "Please provide basic information for this assessment",
+      "title": "Adult ADHD ASRS Screener",
+      "subtitle": "Enter a few details, then answer the Adult ADHD Self-Report Scale questions.",
       "subject": "Who is this assessment for?",
       "subjectPlaceholder": "e.g., myself, my partner, family member",
       "age": "What is their age?",
       "agePlaceholder": "e.g., 25, 30, 45"
     },
     "questionnaire": {
-      "title": "Adult ADHD Symptom Assessment"
+      "title": "Adult ADHD Self-Report Scale Questions"
     },
     "scale": {
       "never": "0 - Never",
@@ -64,15 +64,15 @@
       "question18": "How often do you interrupt others when they are busy?"
     },
     "results": {
-      "title": "Assessment Results",
-      "subtitle": "Based on your responses to the WHO Adult ADHD Self-Report Scale (ASRS-v1.1)",
+      "title": "ASRS Results",
+      "subtitle": "These results summarize your Part A screening score and total score on the Adult ADHD Self-Report Scale (ASRS-v1.1).",
       "assessmentSummary": "Assessment Summary",
       "subject": "Subject",
       "age": "Age",
       "totalQuestions": "Total Questions Answered",
       "partAScore": "Part A Score (Screening)",
       "totalScore": "Total Score",
-      "recommendation": "Consider consulting with a healthcare professional for further evaluation.",
+      "recommendation": "If your screening score is elevated or symptoms interfere with daily life, consider discussing the results with a qualified healthcare professional.",
       "riskLevels": {
         "low": {
           "title": "Low Likelihood of Adult ADHD",
@@ -107,8 +107,8 @@
       "exploreAllGames": "Explore All Games"
     },
     "learnMore": {
-      "text": "Want to learn more about adult ADHD assessment and the science behind the ASRS scale?",
-      "linkText": "Read our comprehensive guide"
+      "text": "Want help understanding ASRS scoring, interpretation, and screening?",
+      "linkText": "Read the ASRS scoring guide"
     }
   }
 }

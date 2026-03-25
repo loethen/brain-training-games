@@ -10,7 +10,7 @@
     },
     "quickLinks": {
       "title": "Popular Ways to Explore the Library",
-      "subtitle": "These entry points help users and search engines understand which page best matches each training goal.",
+      "subtitle": "Use these shortcuts to jump straight to the game, category, or guide that best matches what you want to practice.",
       "items": {
         "adhdGames": {
           "title": "ADHD Games for Adults",
@@ -23,6 +23,10 @@
         "reactionTime": {
           "title": "Reaction Time Test",
           "description": "Measure and train visual response speed with our free online reaction time test."
+        },
+        "pomodoroTimer": {
+          "title": "Pomodoro Timer",
+          "description": "Use a simple Pomodoro timer for study sessions, focus blocks, and time management practice."
         },
         "schulteTable": {
           "title": "Schulte Table Online",
@@ -723,17 +727,17 @@
     },
     "reactionTime": {
       "title": "Reaction Time Test",
-      "subtitle": "Measure your response speed to visual stimuli",
-      "description": "Test your reaction time with this simple online tool that measures how quickly you respond to visual stimuli.",
+      "subtitle": "Check your reaction speed in milliseconds with a fast visual reaction time test",
+      "description": "Use this free online reaction time test to check how quickly you respond to a visual signal and compare your result against common averages.",
       "metadata": {
-        "title": "Visual Reaction Time Test: Check Your Reflexes Online",
-        "description": "Measure your reaction time to visual stimuli in milliseconds. Compare your reflexes against the human benchmark average. Are you as fast as an esports pro?",
-        "keywords": "human benchmark reaction time test, click speed reflex test, average reaction time visual, esports reflex training online, visual stimuli response time, test my reflexes",
-        "ogTitle": "Visual Reaction Time Test: Check Your Reflexes Online",
-        "ogDescription": "Measure your reaction time to visual stimuli in milliseconds. Compare your reflexes against the human benchmark average. Are you as fast as an esports pro?"
+        "title": "Reaction Time Test Online: Check Your Reflexes in Milliseconds",
+        "description": "Check your reaction time online with a simple visual reaction time test. Measure reaction speed in milliseconds, compare against average human results, and track your consistency.",
+        "keywords": "reaction time test, check reaction time, reaction speed test, human benchmark reaction time, response time test, reaction timer game, visual reaction time test",
+        "ogTitle": "Reaction Time Test Online: Check Your Reflexes in Milliseconds",
+        "ogDescription": "Check your reaction time online with a simple visual reaction time test. Measure reaction speed in milliseconds and compare your result against average human performance."
       },
       "howToPlay": {
-        "description": "This is a simple reaction time test that measures how quickly you respond to visual changes.",
+        "description": "This simple reaction time test measures how quickly you react when the screen changes color.",
         "step1": "Wait for the screen to turn green",
         "step2": "Click or tap as quickly as possible when the color changes",
         "step3": "See your reaction time in milliseconds",
@@ -770,6 +774,11 @@
           "question": "What's the significance of reaction time testing?",
           "answer": "Reaction time testing provides a way to understand your basic neural response speed. It can serve as a personal baseline but shouldn't be viewed as a training tool. If you notice your reaction time becoming significantly slower, it may be an indicator of fatigue, distraction, or other health factors. For professional competitors or certain occupations, understanding reaction time may have reference value."
         }
+      },
+      "science": {
+        "title": "What This Reaction Time Test Measures",
+        "description": "A visual reaction time test gives you a simple baseline for how quickly you notice a signal and respond. It is useful for checking consistency, comparing runs over time, and understanding how sleep, focus, fatigue, and device latency affect your score.",
+        "blogArticleTitle": "How to Boost Reaction Time for Gaming: The Ultimate Gamer's Guide (2025)"
       },
       "gameUI": {
         "gameTitle": "Test Your Reaction Time",
@@ -1257,14 +1266,14 @@
       ]
     },
     "pomodoroTimer": {
-      "title": "Pomodoro Timer",
-      "subtitle": "Boost focus and productivity with structured work sessions",
-      "description": "A simple yet powerful tool to boost productivity. Work in focused 25-minute intervals, separated by short breaks, to improve concentration and prevent burnout.",
-      "metaTitle": "Free Pomodoro Timer: Productivity & ADHD Focus App Online",
-      "metaDescription": "Boost your productivity with our free Pomodoro Technique timer. Work in deep focus 25-minute intervals, perfect for studying, remote work, or managing ADHD time blindness.",
-      "metaKeywords": "pomodoro timer online free, tomato timer app, adhd focus timer website, study timer 25 minutes, time blindness management, deep work productivity tool, pomodoro technique stopwatch",
-      "ogTitle": "Free Pomodoro Timer: Productivity & ADHD Focus App Online",
-      "ogDescription": "Boost your productivity with our free Pomodoro Technique timer. Work in deep focus 25-minute intervals, perfect for studying, remote work, or managing ADHD time blindness.",
+      "title": "Pomodoro Timer Online",
+      "subtitle": "Use a free study timer for focus sessions, short breaks, and clearer time management",
+      "description": "Use this free Pomodoro timer online as a study timer, focus timer, or tomato timer for 25-minute work sessions and structured breaks.",
+      "metaTitle": "Pomodoro Timer Online: Free Study Timer for Focus and Time Management",
+      "metaDescription": "Use our free Pomodoro timer online as a study timer, focus timer, or tomato timer. Plan 25-minute work sessions, take structured breaks, and manage time more clearly.",
+      "metaKeywords": "pomodoro timer online, study timer app, focus timer, time management pomodoro, tomato timer online, stopwatch for studying, pomodoro study timer, productivity timer",
+      "ogTitle": "Pomodoro Timer Online: Free Study Timer for Focus and Time Management",
+      "ogDescription": "Use our free Pomodoro timer online as a study timer, focus timer, or tomato timer. Plan 25-minute work sessions and structured breaks for better focus.",
       "howToPlay": {
         "step1": "Click 'Start' to begin a 25-minute focus session",
         "step2": "Work on your task without interruptions until the timer ends",
@@ -1297,8 +1306,9 @@
         }
       },
       "science": {
-        "title": "The Science Behind Pomodoro Technique",
-        "description": "Developed by Francesco Cirillo in the late 1980s, the Pomodoro Technique is based on the principle that frequent breaks improve mental agility. Research shows that sustained attention naturally declines after 20-30 minutes, making timed intervals optimal for maintaining focus and preventing cognitive fatigue.",
+        "title": "Why a Pomodoro Timer Helps With Focus and Time Management",
+        "description": "The Pomodoro Technique works by turning large tasks into shorter focus blocks with planned breaks. Timed sessions can make it easier to start work, reduce mental fatigue, and improve time awareness for studying, deep work, and ADHD-friendly routines.",
+        "blogArticleTitle": "How to Improve Focus and Concentration: Practical Tips for Better Productivity",
         "authorityLinks": {
           "technique": "Learn about the original Pomodoro Technique methodology and its development",
           "timeManagement": "Research on effective time management strategies and productivity",
@@ -1307,8 +1317,8 @@
       },
       "faq": {
         "whatIsPomodoro": {
-          "question": "What is the Pomodoro Technique?",
-          "answer": "The Pomodoro Technique is a time management method that uses a timer to break work into intervals (traditionally 25 minutes) separated by short breaks. Each interval is called a 'pomodoro', named after the tomato-shaped timer Francesco Cirillo used when he developed the technique."
+          "question": "What is a Pomodoro timer?",
+          "answer": "A Pomodoro timer is a countdown tool used in the Pomodoro Technique, a time management method that breaks work into intervals (traditionally 25 minutes) separated by short breaks. Each interval is called a 'pomodoro', named after the tomato-shaped timer Francesco Cirillo used when he developed the technique."
         },
         "whyBreaks": {
           "question": "Why are breaks important?",
@@ -1319,8 +1329,8 @@
           "answer": "Yes! Click the Settings button to adjust focus duration (1-60 minutes), short break (1-30 minutes), long break (1-60 minutes), and how many sessions before a long break. Customize based on your task type and attention capacity."
         },
         "bestFor": {
-          "question": "What tasks work best with Pomodoro?",
-          "answer": "The Pomodoro Technique works well for tasks requiring sustained focus: writing, coding, studying, design work, and problem-solving. It's less suitable for tasks requiring extended creative flow or tasks with frequent interruptions."
+          "question": "Can I use this as a study timer or focus timer?",
+          "answer": "Yes. A Pomodoro timer works well as a study timer or focus timer for writing, coding, revision, reading, and other tasks that benefit from shorter blocks of sustained attention. It is less suitable for work that depends on uninterrupted creative flow or constant interruptions."
         },
         "howManyPerDay": {
           "question": "How many pomodoros should I do per day?",

@@ -42,6 +42,11 @@
           "title": "在线专注力游戏",
           "description": "浏览完整的免费专注力游戏、注意力训练和集中力练习。"
         },
+        "reactionTime": {
+          "eyebrow": "测试",
+          "title": "反应速度测试",
+          "description": "用免费的快速测试在线查看反应速度，并练习视觉反应能力。"
+        },
         "adhdGames": {
           "eyebrow": "分类",
           "title": "成人 ADHD 游戏",

@@ -64,7 +64,7 @@ To run this project locally for development or educational purposes:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/loethen/brain-training-games.git
+git clone https://github.com/loethen/freefocusgames.git
 
 # 2. Install dependencies
 npm install

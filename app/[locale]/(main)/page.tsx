@@ -159,6 +159,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
     const quickStartLinks = [
         { id: "focusGames", href: "/games" },
+        { id: "reactionTime", href: "/games/reaction-time" },
         { id: "adhdGames", href: "/categories/adhd-games" },
         { id: "schulteTable", href: "/games/schulte-table" },
         { id: "adultAdhdAssessment", href: "/adult-adhd-assessment" },
@@ -231,7 +232,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             {t("home.searchPaths.subtitle")}
                         </p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-4">
                         {quickStartLinks.map((item) => (
                             <Link
                                 key={item.id}
@@ -465,6 +466,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                     {t("home.workPerformanceTitle")}
                                 </h3>
                                 <p>{t("home.workPerformanceDesc")}</p>
+                                <div className="mt-3 flex flex-wrap gap-4 text-sm">
+                                    <Link
+                                        href="/games/pomodoro-timer"
+                                        className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+                                    >
+                                        {t("games.pomodoroTimer.title")}
+                                        <ArrowRight className="h-4 w-4" />
+                                    </Link>
+                                </div>
                             </div>
                         </div>
 
@@ -475,6 +485,22 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                     {t("home.personalGrowthTitle")}
                                 </h3>
                                 <p>{t("home.personalGrowthDesc")}</p>
+                                <div className="mt-3 flex flex-wrap gap-4 text-sm">
+                                    <Link
+                                        href="/games/schulte-table"
+                                        className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+                                    >
+                                        {t("games.schulteTable.title")}
+                                        <ArrowRight className="h-4 w-4" />
+                                    </Link>
+                                    <Link
+                                        href="/games/reaction-time"
+                                        className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+                                    >
+                                        {t("games.reactionTime.title")}
+                                        <ArrowRight className="h-4 w-4" />
+                                    </Link>
+                                </div>
                             </div>
                         </div>
 

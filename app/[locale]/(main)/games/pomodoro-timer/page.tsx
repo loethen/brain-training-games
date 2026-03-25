@@ -92,6 +92,8 @@ export default function PomodoroTimerPage({ params }: { params: Promise<{ locale
             science={{
                 title: t('pomodoroTimer.science.title'),
                 description: t('pomodoroTimer.science.description'),
+                blogArticleUrl: '/blog/how-to-improve-focus-and-concentration',
+                blogArticleTitle: t('pomodoroTimer.science.blogArticleTitle'),
                 authorityLinks: [
                     {
                         title: "The Pomodoro Technique",
@@ -136,4 +138,3 @@ export default function PomodoroTimerPage({ params }: { params: Promise<{ locale
         />
     );
 }
-

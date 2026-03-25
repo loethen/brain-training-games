@@ -44,7 +44,7 @@ export function Footer() {
           <XLogo className="w-4 h-4" />
         </a>
         <a
-          href="https://github.com/loethen/brain-training-games"
+          href="https://github.com/loethen/freefocusgames"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-muted-foreground transition-colors"

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { generateAlternates } from '@/lib/utils';
 import AdultAdhdAssessmentFlow from './components/AdultAdhdAssessmentFlow';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -15,17 +16,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: t('ogDescription'),
       type: 'website',
     },
-    alternates: {
-      canonical: `/${locale}/adult-adhd-assessment`,
-      languages: {
-        'zh': '/zh/adult-adhd-assessment',
-        'en': '/en/adult-adhd-assessment',
-      },
-    },
+    alternates: generateAlternates(locale, 'adult-adhd-assessment'),
   };
 }
 
-export default function AdultAdhdAssessmentPage() {
+export default async function AdultAdhdAssessmentPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <AdultAdhdAssessmentFlow />
