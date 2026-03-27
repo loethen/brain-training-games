@@ -1310,17 +1310,17 @@
     },
     "stroopEffectTest": {
       "title": "Stroop Effect Test",
-      "subtitle": "Challenge your brain with color-word conflicts",
-      "description": "Test your cognitive flexibility by identifying colors that conflict with the words. Train your selective attention and conflict resolution skills.",
+      "subtitle": "Take a free online color-word test to measure selective attention, inhibition control, and Stroop interference.",
+      "description": "Take a free Stroop effect test online by naming the ink color instead of the word. Train selective attention, inhibition control, and conflict resolution while tracking your reaction time.",
       "metadata": {
-        "title": "Stroop Effect Test: Cognitive Flexibility & Brain Age Game",
-        "description": "Experience the famous Stroop Effect test online. Challenge your cognitive flexibility and processing speed by resolving color-word interference. A great exercise for brain anti-aging and executive function.",
-        "keywords": "stroop effect test online free, color word interference game, cognitive flexibility training, brain age test online, executive function exercises, psychology brain games, mental agility test",
-        "ogTitle": "Stroop Effect Test: Cognitive Flexibility & Brain Age Game",
-        "ogDescription": "Experience the famous Stroop Effect test online. Challenge your cognitive flexibility and processing speed by resolving color-word interference. A great exercise for brain anti-aging and executive function."
+        "title": "Stroop Effect Test Online: Free Color Word Test",
+        "description": "Take a free Stroop effect test online and try the classic color word test. Measure selective attention, inhibition control, reaction time, and total test time in one quick session.",
+        "keywords": "stroop effect test, stroop test online, free stroop test, color word test, stroop color and word test, stroop effect test online, psychology stroop test",
+        "ogTitle": "Stroop Effect Test Online: Free Color Word Test",
+        "ogDescription": "Take a free Stroop effect test online and try the classic color word test. Measure selective attention, inhibition control, reaction time, and total test time in one quick session."
       },
       "howToPlay": {
-        "description": "In this cognitive flexibility test, you'll identify the color of words, not what the words say.",
+        "description": "In this free online Stroop test, you'll complete a classic color-word task by identifying the ink color instead of reading the word.",
         "step1": "Look at the colored word displayed on screen",
         "step2": "Identify the COLOR of the text, not the meaning of the word",
         "step3": "Click the correct color button or press the number key (1-6)",
@@ -1343,25 +1343,25 @@
       "faq": {
         "whatIsStroop": {
           "question": "What is the Stroop effect?",
-          "answer": "The Stroop effect is a phenomenon where it takes longer to identify the color of a word when the word's meaning conflicts with its color (e.g., the word 'RED' printed in blue). This demonstrates how automatic reading processes can interfere with color identification."
+          "answer": "The Stroop effect is the delay that happens when a word's meaning conflicts with its ink color, such as the word 'RED' printed in blue. In a classic color word test, you must name the ink color instead of reading the word, which reveals how automatic reading interferes with attention and response control."
         },
         "whyDifficult": {
           "question": "Why is this test difficult?",
-          "answer": "Reading is such an automatic process that your brain naturally wants to process the word's meaning first. When the word says 'GREEN' but is colored red, your brain has to work harder to ignore the word meaning and focus only on the color."
+          "answer": "Reading is so automatic that your brain wants to process the word before the color. When the word says 'GREEN' but the ink is red, you have to inhibit that automatic reading response and focus only on the color, which is why a Stroop test online still feels surprisingly demanding."
         },
         "howToImprove": {
           "question": "How can I improve my performance?",
-          "answer": "Practice regularly to strengthen your selective attention skills. Try to develop strategies like focusing on the color immediately without reading the word, or using peripheral vision to see the color without processing the text."
+          "answer": "Practice regularly and aim to respond to the ink color immediately, before you mentally read the word. Short repeated sessions help you strengthen selective attention, reduce hesitation on incongruent trials, and improve your average reaction time."
         },
         "realWorldApps": {
           "question": "How does this apply to real life?",
-          "answer": "The cognitive skills trained in the Stroop test transfer to many real-world situations requiring selective attention, such as driving (ignoring distractions), studying (focusing amid noise), or work (concentrating on priorities despite interruptions)."
+          "answer": "The skills measured in a Stroop effect test matter anywhere you need to ignore interference and stay on task, such as driving through distractions, studying in a noisy environment, or switching between competing demands at work."
         }
       },
       "science": {
-        "title": "Cognitive Conflict and Executive Control Training",
-        "description": "The Stroop Effect Test is a gold-standard neuropsychological assessment tool that measures cognitive flexibility and executive control. Research demonstrates that this task activates the anterior cingulate cortex and dorsolateral prefrontal cortex - brain regions crucial for conflict monitoring and cognitive control. Regular Stroop training strengthens these neural networks, improving selective attention, cognitive flexibility, and resistance to interference - skills essential for academic performance, professional productivity, and daily decision-making.",
-        "blogArticleTitle": "The Science Behind the Stroop Effect: Training Your Brain's Executive Control",
+        "title": "Why the Stroop Effect Test Works as a Color Word Test",
+        "description": "A Stroop effect test is a classic color word test: you must report the ink color while ignoring the word itself. That conflict makes an online Stroop test useful for practicing selective attention, inhibition control, and cognitive flexibility. As you repeat the task, you can compare average reaction time, total test time, and the gap between congruent and incongruent trials.",
+        "blogArticleTitle": "Stroop Effect Test Explained: The Stroop Experiment, Color Word Test, and Cognitive Control",
         "authorityLinks": {
           "neuropsychology": "Stroop test in clinical neuropsychological assessment and cognitive training",
           "executiveFunction": "Executive function and cognitive control research in neuroscience",
@@ -1370,7 +1370,7 @@
       },
       "gameUI": {
         "title": "Stroop Effect Test",
-        "instructions": "Identify the COLOR of the word, not what the word says. Click the matching color button or use number keys 1-6.",
+        "instructions": "Identify the ink COLOR of the word, not what the word says. Click the matching color button or use number keys 1-6.",
         "startGame": "Start Test",
         "getReady": "Get Ready",
         "identifyColor": "What color is this word?",
@@ -1382,8 +1382,12 @@
         "yourResults": "Your Results",
         "accuracy": "Accuracy",
         "avgReactionTime": "Avg Reaction Time",
+        "totalTime": "Total Time",
         "stroopEffect": "Stroop Effect",
         "stroopEffectDescription": "Difference between incongruent and congruent trials",
+        "leaderboardDescription": "The leaderboard ranks your adjusted average time: your average correct reaction time plus a 0.250 s penalty for each incorrect answer.",
+        "leaderboardTime": "Leaderboard Time",
+        "leaderboardTimeDescription": "Includes a {penalty} penalty for each incorrect answer.",
         "congruent": "Congruent",
         "incongruent": "Incongruent",
         "playAgain": "Take Test Again",
@@ -1391,7 +1395,7 @@
         "newBestTime": "New Best Time",
         "bestTime": "Best Time",
         "shareTitle": "My Stroop Effect Test Results",
-        "shareText": "I completed the Stroop Effect Test",
+        "shareText": "I completed the Stroop Effect Test with {accuracy}% accuracy, {avgReactionTime} average reaction time, and a {stroopEffect} Stroop effect.",
         "keyboardShortcut": "Use keyboard shortcuts: 1-6 for colors",
         "colors": {
           "red": "RED",

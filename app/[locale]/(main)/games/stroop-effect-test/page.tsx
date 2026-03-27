@@ -62,6 +62,7 @@ export default function StroopEffectTestPage({ params }: { params: Promise<{ loc
                     </ul>
                 </>
             }
+            leaderboardIntro={<p>{t('gameUI.leaderboardDescription')}</p>}
             benefits={[
                 {
                     icon: <Brain className="w-10 h-10" />,
@@ -84,23 +85,6 @@ export default function StroopEffectTestPage({ params }: { params: Promise<{ loc
                 description: t('science.description'),
                 blogArticleUrl: "/blog/the-science-of-stroop-effect-cognitive-flexibility-training",
                 blogArticleTitle: t('science.blogArticleTitle'),
-                authorityLinks: [
-                    {
-                        title: "Stroop Test in Neuropsychology",
-                        url: "https://en.wikipedia.org/wiki/Stroop_effect",
-                        description: t('science.authorityLinks.neuropsychology')
-                    },
-                    {
-                        title: "Executive Function Research",
-                        url: "https://en.wikipedia.org/wiki/Executive_functions",
-                        description: t('science.authorityLinks.executiveFunction')
-                    },
-                    {
-                        title: "Cognitive Training Evidence",
-                        url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4055506/",
-                        description: t('science.authorityLinks.cognitiveTraining')
-                    }
-                ]
             }}
             faq={[
                 {
@@ -120,6 +104,8 @@ export default function StroopEffectTestPage({ params }: { params: Promise<{ loc
                     answer: t('faq.realWorldApps.answer'),
                 },
             ]}
+            hasLeaderboard={true}
+            leaderboardFormatterType="sec3"
         />
     );
 } 

@@ -234,6 +234,11 @@ function validateScore(
                 return "Score rejected (Outside expected completion range)";
             }
             return null;
+        case "stroop-effect-test":
+            if (score < 200 || score > 15000) {
+                return "Score rejected (Outside expected performance range)";
+            }
+            return null;
         default:
             return null;
     }
