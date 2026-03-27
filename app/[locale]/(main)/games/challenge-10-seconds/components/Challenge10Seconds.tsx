@@ -8,6 +8,7 @@ import { Trophy, RotateCcw, Share2 } from "lucide-react";
 import { ShareModal } from '@/components/ui/ShareModal';
 import { toast } from "sonner"; // Assuming sonner is used for toasts
 import { SevenSegmentDigit, SevenSegmentDot } from './SevenSegmentDisplay';
+import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 
 type GameState = 'IDLE' | 'RUNNING' | 'STOPPED';
 
@@ -24,6 +25,7 @@ export default function Challenge10Seconds() {
 
     const startTimeRef = useRef<number>(0);
     const requestRef = useRef<number>(0);
+    const hasSubmittedLeaderboardRef = useRef(false);
 
     useEffect(() => {
         setPageUrl(window.location.href);
@@ -59,6 +61,7 @@ export default function Challenge10Seconds() {
         setGameState('RUNNING');
         setDiff(0);
         setRank('');
+        hasSubmittedLeaderboardRef.current = false;
         startTimeRef.current = performance.now();
         requestRef.current = requestAnimationFrame(updateTimer);
     };
@@ -67,22 +70,28 @@ export default function Challenge10Seconds() {
         cancelAnimationFrame(requestRef.current);
         const now = performance.now();
         const finalTime = (now - startTimeRef.current) / 1000;
-        setTime(finalTime);
+        const displayedTime = Number(finalTime.toFixed(4));
+        setTime(displayedTime);
         setGameState('STOPPED');
 
-        const difference = Math.abs(finalTime - 10.0000);
+        const difference = Math.abs(displayedTime - 10.0000);
         setDiff(difference);
 
         // Determine Rank
-        if (difference === 0) setRank('perfect'); // Improbably perfect
+        if (difference < 0.00005) setRank('perfect');
         else if (difference < 0.01) setRank('excellent');
         else if (difference < 0.05) setRank('great');
         else if (difference < 0.1) setRank('good');
         else setRank('normal');
 
+        if (!hasSubmittedLeaderboardRef.current) {
+            hasSubmittedLeaderboardRef.current = true;
+            void submitScoreToLeaderboard('challenge10Seconds', displayedTime * 1000);
+        }
+
         // Optional: show toast for good results
         if (difference < 0.05) {
-            toast.success(t('gameUI.result') + ": " + finalTime.toFixed(4) + "s!");
+            toast.success(`${t('gameUI.result')}: ${displayedTime.toFixed(4)}s!`);
         }
     };
 
@@ -91,6 +100,7 @@ export default function Challenge10Seconds() {
         setTime(0);
         setDiff(0);
         setRank('');
+        hasSubmittedLeaderboardRef.current = false;
     };
 
     const formatTime = (seconds: number) => {
@@ -180,8 +190,7 @@ export default function Challenge10Seconds() {
                         </Button>
                         <Button onClick={() => setIsShareModalOpen(true)} variant="outline" size="lg" className="w-40 h-14 text-lg gap-2">
                             <Share2 className="w-5 h-5" />
-                            {/* Share button text could be explicit or icon only, using logic similar to other games */}
-                            Share
+                            {t('gameUI.share')}
                         </Button>
                     </div>
                 )}
@@ -210,7 +219,10 @@ export default function Challenge10Seconds() {
                 onClose={() => setIsShareModalOpen(false)}
                 title={t('title')}
                 url={pageUrl}
-                shareText={`I stopped the timer at ${time.toFixed(4)}s in the 10 Seconds Challenge! Can you beat my precision?`}
+                shareText={t('gameUI.shareText', {
+                    time: time.toFixed(4),
+                    diff: diff.toFixed(4),
+                })}
             />
         </div>
     );

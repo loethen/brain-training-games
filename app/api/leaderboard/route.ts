@@ -5,6 +5,9 @@ import {
 } from "@/lib/leaderboard-config";
 import {
     createEmptySnapshot,
+    compareScores,
+    getLeaderboardTarget,
+    hasTargetScore,
     getLeaderboardSnapshotKey,
     isHigherScoreBetter,
     updateSnapshotWithScore,
@@ -93,6 +96,16 @@ function isSnapshotConsistent(snapshot: LeaderboardSnapshot) {
         return true;
     }
 
+    for (let index = 1; index < snapshot.entries.length; index += 1) {
+        if (compareScores(snapshot.gameId, snapshot.entries[index - 1].score, snapshot.entries[index].score) > 0) {
+            return false;
+        }
+    }
+
+    if (hasTargetScore(snapshot.gameId)) {
+        return true;
+    }
+
     const averageScore = getAverageScore(snapshot);
     const bestScore = snapshot.entries[0]?.score;
 
@@ -126,6 +139,11 @@ async function rebuildSnapshotFromDatabase(
     mode: string
 ) {
     const scoreOrder = isHigherScoreBetter(gameId) ? "DESC" : "ASC";
+    const target = getLeaderboardTarget(gameId);
+    const scoreOrderClause =
+        typeof target === "number"
+            ? `ABS(score - ${target}) ASC, datetime(created_at) ASC`
+            : `score ${scoreOrder}, datetime(created_at) ASC`;
 
     const [topRows, aggregateRow] = await Promise.all([
         db.prepare(
@@ -138,7 +156,7 @@ async function rebuildSnapshotFromDatabase(
                     created_at,
                     ROW_NUMBER() OVER (
                         PARTITION BY COALESCE(player_id, player_name)
-                        ORDER BY score ${scoreOrder}, datetime(created_at) ASC
+                        ORDER BY ${scoreOrderClause}
                     ) AS player_rank
                 FROM leaderboard
                 WHERE game_id = ?
@@ -151,7 +169,7 @@ async function rebuildSnapshotFromDatabase(
                 created_at AS createdAt
             FROM ranked_scores
             WHERE player_rank = 1
-            ORDER BY score ${scoreOrder}, datetime(created_at) ASC
+            ORDER BY ${scoreOrderClause}
             LIMIT 20`
         ).bind(gameId, mode).all(),
         db.prepare(
@@ -160,7 +178,7 @@ async function rebuildSnapshotFromDatabase(
                     score,
                     ROW_NUMBER() OVER (
                         PARTITION BY COALESCE(player_id, player_name)
-                        ORDER BY score ${scoreOrder}, datetime(created_at) ASC
+                        ORDER BY ${scoreOrderClause}
                     ) AS player_rank
                 FROM leaderboard
                 WHERE game_id = ?
@@ -239,6 +257,11 @@ function validateScore(
                 return "Score rejected (Outside expected performance range)";
             }
             return null;
+        case "challenge10Seconds":
+            if (score < 0 || score > 60000) {
+                return "Score rejected (Outside expected timing range)";
+            }
+            return null;
         default:
             return null;
     }
@@ -315,6 +338,11 @@ export async function POST(req: NextRequest) {
         const playerName = await generateStableName(playerId);
         const nowIso = new Date().toISOString();
         const scoreOrder = isHigherScoreBetter(gameId) ? "DESC" : "ASC";
+        const target = getLeaderboardTarget(gameId);
+        const scoreOrderClause =
+            typeof target === "number"
+                ? `ABS(score - ${target}) ASC, datetime(created_at) ASC`
+                : `score ${scoreOrder}, datetime(created_at) ASC`;
 
         const existingBest = await db.prepare(
             `SELECT score
@@ -322,7 +350,7 @@ export async function POST(req: NextRequest) {
              WHERE game_id = ?
                AND mode = ?
                AND COALESCE(player_id, player_name) = ?
-             ORDER BY score ${scoreOrder}
+             ORDER BY ${scoreOrderClause}
              LIMIT 1`
         ).bind(gameId, mode, playerId).first();
 

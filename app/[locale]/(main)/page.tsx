@@ -165,6 +165,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         { id: "adultAdhdAssessment", href: "/adult-adhd-assessment" },
         { id: "workingMemoryGuide", href: "/working-memory-guide" }
     ];
+    const getIdKey = (id: string) => id.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase()).replace(/-/g, '');
 
     return (
         <>
@@ -274,7 +275,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         const mainGame = breathingGames.find(g => g.id === 'box-breathing') || breathingGames[0];
                         const sideGames = breathingGames.filter(g => g.id !== mainGame?.id);
                         if (!mainGame) return null;
-                        const getIdKey = (id: string) => id.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase()).replace(/-/g, '');
                         return (
                             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 no-ads-inside">
                                 {/* Main Featured Breathing Game */}
@@ -359,7 +359,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                         </div>
                                     </div>
                                     <h3 className="mt-3 font-bold text-lg group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                                        {game.title}
+                                        {t(`games.${getIdKey(game.id)}.title`)}
                                     </h3>
                                 </Link>
                             ))}

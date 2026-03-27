@@ -58,8 +58,11 @@
                 "start": "开始挑战",
                 "stop": "停止",
                 "retry": "再试一次",
+                "share": "分享结果",
                 "result": "结果",
                 "diff": "误差",
+                "leaderboardDescription": "排行榜按谁最接近 10.0000 秒排序，表格里显示的是每个人实际停下来的时间。",
+                "shareText": "我在 10 秒挑战里停在了 {time} 秒，距离完美的 10.0000 秒只差 {diff} 秒。你能超过我吗？",
                 "rank": {
                     "perfect": "神乎其技 (0.000s)",
                     "excellent": "大师级 (<0.01s)",

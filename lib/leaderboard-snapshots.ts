@@ -1,4 +1,4 @@
-import { DEFAULT_LEADERBOARD_MODE, LEADERBOARD_GAME_CONFIG } from "@/lib/leaderboard-config";
+import { DEFAULT_LEADERBOARD_MODE, getLeaderboardSortConfig } from "@/lib/leaderboard-config";
 
 export interface LeaderboardSnapshotEntry {
   playerId: string;
@@ -36,20 +36,47 @@ export function getLeaderboardSnapshotKey(gameId: string, mode: string) {
   return `leaderboards/${gameId}/${mode}.json`;
 }
 
+export function hasTargetScore(gameId: string) {
+  return typeof getLeaderboardSortConfig(gameId).target === "number";
+}
+
+export function getLeaderboardTarget(gameId: string) {
+  return getLeaderboardSortConfig(gameId).target ?? null;
+}
+
 export function isHigherScoreBetter(gameId: string) {
-  return (LEADERBOARD_GAME_CONFIG[gameId] || { primary: "DESC" }).primary === "DESC";
+  return getLeaderboardSortConfig(gameId).primary === "DESC";
+}
+
+function getScoreRankValue(gameId: string, score: number) {
+  const target = getLeaderboardTarget(gameId);
+  if (typeof target === "number") {
+    return Math.abs(score - target);
+  }
+
+  return score;
+}
+
+export function compareScores(gameId: string, left: number, right: number) {
+  const leftRank = getScoreRankValue(gameId, left);
+  const rightRank = getScoreRankValue(gameId, right);
+
+  if (leftRank !== rightRank) {
+    return isHigherScoreBetter(gameId) ? rightRank - leftRank : leftRank - rightRank;
+  }
+
+  return 0;
 }
 
 export function isBetterScore(gameId: string, candidate: number, current: number) {
-  return isHigherScoreBetter(gameId) ? candidate > current : candidate < current;
+  return compareScores(gameId, candidate, current) < 0;
 }
 
 export function sortSnapshotEntries(gameId: string, entries: LeaderboardSnapshotEntry[]) {
-  const direction = isHigherScoreBetter(gameId) ? -1 : 1;
-
   return [...entries].sort((a, b) => {
-    if (a.score !== b.score) {
-      return (a.score - b.score) * direction;
+    const comparison = compareScores(gameId, a.score, b.score);
+    if (comparison !== 0) {
+      return comparison;
     }
 
     return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();

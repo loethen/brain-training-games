@@ -98,6 +98,9 @@ export default function Challenge10SecondsPage({ params }: { params: Promise<{ l
                     answer: t('faq.latency.answer'),
                 },
             ]}
+            hasLeaderboard={true}
+            leaderboardFormatterType="sec4"
+            leaderboardIntro={<p>{t('gameUI.leaderboardDescription')}</p>}
         />
     );
 }
