@@ -88,6 +88,23 @@ function getAverageScore(snapshot: LeaderboardSnapshot) {
     return snapshot.scoreSum / snapshot.totalPlayers;
 }
 
+function isSnapshotConsistent(snapshot: LeaderboardSnapshot) {
+    if (snapshot.totalPlayers === 0 || snapshot.entries.length === 0) {
+        return true;
+    }
+
+    const averageScore = getAverageScore(snapshot);
+    const bestScore = snapshot.entries[0]?.score;
+
+    if (typeof bestScore !== "number") {
+        return true;
+    }
+
+    return isHigherScoreBetter(snapshot.gameId)
+        ? averageScore <= bestScore
+        : averageScore >= bestScore;
+}
+
 function toNumber(value: unknown, fallback = 0) {
     if (typeof value === "number" && Number.isFinite(value)) {
         return value;
@@ -238,6 +255,9 @@ export async function GET(req: NextRequest) {
         if (!snapshot) {
             snapshot = await rebuildSnapshotFromDatabase(db, gameId, mode);
             await writeSnapshot(bucket, snapshot);
+        } else if (!isSnapshotConsistent(snapshot)) {
+            snapshot = await rebuildSnapshotFromDatabase(db, gameId, mode);
+            await writeSnapshot(bucket, snapshot);
         }
 
         return NextResponse.json(
@@ -289,6 +309,7 @@ export async function POST(req: NextRequest) {
         const { db, bucket } = await getCloudflareBindings();
         const playerName = await generateStableName(playerId);
         const nowIso = new Date().toISOString();
+        const scoreOrder = isHigherScoreBetter(gameId) ? "DESC" : "ASC";
 
         const existingBest = await db.prepare(
             `SELECT score
@@ -296,7 +317,7 @@ export async function POST(req: NextRequest) {
              WHERE game_id = ?
                AND mode = ?
                AND COALESCE(player_id, player_name) = ?
-             ORDER BY score ${gameId === "reaction-time" || gameId === "schulte-table" ? "ASC" : "DESC"}
+             ORDER BY score ${scoreOrder}
              LIMIT 1`
         ).bind(gameId, mode, playerId).first();
 
