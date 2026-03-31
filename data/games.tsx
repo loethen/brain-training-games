@@ -3,6 +3,7 @@ import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/ga
 import { CountingBoxesGamePreview } from "@/app/[locale]/(main)/games/counting-boxes/components/GamePreview";
 import { GamePreview as MemoryMatchingPreview } from "@/app/[locale]/(main)/games/memory-matching-game/components/GamePreview";
 import { GamePreview as ResonanceBreathingPreview } from "@/app/[locale]/(main)/games/resonance-breathing/GamePreview";
+import { GamePreview as SpacebarClickerPreview } from "@/app/[locale]/(main)/games/spacebar-clicker/components/GamePreview";
 import { GamePreview as FishTraceGamePreview } from "@/app/[locale]/(main)/games/fish-trace/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
 
@@ -193,6 +194,16 @@ export const games: Game[] = [
     categories: [
       "reaction-time",
       "brain-games-for-kids",
+    ],
+  },
+  {
+    id: "spacebar-clicker",
+    title: "Spacebar Clicker Test",
+    slug: "spacebar-clicker",
+    preview: <SpacebarClickerPreview />,
+    categories: [
+      "reaction-time",
+      "sustained-attention",
     ],
   },
 

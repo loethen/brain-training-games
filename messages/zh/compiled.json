@@ -1952,6 +1952,110 @@
         "medium": "中等",
         "hard": "困难"
       }
+    },
+    "spacebarClicker": {
+      "title": "空格键连点测试",
+      "subtitle": "一款干净、简洁的在线空格键速度测试，用短回合统计你的键盘敲击速度，并支持快速重复挑战",
+      "description": "在 5 秒、10 秒或 30 秒内测试你能按多少次空格键。这是一款免费在线空格键测速页，支持键盘和触屏点击，界面干净，并会记录你的本地最佳成绩。",
+      "metadata": {
+        "title": "空格键连点测试：免费在线 Spacebar Speed Test",
+        "description": "免费在线测试你的空格键速度，查看你在 5 秒、10 秒和 30 秒内能完成多少次有效按压。适合作为轻量键盘手速测试与节奏对比工具。",
+        "keywords": "空格键测试, 空格键连点测试, 空格键速度测试, spacebar clicker, spacebar click test, spacebar speed test, 空格键计数器, 键盘手速测试",
+        "ogTitle": "空格键连点测试：免费在线 Spacebar Speed Test",
+        "ogDescription": "在 5 秒、10 秒或 30 秒内测试你的空格键速度，查看按压次数与平均节奏。"
+      },
+      "preview": {
+        "eyebrow": "键盘速度",
+        "title": "敲击空格键",
+        "statusIdle": "准备",
+        "statusActive": "计数中",
+        "statusDone": "完成",
+        "counterLabel": "计数",
+        "keyLabel": "按键"
+      },
+      "howToPlay": {
+        "description": "这是一款轻量的键盘速度测试。它会统计你在短时间内完成多少次有效空格键按压，并把结果换算成一个容易比较的每秒按压速度。",
+        "step1": "先选择回合时长：5 秒、10 秒或 30 秒",
+        "step2": "用键盘敲击空格键，或在触屏设备上点击页面里的大按键",
+        "step3": "第一次有效按压会自动开始计时",
+        "step4": "回合结束后查看总次数、平均速度和本地最佳成绩",
+        "modes": {
+          "5s": "5秒",
+          "10s": "10秒",
+          "30s": "30秒"
+        }
+      },
+      "benefits": {
+        "rhythm": {
+          "title": "键盘节奏感",
+          "description": "短回合很适合比较你能否稳定重复一个简单输入动作，而不是越按越乱。"
+        },
+        "burst": {
+          "title": "瞬时爆发速度",
+          "description": "5 秒模式更适合看短时爆发力，较长回合则能看出你的速度能不能稳住。"
+        },
+        "reset": {
+          "title": "快速热身",
+          "description": "单局很短，适合在更长的专注任务或其他速度测试前做一次轻量的手指与节奏热身。"
+        }
+      },
+      "science": {
+        "title": "这个空格键测试到底在测什么",
+        "description": "空格键连点本质上是一个短时键盘敲击基准。它反映的是手指爆发速度、重复动作控制、节奏维持，以及你能否在固定时间窗里保持稳定。它更适合做个人基线对比，而不是被当成严肃的认知评估。",
+        "blogArticleTitle": "阅读：CPS 测试多少算快？"
+      },
+      "leaderboardNote": "公开排行榜只统计 10 秒模式，按平均每秒空格键按压次数排名。",
+      "faq": {
+        "measure": {
+          "question": "这个空格键连点测试主要测什么？",
+          "answer": "它主要统计你在固定时间内能完成多少次有效按压，并换算成平均每秒速度。实际反映的是手指爆发力、基本键盘节奏感，以及短时稳定性。"
+        },
+        "keyboard": {
+          "question": "键盘会影响成绩吗？",
+          "answer": "会有一定影响。键程、手感、键帽大小以及你的坐姿和手型都会影响舒适度和速度。最有意义的比较方式，通常是拿同一套设备上的历史成绩做对比。"
+        },
+        "mobile": {
+          "question": "手机上也能玩吗？",
+          "answer": "可以。手机和平板可以直接点击屏幕中的大按键来计数。它依然能作为轻量节奏测试使用，只是成绩和物理键盘通常不能直接横向比较。"
+        },
+        "cps": {
+          "question": "它和 CPS 测试有什么区别？",
+          "answer": "CPS 测试测的是鼠标快速点击，这一页测的是键盘上的空格键重复按压。两者都属于速度测试，但对应的动作和手部发力方式并不一样。"
+        },
+        "bestMode": {
+          "question": "我应该选哪个模式？",
+          "answer": "5 秒更适合看爆发力，10 秒适合作为比较平衡的基准，30 秒则更适合观察你能否在更长时间里维持节奏。"
+        }
+      },
+      "gameUI": {
+        "eyebrow": "空格键速度测试",
+        "readyTitle": "按下空格开始",
+        "readyDescription": "保持当前页面在前台，然后按键盘空格开始。触屏设备可以直接点下面的大按键。",
+        "keepGoing": "尽量把节奏稳住",
+        "runningDescription": "每一次有效按压都会计数，回合结束后会自动停止。",
+        "resultTitle": "本轮结束",
+        "resultDescription": "你这一轮完成了 {count} 次有效按压。",
+        "pressButton": "空格键测速按键",
+        "keyboardHint": "键盘或触屏",
+        "keyLabel": "空格键",
+        "startHint": "第一次按压会开始计时",
+        "tapFaster": "继续敲击空格键",
+        "reset": "重置",
+        "continueChallenge": "继续挑战",
+        "stats": {
+          "presses": "次数",
+          "timeLeft": "剩余时间",
+          "rate": "当前速度",
+          "best": "本地最佳"
+        },
+        "results": {
+          "totalPresses": "总次数",
+          "averageRate": "平均速度",
+          "duration": "回合",
+          "localBest": "该模式最佳"
+        },
+        "noBestYet": "暂无"
+      }
     }
   },
   "about": {

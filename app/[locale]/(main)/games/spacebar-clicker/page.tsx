@@ -1,21 +1,20 @@
 import { Metadata } from 'next'
-import Game from './components/Game'
-import { GamePageTemplate } from '@/components/GamePageTemplate'
-import { MousePointer2, Zap, Clock } from 'lucide-react'
+import { use } from 'react'
+import { Keyboard, Gauge, TimerReset } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
 import { routing } from '@/i18n/routing'
+import { GamePageTemplate } from '@/components/GamePageTemplate'
+import Game from './components/Game'
 
-// Generate static params for all locales
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;
-    const t = await getTranslations({ locale, namespace: 'games.cpsTest' });
+    const t = await getTranslations({ locale, namespace: 'games.spacebarClicker' });
 
     return {
         title: t('metadata.title'),
@@ -26,48 +25,46 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
             description: t('metadata.ogDescription'),
             images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
         },
-        alternates: generateAlternates(locale, 'games/cps-test'),
+        alternates: generateAlternates(locale, 'games/spacebar-clicker'),
     };
 }
 
-export default function CPSTestPage({ params }: { params: Promise<{ locale: string }> }) {
+export default function SpacebarClickerPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = use(params);
     setRequestLocale(locale);
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://freefocusgames.com";
-    const t = useTranslations('games.cpsTest');
+    const t = useTranslations('games.spacebarClicker');
+
     const faq = [
         {
-            question: t('faq.focus.question'),
-            answer: t('faq.focus.answer'),
+            question: t('faq.measure.question'),
+            answer: t('faq.measure.answer'),
         },
         {
-            question: t('faq.warmup.question'),
-            answer: t('faq.warmup.answer'),
+            question: t('faq.keyboard.question'),
+            answer: t('faq.keyboard.answer'),
         },
         {
-            question: t('faq.improve.question'),
-            answer: t('faq.improve.answer'),
+            question: t('faq.mobile.question'),
+            answer: t('faq.mobile.answer'),
         },
         {
-            question: t('faq.health.question'),
-            answer: t('faq.health.answer'),
-        },
-        {
-            question: t('faq.cpsMeaning.question'),
-            answer: t('faq.cpsMeaning.answer'),
+            question: t('faq.cps.question'),
+            answer: t('faq.cps.answer'),
         },
         {
             question: t('faq.bestMode.question'),
             answer: t('faq.bestMode.answer'),
         },
     ];
+
     const structuredData = [
         {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": t('title'),
             "description": t('metadata.description'),
-            "url": `${baseUrl}/games/cps-test`,
+            "url": `${baseUrl}/games/spacebar-clicker`,
             "applicationCategory": "GameApplication",
             "operatingSystem": "Web Browser",
             "offers": {
@@ -76,13 +73,12 @@ export default function CPSTestPage({ params }: { params: Promise<{ locale: stri
                 "priceCurrency": "USD"
             },
             "featureList": [
-                "1 second CPS test mode",
-                "3 second CPS test mode",
-                "5 second CPS test mode",
-                "10 second click speed mode",
-                "5 second CPS leaderboard"
+                "5 second spacebar speed test",
+                "10 second spacebar speed test",
+                "30 second spacebar endurance test",
+                "Keyboard and touch support",
+                "Local best score tracking"
             ],
-            "educationalUse": "Reaction Speed Training",
             "learningResourceType": "Interactive Game",
             "interactivityType": "active"
         },
@@ -102,46 +98,36 @@ export default function CPSTestPage({ params }: { params: Promise<{ locale: stri
 
     return (
         <GamePageTemplate
-            gameId="cps-test"
+            gameId="spacebar-clicker"
             title={t('title')}
             subtitle={t('subtitle')}
             gameComponent={<Game />}
             howToPlay={
                 <>
-                    <p>
-                        {t('howToPlay.description')}
-                    </p>
+                    <p>{t('howToPlay.description')}</p>
                     <ul className="list-disc pl-5 mt-2 space-y-1">
-                        <li>
-                            {t('howToPlay.step1')}
-                        </li>
-                        <li>
-                            {t('howToPlay.step2')}
-                        </li>
-                        <li>
-                            {t('howToPlay.step3')}
-                        </li>
-                        <li>
-                            {t('howToPlay.step4')}
-                        </li>
+                        <li>{t('howToPlay.step1')}</li>
+                        <li>{t('howToPlay.step2')}</li>
+                        <li>{t('howToPlay.step3')}</li>
+                        <li>{t('howToPlay.step4')}</li>
                     </ul>
                 </>
             }
             benefits={[
                 {
-                    icon: <Clock className="w-10 h-10" />,
-                    title: t('benefits.focus.title'),
-                    description: t('benefits.focus.description'),
+                    icon: <Keyboard className="w-10 h-10" />,
+                    title: t('benefits.rhythm.title'),
+                    description: t('benefits.rhythm.description'),
                 },
                 {
-                    icon: <Zap className="w-10 h-10" />,
-                    title: t('benefits.neural.title'),
-                    description: t('benefits.neural.description'),
+                    icon: <Gauge className="w-10 h-10" />,
+                    title: t('benefits.burst.title'),
+                    description: t('benefits.burst.description'),
                 },
                 {
-                    icon: <MousePointer2 className="w-10 h-10" />,
-                    title: t('benefits.flow.title'),
-                    description: t('benefits.flow.description'),
+                    icon: <TimerReset className="w-10 h-10" />,
+                    title: t('benefits.reset.title'),
+                    description: t('benefits.reset.description'),
                 },
             ]}
             science={{
@@ -153,10 +139,10 @@ export default function CPSTestPage({ params }: { params: Promise<{ locale: stri
                 blogArticleTitle: t('science.blogArticleTitle'),
             }}
             faq={faq}
-            relatedGames={["spacebar-clicker", "reaction-time", "focus-reaction-test"]}
+            relatedGames={["cps-test", "reaction-time", "challenge10Seconds"]}
             hasLeaderboard={true}
             leaderboardFormatterType="cps"
-            leaderboardMode="5s"
+            leaderboardMode="10s"
             leaderboardIntro={<p>{t('leaderboardNote')}</p>}
             structuredData={structuredData}
         />

@@ -1952,6 +1952,110 @@
         "medium": "Medium",
         "hard": "Hard"
       }
+    },
+    "spacebarClicker": {
+      "title": "Spacebar Clicker Test",
+      "subtitle": "A clean online spacebar speed test built for short keyboard tapping rounds, quick score checks, and low-friction replay",
+      "description": "Test how many times you can hit the space bar in 5, 10, or 30 seconds. This free online spacebar clicker works as a quick keyboard speed test with clean visuals, local best scores, and mobile tap support.",
+      "metadata": {
+        "title": "Spacebar Clicker Test: Free Spacebar Speed Test Online",
+        "description": "Try this free online spacebar clicker test to measure how fast you can hit the space bar in short timed rounds. Compare your tapping speed across 5, 10, and 30 seconds.",
+        "keywords": "spacebar clicker, space bar clicker, spacebar click test, space bar click test, spacebar speed test, spacebar cps test, space bar counter, keyboard speed test",
+        "ogTitle": "Spacebar Clicker Test: Free Spacebar Speed Test Online",
+        "ogDescription": "Measure your spacebar speed in 5, 10, or 30 seconds with this clean online keyboard tapping test."
+      },
+      "preview": {
+        "eyebrow": "Keyboard Speed",
+        "title": "Tap the space bar",
+        "statusIdle": "Ready",
+        "statusActive": "Counting",
+        "statusDone": "Done",
+        "counterLabel": "Counter",
+        "keyLabel": "Key"
+      },
+      "howToPlay": {
+        "description": "This page is a lightweight keyboard speed test. It counts how many valid spacebar presses you can make in a short round and turns that into an easy taps-per-second benchmark.",
+        "step1": "Choose a round length: 5, 10, or 30 seconds",
+        "step2": "Press the space bar on your keyboard, or tap the on-screen key on touch devices",
+        "step3": "The timer starts on your first valid press",
+        "step4": "Finish the round and compare your taps, average rate, and local best",
+        "modes": {
+          "5s": "5s",
+          "10s": "10s",
+          "30s": "30s"
+        }
+      },
+      "benefits": {
+        "rhythm": {
+          "title": "Keyboard Rhythm",
+          "description": "Short rounds make it easy to compare how steadily you can repeat a simple input pattern without losing tempo."
+        },
+        "burst": {
+          "title": "Burst Speed",
+          "description": "The 5-second round is useful for testing quick tapping power, while longer rounds show whether your speed holds up."
+        },
+        "reset": {
+          "title": "Fast Reset",
+          "description": "Because each round is brief, it works well as a quick motor warm-up before a longer focus session or another speed test."
+        }
+      },
+      "science": {
+        "title": "What This Spacebar Test Actually Measures",
+        "description": "A spacebar clicker is basically a short keyboard tapping benchmark. It reflects burst finger speed, repeated motor control, pacing, and whether you can stay consistent across a fixed window. It is best used as a simple personal baseline rather than a deep cognitive assessment.",
+        "blogArticleTitle": "Read: What Is a Good CPS Score?"
+      },
+      "leaderboardNote": "The public leaderboard tracks 10-second mode only, ranked by average spacebar presses per second.",
+      "faq": {
+        "measure": {
+          "question": "What does this spacebar clicker actually measure?",
+          "answer": "It measures how many clean presses you can produce in a fixed time window, along with your average taps per second. In practice, that reflects burst finger speed, basic keyboard rhythm, and short-window consistency."
+        },
+        "keyboard": {
+          "question": "Does the keyboard affect the score?",
+          "answer": "Yes, to some extent. Key travel, spring feel, keyboard size, and your typing posture can all influence comfort and speed. The most useful comparison is against your own previous rounds on the same setup."
+        },
+        "mobile": {
+          "question": "Can I use this on mobile too?",
+          "answer": "Yes. On phones and tablets you can tap the on-screen space key. It is still useful as a quick tapping test, though physical keyboard scores will usually feel different."
+        },
+        "cps": {
+          "question": "How is this different from a CPS test?",
+          "answer": "A CPS test focuses on rapid mouse clicks. This page focuses on repeated keyboard presses with the space bar. They are related speed tests, but they do not measure the same physical motion."
+        },
+        "bestMode": {
+          "question": "Which mode should I use?",
+          "answer": "Use 5 seconds for burst speed, 10 seconds for a balanced benchmark, and 30 seconds if you want to see how well you can hold a rhythm over a longer round."
+        }
+      },
+      "gameUI": {
+        "eyebrow": "Spacebar Speed Test",
+        "readyTitle": "Press space to begin",
+        "readyDescription": "Keep this tab focused, then press your keyboard space bar to start. On touch devices, tap the key below instead.",
+        "keepGoing": "Keep the rhythm steady",
+        "runningDescription": "Each clean press counts. The clock stops automatically when the round ends.",
+        "resultTitle": "Round complete",
+        "resultDescription": "You recorded {count} valid presses in this round.",
+        "pressButton": "Spacebar clicker key",
+        "keyboardHint": "Keyboard or touch",
+        "keyLabel": "Space key",
+        "startHint": "First press starts the timer",
+        "tapFaster": "Keep tapping the space bar",
+        "reset": "Reset",
+        "continueChallenge": "Continue Challenge",
+        "stats": {
+          "presses": "Presses",
+          "timeLeft": "Time Left",
+          "rate": "Current Rate",
+          "best": "Local Best"
+        },
+        "results": {
+          "totalPresses": "Total Presses",
+          "averageRate": "Average Rate",
+          "duration": "Round",
+          "localBest": "Best for Mode"
+        },
+        "noBestYet": "No best yet"
+      }
     }
   },
   "about": {

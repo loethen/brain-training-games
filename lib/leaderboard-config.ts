@@ -14,6 +14,7 @@ export const LEADERBOARD_GAME_CONFIG: Record<string, LeaderboardSortConfig> = {
   "stroop-effect-test": { primary: "ASC" },
   "challenge10Seconds": { primary: "ASC", target: 10_000 },
   "cps-test": { primary: "DESC" },
+  "spacebar-clicker": { primary: "DESC" },
   "frog-memory-leap": { primary: "DESC" },
   "fish-trace": { primary: "DESC" },
   "block-memory-challenge": { primary: "DESC" },

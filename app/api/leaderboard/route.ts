@@ -237,6 +237,8 @@ function validateScore(
     switch (gameId) {
         case "cps-test":
             return score > 35 ? "Score rejected (Humanly impossible CPS)" : null;
+        case "spacebar-clicker":
+            return score < 0 || score > 30 ? "Score rejected (Outside expected keyboard speed range)" : null;
         case "reaction-time":
             return score < 80 || score > 10000 ? "Score rejected (Outside human limits)" : null;
         case "frog-memory-leap":
