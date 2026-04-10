@@ -55,6 +55,7 @@ interface GamePageTemplateProps {
     leaderboardFormatterType?: FormatterType;
     leaderboardMode?: string;
     leaderboardIntro?: React.ReactNode;
+    leaderboardComponent?: React.ReactNode;
     structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
@@ -73,6 +74,7 @@ export function GamePageTemplate({
     leaderboardFormatterType,
     leaderboardMode,
     leaderboardIntro,
+    leaderboardComponent,
     structuredData
 }: GamePageTemplateProps) {
     const t = useTranslations('common');
@@ -130,7 +132,7 @@ export function GamePageTemplate({
             </section>
 
             {/* Leaderboard - Option */}
-            {hasLeaderboard && (
+            {(hasLeaderboard || leaderboardComponent) && (
                 <section className="max-w-6xl mx-auto mb-16 space-y-6">
                     <div className="space-y-2">
                         <h2 className="text-3xl font-bold text-center">
@@ -143,11 +145,13 @@ export function GamePageTemplate({
                         )}
                     </div>
                     <div className="rounded-lg">
-                        <LeaderboardDisplay
-                            gameId={gameId}
-                            formatterType={leaderboardFormatterType}
-                            mode={leaderboardMode}
-                        />
+                        {leaderboardComponent ?? (
+                            <LeaderboardDisplay
+                                gameId={gameId}
+                                formatterType={leaderboardFormatterType}
+                                mode={leaderboardMode}
+                            />
+                        )}
                     </div>
                 </section>
             )}

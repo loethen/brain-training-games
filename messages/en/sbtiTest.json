@@ -85,6 +85,17 @@
       "originalAuthor": "Original concept credit: Bilibili creator @蛆肉儿串儿",
       "sourceCode": "Source mirror on GitHub"
     },
+    "leaderboard": {
+      "description": "See the current SBTI personality ranking and which result appears most often.",
+      "loading": "Counting which personalities people are getting...",
+      "empty": "Not enough results yet. Be the first to add one.",
+      "rank": "Rank",
+      "type": "Type",
+      "count": "Count",
+      "topLabel": "Current leader",
+      "topDescription": "This type is currently in first place with {count} submissions, out of {total} total recorded results.",
+      "totalSubmissions": "Total submissions"
+    },
     "gameUI": {
       "introEyebrow": "Trending personality quiz",
       "introTitle": "MBTI is old news. SBTI is here.",

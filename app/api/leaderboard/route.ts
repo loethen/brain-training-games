@@ -273,13 +273,48 @@ export async function GET(req: NextRequest) {
     try {
         const { searchParams } = new URL(req.url);
         const gameId = searchParams.get("gameId");
+        const aggregate = searchParams.get("aggregate");
         const mode = searchParams.get("mode") || DEFAULT_LEADERBOARD_MODE;
 
-        if (!gameId || !isValidMode(mode)) {
+        if (!gameId) {
             return NextResponse.json({ error: "Missing or invalid parameters" }, { status: 400 });
         }
 
         const { db, bucket } = await getCloudflareBindings();
+
+        if (aggregate === "modeCounts") {
+            const rows = await db.prepare(
+                `SELECT mode, COUNT(*) AS totalSubmissions
+                 FROM leaderboard
+                 WHERE game_id = ?
+                   AND mode IS NOT NULL
+                   AND mode != ''
+                 GROUP BY mode
+                 ORDER BY totalSubmissions DESC, mode ASC`
+            ).bind(gameId).all();
+
+            const entries = rows.results.map((row) => ({
+                mode: String(row.mode ?? ""),
+                totalSubmissions: toNumber(row.totalSubmissions),
+            }));
+
+            return NextResponse.json(
+                {
+                    entries,
+                    totalSubmissions: entries.reduce((sum, entry) => sum + entry.totalSubmissions, 0),
+                },
+                {
+                    headers: {
+                        "Cache-Control": "public, max-age=30, s-maxage=30, stale-while-revalidate=120",
+                    },
+                }
+            );
+        }
+
+        if (!isValidMode(mode)) {
+            return NextResponse.json({ error: "Missing or invalid parameters" }, { status: 400 });
+        }
+
         let snapshot = await readSnapshot(bucket, gameId, mode);
 
         if (!snapshot) {

@@ -3233,6 +3233,17 @@
       "originalAuthor": "原始创意作者：B站 @蛆肉儿串儿",
       "sourceCode": "GitHub 镜像源码"
     },
+    "leaderboard": {
+      "description": "查看当前 SBTI 人格排行榜，看看哪种人格结果最多。",
+      "loading": "正在统计大家都测成了什么人格...",
+      "empty": "还没有足够的数据，先去做一次测试吧。",
+      "rank": "排名",
+      "type": "人格",
+      "count": "次数",
+      "topLabel": "当前最多",
+      "topDescription": "{count} 次提交里，它目前排在第一。总共已经记录了 {total} 次结果。",
+      "totalSubmissions": "总提交次数"
+    },
     "gameUI": {
       "introEyebrow": "最近很火的人格测试",
       "introTitle": "MBTI 已经过时，SBTI 来了。",

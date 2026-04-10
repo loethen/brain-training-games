@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
+import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 import {
     DIM_EXPLANATIONS,
     DRUNK_TRIGGER_QUESTION_ID,
@@ -196,6 +197,11 @@ export default function SbtiTestGame() {
 
         return () => window.clearTimeout(timeoutId);
     }, [answers, screen]);
+
+    useEffect(() => {
+        if (screen !== 'result' || !result) return;
+        void submitScoreToLeaderboard('sbti-test', 1, { mode: result.finalType.code });
+    }, [result, screen]);
 
     const visibleQuestions = useMemo(() => buildVisibleQuestions(questionDeck, answers), [answers, questionDeck]);
     const currentQuestion = visibleQuestions[currentQuestionIndex] ?? null;

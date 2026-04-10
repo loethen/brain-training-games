@@ -6,6 +6,7 @@ import { GamePageTemplate } from '@/components/GamePageTemplate';
 import { routing } from '@/i18n/routing';
 import { generateAlternates } from '@/lib/utils';
 import Game from './components/Game';
+import SbtiTypeLeaderboard from './components/SbtiTypeLeaderboard';
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -118,6 +119,8 @@ export default function SbtiTestPage({ params }: { params: Promise<{ locale: str
                     <p>{t('credits.originalAuthor')}</p>
                 </>
             }
+            leaderboardIntro={<p>{t('leaderboard.description')}</p>}
+            leaderboardComponent={<SbtiTypeLeaderboard />}
             faq={faqItems}
             relatedGames={['cps-test', 'stroop-effect-test', 'spacebar-clicker']}
             structuredData={structuredData}
