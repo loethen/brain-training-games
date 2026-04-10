@@ -206,6 +206,15 @@ export const games: Game[] = [
       "sustained-attention",
     ],
   },
+  {
+    id: "sbti-test",
+    title: "SBTI Personality Test",
+    slug: "sbti-test",
+    preview: <ImagePreview src="/games/sbti-test/image/CTRL.png" />,
+    categories: [
+      "personality-tests",
+    ],
+  },
 
   // Add more games as you create them
 ];
@@ -234,6 +243,7 @@ export function getGameCategories(gameId: string): string[] {
 // 获取热门游戏（手动精选的经典游戏）
 export function getFeaturedGames(): Game[] {
   const featuredGameIds = [
+    'sbti-test',
     'dual-n-back',
     'schulte-table',
     'block-memory-challenge',
@@ -257,6 +267,7 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
+    'sbti-test',        // SBTI Test - Trending
     'memory-matching-game', // Memory Matching Game - Newest
     'cps-test',          // CPS Test - Newest
     'fish-trace',        // Fish Trace

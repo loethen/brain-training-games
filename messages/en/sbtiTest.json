@@ -1,0 +1,135 @@
+{
+  "sbtiTest": {
+    "title": "SBTI Personality Test",
+    "subtitle": "Take the viral SBTI personality test and get a chaotic meme-style result in minutes.",
+    "metadata": {
+      "title": "SBTI Personality Test | Free Online Viral SBTI Test",
+      "description": "Take the viral SBTI personality test online for free. Play the trending SBTI test, compare it with MBTI-style quizzes, and get a shareable result in minutes.",
+      "keywords": "sbti personality test, sbti test, sbti mbti, sbti personality, viral personality test, free online personality test, mbti test, meme personality quiz, sbti.unun.dev"
+    },
+    "hero": {
+      "badge": "Trending Now",
+      "primaryCta": "Play the SBTI Test",
+      "secondaryCta": "Browse More Games",
+      "disclaimer": "Entertainment only. SBTI is a viral meme-style personality quiz, not a scientific personality diagnosis.",
+      "trendsLabel": "Trending search phrases",
+      "stats": {
+        "questionsValue": "31",
+        "questionsLabel": "questions including the hidden branch",
+        "typesValue": "27",
+        "typesLabel": "possible result types",
+        "resultValue": "3 min",
+        "resultLabel": "to finish and share"
+      }
+    },
+    "embed": {
+      "sectionTitle": "Play the original SBTI experience",
+      "description": "The interactive quiz below keeps the original question flow, hidden branch, and result posters while making the surrounding page easier to find, read, and share.",
+      "iframeTitle": "Embedded SBTI personality test",
+      "loading": "Loading the original SBTI test...",
+      "loaded": "Original viral quiz embedded",
+      "openStandalone": "Open standalone version"
+    },
+    "reasons": {
+      "shareable": {
+        "title": "It is built for screenshots",
+        "description": "The result names and posters are designed to be posted immediately in chats and social feeds, which is a big reason the SBTI personality test spread so quickly."
+      },
+      "mbti": {
+        "title": "People search it like MBTI",
+        "description": "A lot of traffic is really looking for an MBTI-style shortcut: fast questions, a bold type label, and something fun to compare with friends."
+      },
+      "mobile": {
+        "title": "It works well on phones",
+        "description": "Because the SBTI test is short, visual, and easy to tap through, it matches the way viral personality quizzes travel on mobile-first platforms."
+      }
+    },
+    "guide": {
+      "title": "Before you start",
+      "description": "A few quick expectations help set the right frame for this trend-driven quiz.",
+      "step1": "The original quiz is written in Chinese internet slang, so part of the appeal is the tone as much as the scoring.",
+      "step2": "Your result is meant to be entertaining and shareable, not a replacement for clinical, educational, or hiring assessments.",
+      "step3": "There is a hidden branch in the flow, which is part of why different people sometimes get surprisingly extreme outcomes.",
+      "step4": "This version now uses a native on-site React game component built from the original question bank and result logic, so the flow stays faithful without relying on an iframe."
+    },
+    "comparison": {
+      "kicker": "SBTI vs MBTI",
+      "title": "Think of SBTI as a viral internet personality quiz, not a formal framework",
+      "paragraph1": "MBTI remains the better-known personality label on the web, so many people search for sbti mbti, mbti test, or mbti personality test when they are really trying to find this new viral format. SBTI borrows the familiar idea of getting a type, but the tone is much more comedic, chaotic, and meme-driven.",
+      "paragraph2": "That difference matters for SEO and for user expectations. This page treats SBTI as entertainment content with a strong cultural moment around it, which is why we surface the original quiz, trend keywords, and a clear reminder that the result should not be taken as a diagnosis."
+    },
+    "faq": {
+      "title": "SBTI FAQ",
+      "what": {
+        "question": "What is the SBTI personality test?",
+        "answer": "SBTI is a viral entertainment-first personality quiz that spread through short videos, screenshots, and shareable result posters. It behaves like a fast online personality test, but the writing style is much more meme-heavy than a typical formal quiz."
+      },
+      "vsMbti": {
+        "question": "Is SBTI the same as MBTI?",
+        "answer": "No. MBTI is the familiar personality typing format most people already know, while SBTI is a newer, more comedic internet quiz. If you searched sbti mbti or mbti personality test, the main overlap is the type-result format, not the level of psychological rigor."
+      },
+      "whyTrending": {
+        "question": "Why is SBTI test suddenly trending?",
+        "answer": "It is fast to finish, easy to share, and the result labels are dramatic enough to trigger conversation. That mix makes it ideal for social reposting, which is why search demand around sbti test and personality test queries can spike quickly."
+      },
+      "reliable": {
+        "question": "Should I treat the result as reliable personality analysis?",
+        "answer": "No. Use it as entertainment. The SBTI test is fun for comparison and social sharing, but it should not be used for diagnosis, mental health decisions, hiring, school placement, or relationship judgment."
+      },
+      "mobile": {
+        "question": "Can I play the SBTI test on mobile?",
+        "answer": "Yes. The quiz now runs as a native on-site game component, so it works directly on phones and tablets without loading a separate embedded page."
+      }
+    },
+    "credits": {
+      "originalAuthor": "Original concept credit: Bilibili creator @蛆肉儿串儿",
+      "sourceCode": "Source mirror on GitHub"
+    },
+    "gameUI": {
+      "introEyebrow": "Trending personality quiz",
+      "introTitle": "MBTI is old news. SBTI is here.",
+      "introDescription": "31 questions, one hidden branch, and 27 possible result types. Tap through and see which SBTI label the internet assigns you.",
+      "stats": {
+        "questions": "questions including the hidden branch",
+        "types": "possible result types",
+        "duration": "to finish and get a result"
+      },
+      "start": "Start test",
+      "restart": "Retake test",
+      "backToStart": "Back to start",
+      "previousQuestion": "Previous question",
+      "autoAdvanceHint": "Pick an answer to move straight to the next question.",
+      "submitReadyEyebrow": "All done",
+      "submitReadyTitle": "Your result is ready to be processed",
+      "submitReadyDescription": "Every question has been answered. Hit submit when you want the system to do the full dramatic personality reveal.",
+      "loadingTitle": "Building your result",
+      "loadingDescription": "We are tallying the dimensions, matching the closest type, and preparing the final result screen.",
+      "submit": "Submit and view result",
+      "progress": "{answered} / {total}",
+      "questionNumber": "Question {index}",
+      "hiddenDimension": "Dimension hidden",
+      "bonusQuestion": "Bonus question",
+      "submitHintIncomplete": "You need to answer every question before the result page lets you through.",
+      "submitHintComplete": "Everything is answered. The result page is ready to judge your digital soul.",
+      "result": {
+        "normalKicker": "Your main type",
+        "drunkKicker": "Hidden type activated",
+        "fallbackKicker": "System fallback mode",
+        "normalBadge": "Match {similarity}% · Exact hits {exact}/15 dimensions",
+        "drunkBadge": "Match 100% · Alcohol anomaly factor has taken over",
+        "fallbackBadge": "Best standard type only reached {similarity}%",
+        "normalSub": "The dimension match is strong enough to treat this as your main personality image.",
+        "drunkSub": "The alcohol branch overrode the regular personality judgment path.",
+        "fallbackSub": "The standard personality library gave up on your brain wiring, so the system forcibly assigned HHHH.",
+        "secondaryType": "Without the hidden branch, the closest standard match would have been {code} ({name}).",
+        "analysisTitle": "Quick read of this type",
+        "dimensionsTitle": "Fifteen-dimension breakdown",
+        "funNoteTitle": "Friendly reminder",
+        "funNoteDefault": "This test is for entertainment only. Do not use it for diagnosis, hiring, dating decisions, breakups, fortune telling, or any serious life judgment.",
+        "funNoteSpecial": "This test is for entertainment only. The hidden branch and HHHH fallback are deliberate joke mechanics and should not be treated as psychological, medical, mystical, or diagnostic evidence."
+      }
+    },
+    "relatedGamesTitle": "More quick-play tests and games",
+    "categoriesTitle": "Browse related categories"
+  }
+}

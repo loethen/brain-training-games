@@ -25,7 +25,8 @@
       "spatial-memory": "Spatial Memory",
       "adhd-games": "ADHD Games for Adults",
       "brain-games-for-kids": "Focus Games for Kids",
-      "relaxation": "Relaxation"
+      "relaxation": "Relaxation",
+      "personality-tests": "Viral Personality Tests"
     },
     "categoryDescriptions": {
       "working-memory": "Games that strengthen your ability to temporarily hold and manipulate information. Strong working memory helps students remember instructions, professionals juggle multiple tasks, and everyone follow conversations better.",
@@ -38,7 +39,8 @@
       "spatial-memory": "Games that strengthen your ability to remember and manipulate spatial information. Strong spatial memory helps with navigation, remembering object locations, understanding maps, and visualizing 3D structures. This skill is crucial for activities like parking, finding items, following directions, and excelling in STEM fields.",
       "adhd-games": "A curated collection of games scientifically proven to help manage ADHD symptoms. These exercises target working memory, inhibition control, and sustained attention—key executive functions often impaired in ADHD.",
       "brain-games-for-kids": "Engaging and verifiable brain training games designed specifically for children's cognitive development. These games help improve attention span, follow instructions, and impulse control in a fun, gamified way.",
-      "relaxation": "Games that promote relaxation and stress reduction through guided breathing and mindfulness exercises. These practices stimulate the vagus nerve, improve heart rate variability (HRV), and help the body shift into a calm, restorative state."
+      "relaxation": "Games that promote relaxation and stress reduction through guided breathing and mindfulness exercises. These practices stimulate the vagus nerve, improve heart rate variability (HRV), and help the body shift into a calm, restorative state.",
+      "personality-tests": "Shareable, entertainment-first online personality tests and quiz experiences. This category is useful when people are looking for fast, curiosity-driven results such as sbti test, personality test, or mbti-style viral quizzes."
     },
     "keywords": {
       "working-memory": {
@@ -172,6 +174,18 @@
         "calm down techniques": "Calm down techniques",
         "anxiety relief exercises": "Anxiety relief exercises",
         "mindfulness games": "Mindfulness games"
+      },
+      "personality-tests": {
+        "sbti personality test": "SBTI personality test",
+        "sbti test": "SBTI test",
+        "sbti mbti": "SBTI MBTI",
+        "personality test": "Personality test",
+        "viral personality quiz": "Viral personality quiz",
+        "mbti style test": "MBTI style test",
+        "online personality quiz": "Online personality quiz",
+        "fun personality test": "Fun personality test",
+        "shareable personality result": "Shareable personality result",
+        "internet personality test": "Internet personality test"
       }
     },
     "categoryNotFound": "Category Not Found",

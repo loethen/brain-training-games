@@ -1,0 +1,135 @@
+{
+  "sbtiTest": {
+    "title": "SBTI 人格测试",
+    "subtitle": "最近很火的 SBTI 人格测试，直接开玩，几分钟就能拿到结果。",
+    "metadata": {
+      "title": "SBTI 人格测试 | 免费在线玩最近很火的 SBTI Test",
+      "description": "免费在线玩最近爆火的 SBTI 人格测试。体验 trending 的 SBTI test，看看它和 MBTI 风格人格测试有什么不同，并在几分钟内拿到可分享的结果图。",
+      "keywords": "sbti 人格, 人格 测试, sbti 人格 测试, sbti test, sbti mbti, mbti 测试, mbti 人格, mbti 人格 测试, sbti personality, sbti.unun.dev"
+    },
+    "hero": {
+      "badge": "近期热搜人格测试",
+      "primaryCta": "开始玩 SBTI",
+      "secondaryCta": "浏览更多游戏",
+      "disclaimer": "仅供娱乐。SBTI 更像互联网热梗人格测试，不是专业心理测评或诊断工具。",
+      "trendsLabel": "Google Trends 热门搜法",
+      "stats": {
+        "questionsValue": "31",
+        "questionsLabel": "题，包含隐藏分支",
+        "typesValue": "27",
+        "typesLabel": "种结果人格",
+        "resultValue": "3 分钟",
+        "resultLabel": "左右就能出图"
+      }
+    },
+    "embed": {
+      "sectionTitle": "直接开玩原版 SBTI 测试",
+      "description": "下面内嵌的是原版 SBTI 题目流程，保留了隐藏分支、结果海报和原始梗味，同时把外层页面做成更容易被搜到、分享和收藏的站内版本。",
+      "iframeTitle": "内嵌 SBTI 人格测试",
+      "loading": "正在加载原版 SBTI 测试...",
+      "loaded": "原版热门测试已嵌入",
+      "openStandalone": "单独打开原版"
+    },
+    "reasons": {
+      "shareable": {
+        "title": "结果图特别适合转发",
+        "description": "SBTI 最容易出圈的地方不是“准不准”，而是结果命名够狠、海报够醒目，做完立刻就能丢进群聊和朋友圈。"
+      },
+      "mbti": {
+        "title": "很多人把它当成 MBTI 替代搜法",
+        "description": "不少用户其实是在搜一个更快、更梗、更容易和朋友互相调侃的人格测试，所以会出现 sbti mbti、mbti 测试、人格测试 这类强相关搜索。"
+      },
+      "mobile": {
+        "title": "手机上玩非常顺手",
+        "description": "题目短、按钮清晰、结果页够直给，这种结构天然适合短视频带流量后在手机里迅速完成一次测试。"
+      }
+    },
+    "guide": {
+      "title": "开始前先知道这几点",
+      "description": "把预期放对，你会更容易理解为什么这个测试这两天会爆。",
+      "step1": "原版题目带有明显中文互联网语境和玩梗风格，乐子感本身就是体验的一部分。",
+      "step2": "它是娱乐向人格测试，不适合拿去做招聘、诊断、相亲筛选或任何需要严肃判断的场景。",
+      "step3": "题库里带隐藏分支，所以不同人做出来的结果有时会显得非常极端或者非常戏剧化。",
+      "step4": "如果你想玩的就是大家正在转发的那版，这里已经把原题库和结果逻辑拆成站内原生组件了，玩法和结果分支保持一致。"
+    },
+    "comparison": {
+      "kicker": "SBTI 和 MBTI 的区别",
+      "title": "把 SBTI 理解成“爆火的互联网人格测试”更准确",
+      "paragraph1": "MBTI 依然是多数人最熟悉的人格标签，所以很多搜索会从 sbti mbti、mbti 人格测试、mbti 测试 这些词切进来。SBTI 借用了“做题后拿到一个人格类型”的熟悉结构，但整体气质更戏谑、更网络化，也更适合当作社交内容传播。",
+      "paragraph2": "这也是为什么这个页面的重点不是把它包装成专业量表，而是把原版玩法、趋势词、说明文案和免责声明一起做好。用户既能快速找到热门 SBTI test，也不会误以为这是正式心理评估。"
+    },
+    "faq": {
+      "title": "SBTI 常见问题",
+      "what": {
+        "question": "SBTI 人格测试到底是什么？",
+        "answer": "SBTI 是最近在社交平台和搜索里一起爆起来的娱乐向人格测试。它保留了“做题拿人格结果”的熟悉感，但文案和结果风格更偏梗图、吐槽和强情绪表达。"
+      },
+      "vsMbti": {
+        "question": "SBTI 和 MBTI 是一回事吗？",
+        "answer": "不是。MBTI 是大家更熟悉的人格类型框架，SBTI 则更像借用了类型测试外壳做成的网络娱乐版。如果你是搜 sbti mbti、mbti 人格测试 进来的，可以把它理解成更戏谑、更快出结果的版本。"
+      },
+      "whyTrending": {
+        "question": "为什么这两天 SBTI test 这么火？",
+        "answer": "因为它完成速度快、结果图可分享、命名有梗、传播门槛低。只要一个人把结果发出来，就很容易带动身边朋友也去搜 sbti test 或人格测试 来跟风玩。"
+      },
+      "reliable": {
+        "question": "这个结果靠谱吗？",
+        "answer": "别把它当严肃人格评估。SBTI 更适合娱乐、聊天和社交传播，不适合作为心理诊断、职业判断、关系判断或任何正式场景的依据。"
+      },
+      "mobile": {
+        "question": "手机上能直接玩 SBTI 人格测试吗？",
+        "answer": "可以。这个页面现在已经把原版题库和结果逻辑转成站内原生游戏组件，手机和平板都能直接玩，不需要额外跳转。"
+      }
+    },
+    "credits": {
+      "originalAuthor": "原始创意作者：B站 @蛆肉儿串儿",
+      "sourceCode": "GitHub 镜像源码"
+    },
+    "gameUI": {
+      "introEyebrow": "最近很火的人格测试",
+      "introTitle": "MBTI 已经过时，SBTI 来了。",
+      "introDescription": "31 道题，带隐藏分支和 27 种结果人格。一路做完，看看互联网最后会把你判成什么类型。",
+      "stats": {
+        "questions": "题，含隐藏分支",
+        "types": "种人格结果",
+        "duration": "左右可出结果"
+      },
+      "start": "开始测试",
+      "restart": "重新测试",
+      "backToStart": "回到首页",
+      "previousQuestion": "上一题",
+      "autoAdvanceHint": "选一个答案就会自动进入下一题。",
+      "submitReadyEyebrow": "全部答完",
+      "submitReadyTitle": "可以提交了",
+      "submitReadyDescription": "所有题目都已经答完。点一下提交，让系统郑重其事地分析你的互联网人格。",
+      "loadingTitle": "正在生成你的结果",
+      "loadingDescription": "系统正在汇总维度、匹配人格类型，并准备最终结果页。",
+      "submit": "提交并查看结果",
+      "progress": "{answered} / {total}",
+      "questionNumber": "第 {index} 题",
+      "hiddenDimension": "维度已隐藏",
+      "bonusQuestion": "补充题",
+      "submitHintIncomplete": "全选完才会放行。世界已经够乱了，起码把题做完整。",
+      "submitHintComplete": "都做完了。现在可以把你的电子魂魄交给结果页审判。",
+      "result": {
+        "normalKicker": "你的主类型",
+        "drunkKicker": "隐藏人格已激活",
+        "fallbackKicker": "系统强制兜底",
+        "normalBadge": "匹配度 {similarity}% · 精准命中 {exact}/15 维",
+        "drunkBadge": "匹配度 100% · 酒精异常因子已接管",
+        "fallbackBadge": "标准人格库最高匹配仅 {similarity}%",
+        "normalSub": "维度命中度较高，当前结果可视为你的第一人格画像。",
+        "drunkSub": "乙醇亲和性过强，系统已直接跳过常规人格审判。",
+        "fallbackSub": "标准人格库对你的脑回路集体罢工了，于是系统把你强制分配给了 HHHH。",
+        "secondaryType": "如果不触发隐藏人格，常规匹配里最接近的是 {code}（{name}）。",
+        "analysisTitle": "该人格的简单解读",
+        "dimensionsTitle": "十五维度评分",
+        "funNoteTitle": "友情提示",
+        "funNoteDefault": "本测试仅供娱乐，别拿它当诊断、面试、相亲、分手、招魂、算命或人生判决书。你可以笑，但别太当真。",
+        "funNoteSpecial": "本测试仅供娱乐。隐藏人格和傻乐兜底都属于作者故意埋的损招，请勿把它当成医学、心理学、相学、命理学或灵异学依据。"
+      }
+    },
+    "relatedGamesTitle": "继续玩几个轻量测试和小游戏",
+    "categoriesTitle": "浏览相关分类"
+  }
+}

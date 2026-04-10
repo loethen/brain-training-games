@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { inter } from "../fonts";
 import "../globals.css";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Layout } from "@/components/layout";
@@ -134,8 +133,7 @@ export default async function RootLayout({
             </head>
             <body
                 className={cn(
-                    "min-h-screen bg-background font-sans antialiased",
-                    inter.variable
+                    "min-h-screen bg-background font-sans antialiased"
                 )}
             >
                 <NextIntlClientProvider locale={locale} messages={messages}>

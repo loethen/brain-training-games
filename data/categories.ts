@@ -216,6 +216,25 @@ export const categories: Category[] = [
       "anxiety relief exercises",
       "mindfulness games"
     ]
+  },
+  {
+    id: "personality-tests",
+    name: "Viral Personality Tests",
+    description: "Shareable, entertainment-first online personality tests and quiz experiences. These pages are designed more for curiosity, comparison, and social conversation than formal psychological assessment, making them useful when you want a fast result people will actually repost.",
+    slug: "personality-tests",
+    icon: "Brain",
+    keywords: [
+      "sbti personality test",
+      "sbti test",
+      "sbti mbti",
+      "personality test",
+      "viral personality quiz",
+      "mbti style test",
+      "online personality quiz",
+      "fun personality test",
+      "shareable personality result",
+      "internet personality test"
+    ]
   }
 ];
 
