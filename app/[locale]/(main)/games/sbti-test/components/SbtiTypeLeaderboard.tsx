@@ -1,8 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { TYPE_LIBRARY } from '../data';
+import { TYPE_IMAGES, TYPE_LIBRARY } from '../data';
 import { EN_TYPE_COPY } from '../copy';
 
 type Entry = {
@@ -69,6 +70,7 @@ export default function SbtiTypeLeaderboard() {
     const rankedEntries = useMemo(() => entries.map((entry) => ({
         ...entry,
         name: localizedName(entry.mode),
+        imageSrc: TYPE_IMAGES[entry.mode as keyof typeof TYPE_IMAGES] || null,
     })), [entries, localizedName]);
 
     if (loading) {
@@ -111,7 +113,31 @@ export default function SbtiTypeLeaderboard() {
                                     </div>
                                 </td>
                                 <td className="p-4 font-medium text-foreground">
-                                    {entry.name}
+                                    <div className="flex items-center gap-4">
+                                        <div className="relative h-16 w-16 overflow-hidden rounded-md border bg-muted/40 sm:h-20 sm:w-20">
+                                            {entry.imageSrc ? (
+                                                <Image
+                                                    src={entry.imageSrc}
+                                                    alt={`${entry.mode} ${entry.name}`}
+                                                    fill
+                                                    sizes="(min-width: 640px) 80px, 64px"
+                                                    className="object-cover"
+                                                />
+                                            ) : (
+                                                <div className="flex h-full w-full items-center justify-center text-[10px] font-semibold text-muted-foreground">
+                                                    {entry.mode}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="min-w-0">
+                                            <div className="truncate font-medium text-foreground">
+                                                {entry.name}
+                                            </div>
+                                            <div className="text-xs text-muted-foreground">
+                                                {entry.mode}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td className="p-4 text-right font-mono font-bold text-foreground">
                                     {entry.totalSubmissions}

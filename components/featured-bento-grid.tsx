@@ -34,6 +34,11 @@ export default function FeaturedBentoGrid() {
     // Split secondary games into first column (next to main) and bottom row
     const sideGames = secondaryGames.slice(0, 2);
     const bottomGames = secondaryGames.slice(2, 5);
+    const featuredGameIdKey = getGameIdKey(featuredGame.id);
+    const featuredDescriptionKey = `${featuredGameIdKey}.featuredDescription`;
+    const featuredDescription = gamesT.has(featuredDescriptionKey)
+        ? gamesT(featuredDescriptionKey)
+        : gamesT(`${featuredGameIdKey}.description`);
 
     return (
         <div className="space-y-8 no-ads-inside">
@@ -57,10 +62,10 @@ export default function FeaturedBentoGrid() {
                         <div className="flex-1 p-8 flex flex-col justify-center gap-6 z-10 relative bg-white/50 dark:bg-black/20 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none">
                             <div>
                                 <h3 className="text-3xl md:text-4xl font-bold mb-3">
-                                    {gamesT(`${getGameIdKey(featuredGame.id)}.title`)}
+                                    {gamesT(`${featuredGameIdKey}.title`)}
                                 </h3>
                                 <p className="text-muted-foreground text-lg line-clamp-3 mb-4">
-                                    {gamesT(`${getGameIdKey(featuredGame.id)}.description`)}
+                                    {featuredDescription}
                                 </p>
                                 <div className="flex flex-wrap gap-2 mb-2">
                                     {featuredGame.categories.map(cat => (
@@ -84,7 +89,7 @@ export default function FeaturedBentoGrid() {
                             {/* Decorative background glow */}
                             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl transform scale-75 opacity-50" />
 
-                            <div className="relative z-0 w-full h-full p-4 md:p-8 transform group-hover:scale-[1.02] transition-transform duration-700 ease-in-out">
+                            <div className="relative z-0 flex w-full h-full items-center justify-center p-4 md:p-6 lg:p-8 transform group-hover:scale-[1.02] transition-transform duration-700 ease-in-out">
                                 {featuredGame.preview}
                             </div>
                         </div>

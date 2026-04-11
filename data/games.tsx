@@ -210,7 +210,16 @@ export const games: Game[] = [
     id: "sbti-test",
     title: "SBTI Personality Test",
     slug: "sbti-test",
-    preview: <ImagePreview src="/games/sbti-test/image/CTRL.png" />,
+    preview: (
+      <ImagePreview
+        src="/games/sbti-test/image/OJBK.png"
+        alt="SBTI preview"
+        fit="contain"
+        aspectClassName="aspect-[4/5]"
+        className="bg-white p-4 md:p-6"
+        sizes="(max-width: 768px) 60vw, 28vw"
+      />
+    ),
     categories: [
       "personality-tests",
     ],
