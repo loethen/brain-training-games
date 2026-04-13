@@ -3156,6 +3156,15 @@
       "description": "Take the viral SBTI personality test online for free. Play the trending SBTI test, compare it with MBTI-style quizzes, and get a shareable result in minutes.",
       "keywords": "sbti personality test, sbti test, sbti mbti, sbti personality, viral personality test, free online personality test, mbti test, meme personality quiz, sbti.unun.dev"
     },
+    "structuredData": {
+      "featureList": [
+        "Viral SBTI personality test",
+        "Mobile-friendly online quiz flow",
+        "Shareable personality result posters",
+        "31-question meme-style personality quiz",
+        "Fast entertainment-style SBTI / MBTI result"
+      ]
+    },
     "hero": {
       "badge": "Trending Now",
       "primaryCta": "Play the SBTI Test",

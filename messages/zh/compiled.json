@@ -1955,7 +1955,7 @@
     },
     "sbtiTest": {
       "title": "SBTI 人格测试",
-      "description": "免费在线玩最近很火的 SBTI 人格测试，几分钟内拿到可分享结果图。适合搜索 sbti test、sbti mbti、人格测试 的用户直接开玩。",
+      "description": "免费在线玩最近很火的 SBTI 人格测试，几分钟就能拿到结果图，看看你会被分到哪种人格。",
       "featuredDescription": "最近很火的 SBTI 人格测试，几分钟就能测出结果，看看你会被分到哪种人格。"
     },
     "spacebarClicker": {
@@ -3152,9 +3152,18 @@
     "title": "SBTI 人格测试",
     "subtitle": "最近很火的 SBTI 人格测试，直接开玩，几分钟就能拿到结果。",
     "metadata": {
-      "title": "SBTI 人格测试 | 免费在线玩最近很火的 SBTI Test",
-      "description": "免费在线玩最近爆火的 SBTI 人格测试。体验 trending 的 SBTI test，看看它和 MBTI 风格人格测试有什么不同，并在几分钟内拿到可分享的结果图。",
-      "keywords": "sbti 人格, 人格 测试, sbti 人格 测试, sbti test, sbti mbti, mbti 测试, mbti 人格, mbti 人格 测试, sbti personality, sbti.unun.dev"
+      "title": "SBTI 人格测试 | 免费在线玩最近很火的人格测试",
+      "description": "免费在线玩最近爆火的 SBTI 人格测试，这里可直接进入测试入口，几分钟就能拿到结果图。适合想玩人格测试、SBTI 测试、MBTI 风格测试的用户直接开始。",
+      "keywords": "SBTI人格测试, SBTI测试, SBTI人格测试入口, SBTI测试入口, SBTI在线测试, SBTI是什么, 人格测试, 性格测试, 在线人格测试, 免费人格测试, 娱乐人格测试, MBTI风格测试, MBTI人格测试, SBTI结果"
+    },
+    "structuredData": {
+      "featureList": [
+        "最近很火的 SBTI 人格测试",
+        "适合手机游玩的在线测试流程",
+        "可分享的人格结果图",
+        "31 道题的人格测试",
+        "偏娱乐向的 SBTI / MBTI 风格结果"
+      ]
     },
     "hero": {
       "badge": "近期热搜人格测试",
@@ -3205,7 +3214,7 @@
       "kicker": "SBTI 和 MBTI 的区别",
       "title": "把 SBTI 理解成“爆火的互联网人格测试”更准确",
       "paragraph1": "MBTI 依然是多数人最熟悉的人格标签，所以很多搜索会从 sbti mbti、mbti 人格测试、mbti 测试 这些词切进来。SBTI 借用了“做题后拿到一个人格类型”的熟悉结构，但整体气质更戏谑、更网络化，也更适合当作社交内容传播。",
-      "paragraph2": "这也是为什么这个页面的重点不是把它包装成专业量表，而是把原版玩法、趋势词、说明文案和免责声明一起做好。用户既能快速找到热门 SBTI test，也不会误以为这是正式心理评估。"
+      "paragraph2": "这也是为什么这个页面的重点不是把它包装成专业量表，而是把原版玩法、趋势词、说明文案和免责声明一起做好。用户既能快速找到热门 SBTI 人格测试，也不会误以为这是正式心理评估。"
     },
     "faq": {
       "title": "SBTI 常见问题",
@@ -3213,13 +3222,17 @@
         "question": "SBTI 人格测试到底是什么？",
         "answer": "SBTI 是最近在社交平台和搜索里一起爆起来的娱乐向人格测试。它保留了“做题拿人格结果”的熟悉感，但文案和结果风格更偏梗图、吐槽和强情绪表达。"
       },
+      "entry": {
+        "question": "SBTI 人格测试入口在哪里？",
+        "answer": "这个页面就可以直接进入 SBTI 人格测试入口，不需要跳转到别的地方。打开后按顺序答题，做完就能看到你的人格结果和对应海报。"
+      },
       "vsMbti": {
         "question": "SBTI 和 MBTI 是一回事吗？",
         "answer": "不是。MBTI 是大家更熟悉的人格类型框架，SBTI 则更像借用了类型测试外壳做成的网络娱乐版。如果你是搜 sbti mbti、mbti 人格测试 进来的，可以把它理解成更戏谑、更快出结果的版本。"
       },
       "whyTrending": {
-        "question": "为什么这两天 SBTI test 这么火？",
-        "answer": "因为它完成速度快、结果图可分享、命名有梗、传播门槛低。只要一个人把结果发出来，就很容易带动身边朋友也去搜 sbti test 或人格测试 来跟风玩。"
+        "question": "为什么这两天 SBTI 人格测试这么火？",
+        "answer": "因为它完成速度快、结果图可分享、命名有梗、传播门槛低。只要一个人把结果发出来，就很容易带动身边朋友也去搜 SBTI 人格测试或人格测试来跟风玩。"
       },
       "reliable": {
         "question": "这个结果靠谱吗？",

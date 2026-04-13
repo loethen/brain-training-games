@@ -44,6 +44,10 @@ export default function SbtiTestPage({ params }: { params: Promise<{ locale: str
             answer: t('faq.what.answer'),
         },
         {
+            question: t('faq.entry.question'),
+            answer: t('faq.entry.answer'),
+        },
+        {
             question: t('faq.vsMbti.question'),
             answer: t('faq.vsMbti.answer'),
         },
@@ -75,13 +79,9 @@ export default function SbtiTestPage({ params }: { params: Promise<{ locale: str
                 price: '0',
                 priceCurrency: 'USD',
             },
-            featureList: [
-                'Viral SBTI personality test',
-                'Mobile-friendly online quiz flow',
-                'Original shareable result posters',
-                '31-question meme-style personality quiz',
-                'Fast SBTI / MBTI-style entertainment result',
-            ],
+            featureList: Array.isArray(t.raw('structuredData.featureList'))
+                ? t.raw('structuredData.featureList')
+                : [],
             learningResourceType: 'Interactive Quiz',
             interactivityType: 'active',
         },
